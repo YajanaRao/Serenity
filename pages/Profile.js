@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { View, StyleSheet, ImageBackground, Dimensions, Image, Animated } from 'react-native';
-import Dashboard from './Dashboard'
 import { withTheme, Text, Surface, Divider, List, Snackbar, Button } from 'react-native-paper';
-import NavBar from '../components/NavBar';
 import { FlatList } from 'react-native-gesture-handler';
 import SwiperContainer from '../components/SwiperContainer';
 
@@ -73,12 +71,6 @@ class HomeScreen extends React.Component {
     return (
       <Surface style={styles.container}>
          <MusicGallery navigation={this.props.navigation}/>
-        <Button
-          onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Dashboard');
-          }}
-        >Go to Dashboard</Button>
       </Surface>
     );
   }
@@ -108,25 +100,11 @@ class ModalScreen extends React.Component {
   }
 }
 
-const MainStack = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-    },
-    Dashboard: {
-      screen: Dashboard,
-    },
-  },
-   {
-    mode: 'modal',
-    headerMode: 'none',
-  }
-);
 
 const RootStack = createStackNavigator(
   {
     Main: {
-      screen: MainStack,
+      screen: HomeScreen,
     },
     MyModal: {
       screen: ModalScreen,
