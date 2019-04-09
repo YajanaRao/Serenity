@@ -48,6 +48,7 @@ class MusicGallery extends React.Component {
               <Row item={item} navigation={this.props.navigation} />
             </SwiperContainer>
           }
+          keyExtractor={(item, index) => index.toString()}
         />
         <Snackbar
             visible={this.state.visible}

@@ -8,9 +8,9 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
-    "icon": "./assets/app-icon.png",
+    "icon": "./assets/icons/app-icon.png",
     "loading": {
-      "icon": "./assets/loading-icon.jpg",
+      "icon": "./assets/icons/app-icon.png",
       "hideExponentText": false
     },
     "packagerOpts": {
@@ -23,6 +23,11 @@
     },
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.yajana.serenity",
+      "versionCode": 1,
+      "permissions": []
     }
   }
 }

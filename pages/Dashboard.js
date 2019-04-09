@@ -73,6 +73,7 @@ class DashboardScreen extends React.Component{
                   }}>Explore</Button>
               </Card.Actions>
             </Card>}
+          keyExtractor={( item, index) => index.toString()}
         />
       </View>
     );

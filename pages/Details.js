@@ -28,6 +28,7 @@ class MusicGallery extends React.Component {
                   });
                 }}
             />}
+          keyExtractor={(item, index) => index.toString()}
         />
       </Surface>
     );
@@ -45,7 +46,7 @@ const RecentsRoute = () => {
      <Headline style={styles.headline}>Headline</Headline>
       <ScrollView horizontal={true} contentContainerStyle={styles.content}>
         {PHOTOS.map(uri => (
-          <Card style={styles.card}>
+          <Card style={styles.card} key={uri}>
             <Card.Cover source={{ uri: uri }} />
             <Card.Content>
               <Title>Abandoned Ship</Title>
@@ -59,7 +60,7 @@ const RecentsRoute = () => {
       <Headline style={styles.headline}>Headline</Headline>
       <ScrollView horizontal={true} contentContainerStyle={styles.content}>
         {PHOTOS.map(uri => (
-          <Card style={styles.card}>
+          <Card style={styles.card} key={uri}>
             <Card.Cover source={{ uri: uri }} />
             <Card.Content>
               <Title>Abandoned Ship</Title>
@@ -83,7 +84,7 @@ const AlbumGallery = ({ route }) => {
   return (
     <ScrollView contentContainerStyle={styles.content}>
       {PHOTOS.map(uri => (
-        <View key={uri} style={styles.item}>
+        <View key={uri} style={styles.item} key={uri}>
           <Image source={{ uri }} style={styles.photo} />
         </View>
       ))}

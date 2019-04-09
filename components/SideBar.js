@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
 import {ScrollView,  View, StyleSheet, Platform} from 'react-native';
 import type { Theme } from 'react-native-paper/types';
+
 import {
   Drawer,
   withTheme,
@@ -16,9 +17,9 @@ import { updateTheme } from '../actions';
 
 
 const DrawerItemsData = [
-  { label: 'Inbox', icon: 'inbox', key: 'Home' },
-  { label: 'Starred', icon: 'star', key: 'Details' },
-  { label: 'Colored label', icon: 'color-lens', key: 'Profile' },
+  { label: 'Home', icon: 'inbox', key: 'Home' },
+  { label: 'Details', icon: 'star', key: 'Details' },
+  { label: 'Profile', icon: 'color-lens', key: 'Profile' },
 ];
 
 class SideMenu extends Component {
@@ -71,7 +72,7 @@ class SideMenu extends Component {
         </Drawer.Section>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>This is my fixed footer</Text>
+          <Text>Yajana N Rao</Text>
         </View>
       </View>
     );

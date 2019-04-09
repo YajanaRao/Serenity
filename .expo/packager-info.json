@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 928,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "packagerPid": 4136,
+  "expoServerNgrokUrl": "https://pa-mrj.yajana.serenity.exp.direct",
+  "packagerNgrokUrl": "https://packager.pa-mrj.yajana.serenity.exp.direct",
+  "ngrokPid": 6136
 }

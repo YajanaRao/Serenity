@@ -46,7 +46,7 @@ type State = {
 class RootNavigator extends React.Component {
   state = {
     theme: DefaultTheme,
-    isFontLoaded: true
+    isFontLoaded: false
   };
 
   componentWillReceiveProps(nextProps) {
