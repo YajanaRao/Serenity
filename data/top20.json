@@ -1,0 +1,191 @@
+[
+    {
+        "id": 1,
+        "artwork": "http://onlinetyping.in/images/kannada.jpg",
+        "album": "Top 20",
+        "artist": "All",
+        "genre": "Sandalwood",
+        "songs": [
+            {
+                "id": 1,
+                "artwork": "http://kannadasongs.cc/thumbs/42.png",
+                "Views": " 6650",
+                "Added On": " 21-11-18",
+                "Downloaded": " 2877",
+                "Size": " 423.81KB",
+                "title": " Kotigobba-2 ",
+                "url": "http://kannadasongs.cc/file/download/42.html"
+            },
+            {
+                "id": 2,
+                "artwork": "http://kannadasongs.cc/thumbs/102.png",
+                "Views": " 4522",
+                "Added On": " 27-11-18",
+                "Downloaded": " 1946",
+                "Size": " 3.9MB",
+                "title": " Avarivara Jothe",
+                "url": "http://kannadasongs.cc/file/download/104.html"
+            },
+            {
+                "id": 3,
+                "artwork": "http://kannadasongs.cc/thumbs/46.png",
+                "Views": " 2996",
+                "Added On": " 21-11-18",
+                "Downloaded": " 1309",
+                "Size": " 501.54KB",
+                "title": " Natasaarvabhowma ",
+                "url": "http://kannadasongs.cc/file/download/46.html"
+            },
+            {
+                "id": 4,
+                "artwork": "http://kannadasongs.cc/thumbs/41.png",
+                "Views": " 3143",
+                "Added On": " 21-11-18",
+                "Downloaded": " 1470",
+                "Size": " 611.97KB",
+                "title": " Nagarahavu",
+                "url": "http://kannadasongs.cc/file/download/41.html"
+            },
+            {
+                "id": 5,
+                "artwork": "http://kannadasongs.cc/icon.php?file=L2ZpbGVzL05ld19NcDNfU29uZ3MvS2F2YWNoYS9SZWtrYXlhX3NvbG9fLm1wMw==&fid=21",
+                "Views": " 3234",
+                "Added On": " 16-11-18",
+                "Downloaded": " 1246",
+                "Size": " 5.4MB",
+                "title": " Rekkaya-solo ",
+                "url": "http://kannadasongs.cc/file/download/21.html"
+            },
+            {
+                "id": 6,
+                "artwork": "http://kannadasongs.cc/thumbs/108.png",
+                "Views": " 2331",
+                "Added On": " 28-11-18",
+                "Downloaded": " 896",
+                "Size": " 374.5KB",
+                "title": " Magariya",
+                "url": "http://kannadasongs.cc/file/download/108.html"
+            },
+            {
+                "id": 7,
+                "artwork": "http://kannadasongs.cc/icon.php?file=L2ZpbGVzL05ld19NcDNfU29uZ3MvQW5hbnRodV9WU19OdXNyYXRoL09tbWV5dV9UaGlydWdpXy5tcDM=&fid=29",
+                "Views": " 3794",
+                "Added On": " 17-11-18",
+                "Downloaded": " 1050",
+                "Size": " 4.25MB",
+                "title": " Ommeyu Thirugi ",
+                "url": "http://kannadasongs.cc/file/download/29.html"
+            },
+            {
+                "id": 8,
+                "artwork": "http://kannadasongs.cc/thumbs/42.png",
+                "Views": " 6657",
+                "Added On": " 21-11-18",
+                "Downloaded": " 2884",
+                "Size": " 423.81KB",
+                "title": " Kotigobba-2 ",
+                "url": "http://kannadasongs.cc/file/download/42.html"
+            },
+            {
+                "id": 9,
+                "artwork": "http://kannadasongs.cc/thumbs/102.png",
+                "Views": " 4529",
+                "Added On": " 27-11-18",
+                "Downloaded": " 1953",
+                "Size": " 3.9MB",
+                "title": " Avarivara Jothe",
+                "url": "http://kannadasongs.cc/file/download/104.html"
+            },
+            {
+                "id": 10,
+                "artwork": "http://kannadasongs.cc/thumbs/42.png",
+                "Views": " 6664",
+                "Added On": " 21-11-18",
+                "Downloaded": " 2891",
+                "Size": " 423.81KB",
+                "title": " Kotigobba-2 ",
+                "url": "http://kannadasongs.cc/file/download/42.html"
+            },
+            {
+                "id": 11,
+                "artwork": "http://kannadasongs.cc/thumbs/94.png",
+                "Views": " 2842",
+                "Added On": " 27-11-18",
+                "Downloaded": " 959",
+                "Size": " 4.47MB",
+                "title": " Nee Eshtu Muddhu",
+                "url": "http://kannadasongs.cc/file/download/97.html"
+            },
+            {
+                "id": 12,
+                "artwork": "http://kannadasongs.cc/thumbs/109.png",
+                "Views": " 3031",
+                "Added On": " 28-11-18",
+                "Downloaded": " 1211",
+                "Size": " 5.69MB",
+                "title": " Ninna Shehadinda",
+                "url": "http://kannadasongs.cc/file/download/118.html"
+            },
+            {
+                "id": 13,
+                "artwork": "http://kannadasongs.cc/thumbs/41.png",
+                "Views": " 3150",
+                "Added On": " 21-11-18",
+                "Downloaded": " 1477",
+                "Size": " 611.97KB",
+                "title": " Nagarahavu",
+                "url": "http://kannadasongs.cc/file/download/41.html"
+            },
+            {
+                "id": 14,
+                "artwork": "http://kannadasongs.cc/thumbs/109.png",
+                "Views": " 3038",
+                "Added On": " 28-11-18",
+                "Downloaded": " 1218",
+                "Size": " 5.69MB",
+                "title": " Ninna Shehadinda",
+                "url": "http://kannadasongs.cc/file/download/118.html"
+            },
+            {
+                "id": 15,
+                "artwork": "http://kannadasongs.cc/thumbs/41.png",
+                "Views": " 3157",
+                "Added On": " 21-11-18",
+                "Downloaded": " 1484",
+                "Size": " 611.97KB",
+                "title": " Nagarahavu",
+                "url": "http://kannadasongs.cc/file/download/41.html"
+            },
+            {
+                "id": 16,
+                "artwork": "http://kannadasongs.cc/thumbs/46.png",
+                "Views": " 3003",
+                "Added On": " 21-11-18",
+                "Downloaded": " 1316",
+                "Size": " 501.54KB",
+                "title": " Natasaarvabhowma ",
+                "url": "http://kannadasongs.cc/file/download/46.html"
+            },
+            {
+                "id": 17,
+                "artwork": "http://kannadasongs.cc/thumbs/102.png",
+                "Views": " 4536",
+                "Added On": " 27-11-18",
+                "Downloaded": " 1960",
+                "Size": " 3.9MB",
+                "title": " Avarivara Jothe",
+                "url": "http://kannadasongs.cc/file/download/104.html"
+            },
+            {
+                "id": 18,
+                "artwork": "http://kannadasongs.cc/icon.php?file=L2ZpbGVzL05ld19NcDNfU29uZ3MvS2F2YWNoYS9SZWtrYXlhX3NvbG9fLm1wMw==&fid=21",
+                "Views": " 3241",
+                "Added On": " 16-11-18",
+                "Downloaded": " 1253",
+                "Size": " 5.4MB",
+                "title": " Rekkaya-solo ",
+                "url": "http://kannadasongs.cc/file/download/21.html"
+            }
+        ]
+    }
+]
