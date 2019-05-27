@@ -7,7 +7,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Media from '../../data/media.json';
 import SongScreen from '../../components/PlayList';
 
-class AlbumGallery extends React.Component {
+class AlbumGallery extends React.PureComponent {
     static navigationOptions = {
         header: null
     };

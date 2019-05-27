@@ -7,7 +7,7 @@ import {
 import NavBar from '../components/NavBar';
 import Dashboard from './Dashboard';
 
-class HomeScreen extends React.Component {
+class ProfileScreen extends React.PureComponent {
   static navigationOptions = {
     header: null,
   };
@@ -27,4 +27,4 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default withTheme(HomeScreen);
+export default withTheme(ProfileScreen);

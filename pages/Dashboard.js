@@ -21,10 +21,13 @@ import {
 import { connect } from 'react-redux';
 
 class DashboardScreen extends React.Component {
+  state = {
+    query: ''
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.query) {
-      console.log("dashboard query", nextProps.query);
+      // console.log("dashboard query", nextProps.query);
       this.setState({
         query: nextProps.query
       })

@@ -16,12 +16,14 @@ class Love extends Component {
             <View style={this.props.style}>
                 {this.state.selected ?
                     <IconButton
+                        animated={true}
                         icon="favorite"
                         onPress={() => this.setState(prev => ({ selected: !prev.selected }))}
                         color={Colors.red500}
                     />
                     :
                     <IconButton
+                        animated={true}
                         icon="favorite-border"
                         onPress={() => this.setState(prev => ({ selected: !prev.selected }))}
                     />

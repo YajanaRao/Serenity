@@ -1,0 +1,590 @@
+I/System.out(21367): [socket][1] connection localhost/127.0.0.1:8082;LocalPort=52382(10000)
+I/System.out(21367): [CDS]connect[localhost/127.0.0.1:8082] tm:10
+D/Posix   (21367): [Posix_connect Debug]Process com.serenity :8082
+I/System.out(21367): [socket][2:52382] exception
+I/System.out(21367): [CDS]close[52382]
+I/System.out(21367): [CDS][DNS] getAllByNameImpl netId = 0
+D/libc-netbsd(21367): [getaddrinfo]: hostname=localhost; servname=(null); cache_mode=(null), netid=0; mark=0
+D/libc-netbsd(21367): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=4; ai_family=0
+I/System.out(21367): [CDS]rx timeout:0
+I/System.out(21367): [socket][2] connection localhost/127.0.0.1:8081;LocalPort=34191(10000)
+I/System.out(21367): [CDS]connect[localhost/127.0.0.1:8081] tm:10
+W/unknown:InspectorPackagerConnection(21367): Couldn't connect to packager, will silently retry
+D/Posix   (21367): [Posix_connect Debug]Process com.serenity :8081
+I/System.out(21367): [socket][/127.0.0.1:34191] connected
+V/ActivityThread(21367): Performing resume of ActivityRecord{b60ecd6 token=android.os.BinderProxy@23f23b57 {com.serenity/com.serenity.MainActivity}}
+I/System.out(21367): [CDS]rx timeout:0
+D/ActivityThread(21367): ACT-AM_ON_RESUME_CALLED ActivityRecord{b60ecd6 token=android.os.BinderProxy@23f23b57 {com.serenity/com.serenity.MainActivity}}
+V/ActivityThread(21367): Resume ActivityRecord{b60ecd6 token=android.os.BinderProxy@23f23b57 {com.serenity/com.serenity.MainActivity}} started activity: false, hideForNow: false, finished: false
+V/PhoneWindow(21367): DecorView setVisiblity: visibility = 4 ,Parent =null, this =com.android.internal.policy.impl.PhoneWindow$DecorView{1a3bd19d I.E..... R.....ID 0,0-0,0}
+I/SurfaceFlinger(  230): EventThread Client Pid (21367) created
+D/Looper  (21367): 0x7f9b458580 ~ addFd - fd=31, ident=0, events=0x1, callback=0x7f91461840, data=0x0
+W/Looper  (21367): Looper mtk70501 ######### mWakeReadPipeFd = 30 ,mWakeWritePipeFd = 32
+I/System.out(21367): [CDS]rx timeout:0
+I/SurfaceFlinger(  230): EventThread Client Pid (21367) created
+D/OpenGLRenderer(21367): initialize DisplayEventReceiver 0x7f954181e0
+D/Looper  (21367): 0x7f9b458ac0 ~ addFd - fd=35, ident=0, events=0x1, callback=0x7f954da080, data=0x7f914ec980
+D/OpenGLRenderer(21367): Use EGL_SWAP_BEHAVIOR_PRESERVED: false
+D/GraphicBuffer(21367): register, handle(0x7f914ead80) (w:1280 h:1600 s:1280 f:0x1 u:0x000100)
+D/Atlas   (21367): Validating map...
+D/ViewRootImpl(21367): hardware acceleration is enabled, this = ViewRoot{32862e0e com.serenity/com.serenity.MainActivity,ident = 0}
+D/Looper  (  746): 0x7f915148a0 ~ addFd - fd=63, ident=0, events=0x1, callback=0x7f954e0220, data=0x7f9b560000
+I/SurfaceFlinger(  230): [SF client] NEW(0x7f9c07ee40) for (746:system_server)
+V/WindowManager(  746): Adding window Window{1a7ab44c u0 com.serenity/com.serenity.MainActivity} at 4 of 11 (before Window{387a9fb5 u0 Starting com.serenity})
+D/Looper  (21367): 0x7f9b458580 ~ addFd - fd=38, ident=0, events=0x1, callback=0x7f9b4f7400, data=0x0
+V/ActivityThread(21367): Resuming ActivityRecord{b60ecd6 token=android.os.BinderProxy@23f23b57 {com.serenity/com.serenity.MainActivity}} with isForward=true
+D/FeatureProxyBase(21367): FeatureProxyBase class constructor
+D/MultiWindow(21367): MultiWindowProxy constructor.
+D/FeatureProxyBase(21367): getService(), serviceName = multiwindow_service_v1
+V/PhoneWindow(21367): DecorView setVisiblity: visibility = 0 ,Parent =ViewRoot{32862e0e com.serenity/com.serenity.MainActivity,ident = 0}, this =com.android.internal.policy.impl.PhoneWindow$DecorView{1a3bd19d V.E..... R.....ID 0,0-0,0}
+V/ActivityThread(21367): Scheduling idle handler for ActivityRecord{b60ecd6 token=android.os.BinderProxy@23f23b57 {com.serenity/com.serenity.MainActivity}}
+D/ActivityThread(21367): ACT-LAUNCH_ACTIVITY handled : 0 / ActivityRecord{b60ecd6 token=android.os.BinderProxy@23f23b57 {com.serenity/com.serenity.MainActivity}}
+I/System.out(21367): [CDS]rx timeout:0
+W/unknown:ReactNative(21367): Packager connection already open, nooping.
+I/BufferQueue(  230): [unnamed-230-1289](this:0x7f9c2f9000,id:1289,api:0,p:-1,c:-1) BufferQueue core=(230:/system/bin/surfaceflinger)
+I/BufferQueueConsumer(  230): [unnamed-230-1289](this:0x7f9c2f9000,id:1289,api:0,p:-1,c:230) connect(C): consumer=(230:/system/bin/surfaceflinger) controlledByApp=false
+I/BufferQueueConsumer(  230): [unnamed-230-1289](this:0x7f9c2f9000,id:1289,api:0,p:-1,c:230) setConsumerName: unnamed-230-1289
+I/BufferQueueConsumer(  230): [com.serenity/com.serenity.MainActivity](this:0x7f9c2f9000,id:1289,api:0,p:-1,c:230) setConsumerName: com.serenity/com.serenity.MainActivity
+I/BufferQueueConsumer(  230): [com.serenity/com.serenity.MainActivity](this:0x7f9c2f9000,id:1289,api:0,p:-1,c:230) setDefaultBufferSize: width=1 height=1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+V/WindowManager(  746): Changing focus from null to Window{1a7ab44c u0 com.serenity/com.serenity.MainActivity} Callers=com.android.server.wm.WindowManagerService.relayoutWindow:3687 com.android.server.wm.Session.relayout:203 android.view.IWindowSession$Stub.onTransact:273 com.android.server.wm.Session.onTransact:136
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+I/BufferQueueConsumer(  230): [com.serenity/com.serenity.MainActivity](this:0x7f9c2f9000,id:1289,api:0,p:-1,c:230) setDefaultBufferSize: width=720 height=1280
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/OpenGLRenderer(21367): CanvasContext() 0x7f9541df00 initialize 0x7f9b60c610
+E/GED     (21367): Failed to get GED Log Buf, err(0)
+I/OpenGLRenderer(21367): Initialized EGL, version 1.4
+D/MALI    (21367): eglCreateContext:206: [MALI] eglCreateContext display 0x7f9b45f7c0, share context 0x0 here.
+I/WindowManager(  746): Gaining focus: Window{1a7ab44c u0 com.serenity/com.serenity.MainActivity}
+D/MALI    (21367): gles_context_new:248: Create GLES ctx 0x7f9552c008 successfully
+D/MALI    (21367): eglCreateContext:543: [MALI] eglCreateContext end. Created context 0x7f95516940 here.
+I/OpenGLRenderer(21367): Initializing program atlas...
+D/ProgramBinary/Service(21367): BpProgramBinaryService.getFileDescriptor
+D/ProgramBinary/Service(21367): BpProgramBinaryService.getProgramMapLen
+D/ProgramBinary/Service(21367): BpProgramBinaryService.getProgramMapArray
+D/ProgramBinary/Service(21367): BpProgramBinaryService.getProgramBinaryLen
+I/OpenGLRenderer(21367): Program binary detail: Binary length is 120912, program map length is 112.
+I/OpenGLRenderer(21367): Succeeded to mmap program binaries. File descriptor is 43, and path is /dev/ashmem�.
+I/OpenGLRenderer(21367): No need to use file discriptor anymore, close fd(43).
+D/OpenGLRenderer(21367): TaskManager() 0x7f95495de8, cpu = 4, thread = 2
+D/OpenGLRenderer(21367): Enabling debug mode 0
+D/Surface (21367): Surface::connect(this=0x7f9b60c600,api=1)
+I/BufferQueueProducer(  230): [com.serenity/com.serenity.MainActivity](this:0x7f9c2f9000,id:1289,api:1,p:21367,c:230) connect(P): api=1 producer=(21367:com.serenity) producerControlledByApp=true
+D/mali_winsys(21367): new_window_surface returns 0x3000
+D/Surface (21367): Surface::allocateBuffers(this=0x7f9b60c600)
+D/BufferQueueProducer(  230): [com.serenity/com.serenity.MainActivity](this:0x7f9c2f9000,id:1289,api:1,p:21367,c:230) allocateBuffers: allocating from 0 buffers up to 3 buffers
+I/[MALI][Gralloc](  230): Usage: 0xb00, format: 0x1 stride: 720 vertical_stride: 1280 size: 3686400
+D/GraphicBuffer(  230): alloc, handle(0x7f94fdaa60) (w:720 h:1280 s:720 f:0x1 u:0x000b00) err(0)
+I/[MALI][Gralloc](  230): Usage: 0xb00, format: 0x1 stride: 720 vertical_stride: 1280 size: 3686400
+D/GraphicBuffer(  230): alloc, handle(0x7f964c9fc0) (w:720 h:1280 s:720 f:0x1 u:0x000b00) err(0)
+I/[MALI][Gralloc](  230): Usage: 0xb00, format: 0x1 stride: 720 vertical_stride: 1280 size: 3686400
+D/GraphicBuffer(  230): alloc, handle(0x7f964c9f20) (w:720 h:1280 s:720 f:0x1 u:0x000b00) err(0)
+D/BufferQueueProducer(  230): [com.serenity/com.serenity.MainActivity](this:0x7f9c2f9000,id:1289,api:1,p:21367,c:230) allocateBuffers: allocating from 3 buffers up to 3 buffers
+D/PopupWindow(21367): invokePopup: mPopupView = android.support.v7.widget.AppCompatTextView{2565804b V.ED.... ......ID 0,0-0,0}, WindowManager.LayoutParams = WM.LayoutParams{(0,50)(fillxwrap) gr=#800033 sim=#1 ty=1000 fl=#40800018 fmt=-3 surfaceInsets=Rect(0, 0 - 0, 0)}
+D/ViewRootImpl(21367): hardware acceleration is enabled, this = ViewRoot{2889d627 PopupWindow:69df0e6,ident = 1}
+D/Looper  (  746): 0x7f915148a0 ~ addFd - fd=225, ident=0, events=0x1, callback=0x7f847197c0, data=0x7f9b560000
+V/WindowManager(  746): Adding window Window{3e5e494d u0 PopupWindow:69df0e6} at 5 of 12 (after Window{1a7ab44c u0 com.serenity/com.serenity.MainActivity})
+D/Looper  (21367): 0x7f9b458580 ~ addFd - fd=44, ident=0, events=0x1, callback=0x7f9b4f8000, data=0x0
+D/PerfServiceManager(  746): [PerfService] notifyFrameUpdate - bDuringTouchBoost:false
+D/Surface (21367): Surface::setBuffersDimensions(this=0x7f9b60c600,w=720,h=1280)
+D/GraphicBuffer(21367): register, handle(0x7f956e4e80) (w:720 h:1280 s:720 f:0x1 u:0x000b00)
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+I/BufferQueue(  230): [unnamed-230-1290](this:0x7f9c19c000,id:1290,api:0,p:-1,c:-1) BufferQueue core=(230:/system/bin/surfaceflinger)
+I/BufferQueueConsumer(  230): [unnamed-230-1290](this:0x7f9c19c000,id:1290,api:0,p:-1,c:230) connect(C): consumer=(230:/system/bin/surfaceflinger) controlledByApp=false
+I/BufferQueueConsumer(  230): [unnamed-230-1290](this:0x7f9c19c000,id:1290,api:0,p:-1,c:230) setConsumerName: unnamed-230-1290
+I/BufferQueueConsumer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:0,p:-1,c:230) setConsumerName: PopupWindow:69df0e6
+I/BufferQueueConsumer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:0,p:-1,c:230) setDefaultBufferSize: width=720 height=1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+I/BufferQueueConsumer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:0,p:-1,c:230) setDefaultBufferSize: width=720 height=53
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/OpenGLRenderer(21367): CanvasContext() 0x7f9541e2c0 initialize 0x7f9b60d410
+D/Surface (21367): Surface::connect(this=0x7f9b60d400,api=1)
+I/BufferQueueProducer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:1,p:21367,c:230) connect(P): api=1 producer=(21367:com.serenity) producerControlledByApp=true
+D/mali_winsys(21367): new_window_surface returns 0x3000
+V/InputMethodManager(21367): onWindowFocus: null softInputMode=272 first=true flags=#81810100
+V/InputMethodManager(21367): START INPUT: com.android.internal.policy.impl.PhoneWindow$DecorView{1a3bd19d V.E..... R....... 0,0-720,1280} ic=null tba=android.view.inputmethod.EditorInfo@2fb3adc3 controlFlags=#104
+D/Surface (21367): Surface::allocateBuffers(this=0x7f9b60d400)
+D/BufferQueueProducer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:1,p:21367,c:230) allocateBuffers: allocating from 0 buffers up to 3 buffers
+V/InputMethodManagerService(  746): windowGainedFocus: android.os.BinderProxy@934a99e controlFlags=#104 softInputMode=#110 windowFlags=#81810100
+I/[MALI][Gralloc](  230): Usage: 0xb00, format: 0x1 stride: 720 vertical_stride: 53 size: 152640
+D/GraphicBuffer(  230): alloc, handle(0x7f9b813420) (w:720 h:53 s:720 f:0x1 u:0x000b00) err(0)
+I/[MALI][Gralloc](  230): Usage: 0xb00, format: 0x1 stride: 720 vertical_stride: 53 size: 152640
+D/GraphicBuffer(  230): alloc, handle(0x7f9b813560) (w:720 h:53 s:720 f:0x1 u:0x000b00) err(0)
+I/[MALI][Gralloc](  230): Usage: 0xb00, format: 0x1 stride: 720 vertical_stride: 53 size: 152640
+D/GraphicBuffer(  230): alloc, handle(0x7f9b812160) (w:720 h:53 s:720 f:0x1 u:0x000b00) err(0)
+D/BufferQueueProducer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:1,p:21367,c:230) allocateBuffers: allocating from 3 buffers up to 3 buffers
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/Looper  ( 1278): 0x7f9b458580 ~ addFd - fd=28, ident=0, events=0x1, callback=0x7f9b4f1400, data=0x0
+W/ResourceType( 1278): For resource 0x7f0b001d, entry index(29) is beyond type entryCount(23)
+D/Surface (21367): Surface::setBuffersDimensions(this=0x7f9b60d400,w=720,h=53)
+D/GraphicBuffer(21367): register, handle(0x7f9572bac0) (w:720 h:53 s:720 f:0x1 u:0x000b00)
+D/Looper  (  746): 0x7f954b9800 ~ removeFd - fd=271
+D/Looper  (  746): 0x7f915148a0 ~ removeFd - fd=269
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/PowerManagerService(  746): releaseWakeLockInternal: lock=195022973 [ActivityManager-Launch], flags=0x0, total_time=604ms
+D/PowerManagerNotifier(  746): onWakeLockReleased: flags=1, tag="ActivityManager-Launch", packageName=android, ownerUid=1000, ownerPid=746, workSource=null
+D/PowerManagerService(  746): updateWakeLockSummaryLocked: mWakefulness=Awake, mWakeLockSummary=0x1
+D/PowerManagerService(  746): updateUserActivitySummaryLocked: mWakefulness=Awake, mUserActivitySummary=0x9, nextTimeout=91004934 (in 38164 ms)
+D/PowerManagerService(  746): mDisplayPowerRequest.policy = 3
+D/WifiDisplayAdapter(  746): getWifiDisplayStatusLocked: result=WifiDisplayStatus{featureState=2, scanState=0, activeDisplayState=0, activeDisplay=null, displays=[], sessionInfo=WifiDisplaySessionInfo: C/O:Client,GId:,Pp:,SId:0,IP:}
+D/PowerManagerService(  746): isWfdEnabled() mWfdStatus=WifiDisplayStatus{featureState=2, scanState=0, activeDisplayState=0, activeDisplay=null, displays=[], sessionInfo=WifiDisplaySessionInfo: C/O:Client,GId:,Pp:,SId:0,IP:}, return false
+D/DisplayPowerController(  746): requestPowerState: policy=BRIGHT, useProximitySensor=false, screenBrightness=10, screenAutoBrightnessAdjustment=0.0, useAutoBrightness=false, blockScreenOn=false, lowPowerMode=false, boostScreenBrightness=false, dozeScreenBrightness=-1, dozeScreenState=UNKNOWN, waitForNegativeProximity=false
+I/PowerManagerService(  746): setBrightness mButtonLight, screenBrightness=10
+D/PowerManagerService(  746): updateDisplayPowerStateLocked: mDisplayReady=true, policy=3, mWakefulness=1, mWakeLockSummary=0x1, mUserActivitySummary=0x9, mBootCompleted=true, mScreenBrightnessBoostInProgress=false
+I/libPerfService(  746): perfSetFavorPid - pid:21367, 5377
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+E/SpannableStringBuilder(21367): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+E/SpannableStringBuilder(21367): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+W/ResourceType( 1278): For resource 0x7f0b003a, entry index(58) is beyond type entryCount(23)
+W/ResourceType( 1278): For resource 0x7f0b0032, entry index(50) is beyond type entryCount(23)
+I/ActivityManager(  746): [AppLaunch] Displayed Displayed com.serenity/.MainActivity: +580ms
+D/ActivityManager(  746): AP_PROF:AppLaunch_LaunchTime:com.serenity/.MainActivity:580:90966782
+D/Surface (  230): Surface::setBuffersDimensions(this=0x7f9c1f5e00,w=720,h=1280)
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/Surface (  230): Surface::setBuffersDimensions(this=0x7f9c1f5e00,w=720,h=1280)
+I/Icing   ( 1624): Indexing com.google.android.gms-apps from com.google.android.gms
+D/Surface (  230): Surface::setBuffersDimensions(this=0x7f9c1f5e00,w=720,h=1280)
+D/ActivityManager(  746): ACT-IDLE_NOW_MSG from windowsVisible() for idle: ActivityRecord{fe4f89 u0 com.serenity/.MainActivity t109}
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/Surface (  230): Surface::setBuffersDimensions(this=0x7f9c1f5e00,w=720,h=1280)
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/Surface (  230): Surface::setBuffersDimensions(this=0x7f9c1f5e00,w=720,h=1280)
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+I/libPerfService(  746): perfSetFavorPid - pid:21367, 5377
+V/NetworkStats(  746): setKernelCounterSet uid=10014 set=0
+D/ConnectivityService(  746): onUidRulesChanged(uid=10014, uidRules=0)
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/Surface (  746): Surface::disconnect(this=0x7f78e0cc00,api=2)
+I/BufferQueueProducer(  230): [Starting com.serenity](this:0x7f964b9000,id:1288,api:2,p:-1,c:230) disconnect(P): api 2
+I/BufferQueueConsumer(  230): [Starting com.serenity](this:0x7f964b9000,id:1288,api:2,p:-1,c:230) getReleasedBuffers: returning mask 0xffffffffffffffff
+D/GraphicBuffer(  746): unregister, handle(0x7f788b42a0) (w:720 h:1280 s:720 f:0x1 u:0x000933)
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/Surface (21367): Surface::setBuffersDimensions(this=0x7f9b60c600,w=720,h=1280)
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/Launcher3( 1467): Launcher,  onSaveInstanceState: outState = Bundle[{launcher.state=1, apps_customize_currentTab=APPS, android:viewHierarchyState=Bundle[{android:views={0=android.view.AbsSavedState$1@307947e4, 1=android.view.AbsSavedState$1@307947e4, 2=android.view.AbsSavedState$1@307947e4, 3=android.view.AbsSavedState$1@307947e4, 4=android.view.AbsSavedState$1@307947e4, 5=android.view.AbsSavedState$1@307947e4, 6=android.view.AbsSavedState$1@307947e4, 7=android.view.AbsSavedState$1@307947e4, 8=android.view.AbsSavedState$1@307947e4, 9=android.view.AbsSavedState$1@307947e4, 10=android.view.AbsSavedState$1@307947e4, 11=android.view.AbsSavedState$1@307947e4, 12=android.view.AbsSavedState$1@307947e4, 13=android.view.AbsSavedState$1@307947e4, 14=android.view.AbsSavedState$1@307947e4, 15=android.view.AbsSavedState$1@307947e4, 16=android.view.AbsSavedState$1@307947e4, 17=android.view.AbsSavedState$1@307947e4, 18=android.view.AbsSavedState$1@307947e4, 19=android.view.AbsSavedState$1@307947e4, 20=android.view.AbsSavedState$1@307947e4, 21=android.view.AbsSavedState$1@307947e4, 22=android.view.AbsSavedState$1@307947e4, 23=android.view.AbsSavedState$1@307947e4, 24=android.view.AbsSavedState$1@307947e4, 25=android.view.AbsSavedState$1@307947e4, 26=android.view.AbsSavedState$1@307947e4, 27=android.view.AbsSavedState$1@307947e4, 28=android.view.AbsSavedState$1@307947e4, 29=android.view.AbsSavedState$1@307947e4, 30=android.view.AbsSavedState$1@307947e4, 31=android.view.AbsSavedState$1@307947e4, 32=android.view.AbsSavedState$1@307947e4, 33=android.view.AbsSavedState$1@307947e4, 34=android.view.AbsSavedState$1@307947e4, 35=android.view.AbsSavedState$1@307947e4, 36=android.view.AbsSavedState$1@307947e4, 37=android.view.AbsSavedState$1@307947e4, 38=android.view.AbsSavedState$1@307947e4, 39=android.view.AbsSavedState$1@307947e4, 40=android.view.AbsSavedState$1@307947e4, 41=android.view.AbsSavedState$1@307947e4, 42=android.view.AbsSavedState$1@307947e4, 43=android.view.AbsSavedState$1@307947e4, 44=android.view.AbsSavedState$1@307947e4, 45=android.view.AbsSavedState$1@307947e4, 46=android.view.AbsSavedState$1@307947e4, 47=android.view.AbsSavedState$1@307947e4, 48=android.view.AbsSavedState$1@307947e4, 49=android.view.AbsSavedState$1@307947e4, 50=android.view.AbsSavedState$1@307947e4, 51=android.view.AbsSavedState$1@307947e4, 52=android.view.AbsSavedState$1@307947e4, 53=android.view.AbsSavedState$1@307947e4, 54=android.view.AbsSavedState$1@307947e4, 55=android.view.AbsSavedState$1@307947e4, 56=android.view.AbsSavedState$1@307947e4, 57=android.view.AbsSavedState$1@307947e4, 58=android.view.AbsSavedState$1@307947e4, 59=android.view.AbsSavedState$1@307947e4, 60=android.view.AbsSavedState$1@307947e4, 61=android.view.AbsSavedState$1@307947e4, 62=android.view.AbsSavedState$1@307947e4, 16908290=android.view.AbsSavedState$1@307947e4, 2131820546=android.view.AbsSavedState$1@307947e4, 2131820547=android.view.AbsSavedState$1@307947e4, 2131820548=android.view.AbsSavedState$1@307947e4, 2131820549=android.view.AbsSavedState$1@307947e4, 2131820550=android.view.AbsSavedState$1@307947e4, 2131820563=android.view.AbsSavedState$1@307947e4, 2131820564=android.view.AbsSavedState$1@307947e4, 2131820565=android.view.AbsSavedState$1@307947e4, 2131820566=android.view.AbsSavedState$1@307947e4, 2131820567=android.view.AbsSavedState$1@307947e4, 2131820568=android.view.AbsSavedState$1@307947e4, 2131820569=android.view.AbsSavedState$1@307947e4, 2131820570=android.view.AbsSavedState$1@307947e4, 2131820571=android.view.AbsSavedState$1@307947e4, 2131820572=android.view.AbsSavedState$1@307947e4, 2131820573=android.view.AbsSavedState$1@307947e4, 2131820584=android.view.AbsSavedState$1@307947e4, 2131820585=android.view.AbsSavedState$1@307947e4, 2131820586=android.view.AbsSavedState$1@307947e4, 2131820587=android.view.AbsSavedState$1@307947e4, 2131820588=android.view.AbsSavedState$1@307947e4, 2131820593=android.view.AbsSavedState$1@307947e4, 2131820594=android.view.AbsSavedState$1@307947e4, 2131820595=android.view.AbsSavedState$1@307947e4}, android:Panels={0=com.androi
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+I/BufferQueueConsumer(  230): [Starting com.serenity](this:0x7f964b9000,id:1288,api:2,p:-1,c:-1) disconnect(C)
+D/MultiWindow(  746): MultiWindowProxy constructor.
+V/ActivityThread( 1467): Finishing stop of ActivityRecord{224439ba token=android.os.BinderProxy@7f706b {com.android.launcher3/com.android.launcher3.Launcher}}: show=false win=com.android.internal.policy.impl.PhoneWindow@3121bb02
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+I/BufferQueue(  230): [Starting com.serenity](this:0x7f964b9000,id:1288,api:2,p:-1,c:-1) ~BufferQueueCore
+D/GraphicBuffer(  230): free, handle(0x7f9b8131a0) (w:720 h:1280 s:720 f:0x1 u:0x000933)
+D/Launcher3( 1467): Launcher, (Launcher)onStop: this = com.android.launcher3.Launcher@3c9692f8
+D/Launcher3( 1467): Launcher, (Launcher)onStop: set SharedPreferences for MMS
+D/Launcher3( 1467): Launcher, (Launcher)onStop: PowerManager.isScreenOn() = fasle, don't set SharedPreferences
+D/Launcher3( 1467): Launcher, (Launcher)onStop: set SharedPreferences for MMS,end
+V/PhoneWindow( 1467): DecorView setVisiblity: visibility = 4 ,Parent =ViewRoot{c5387ec com.android.launcher3/com.android.launcher3.Launcher,ident = 0}, this =com.android.internal.policy.impl.PhoneWindow$DecorView{111de6a4 I.E..... R....... 0,0-720,1280}
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/GraphicBuffer(21367): register, handle(0x7f914eac40) (w:720 h:1280 s:720 f:0x1 u:0x000b00)
+W/MALI    (21367): glDrawArrays:714: [MALI] glDrawArrays takes more than 5ms here. Total elapse time(us): 8611
+D/ActivityThread( 1467): ACT-STOP_ACTIVITY_HIDE handled : 0 / android.os.BinderProxy@7f706b
+D/Launcher3( 1467): Launcher, onTrimMemory: level = 20
+D/Launcher3( 1467): AppsCustomizePagedView, cancelAllTasks: mRunningTasks size = 0
+D/Launcher3( 1467): AppsCustomizePagedView, clearAllPages: count = 4
+D/OpenGLRenderer( 1467): Flushing caches (mode 1)
+D/OpenGLRenderer( 1467): [TaskMgr] 0x7f954941e8 stop
+D/OpenGLRenderer( 1467): [TaskMgr] Exit thread hwuiTask1 (21195)
+W/libutils.threads( 1467): Thread (this=0x7f954f6a80): getTid() is undefined before run()
+D/OpenGLRenderer( 1467): [TaskMgr] Exit thread hwuiTask2 (-1)
+D/OpenGLRenderer( 1467): PathCache::clear count = 0
+I/libPerfService(  746): perfSetFavorPid - pid:21367, 5377
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:MobileApplication from com.google.android.gms
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:DigitalDocument from com.google.android.gms
+I/Icing   ( 1624): Indexing done com.google.android.gms-apps
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:MobileApplication
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:MusicPlaylist from com.google.android.gms
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:DigitalDocument
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:Event from com.google.android.gms
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:MusicGroup from com.google.android.gms
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:MusicAlbum from com.google.android.gms
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:Message from com.google.android.gms
+I/Icing   ( 1624): Indexing com.google.android.gms-internal.3p:MusicRecording from com.google.android.gms
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:MusicPlaylist
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:Event
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:MusicGroup
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:MusicAlbum
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:Message
+I/Icing   ( 1624): Indexing done com.google.android.gms-internal.3p:MusicRecording
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+D/RecentsTaskLoadPlan(  918): preloadPlan
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 109, u: 0, lat: 1558968258608, com.serenity/isExcluded = false/isTopTaskHome = true/isFirstValidTask = true/t.id = 109
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 103, u: 0, lat: 1558966473453, com.android.packageinstaller/isExcluded = true/isTopTaskHome = true/isFirstValidTask = false/t.id = -1
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 100, u: 0, lat: 1558964658747, com.android.dialer/isExcluded = true/isTopTaskHome = true/isFirstValidTask = false/t.id = -1
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 53, u: 0, lat: 1558934413229, com.android.mms/isExcluded = true/isTopTaskHome = true/isFirstValidTask = false/t.id = -1
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 39, u: 0, lat: 1558891801779, com.mediatek.schpwronoff/isExcluded = true/isTopTaskHome = true/isFirstValidTask = false/t.id = -1
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 34, u: 0, lat: 1558878639955, com.whatsapp/isExcluded = true/isTopTaskHome = true/isFirstValidTask = false/t.id = -1
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 23, u: 0, lat: 1558874552393, com.android.mms/isExcluded = true/isTopTaskHome = true/isFirstValidTask = false/t.id = 23
+D/SystemServicesProxy(  918): getRecentTasks:TASK = Task.Key: 19, u: 0, lat: 1558868203937, com.google.android.gms/isExcluded = true/isTopTaskHome = true/isFirstValidTask = false/t.id = -1
+D/RecentsTaskLoadPlan(  918): preloadRawTasks, tasks: 1
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+D/RecentsTaskLoader(  918): getActivityLabel: Serenity
+D/RecentsTaskLoadPlan(  918):   thumbnail: Task.Key: 109, u: 0, lat: 1558968258608, com.serenity, null
+D/RecentsTaskLoadPlan(  918): executePlan, # tasks: 2, # thumbnails: 2, running task id: 109
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.zhuyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.cantonese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.canary (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.pinyin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin.dev (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.apps.inputmethod.hindi (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.latin (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.japanese (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+V/ActivityManager(  746): Broadcast: Intent { act=com.google.android.gms.icing.IME_NOTIFICATION flg=0x10 pkg=com.google.android.inputmethod.korean (has extras) } ordered=false userid=0 callerApp=ProcessRecord{22b63c76 1624:com.google.android.gms/u0a10}
+D/PowerManagerService(  746): releaseWakeLockInternal: lock=306384474 [Icing], flags=0x0, total_time=1680ms
+D/PowerManagerNotifier(  746): onWakeLockReleased: flags=1, tag="Icing", packageName=com.google.android.gms, ownerUid=10010, ownerPid=1624, workSource=WorkSource{10010 com.google.android.gms}
+D/PowerManagerService(  746): updateWakeLockSummaryLocked: mWakefulness=Awake, mWakeLockSummary=0x1
+D/PowerManagerService(  746): updateUserActivitySummaryLocked: mWakefulness=Awake, mUserActivitySummary=0x9, nextTimeout=91004934 (in 37629 ms)
+D/PowerManagerService(  746): mDisplayPowerRequest.policy = 3
+D/WifiDisplayAdapter(  746): getWifiDisplayStatusLocked: result=WifiDisplayStatus{featureState=2, scanState=0, activeDisplayState=0, activeDisplay=null, displays=[], sessionInfo=WifiDisplaySessionInfo: C/O:Client,GId:,Pp:,SId:0,IP:}
+D/PowerManagerService(  746): isWfdEnabled() mWfdStatus=WifiDisplayStatus{featureState=2, scanState=0, activeDisplayState=0, activeDisplay=null, displays=[], sessionInfo=WifiDisplaySessionInfo: C/O:Client,GId:,Pp:,SId:0,IP:}, return false
+D/DisplayPowerController(  746): requestPowerState: policy=BRIGHT, useProximitySensor=false, screenBrightness=10, screenAutoBrightnessAdjustment=0.0, useAutoBrightness=false, blockScreenOn=false, lowPowerMode=false, boostScreenBrightness=false, dozeScreenBrightness=-1, dozeScreenState=UNKNOWN, waitForNegativeProximity=false
+I/PowerManagerService(  746): setBrightness mButtonLight, screenBrightness=10
+D/PowerManagerService(  746): updateDisplayPowerStateLocked: mDisplayReady=true, policy=3, mWakefulness=1, mWakeLockSummary=0x1, mUserActivitySummary=0x9, mBootCompleted=true, mScreenBrightnessBoostInProgress=false
+D/ActivityThread( 1624): SVC-Destroying service: com.google.android.gms.icing.service.IndexWorkerService@1e44c204
+D/ActivityThread( 1624): SVC-STOP_SERVICE handled : 0 / android.os.BinderProxy@3895de17
+D/OpenGLRenderer(21367): Flushing caches (mode 0)
+D/Surface (21367): Surface::disconnect(this=0x7f9b60d400,api=1)
+D/GraphicBuffer(21367): unregister, handle(0x7f9572bac0) (w:720 h:53 s:720 f:0x1 u:0x000b00)
+I/BufferQueueProducer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:1,p:-1,c:230) disconnect(P): api 1
+D/GraphicBuffer(  230): free, handle(0x7f9b813560) (w:720 h:53 s:720 f:0x1 u:0x000b00)
+D/GraphicBuffer(  230): free, handle(0x7f9b812160) (w:720 h:53 s:720 f:0x1 u:0x000b00)
+I/BufferQueueConsumer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:1,p:-1,c:230) getReleasedBuffers: returning mask 0xffffffffffffffff
+D/OpenGLRenderer(21367): Flushing caches (mode 0)
+D/Looper  (21367): 0x7f9b458580 ~ removeFd - fd=44
+D/Looper  (  746): 0x7f915148a0 ~ removeFd - fd=225
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/FeatureProxyBase(  746): FeatureProxyBase class constructor
+D/MultiWindow(  746): MultiWindowProxy constructor.
+D/FeatureProxyBase(  746): getService(), serviceName = multiwindow_service_v1
+D/ReactNative(21367): ReactInstanceManager.onJSBundleLoadedFromServer()
+D/ReactNative(21367): ReactInstanceManager.recreateReactContextInBackground()
+D/ReactNative(21367): ReactInstanceManager.runCreateReactContextOnNewThread()
+D/SoLoader(21367): About to load: libreactnativejni.so
+D/SoLoader(21367): libreactnativejni.so not found on /data/data/com.serenity/lib-main
+D/SoLoader(21367): libreactnativejni.so found on /data/app/com.serenity-1/lib/arm64
+D/SoLoader(21367): Not resolving dependencies for libreactnativejni.so
+W/linker  (21367): /data/app/com.serenity-1/lib/arm64/libreactnativejni.so: unused DT entry: type 0x6ffffffe arg 0x45888
+W/linker  (21367): /data/app/com.serenity-1/lib/arm64/libreactnativejni.so: unused DT entry: type 0x6fffffff arg 0x3
+W/linker  (21367): libfb.so: unused DT entry: type 0x6ffffffe arg 0x96d8
+W/linker  (21367): libfb.so: unused DT entry: type 0x6fffffff arg 0x2
+W/linker  (21367): libjsc.so: unused DT entry: type 0x6ffffffe arg 0x25f74
+W/linker  (21367): libjsc.so: unused DT entry: type 0x6fffffff arg 0x3
+W/linker  (21367): libglog_init.so: unused DT entry: type 0x6ffffffe arg 0xf78
+W/linker  (21367): libglog_init.so: unused DT entry: type 0x6fffffff arg 0x2
+W/linker  (21367): libyoga.so: unused DT entry: type 0x6ffffffe arg 0x51d8
+W/linker  (21367): libyoga.so: unused DT entry: type 0x6fffffff arg 0x3
+W/linker  (21367): libjsinspector.so: unused DT entry: type 0x6ffffffe arg 0x1f90
+W/linker  (21367): libjsinspector.so: unused DT entry: type 0x6fffffff arg 0x2
+W/linker  (21367): libfolly_json.so: unused DT entry: type 0x6ffffffe arg 0xf2d0
+W/linker  (21367): libfolly_json.so: unused DT entry: type 0x6fffffff arg 0x3
+W/linker  (21367): libglog.so: unused DT entry: type 0x6ffffffe arg 0x6f90
+W/linker  (21367): libglog.so: unused DT entry: type 0x6fffffff arg 0x2
+W/linker  (21367): libc++_shared.so: unused DT entry: type 0x6ffffffe arg 0x2eb38
+W/linker  (21367): libc++_shared.so: unused DT entry: type 0x6fffffff arg 0x2
+I/BufferQueueConsumer(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:1,p:-1,c:-1) disconnect(C)
+D/GraphicBuffer(  230): free, handle(0x7f9b813420) (w:720 h:53 s:720 f:0x1 u:0x000b00)
+I/BufferQueue(  230): [PopupWindow:69df0e6](this:0x7f9c19c000,id:1290,api:1,p:-1,c:-1) ~BufferQueueCore
+I/SurfaceFlinger(  230): [Built-in Screen (type:0)] fps:19.246538,dur:1350.89,max:639.98,min:11.13
+D/JavaScriptCore.Version(21367): 236355.1.0
+D/SoLoader(21367): Loaded: libreactnativejni.so
+D/SoLoader(21367): About to load: libfb.so
+D/SoLoader(21367): libfb.so not found on /data/data/com.serenity/lib-main
+D/SoLoader(21367): libfb.so found on /data/app/com.serenity-1/lib/arm64
+D/SoLoader(21367): Not resolving dependencies for libfb.so
+D/SoLoader(21367): About to load: libfb.so
+D/SoLoader(21367): libfb.so not found on /data/data/com.serenity/lib-main
+D/SoLoader(21367): libfb.so found on /data/app/com.serenity-1/lib/arm64
+D/SoLoader(21367): Not resolving dependencies for libfb.so
+I/art     (21367): Thread[25,tid=21411,WaitingForJniOnLoad,Thread*=0x7f9b4c0800,peer=0x12c05160,"create_react_context"] recursive attempt to load library "/data/app/com.serenity-1/lib/arm64/libfb.so"
+D/SoLoader(21367): Loaded: libfb.so
+D/SoLoader(21367): Loaded: libfb.so
+D/SoLoader(21367): About to load: libjscexecutor.so
+D/SoLoader(21367): libjscexecutor.so not found on /data/data/com.serenity/lib-main
+D/SoLoader(21367): libjscexecutor.so found on /data/app/com.serenity-1/lib/arm64
+D/SoLoader(21367): Not resolving dependencies for libjscexecutor.so
+W/linker  (21367): /data/app/com.serenity-1/lib/arm64/libjscexecutor.so: unused DT entry: type 0x6ffffffe arg 0x10190
+W/linker  (21367): /data/app/com.serenity-1/lib/arm64/libjscexecutor.so: unused DT entry: type 0x6fffffff arg 0x3
+D/SoLoader(21367): Loaded: libjscexecutor.so
+D/ReactNative(21367): ReactInstanceManager.createReactContext()
+D/ReactNative(21367): Initializing React Xplat Bridge.
+W/Looper  (21367): Looper mtk70501 ######### mWakeReadPipeFd = 43 ,mWakeWritePipeFd = 44
+W/Looper  (21367): Looper mtk70501 ######### mWakeReadPipeFd = 48 ,mWakeWritePipeFd = 50
+D/ReactNative(21367): Initializing React Xplat Bridge before initializeBridge
+D/ReactNative(21367): Initializing React Xplat Bridge after initializeBridge
+D/ReactNative(21367): CatalystInstanceImpl.runJSBundle()
+D/ReactNative(21367): ReactInstanceManager.setupReactContext()
+D/ReactNative(21367): CatalystInstanceImpl.initialize()
+W/unknown:ReactNative(21367): Packager connection already open, nooping.
+D/ReactNative(21367): ReactInstanceManager.attachRootViewToInstance()
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTGroupViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTGroupShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTShapeViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTShapeShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTTextViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTTextShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.checkbox.ReactCheckBoxManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.uimanager.LayoutShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.picker.ReactDialogPickerManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.drawer.ReactDrawerLayoutManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.picker.ReactDropdownPickerManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollContainerViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.progressbar.ReactProgressBarViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.progressbar.ProgressBarShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.scroll.ReactScrollViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.slider.ReactSliderManager$ReactSliderShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager$ReactSwitchShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.toolbar.ReactToolbarManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.webview.ReactWebViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.swiperefresh.SwipeRefreshLayoutManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTSurfaceViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.art.ARTSurfaceViewShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.image.ReactImageManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.modal.ReactModalHostManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.modal.ModalHostShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.text.ReactRawTextManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.text.ReactRawTextShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.text.ReactTextViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.view.ReactViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.viewpager.ReactViewPagerManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.reactnativecommunity.slider.ReactSliderManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.reactnativecommunity.slider.ReactSliderManager$ReactSliderShadowNode
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerRootViewManager
+W/unknown:ViewManagerPropertyUpdater(21367): Could not find generated setter for class com.swmansion.gesturehandler.react.RNGestureHandlerButtonViewManager
+D/SoLoader(21367): About to load: libyoga.so
+D/SoLoader(21367): libyoga.so not found on /data/data/com.serenity/lib-main
+D/SoLoader(21367): libyoga.so found on /data/app/com.serenity-1/lib/arm64
+D/SoLoader(21367): Not resolving dependencies for libyoga.so
+D/SoLoader(21367): Loaded: libyoga.so
+
+D/SoLoader(21367): init exiting
+D/OpenGLRenderer(21367): Flushing caches (mode 0)
+
+I/System.out(21367): [CDS][DNS] getAllByNameImpl netId = 0
+D/libc-netbsd(21367): [getaddrinfo]: hostname=localhost; servname=(null); cache_mode=(null), netid=0; mark=0
+D/libc-netbsd(21367): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=4; ai_family=0
+D/libc-netbsd(21367): [getaddrinfo]: hostname=localhost; servname=(null); cache_mode=(null), netid=0; mark=0
+D/libc-netbsd(21367): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=1024; ai_family=0
+D/FrameworkListener(  245): dispatchCommand data = (getaddrinfo localhost ^ 1024 0 1 0 0)
+D/libc-netbsd(  245): [getaddrinfo]: hostname=localhost; servname=(null); cache_mode=local, netid=0; mark=917504
+D/libc-netbsd(  245): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=1024; ai_family=0
+D/libc-netbsd(  245): [getaddrinfo]: hostname=127.0.0.1; servname=(null); cache_mode=local, netid=0; mark=0
+D/libc-netbsd(  245): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=4; ai_family=0
+D/libc-netbsd(21367): getaddrinfo: localhost get result from proxy >>
+I/System.out(21367): propertyValue:true
+I/System.out(21367): [CDS]rx timeout:0
+I/System.out(21367): [socket][3] connection localhost/127.0.0.1:8082;LocalPort=51304(10000)
+I/System.out(21367): [CDS]connect[localhost/127.0.0.1:8082] tm:10
+D/Posix   (21367): [Posix_connect Debug]Process com.serenity :8082
+I/System.out(21367): [socket][4:51304] exception
+I/System.out(21367): [CDS]close[51304]
+I/WebViewFactory(21367): Loading com.google.android.webview version 74.0.3729.157 (code 372915750)
+I/cr_LibraryLoader(21367): Time to load native libraries: 1 ms (timestamps 8612-8613)
+I/chromium(21367): [INFO:library_loader_hooks.cc(50)] Chromium logging enabled: level = 0, default verbosity = 0
+I/cr_LibraryLoader(21367): Expected native library version number "74.0.3729.157", actual native library version number "74.0.3729.157"
+W/ReactNativeJS(21367): Require cycle: node_modules\react-native-track-player\lib\index.js -> node_modules\react-native-track-player\lib\ProgressComponent.js -> node_modules\react-native-track-player\lib\index.js
+W/ReactNativeJS(21367):
+W/ReactNativeJS(21367): Require cycles are allowed, but can result in uninitialized values. Consider refactoring to remove the need for a cycle.
+I/System.out(21367): [CDS][DNS] getAllByNameImpl netId = 0
+D/libc-netbsd(21367): [getaddrinfo]: hostname=localhost; servname=(null); cache_mode=(null), netid=0; mark=0
+D/libc-netbsd(21367): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=4; ai_family=0
+D/libc-netbsd(21367): [getaddrinfo]: hostname=localhost; servname=(null); cache_mode=(null), netid=0; mark=0
+D/libc-netbsd(21367): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=1024; ai_family=0
+D/FrameworkListener(  245): dispatchCommand data = (getaddrinfo localhost ^ 1024 0 1 0 0)
+D/libc-netbsd(  245): [getaddrinfo]: hostname=localhost; servname=(null); cache_mode=local, netid=0; mark=917504
+D/libc-netbsd(  245): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=1024; ai_family=0
+D/libc-netbsd(  245): [getaddrinfo]: hostname=127.0.0.1; servname=(null); cache_mode=local, netid=0; mark=0
+D/libc-netbsd(  245): [getaddrinfo]: ai_addrlen=0; ai_canonname=(null); ai_flags=4; ai_family=0
+D/libc-netbsd(21367): getaddrinfo: localhost get result from proxy >>
+I/System.out(21367): propertyValue:true
+I/System.out(21367): [CDS]rx timeout:0
+I/System.out(21367): [socket][5] connection localhost/127.0.0.1:8082;LocalPort=42597(10000)
+I/System.out(21367): [CDS]connect[localhost/127.0.0.1:8082] tm:10
+D/Posix   (21367): [Posix_connect Debug]Process com.serenity :8082
+I/System.out(21367): [socket][6:42597] exception
+I/System.out(21367): [CDS]close[42597]

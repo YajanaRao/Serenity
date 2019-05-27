@@ -13,7 +13,7 @@ const DrawerItemsData = [
 
 class SideMenu extends Component {
   navigateToScreen = (route) => {
-    console.log("routing",route);
+    // console.log("routing",route);
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
@@ -25,7 +25,7 @@ class SideMenu extends Component {
   };
 
   _setDrawerItem = index => {
-    console.log("drawer index",index);
+    // console.log("drawer index",index);
     this.navigateToScreen(index);
     this.setState({ active: index });
   }

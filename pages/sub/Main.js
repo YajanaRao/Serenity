@@ -66,7 +66,7 @@ class MainScreen extends React.Component {
             })
         }
         if(nextProps.topKannada) {
-            console.log("kannada",nextProps.topKannada)
+            // console.log("kannada",nextProps.topKannada)
             this.setState({
                 topKannada: nextProps.topKannada
             })

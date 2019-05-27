@@ -6,12 +6,12 @@ import { Searchbar, Card } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import { updateQuery, getQuery } from '../actions';
 
-class NavBar extends React.Component {
+class NavBar extends React.PureComponent {
 
 
   render() {
     const { query } = this.props.query;
-    console.log("navbar query",query)
+    // console.log("navbar query",query)
     return (
       <Searchbar
           placeholder="Search"

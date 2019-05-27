@@ -5,7 +5,7 @@ import SwiperContainer from '../containers/SwiperContainer';
 import { playMedia } from '../actions';
 import { connect } from 'react-redux';
 import _ from 'lodash'
-
+import Love from './Love';
 
 const { UIManager } = NativeModules;
 
@@ -27,7 +27,7 @@ class Track extends Component {
             const { colors } = this.props.theme;
             return <List.Icon {...props} icon="equalizer" color={colors.accent} />
         }
-        return <List.Icon {...props} icon="favorite-border" />
+        return <Love {...props} />
 
     }
     // Playing a song is the song is not playing 

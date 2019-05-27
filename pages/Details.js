@@ -8,7 +8,7 @@ import { List, Button, Surface, Text, Card, Title, Caption, Paragraph, Headline 
 import { ScrollView, FlatList,  View, Image, Dimensions, StyleSheet, ImageBackground } from 'react-native';
 import HorizontalScrollViewContainer from '../containers/HorizontalScrollViewContainer';
 
-class MusicGallery extends React.Component {
+class MusicGallery extends React.PureComponent {
   render(){
     const PHOTOS = Array.from({ length: 24 }).map(
         (_, i) => `https://unsplash.it/300/300/?random&id=${i}`
@@ -91,7 +91,7 @@ const AlbumGallery = ({ route }) => {
   );
 };
 
-class ModalScreen extends React.Component {
+class ModalScreen extends React.PureComponent {
   render() {
     const { navigation } = this.props;
     const itemId = navigation.getParam('itemId', 'NO-ID');
@@ -116,7 +116,7 @@ class ModalScreen extends React.Component {
   }
 }
 
-export default class DetailScreen extends React.Component {
+export default class DetailScreen extends React.PureComponent {
   state = {
     index: 0,
     routes: [
@@ -165,7 +165,7 @@ const RootStack = createStackNavigator(
 
 const AppContainer =  createAppContainer(RootStack);
 
-class MusicScreen extends React.Component {
+class MusicScreen extends React.PureComponent {
   render() {
     return <AppContainer />;
   }

@@ -7,32 +7,35 @@ import { connect } from 'react-redux';
 import { downloadMedia, addToQueue, removeFromQueue } from '../actions';
 
 class SwiperContainer extends React.Component {
+
+  
   
   renderLeftActions = (progress, dragX) => {
-    const trans = dragX.interpolate({
-      inputRange: [0, 50, 100, 101],
-      outputRange: [-20, 0, 0, 1],
-    });
+
+    
+    
     const methodToCall = () => {
       this.close()
-      console.log(progress)
+      // console.log(progress)
       this.removeFromQueue()
     }
     return (
-      <RectButton style={styles.leftAction} onPress={methodToCall}>
-        <IconButton
-          icon="delete"
-          color='white'
-          // size={20}
-          onPress={() => console.log('Pressed')}
-        />
-      </RectButton>
+      <Animated.View style={{ flex: 1 }}>
+        <RectButton style={styles.leftAction} onPress={methodToCall}>
+          <IconButton
+            icon="delete"
+            color='white'
+            // size={20}
+            onPress={() => console.log('Pressed')}
+          />
+        </RectButton>
+     </Animated.View>
     );
   };
 
   download = () => {
     const item = this.props.children.props.children.props.item;
-    console.log(item);
+    // console.log(item);
     if(item){
       alert("downloading", item.title)
       this.props.downloadMedia(item)
@@ -41,7 +44,7 @@ class SwiperContainer extends React.Component {
 
   addToQueue = () => {
     const item = this.props.children.props.children.props.item;
-    console.log(item);
+    // console.log(item);
     if(item){
       this.props.addToQueue(item);
     }
@@ -49,7 +52,7 @@ class SwiperContainer extends React.Component {
 
   removeFromQueue = () => {
     const item = this.props.children.props.children.props.item;
-    console.log(item);
+    // console.log(item);
     if (item) {
       this.props.close();
       this.props.removeFromQueue(item);
@@ -64,7 +67,7 @@ class SwiperContainer extends React.Component {
 
     const methodToCall = () => {
       this.close()
-      console.log(progress)
+      // console.log(progress)
       action()
     }
 
@@ -90,7 +93,7 @@ class SwiperContainer extends React.Component {
 
     const methodToCall = () => {
       this.close()
-      console.log(progress)
+      // console.log(progress)
       action()
     }
 
@@ -119,7 +122,7 @@ renderDeleteAction = (color, x, progress, action) => {
 
     const methodToCall = () => {
       this.close()
-      console.log(progress)
+      // console.log(progress)
       action()
     }
 
@@ -151,6 +154,7 @@ renderDeleteAction = (color, x, progress, action) => {
   updateRef = ref => {
     this._swipeableRow = ref;
   };
+
   close = () => {
     this._swipeableRow.close();
   };

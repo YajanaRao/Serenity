@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Image, ScrollView, Slider, Modal, TouchableOpacity, StyleSheet, AppRegistry } from "react-native";
+import { View, Image, ScrollView, Modal, TouchableOpacity, StyleSheet } from "react-native";
+import Slider from '@react-native-community/slider';
 import { Subheading, Card, FAB, withTheme, ActivityIndicator, IconButton, Title, Divider, Caption, Text } from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -9,6 +10,7 @@ import { ProgressComponent } from 'react-native-track-player';
 
 import { playMedia, updatePlayerStatus } from '../actions';
 import Track from './Track';
+import Love from './Love';
 
 
 class Player extends Component {
@@ -29,7 +31,7 @@ class Player extends Component {
 
 
     componentDidMount() {
-        console.log("component did mount happening")
+        // console.log("component did mount happening")
         TrackPlayer.setupPlayer({}).then(() => {
             TrackPlayer.updateOptions({
                 stopWithApp: true,
@@ -62,33 +64,38 @@ class Player extends Component {
                 })
             }
             else {
+                // console.log(data.state);
                 this.setState({
                     isPlaying: false,
-                    isLoading: true
+                    isLoading: false
                 })
             }
         });
 
         this._onTrackChanged = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
             if (data.nextTrack) {
-                const track = await TrackPlayer.getTrack(data.nextTrack);
-                if(track){
-                    this.setState({
-                        title: track.title,
-                        artist: track.artist,
-                        img: { uri: track.artwork },
-                    })
-                }
+                TrackPlayer.getTrack(data.nextTrack)
+                .then((track) => {
+                    if (track) {
+                        this.setState({
+                            title: track.title,
+                            artist: track.artist,
+                            img: { uri: track.artwork },
+                        })
+                    }
+                })
+                
             }
         })
     }
 
-    componentWillMount() {
-        this.updateTrack();
-    }
+    // componentWillMount() {
+    //     this.updateTrack();
+    // }
 
     componentWillUnmount() {
         this._onStateChanged.remove();
+        this._onTrackChanged.remove();
         TrackPlayer.destroy();
     }
 
@@ -99,16 +106,15 @@ class Player extends Component {
                queue: nextProps.queue
            })
            this.addToQueue(nextProps.queue)
-           this.updateTrack()
+        //    this.updateTrack()
         }
         if(nextProps.active){
-            console.log(nextProps.active)
             TrackPlayer.getCurrentTrack()
             .then((trackId) => {
                 if (trackId != nextProps.active.id) {
                     TrackPlayer.skip(nextProps.active.id)
                         .then(() => {
-                            this.updateTrack();
+                            // this.updateTrack();
                             TrackPlayer.play();
                         })
                         .catch((error) => {
@@ -120,19 +126,21 @@ class Player extends Component {
         }
     }
 
-    skipToNext = async () => {
+    skipToNext = () => {
         try {
-            TrackPlayer.skipToNext();
-            console.log("changing song");
+            TrackPlayer.skipToNext().then(() => {
+                TrackPlayer.play();
+            })
         } catch (error) {
             console.log(error);
+            TrackPlayer.stop();
         }
     }
 
-    skipToPrevious = async () => {
+    skipToPrevious = () => {
         try {
-            await TrackPlayer.skipToPrevious().then(() => {
-                this.updateTrack();
+            TrackPlayer.skipToPrevious().then(() => {
+                TrackPlayer.play();
             });
         } catch (error) {
             console.log(error);
@@ -142,53 +150,29 @@ class Player extends Component {
     }
 
     addToQueue = (queue) => {
-        console.log("adding queue to track player", queue);
+        // console.log("adding queue to track player", queue);
         TrackPlayer.add(queue).then(() => {
             TrackPlayer.play();
         })
     }
 
-    togglePlayback = async () => {
-        const currentTrack = await TrackPlayer.getCurrentTrack();
-        if (currentTrack == null) {
-            TrackPlayer.reset();
-            console.log("adding queue to track player",this.state.queue);
-            await TrackPlayer.add(this.state.queue);
-            TrackPlayer.play();
-        } else {
-            if (!this.state.isPlaying) {
-                TrackPlayer.play();
-                console.log("trying to play")
-            } else {
-                TrackPlayer.pause();
-            }
-        }
-       
-    }
-
-    updateTrack = async () => {
-        var current_id = await TrackPlayer.getCurrentTrack();
-        if (current_id) {
-            var track = await TrackPlayer.getTrack(current_id);
-            if(track){
-                console.log("track", track);
-                this.setState({
-                    title: track.title,
-                    artist: track.artist,
-                    img: { uri: track.artwork },
+    togglePlayback = () => {
+        TrackPlayer.getCurrentTrack().then((currentTrack) => {
+            if (currentTrack == null) {
+                TrackPlayer.reset();
+                // console.log("adding queue to track player", this.state.queue);
+                TrackPlayer.add(this.state.queue).then(() => {
+                    TrackPlayer.play();
                 });
+            } else {
+                if (!this.state.isPlaying) {
+                    TrackPlayer.play();
+                    // console.log("trying to play")
+                } else {
+                    TrackPlayer.pause();
+                }
             }
-            
-        }else if(!_.isEmpty(this.state.queue)){
-            console.log("queue is",this.state.queue)
-            const { queue } = this.state;
-            this.setState({
-                title: queue[0].title,
-                artist: queue[0].artist,
-                img: { uri: queue[0].artwork },
-            });
-            this.togglePlayback();
-        }
+        })
     }
 
 
@@ -235,11 +219,7 @@ class Player extends Component {
                                     <Card.Cover source={ this.state.img } style={{ width: 250, height: 250, borderRadius: 4 }} />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 8 }}>
-                                    <IconButton
-                                        icon="favorite-border"
-                                        // size={20}
-                                        onPress={() => console.log("pressed")}
-                                    />
+                                    <Love/>
                                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                         <Title numberOfLines={1}>{this.state.title}</Title>
                                         <Subheading numberOfLines={1}>{this.state.artist}</Subheading>
@@ -295,7 +275,9 @@ class Player extends Component {
                             }}>
                             <View style={[styles.bar, { backgroundColor: colors.background }]}>
                                 { this.state.img ? <Image source={ this.state.img } style={{ width: 50, height: 50, borderRadius: 4 }} /> : false }
-                                <Title numberOfLines={1}>{this.state.title}</Title>
+                                <View>
+                                    <Subheading numberOfLines={1}>{this.state.title}</Subheading>
+                                </View>
                                 <View style={{ justifyContent: 'center', marginRight: 4 }}>
                                     { this.state.isLoading ? 
                                         <ActivityIndicator animating={true} />
@@ -303,6 +285,7 @@ class Player extends Component {
                                         <IconButton
                                             icon={this.state.isPlaying ? "pause" : "play-arrow"}
                                             // color={Colors.red500}
+                                            animated={true}
                                             size={34}
                                             onPress={this.togglePlayback}
                                         />
@@ -352,35 +335,34 @@ export class TrackStatus extends ProgressComponent {
             position => this.setState({ position }),
 
         )
-        // this.TrackSlider();
+
     }
 
-    TrackSlider = async () => {
-        let state = await TrackPlayer.getState();
-        if (state == 2) {
-            this.setState({
-                SliderDisable: false
-            });
-        } else if (state == 3) {
-            this.setState({
-                SliderDisable: false
-            });
-        } else if (state == 0) {
-            this.setState({
-                SliderDisable: true
-            });
-        }
+    TrackSlider = () => {
+        TrackPlayer.getState()
+        .then((state) => {
+            if (state == 2) {
+                this.setState({
+                    SliderDisable: false
+                });
+            } else if (state == 3) {
+                this.setState({
+                    SliderDisable: false
+                });
+            } else if (state == 0) {
+                this.setState({
+                    SliderDisable: true
+                });
+            }
+        })
     }
 
     render() {
         const { colors } = this.props.theme;
         return (
             <View>
-                <View style={{ flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center' }}>
-                    <Text style={{ color: 'white', backgroundColor: 'transparent', width: 40, textAlign: 'center', fontSize: 12 }}>
-                        {/* { this.state.isSeeking ? this.formatTime(this.seek) : this.formatTime(this.state.position) } */}
-                        {this.formatTime(this.state.position)}
-                    </Text>
+                <View style={{ flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Caption>{this.formatTime(this.state.position)}</Caption>
                     <Slider
                         minimumValue={0}
                         maximumValue={this.state.duration}

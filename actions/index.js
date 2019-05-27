@@ -12,7 +12,6 @@ export const updateQuery = (query) => dispatch => {
 
 export const updateTheme = (theme) => dispatch => {
   let Theme = (theme === DarkTheme ? DefaultTheme : DarkTheme);
-  _storeTheme(Theme);
   dispatch({
     type: 'UPDATE_THEME',
     payload: Theme
@@ -183,14 +182,6 @@ export const removeFromQueue = (song) => dispatch => {
   })
 }
 
-export const updatePlayerStatus = (status) => dispatch => {
-  console.log("got status",status);
-  dispatch({
-    type: 'PLAYER_STATUS',
-    payload: status
-  })
-}
-
 export const fetchTopAlbums = () => dispatch => {
   console.log("fetching top albums from last.fm")
   fetch('http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=disco&api_key=fe67816d712b419bf98ee9a4c2a1baea&format=json&limit=20')
@@ -319,7 +310,6 @@ export const fetchKannadaTopSongs = () => dispatch => {
 
 export const fetchNetInfo = () => dispatch => {
   console.log("fetching network info");
-  
   dispatch({
     type: 'NET_INFO',
     payload: true
