@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
-class HorizontalScrollViewContainer extends Component {
+class HorizontalScrollViewContainer extends React.PureComponent {
     render() {
         const { children}  = this.props;
         return (

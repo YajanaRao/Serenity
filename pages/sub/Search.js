@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, ScrollView, ImageBackground, Dimensions } from 'react-native';
-import { Searchbar, Text, List, Headline, Card, Subheading, Paragraph, Title } from 'react-native-paper';
-import Media from '../../data/media.json';
-import { updateQuery, playMedia, fetchJioSavanData } from '../../actions';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Searchbar, List, Headline, Card, Subheading, Title } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import genre from '../../data/genre.json'
+
+import genre from '../../data/genre.json';
+import { updateQuery, playMedia, fetchJioSavanData } from '../../actions';
+import FastImage from 'react-native-fast-image';
+
 
 class Search extends Component {
     constructor(props) {
@@ -26,56 +28,56 @@ class Search extends Component {
     }
 
 
-    filterMatchingSongs = (query) => {
-        const result = []
-        if (query) {
-            Media.map(function (item) {
-                if (item) {
-                    item.songs.map(function (songs) {
-                        if (songs.title.includes(query)) {
-                            result.push(songs)
-                        }
-                    })
-                }
-            })
-        }
-        return(result);
-    }
+    // filterMatchingSongs = (query) => {
+    //     const result = []
+    //     if (query) {
+    //         Media.map(function (item) {
+    //             if (item) {
+    //                 item.songs.map(function (songs) {
+    //                     if (songs.title.includes(query)) {
+    //                         result.push(songs)
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     }
+    //     return(result);
+    // }
 
-    filterMatchingAlbums = (query) => {
-        const result = []
-        if (query) {
-            Media.map(function (item) {
-                if (item.album.includes(query)) {
-                    result.push(item)
-                }
-            })
-        }
-        return (result);
-    }
+    // filterMatchingAlbums = (query) => {
+    //     const result = []
+    //     if (query) {
+    //         Media.map(function (item) {
+    //             if (item.album.includes(query)) {
+    //                 result.push(item)
+    //             }
+    //         })
+    //     }
+    //     return (result);
+    // }
 
     render() {
-        const filteredSongs = this.filterMatchingSongs(this.state.query)
-        const filteredAlbums = this.filterMatchingAlbums(this.state.query)
-        const SONGS = filteredSongs.map((songs) =>
-            <List.Item
-                key={songs.title.toString()}
-                title={songs.title}
-                description={songs.description}
-                left={props => <Image source={{ uri: songs.img }} style={{ width: '20%', borderRadius: 2 }} />}
-                onPress={() => this.props.playMedia(songs)}
-            />
-        );
+        // const filteredSongs = this.filterMatchingSongs(this.state.query)
+        // const filteredAlbums = this.filterMatchingAlbums(this.state.query)
+        // const SONGS = filteredSongs.map((songs) =>
+        //     <List.Item
+        //         key={songs.title.toString()}
+        //         title={songs.title}
+        //         description={songs.description}
+        //         left={props => <FastImage source={{ uri: songs.img }} style={{ width: '20%', borderRadius: 2 }} />}
+        //         onPress={() => this.props.playMedia(songs)}
+        //     />
+        // );
 
-        const ALBUMS = filteredAlbums.map((album) => 
-            <List.Item
-                key={album.album.toString()}
-                title={album.album}
-                description={album.artist}
-                left={props => <Image source={{ uri: album.img }} style={{ width: '20%', borderRadius: 2 }} />}
-                onPress={() => this.props.playMedia(album)}
-            />
-        );
+        // const ALBUMS = filteredAlbums.map((album) => 
+        //     <List.Item
+        //         key={album.album.toString()}
+        //         title={album.album}
+        //         description={album.artist}
+        //         left={props => <FastImage source={{ uri: album.img }} style={{ width: '20%', borderRadius: 2 }} />}
+        //         onPress={() => this.props.playMedia(album)}
+        //     />
+        // );
 
         return (
             <ScrollView style={{ flex: 1, margin: 8 }}>
@@ -91,20 +93,22 @@ class Search extends Component {
                 <View style={styles.container}>
                     {this.state.genres.map((genre,index) =>
                         <View style={styles.item} key={index.toString()}>
-                            <Card style={styles.genreCard}>
-                                <ImageBackground source={{ uri: genre.image }} style={styles.photo} imageStyle={{ borderRadius: 4 }}>
-                                    <Card.Content>
+                            <FastImage source={{ uri: genre.image }} style={styles.photo} />
+                            {/* <Card style={styles.genreCard}> */}
+
+                                {/* <ImageBackground source={{ uri: genre.image }} style={styles.photo} imageStyle={{ borderRadius: 4 }}> */}
+                                    {/* <Card.Content> */}
                                         <Subheading style={styles.title} numberOfLines={1}>{genre.title}</Subheading>
-                                    </Card.Content>
-                                </ImageBackground>
-                            </Card>
+                                    {/* </Card.Content> */}
+                                {/* </ImageBackground> */}
+                            {/* </Card> */}
                         </View>
                     )}
                 </View>
-                { filteredSongs.length ? <Headline style={{ margin: 4 }}>Songs</Headline> : false }
+                {/* { filteredSongs.length ? <Headline style={{ margin: 4 }}>Songs</Headline> : false }
                 {SONGS}
                 { filteredAlbums.length ? <Headline style={{ margin: 4 }}>Albums</Headline> : false }
-                {ALBUMS}
+                {ALBUMS} */}
             </ScrollView>
         );
     }
@@ -134,20 +138,16 @@ const styles = StyleSheet.create({
         // borderRadius: 10
     },  
     item: {
-        // height: Dimensions.get('window').width / 2,
         width: '50%',
-        padding: 4,
+        justifyContent: "center",
+        alignItems: 'center',
+        textAlign: 'center',
+        padding: 4
     },
     photo: {
-        flex: 1,
         height: 80,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'white',
-    },
-    title: {
-        color: 'white'
+        width: '100%',
+        borderRadius: 4
     },
     headline: {
         textAlign: 'center',

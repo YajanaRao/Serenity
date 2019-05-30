@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme } from 'react-native-paper';
-
-
+import TrackPlayer from 'react-native-track-player';
+import _ from 'lodash';
 
 export const updateQuery = (query) => dispatch => {
   console.log("In Action", query)
@@ -82,27 +82,6 @@ export const downloadMedia = (item) => dispatch => {
   }
 }
 
-export const previousMedia = () => dispatch => {
-  dispatch({
-    type: 'PREVIOUS'
-  })
-}
-
-export const nextMedia = () => dispatch => {
-  dispatch({
-    type: 'NEXT'
-  })
-}
-
-export const playMedia = (item) => dispatch => {
-  console.log("clicked on play");
-  dispatch({
-    type: 'PLAY',
-    payload: item
-  })
-}
-
-
 export const getOfflineMedia =  () => dispatch => {
   // const path = FileSystem.documentDirectory + 'music/'
   // try {
@@ -166,20 +145,94 @@ export const getOfflineMedia =  () => dispatch => {
   // }
 }
 
-export const addToQueue = (song) => dispatch => {
-  console.log("adding songs to queue");
+export const previousMedia = () => dispatch => {
   dispatch({
-    type: 'ADD_TO_QUEUE',
-    payload: song
+    type: 'PREVIOUS'
+  })
+}
+
+export const nextMedia = () => dispatch => {
+  dispatch({
+    type: 'NEXT'
+  })
+}
+
+export const playMedia = (item) => dispatch => {
+  TrackPlayer.getCurrentTrack().then((trackId) => {
+    if (trackId != item.id) {
+      TrackPlayer.skip(item.id).then(() => {
+        TrackPlayer.play();
+        dispatch({
+          type: 'PLAY',
+          payload: item
+        })
+      })
+      .catch((error) => {
+        console.log("got error in play action",error)
+        TrackPlayer.add(item);
+        TrackPlayer.play();
+        dispatch({
+          type: 'PLAY',
+          payload: item
+        })
+      })
+    }
+  })
+  .catch((error) => {
+    console.log("error in getting the current track",error)
+  }) 
+}
+
+
+
+export const addToQueue = (song) => dispatch => {
+  TrackPlayer.getQueue().then((queue) => {
+    let update = _.difference(song,queue);
+    if(update){
+      TrackPlayer.add(update);
+      TrackPlayer.play();
+      dispatch({
+        type: 'UPDATE_QUEUE',
+        payload: _.concat(queue, update)
+      })
+    }
+  })
+  .catch((error) => {
+    console.log("get error while adding to queue", error)
   })
 }
 
 export const removeFromQueue = (song) => dispatch => {
   console.log("removing songs from queue");
-  dispatch({
-    type: 'REMOVE_FROM_QUEUE',
-    payload: song
+  TrackPlayer.remove(song).then(() => {
+    TrackPlayer.getQueue().then((queue) => {
+      dispatch({
+        type: 'UPDATE_QUEUE',
+        payload: queue
+      })
+    })
+    
   })
+}
+
+export const clearQueue = () => dispatch => {
+  TrackPlayer.reset();
+  dispatch({
+    type: 'CLEAR_QUEUE',
+    payload: []
+  })
+}
+
+export const activeTrackUpdate = (trackId) => dispatch => {
+  TrackPlayer.getTrack(trackId)
+    .then((track) => {
+      if (track) {
+        dispatch({
+          type: 'ACTIVE_TRACK_UPDATE',
+          payload: track
+        })
+      }
+    })
 }
 
 export const fetchTopAlbums = () => dispatch => {

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { View, StyleSheet, Animated, Text } from 'react-native';
+import { View, StyleSheet, Animated } from 'react-native';
 import { withTheme, IconButton } from 'react-native-paper';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { downloadMedia, addToQueue, removeFromQueue } from '../actions';
 
-class SwiperContainer extends React.Component {
+class SwiperContainer extends React.PureComponent {
 
   
   

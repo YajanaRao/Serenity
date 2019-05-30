@@ -5,7 +5,7 @@ import {
 } from 'react-native-paper';
 
 import NavBar from '../components/NavBar';
-import Dashboard from './Dashboard';
+// import Dashboard from './Dashboard';
 
 class ProfileScreen extends React.PureComponent {
   static navigationOptions = {
@@ -21,7 +21,7 @@ class ProfileScreen extends React.PureComponent {
     return (
       <View style={{ flex: 1, backgroundColor: background }}>
         <NavBar />
-        <Dashboard />
+        {/* <Dashboard /> */}
       </View>
     );
   }

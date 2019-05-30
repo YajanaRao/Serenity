@@ -7,7 +7,7 @@ import { withTheme, Caption, Appbar, TouchableRipple, Colors } from 'react-nativ
 
 
 // https://dev.to/hrastnik/lets-create-a-custom-animated-tab-bar-with-react-native-3496
-class TabBar extends React.Component {
+class TabBar extends React.PureComponent {
     render() {
         const {
             renderIcon,
@@ -58,7 +58,8 @@ class TabBar extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "row"
+        flexDirection: "row",
+        marginTop: 8
     },
     tabButton: { 
         flex: 1, 

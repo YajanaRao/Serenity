@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { withTheme, Surface, List } from 'react-native-paper';
-import { Image, StyleSheet, NativeModules, LayoutAnimation } from 'react-native';
-import SwiperContainer from '../containers/SwiperContainer';
-import { playMedia } from '../actions';
+import { StyleSheet, NativeModules, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash'
+import FastImage from 'react-native-fast-image'
+
+import SwiperContainer from '../containers/SwiperContainer';
+import { playMedia, addToQueue } from '../actions';
 import Love from './Love';
 
 const { UIManager } = NativeModules;
@@ -37,11 +39,12 @@ class Track extends Component {
             active
         } = this.props;
         if(active){
-            if (_.isEqual(active, track.title)) {
+            if (_.isEqual(active, track)) {
                 return false
             }
         }
-        this.props.playMedia(track)
+        this.props.addToQueue(track);
+        this.props.playMedia(track);
     }
 
     /*
@@ -70,9 +73,9 @@ class Track extends Component {
                         item={track}
                         title={track.title}
                         description={track.artist}
-                        left={props => (
-                            <Image {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                        )}
+                        // left={props => (
+                        //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
+                        // )}
                         right={props => this.renderRightIcon(props)}
                         onPress={() => this.play()}
                     />
@@ -82,13 +85,17 @@ class Track extends Component {
     }
 }
 
-export default connect(null, { playMedia })(withTheme(Track));
+const mapStateToProps = state => ({
+    active: state.media.active,
+});
+
+export default connect(mapStateToProps, { playMedia, addToQueue })(withTheme(Track));
 
 const styles = StyleSheet.create(
     {
         icons: {
             width: 50,
-            borderRadius: 2
+            borderRadius: 4
         },
         surface: {
             padding: 0,

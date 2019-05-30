@@ -3,6 +3,7 @@ import { withTheme, Title, Card, Paragraph, Caption, Avatar } from 'react-native
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import FastImage from 'react-native-fast-image';
 
 import HorizontalScrollViewContainer from '../../containers/HorizontalScrollViewContainer';
 import Media from '../../data/media.json';
@@ -107,7 +108,7 @@ class MainScreen extends React.Component {
                             Media.map(item => (
                                 <View key={item.id} style={{ alignItems: 'center' }}>
                                     <Card style={styles.cardItem} onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}>
-                                        <Card.Cover source={{ uri: item.artwork }} style={styles.photo} />
+                                        <FastImage source={{ uri: item.artwork }} style={styles.photo} />
                                     </Card>
                                     <Paragraph numberOfLines={1}>{item.album}</Paragraph>
                                 </View>
@@ -121,7 +122,8 @@ class MainScreen extends React.Component {
                             Top20.map(item => (
                                 <View key={item.id} style={{ alignItems: 'center' }}>
                                     <Card style={styles.cardItem} onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}>
-                                        <Card.Cover source={{ uri: item.artwork }} style={styles.photo} />
+                                        {/* <Card.Cover source={{ uri: item.artwork }} style={styles.photo} /> */}
+                                        <FastImage source={{ uri: item.artwork }} style={styles.photo} />
                                     </Card>
                                     <Paragraph numberOfLines={1}>{item.album}</Paragraph>
                                 </View>
@@ -129,7 +131,7 @@ class MainScreen extends React.Component {
                         }
                     />
 
-
+{/* 
                     <TitleContainer text="Top Charts" data={this.state.charts} />
                     <HorizontalScrollViewContainer>
                         {this.state.charts.map((item) => (
@@ -194,9 +196,6 @@ class MainScreen extends React.Component {
                                 <View key={index.toString()} style={styles.cardWrapper}>
                                     <Card style={styles.napsterCard} onPress={() => navigate('Music', { albumId: item.albumId })}>
                                         <Card.Cover source={{ uri: `http://direct.rhapsody.com/imageserver/v2/albums/${item.albumId}/images/300x300.jpg` }} style={styles.photo} />
-                                        {/* <Card.Content>
-                                    
-                                </Card.Content> */}
                                     </Card>
                                     <Paragraph style={{ flexWrap: 'wrap' }} numberOfLines={1}>{item.name}</Paragraph>
                                     <Caption numberOfLines={1}>{item.artistName}</Caption>
@@ -215,7 +214,7 @@ class MainScreen extends React.Component {
                                 <Paragraph style={{ flexWrap: 'wrap' }} numberOfLines={1}>{item.Name}</Paragraph>
                             </View>
                         ))}
-                    </HorizontalScrollViewContainer>
+                    </HorizontalScrollViewContainer> */}
 
 
                 </View>
@@ -248,10 +247,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     photo: {
-        resizeMode: 'contain',
         width: null,
         height: null,
-        flex: 1
+        flex: 1,
+        borderRadius: 4
     },
     cardWrapper: {
         width: 120,

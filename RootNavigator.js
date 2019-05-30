@@ -74,17 +74,9 @@ class RootNavigator extends React.Component {
     }
     this.setState({
       theme: theme,
-      // isFontLoaded: false
     });
     this.props.updateTheme(theme);
-    // setTimeout(() => {
 
-    //   //Waiting for some time.
-    //   this.setState({
-    //     isFontLoaded: true
-    //   })
-
-    // }, 3000);
   }
     
 
@@ -95,7 +87,6 @@ class RootNavigator extends React.Component {
   }
 
   render() {
-    console.log("is font loaded",this.state.isFontLoaded);
 
     return (
         <PaperProvider theme={this.state.theme}>

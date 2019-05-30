@@ -23,7 +23,6 @@ class MediaScreen extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.result) {
-      console.log(nextProps.result);
       this.setState({
         visible: true,
         message: nextProps.result
@@ -40,11 +39,11 @@ class MediaScreen extends React.Component {
       },
     } = this.props;
 
+
     return (
       <View style={{ flex: 1, backgroundColor: background }}>
-        <Player>
-          <Nav />
-        </Player>
+        <Nav />
+        <Player/>
       </View>
 
     )
@@ -66,9 +65,9 @@ const AppContainer = createAppContainer(MediaNavigator);
 class HomeScreen extends React.Component {
   render() {
     return (
-      <NetworkContainer>
+      // <NetworkContainer>
         <AppContainer />
-      </NetworkContainer>
+      // </NetworkContainer>
     )
 
   }

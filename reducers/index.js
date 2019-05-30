@@ -1,23 +1,10 @@
 import { combineReducers } from 'redux';
-// import { AsyncStorage } from 'react-native';
+
 import _ from 'lodash';
 
 const INITIAL_QUERY = {
   query: ""
 };
-
-// const  _retrieveData = async () => {
-//   try {
-//     let value = await AsyncStorage.getItem('PREFERENCES');
-//     const preferences = JSON.parse(value);
-//     if (preferences) {
-//       return preferences.theme === 'dark' ? DarkTheme : DefaultTheme;  
-//     }
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// };
 
 
 
@@ -52,11 +39,7 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
         ...state,
         result: action.payload
       }
-    case 'PROGRESS':
-      console.log(action.payload)
-      return {
-        ...state
-      }
+
     case 'OFFLINE':
       console.log("offline media", action.payload)
       return {
@@ -67,37 +50,33 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
     case 'PLAY':
         return {
           ...state,
-          queue: _.concat(state.queue,action.payload),
-          active: action.payload
+          active: action.payload,
+          queue: _.concat(action.payload, state.queue)
         }
       
-    case 'ADD_TO_QUEUE': 
+    case 'ACTIVE_TRACK_UPDATE':
+      return {
+        ...state,
+        active: action.payload
+      }
+    case 'UPDATE_QUEUE': 
       if (_.isEmpty(state.active)){
-        console.log("active song is",_.head(action.payload))
         return {
           ...state,
-          queue: _.uniq(_.concat(state.queue, action.payload)),
-          active: _.head(action.payload)
+          active: _.head(action.payload),
+          queue: action.payload
         }
       }
       return {
         ...state,
-        queue: _.uniq(_.concat(state.queue, action.payload))
+        queue: action.payload
       }
     
-    case 'REMOVE_FROM_QUEUE':
-        console.log("removing",action.payload);
-        if(_.isEqual(action.payload, state.active)){
-          return {
-            ...state
-          }
-        }
-        _.remove(state.queue, function (item) {
-          return _.isEqual(item, action.payload)
-        })
+    case 'CLEAR_QUEUE':
         return {
           ...state,
-          queue: state.queue
+          queue: action.payload,
+          active: {}
         }
     default:
       return state;

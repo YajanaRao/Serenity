@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { Text, View, StyleSheet,ScrollView, Platform } from 'react-native';
+import {  StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-// or any pure javascript modules available in npm
-import { Searchbar, Card } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
-import { updateQuery, getQuery } from '../actions';
+
+import { updateQuery } from '../actions';
 
 class NavBar extends React.PureComponent {
 
 
   render() {
     const { query } = this.props.query;
-    // console.log("navbar query",query)
+
     return (
       <Searchbar
           placeholder="Search"

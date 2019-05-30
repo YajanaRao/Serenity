@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {NavigationActions} from 'react-navigation';
+import { NavigationActions, withNavigation } from 'react-navigation';
 import {ScrollView,  View, StyleSheet, Platform} from 'react-native';
 import {  Drawer, withTheme, Switch, TouchableRipple, Text } from 'react-native-paper';
 
@@ -13,7 +12,6 @@ const DrawerItemsData = [
 
 class SideMenu extends Component {
   navigateToScreen = (route) => {
-    // console.log("routing",route);
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
@@ -68,11 +66,8 @@ class SideMenu extends Component {
 }
 
 
-export default withTheme(SideMenu);
+export default withNavigation(withTheme(SideMenu));
 
-SideMenu.propTypes = {
-  navigation: PropTypes.object
-};
 
 const styles = StyleSheet.create({
    container: {

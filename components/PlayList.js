@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { IconButton, Divider, Headline, withTheme, Button, Card } from 'react-native-paper';
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import Track from './Track';
-import { addToQueue } from '../actions';
+import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 
+import { addToQueue } from '../actions';
 
 
 class Songs extends Component {
@@ -15,7 +16,7 @@ class Songs extends Component {
 
     render() {
 
-        const { navigation, active } = this.props;
+        const { navigation } = this.props;
 
         const songs = navigation.getParam('songs', []);
         const albumImage = navigation.getParam('img', 'https://facebook.github.io/react-native/docs/assets/favicon.png');
@@ -62,7 +63,8 @@ class Songs extends Component {
                    
                     <View style={styles.scrollViewContent}>
                         <View style={{ justifyContent: 'center',  alignItems: 'center' }}>
-                            <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} />
+                            {/* <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
+                            <FastImage source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} />
                             <Headline style={styles.title}>{title}</Headline>
                         </View>
                       
@@ -77,9 +79,9 @@ class Songs extends Component {
                         <FlatList
                             data={songs}
                             ItemSeparatorComponent={() => <Divider />}
-                            keyExtractor={(item, index) => index.toString()}
+                            keyExtractor={(item) => item.id }
                             renderItem={({ item }) =>
-                                <Track track={item} active={active} />
+                                <Track track={item} />
                             }
                         />
                         <View style={{ height: 100 }} />
@@ -91,11 +93,9 @@ class Songs extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    active: state.media.active,
-});
 
-export default connect(mapStateToProps, { addToQueue })(withTheme(Songs));
+
+export default connect(null, { addToQueue })(withTheme(Songs));
 
 const styles = StyleSheet.create(
     {

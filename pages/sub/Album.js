@@ -3,17 +3,16 @@ import { Card, Title, withTheme } from 'react-native-paper';
 import { View, ImageBackground, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 
-
 import Media from '../../data/media.json';
 import SongScreen from '../../components/PlayList';
+import FastImage from 'react-native-fast-image';
 
-class AlbumGallery extends React.PureComponent {
+
+class AlbumGallery extends React.Component {
     static navigationOptions = {
         header: null
-    };
-
+    }
     render() {
-        const { navigate } = this.props.navigation;
 
         const {
             theme: {
@@ -21,37 +20,28 @@ class AlbumGallery extends React.PureComponent {
             },
         } = this.props;
 
+        const { navigate } = this.props.navigation;
+
         return (
             <View style={{ flex: 1, backgroundColor: background }}>
-                <ScrollView contentContainerStyle={styles.content}>
-                    {Media.map(item => (
+               <ScrollView contentContainerStyle={styles.content}>
+                {Media.map(item => (
                         <View key={item.id} style={styles.item}>
                             <Card
                                 style={styles.card}
-                                onPress={() => navigate('Songs', { songs: item.songs, img: item.img, title: item.album })}
+                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                             >
-                                <ImageBackground source={{ uri: item.img }} style={styles.photo} imageStyle={{ borderRadius: 2 }}>
-                                    {/* <Text>Inside</Text> */}
-                                    {/* <Card.Cover source={{ uri }} /> */}
-                                    <Card.Content>
-                                        <Title style={styles.title} numberOfLines={1}>{item.album}</Title>
-                                        {/* <Paragraph>
-              This is a pressable chameleon. If you press me, I will alert.
-            </Paragraph> */}
-                                    </Card.Content>
-                                </ImageBackground>
-
+                                <FastImage source={{ uri: item.artwork }} style={styles.photo} />
+                                <Title style={styles.title} numberOfLines={1}>{item.album}</Title>
                             </Card>
-
-                            {/* <Image source={{ uri }} style={styles.photo} />
-          <Text>{uri}</Text> */}
                         </View>
                     ))}
                 </ScrollView>
-            </View>
+           </View>
         );
     }
 }
+
 
 const GalleryNavigator = createStackNavigator({
     Albums: { screen: withTheme(AlbumGallery) },
@@ -81,15 +71,12 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     photo: {
-        flex: 1,
         height: Dimensions.get('window').width / 2,
-        resizeMode: 'cover',
         justifyContent: 'center',
         alignItems: 'center',
-        color: 'white'
+        borderRadius: 4
     },
     title: {
-        color: 'white',
-        fontWeight: 'bold'
+        textAlign: 'center'
     }
 });

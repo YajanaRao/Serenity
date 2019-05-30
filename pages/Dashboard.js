@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { StyleSheet, FlatList, ImageBackground, Image, Dimensions, View, ScrollView } from 'react-native';
+import { StyleSheet, FlatList, ImageBackground, View, ScrollView } from 'react-native';
 import Media from '../data/media.json';
 
 import {
@@ -19,6 +19,7 @@ import {
   createAppContainer,
 } from 'react-navigation';
 import { connect } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 class DashboardScreen extends React.Component {
   state = {
@@ -61,7 +62,8 @@ class DashboardScreen extends React.Component {
             }) : Media
           }
           renderItem={({ item }) => <Card style={styles.card}>
-            <Card.Cover source={{ uri: item.img }} />
+            {/* <Card.Cover source={{ uri: item.img }} /> */}
+            <FastImage source={{ uri: item.img }} />
             <Card.Content>
               <Title>{item.album}</Title>
               <Paragraph>{item.artist}</Paragraph>
@@ -103,7 +105,7 @@ class ModalScreen extends React.Component {
           justifyContent: 'center',
           padding: 8
         }}>
-        <Image source={{ uri: item.img }} style={styles.img} />
+        <FastImage source={{ uri: item.img }} style={styles.img} />
         <Headline>Details Screen</Headline>
         <Text>{item.artist}</Text>
         <Button
