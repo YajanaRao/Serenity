@@ -37,21 +37,22 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
     case 'DOWNLOAD':
       return {
         ...state,
-        result: action.payload
+        result: "success",
+        files: _.concat(action.payload,state.files)
       }
 
     case 'OFFLINE':
-      console.log("offline media", action.payload)
       return {
         ...state,
         files: action.payload
       }
      
     case 'PLAY':
+      console.log(_.uniq(_.concat(state.queue, action.payload)))
         return {
           ...state,
           active: action.payload,
-          queue: _.concat(action.payload, state.queue)
+          queue: _.uniq(_.concat(state.queue, action.payload))
         }
       
     case 'ACTIVE_TRACK_UPDATE':

@@ -1,6 +1,7 @@
 import { DarkTheme, DefaultTheme } from 'react-native-paper';
 import TrackPlayer from 'react-native-track-player';
 import _ from 'lodash';
+import * as RNFS from 'react-native-fs'; 
 
 export const updateQuery = (query) => dispatch => {
   console.log("In Action", query)
@@ -18,71 +19,64 @@ export const updateTheme = (theme) => dispatch => {
   })
 }
 
+const _downloadFileProgress = (data) => {
+  const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
+  const text = `Progress ${percentage}%`;
+  console.log(text);
+  if (percentage == 100) {
+    console.log("done")
+  }
+}
 
 
 export const downloadMedia = (item) => dispatch => {
   try {
-    // const callback = downloadProgress => {
-    //   const progress =
-    //     downloadProgress.totalBytesWritten /
-    //     downloadProgress.totalBytesExpectedToWrite;
-    //   dispatch({
-    //     type: 'PROGRESS',
-    //     payload: progress
-    //   })
-    // };
-    // const path = FileSystem.documentDirectory + 'music/' + item.id
-    // FileSystem.getInfoAsync(path).then(({ exists }) => {
-    //   if (!exists) {
-    //     FileSystem.makeDirectoryAsync(path);
-    //     console.log("called download", item);
-    //     const songDownloadResumable = FileSystem.createDownloadResumable(
-    //       item.url,
-    //       path + '/' + item.title + '.mp3',
-    //       {},
-    //       callback
-    //     );
-    //     try {
-    //       var song = songDownloadResumable.downloadAsync();
-          
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-        
-    //     var img = FileSystem.downloadAsync(
-    //       item.img,
-    //       path + '/' + item.title + '.png'
-    //     )
-    //     Promise.all([song, img]).then(({ uri }) => {
-    //       dispatch({
-    //         type: 'DOWNLOAD',
-    //         payload: "Success"
-    //       })
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //       dispatch({
-    //         type: 'DOWNLOAD',
-    //         payload: "Failed"
-    //       })
-    //     })
-    //   } else {
-    //     dispatch({
-    //       type: 'DOWNLOAD',
-    //       payload: "Failed"
-    //     })
-    //   }
-    // })
-
-    //   .catch(error => {
-    //     console.error(error);
-    //   })
+    console.log("downloading file",item);
+    if(item){
+      RNFS.downloadFile({
+        fromUrl: item.url,
+        toFile: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
+        progress: (data) => _downloadFileProgress(data),
+      }).promise.then(() => {
+        console.log("downloaded file")
+        dispatch({
+          type: 'DOWNLOAD',
+          payload: [{
+            title: item.title,
+            url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
+            artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
+            artist: "Serenity"
+          }]
+        })
+      })
+    }
   } catch (error) {
     console.log(error);
   }
 }
 
 export const getOfflineMedia =  () => dispatch => {
+  RNFS.readdir(RNFS.DocumentDirectoryPath).then(files => {
+    console.log(files);
+    let response = []
+    _.forEach(files, function (value) {
+      if (_.endsWith(value, 'mp3')){
+        response.push({
+          title: value.split('.')[0],
+          url: RNFS.DocumentDirectoryPath + '/' + value,
+          artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
+          artist: "Serenity"
+        })
+      }
+    });
+    dispatch({
+      type: 'OFFLINE',
+      payload: response
+    })
+  })
+  .catch (err => {
+    console.log(err.message, err.code);
+  });
   // const path = FileSystem.documentDirectory + 'music/'
   // try {
   //   FileSystem.getInfoAsync(path).then(({ exists }) => {
@@ -220,7 +214,7 @@ export const clearQueue = () => dispatch => {
   dispatch({
     type: 'CLEAR_QUEUE',
     payload: []
-  })
+  })  
 }
 
 export const activeTrackUpdate = (trackId) => dispatch => {
