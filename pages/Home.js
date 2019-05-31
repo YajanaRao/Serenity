@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createMaterialTopTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import { View } from 'react-native';
-import { withTheme, IconButton } from 'react-native-paper';
+import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import Player from '../components/Player';
@@ -44,6 +44,21 @@ class MediaScreen extends React.Component {
       <View style={{ flex: 1, backgroundColor: background }}>
         <Nav />
         <Player/>
+        <Snackbar
+          style={{ marginBottom: 60 }}
+          visible={this.state.visible}
+          onDismiss={() => this.setState({ visible: false })}
+          action={{
+            label: 'Dismiss',
+            onPress: () => {
+              this.setState({
+                visible: false
+              })
+            },
+          }}
+        >
+          {this.state.message}
+        </Snackbar>
       </View>
 
     )

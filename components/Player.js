@@ -285,7 +285,7 @@ class Player extends Component {
                     onPress={() => {
                         this.setModalVisible(true);
                     }}>
-                    <View style={[styles.playbar, { backgroundColor: colors.background }]}>
+                    <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
                             {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4 }} /> : false }
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <Subheading numberOfLines={1}>{this.state.active.title}</Subheading>

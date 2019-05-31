@@ -8,7 +8,14 @@ import FastImage from 'react-native-fast-image';
 import HorizontalScrollViewContainer from '../../containers/HorizontalScrollViewContainer';
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
-import { fetchTopAlbums, fetchNapsterTopTracks, fetchNapsterTopArtists, fetchJioSavanData, fetchKannadaTopSongs } from '../../actions';
+import { 
+    fetchTopAlbums, 
+    fetchNapsterTopTracks, 
+    fetchNapsterTopArtists, 
+    fetchJioSavanData, 
+    fetchKannadaTopSongs, 
+    fetchBillboardHot100 
+} from '../../actions';
 
 
 const TitleContainer = (props) => {
@@ -30,6 +37,7 @@ class MainScreen extends React.Component {
             charts: [],
             newAlbums: [],
             topKannada: [],
+            hot100: [],
             isConnected: false,
             isLoaded: false
         }
@@ -67,9 +75,13 @@ class MainScreen extends React.Component {
             })
         }
         if(nextProps.topKannada) {
-            // console.log("kannada",nextProps.topKannada)
             this.setState({
                 topKannada: nextProps.topKannada
+            })
+        }
+        if(nextProps.hot100) {
+            this.setState({
+                hot100: nextProps.hot100
             })
         }
     }
@@ -79,13 +91,18 @@ class MainScreen extends React.Component {
             this.props.fetchTopAlbums();
             this.props.fetchNapsterTopTracks();
             this.props.fetchNapsterTopArtists();
-            this.props.fetchJioSavanData("charts");
-            this.props.fetchJioSavanData("new_albums");
+            // this.props.fetchJioSavanData("charts");
+            // this.props.fetchJioSavanData("new_albums");
             this.props.fetchKannadaTopSongs();
+            this.props.fetchBillboardHot100();
             this.setState({
                 isLoaded: true
             })
         }
+    }
+
+    componentDidMount(){
+        this.apiRequests();
     }
 
     render() {
@@ -131,13 +148,12 @@ class MainScreen extends React.Component {
                         }
                     />
 
-{/* 
                     <TitleContainer text="Top Charts" data={this.state.charts} />
                     <HorizontalScrollViewContainer>
                         {this.state.charts.map((item) => (
                             <View key={item.listid} style={{ alignItems: 'center' }}>
                                 <Card style={styles.saavanCard} onPress={() => console.log("clicked")}>
-                                    <Card.Cover source={{ uri: item.image }} style={styles.photo} />
+                                    <FastImage source={{ uri: item.image }} style={styles.photo} />
                                 </Card>
                                 <Paragraph style={{ flexWrap: 'wrap' }} numberOfLines={1}>{item.listname}</Paragraph>
                             </View>
@@ -150,7 +166,7 @@ class MainScreen extends React.Component {
                             this.state.newAlbums.map((item) => (
                                 <View key={item.query} style={{ alignItems: 'center' }}>
                                     <Card style={styles.cardItem} onPress={() => console.log("clicked")}>
-                                        <Card.Cover source={{ uri: item.image }} style={styles.photo} />
+                                        <FastImage source={{ uri: item.image }} style={styles.photo} />
                                         <Card.Content>
                                             <Paragraph style={{ flexWrap: 'wrap' }} numberOfLines={1}>{item.title}</Paragraph>
                                         </Card.Content>
@@ -166,7 +182,7 @@ class MainScreen extends React.Component {
                             this.state.topAlbums.map((item, index) => (
                                 <View key={index.toString()} style={{ alignItems: 'center' }}>
                                     <Card style={styles.cardItem} onPress={() => console.log("clicked")}>
-                                        <Card.Cover source={{ uri: item.image[3]['#text'] }} style={styles.photo} />
+                                        <FastImage source={{ uri: item.image[3]['#text'] }} style={styles.photo} />
                                         <Card.Content>
                                             <Paragraph style={{ flexWrap: 'wrap' }} numberOfLines={1}>{item.name}</Paragraph>
                                             <Caption numberOfLines={1}>{item.artist.name}</Caption>
@@ -195,7 +211,7 @@ class MainScreen extends React.Component {
                             this.state.topTracks.map((item, index) => (
                                 <View key={index.toString()} style={styles.cardWrapper}>
                                     <Card style={styles.napsterCard} onPress={() => navigate('Music', { albumId: item.albumId })}>
-                                        <Card.Cover source={{ uri: `http://direct.rhapsody.com/imageserver/v2/albums/${item.albumId}/images/300x300.jpg` }} style={styles.photo} />
+                                        <FastImage source={{ uri: `http://direct.rhapsody.com/imageserver/v2/albums/${item.albumId}/images/300x300.jpg` }} style={styles.photo} />
                                     </Card>
                                     <Paragraph style={{ flexWrap: 'wrap' }} numberOfLines={1}>{item.name}</Paragraph>
                                     <Caption numberOfLines={1}>{item.artistName}</Caption>
@@ -204,17 +220,35 @@ class MainScreen extends React.Component {
                         }
                     />
 
+                    <TitleContainer text="Billboard Hot 100" data={this.state.charts} />
+                    <HorizontalScrollViewContainer
+                        children={
+                            this.state.hot100.map(item => (
+                                <View key={item.id} style={{ alignItems: 'center' }}>
+                                    <Card style={{ width: 86, height: 86, margin: 4 }} onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}>
+                                        {/* <Card.Cover source={{ uri: item.artwork }} style={styles.photo} /> */}
+                                        <FastImage source={{ uri: item.artwork }} style={styles.photo} />
+                                    </Card>
+                                    <Paragraph numberOfLines={1}>{item.title}</Paragraph>
+                                </View>
+                            ))
+                        }
+                    />
+
                     <TitleContainer text="Top Kannada" data={this.state.charts} />
-                    <HorizontalScrollViewContainer>
-                        {this.state.topKannada.map((item) => (
-                            <View key={item.toString()} style={{ alignItems: 'center' }}>
-                                <Card style={styles.saavanCard} onPress={() => console.log("clicked")}>
-                                    <Card.Cover source={{ uri: item.image }} style={styles.photo} />
-                                </Card>
-                                <Paragraph style={{ flexWrap: 'wrap' }} numberOfLines={1}>{item.Name}</Paragraph>
-                            </View>
-                        ))}
-                    </HorizontalScrollViewContainer> */}
+                    <HorizontalScrollViewContainer
+                        children={
+                            this.state.topKannada.map(item => (
+                                <View key={item.toString()} style={{ alignItems: 'center' }}>
+                                    <Card style={styles.cardItem} onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}>
+                                        {/* <Card.Cover source={{ uri: item.artwork }} style={styles.photo} /> */}
+                                        <FastImage source={{ uri: item.artwork }} style={styles.photo} />
+                                    </Card>
+                                    <Paragraph numberOfLines={1}>{item.album}</Paragraph>
+                                </View>
+                            ))
+                        }
+                    />
 
 
                 </View>
@@ -229,7 +263,8 @@ const mapStateToProps = state => ({
     topArtists: state.dashboard.topArtists,
     charts: state.dashboard.charts,
     newAlbums: state.dashboard.newAlbums,
-    topKannada: state.dashboard.topKannada
+    topKannada: state.dashboard.topKannada,
+    hot100: state.dashboard.hot100
 });
 
 
@@ -238,7 +273,8 @@ export default connect(mapStateToProps, {
     fetchNapsterTopTracks,
     fetchNapsterTopArtists,
     fetchJioSavanData,
-    fetchKannadaTopSongs
+    fetchKannadaTopSongs,
+    fetchBillboardHot100
 })(withTheme(MainScreen))
 
 const styles = StyleSheet.create({

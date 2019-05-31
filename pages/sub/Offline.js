@@ -24,7 +24,6 @@ class OfflineMedia extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.files) {
-            console.log("files", nextProps.files);
             this.setState({ files: nextProps.files });
         }
     }
@@ -38,7 +37,7 @@ class OfflineMedia extends React.Component {
         
 
         const { files } = this.state;
-        // console.log("offline files",files);
+
         return (
             <View style={{ flex: 1, backgroundColor: background }}>
                 <FlatList

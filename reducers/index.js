@@ -25,7 +25,8 @@ const DASHBOARD_STATE = {
   charts: [],
   genres: [],
   newAlbums: [],
-  topKannada: []
+  topKannada: [],
+  hot100: []
 }
 
 const SETTINGS_STATE = {
@@ -38,7 +39,8 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         result: "success",
-        files: _.concat(action.payload,state.files)
+        files: _.concat(action.payload,state.files),
+        result: `${action.payload.title} downloaded successfully`
       }
 
     case 'OFFLINE':
@@ -48,11 +50,11 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
       }
      
     case 'PLAY':
-      console.log(_.uniq(_.concat(state.queue, action.payload)))
         return {
           ...state,
           active: action.payload,
-          queue: _.uniq(_.concat(state.queue, action.payload))
+          queue: _.uniq(_.concat(state.queue, action.payload)),
+          result: `Playing ${action.payload.title}`
         }
       
     case 'ACTIVE_TRACK_UPDATE':
@@ -65,7 +67,8 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           active: _.head(action.payload),
-          queue: action.payload
+          queue: action.payload,
+          result: `Added ${_.size(action.payload)} songs to queue`
         }
       }
       return {
@@ -77,7 +80,8 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           queue: action.payload,
-          active: {}
+          active: {},
+          result: "Queue cleared"
         }
     default:
       return state;
@@ -158,6 +162,11 @@ const dashboardReducer = (state = DASHBOARD_STATE, action) => {
       return {
         ...state,
         topKannada: action.payload
+      }
+    case 'HOT_100':
+      return {
+        ...state,
+        hot100: action.payload
       }
     default:
       return state;

@@ -4,7 +4,6 @@ import _ from 'lodash';
 import * as RNFS from 'react-native-fs'; 
 
 export const updateQuery = (query) => dispatch => {
-  console.log("In Action", query)
   dispatch({
     type: 'UPDATE_QUERY',
     payload: query
@@ -57,15 +56,17 @@ export const downloadMedia = (item) => dispatch => {
 
 export const getOfflineMedia =  () => dispatch => {
   RNFS.readdir(RNFS.DocumentDirectoryPath).then(files => {
-    console.log(files);
     let response = []
     _.forEach(files, function (value) {
       if (_.endsWith(value, 'mp3')){
-        response.push({
-          title: value.split('.')[0],
-          url: RNFS.DocumentDirectoryPath + '/' + value,
-          artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
-          artist: "Serenity"
+        RNFS.exists(RNFS.DocumentDirectoryPath + '/' + value).then(() => {
+          response.push({
+            id: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
+            title: value.split('.')[0],
+            url: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
+            artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
+            artist: "Serenity"
+          })
         })
       }
     });
@@ -77,66 +78,6 @@ export const getOfflineMedia =  () => dispatch => {
   .catch (err => {
     console.log(err.message, err.code);
   });
-  // const path = FileSystem.documentDirectory + 'music/'
-  // try {
-  //   FileSystem.getInfoAsync(path).then(({ exists }) => {
-  //     if (!exists) {
-  //       FileSystem.makeDirectoryAsync(path);
-  //       console.log("directory does not exists")
-  //       dispatch({
-  //         type: 'OFFLINE',
-  //         payload: []
-  //       })
-  //     }
-  //     else {
-  //       let files = []
-  //       FileSystem.readDirectoryAsync(path)
-  //       .then((folders) => {
-
-  //         if(folders){
-  //           folders.forEach(function (folder) {
-  //             FileSystem.getInfoAsync(path + '/' + folder).then(({ isDirectory }) => {
-  //               if (isDirectory) {
-  //                 FileSystem.readDirectoryAsync(path + '/' + folder)
-  //                   .then((res) => {
-  //                     var media = {}
-  //                     media['id'] = folder;
-  //                     res.forEach(function (file) {
-  //                       let fileData = file.split('.')
-  //                       let ext = fileData[1]
-  //                       media['title'] = fileData[0];
-  //                       media['description'] = "No Description"
-  //                       if (ext == "mp3") {
-  //                         media['url'] = path + '/' + file
-  //                       }
-  //                       else if (ext == "png") {
-  //                         media['img'] = path + '/' + file
-  //                       }
-  //                     });
-  //                     files.push(media)
-  //                   })
-  //                   .catch((error) => {
-  //                     console.log(error)
-  //                   })
-  //               }
-  //             })
-  //           })
-  //           setTimeout(function(){
-  //             console.log("files", files)
-  //             dispatch({
-  //               type: 'OFFLINE',
-  //               payload: files
-  //             })
-  //           }, 3000)
-            
-  //         }
-  //       })
-  //     }
-  //   })
-  // }
-  // catch(error){
-  //   console.log(error)
-  // }
 }
 
 export const previousMedia = () => dispatch => {
@@ -152,29 +93,40 @@ export const nextMedia = () => dispatch => {
 }
 
 export const playMedia = (item) => dispatch => {
-  TrackPlayer.getCurrentTrack().then((trackId) => {
-    if (trackId != item.id) {
-      TrackPlayer.skip(item.id).then(() => {
-        TrackPlayer.play();
-        dispatch({
-          type: 'PLAY',
-          payload: item
+  if(item){
+    TrackPlayer.getCurrentTrack().then((trackId) => {
+      if (trackId != item.id) {
+        TrackPlayer.skip(item.id).then(() => {
+          TrackPlayer.play();
+          dispatch({
+            type: 'PLAY',
+            payload: item
+          })
         })
-      })
-      .catch((error) => {
-        console.log("got error in play action",error)
-        TrackPlayer.add(item);
-        TrackPlayer.play();
-        dispatch({
-          type: 'PLAY',
-          payload: item
-        })
-      })
-    }
-  })
-  .catch((error) => {
-    console.log("error in getting the current track",error)
-  }) 
+          .catch((error) => {
+            console.log("got error in play action", error)
+            TrackPlayer.add(item).then(() => {
+              TrackPlayer.skip(item.id)
+              .then(() => {
+                TrackPlayer.play();
+                dispatch({
+                  type: 'PLAY',
+                  payload: item
+                })
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+            })
+          })
+      }
+    })
+    .catch((error) => {
+      console.log("error in getting the current track", error)
+    }) 
+  }else {
+    console.log("no item",item);
+  }
 }
 
 
@@ -182,7 +134,7 @@ export const playMedia = (item) => dispatch => {
 export const addToQueue = (song) => dispatch => {
   TrackPlayer.getQueue().then((queue) => {
     let update = _.difference(song,queue);
-    if(update){
+    if(!_.isEmpty(update)){
       TrackPlayer.add(update);
       TrackPlayer.play();
       dispatch({
@@ -307,47 +259,62 @@ export const fetchNapsterTopArtists = () => dispatch => {
 }
 
 export const fetchJioSavanData = (type) => dispatch => {
-  console.log("executing jio saavan api");
-  fetch('https://www.jiosaavn.com/api.php?__call=content.getHomepageData')
-    .then((response) => response)
+  try {
+    console.log("executing jio saavan api");
+    fetch('https://www.jiosaavn.com/api.php?__call=content.getHomepageData')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson)
+        let response = responseJson._bodyInit.split("-->")[1]
+        responseJson = JSON.parse(response.trim())
+        if (type === "genres") {
+          dispatch({
+            type: 'JIO_SAVAN_GENRES',
+            payload: responseJson.genres
+          })
+        }
+        else if (type === "charts") {
+          dispatch({
+            type: 'JIO_SAVAN_CHARTS',
+            payload: responseJson.charts
+          })
+        }
+        else if (type === "new_albums") {
+          dispatch({
+            type: 'JIO_SAVAN_NEW_ALBUMS',
+            payload: responseJson.new_albums
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const fetchKannadaTopSongs = () => dispatch => {
+  fetch('http://192.168.0.11:5000/api/songs/top/week')
+    .then((response) => response.json())
     .then((responseJson) => {
-      let response = responseJson._bodyInit.split("-->")[1]
-      responseJson = JSON.parse(response.trim())
-      if (type === "genres") {
-        dispatch({
-          type: 'JIO_SAVAN_GENRES',
-          payload: responseJson.genres
-        })
-      }
-      else if (type === "charts") {
-        dispatch({
-          type: 'JIO_SAVAN_CHARTS',
-          payload: responseJson.charts
-        })
-      }
-      else if (type === "new_albums") {
-        dispatch({
-          type: 'JIO_SAVAN_NEW_ALBUMS',
-          payload: responseJson.new_albums
-        })
-      }
-
-
+      dispatch({
+        type: 'TOP_KANNADA',
+        payload: responseJson
+      })
     })
     .catch((error) => {
       console.error(error);
     });
 }
 
-export const fetchKannadaTopSongs = () => dispatch => {
-  console.log("executing kannada top songs api");
-  fetch('http://yajana.pythonanywhere.com/api/songs/top/week')
-    .then((response) => response)
+export const fetchBillboardHot100 = () => dispatch => {
+  fetch('http://192.168.0.11:5000/api/songs/top/billboard')
+    .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson)
       dispatch({
-        type: 'TOP_KANNADA',
-        payload: responseJson
+        type: 'HOT_100',
+        payload: responseJson.entries
       })
     })
     .catch((error) => {

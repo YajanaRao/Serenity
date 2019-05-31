@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { withTheme, Caption, Surface } from "react-native-paper";
+import React from 'react';
+import { withTheme, Caption, ProgressBar } from "react-native-paper";
 import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { ProgressComponent } from 'react-native-track-player';
 
-class ProgressBar extends ProgressComponent {
+
+class Progress extends ProgressComponent {
 
     formatTime = (seconds) => {
         const ss = Math.floor(seconds) % 60;
@@ -23,24 +24,24 @@ class ProgressBar extends ProgressComponent {
 
     render() {
 
-        const { colors } = this.props.theme
+        // const { colors } = this.props.theme
         const position = this.formatTime(Math.floor(this.state.position));
         const duration = this.formatTime(Math.floor(this.state.duration));
         const info = position + ' / ' + duration;
-
-        let progress = this.getProgress() * 100;
-        let buffered = this.getBufferedProgress() * 100;
-        buffered -= progress;
-        if (buffered < 0) buffered = 0;
+        // let progress = this.getProgress() * 100;
+        // let buffered = this.getBufferedProgress() * 100;
+        // buffered -= progress;
+        // if (buffered < 0) buffered = 0;
 
         return (
             <View style={styles.view}>
-                <TouchableWithoutFeedback>
+                {/* <TouchableWithoutFeedback>
                     <Surface style={styles.bar}>
                         <View style={[{ width: progress + '%', backgroundColor:  colors.primary }, styles.played]} />
                         <View style={[{ width: buffered + '%', backgroundColor: colors.accent }, styles.buffered]} />
                     </Surface>
-                </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback> */}
+                <ProgressBar progress={this.getProgress()} style={{ width: 300 }} />
                 <Caption style={styles.info}>{info}</Caption>
             </View>
         );
@@ -48,7 +49,7 @@ class ProgressBar extends ProgressComponent {
 
 }
 
-export default withTheme(ProgressBar)
+export default withTheme(Progress)
 
 const styles = StyleSheet.create({
     view: {
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     info: {
-        margin: 8
+        margin: 4
     },
     bar: {
         height: 5,

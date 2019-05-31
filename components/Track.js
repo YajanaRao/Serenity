@@ -9,6 +9,7 @@ import SwiperContainer from '../containers/SwiperContainer';
 import { playMedia, addToQueue } from '../actions';
 import Love from './Love';
 
+
 const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental &&
@@ -73,9 +74,9 @@ class Track extends Component {
                         item={track}
                         title={track.title}
                         description={track.artist}
-                        // left={props => (
-                        //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                        // )}
+                        left={props => (
+                            <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
+                        )}
                         right={props => this.renderRightIcon(props)}
                         onPress={() => this.play()}
                     />
