@@ -3,6 +3,7 @@ package com.serenity;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.cinder92.musicfiles.RNReactNativeGetMusicFilesPackage;
 import com.rnfs.RNFSPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.guichaguri.trackplayer.TrackPlayer;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNReactNativeGetMusicFilesPackage(),
             new RNFSPackage(),
             new FastImageViewPackage(),
             new TrackPlayer(),

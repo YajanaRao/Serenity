@@ -13,6 +13,7 @@ import MainScreen from './sub/Main';
 import AlbumScreen from './sub/Album';
 import MusicScreen from './sub/Music';
 import NetworkContainer from '../containers/NetworkContainer'
+import NavBar from '../components/NavBar';
 
 
 class MediaScreen extends React.Component {
@@ -33,16 +34,13 @@ class MediaScreen extends React.Component {
 
   render() {
 
-    const {
-      theme: {
-        colors: { background },
-      },
-    } = this.props;
+    const { colors } = this.props.theme;
 
 
     return (
-      <View style={{ flex: 1, backgroundColor: background }}>
-        <Nav />
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <NavBar style={{ backgroundColor: colors.primary }}/>
+        <Navigator />
         <Player/>
         <Snackbar
           style={{ marginBottom: 60 }}
@@ -91,7 +89,7 @@ class HomeScreen extends React.Component {
 
 
 
-const Nav = createAppContainer(createMaterialTopTabNavigator({
+const Navigator = createAppContainer(createMaterialTopTabNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {

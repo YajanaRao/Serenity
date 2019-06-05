@@ -2,6 +2,7 @@ import { DarkTheme, DefaultTheme } from 'react-native-paper';
 import TrackPlayer from 'react-native-track-player';
 import _ from 'lodash';
 import * as RNFS from 'react-native-fs'; 
+import MusicFiles from 'react-native-get-music-files';
 
 export const updateQuery = (query) => dispatch => {
   dispatch({
@@ -55,29 +56,82 @@ export const downloadMedia = (item) => dispatch => {
 }
 
 export const getOfflineMedia =  () => dispatch => {
-  RNFS.readdir(RNFS.DocumentDirectoryPath).then(files => {
-    let response = []
-    _.forEach(files, function (value) {
-      if (_.endsWith(value, 'mp3')){
-        RNFS.exists(RNFS.DocumentDirectoryPath + '/' + value).then(() => {
-          response.push({
-            id: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
-            title: value.split('.')[0],
-            url: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
-            artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
-            artist: "Serenity"
-          })
+  let response = []
+  MusicFiles.getAll({
+    // blured: false, // works only when 'cover' is set to true
+    artist: true,
+    duration: true, //default : true
+    cover: true, //default : true,
+    genre: true,
+    title: true,
+    cover: true,
+    // minimumSongDuration: 10000, // get songs bigger than 10000 miliseconds duration,
+    fields: ['title', 'albumTitle', 'genre', 'lyrics', 'artwork', 'duration'] // for iOs Version
+  }).then(tracks => {
+    if(_.isArray(tracks)){
+      _.forEach(tracks, function (track) {
+        if(!track.title){
+          track.title = track.fileName.split('.')[0];
+        }
+        if(!track.album){
+          track.album = "Local files"
+        }
+        if(!track.artist){
+          if (!track.author){
+            track.artist = "Unknown artist"
+          }else {
+            track.artist = track.author
+          }
+        }
+        if(!track.cover){
+          track.cover = "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png"
+        }
+        response.push({
+          id: `file:/${track.path}`,
+          title: track.title,
+          url: `file://${track.path}`,
+          album: track.album,
+          artwork: track.cover,
+          artist: track.artist
         })
-      }
-    });
+      })
+    }
     dispatch({
       type: 'OFFLINE',
       payload: response
     })
+}).catch((error) => {
+  console.log(error)
+  dispatch({
+    type: 'OFFLINE',
+    payload: []
   })
-  .catch (err => {
-    console.log(err.message, err.code);
-  });
+})
+  
+
+  // RNFS.readdir(RNFS.DocumentDirectoryPath).then(files => {
+  //   let response = []
+  //   _.forEach(files, function (value) {
+  //     if (_.endsWith(value, 'mp3')){
+  //       RNFS.exists(RNFS.DocumentDirectoryPath + '/' + value).then(() => {
+  //         response.push({
+  //           id: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
+  //           title: value.split('.')[0],
+  //           url: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
+  //           artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
+  //           artist: "Serenity"
+  //         })
+  //       })
+  //     }
+  //   });
+  //   dispatch({
+  //     type: 'OFFLINE',
+  //     payload: response
+  //   })
+  // })
+  // .catch (err => {
+  //   console.log(err.message, err.code);
+  // });
 }
 
 export const previousMedia = () => dispatch => {
@@ -104,7 +158,7 @@ export const playMedia = (item) => dispatch => {
           })
         })
           .catch((error) => {
-            console.log("got error in play action", error)
+            console.log("got error in play action", error);
             TrackPlayer.add(item).then(() => {
               TrackPlayer.skip(item.id)
               .then(() => {
@@ -116,6 +170,9 @@ export const playMedia = (item) => dispatch => {
               })
               .catch((error) => {
                 console.log(error)
+                dispatch({
+                  type: 'NEXT'
+                })
               })
             })
           })

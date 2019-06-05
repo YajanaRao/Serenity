@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { IconButton, Colors, withTheme } from 'react-native-paper';
+import { IconButton, withTheme } from 'react-native-paper';
 class Love extends Component {
     state = {
         selected: false
@@ -19,7 +19,7 @@ class Love extends Component {
                         animated={true}
                         icon="favorite"
                         onPress={() => this.setState(prev => ({ selected: !prev.selected }))}
-                        color={Colors.red500}
+                        color={colors.error}
                     />
                     :
                     <IconButton

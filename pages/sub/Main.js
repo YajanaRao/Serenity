@@ -88,13 +88,13 @@ class MainScreen extends React.Component {
 
     apiRequests = () => {
         if (!this.state.isLoaded) {
-            this.props.fetchTopAlbums();
-            this.props.fetchNapsterTopTracks();
-            this.props.fetchNapsterTopArtists();
+            // this.props.fetchTopAlbums();
+            // this.props.fetchNapsterTopTracks();
+            // this.props.fetchNapsterTopArtists();
             // this.props.fetchJioSavanData("charts");
             // this.props.fetchJioSavanData("new_albums");
-            this.props.fetchKannadaTopSongs();
-            this.props.fetchBillboardHot100();
+            // this.props.fetchKannadaTopSongs();
+            // this.props.fetchBillboardHot100();
             this.setState({
                 isLoaded: true
             })

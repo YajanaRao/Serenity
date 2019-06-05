@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withTheme, Surface, List } from 'react-native-paper';
-import { StyleSheet, NativeModules, LayoutAnimation } from 'react-native';
+import { StyleSheet, NativeModules, LayoutAnimation, View } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash'
 import FastImage from 'react-native-fast-image'
@@ -67,9 +67,11 @@ class Track extends Component {
         if (this.state.hide && track) {
             return false
         }
+
+        const { colors } = this.props.theme;
         return (
             <SwiperContainer close={() => this.close()}>
-                <Surface style={styles.surface}>
+                <View style={[styles.surface, { backgroundColor: colors.background }]}>
                     <List.Item
                         item={track}
                         title={track.title}
@@ -80,7 +82,7 @@ class Track extends Component {
                         right={props => this.renderRightIcon(props)}
                         onPress={() => this.play()}
                     />
-                </Surface>
+                </View>
             </SwiperContainer>
         );
     }

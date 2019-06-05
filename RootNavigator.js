@@ -35,6 +35,7 @@ const AppNavigator = createDrawerNavigator(
     }
   },{
     drawerWidth: Dimensions.get('window').width - 120, 
+    // drawerType: "slide",
     contentComponent: () => (
       <PreferencesContext.Consumer>
         {preferences => (

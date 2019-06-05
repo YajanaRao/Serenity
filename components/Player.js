@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Modal, TouchableOpacity, StyleSheet } from "react-native";
+import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import Modal from 'react-native-modal';
 import { Subheading, FAB, withTheme, ActivityIndicator, IconButton, Title, Divider } from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -81,55 +82,50 @@ class Player extends Component {
         }
         if(nextProps.active) {
             this.setState({
-                active: nextProps.active
+                active: nextProps.active,
+                isMounted: true
             })
         }
     }
 
-    // updateTrack = () => {
-    //     TrackPlayer.getCurrentTrack()
-    //     .then((trackId) => {
-    //         if (trackId) {
-    //             TrackPlayer.getTrack(trackId)
-    //             .then((track) => {
-    //                 if (track) {
-    //                     this.setState({
-    //                         title: track.title,
-    //                         artist: track.artist,
-    //                         img: { uri: track.artwork },
-    //                     })
-    //                 }
-    //             })
-    //         }
-    //     })
-        
-    // }
-
     updateTrackStatus = (data) => {
-        if(data){
-            if (data.state == 3) {
-                this.setState({
-                    isPlaying: true,
-                    isLoading: false
-                })
-            }
-            else if (data.state == 2) {
-                this.setState({
-                    isPlaying: false,
-                    isLoading: false
-                })
-            }
-            else if (data.state == 6) {
-                this.setState({
-                    isLoading: true,
-                    isPlaying: false
-                })
-            }
-            else {
-                this.setState({
-                    isPlaying: false,
-                    isLoading: false
-                })
+        if(this.state.isMounted){
+            if (data) {
+                if (data.state == 3) {
+                    this.setState({
+                        isPlaying: true,
+                        isLoading: false
+                    })
+                }
+                else if (data.state == 2) {
+                    this.setState({
+                        isPlaying: false,
+                        isLoading: false
+                    })
+                }
+                else if (data.state == 6) {
+                    this.setState({
+                        isLoading: true,
+                        isPlaying: false
+                    })
+                }
+                else {
+                    this.setState({
+                        isPlaying: false,
+                        isLoading: false
+                    })
+                    TrackPlayer.getCurrentTrack().then((currentTrack) => {
+                        if (currentTrack == null) {
+                            TrackPlayer.reset();
+                            this.setState({
+                                isMounted: false
+                            })
+                        } else {
+                            this.skipToNext();
+                        }
+                    })
+
+                }
             }
         }
     }
@@ -138,6 +134,9 @@ class Player extends Component {
         try {
             TrackPlayer.skipToNext().then(() => {
                 TrackPlayer.play();
+            })
+            .catch((error) => {
+                console.log(error)
             })
         } catch (error) {
             console.log(error);
@@ -190,22 +189,45 @@ class Player extends Component {
         })
     }
 
+    handleOnScroll = event => {
+        this.setState({
+            scrollOffset: event.nativeEvent.contentOffset.y,
+        });
+    };
+
+    handleScrollTo = p => {
+        if (this.scrollViewRef) {
+            this.scrollViewRef.scrollTo(p);
+        }
+    };
+
     render() {
 
         const { colors } = this.props.theme;
 
-        if(!_.isEmpty(this.state.active)){
+        if(!_.isEmpty(this.state.active) && this.state.isMounted){
             return (
                 <View>
                     <Modal
-                    animationType={'slide'}
-                    transparent={false}
-                    visible={this.state.modalVisible}
-                    presentationStyle={"fullScreen "}
-                    onRequestClose={() => {
-                        this.setModalVisible(false);
-                    }}>
-                    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+                        propagateSwipe
+                        isVisible={this.state.modalVisible}
+                        coverScreen={true}
+                        swipeDirection="down"
+                        onSwipeComplete={() => this.setModalVisible(false)}
+                        useNativeDriver={true}
+                        scrollTo={this.handleScrollTo}
+                        scrollOffset={this.state.scrollOffset}
+                        style={{ margin: 0 }}
+                        scrollOffsetMax={400 - 300} // content height - ScrollView height
+                        useNativeDriver={true}
+						hideModalContentWhileAnimating={true}
+                   >
+                    <ScrollView 
+                        style={{ flex: 1, backgroundColor: colors.background }}
+                        ref={ref => (this.scrollViewRef = ref)}
+                        onScroll={this.handleOnScroll}
+                        scrollEventThrottle={16}
+                    >
                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', zIndex: 1 }}>
                             <IconButton
                                 icon="close"
@@ -237,8 +259,7 @@ class Player extends Component {
                             />
                         </View>
                         <View style={{ alignItems: 'center', justifyContent: 'center', margin: 16 }}>
-                                { this.state.isMounted ? <ProgressBar /> : false } 
-                               
+                            <ProgressBar />  
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 12 }}>
                             <IconButton

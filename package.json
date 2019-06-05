@@ -13,6 +13,8 @@
     "react-native-fast-image": "^6.0.1",
     "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.2.1",
+    "react-native-get-music-files": "^2.1.0",
+    "react-native-modal": "^11.0.1",
     "react-native-paper": "^2.15.2",
     "react-native-track-player": "^1.1.4",
     "react-native-vector-icons": "^6.4.2",

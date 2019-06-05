@@ -1,12 +1,12 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Surface, Divider, List } from 'react-native-paper';
+import { withTheme, Divider } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 
 import { getOfflineMedia } from '../../actions';
-import SwiperContainer from '../../containers/SwiperContainer';
 import Track from '../../components/Track'
+import { PermissionsAndroid } from 'react-native';
 
 class OfflineMedia extends React.Component {
     constructor(props) {
@@ -16,10 +16,31 @@ class OfflineMedia extends React.Component {
         }
     }
     
-
-    componentDidMount() {
-        this.props.getOfflineMedia();
-        
+    //  primary: '#3498db',
+    // accent: '#f1c40f',
+    async componentDidMount() {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+                {
+                    title: 'Serenity App READ_EXTERNAL_STORAGE Permission',
+                    message:
+                        'Serenity App needs access to your READ_EXTERNAL_STORAGE ' +
+                        'so you can take play offline songs.',
+                    buttonNeutral: 'Ask Me Later',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                },
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log('You can use the READ_EXTERNAL_STORAGE');
+                this.props.getOfflineMedia();
+            } else {
+                console.log('READ_EXTERNAL_STORAGE permission denied');
+            }
+        } catch (err) {
+            console.warn(err);
+        }       
     }
 
     componentWillReceiveProps(nextProps) {

@@ -149,6 +149,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-get-music-files')
     implementation project(':react-native-fs')
     implementation project(':react-native-fast-image')
     implementation project(':react-native-track-player')
