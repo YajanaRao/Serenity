@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-import Modal from 'react-native-modal';
+import { View, ScrollView, TouchableOpacity, StyleSheet, Modal } from "react-native";
 import { Subheading, FAB, withTheme, ActivityIndicator, IconButton, Title, Divider } from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -38,7 +37,7 @@ class Player extends Component {
                         TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
                         TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
                         TrackPlayer.CAPABILITY_SKIP
-                    ]
+                    ],
                 });
             })
             this._onStateChanged = TrackPlayer.addEventListener('playback-state', async (data) => {
@@ -87,6 +86,16 @@ class Player extends Component {
             })
         }
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.props.queue !== nextProps.queue) {
+    //         return true;
+    //     }
+    //     if (this.props.active !== nextProps.active) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     updateTrackStatus = (data) => {
         if(this.state.isMounted){
@@ -189,18 +198,6 @@ class Player extends Component {
         })
     }
 
-    handleOnScroll = event => {
-        this.setState({
-            scrollOffset: event.nativeEvent.contentOffset.y,
-        });
-    };
-
-    handleScrollTo = p => {
-        if (this.scrollViewRef) {
-            this.scrollViewRef.scrollTo(p);
-        }
-    };
-
     render() {
 
         const { colors } = this.props.theme;
@@ -209,25 +206,17 @@ class Player extends Component {
             return (
                 <View>
                     <Modal
-                        propagateSwipe
-                        isVisible={this.state.modalVisible}
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            this.setModalVisible(false);
+                        }}
                         coverScreen={true}
-                        swipeDirection="down"
-                        onSwipeComplete={() => this.setModalVisible(false)}
-                        useNativeDriver={true}
-                        scrollTo={this.handleScrollTo}
-                        scrollOffset={this.state.scrollOffset}
-                        style={{ margin: 0 }}
-                        scrollOffsetMax={400 - 300} // content height - ScrollView height
-                        useNativeDriver={true}
-						hideModalContentWhileAnimating={true}
+                        onDismiss={() => this.setModalVisible(false)}
+                        presentationStyle="fullScreen"
                    >
-                    <ScrollView 
-                        style={{ flex: 1, backgroundColor: colors.background }}
-                        ref={ref => (this.scrollViewRef = ref)}
-                        onScroll={this.handleOnScroll}
-                        scrollEventThrottle={16}
-                    >
+                    <ScrollView style={{ backgroundColor: colors.background }}>
                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', zIndex: 1 }}>
                             <IconButton
                                 icon="close"
@@ -302,14 +291,14 @@ class Player extends Component {
                 </Modal>
                 <TouchableOpacity
                     activeOpacity={0.9}
-                    style={{ zIndex: 10, position: 'absolute', height: 60, width: '100%', bottom: 0 }}
+                    style={{  height: 60, width: '100%' }}
                     onPress={() => {
                         this.setModalVisible(true);
                     }}>
                     <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
                             {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4 }} /> : false }
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Subheading numberOfLines={1}>{this.state.active.title}</Subheading>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 4 }}>
+                            <Title numberOfLines={1}>{this.state.active.title}</Title>
                         </View>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'center', width: 50 }}>
                             {this.state.isLoading ?
@@ -320,6 +309,7 @@ class Player extends Component {
                                     animated={true}
                                     size={34}
                                     onPress={this.togglePlayback}
+                                    style={{ margin: 0, padding: 0 }}
                                 />
                             }
                         </View>
@@ -350,7 +340,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         padding: 8,
-        elevation: 8
+        elevation: 0
     },
     container: {
         justifyContent: 'center', 

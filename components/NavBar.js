@@ -15,7 +15,7 @@ class NavBar extends React.PureComponent {
             // titleStyle={{ textAlign: 'center' }}
             title="Serenity"
           />
-        <Appbar.Action icon="more-vert" onPress={this._onMore} />
+        {/* <Appbar.Action icon="more-vert" onPress={this._onMore} /> */}
         </Appbar.Header>
   
     );
