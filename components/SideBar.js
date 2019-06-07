@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { NavigationActions, withNavigation } from 'react-navigation';
 import {ScrollView,  View, StyleSheet, Platform} from 'react-native';
 import {  Drawer, withTheme, Switch, TouchableRipple, Text } from 'react-native-paper';
@@ -10,7 +10,7 @@ const DrawerItemsData = [
   { label: 'Profile', icon: 'account-circle', key: 'Profile' },
 ];
 
-class SideMenu extends Component {
+class SideMenu extends React.PureComponent {
   navigateToScreen = (route) => {
     const navigateAction = NavigationActions.navigate({
       routeName: route

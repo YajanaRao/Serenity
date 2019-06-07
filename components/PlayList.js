@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IconButton, Divider, Headline, withTheme, Button, Card } from 'react-native-paper';
+import { IconButton, Divider, Headline, withTheme, Button, Card, Title } from 'react-native-paper';
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import Track from './Track';
 import FastImage from 'react-native-fast-image';
@@ -14,6 +14,7 @@ class Songs extends Component {
         header: null
     };
 
+
     render() {
 
         const { navigation } = this.props;
@@ -22,23 +23,17 @@ class Songs extends Component {
         const albumImage = navigation.getParam('img', 'https://facebook.github.io/react-native/docs/assets/favicon.png');
         const title = navigation.getParam('title', 'No Title');
 
-        const {
-            theme: {
-                colors: { background },
-            },
-        } = this.props;
-
        
-
+        const { colors } = this.props.theme; 
        
              // contentContainerStyle={{ paddingTop: Header_Maximum_Height }}
         return (
-            <View style={[styles.container, { backgroundColor: background }]}>
+            <View style={[styles.container, { backgroundColor: colors.background }]}>
                 <View
                     style={[
                         styles.bar,
                         {
-                            backgroundColor: background
+                            backgroundColor: colors.background
                         }
                     ]}
                 >
@@ -49,7 +44,7 @@ class Songs extends Component {
                             size={30}
                         />
                     </View>
-                    {/* <Headline style={styles.title}>{title}</Headline> */}
+                    <Title style={styles.title}>{title}</Title>
                     <View style={{ zIndex: 10 }}>
                         <IconButton
                             icon="play-circle-outline"
@@ -65,10 +60,10 @@ class Songs extends Component {
                         <View style={{ justifyContent: 'center',  alignItems: 'center' }}>
                             {/* <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
                             <FastImage source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} />
-                            <Headline style={styles.title}>{title}</Headline>
+                            {/* <Headline style={styles.title}>{title}</Headline> */}
                         </View>
                       
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', flex: 1, margin: 8 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', flex: 1, margin: 16 }}>
                             <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download
                             </Button>
