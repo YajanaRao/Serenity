@@ -79,7 +79,7 @@ export const getOfflineMedia =  () => dispatch => {
           }
         }
         if(!track.cover){
-          track.cover = "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png"
+          track.cover = "https://i.ibb.co/2WV2tQd/app-icon.png"
         }
         response.push({
           id: `file:/${track.path}`,
