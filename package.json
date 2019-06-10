@@ -9,12 +9,11 @@
   "dependencies": {
     "lodash": "4.17.11",
     "react": "16.8.3",
-    "react-native": "0.59.8",
+    "react-native": "^0.59.9",
     "react-native-fast-image": "^6.0.1",
     "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.2.1",
     "react-native-get-music-files": "^2.1.0",
-    "react-native-modal": "^11.0.1",
     "react-native-paper": "^2.15.2",
     "react-native-track-player": "^1.1.4",
     "react-native-vector-icons": "^6.4.2",
@@ -27,6 +26,7 @@
     "@babel/core": "7.4.5",
     "@babel/runtime": "7.4.5",
     "babel-jest": "24.8.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.54.1",
     "react-test-renderer": "16.8.3"

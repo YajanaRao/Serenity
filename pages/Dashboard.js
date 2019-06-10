@@ -84,7 +84,7 @@ class DashboardScreen extends React.Component {
   }
 }
 
-class ModalScreen extends React.Component {
+class ModalScreen extends React.PureComponent {
 
   render() {
     const {

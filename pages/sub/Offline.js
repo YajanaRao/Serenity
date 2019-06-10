@@ -1,10 +1,11 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider } from 'react-native-paper';
+import { withTheme, Divider, Button, Title } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
+import _ from 'lodash';
 
-import { getOfflineMedia } from '../../actions';
+import { getOfflineMedia, addToQueue } from '../../actions';
 import Track from '../../components/Track'
 import { PermissionsAndroid } from 'react-native';
 
@@ -15,9 +16,14 @@ class OfflineMedia extends React.Component {
             files: []
         }
     }
+
+    shouldComponntUpdate(nextProps, nextState) {
+        if (this.props.files !== nextProps.files) {
+            return true;
+        }
+        return false;
+    }
     
-    //  primary: '#3498db',
-    // accent: '#f1c40f',
     async componentDidMount() {
         try {
             const granted = await PermissionsAndroid.request(
@@ -58,19 +64,33 @@ class OfflineMedia extends React.Component {
         
 
         const { files } = this.state;
-
-        return (
-            <View style={{ flex: 1, backgroundColor: background }}>
-                <FlatList
-                    data={files}
-                    ItemSeparatorComponent={() => <Divider />}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) =>
-                        <Track track={item} />
-                    }
-                />
-            </View>
-        );
+        if(!_.isEmpty(files)){
+            return (
+                <View style={{ flex: 1, backgroundColor: background }}>
+                   <View style={{ justifyContent: 'space-between', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
+                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(files)}>
+                            Play All
+                        </Button>
+                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(files)}>
+                            Shuffle
+                        </Button>
+                    </View>
+                    <FlatList
+                        data={files}
+                        ItemSeparatorComponent={() => <Divider />}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) =>
+                            <Track track={item} />
+                        }
+                    />
+                </View>
+            );
+          }
+          return (
+              <View style={{ flex: 1, backgroundColor: background, justifyContent: 'center', alignItems: 'center' }}>
+                  <Title>Looking for offline files</Title>
+              </View>
+          );
     }
 }
 
@@ -79,4 +99,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { getOfflineMedia })(withTheme(OfflineMedia));
+export default connect(mapStateToProps, { getOfflineMedia, addToQueue })(withTheme(OfflineMedia));
