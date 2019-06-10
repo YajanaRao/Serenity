@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 
-class DetailScreen extends Component {
+class DetailScreen extends React.PureComponent {
   render() {
     return (
       <View>

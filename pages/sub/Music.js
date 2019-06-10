@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 
 
-class MusicScreen extends React.Component {
+class MusicScreen extends React.PureComponent {
   static navigationOptions = {
     header: null
   };

@@ -1,8 +1,8 @@
 
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { withTheme, Caption, Appbar, TouchableRipple, Colors, Surface } from 'react-native-paper';
-
+import { withTheme, Caption, Portal, TouchableRipple, Colors, Surface, Divider } from 'react-native-paper';
+import Player from '../components/Player';
 
 // https://dev.to/hrastnik/lets-create-a-custom-animated-tab-bar-with-react-native-3496
 class TabBar extends React.PureComponent {
@@ -21,17 +21,20 @@ class TabBar extends React.PureComponent {
         const { routes, index: activeRouteIndex } = navigation.state;
 
         return (
-            <Surface style={{ elevation: 2 }}>
-                <Appbar.Header style={[styles.container, { backgroundColor: colors.primary }]}>
+            <Surface style={{ elevation: 4 }}>
+                <Player />
+                <Divider/>
+                {/* <Appbar.Header style={[styles.container, { backgroundColor: colors.Surface }]}> */}
+                <Surface style={[styles.container, { backgroundColor: colors.Surface }]}>
                     {routes.map((route, routeIndex) => {
                         const isRouteActive = routeIndex === activeRouteIndex;
-                        const tintColor = isRouteActive ? colors.accent : Colors.white;
+                        const tintColor = isRouteActive ? colors.primary : colors.text;
                         return (
                             <TouchableRipple
                                 key={routeIndex}
-                                style={[styles.tabButton, isRouteActive ? { borderBottomWidth: 3,  borderBottomColor: colors.accent } : false ]}
-                                rippleColor={Colors.white}
-                                underlayColor={Colors.white}
+                                style={styles.tabButton}
+                                rippleColor={Colors.primary}
+                                underlayColor={Colors.primary}
                                 borderless={true}
                                 onPress={() => {
                                     onTabPress({ route });
@@ -49,7 +52,8 @@ class TabBar extends React.PureComponent {
                             </TouchableRipple>
                         );
                     })}
-                </Appbar.Header>
+                </Surface>
+                {/* </Appbar.Header> */}
             </Surface>
            
         );
@@ -58,7 +62,8 @@ class TabBar extends React.PureComponent {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "row"
+        flexDirection: "row",
+        marginTop: 4
     },
     tabButton: { 
         flex: 1, 

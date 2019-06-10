@@ -147,7 +147,8 @@ const styles = StyleSheet.create({
     photo: {
         height: 80,
         width: '100%',
-        borderRadius: 4
+        borderRadius: 4,
+        elevation: 8
     },
     headline: {
         textAlign: 'center',

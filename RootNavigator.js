@@ -1,15 +1,10 @@
-import {
-  createDrawerNavigator,
-  createAppContainer
-} from 'react-navigation';
+import { createDrawerNavigator, createAppContainer } from 'react-navigation';
 import * as React from 'react';
 import { Dimensions } from 'react-native';
 import {
   Provider as PaperProvider,
   DarkTheme,
-  DefaultTheme,
-  ActivityIndicator, 
-  Surface
+  DefaultTheme
 } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -18,12 +13,12 @@ import ProfileScreen from './pages/Profile';
 import { updateTheme } from './actions';
 import SideMenu from './components/SideBar';
 import HomeScreen from './pages/Home'; 
+import { changeNavigationBarColor } from './containers/NavigationBar';
 
 
 const PreferencesContext = React.createContext();
 
-const AppNavigator = createDrawerNavigator(
-  {
+const AppNavigator = createDrawerNavigator({
     Home: {
       screen: HomeScreen,
     },
@@ -35,7 +30,6 @@ const AppNavigator = createDrawerNavigator(
     }
   },{
     drawerWidth: Dimensions.get('window').width - 120, 
-    // drawerType: "slide",
     contentComponent: () => (
       <PreferencesContext.Consumer>
         {preferences => (
@@ -45,9 +39,10 @@ const AppNavigator = createDrawerNavigator(
           />
         )}
       </PreferencesContext.Consumer>
-      
     )}
 );
+
+    // drawerType: "slide",
 
 const App = createAppContainer(AppNavigator);
 
@@ -57,16 +52,25 @@ class RootNavigator extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      theme: DefaultTheme,
-      isFontLoaded: false
+      theme: DefaultTheme
     };
   }
+  
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.themeType) {
-      this.setState({ theme: nextProps.themeType })
+    if (nextProps.themeType != this.state.theme) {
+        this.setState({ theme: nextProps.themeType }) 
     }
   }
+
+  changeNavBarColor = async (theme) => {
+    try {
+      const { colors, dark } = theme;
+      changeNavigationBarColor(colors.surface, !dark);
+    } catch (e) {
+    }
+
+  };
 
   _toggleTheme = () => {
     let theme = DarkTheme;
@@ -77,17 +81,12 @@ class RootNavigator extends React.Component {
       theme: theme,
     });
     this.props.updateTheme(theme);
-
+    this.changeNavBarColor(theme);
   }
     
 
-
-  async componentWillMount() {
-    // await Font.loadAsync({ 'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
-    this.setState({ isFontLoaded: true })
-  }
-
   render() {
+    // this.changeNavBarColor();
 
     return (
         <PaperProvider theme={this.state.theme}>
@@ -97,12 +96,7 @@ class RootNavigator extends React.Component {
               isDarkTheme: this.state.theme === DarkTheme,
             }}
           >
-            { this.state.isFontLoaded ?
-              <App /> :
-              <Surface style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} >
-                <ActivityIndicator animating={true} size="large"/> 
-              </Surface>
-            }
+              <App /> 
           </PreferencesContext.Provider>
         </PaperProvider>
     );

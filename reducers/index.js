@@ -91,7 +91,6 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
 const queryReducer = (state = INITIAL_QUERY, action) => {
   switch (action.type) {
     case 'UPDATE_QUERY':
-      console.log("Update query",action);
       return {
         ...state,
         query: action.payload
@@ -116,7 +115,6 @@ const themeReducer = (state = INITIAL_THEME, action) => {
 const settingsReducer = (state = SETTINGS_STATE, action) => {
   switch(action.type){
     case 'NET_INFO':
-      console.log("is connected",action.payload);
       return {
         ...state,
         isConnected: action.payload
