@@ -13,6 +13,7 @@ import ProfileScreen from './pages/Profile';
 import { updateTheme } from './actions';
 import SideMenu from './components/SideBar';
 import HomeScreen from './pages/Home'; 
+import { changeNavigationBarColor } from './containers/NavigationBar';
 
 
 const PreferencesContext = React.createContext();
@@ -54,12 +55,22 @@ class RootNavigator extends React.Component {
       theme: DefaultTheme
     };
   }
+  
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.themeType) {
+    if (nextProps.themeType != this.state.theme) {
         this.setState({ theme: nextProps.themeType }) 
     }
   }
+
+  changeNavBarColor = async (theme) => {
+    try {
+      const { colors, dark } = theme;
+      changeNavigationBarColor(colors.surface, !dark);
+    } catch (e) {
+    }
+
+  };
 
   _toggleTheme = () => {
     let theme = DarkTheme;
@@ -70,10 +81,12 @@ class RootNavigator extends React.Component {
       theme: theme,
     });
     this.props.updateTheme(theme);
+    this.changeNavBarColor(theme);
   }
     
 
   render() {
+    // this.changeNavBarColor();
 
     return (
         <PaperProvider theme={this.state.theme}>

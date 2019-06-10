@@ -31,13 +31,6 @@ class MainScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-//            topAlbums: [],
-//            topTracks: [],
-//            topArtists: [],
-//            charts: [],
-//            newAlbums: [],
-//            topKannada: [],
-//            hot100: [],
             isConnected: false,
             isLoaded: false
         }
@@ -47,54 +40,9 @@ class MainScreen extends React.Component {
         header: null
     };
 
-   
-//    componentWillReceiveProps(nextProps) {
-//        if (nextProps.topAlbums) {
-//            this.setState({
-//                topAlbums: nextProps.topAlbums
-//            })
-//        }
-//        if (nextProps.topTracks) {
-//            this.setState({
-//                topTracks: nextProps.topTracks
-//            })
-//        }
-//        if (nextProps.topArtists) {
-//            this.setState({
-//                topArtists: nextProps.topArtists
-//            })
-//        }
-//        if (nextProps.charts) {
-//            this.setState({
-//                charts: nextProps.charts
-//            })
-//        }
-//        if (nextProps.newAlbums) {
-//            this.setState({
-//                newAlbums: nextProps.newAlbums
-//            })
-//        }
-//        if(nextProps.topKannada) {
-//            this.setState({
-//                topKannada: nextProps.topKannada
-//            })
-//        }
-//        if(nextProps.hot100) {
-//            this.setState({
-//                hot100: nextProps.hot100
-//            })
-//        }
-//    }
 
     apiRequests = () => {
         if (!this.state.isLoaded) {
-            // this.props.fetchTopAlbums();
-            // this.props.fetchNapsterTopTracks();
-            // this.props.fetchNapsterTopArtists();
-            // this.props.fetchJioSavanData("charts");
-            // this.props.fetchJioSavanData("new_albums");
-            // this.props.fetchKannadaTopSongs();
-            // this.props.fetchBillboardHot100();
             this.setState({
                 isLoaded: true
             })
@@ -287,7 +235,8 @@ const styles = StyleSheet.create({
         width: null,
         height: null,
         flex: 1,
-        borderRadius: 4
+        borderRadius: 4,
+        elevation: 4
     },
     cardWrapper: {
         width: 120,

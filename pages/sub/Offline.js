@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider, Button } from 'react-native-paper';
+import { withTheme, Divider, Button, Title } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import _ from 'lodash';
@@ -86,7 +86,11 @@ class OfflineMedia extends React.Component {
                 </View>
             );
           }
-          return false;
+          return (
+              <View style={{ flex: 1, backgroundColor: background, justifyContent: 'center', alignItems: 'center' }}>
+                  <Title>Looking for offline files</Title>
+              </View>
+          );
     }
 }
 

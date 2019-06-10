@@ -58,6 +58,8 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Listening suggestions (similar artists, albums, tracks)
 
 
+Build apk by running command `react-native run-android --variant=release
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

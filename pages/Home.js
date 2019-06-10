@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -36,28 +36,28 @@ class MediaScreen extends React.Component {
   render() {
 
     const { colors } = this.props.theme;
-
-
+    
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <NavBar style={{ backgroundColor: colors.primary }}/>
+        <NavBar style={{ backgroundColor: colors.primary, elevation: 12 }}/>
+        <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
         <Snackbar
-          style={{ marginTop: 50 }}
+          style={{  top: 0, right: 0, left: 0 }}
           visible={this.state.visible}
           onDismiss={() => this.setState({ visible: false })}
-          action={{
-            label: 'Dismiss',
-            onPress: () => {
-              this.setState({
-                visible: false
-              })
-            },
-          }}
+          duration={1000}
+          // action={{
+          //   label: 'Dismiss',
+          //   onPress: () => {
+          //     this.setState({
+          //       visible: false
+          //     })
+          //   },
+          // }}
         >
           {this.state.message}
         </Snackbar>
         <Navigator />
-        {/* <Player /> */}
       </View>
 
     )
@@ -87,37 +87,6 @@ class HomeScreen extends React.PureComponent {
   }
 }
 
-
-// class BottomNavigator extends React.Component {
-//   state = {
-//     index: 0,
-//     routes: [
-//       { key: 'home', title: 'Home', icon: 'home', color: '#3F51B5'  },
-//       { key: 'search', title: 'Search', icon: 'search', color: '#009688' },
-//       { key: 'albums', title: 'Albums', icon: 'library-music', color: '#795548' },
-//       { key: 'offline', title: 'Offline', icon: 'save', color: '#607D8B' },
-//     ],
-//   };
-
-//   _handleIndexChange = index => this.setState({ index });
-
-//   _renderScene = BottomNavigation.SceneMap({
-//     home: HomeScreen,
-//     search: SearchScreen,
-//     albums: AlbumScreen,
-//     offline: OfflineMedia
-//   });
-
-//   render() {
-//     return (
-//       <BottomNavigation
-//         navigationState={this.state}
-//         onIndexChange={this._handleIndexChange}
-//         renderScene={this._renderScene}
-//       />
-//     );
-//   }
-// }
 
 const Navigator = createAppContainer(createBottomTabNavigator({
  Home: {
