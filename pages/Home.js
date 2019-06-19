@@ -36,11 +36,12 @@ class MediaScreen extends React.Component {
   render() {
 
     const { colors } = this.props.theme;
+    const { dark } = this.props.theme;
     
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <NavBar style={{ backgroundColor: colors.primary, elevation: 12 }}/>
-        <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
+        <NavBar style={{ backgroundColor: colors.surface, elevation: 4 }}/>
+        <StatusBar backgroundColor={colors.surface} barStyle={ dark ? "light-content" : "dark-content" } />
         <Snackbar
           style={{  top: 0, right: 0, left: 0 }}
           visible={this.state.visible}

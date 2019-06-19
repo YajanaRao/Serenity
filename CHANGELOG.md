@@ -13,3 +13,11 @@
 1. Layout animation in Track for removing an item from list - (Not Stable)
 2. Working on player animation 
     * Resolving the issue with player to minimize and maxize performance and handling player component hiding.
+
+
+## 13 June 2019
+
+1. Home screen ( Drawer Navigator )
+2. Bottom tab navigator
+3. Stack Navigator
+

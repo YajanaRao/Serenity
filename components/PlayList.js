@@ -6,7 +6,7 @@ import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 
 import { addToQueue } from '../actions';
-
+import NavBar from './NavBar';
 
 class Songs extends Component {
 
@@ -59,7 +59,7 @@ class Songs extends Component {
                     <View style={styles.scrollViewContent}>
                         <View style={{ justifyContent: 'center',  alignItems: 'center' }}>
                             {/* <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
-                            <FastImage source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} />
+                            <FastImage source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 8 }} />
                             {/* <Headline style={styles.title}>{title}</Headline> */}
                         </View>
                       

@@ -175,6 +175,6 @@ export default combineReducers({
   query: queryReducer,
   theme: themeReducer,
   media: mediaReducer,
-  dashboard: dashboardReducer,
+  // dashboard: dashboardReducer,
   settings: settingsReducer
 });
