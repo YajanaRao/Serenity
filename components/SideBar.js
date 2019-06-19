@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   footerContainer: {
-    padding: 20,
-    textAlign: 'center'
+    padding: 20
   },
   preference: {
     flexDirection: 'row',

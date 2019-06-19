@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Title, withTheme } from 'react-native-paper';
+import { Title, withTheme, Subheading } from 'react-native-paper';
 import { StyleSheet, Dimensions, ScrollView, TouchableOpacity, View, FlatList } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 
@@ -27,7 +27,7 @@ class AlbumGallery extends React.Component {
                <ScrollView contentContainerStyle={styles.content}>
                     <FlatList
                         data={Media}
-                        numColumns={4}
+                        numColumns={3}
                         keyExtractor={(item,index) => index.toString()}
                         renderItem={({item}) => (
                             <TouchableOpacity
@@ -35,7 +35,7 @@ class AlbumGallery extends React.Component {
                                 onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                             >
                                 <FastImage source={{ uri: item.artwork }} style={styles.photo} />
-                                <Title style={styles.title} numberOfLines={1}>{item.album}</Title>
+                                {/* <Subheading style={styles.title} numberOfLines={1}>{item.album}</Subheading> */}
                             </TouchableOpacity>
                         )}
                     />
@@ -69,15 +69,15 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     item: {
-        width: '25%',
-        padding: 4,
+        width: Dimensions.get('window').width / 3,
+        // padding: 4,
     },
     photo: {
-        height: 100,
+        height: 150,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 4,
-        elevation: 4
+        // borderRadius: 8,
+        // elevation: 4
     },
     title: {
         textAlign: 'center'
