@@ -78,6 +78,7 @@ class OfflineMedia extends React.Component {
                     <FlatList
                         data={files}
                         ItemSeparatorComponent={() => <Divider />}
+                        onRefresh={() => this.props.getOfflineMedia()}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <Track track={item} />
@@ -88,7 +89,7 @@ class OfflineMedia extends React.Component {
           }
           return (
               <View style={{ flex: 1, backgroundColor: background, justifyContent: 'center', alignItems: 'center' }}>
-                  <Title>Looking for offline files</Title>
+                  <Title>No offline songs found..</Title>
               </View>
           );
     }
