@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, FlatList, Dimensions } from 'react-native';
 import { Searchbar, List, Headline, Card, Subheading, Title } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-
-import genre from '../../data/genre.json';
-import { updateQuery, playMedia, fetchJioSavanData } from '../../actions';
 import FastImage from 'react-native-fast-image';
+
+import Genre from '../../data/genre.json';
+import { updateQuery, playMedia, fetchJioSavanData } from '../../actions';
+import ImageBackground from '../../containers/ImageBackground';
 
 
 class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: null,
-            genres: genre
+            query: null
         }
     }
     
@@ -91,19 +91,21 @@ class Search extends Component {
                 />
                 <Title style={styles.headline}>All Moods & Geners</Title>
                 <View style={styles.container}>
-                    {this.state.genres.map((genre,index) =>
-                        <View style={styles.item} key={index.toString()}>
-                            <FastImage source={{ uri: genre.image }} style={styles.photo} />
-                            {/* <Card style={styles.genreCard}> */}
-
-                                {/* <ImageBackground source={{ uri: genre.image }} style={styles.photo} imageStyle={{ borderRadius: 4 }}> */}
-                                    {/* <Card.Content> */}
-                                        <Subheading style={styles.title} numberOfLines={1}>{genre.title}</Subheading>
-                                    {/* </Card.Content> */}
-                                {/* </ImageBackground> */}
-                            {/* </Card> */}
-                        </View>
-                    )}
+                    <FlatList
+                        data={Genre}
+                        keyExtractor={(item, index) => index.toString()}
+                        numColumns={2}
+                        renderItem={({ item }) =>
+                            <ImageBackground style={styles.item} source={{ uri: item.image }} imageStyle={styles.photo}>
+                                {/* <FastImage
+                                    source={{ uri: item.image }}
+                                    style={styles.photo}
+                                    // onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
+                                /> */}
+                                <Subheading style={{ color: 'white' }} numberOfLines={1}>{item.title}</Subheading>
+                            </ImageBackground>
+                        }
+                    />
                 </View>
                 {/* { filteredSongs.length ? <Headline style={{ margin: 4 }}>Songs</Headline> : false }
                 {SONGS}
@@ -125,6 +127,8 @@ export default connect(mapStateToProps, { updateQuery, playMedia, fetchJioSavanD
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
         flexWrap: 'wrap',
         padding: 4,
         marginLeft: 5,
@@ -134,22 +138,18 @@ const styles = StyleSheet.create({
         margin: 10,
         // marginTop: Constants.statusBarHeight,
     },
-    genreCard: {
-        // borderRadius: 10
-    },  
     item: {
         width: '50%',
-        justifyContent: "center",
+        justifyContent: 'center',
         alignItems: 'center',
-        textAlign: 'center',
-        padding: 4
+        height: 100,
+        height: 100,
+        // elevation: 8
     },
-    photo: {
-        height: 80,
-        width: '100%',
-        borderRadius: 4,
-        elevation: 8
-    },
+    // photo: {
+    //     borderRadius: 8,
+    //     margin: 4
+    // },
     headline: {
         textAlign: 'center',
     }
