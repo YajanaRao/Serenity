@@ -21,3 +21,9 @@
 2. Bottom tab navigator
 3. Stack Navigator
 
+
+## 24 June 2019 
+1. Material design guide lines
+2. Updated track to enable and disable swiping
+    `swipeable`
+3. Found issue with offline tracks

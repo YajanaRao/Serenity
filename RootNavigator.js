@@ -1,4 +1,4 @@
-import { createDrawerNavigator, createAppContainer } from 'react-navigation';
+import { createDrawerNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import * as React from 'react';
 import { Dimensions } from 'react-native';
 import {
@@ -8,43 +8,68 @@ import {
 } from 'react-native-paper';
 import { connect } from 'react-redux';
 
-import DetailScreen from './pages/Details';
-import ProfileScreen from './pages/Profile';
+
 import { updateTheme } from './actions';
 import SideMenu from './components/SideBar';
-import HomeScreen from './pages/Home'; 
+import RootScreen from './pages/Root'; 
 import { changeNavigationBarColor } from './containers/NavigationBar';
 
 
 const PreferencesContext = React.createContext();
 
-const AppNavigator = createDrawerNavigator({
-    Home: {
-      screen: HomeScreen,
-    },
-    Details: {
-      screen: DetailScreen,
-    },
-    Profile: {
-      screen: ProfileScreen
-    }
-  },{
-    drawerWidth: Dimensions.get('window').width - 120, 
-    contentComponent: () => (
-      <PreferencesContext.Consumer>
-        {preferences => (
-          <SideMenu 
-            isDarkTheme={preferences.isDarkTheme} 
-            toggleTheme={preferences.theme}
-          />
-        )}
-      </PreferencesContext.Consumer>
-    )}
-);
+// const AppNavigator = createDrawerNavigator({
+//     Home: {
+//       screen: HomeScreen,
+//     },
+//     Details: {
+//       screen: DetailScreen,
+//     },
+//     Profile: {
+//       screen: ProfileScreen
+//     }
+//   },{
+//     drawerWidth: Dimensions.get('window').width - 120, 
+//     contentComponent: () => (
+//       <PreferencesContext.Consumer>
+//         {preferences => (
+//           <SideMenu 
+//             isDarkTheme={preferences.isDarkTheme} 
+//             toggleTheme={preferences.theme}
+//           />
+//         )}
+//       </PreferencesContext.Consumer>
+//     )}
+// );
 
     // drawerType: "slide",
 
-const App = createAppContainer(AppNavigator);
+
+// const AppNavigator = createStackNavigator({
+//   Home: {
+//     screen: HomeScreen,
+//   },
+//   Settings: {
+//     screen: SettingScreen,
+//   },
+//   Profile: {
+//     screen: ProfileScreen
+//   }
+// }, {
+//     // drawerWidth: Dimensions.get('window').width - 120,
+//     // contentComponent: () => (
+//     //   <PreferencesContext.Consumer>
+//     //     {preferences => (
+//     //       <SideMenu
+//     //         isDarkTheme={preferences.isDarkTheme}
+//     //         toggleTheme={preferences.theme}
+//     //       />
+//     //     )}
+//     //   </PreferencesContext.Consumer>
+//     // )
+//   }
+// );
+
+// const App = createAppContainer(AppNavigator);
 
 
 
@@ -52,7 +77,7 @@ class RootNavigator extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      theme: DefaultTheme
+      theme: DarkTheme
     };
   }
   
@@ -96,7 +121,7 @@ class RootNavigator extends React.Component {
               isDarkTheme: this.state.theme === DarkTheme,
             }}
           >
-              <App /> 
+              <RootScreen /> 
           </PreferencesContext.Provider>
         </PaperProvider>
     );

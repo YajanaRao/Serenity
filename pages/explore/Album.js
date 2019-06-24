@@ -4,7 +4,7 @@ import { StyleSheet, Dimensions, ScrollView, TouchableOpacity, View, FlatList } 
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import Media from '../../data/media.json';
-import SongScreen from '../../components/PlayList';
+import SongScreen from '../shared/Songs';
 import FastImage from 'react-native-fast-image';
 
 
@@ -30,6 +30,7 @@ class AlbumGallery extends React.Component {
                         numColumns={3}
                         keyExtractor={(item,index) => index.toString()}
                         renderItem={({item}) => (
+                           
                             <TouchableOpacity
                                 style={styles.item}
                                 onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
