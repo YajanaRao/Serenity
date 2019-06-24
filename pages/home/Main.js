@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withTheme, Title, Card, Paragraph } from 'react-native-paper';
+import { withTheme, Title, Card, Paragraph, IconButton } from 'react-native-paper';
 import { StyleSheet, View, ScrollView, FlatList, Dimensions } from 'react-native';
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
@@ -20,9 +20,21 @@ class MainScreen extends React.Component {
         }
     }
 
-    static navigationOptions = {
-        header: null
+    static navigationOptions = ({ navigation }) => {
+        // header: null
+        return {
+            headerTitle: 'Home',
+            headerRight: (
+                <IconButton
+                    icon="settings"
+                    onPress={() => navigation.navigate('Settings')}
+                />
+            )
+        }
+
     };
+
+
 
 
     apiRequests = () => {
@@ -45,7 +57,7 @@ class MainScreen extends React.Component {
         return (
             <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
                 
-                <View style={{ marginTop: 10 }}>
+                <View style={{ }}>
                     {/* <FlatList
                         pagingEnabled={true}
                         horizontal={true}
@@ -60,7 +72,7 @@ class MainScreen extends React.Component {
                             </View>
                         }
                     /> */}
-                    <Title style={styles.title}>Recents</Title>
+                    <Title style={styles.title}>Recently played</Title>
                         <FlatList
                             horizontal={true}
                             data={Media}
@@ -114,9 +126,10 @@ const styles = StyleSheet.create({
     photo: {
         width: 120,
         height: 120,
-        margin: 4,
-        borderRadius: 12,
-        elevation: 4
+        marginLeft: 10,
+        marginBottom: 4,
+        // borderRadius: 12,
+        elevation: 1
     },
     cardWrapper: {
         width: 120,

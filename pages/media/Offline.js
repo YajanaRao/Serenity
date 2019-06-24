@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 import _ from 'lodash';
 
-import { getOfflineMedia, addToQueue } from '../../actions';
+import { addToQueue } from '../../actions';
 import Track from '../../components/Track'
-import { PermissionsAndroid } from 'react-native';
+
+
 
 class OfflineMedia extends React.Component {
     constructor(props) {
@@ -17,40 +18,8 @@ class OfflineMedia extends React.Component {
         }
     }
 
-    shouldComponntUpdate(nextProps, nextState) {
-        if (this.props.files !== nextProps.files) {
-            return true;
-        }
-        return false;
-    }
-    
-    async componentDidMount() {
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-                {
-                    title: 'Serenity App READ_EXTERNAL_STORAGE Permission',
-                    message:
-                        'Serenity App needs access to your READ_EXTERNAL_STORAGE ' +
-                        'so you can take play offline songs.',
-                    buttonNeutral: 'Ask Me Later',
-                    buttonNegative: 'Cancel',
-                    buttonPositive: 'OK',
-                },
-            );
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log('You can use the READ_EXTERNAL_STORAGE');
-                this.props.getOfflineMedia();
-            } else {
-                console.log('READ_EXTERNAL_STORAGE permission denied');
-            }
-        } catch (err) {
-            console.warn(err);
-        }       
-    }
-
     componentWillReceiveProps(nextProps) {
-        if (nextProps.files) {
+        if (nextProps.files != this.state.files) {
             this.setState({ files: nextProps.files });
         }
     }
@@ -62,8 +31,8 @@ class OfflineMedia extends React.Component {
             },
         } = this.props;
         
+        const { files } = this.props;
 
-        const { files } = this.state;
         if(!_.isEmpty(files)){
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
@@ -77,7 +46,7 @@ class OfflineMedia extends React.Component {
                     </View>
                     <FlatList
                         data={files}
-                        ItemSeparatorComponent={() => <Divider />}
+                        ItemSeparatorComponent={() => <Divider inset={true} />}
                         onRefresh={() => this.props.getOfflineMedia()}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
@@ -100,4 +69,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { getOfflineMedia, addToQueue })(withTheme(OfflineMedia));
+export default connect(mapStateToProps, { addToQueue })(withTheme(OfflineMedia));

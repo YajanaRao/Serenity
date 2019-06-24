@@ -58,7 +58,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Listening suggestions (similar artists, albums, tracks)
 
 
-Build apk by running command `react-native run-android --variant=release
+Build apk by running command `react-native run-android --variant=release`
 
 ## License
 

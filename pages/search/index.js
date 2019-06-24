@@ -17,7 +17,7 @@ class Search extends Component {
             query: null
         }
     }
-    
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.query) {
@@ -85,7 +85,7 @@ class Search extends Component {
                     placeholder="Artists, songs or podcasts"
                     onChangeText={(text) => { this.props.updateQuery(text) }}
                     value={this.state.query}
-                    onIconPress={() => this.props.navigation.toggleDrawer()}
+                    // onIconPress={() => this.props.navigation.toggleDrawer()}
                     icon="search"
                     style={styles.searchbar}
                 />
@@ -118,8 +118,7 @@ class Search extends Component {
 
 
 const mapStateToProps = state => ({
-    query: state.query.query,
-    genres: state.dashboard.genres
+    query: state.query.query
 });
 
 export default connect(mapStateToProps, { updateQuery, playMedia, fetchJioSavanData })(withNavigation(Search));

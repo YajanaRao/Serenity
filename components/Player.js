@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, TouchableOpacity, StyleSheet, Modal } from "react-native";
-import { Subheading, FAB, withTheme, ActivityIndicator, IconButton, Title, Divider } from 'react-native-paper';
+import { Subheading, FAB, withTheme, ActivityIndicator, IconButton, Title, Divider, Paragraph, Caption } from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
@@ -297,8 +297,9 @@ class Player extends Component {
                     }}>
                     <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
                             {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4 }} /> : false }
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 4 }}>
-                            <Title numberOfLines={1}>{this.state.active.title}</Title>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
+                            <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist}</Caption>
                         </View>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'center', width: 50 }}>
                             {this.state.isLoading ?

@@ -5,6 +5,8 @@ import { withTheme, Caption, Portal, TouchableRipple, Colors, Surface, Divider }
 import Player from '../components/Player';
 
 // https://dev.to/hrastnik/lets-create-a-custom-animated-tab-bar-with-react-native-3496
+// activeColor: '#f0edf6',
+//  inactiveColor: '#3e2465',
 class TabBar extends React.PureComponent {
     render() {
         const {
@@ -33,8 +35,8 @@ class TabBar extends React.PureComponent {
                             <TouchableRipple
                                 key={routeIndex}
                                 style={styles.tabButton}
-                                rippleColor={Colors.primary}
-                                underlayColor={Colors.primary}
+                                rippleColor={colors.primary}
+                                underlayColor={colors.primary}
                                 borderless={true}
                                 onPress={() => {
                                     onTabPress({ route });

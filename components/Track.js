@@ -61,29 +61,45 @@ class Track extends Component {
 
     render() {
         const {
-            track
+            track,
+            swipeable
         } = this.props;
-
+        const { colors } = this.props.theme;
         if (this.state.hide && track) {
             return false
         }
+        else if(swipeable){
+            return (
+                <SwiperContainer close={() => this.close()}>
+                    <View style={[styles.surface, { backgroundColor: colors.background }]}>
+                        <List.Item
+                            item={track}
+                            title={track.title}
+                            description={track.artist}
+                            left={props => (
+                                <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
+                            )}
+                            right={props => this.renderRightIcon(props)}
+                            onPress={() => this.play()}
+                        />
+                    </View>
+                </SwiperContainer>
+            );
+        }
 
-        const { colors } = this.props.theme;
         return (
-            <SwiperContainer close={() => this.close()}>
-                <View style={[styles.surface, { backgroundColor: colors.background }]}>
-                    <List.Item
-                        item={track}
-                        title={track.title}
-                        description={track.artist}
-                        left={props => (
-                            <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                        )}
-                        right={props => this.renderRightIcon(props)}
-                        onPress={() => this.play()}
-                    />
-                </View>
-            </SwiperContainer>
+            <View style={[styles.surface, { backgroundColor: colors.background }]}>
+                <List.Item
+                    item={track}
+                    title={track.title}
+                    description={track.artist}
+                    left={props => (
+                        <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
+                    )}
+                    right={props => this.renderRightIcon(props)}
+                    onPress={() => this.play()}
+                />
+            </View>
         );
     }
 }
