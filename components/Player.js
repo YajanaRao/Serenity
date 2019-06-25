@@ -234,7 +234,7 @@ class Player extends Component {
                             {/* <Card.Cover source={ this.state.img } style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
                                 <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 250, height: 250, borderRadius: 4 }} />
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 8 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Love />
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Title numberOfLines={1}>{this.state.active.title}</Title>

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Title, withTheme, Subheading } from 'react-native-paper';
+import { List, withTheme, DarkTheme } from 'react-native-paper';
 import { StyleSheet, Dimensions, ScrollView, TouchableOpacity, View, FlatList } from 'react-native';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import FastImage from 'react-native-fast-image';
 
 import Media from '../../data/media.json';
 import SongScreen from '../shared/Songs';
-import FastImage from 'react-native-fast-image';
 
 
 class AlbumGallery extends React.Component {
@@ -27,6 +27,22 @@ class AlbumGallery extends React.Component {
                <ScrollView contentContainerStyle={styles.content}>
                     <FlatList
                         data={Media}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (
+                            <List.Item
+                                title={item.album}
+                                description={item.artist}
+                                left={props => (
+                                    <FastImage {...props} source={{ uri: item.artwork }} style={styles.icons} />
+                                )}
+                                // onPress={() => this.play()}
+                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
+                            />
+                        )}
+                    />
+                 
+                    {/* <FlatList
+                        data={Media}
                         numColumns={3}
                         keyExtractor={(item,index) => index.toString()}
                         renderItem={({item}) => (
@@ -36,10 +52,9 @@ class AlbumGallery extends React.Component {
                                 onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                             >
                                 <FastImage source={{ uri: item.artwork }} style={styles.photo} />
-                                {/* <Subheading style={styles.title} numberOfLines={1}>{item.album}</Subheading> */}
                             </TouchableOpacity>
                         )}
-                    />
+                    /> */}
                 </ScrollView>
            </View>
         );
@@ -47,31 +62,51 @@ class AlbumGallery extends React.Component {
 }
 
 
-const GalleryNavigator = createStackNavigator({
+const AlbumNavigation =  createStackNavigator({
     Albums: { screen: withTheme(AlbumGallery) },
-    Songs: { screen: SongScreen },
-});
-
-
-const GalleryContainer = createAppContainer(GalleryNavigator);
-
-class AlbumScreen extends React.PureComponent {
-    render() {
-        return <GalleryContainer />;
-    }
+    Songs: { screen: SongScreen }
+},
+{
+    initialRouteName: 'Albums',
+    /* The header config from HomeScreen is now here */
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: DarkTheme.colors.surface,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            color: DarkTheme.colors.text
+        },
+    },
 }
+);
 
-export default withTheme(AlbumScreen);
+AlbumNavigation.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+
+    return {
+        tabBarVisible,
+    };
+};
+
+export default withTheme(AlbumNavigation);
 
 const styles = StyleSheet.create({
     content: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        // flexDirection: 'row',
+        // flexWrap: 'wrap',
         padding: 4,
     },
     item: {
-        width: Dimensions.get('window').width / 3,
+        flex: 1,
         // padding: 4,
+    },
+    icons: {
+        width: 50,
+        borderRadius: 4
     },
     photo: {
         height: 150,

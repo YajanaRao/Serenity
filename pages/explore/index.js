@@ -6,10 +6,12 @@ import Album from './Album';
 import Artist from './Artist';
 import Playlist from './Playlist';
 
+// https://reactnavigation.org/docs/en/navigation-options-resolution.html#a-tab-navigator-contains-a-stack-and-you-want-to-hide-the-tab-bar-on-specific-screens
+
 const App = createAppContainer(createMaterialTopTabNavigator({
-    Album: { screen: Album },
-    Artist: { screen: Artist },
     Playlist: { screen: Playlist },
+    Artist: { screen: Artist },
+    Album: { screen: Album },
 },{
     tabBarOptions: {
         labelStyle: {
@@ -17,6 +19,9 @@ const App = createAppContainer(createMaterialTopTabNavigator({
         },
         tabStyle: {
             width: 100,
+        },
+        indicatorStyle: {
+            backgroundColor: DarkTheme.colors.primary
         },
         style: {
             backgroundColor: DarkTheme.colors.surface,

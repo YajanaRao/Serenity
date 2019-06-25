@@ -15,7 +15,8 @@ const INITIAL_THEME = {
 const INITIAL_STATE = {
   result: "",
   queue: [],
-  active: {}
+  active: {},
+  files: []
 }
 
 const DASHBOARD_STATE = {
@@ -44,6 +45,7 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
       }
 
     case 'OFFLINE':
+      console.log("offline media in reducer",action.payload);
       return {
         ...state,
         files: action.payload
@@ -175,6 +177,5 @@ export default combineReducers({
   query: queryReducer,
   theme: themeReducer,
   media: mediaReducer,
-  // dashboard: dashboardReducer,
   settings: settingsReducer
 });

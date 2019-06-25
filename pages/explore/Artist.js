@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
-import { withTheme, Divider } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
+import { withTheme, Divider, Avatar, List } from 'react-native-paper';
 import { connect } from 'react-redux';
-
-import Track from '../../components/Track';
+import FastImage from 'react-native-fast-image';
 
 class Artist extends Component {
     state = {
@@ -20,14 +19,17 @@ class Artist extends Component {
         const { files } = this.props;
         return (
             <View>
-                <FlatList
-                    data={files}
-                    ItemSeparatorComponent={() => <Divider inset={true} />}
-                    // onRefresh={() => this.props.getOfflineMedia()}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) =>
-                        <Track track={item} />
-                    }
+                <List.Item
+                    title="Justin Beiber"
+                    left={props => <Avatar.Icon {...props} icon="add" />}
+                />
+                <List.Item
+                    title="Justin Beiber"
+                    left={props => <FastImage {...props} source={{ uri: 'https://dl.dropboxusercontent.com/s/tvzzaeaiq9neuq1/jb.jpg?dl=0' }} style={styles.icons} />}
+                />
+                <List.Item
+                    title="Brodha V"
+                    left={props => <FastImage {...props} source={{ uri: 'https://dl.dropboxusercontent.com/s/tvzzaeaiq9neuq1/jb.jpg?dl=0' }} style={styles.icons} />}
                 />
             </View>
         );
@@ -39,3 +41,11 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(withTheme(Artist));
+
+const styles = StyleSheet.create({
+    icons: {
+        width: 60,
+        height: 60,
+        borderRadius: 30
+    }
+});

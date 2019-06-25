@@ -15,7 +15,6 @@ const MediaNavigator = createStackNavigator({
 },
     {
         initialRouteName: 'Home',
-        mode: 'modal',
         /* The header config from HomeScreen is now here */
         defaultNavigationOptions: {
             headerStyle: {

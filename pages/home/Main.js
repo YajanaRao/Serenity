@@ -7,7 +7,6 @@ import FastImage from 'react-native-fast-image';
 import NetworkContainer from '../../containers/NetworkContainer';
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
-import ImageBackground from '../../containers/ImageBackground';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -80,7 +79,7 @@ class MainScreen extends React.Component {
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item }) =>
                                 <TouchableOpacity 
-                                    style={{ alignItems: 'center' }}
+                                    style={styles.item}
                                     onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                                 >
                                     <FastImage
@@ -100,7 +99,7 @@ class MainScreen extends React.Component {
                         keyExtractor={(item, index) => index.toString()}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) =>
-                            <TouchableOpacity style={{ alignItems: 'center' }}>
+                            <TouchableOpacity style={styles.item}>
                                 <FastImage
                                     source={{ uri: item.artwork }}
                                     style={styles.photo}
@@ -123,11 +122,14 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         textAlign: 'center'
     },
+    item: {
+        marginLeft: 12,
+        marginBottom: 4,
+        alignItems: 'center'
+    },
     photo: {
         width: 120,
         height: 120,
-        marginLeft: 10,
-        marginBottom: 4,
         // borderRadius: 12,
         elevation: 1
     },
