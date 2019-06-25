@@ -10,7 +10,8 @@ import Track from '../../components/Track'
 
 
 
-class OfflineMedia extends React.Component {
+
+class Song extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,10 +20,16 @@ class OfflineMedia extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.files != this.state.files) {
+        if (!_.isEmpty(nextProps.files)) {
+            console.log("songs", nextProps.files)
             this.setState({ files: nextProps.files });
-        }
+        }   
     }
+
+    // componentDidMount(){
+    //     console.log("calling get offline media")
+    //     this.props.getOfflineMedia()
+    // }
 
     render() {
         const {
@@ -31,9 +38,9 @@ class OfflineMedia extends React.Component {
             },
         } = this.props;
         
-        const { files } = this.props;
 
-        if(!_.isEmpty(files)){
+        if(!_.isEmpty(this.state.files)){
+            console.log("state", this.state.files)
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                    <View style={{ justifyContent: 'space-between', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
@@ -45,9 +52,9 @@ class OfflineMedia extends React.Component {
                         </Button>
                     </View>
                     <FlatList
-                        data={files}
+                        data={this.state.files}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
-                        onRefresh={() => this.props.getOfflineMedia()}
+                        // onRefresh={() => this.props.getOfflineMedia()}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <Track track={item} />
@@ -69,4 +76,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { addToQueue })(withTheme(OfflineMedia));
+export default connect(mapStateToProps, { addToQueue })(withTheme(Song));

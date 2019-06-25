@@ -5,7 +5,7 @@ import { withTheme, IconButton, Snackbar, DarkTheme, Surface } from 'react-nativ
 import { connect } from 'react-redux';
 import { PermissionsAndroid } from 'react-native';
 
-import OfflineMedia from './media/Offline';
+import OfflineScreen from './offline';
 import SearchScreen from './search';
 import HomeScreen from './home';
 import ExploreScreen from './explore';
@@ -37,7 +37,7 @@ const Navigator = createAppContainer(createBottomTabNavigator({
    }
  },
  Offline: {
-   screen: OfflineMedia,
+   screen: OfflineScreen,
    navigationOptions: {
      tabBarIcon: ({ tintColor }) => <IconButton icon="save" color={tintColor} style={{ margin: 0, padding: 0 }} />
    }
@@ -99,9 +99,7 @@ class RootScreen extends React.Component {
         visible: true,
         message: nextProps.result
       });
-      //      return true;
     }
-    //    return false;
   }
 
 

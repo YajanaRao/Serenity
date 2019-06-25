@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, FlatList, Dimensions } from 'react-native';
-import { Searchbar, List, Headline, Card, Subheading, Title } from 'react-native-paper';
+import { Searchbar, List, Headline, Card, Subheading, Title, Surface, Colors } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
@@ -80,7 +80,7 @@ class Search extends Component {
         // );
 
         return (
-            <ScrollView style={{ flex: 1, margin: 8 }}>
+            <ScrollView style={{ flex: 1, marginLeft: 8, marginRight: 8 }}>
                 <Searchbar
                     placeholder="Artists, songs or podcasts"
                     onChangeText={(text) => { this.props.updateQuery(text) }}
@@ -96,14 +96,14 @@ class Search extends Component {
                         keyExtractor={(item, index) => index.toString()}
                         numColumns={2}
                         renderItem={({ item }) =>
-                            <ImageBackground style={styles.item} source={{ uri: item.image }} imageStyle={styles.photo}>
+                            <Surface style={styles.item}>
                                 {/* <FastImage
                                     source={{ uri: item.image }}
                                     style={styles.photo}
                                     // onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                                 /> */}
                                 <Subheading style={{ color: 'white' }} numberOfLines={1}>{item.title}</Subheading>
-                            </ImageBackground>
+                            </Surface>
                         }
                     />
                 </View>
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexWrap: 'wrap',
-        padding: 4,
         marginLeft: 5,
         marginRight: 5
     },
@@ -138,12 +137,15 @@ const styles = StyleSheet.create({
         // marginTop: Constants.statusBarHeight,
     },
     item: {
-        width: '50%',
+        // width: 150,
+        backgroundColor: Colors.lightBlueA100,
+        borderRadius: 4,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         height: 100,
-        height: 100,
-        // elevation: 8
+        margin: 4,
+        elevation: 8
     },
     // photo: {
     //     borderRadius: 8,
