@@ -17,8 +17,10 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 
 class Track extends Component {
     state = {
-        hide: false
+        hide: false,
+        open: false
     }
+
 
     renderRightIcon = (props) => {
         const {
@@ -30,8 +32,9 @@ class Track extends Component {
             const { colors } = this.props.theme;
             return <List.Icon {...props} icon="equalizer" color={colors.accent} />
         }
-        return <Love {...props} />
-
+        // return <Love track={track} />
+        // return <List.Icon {...props} icon="more-vert" onPress={() => this.setState({ open: true })} />
+        return false;
     }
     // Playing a song is the song is not playing 
     play = () => {
@@ -44,7 +47,7 @@ class Track extends Component {
                 return false
             }
         }
-        this.props.addToQueue(track);
+        // this.props.addToQueue(track);
         this.props.playMedia(track);
     }
 
@@ -64,7 +67,9 @@ class Track extends Component {
             track,
             swipeable
         } = this.props;
+
         const { colors } = this.props.theme;
+        
         if (this.state.hide && track) {
             return false
         }
@@ -76,9 +81,9 @@ class Track extends Component {
                             item={track}
                             title={track.title}
                             description={track.artist}
-                            left={props => (
-                                <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                            )}
+                            // left={props => (
+                            //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
+                            // )}
                             right={props => this.renderRightIcon(props)}
                             onPress={() => this.play()}
                         />
@@ -93,9 +98,9 @@ class Track extends Component {
                     item={track}
                     title={track.title}
                     description={track.artist}
-                    left={props => (
-                        <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                    )}
+                    // left={props => (
+                    //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
+                    // )}
                     right={props => this.renderRightIcon(props)}
                     onPress={() => this.play()}
                 />
@@ -105,7 +110,7 @@ class Track extends Component {
 }
 
 const mapStateToProps = state => ({
-    active: state.media.active,
+    active: state.media.active
 });
 
 export default connect(mapStateToProps, { playMedia, addToQueue })(withTheme(Track));

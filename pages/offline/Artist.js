@@ -15,7 +15,6 @@ class Artist extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (!_.isEmpty(nextProps.files)) {
-            console.log("artists", nextProps.files)
             this.setState({ files: nextProps.files });
         }
     }

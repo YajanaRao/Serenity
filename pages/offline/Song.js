@@ -21,7 +21,6 @@ class Song extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (!_.isEmpty(nextProps.files)) {
-            console.log("songs", nextProps.files)
             this.setState({ files: nextProps.files });
         }   
     }
@@ -40,14 +39,13 @@ class Song extends React.Component {
         
 
         if(!_.isEmpty(this.state.files)){
-            console.log("state", this.state.files)
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                    <View style={{ justifyContent: 'space-between', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
-                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(files)}>
+                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.files)}>
                             Play All
                         </Button>
-                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(files)}>
+                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.files)}>
                             Shuffle
                         </Button>
                     </View>

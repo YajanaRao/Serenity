@@ -93,9 +93,9 @@ class Songs extends Component {
                         <FlatList
                             data={songs}
                             ItemSeparatorComponent={() => <Divider inset={true} />}
-                            keyExtractor={(item) => item.id }
+                            keyExtractor={(item, index) => index.toString() }
                             renderItem={({ item }) =>
-                                <Track track={item} />
+                                <Track track={item} swipeable={true} />
                             }
                         />
                         <View style={{ height: 100 }} />

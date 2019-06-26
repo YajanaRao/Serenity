@@ -17,9 +17,12 @@ const App = createAppContainer(createMaterialTopTabNavigator({
     Album: { screen: Album },
 }, {
         tabBarOptions: {
-            // labelStyle: {
-            //     fontSize: 12,
-            // },
+            labelStyle: {
+                fontSize: 12,
+            },
+            tabStyle: {
+                width: 100,
+            },
             indicatorStyle: {
                 backgroundColor: DarkTheme.colors.primary
             },
@@ -27,12 +30,11 @@ const App = createAppContainer(createMaterialTopTabNavigator({
                 backgroundColor: DarkTheme.colors.surface,
             },
         }
-    }));
+}));
 
 class Offline extends Component {
 
     componentDidMount(){
-        console.log("calling get offline media")
         this.props.getOfflineMedia()
     }
 

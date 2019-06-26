@@ -175,21 +175,44 @@ export const playMedia = (item) => dispatch => {
   }
 }
 
+//  Favorite manangement
+export const addToFavorite = (item) => dispatch => {
+  if(!_.isUndefined(item)){
+    dispatch({
+      type: 'ADD_TO_FAVORITE',
+      payload: item
+    })
+  }
+}
 
+export const removeFromFavorite = (item) => dispatch => {
+  dispatch({
+    type: 'REMOVE_FROM_FAVORITE',
+    payload: item
+  })
+}
 
 export const addToQueue = (song) => dispatch => {
   TrackPlayer.getQueue().then((queue) => {
-    let update = _.difference(song,queue);
+    let update = [];
+    if(_.isArray(song)){
+      update = _.differenceBy(song, queue, 'id');
+    }
+    else{
+      update = _.differenceBy([song], queue, 'id');
+    }
     if(!_.isEmpty(update)){
       TrackPlayer.add(update);
       TrackPlayer.play();
       dispatch({
-        type: 'UPDATE_QUEUE',
+        type: 'ADD_QUEUE',
         payload: _.concat(queue, update)
       })
     }
   })
   .catch((error) => {
+    TrackPlayer.add(song);
+    TrackPlayer.play();
   })
 }
 
@@ -239,7 +262,6 @@ export const fetchTopAlbums = () => dispatch => {
     });
 }
 
-
 export const fetchLastFMTopTracks = () => dispatch => {
   fetch('http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=cher&api_key=fe67816d712b419bf98ee9a4c2a1baea&format=json&limit=20')
     .then((response) => response.json())
@@ -281,7 +303,6 @@ export const fetchLastFMTopArtists = () => dispatch => {
       console.error(error);
     });
 }
-
 
 export const fetchNapsterTopArtists = () => dispatch => {
   fetch('https://api.napster.com/v2.2/artists/top?apikey=ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm')

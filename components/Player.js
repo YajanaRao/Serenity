@@ -232,20 +232,22 @@ class Player extends Component {
                         </View>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             {/* <Card.Cover source={ this.state.img } style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
-                                <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 250, height: 250, borderRadius: 4 }} />
+                                <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 250, height: 250, borderRadius: 4, backgroundColor: colors.primary }} />
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Love />
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flex: 1 }}>
+                            <Love style={{ width: 60 }} track={this.state.active}/>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                                 <Title numberOfLines={1}>{this.state.active.title}</Title>
                                 <Subheading numberOfLines={1}>{this.state.active.artist}</Subheading>
                             </View>
 
-                            <IconButton
-                                icon="more-vert"
-                                // size={20}
-                                onPress={() => console.log("pressed")}
-                            />
+                           <View style={{ width: 60 }}>
+                                <IconButton
+                                    icon="more-vert"
+                                    // size={20}
+                                    onPress={() => console.log("pressed")}
+                                />
+                           </View>
                         </View>
                         <View style={{ alignItems: 'center', justifyContent: 'center', margin: 16 }}>
                             <ProgressBar />  
@@ -296,7 +298,7 @@ class Player extends Component {
                         this.setModalVisible(true);
                     }}>
                     <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
-                            {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4 }} /> : false }
+                            {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} /> : false }
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
                             <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist}</Caption>
@@ -304,7 +306,7 @@ class Player extends Component {
                         <View style={{ justifyContent: 'flex-end', alignItems: 'center', width: 50 }}>
                             {this.state.isLoading ?
                                 <ActivityIndicator animating={true} />
-                                :
+                                :      
                                 <IconButton
                                     icon={this.state.isPlaying ? "pause" : "play-arrow"}
                                     animated={true}

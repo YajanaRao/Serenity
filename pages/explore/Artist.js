@@ -20,7 +20,7 @@ class Artist extends Component {
         return (
             <View>
                 <List.Item
-                    title="Justin Beiber"
+                    title="Add artist"
                     left={props => <Avatar.Icon {...props} icon="add" />}
                 />
                 <List.Item

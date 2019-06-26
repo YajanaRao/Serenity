@@ -28,7 +28,7 @@ class MainScreen extends React.Component {
                     icon="settings"
                     onPress={() => navigation.navigate('Settings')}
                 />
-            )
+            ),
         }
 
     };

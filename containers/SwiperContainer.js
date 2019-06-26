@@ -4,15 +4,13 @@ import { withTheme, IconButton } from 'react-native-paper';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
-import { downloadMedia, addToQueue, removeFromQueue } from '../actions';
+import { downloadMedia, addToQueue, removeFromQueue, addToFavorite } from '../actions';
 
 class SwiperContainer extends React.PureComponent {
 
   
   
   renderLeftActions = (progress, dragX) => {
-
-    
     
     const methodToCall = () => {
       this.close()
@@ -44,9 +42,15 @@ class SwiperContainer extends React.PureComponent {
 
   addToQueue = () => {
     const item = this.props.children.props.children.props.item;
-    // console.log(item);
     if(item){
       this.props.addToQueue(item);
+    }
+  }
+
+  addToFavorite = () => {
+    const item = this.props.children.props.children.props.item;
+    if (item) {
+      this.props.addToFavorite(item);
     }
   }
 
@@ -59,7 +63,7 @@ class SwiperContainer extends React.PureComponent {
     }
   }
 
-  renderRightAction = (text, color, x, progress,action) => {
+  renderQueueAction = (text, color, x, progress,action) => {
     const trans = progress.interpolate({
       inputRange: [0, 1],
       outputRange: [x, 0],
@@ -114,7 +118,7 @@ class SwiperContainer extends React.PureComponent {
   };
 
 
-renderDeleteAction = (color, x, progress, action) => {
+renderLoveAction = (color, x, progress, action) => {
     const trans = progress.interpolate({
       inputRange: [0, 1],
       outputRange: [x, 0],
@@ -132,22 +136,23 @@ renderDeleteAction = (color, x, progress, action) => {
           style={[styles.rightAction, { backgroundColor: color }]}
           onPress={methodToCall}>
           <IconButton
-            icon="delete"
+            icon="favorite"
             // color={Colors.red500}
             // size={20}
-            onPress={() => console.log('Pressed')}
+            // onPress={() => console.log('Pressed')}
           />
         </RectButton>
       </Animated.View>
     );
   };
 
+  
 
   renderRightActions = progress => (
     <View style={{ width: 192, flexDirection: 'row' }}>
       {this.renderDownloadAction('#C8C7CD', 192, progress, this.download )}
-      {this.renderRightAction('Flag', '#ffab00', 128, progress, this.addToQueue)}
-      {this.renderDeleteAction('#497AFC', 64, progress,  this.action)}
+      {this.renderQueueAction('Flag', '#ffab00', 128, progress, this.addToQueue)}
+      {this.renderLoveAction('#497AFC', 64, progress,  this.addToFavorite)}
     </View>
   );
 
@@ -182,7 +187,7 @@ renderDeleteAction = (color, x, progress, action) => {
 const styles = StyleSheet.create({
   leftAction: {
     flex: 1,
-    backgroundColor: '#dd2c00',
+    backgroundColor: '#B00020',
     justifyContent: 'center',
   },
   rightAction: {
@@ -192,4 +197,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { downloadMedia, addToQueue, removeFromQueue })(withTheme(SwiperContainer));
+export default connect(null, { downloadMedia, addToQueue, removeFromQueue, addToFavorite })(withTheme(SwiperContainer));

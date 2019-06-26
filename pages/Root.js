@@ -110,12 +110,12 @@ class RootScreen extends React.Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <StatusBar backgroundColor={colors.surface} barStyle={dark ? "light-content" : "dark-content"} />
+        <StatusBar backgroundColor={"#000000"} barStyle={dark ? "light-content" : "dark-content"} />
         <Snackbar
           style={{ marginBottom: 120 }}
           visible={this.state.visible}
           onDismiss={() => this.setState({ visible: false })}
-          duration={1000}
+          // duration={1000}
           action={{
             label: 'Dismiss',
             onPress: () => {
