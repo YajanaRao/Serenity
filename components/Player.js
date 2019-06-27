@@ -258,14 +258,13 @@ class Player extends Component {
                                 size={40}
                                 onPress={this.skipToPrevious}
                             />
-                            {this.state.isLoading ?
-                                <ActivityIndicator animating={true} />
-                                :
-                                <FAB
-                                    icon={this.state.isPlaying ? "pause" : "play-arrow"}
-                                    onPress={this.togglePlayback}
-                                />
-                            }
+                           
+                            <FAB
+                                loading={this.state.isLoading}
+                                icon={this.state.isPlaying ? "pause" : "play-arrow"}
+                                onPress={this.togglePlayback}
+                            />
+                            
                             <IconButton
                                 icon="skip-next"
                                 size={40}

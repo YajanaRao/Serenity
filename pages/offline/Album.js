@@ -7,6 +7,10 @@ import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 
 class Album extends React.Component {
+    static navigationOptions = {
+        header: null
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -33,6 +37,8 @@ class Album extends React.Component {
             },
         } = this.props;
 
+        const { navigate } = this.props.navigation;
+
         const albums = _.uniqBy(this.state.files, 'album');
 
         if (!_.isEmpty(albums)) {
@@ -47,7 +53,14 @@ class Album extends React.Component {
                             <List.Item
                                 title={item.album}
                                 left={props => <FastImage {...props} source={{ uri: item.artwork }} style={styles.icons} /> }
-                                description={"2 songs"}
+                                description={_.size(_.filter(this.state.files, function (n) {
+                                    return n.album == item.album
+                                }))+" songs"}
+                                onPress={() => navigate('Songs', {
+                                    songs: _.filter(this.state.files, function (n) {
+                                        return n.album == item.album
+                                    }), img: item.artwork, title: item.album
+                                })}
                             />
                         }
                     />

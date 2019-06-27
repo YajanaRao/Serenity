@@ -12,6 +12,7 @@ class AlbumGallery extends React.Component {
     static navigationOptions = {
         header: null
     }
+    
     render() {
 
         const {

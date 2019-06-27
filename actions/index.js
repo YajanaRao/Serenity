@@ -79,7 +79,7 @@ export const getOfflineMedia =  () => dispatch => {
           }
         }
         if(!track.cover){
-          track.cover = "https://i.ibb.co/2WV2tQd/app-icon.png"
+          track.cover = "https://source.unsplash.com/collection/574198/200x200"
         }
         response.push({
           id: `file:/${track.path}`,
