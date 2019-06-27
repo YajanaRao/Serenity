@@ -1,10 +1,35 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { IconButton, withTheme } from 'react-native-paper';
+import { connect } from 'react-redux';
+
+import { addToFavorite, removeFromFavorite } from '../actions';
+
 class Love extends Component {
-    state = {
-        selected: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: false
+        }
     }
+
+    
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.favorite !== this.state.selected) {
+            this.setState({ selected: true });
+        }
+    }
+
+    addToFavorite = () => {
+        this.props.addToFavorite(this.props.track)
+        this.setState(prev => ({ selected: !prev.selected }))
+    }
+
+    removeFromFavorite = () => {
+        this.props.removeFromFavorite(this.props.track)
+        this.setState(prev => ({ selected: !prev.selected }))
+    }
+
     render() {
 
         const { colors } = this.props.theme;
@@ -18,14 +43,14 @@ class Love extends Component {
                     <IconButton
                         animated={true}
                         icon="favorite"
-                        onPress={() => this.setState(prev => ({ selected: !prev.selected }))}
+                        onPress={() => this.removeFromFavorite()}
                         color={colors.error}
                     />
                     :
                     <IconButton
                         animated={true}
                         icon="favorite-border"
-                        onPress={() => this.setState(prev => ({ selected: !prev.selected }))}
+                        onPress={() => this.addToFavorite()}
                     />
                 }
 
@@ -34,4 +59,8 @@ class Love extends Component {
     }
 }
 
-export default withTheme(Love);
+const mapStateToProps = state => ({
+    favorite: state.media.favorite
+});
+
+export default connect(mapStateToProps, { addToFavorite, removeFromFavorite })(withTheme(Love));
