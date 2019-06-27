@@ -15,7 +15,9 @@ const INITIAL_THEME = {
 const INITIAL_STATE = {
   result: "",
   queue: [],
-  active: {}
+  active: {},
+  favorite: [],
+  files: []
 }
 
 const DASHBOARD_STATE = {
@@ -62,18 +64,34 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
         ...state,
         active: action.payload
       }
-    case 'UPDATE_QUEUE': 
+
+    case 'ADD_TO_FAVORITE':
+      return {
+        ...state,
+        favorite: _.concat(state.favorite, action.payload),
+        result: `Added ${action.payload.title} to favorites`
+      }
+    case 'REMOVE_FROM_FAVORITE':
+      return {
+        ...state,
+        favorite: _.remove(state.favorite, function(n){ 
+          return n != action.payload
+        }),
+        result: `Removed ${action.payload.title} from favorites`
+      }
+    case 'ADD_QUEUE': 
       if (_.isEmpty(state.active)){
         return {
           ...state,
           active: _.head(action.payload),
-          queue: action.payload,
+          queue: _.uniq(action.payload),
           result: `Added ${_.size(action.payload)} songs to queue`
         }
       }
       return {
         ...state,
-        queue: action.payload
+        queue: _.uniq(action.payload),
+        result: `Added ${_.size(action.payload)} songs to queue`
       }
     
     case 'CLEAR_QUEUE':
@@ -175,6 +193,5 @@ export default combineReducers({
   query: queryReducer,
   theme: themeReducer,
   media: mediaReducer,
-  // dashboard: dashboardReducer,
   settings: settingsReducer
 });

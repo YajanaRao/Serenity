@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withTheme, Title, Card, Paragraph } from 'react-native-paper';
+import { withTheme, Title, Card, Paragraph, IconButton } from 'react-native-paper';
 import { StyleSheet, View, ScrollView, FlatList, Dimensions } from 'react-native';
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
@@ -7,7 +7,6 @@ import FastImage from 'react-native-fast-image';
 import NetworkContainer from '../../containers/NetworkContainer';
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
-import ImageBackground from '../../containers/ImageBackground';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -20,9 +19,21 @@ class MainScreen extends React.Component {
         }
     }
 
-    static navigationOptions = {
-        header: null
+    static navigationOptions = ({ navigation }) => {
+        // header: null
+        return {
+            headerTitle: 'Home',
+            headerRight: (
+                <IconButton
+                    icon="settings"
+                    onPress={() => navigation.navigate('Settings')}
+                />
+            ),
+        }
+
     };
+
+
 
 
     apiRequests = () => {
@@ -45,7 +56,7 @@ class MainScreen extends React.Component {
         return (
             <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
                 
-                <View style={{ marginTop: 10 }}>
+                <View style={{ }}>
                     {/* <FlatList
                         pagingEnabled={true}
                         horizontal={true}
@@ -60,7 +71,7 @@ class MainScreen extends React.Component {
                             </View>
                         }
                     /> */}
-                    <Title style={styles.title}>Recents</Title>
+                    <Title style={styles.title}>Recently played</Title>
                         <FlatList
                             horizontal={true}
                             data={Media}
@@ -68,7 +79,7 @@ class MainScreen extends React.Component {
                             showsHorizontalScrollIndicator={false}
                             renderItem={({ item }) =>
                                 <TouchableOpacity 
-                                    style={{ alignItems: 'center' }}
+                                    style={styles.item}
                                     onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                                 >
                                     <FastImage
@@ -88,7 +99,7 @@ class MainScreen extends React.Component {
                         keyExtractor={(item, index) => index.toString()}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) =>
-                            <TouchableOpacity style={{ alignItems: 'center' }}>
+                            <TouchableOpacity style={styles.item}>
                                 <FastImage
                                     source={{ uri: item.artwork }}
                                     style={styles.photo}
@@ -111,12 +122,16 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         textAlign: 'center'
     },
+    item: {
+        marginLeft: 12,
+        marginBottom: 4,
+        alignItems: 'center'
+    },
     photo: {
         width: 120,
         height: 120,
-        margin: 4,
-        borderRadius: 12,
-        elevation: 4
+        // borderRadius: 12,
+        elevation: 1
     },
     cardWrapper: {
         width: 120,

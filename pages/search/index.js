@@ -1,23 +1,39 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, FlatList, Dimensions } from 'react-native';
-import { Searchbar, List, Headline, Card, Subheading, Title } from 'react-native-paper';
-import { withNavigation } from 'react-navigation';
+import { Searchbar, List, withTheme, Card, Subheading, Title, Surface, Colors, TouchableRipple, DarkTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
-import FastImage from 'react-native-fast-image';
+import { createStackNavigator } from 'react-navigation';
 
 import Genre from '../../data/genre.json';
 import { updateQuery, playMedia, fetchJioSavanData } from '../../actions';
 import ImageBackground from '../../containers/ImageBackground';
+import Songs from '../shared/Songs';
 
 
 class Search extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            header: (
+              <View style={{ backgroundColor: DarkTheme.colors.background}}>
+                    <Searchbar
+                        placeholder="Artists, songs or podcasts"
+                        onChangeText={(text) => { this.props.updateQuery(text) }}
+                        value={navigation.getParam('query')}
+                        // onIconPress={() => this.props.navigation.toggleDrawer()}
+                        icon="search"
+                        style={styles.searchbar}
+                    />
+              </View>
+            )
+        }
+    }
     constructor(props) {
         super(props);
         this.state = {
             query: null
         }
     }
-    
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.query) {
@@ -26,7 +42,9 @@ class Search extends Component {
             })
         }
     }
-
+    componentDidMount() {
+        this.props.navigation.setParams({ query: this.state.query });
+    }
 
     // filterMatchingSongs = (query) => {
     //     const result = []
@@ -78,17 +96,11 @@ class Search extends Component {
         //         onPress={() => this.props.playMedia(album)}
         //     />
         // );
-
+        const { colors } = this.props.theme; 
+        const { navigate } = this.props.navigation;
         return (
-            <ScrollView style={{ flex: 1, margin: 8 }}>
-                <Searchbar
-                    placeholder="Artists, songs or podcasts"
-                    onChangeText={(text) => { this.props.updateQuery(text) }}
-                    value={this.state.query}
-                    onIconPress={() => this.props.navigation.toggleDrawer()}
-                    icon="search"
-                    style={styles.searchbar}
-                />
+            <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+               
                 <Title style={styles.headline}>All Moods & Geners</Title>
                 <View style={styles.container}>
                     <FlatList
@@ -96,14 +108,9 @@ class Search extends Component {
                         keyExtractor={(item, index) => index.toString()}
                         numColumns={2}
                         renderItem={({ item }) =>
-                            <ImageBackground style={styles.item} source={{ uri: item.image }} imageStyle={styles.photo}>
-                                {/* <FastImage
-                                    source={{ uri: item.image }}
-                                    style={styles.photo}
-                                    // onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
-                                /> */}
+                            <TouchableRipple style={styles.item} onPress={() => navigate('Songs', { songs: [], img: 'https://source.unsplash.com/1600x900/?'+ item.title, title: item.title })}>
                                 <Subheading style={{ color: 'white' }} numberOfLines={1}>{item.title}</Subheading>
-                            </ImageBackground>
+                            </TouchableRipple>
                         }
                     />
                 </View>
@@ -116,13 +123,42 @@ class Search extends Component {
     }
 }
 
+const GenreNavigation = createStackNavigator({
+    Search: { screen: withTheme(Search) },
+    Songs: { screen: Songs }
+},
+    {
+        initialRouteName: 'Search',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: DarkTheme.colors.surface,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: DarkTheme.colors.text
+            },
+        },
+    }
+);
+
+GenreNavigation.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+
+    return {
+        tabBarVisible,
+    };
+};
+
+
 
 const mapStateToProps = state => ({
-    query: state.query.query,
-    genres: state.dashboard.genres
+    query: state.query.query
 });
 
-export default connect(mapStateToProps, { updateQuery, playMedia, fetchJioSavanData })(withNavigation(Search));
+export default connect(mapStateToProps, { updateQuery, playMedia, fetchJioSavanData })(GenreNavigation);
 
 const styles = StyleSheet.create({
     container: {
@@ -130,7 +166,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexWrap: 'wrap',
-        padding: 4,
         marginLeft: 5,
         marginRight: 5
     },
@@ -139,12 +174,15 @@ const styles = StyleSheet.create({
         // marginTop: Constants.statusBarHeight,
     },
     item: {
-        width: '50%',
+        // width: 150,
+        backgroundColor: Colors.lightBlueA100,
+        borderRadius: 4,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         height: 100,
-        height: 100,
-        // elevation: 8
+        margin: 4,
+        elevation: 8
     },
     // photo: {
     //     borderRadius: 8,
