@@ -59,7 +59,7 @@ class Songs extends Component {
                           <Title>{title}</Title>
                       </View>
                       { _.isEmpty(songs) ? null: 
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', flex: 1 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', flex: 1, marginBottom: 8 }}>
                                 {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download
                             </Button> */}

@@ -6,7 +6,7 @@
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
 ## What is this?
-Serenity is still trying it figure out it's purpose. For sure it wants to the best in what ever it wants to be. 
+Serenity is a world class music player which focuses on giving wonder full experience to the user.
 
 
 
