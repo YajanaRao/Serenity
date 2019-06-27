@@ -16,7 +16,6 @@ class Artist extends Component {
 
     render() {
         // console.log(this.props.files)
-        const { files } = this.props;
         return (
             <View>
                 <List.Item
@@ -29,7 +28,7 @@ class Artist extends Component {
                 />
                 <List.Item
                     title="Brodha V"
-                    left={props => <FastImage {...props} source={{ uri: 'https://dl.dropboxusercontent.com/s/tvzzaeaiq9neuq1/jb.jpg?dl=0' }} style={styles.icons} />}
+                    left={props => <FastImage {...props} source={{ uri: 'https://source.unsplash.com/collection/895539/200x200' }} style={styles.icons} />}
                 />
             </View>
         );

@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "artwork": "https://yt3.ggpht.com/a-/AAuE7mACIgSE8YpX8hGwN6WUVuofjIRJbYoZFWjTMQ=s900-mo-c-c0xffffffff-rj-k-no",
+    "artwork": "https://dl.dropboxusercontent.com/s/jtwj1bznfgw1l9l/album.jpg?dl=0",
     "album": "Dangerous",
     "artist": "Michael Jackson",
     "genre": "Pop",
@@ -9,8 +9,8 @@
       {
         "id": "1",
         "title": "Dangerous",
-        "url": "http://98.157.74.38/MUSIC/ORIG/M/MJ/Michael%20Jackson/Dangerous/4%20Dangerous.mp3",
-        "artwork": "https://yt3.ggpht.com/a-/AAuE7mACIgSE8YpX8hGwN6WUVuofjIRJbYoZFWjTMQ=s900-mo-c-c0xffffffff-rj-k-no",
+        "url": "https://dl.dropboxusercontent.com/14%20Dangerous.mp3?dl=0",
+        "artwork": "https://dl.dropboxusercontent.com/s/jtwj1bznfgw1l9l/album.jpg?dl=0",
         "album": "Dangerous",
         "artist": "Michael Jackson"
       },
@@ -18,7 +18,7 @@
         "id": "2",
         "title": "Who is it",
         "url": "http://98.157.74.38/MUSIC/ORIG/M/MJ/Michael%20Jackson/Dangerous/09%20Who%20Is%20It.mp3",
-        "artwork": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRENmiji3NwlHaLpnqsiTHcfkL9jx3zwGSBod9aa42nThJ8wPN",
+        "artwork": "https://dl.dropboxusercontent.com/s/jtwj1bznfgw1l9l/album.jpg?dl=0",
         "album": "Dangerous",
         "artist": "Michael Jackson"
       },
@@ -26,7 +26,7 @@
         "id": "3",
         "title": "She Drives Me Wild",
         "url": "http://98.157.74.38/MUSIC/ORIG/M/MJ/Michael%20Jackson/Dangerous/04%20She%20Drives%20Me%20Wild%201.mp3",
-        "artwork": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT-MKnH6RpQZIi1cXI6iDY8OWiGof0lEpG9GXMRQg1z6Cpo4so-w",
+        "artwork": "https://dl.dropboxusercontent.com/s/jtwj1bznfgw1l9l/album.jpg?dl=0",
         "album": "Dangerous",
         "artist": "Michael Jackson"
       },

@@ -45,7 +45,7 @@ const App = createAppContainer(createMaterialTopTabNavigator({
 },{
     tabBarOptions: {
         labelStyle: {
-            fontSize: 12,
+            fontSize: 14,
         },
         tabStyle: {
             width: 100,

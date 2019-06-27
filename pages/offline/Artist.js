@@ -2,10 +2,15 @@ import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
 import { withTheme, Divider, Button, Title, List, Avatar } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 
 class Artist extends React.Component {
+    static navigationOptions = {
+        header: null
+    }
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -32,6 +37,8 @@ class Artist extends React.Component {
             },
         } = this.props;
 
+        const { navigate } = this.props.navigation;
+
         const artists = _.uniqBy(this.state.files, 'artist');
 
         if (!_.isEmpty(artists)) {
@@ -48,7 +55,10 @@ class Artist extends React.Component {
                         renderItem={({ item }) =>
                             <List.Item
                                 title={item.artist}
-                                left={props => <Avatar.Icon {...props} source={{ uri: item.artwork }} />}
+                                left={props => <FastImage {...props} source={{ uri: 'https://source.unsplash.com/collection/574198/120x120' }} style={styles.icons} />}
+                                onPress={() => navigate('Songs', { songs: _.filter(this.state.files, function(n){
+                                    return n.artist == item.artist
+                                }), img: 'https://source.unsplash.com/collection/574198/120x120', title: item.artist })}
                             />
                         }
                     />
@@ -70,3 +80,11 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(withTheme(Artist));
 // export default withTheme(Artist);
+
+const styles = StyleSheet.create({
+    icons: {
+        width: 60,
+        height: 60,
+        borderRadius: 30
+    }
+});
