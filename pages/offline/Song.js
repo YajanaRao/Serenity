@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 import _ from 'lodash';
 
-import { addToQueue } from '../../actions';
+import { addToQueue, getOfflineMedia } from '../../actions';
 import Track from '../../components/Track'
 
 
@@ -15,14 +15,25 @@ class Song extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: []
+            files: [],
+            refreshing: false
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (!_.isEmpty(nextProps.files)) {
-            this.setState({ files: nextProps.files });
+            this.setState({
+                files: nextProps.files,
+                refreshing: false
+            });
         }   
+    }
+
+    fetchData = () => {
+        this.setState({
+            refreshing: true
+        })
+        this.props.getOfflineMedia()
     }
 
     // componentDidMount(){
@@ -52,7 +63,8 @@ class Song extends React.Component {
                     <FlatList
                         data={this.state.files}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
-                        // onRefresh={() => this.props.getOfflineMedia()}
+                        refreshing={this.state.refreshing}
+                        onRefresh={() => this.fetchData()}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <Track track={item} />
@@ -74,4 +86,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { addToQueue })(withTheme(Song));
+export default connect(mapStateToProps, { addToQueue, getOfflineMedia })(withTheme(Song));

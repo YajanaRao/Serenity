@@ -99,11 +99,13 @@ class MainScreen extends React.Component {
                         keyExtractor={(item, index) => index.toString()}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) =>
-                            <TouchableOpacity style={styles.item}>
+                            <TouchableOpacity 
+                                style={styles.item}
+                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
+                            >
                                 <FastImage
                                     source={{ uri: item.artwork }}
                                     style={styles.photo}
-                                    onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                                 />
                                 <Paragraph numberOfLines={1}>{item.album}</Paragraph>
                             </TouchableOpacity>

@@ -7,8 +7,7 @@ import MainScreen from './Main';
 import SettingScreen from './Settings';
 
 
-
-export const MediaNavigator = createStackNavigator({
+export default createStackNavigator({
     Home: { screen: MainScreen },
     Songs: { screen: SongScreen },
     Settings: { screen: SettingScreen }
@@ -27,3 +26,18 @@ export const MediaNavigator = createStackNavigator({
         },
     });
 
+// const AppContainer = createAppContainer(MediaNavigator);
+
+// class HomeScreen extends React.PureComponent {
+
+//     render() {
+//         return (
+//             // <NetworkContainer>
+//             <AppContainer />
+//             // </NetworkContainer>
+//         )
+
+//     }
+// }
+
+// export default withTheme(HomeScreen);

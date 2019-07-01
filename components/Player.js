@@ -298,7 +298,7 @@ class Player extends Component {
                     }}>
                     <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
                             {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} /> : false }
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}>
                             <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
                             <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist}</Caption>
                         </View>
