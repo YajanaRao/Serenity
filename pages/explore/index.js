@@ -38,7 +38,7 @@ PlaylistNavigation.navigationOptions = ({ navigation }) => {
     };
 };
 
-export default createAppContainer(createMaterialTopTabNavigator({
+export  createMaterialTopTabNavigator({
     Playlist: { screen: PlaylistNavigation },
     Artist: { screen: Artist },
     Album: { screen: Album },
@@ -57,7 +57,7 @@ export default createAppContainer(createMaterialTopTabNavigator({
             backgroundColor: DarkTheme.colors.surface,
         },
     }
-}));
+});
 
 // class Explore extends Component {
 //     render() {
@@ -68,3 +68,4 @@ export default createAppContainer(createMaterialTopTabNavigator({
 // }
 
 // export default Explore;
+
