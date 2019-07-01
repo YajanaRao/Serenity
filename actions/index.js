@@ -170,8 +170,10 @@ export const playMedia = (item) => dispatch => {
       }
     })
     .catch((error) => {
+      console.log(error)
     }) 
   }else {
+    console.log("No data given")
   }
 }
 

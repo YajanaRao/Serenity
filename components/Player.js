@@ -238,7 +238,7 @@ class Player extends Component {
                             <Love style={{ width: 60 }} track={this.state.active}/>
                             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                                 <Title numberOfLines={1}>{this.state.active.title}</Title>
-                                <Subheading numberOfLines={1}>{this.state.active.artist}</Subheading>
+                                    <Subheading numberOfLines={1}>{this.state.active.artist ? this.state.active.artist : this.state.active.album }</Subheading>
                             </View>
 
                            <View style={{ width: 60 }}>
@@ -300,7 +300,7 @@ class Player extends Component {
                             {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} /> : false }
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}>
                             <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
-                            <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist}</Caption>
+                                <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist ? this.state.active.artist : this.state.active.album }</Caption>
                         </View>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'center', width: 50 }}>
                             {this.state.isLoading ?

@@ -7,7 +7,6 @@ import FastImage from 'react-native-fast-image'
 
 import SwiperContainer from '../containers/SwiperContainer';
 import { playMedia, addToQueue } from '../actions';
-import Love from './Love';
 
 
 const { UIManager } = NativeModules;
@@ -47,6 +46,7 @@ class Track extends Component {
                 return false
             }
         }
+        // console.log(track)
         // this.props.addToQueue(track);
         this.props.playMedia(track);
     }
@@ -80,7 +80,7 @@ class Track extends Component {
                         <List.Item
                             item={track}
                             title={track.title}
-                            description={track.artist}
+                            description={ track.artist ? track.artist : track.album }
                             // left={props => (
                             //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
                             // )}
@@ -97,7 +97,7 @@ class Track extends Component {
                 <List.Item
                     item={track}
                     title={track.title}
-                    description={track.artist}
+                    description={track.artist ? track.artist : track.album}
                     // left={props => (
                     //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
                     // )}

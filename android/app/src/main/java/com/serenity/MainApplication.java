@@ -14,6 +14,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import com.drazail.rnandroidstore.RNAndroidStorePackage;
+
 import com.serenity.NavigationBarPackage;
 
 import java.util.Arrays;
@@ -37,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
             new TrackPlayer(),
             new RNGestureHandlerPackage(),
             new VectorIconsPackage(),
-            new NavigationBarPackage()
+            new NavigationBarPackage(),
+            new RNAndroidStorePackage()
       );
     }
 
