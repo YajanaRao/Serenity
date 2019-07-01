@@ -7,7 +7,6 @@ import MainScreen from './Main';
 import SettingScreen from './Settings';
 
 
-
 export default createStackNavigator({
     Home: { screen: MainScreen },
     Songs: { screen: SongScreen },
@@ -26,7 +25,6 @@ export default createStackNavigator({
             },
         },
     });
-
 
 // const AppContainer = createAppContainer(MediaNavigator);
 
