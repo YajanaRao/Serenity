@@ -37,8 +37,8 @@ class Playlist extends Component {
                         navigate('Songs', 
                             { 
                                 songs: this.state.favorite, 
-                                img: "https://www.macworld.co.uk/cmsdata/features/3612963/how_to_get_music_on_iphone_1600home_thumb800.jpg", 
-                                title: "Favorite" 
+                                img: "https://source.unsplash.com/collection/403065/120x120", 
+                                title: "Favorites" 
                             }
                         )
                     }}

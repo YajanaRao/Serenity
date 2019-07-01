@@ -123,7 +123,7 @@ class Search extends Component {
     }
 }
 
-const GenreNavigation = createStackNavigator({
+export default createStackNavigator({
     Search: { screen: withTheme(Search) },
     Songs: { screen: Songs }
 },
@@ -141,24 +141,16 @@ const GenreNavigation = createStackNavigator({
     }
 );
 
-GenreNavigation.navigationOptions = ({ navigation }) => {
-    let tabBarVisible = true;
-    if (navigation.state.index > 0) {
-        tabBarVisible = false;
-    }
+// GenreNavigation.navigationOptions = ({ navigation }) => {
+//     let tabBarVisible = true;
+//     if (navigation.state.index > 0) {
+//         tabBarVisible = false;
+//     }
 
-    return {
-        tabBarVisible,
-    };
-};
-
-
-
-const mapStateToProps = state => ({
-    query: state.query.query
-});
-
-export default connect(mapStateToProps, { updateQuery, playMedia, fetchJioSavanData })(GenreNavigation);
+//     return {
+//         tabBarVisible,
+//     };
+// };
 
 const styles = StyleSheet.create({
     container: {

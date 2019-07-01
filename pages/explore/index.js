@@ -38,7 +38,7 @@ PlaylistNavigation.navigationOptions = ({ navigation }) => {
     };
 };
 
-export const App = createMaterialTopTabNavigator({
+export  createMaterialTopTabNavigator({
     Playlist: { screen: PlaylistNavigation },
     Artist: { screen: Artist },
     Album: { screen: Album },
@@ -58,4 +58,14 @@ export const App = createMaterialTopTabNavigator({
         },
     }
 });
+
+// class Explore extends Component {
+//     render() {
+//         return (
+//            <App/>
+//         );
+//     }
+// }
+
+// export default Explore;
 

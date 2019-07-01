@@ -8,9 +8,9 @@
         "songs": [
             {
                 "id": "1",
-                "artwork": "http://kannadasongs.cc/thumbs/42.png",
-                "title": " Kotigobba-2 ",
-                "url": "http://kannadasongs.cc/file/download/42.html"
+                "artwork": "https://dl.dropboxusercontent.com/s/cmzkdk7lxsxvnnb/ni-sanihake-bandare.jpg?dl=0",
+                "title": "Ni Sanihake bandare",
+                "url": "https://dl.dropboxusercontent.com/s/o4djrulrcic6zjb/Nee%20Sanihake%20Bandre.mp3?dl=0"
             },
             {
                 "id": "2",
@@ -62,39 +62,39 @@
             },
             {
                 "id": "10",
-                "artwork": "http://kannadasongs.cc/thumbs/42.png",
-                "title": " Kotigobba-2 ",
-                "url": "http://kannadasongs.cc/file/download/42.html"
+                "artwork": "https://dl.dropboxusercontent.com/s/iw69wlkr9k7e8l6/Googly-2015.jpg?dl=0",
+                "title": "Yeno Yeno Aagide ",
+                "url": "https://dl.dropboxusercontent.com/s/j00rbiout3lt8yn/Yeno%20Yeno%20Aagide.mp3?dl=0"
             },
             {
-                "id": "11",
+                "id": "111",
                 "artwork": "http://kannadasongs.cc/thumbs/94.png",
                 "title": " Nee Eshtu Muddhu",
                 "url": "http://kannadasongs.cc/file/download/97.html"
             },
             {
-                "id": "12",
+                "id": "112",
                 "artwork": "http://kannadasongs.cc/thumbs/109.png",
                 "title": " Ninna Shehadinda",
                 "url": "http://kannadasongs.cc/file/download/118.html"
             },
             {
-                "id": "13",
+                "id": "113",
                 "artwork": "http://kannadasongs.cc/thumbs/41.png",
                 "title": " Nagarahavu",
                 "url": "http://kannadasongs.cc/file/download/41.html"
             },
             {
-                "id": "14",
-                "artwork": "http://kannadasongs.cc/thumbs/109.png",
-                "title": " Ninna Shehadinda",
-                "url": "http://kannadasongs.cc/file/download/118.html"
+                "id": "114",
+                "artwork": "https://dl.dropboxusercontent.com/s/iw69wlkr9k7e8l6/Googly-2015.jpg?dl=0",
+                "title": "Neenirade",
+                "url": "https://dl.dropboxusercontent.com/s/cfwy6incaicpaqo/Neenirade.mp3?dl=0"
             },
             {
                 "id": "15",
-                "artwork": "http://kannadasongs.cc/thumbs/41.png",
-                "title": " Nagarahavu",
-                "url": "http://kannadasongs.cc/file/download/41.html"
+                "artwork": "https://dl.dropboxusercontent.com/s/3a5o701zlpujpr9/Dont-Worry-2019.jpg?dl=0",
+                "title": " Don't Worry",
+                "url": "https://dl.dropboxusercontent.com/s/evzyrlnrtyovho6/Don%27t%20Worry.mp3?dl=0"
             },
             {
                 "id": "16",
@@ -103,16 +103,43 @@
                 "url": "http://kannadasongs.cc/file/download/46.html"
             },
             {
-                "id": "17",
-                "artwork": "http://kannadasongs.cc/thumbs/102.png",
-                "title": " Avarivara Jothe",
-                "url": "http://kannadasongs.cc/file/download/104.html"
+                "id": "117",
+                "artwork": "https://dl.dropboxusercontent.com/s/vxbiutz5e0yyen0/Amar-2019.jpg?dl=0",
+                "title": "Marethuhoyithe",
+                "url": "https://dl.dropboxusercontent.com/s/gcg48saswg7juu8/Marethuhoyithe.mp3?dl=0"
             },
             {
                 "id": "18",
                 "artwork": "http://kannadasongs.cc/icon.php?file=L2ZpbGVzL05ld19NcDNfU29uZ3MvS2F2YWNoYS9SZWtrYXlhX3NvbG9fLm1wMw==&fid=21",
                 "title": " Rekkaya-solo ",
                 "url": "http://kannadasongs.cc/file/download/21.html"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "artwork": "https://dl.dropboxusercontent.com/s/c6zgtphqvqeqa47/bollywood.jpg?dl=0",
+        "album": "Top 20",
+        "artist": "All",
+        "genre": "Sandalwood",
+        "songs": [
+            {
+                "id": "118",
+                "artwork": "https://dl.dropboxusercontent.com/s/xksid0fjeobbdlq/dheeme-dheeme.jpg?dl=0",
+                "title": "Dheeme Dheeme",
+                "url": "https://dl.dropboxusercontent.com/s/1jvloe34chc5cgb/Dheeme%20Dheeme%20-%20Tony%20Kakkar%20%28DJJOhAL.Com%29.mp3?dl=0"
+            },
+            {
+                "id": "119",
+                "artwork": "https://dl.dropboxusercontent.com/s/jy7y7j601k1hkjo/Bekhayali.jpg?dl=0",
+                "title": "Bekhayali",
+                "url": "https://dl.dropboxusercontent.com/s/09j4vox3afuq7zk/Bekhayali.mp3?dl=0"
+            },
+            {
+                "id": "120",
+                "artwork": "https://dl.dropboxusercontent.com/s/kd8e3738m4djlwk/Chale-Aana.jpg?dl=0",
+                "title": "Chale Aana",
+                "url": "https://dl.dropboxusercontent.com/s/op2qkjebri9m5s3/Chale_Aana.mp3?dl=0"
             }
         ]
     }
