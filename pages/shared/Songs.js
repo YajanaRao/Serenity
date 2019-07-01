@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IconButton, Divider,  withTheme, Title, TouchableRipple, Text } from 'react-native-paper';
+import { IconButton, Divider,  withTheme, Title, TouchableRipple, Text, Button } from 'react-native-paper';
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
@@ -61,16 +61,13 @@ class Songs extends Component {
                       { _.isEmpty(songs) ? null: 
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', flex: 1, marginBottom: 8 }}>
                                 {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
-                                Download
-                            </Button> */}
-                                <TouchableRipple
-                                    // icon="play-circle-outline" 
-                                    style={{ elevation: 4, backgroundColor: colors.primary, padding: 8, paddingLeft: 20, paddingRight: 20, justifyContent: 'center' }}
+                                    Download
+                                </Button> */}
+                                <Button 
+                                    mode="contained"
                                     onPress={() => this.props.addToQueue(songs)}>
-                                    <Text style={{ fontWeight: 'bold' }}>
                                         Play All
-                                </Text>
-                                </TouchableRipple>
+                                </Button>
                             </View>
                         }
                         <FlatList
