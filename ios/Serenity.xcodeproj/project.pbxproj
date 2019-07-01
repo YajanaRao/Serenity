@@ -61,7 +61,7 @@
 		1C8CB6C851254B088A5E8C0E /* libRNTrackPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D77391F47747ABA0E21DB4 /* libRNTrackPlayer.a */; };
 		E15C645CC48E4EBEAABA6301 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 535FDB8055E848A587436572 /* libFastImage.a */; };
 		E1482A6768DB429FB945929E /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FC64431F8C45BAA617F710 /* libRNFS.a */; };
-		55603A49A7804412BB733936 /* libRNReactNativeGetMusicFiles.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EDAAC41D9704FB789B781C2 /* libRNReactNativeGetMusicFiles.a */; };
+		2A7FC2191C284621AE566F83 /* libRNReactNativeGetMusicFiles.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D9AA0E9444AE2AFC7E86C /* libRNReactNativeGetMusicFiles.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -396,8 +396,8 @@
 		535FDB8055E848A587436572 /* libFastImage.a */ = {isa = PBXFileReference; name = "libFastImage.a"; path = "libFastImage.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		D4824329D24D43E3B6B73E45 /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		02FC64431F8C45BAA617F710 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		022C0D7D6B3E4C06B83ABA05 /* RNReactNativeGetMusicFiles.xcodeproj */ = {isa = PBXFileReference; name = "RNReactNativeGetMusicFiles.xcodeproj"; path = "../node_modules/react-native-get-music-files/ios/RNReactNativeGetMusicFiles.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		9EDAAC41D9704FB789B781C2 /* libRNReactNativeGetMusicFiles.a */ = {isa = PBXFileReference; name = "libRNReactNativeGetMusicFiles.a"; path = "libRNReactNativeGetMusicFiles.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		5EA5C94BF00D4EA1BFEBA88C /* RNReactNativeGetMusicFiles.xcodeproj */ = {isa = PBXFileReference; name = "RNReactNativeGetMusicFiles.xcodeproj"; path = "../node_modules/react-native-get-music-files/ios/RNReactNativeGetMusicFiles.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		4C5D9AA0E9444AE2AFC7E86C /* libRNReactNativeGetMusicFiles.a */ = {isa = PBXFileReference; name = "libRNReactNativeGetMusicFiles.a"; path = "libRNReactNativeGetMusicFiles.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,7 +431,7 @@
 				1C8CB6C851254B088A5E8C0E /* libRNTrackPlayer.a in Frameworks */,
 				E15C645CC48E4EBEAABA6301 /* libFastImage.a in Frameworks */,
 				E1482A6768DB429FB945929E /* libRNFS.a in Frameworks */,
-				55603A49A7804412BB733936 /* libRNReactNativeGetMusicFiles.a in Frameworks */,
+				2A7FC2191C284621AE566F83 /* libRNReactNativeGetMusicFiles.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,7 +628,7 @@
 				5C5D6CCCC0A94964973A2542 /* RNTrackPlayer.xcodeproj */,
 				AB5256680C58458FBDE0DB06 /* FastImage.xcodeproj */,
 				D4824329D24D43E3B6B73E45 /* RNFS.xcodeproj */,
-				022C0D7D6B3E4C06B83ABA05 /* RNReactNativeGetMusicFiles.xcodeproj */,
+				5EA5C94BF00D4EA1BFEBA88C /* RNReactNativeGetMusicFiles.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1296,7 +1296,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1305,7 +1304,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Debug;
@@ -1328,7 +1327,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1337,7 +1335,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Release;
@@ -1365,7 +1363,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Debug;
@@ -1392,7 +1390,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Release;
@@ -1423,7 +1421,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1432,7 +1429,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Debug;
@@ -1463,7 +1460,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1472,7 +1468,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Release;
@@ -1502,7 +1498,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1511,7 +1506,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Debug;
@@ -1541,7 +1536,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1550,7 +1544,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-track-player\ios\RNTrackPlayer/**",
 					"$(SRCROOT)\..\node_modules\react-native-fast-image\ios\FastImage/**",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
-					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios",
+					"$(SRCROOT)\..\node_modules\react-native-get-music-files\ios/**",
 				);
 			};
 			name = Release;

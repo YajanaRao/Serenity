@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image'; 
 import _ from 'lodash';
+import { RNAndroidAudioStore } from "react-native-get-music-files";
 
 class Album extends React.Component {
     static navigationOptions = {
@@ -14,20 +15,23 @@ class Album extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: []
-        }
+            albums: []        }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!_.isEmpty(nextProps.files)) {
-            this.setState({ files: nextProps.files });
-        }
-    }
-
-    // componentDidMount() {
-    //     console.log("calling get offline media")
-    //     this.props.getOfflineMedia()
+    // componentWillReceiveProps(nextProps) {
+    //     if (!_.isEmpty(nextProps.files)) {
+    //         this.setState({ files: nextProps.files });
+    //     }
     // }
+
+    componentDidMount() {
+        // this.props.getOfflineMedia()
+        RNAndroidAudioStore.getAlbums({})
+            .then(media => {
+                this.setState({ albums: media });
+            })
+            .catch(er => alert(JSON.stringify(error)));
+    }
 
 
     render() {
@@ -39,27 +43,26 @@ class Album extends React.Component {
 
         const { navigate } = this.props.navigation;
 
-        const albums = _.uniqBy(this.state.files, 'album');
+        // const albums = _.uniqBy(this.state.files, 'album');
 
-        if (!_.isEmpty(albums)) {
+        if (!_.isEmpty(this.state.albums)) {
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                     <FlatList
-                        data={albums}
+                        data={this.state.albums}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
                         // onRefresh={() => this.props.getOfflineMedia()}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <List.Item
                                 title={item.album}
-                                left={props => <FastImage {...props} source={{ uri: item.artwork }} style={styles.icons} /> }
-                                description={_.size(_.filter(this.state.files, function (n) {
-                                    return n.album == item.album
-                                }))+" songs"}
-                                onPress={() => navigate('Songs', {
-                                    songs: _.filter(this.state.files, function (n) {
-                                        return n.album == item.album
-                                    }), img: item.artwork, title: item.album
+                                left={props =>  item.cover == 'null' ? 
+                                    <FastImage {...props} source={{ uri: "https://source.unsplash.com/collection/574198/200x200" }} style={styles.icons} /> : 
+                                    <FastImage {...props} source={{ uri: "file://"+ item.cover }} style={styles.icons} />  
+                                }
+                                description={ item.numberOfSongs + " songs"}
+                                onPress={() => navigate('Filter', {
+                                    album: item.album, img: "file://" +item.cover, title: item.album
                                 })}
                             />
                         }

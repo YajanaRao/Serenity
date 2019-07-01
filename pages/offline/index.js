@@ -9,10 +9,11 @@ import Song from './Song';
 import Songs from '../shared/Songs';
 
 import { getOfflineMedia } from '../../actions';
+import Filter from '../shared/Filter';
 
 const ArtistNavigation = createStackNavigator({
     Artist: { screen: Artist },
-    Songs: { screen: Songs }
+    Filter: { screen: Filter }
 },
     {
         initialRouteName: 'Artist',
@@ -42,7 +43,7 @@ ArtistNavigation.navigationOptions = ({ navigation }) => {
 
 const AlbumNavigation = createStackNavigator({
     Album: { screen: Album },
-    Songs: { screen: Songs }
+    Filter: { screen: Filter }
 },
     {
         initialRouteName: 'Album',
@@ -72,7 +73,7 @@ AlbumNavigation.navigationOptions = ({ navigation }) => {
 
 // https://reactnavigation.org/docs/en/navigation-options-resolution.html#a-tab-navigator-contains-a-stack-and-you-want-to-hide-the-tab-bar-on-specific-screens
 
-const App = createAppContainer(createMaterialTopTabNavigator({
+export default createMaterialTopTabNavigator({
     Song: { screen: Song },
     Artist: { screen: ArtistNavigation },
     Album: { screen: AlbumNavigation },
@@ -91,20 +92,4 @@ const App = createAppContainer(createMaterialTopTabNavigator({
                 backgroundColor: DarkTheme.colors.surface,
             },
         }
-}));
-
-class Offline extends Component {
-
-    componentDidMount(){
-        this.props.getOfflineMedia()
-    }
-
-    render() {
-        return (
-            <App />
-        );
-    }
-}
-
-// export default Offline;
-export default connect(null, { getOfflineMedia })(Offline);
+});
