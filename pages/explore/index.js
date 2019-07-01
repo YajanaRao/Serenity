@@ -38,7 +38,7 @@ PlaylistNavigation.navigationOptions = ({ navigation }) => {
     };
 };
 
-export  createMaterialTopTabNavigator({
+export default createMaterialTopTabNavigator({
     Playlist: { screen: PlaylistNavigation },
     Artist: { screen: Artist },
     Album: { screen: Album },
