@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { View, StatusBar } from 'react-native';
-import { withTheme, IconButton, Snackbar, DarkTheme, Surface } from 'react-native-paper';
+import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { PermissionsAndroid } from 'react-native';
 

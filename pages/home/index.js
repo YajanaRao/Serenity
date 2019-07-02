@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
-import { withTheme, IconButton, Snackbar, DarkTheme, Surface } from 'react-native-paper';
+import {  createStackNavigator } from 'react-navigation';
+import {  DarkTheme } from 'react-native-paper';
 
 import SongScreen from '../shared/Songs';
 import MainScreen from './Main';

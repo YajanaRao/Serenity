@@ -88,30 +88,10 @@ class Filter extends Component {
         const { navigation } = this.props;
 
         
-        const genre = navigation.getParam('genre', null);
+        // const genre = navigation.getParam('genre', null);
 
         const albumImage = navigation.getParam('img', 'https://source.unsplash.com/collection/4799534/120x120');
         const title = navigation.getParam('title', 'No Title');
-
-        // if(!this.state.isFetched){
-        //     if (album) {
-        //         RNAndroidAudioStore.getSongs({
-        //             album: album
-        //         })
-        //             .then(media => {
-        //                 _.map(media, function (item) {
-        //                     item.url = "file://" + item.path
-        //                     delete item.path
-        //                     item.artwork = albumImage
-        //                     return item
-        //                 });
-        //                 this.setState({ 
-        //                     files: media,
-        //                     isFetched: true
-        //                  });
-        //             })
-        //             .catch(er => alert(JSON.stringify(er)));
-        //     }
 
        
 
@@ -160,17 +140,6 @@ const styles = StyleSheet.create(
     {
         container: {
             flex: 1
-        },
-        bar: {
-            zIndex: 10,
-            flexDirection: 'row',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            // elevation: 1,
-            justifyContent: 'space-between',
-            alignItems: 'center'
         },
         scrollViewContent: {
             marginTop: 10

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, FlatList, Dimensions } from 'react-native';
-import { Searchbar, List, withTheme, Card, Subheading, Title, Surface, Colors, TouchableRipple, DarkTheme } from 'react-native-paper';
+import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { Searchbar,  withTheme, Subheading, Title,  Colors, TouchableRipple, DarkTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
 
 import Genre from '../../data/genre.json';
-import { updateQuery, playMedia, fetchJioSavanData } from '../../actions';
-import ImageBackground from '../../containers/ImageBackground';
 import Songs from '../shared/Songs';
 
 
@@ -141,16 +139,6 @@ export default createStackNavigator({
     }
 );
 
-// GenreNavigation.navigationOptions = ({ navigation }) => {
-//     let tabBarVisible = true;
-//     if (navigation.state.index > 0) {
-//         tabBarVisible = false;
-//     }
-
-//     return {
-//         tabBarVisible,
-//     };
-// };
 
 const styles = StyleSheet.create({
     container: {

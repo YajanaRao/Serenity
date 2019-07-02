@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { withTheme, Divider, Avatar, List } from 'react-native-paper';
+import { withTheme, Avatar, List } from 'react-native-paper';
 import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 

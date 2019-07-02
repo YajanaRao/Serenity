@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { withTheme, Title, Card, Paragraph, IconButton } from 'react-native-paper';
-import { StyleSheet, View, ScrollView, FlatList, Dimensions } from 'react-native';
+import { withTheme, Title, Paragraph, IconButton } from 'react-native-paper';
+import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
 
-import NetworkContainer from '../../containers/NetworkContainer';
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
 import { TouchableOpacity } from 'react-native-gesture-handler';
