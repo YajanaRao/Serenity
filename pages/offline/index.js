@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { createMaterialTopTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import { DarkTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import Album from './Album';
 import Artist from './Artist';
 import Song from './Song';
-import Songs from '../shared/Songs';
-
-import { getOfflineMedia } from '../../actions';
 import Filter from '../shared/Filter';
 
 const ArtistNavigation = createStackNavigator({

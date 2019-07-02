@@ -1,11 +1,11 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider, Button, Title, List, Avatar, Text } from 'react-native-paper';
+import { withTheme, Divider, Title, List } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
-import MusicFiles, { RNAndroidAudioStore } from "react-native-get-music-files";
+import { RNAndroidAudioStore } from "react-native-get-music-files";
 
 class Artist extends React.Component {
     static navigationOptions = {

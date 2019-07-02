@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List, withTheme, DarkTheme } from 'react-native-paper';
-import { StyleSheet, Dimensions, ScrollView, TouchableOpacity, View, FlatList } from 'react-native';
+import { StyleSheet, ScrollView, View, FlatList } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FastImage from 'react-native-fast-image';
 
