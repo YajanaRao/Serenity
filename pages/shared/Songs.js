@@ -45,40 +45,42 @@ class Songs extends Component {
         const { colors } = this.props.theme; 
        
         return (  
-            <ScrollView contentContainerStyle={[styles.container, { backgroundColor: colors.background }]}>
-                <View style={styles.scrollViewContent}>
-                    <View style={{ justifyContent: 'center',  alignItems: 'center', elevation: 4 }}>
-                        {/* <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
-                        <FastImage source={{ uri: albumImage }} style={{ width: 200, height: 200, backgroundColor: '#f7b71d' }} />
-                        {/* <Headline style={styles.title}>{title}</Headline> */}
-                    </View>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
-                        <Title>{title}</Title>
-                    </View>
-                    { _.isEmpty(songs) ? null: 
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', flex: 1, marginBottom: 8 }}>
-                            {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
+            <View style={[styles.container, { backgroundColor: colors.background }]}>
+                <ScrollView>
+                    <View style={styles.scrollViewContent}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', elevation: 4 }}>
+                            {/* <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
+                            <FastImage source={{ uri: albumImage }} style={{ width: 200, height: 200, backgroundColor: '#f7b71d' }} />
+                            {/* <Headline style={styles.title}>{title}</Headline> */}
+                        </View>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
+                            <Title>{title}</Title>
+                        </View>
+                        {_.isEmpty(songs) ? null :
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 8 }}>
+                                {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download
                             </Button> */}
-                            <Button 
-                                mode="contained"
-                                onPress={() => this.props.addToQueue(songs)}>
+                                <Button
+                                    mode="contained"
+                                    onPress={() => this.props.addToQueue(songs)}>
                                     Play All
                             </Button>
-                        </View>
-                    }
-                    <FlatList
-                        data={songs}
-                        ItemSeparatorComponent={() => <Divider inset={true} />}
-                        keyExtractor={(item, index) => index.toString() }
-                        renderItem={({ item }) =>
-                            <Track track={item} swipeable={true} />
+                            </View>
                         }
-                    />
-                    <View style={{ height: 100 }} />
-                </View>
-            
-            </ScrollView>
+                        <FlatList
+                            data={songs}
+                            ItemSeparatorComponent={() => <Divider inset={true} />}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) =>
+                                <Track track={item} swipeable={true} />
+                            }
+                        />
+                        <View style={{ height: 100 }} />
+                    </View>
+
+                </ScrollView>
+          </View>
         );
     }
 }
@@ -88,14 +90,14 @@ class Songs extends Component {
 export default connect(null, { addToQueue })(withTheme(Songs));
 
 const styles = StyleSheet.create(
-    {
-        container: {
-            flex: 1
-        },
-        scrollViewContent: {
-            marginTop: 10
-            // iOS uses content inset, which acts like padding.
-            // paddingTop: ,
+{
+    container: {
+        flex: 1
+    },
+    scrollViewContent: {
+        marginTop: 10
+        // iOS uses content inset, which acts like padding.
+        // paddingTop: ,
 
-        },
-    });
+    },
+});

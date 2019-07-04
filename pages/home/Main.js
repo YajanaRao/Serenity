@@ -6,6 +6,7 @@ import FastImage from 'react-native-fast-image';
 
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
+import Artist from '../../data/artist.json';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -70,7 +71,7 @@ class MainScreen extends React.Component {
                             </View>
                         }
                     /> */}
-                    <Title style={styles.title}>Recently played</Title>
+                    <Title style={styles.title}>Popular Albums</Title>
                         <FlatList
                             horizontal={true}
                             data={Media}
@@ -110,6 +111,27 @@ class MainScreen extends React.Component {
                             </TouchableOpacity>
                         }
                     />
+
+                    <Title style={styles.title}>Popular Artist</Title>
+                    <FlatList
+                        horizontal={true}
+                        data={Artist}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) =>
+                            <TouchableOpacity
+                                style={styles.item}
+                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
+                            >
+                                <FastImage
+                                    source={{ uri: item.artwork }}
+                                    style={styles.artist}
+
+                                />
+                                <Paragraph numberOfLines={1}>{item.album}</Paragraph>
+                            </TouchableOpacity>
+                        }
+                    />
                 </View>
             </ScrollView>
         );
@@ -139,14 +161,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 4
     },
-    napsterCard: {
+    artist: {
         width: 120,
         height: 120,
-        margin: 4
-    },
-    saavanCard: {
-        width: 150,
-        height: 100,
-        margin: 4,
+        borderRadius: 60,
+        elevation: 1
     }
 });

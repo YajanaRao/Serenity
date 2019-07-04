@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { List, withTheme, DarkTheme } from 'react-native-paper';
+import { List, withTheme } from 'react-native-paper';
 import { StyleSheet, ScrollView, View, FlatList } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
 import FastImage from 'react-native-fast-image';
 
 import Media from '../../data/media.json';
-import SongScreen from '../shared/Songs';
 
 
-class AlbumGallery extends React.Component {
+class Album extends React.Component {
     static navigationOptions = {
         header: null
     }
@@ -41,21 +39,6 @@ class AlbumGallery extends React.Component {
                             />
                         )}
                     />
-                 
-                    {/* <FlatList
-                        data={Media}
-                        numColumns={3}
-                        keyExtractor={(item,index) => index.toString()}
-                        renderItem={({item}) => (
-                           
-                            <TouchableOpacity
-                                style={styles.item}
-                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
-                            >
-                                <FastImage source={{ uri: item.artwork }} style={styles.photo} />
-                            </TouchableOpacity>
-                        )}
-                    /> */}
                 </ScrollView>
            </View>
         );
@@ -63,37 +46,7 @@ class AlbumGallery extends React.Component {
 }
 
 
-const AlbumNavigation =  createStackNavigator({
-    Albums: { screen: withTheme(AlbumGallery) },
-    Songs: { screen: SongScreen }
-},
-{
-    initialRouteName: 'Albums',
-    /* The header config from HomeScreen is now here */
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: DarkTheme.colors.surface,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            color: DarkTheme.colors.text
-        },
-    },
-}
-);
-
-AlbumNavigation.navigationOptions = ({ navigation }) => {
-    let tabBarVisible = true;
-    if (navigation.state.index > 0) {
-        tabBarVisible = false;
-    }
-
-    return {
-        tabBarVisible,
-    };
-};
-
-export default withTheme(AlbumNavigation);
+export default withTheme(Album);
 
 const styles = StyleSheet.create({
     content: {

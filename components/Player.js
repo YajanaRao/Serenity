@@ -20,122 +20,91 @@ class Player extends Component {
             isLoading: false,
             queue: [],
             isPlaying: false,
-            isMounted: false,
             modalVisible: false
         }
+        // this._onInitialLoad();
     }
 
 
     componentDidMount() {
-        if(!this.state.isMounted){
-            TrackPlayer.setupPlayer({}).then(() => {
-                TrackPlayer.updateOptions({
-                    stopWithApp: true,
-                    capabilities: [
-                        TrackPlayer.CAPABILITY_PLAY,
-                        TrackPlayer.CAPABILITY_PAUSE,
-                        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-                        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-                        TrackPlayer.CAPABILITY_SKIP
-                    ],
-                });
-            })
-            this._onStateChanged = TrackPlayer.addEventListener('playback-state', async (data) => {
-                requestAnimationFrame(() => {
-                    this.updateTrackStatus(data);
-                })
+        TrackPlayer.setupPlayer({}).then(() => {
+            TrackPlayer.updateOptions({
+                stopWithApp: true,
+                capabilities: [
+                    TrackPlayer.CAPABILITY_PLAY,
+                    TrackPlayer.CAPABILITY_PAUSE,
+                    TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+                    TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+                    TrackPlayer.CAPABILITY_SKIP
+                ],
             });
+        })
+        this._onStateChanged = TrackPlayer.addEventListener('playback-state', async (data) => {
+            requestAnimationFrame(() => {
+                this.updateTrackStatus(data);
+            })
+        });
 
-            this._onTrackChanged = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
-                if (data.nextTrack) {
-                    this.props.activeTrackUpdate(data.nextTrack);
+        this._onTrackChanged = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
+            if (data.nextTrack) {
+                this.props.activeTrackUpdate(data.nextTrack);
+            }
+        })
+
+        this._onInitialLoad();
+    }
+
+    _onInitialLoad =  () => {
+        // console.log("has to be only once")
+        if(!_.isEmpty(this.state.queue)){
+            TrackPlayer.add(this.state.queue).then(() => {
+                if(!_.isEmpty(this.state.active)){
+                    // console.log(this.state.active)
+                    TrackPlayer.skip(this.state.active.id);
                 }
             })
-
-            this.setState({
-                isMounted: true
-            })
-
-
         }
-        
     }
 
     componentWillUnmount() {
-        if(this.state.isMounted) {
-            this._onStateChanged.remove();
-            this._onTrackChanged.remove();
-            TrackPlayer.destroy();
-            this.setState({
-                isMounted: false
-            })
-        }
+        this._onStateChanged.remove();
+        this._onTrackChanged.remove();
+        TrackPlayer.destroy();
     }
 
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.queue) {
-            this.setState({
-                queue: nextProps.queue
-            })
+    static getDerivedStateFromProps(props, state) {
+        if (!_.isEqual(props.queue, state.queue)) {
+            return {
+                queue: props.queue
+            }
         }
-        if(nextProps.active) {
-            this.setState({
-                active: nextProps.active,
-                isMounted: true
-            })
+        if (!_.isEqual(props.active, state.active)) {
+            return {
+                active: props.active
+            }
         }
+        return null
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (this.props.queue !== nextProps.queue) {
-    //         return true;
-    //     }
-    //     if (this.props.active !== nextProps.active) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
 
     updateTrackStatus = (data) => {
-        if(this.state.isMounted){
-            if (data) {
-                if (data.state == 3) {
-                    this.setState({
-                        isPlaying: true,
-                        isLoading: false
-                    })
-                }
-                else if (data.state == 2) {
-                    this.setState({
-                        isPlaying: false,
-                        isLoading: false
-                    })
-                }
-                else if (data.state == 6) {
-                    this.setState({
-                        isLoading: true,
-                        isPlaying: false
-                    })
-                }
-                else {
-                    this.setState({
-                        isPlaying: false,
-                        isLoading: false
-                    })
-                    TrackPlayer.getCurrentTrack().then((currentTrack) => {
-                        if (currentTrack == null) {
-                            TrackPlayer.reset();
-                            this.setState({
-                                isMounted: false
-                            })
-                        } else {
-                            this.skipToNext();
-                        }
-                    })
-
-                }
-            }
+        if (data.state == TrackPlayer.STATE_PLAYING) {
+            this.setState({
+                isPlaying: true,
+                isLoading: false
+            })
+        }
+        else if (data.state == TrackPlayer.STATE_BUFFERING) {
+            this.setState({
+                isLoading: true,
+                isPlaying: false
+            })
+        }
+        else {
+            this.setState({
+                isPlaying: false,
+                isLoading: false
+            })
         }
     }
 
@@ -144,11 +113,8 @@ class Player extends Component {
             TrackPlayer.skipToNext().then(() => {
                 TrackPlayer.play();
             })
-            .catch((error) => {
-                console.log(error)
-            })
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             TrackPlayer.stop();
         }
     }
@@ -159,7 +125,7 @@ class Player extends Component {
                 TrackPlayer.play();
             });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             TrackPlayer.stop();
         }
         
@@ -202,7 +168,7 @@ class Player extends Component {
 
         const { colors } = this.props.theme;
 
-        if(!_.isEmpty(this.state.active) && this.state.isMounted){
+        if(!_.isEmpty(this.state.active)){
             return (
                 <View>
                     <Modal

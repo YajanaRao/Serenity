@@ -2,7 +2,7 @@
     {
         "id": 1,
         "artwork": "http://onlinetyping.in/images/kannada.jpg",
-        "album": "Top 20",
+        "album": "Sandalwood Hits",
         "artist": "All",
         "genre": "Sandalwood",
         "songs": [
@@ -10,13 +10,15 @@
                 "id": "1",
                 "artwork": "https://dl.dropboxusercontent.com/s/cmzkdk7lxsxvnnb/ni-sanihake-bandare.jpg?dl=0",
                 "title": "Ni Sanihake bandare",
-                "url": "https://dl.dropboxusercontent.com/s/o4djrulrcic6zjb/Nee%20Sanihake%20Bandre.mp3?dl=0"
+                "url": "https://dl.dropboxusercontent.com/s/o4djrulrcic6zjb/Nee%20Sanihake%20Bandre.mp3?dl=0",
+                "artist": "Sonu Nigam"
             },
             {
                 "id": "2",
                 "artwork": "http://kannadasongs.cc/thumbs/102.png",
                 "title": " Avarivara Jothe",
-                "url": "http://kannadasongs.cc/file/download/104.html"
+                "url": "http://kannadasongs.cc/file/download/104.html",
+                "artist": "Sonu Nigam"
             },
             {
                 "id": "3",
@@ -118,28 +120,68 @@
     },
     {
         "id": 2,
-        "artwork": "https://dl.dropboxusercontent.com/s/c6zgtphqvqeqa47/bollywood.jpg?dl=0",
-        "album": "Top 20",
+        "artwork": "https://dl.dropboxusercontent.com/s/z42l5cnuvvox8vv/hindi.jpg?dl=0",
+        "album": "Bollywood Hits",
         "artist": "All",
-        "genre": "Sandalwood",
+        "genre": "Bollywood",
         "songs": [
             {
                 "id": "118",
                 "artwork": "https://dl.dropboxusercontent.com/s/xksid0fjeobbdlq/dheeme-dheeme.jpg?dl=0",
                 "title": "Dheeme Dheeme",
-                "url": "https://dl.dropboxusercontent.com/s/1jvloe34chc5cgb/Dheeme%20Dheeme%20-%20Tony%20Kakkar%20%28DJJOhAL.Com%29.mp3?dl=0"
+                "url": "https://dl.dropboxusercontent.com/s/1jvloe34chc5cgb/Dheeme%20Dheeme%20-%20Tony%20Kakkar%20%28DJJOhAL.Com%29.mp3?dl=0",
+                "artist": "Tony Kakkar"
             },
             {
                 "id": "119",
                 "artwork": "https://dl.dropboxusercontent.com/s/jy7y7j601k1hkjo/Bekhayali.jpg?dl=0",
                 "title": "Bekhayali",
-                "url": "https://dl.dropboxusercontent.com/s/09j4vox3afuq7zk/Bekhayali.mp3?dl=0"
+                "url": "https://dl.dropboxusercontent.com/s/09j4vox3afuq7zk/Bekhayali.mp3?dl=0",
+                "artist": "Arjith Singh"
             },
             {
                 "id": "120",
                 "artwork": "https://dl.dropboxusercontent.com/s/kd8e3738m4djlwk/Chale-Aana.jpg?dl=0",
                 "title": "Chale Aana",
-                "url": "https://dl.dropboxusercontent.com/s/op2qkjebri9m5s3/Chale_Aana.mp3?dl=0"
+                "url": "https://dl.dropboxusercontent.com/s/op2qkjebri9m5s3/Chale_Aana.mp3?dl=0",
+                "artist": "Armaan Malik"
+            },
+            {
+                "id": "91",
+                "title": "Vaaste",
+                "artwork": "https://dl.dropboxusercontent.com/s/8ettjtmojj4m6cu/vaaste.jpg?dl=0",
+                "url": "https://dl.dropboxusercontent.com/s/3uhc47ioj3f5dts/Vaaste%20Song%20%28Dhvani%20Bhanushali%29.mp3?dl=0",
+                "artist": "Dhvani Bhanushali"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "artwork": "https://dl.dropboxusercontent.com/s/t8lsj6lo61qfxir/billboard.jpg?dl=0",
+        "album": "International Hits",
+        "artist": "All",
+        "genre": "International",
+        "songs": [
+            {
+                "id": "501",
+                "artwork": "https://dl.dropboxusercontent.com/s/s0z2m243o554yqo/pray-for-me.jpg?dl=0",
+                "title": "Pray for me",
+                "url": "https://dl.dropboxusercontent.com/s/6nwin3y04ohkep7/the-weeknd-kendrick-lamar-pray-for-me.mp3?dl=0",
+                "artist": "Kendrick Lamar, The weekend"
+            },
+            {
+                "id": "119",
+                "artwork": "https://m.media-amazon.com/images/I/71We4fKLaJL._SS500_.jpg",
+                "title": "A Thousand Years",
+                "url": "https://dl.dropboxusercontent.com/s/ylfa3zbuy5jr57h/Christina%20Perri%20-%20A%20Thousand%20Years%20%5BOfficial%20Music%20Video%5D.mp3?dl=0",
+                "artist": "Christina Perri"
+            },
+            {
+                "id": "120",
+                "artwork": "https://dl.dropboxusercontent.com/s/2zfvpvztqgm6ja7/counting-stars.jpg?dl=0",
+                "title": "Counting Stars",
+                "url": "https://dl.dropboxusercontent.com/s/eyww5v209u4ytpc/OneRepublic%20-%20Counting%20Stars.mp3?dl=0",
+                "artist": "One Republic"
             }
         ]
     }
