@@ -83,7 +83,7 @@ class RootScreen extends React.Component {
         },
       ).then((granted) => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          this.props.getOfflineMedia();
+          // this.props.getOfflineMedia();
         } else {
         }
       })
@@ -92,12 +92,12 @@ class RootScreen extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     //  != nextState.result
-    if (nextProps.result) {
+    if (this.props.result != prevProps.result) {
       this.setState({
         visible: true,
-        message: nextProps.result
+        message: this.props.result
       });
     }
   }

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {  createStackNavigator } from 'react-navigation';
 import {  DarkTheme } from 'react-native-paper';
 
@@ -15,7 +14,7 @@ export default createStackNavigator({
     {
         initialRouteName: 'Home',
         /* The header config from HomeScreen is now here */
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: DarkTheme.colors.surface,
             },
@@ -23,21 +22,5 @@ export default createStackNavigator({
             headerTitleStyle: {
                 color: DarkTheme.colors.text
             },
-        },
+        }),
     });
-
-// const AppContainer = createAppContainer(MediaNavigator);
-
-// class HomeScreen extends React.PureComponent {
-
-//     render() {
-//         return (
-//             // <NetworkContainer>
-//             <AppContainer />
-//             // </NetworkContainer>
-//         )
-
-//     }
-// }
-
-// export default withTheme(HomeScreen);

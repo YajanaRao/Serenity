@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { withTheme, Surface, List } from 'react-native-paper';
+import { withTheme, List } from 'react-native-paper';
 import { StyleSheet, NativeModules, LayoutAnimation, View } from 'react-native';
 import { connect } from 'react-redux';
-import _ from 'lodash'
-import FastImage from 'react-native-fast-image'
+import _ from 'lodash';
 
 import SwiperContainer from '../containers/SwiperContainer';
 import { playMedia, addToQueue } from '../actions';

@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
-
+import TrackPlayer from 'react-native-track-player';
 import _ from 'lodash';
 
 const INITIAL_QUERY = {
-  query: ""
+  searchResult: []
 };
 
 
 
 const INITIAL_THEME = {
-  themeType: false
+  themeType: 'dark'
 };
 
 const INITIAL_STATE = {
@@ -40,7 +40,6 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
     case 'DOWNLOAD':
       return {
         ...state,
-        result: "success",
         files: _.concat(action.payload,state.files),
         result: `${action.payload.title} downloaded successfully`
       }
@@ -52,12 +51,12 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
       }
      
     case 'PLAY':
-        return {
-          ...state,
-          active: action.payload,
-          queue: _.uniq(_.concat(state.queue, action.payload)),
-          result: `Playing ${action.payload.title}`
-        }
+      return {
+        ...state,
+        active: action.payload,
+        queue: _.concat(action.payload, state.queue),
+        result: `Playing ${action.payload.title}`
+      } 
       
     case 'ACTIVE_TRACK_UPDATE':
       return {
@@ -68,7 +67,7 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
     case 'ADD_TO_FAVORITE':
       return {
         ...state,
-        favorite: _.concat(state.favorite, action.payload),
+        favorite: _.uniq(_.concat(state.favorite, action.payload)),
         result: `Added ${action.payload.title} to favorites`
       }
     case 'REMOVE_FROM_FAVORITE':
@@ -111,7 +110,7 @@ const queryReducer = (state = INITIAL_QUERY, action) => {
     case 'UPDATE_QUERY':
       return {
         ...state,
-        query: action.payload
+        searchResult: action.payload
       }
     default:
       return state;
@@ -192,6 +191,5 @@ const dashboardReducer = (state = DASHBOARD_STATE, action) => {
 export default combineReducers({
   query: queryReducer,
   theme: themeReducer,
-  media: mediaReducer,
-  settings: settingsReducer
+  media: mediaReducer
 });

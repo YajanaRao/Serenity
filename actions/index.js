@@ -1,22 +1,49 @@
-import { DarkTheme, DefaultTheme } from 'react-native-paper';
 import TrackPlayer from 'react-native-track-player';
 import _ from 'lodash';
 import * as RNFS from 'react-native-fs'; 
-import MusicFiles from 'react-native-get-music-files';
+import MusicFiles, { RNAndroidAudioStore } from 'react-native-get-music-files';
 
 export const updateQuery = (query) => dispatch => {
+  if(query){
+    RNAndroidAudioStore.search({ searchParam: query }).then((media) => {
+      _.map(media, function (item) {
+        item.url = "file://" + item.path
+
+        if (!item.id) {
+          item.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
+        delete item.path
+        item.artwork = 'https://source.unsplash.com/collection/574198/120x120'
+        return item
+      });
+      dispatch({
+        type: 'UPDATE_QUERY',
+        payload: media,
+        // query: query
+      });
+    })
+  }
   dispatch({
     type: 'UPDATE_QUERY',
-    payload: query
+    payload: [],
+    // query: query
   });
 }
 
 export const updateTheme = (theme) => dispatch => {
-  let Theme = (theme === DarkTheme ? DefaultTheme : DarkTheme);
-  dispatch({
-    type: 'UPDATE_THEME',
-    payload: Theme
-  })
+  if(theme == "dark"){
+    dispatch({
+      type: 'UPDATE_THEME',
+      payload: 'default'
+    })
+  }else {
+    dispatch({
+      type: 'UPDATE_THEME',
+      payload: 'dark'
+    })
+  }
+  
+  
 }
 
 const _downloadFileProgress = (data) => {
@@ -127,22 +154,13 @@ export const getOfflineMedia =  () => dispatch => {
   // });
 }
 
-export const previousMedia = () => dispatch => {
-  dispatch({
-    type: 'PREVIOUS'
-  })
-}
 
-export const nextMedia = () => dispatch => {
-  dispatch({
-    type: 'NEXT'
-  })
-}
+
 
 export const playMedia = (item) => dispatch => {
   if(item){
     TrackPlayer.getCurrentTrack().then((trackId) => {
-      if (trackId != item.id) {
+      if (!_.isNull(trackId) && trackId != item.id) {
         TrackPlayer.skip(item.id).then(() => {
           TrackPlayer.play();
           dispatch({
@@ -150,23 +168,39 @@ export const playMedia = (item) => dispatch => {
             payload: item
           })
         })
-          .catch((error) => {
-            TrackPlayer.add(item).then(() => {
-              TrackPlayer.skip(item.id)
-              .then(() => {
-                TrackPlayer.play();
-                dispatch({
-                  type: 'PLAY',
-                  payload: item
-                })
+        .catch((error) => { 
+          TrackPlayer.add(item,trackId).then(() => {
+            TrackPlayer.skip(item.id)
+            .then(() => {
+              TrackPlayer.play();
+              dispatch({
+                type: 'PLAY',
+                payload: item
               })
-              .catch((error) => {
-                dispatch({
-                  type: 'NEXT'
-                })
+            })
+            .catch((error) => {
+              dispatch({
+                type: 'NEXT'
               })
             })
           })
+        })
+      }else {
+        TrackPlayer.add(item).then(() => {
+          TrackPlayer.skip(item.id)
+            .then(() => {
+              TrackPlayer.play();
+              dispatch({
+                type: 'PLAY',
+                payload: item
+              })
+            })
+            .catch((error) => {
+              dispatch({
+                type: 'NEXT'
+              })
+            })
+        })
       }
     })
     .catch((error) => {

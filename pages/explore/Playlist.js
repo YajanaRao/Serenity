@@ -13,11 +13,21 @@ class Playlist extends Component {
         favorite: []
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!_.isEmpty(nextProps.favorite)) {
-            this.setState({ favorite: nextProps.favorite });
+    static getDerivedStateFromProps(props, state) {
+        if(!_.isEqual(props.favorite,state.favorite)){
+            return {
+                favorite: props.favorite
+            }
         }
+        return null
     }
+
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.favorite) {
+    //         this.setState({ favorite: nextProps.favorite });
+    //     }
+    // }
 
     render() {
         const { navigate } = this.props.navigation;

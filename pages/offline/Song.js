@@ -2,10 +2,10 @@ import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
 import { withTheme, Divider, Button, Title } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, RefreshControl } from 'react-native';
 import _ from 'lodash';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
-import { addToQueue, getOfflineMedia } from '../../actions';
+import { addToQueue } from '../../actions';
 
 import Track from '../../components/Track'
 
@@ -34,25 +34,32 @@ class Song extends React.Component {
         this.setState({
             refreshing: true
         })
-        this.props.getOfflineMedia()
+        this.getOfflineSongs();
     }
 
-    componentDidMount(){
+    getOfflineSongs = () => {
         RNAndroidAudioStore.getAll({})
             .then(media => {
                 _.map(media, function (item) {
                     item.url = "file://" + item.path
-                   
-                    if(!item.id){
+
+                    if (!item.id) {
                         item.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
                     }
                     delete item.path
                     item.artwork = 'https://source.unsplash.com/collection/574198/120x120'
                     return item
                 });
-                this.setState({ files: media });
+                this.setState({ 
+                    files: media,
+                    refreshing: false
+                });
             })
             .catch(er => alert(JSON.stringify(error)));
+    }
+
+    componentDidMount(){
+        this.getOfflineSongs();
     }
 
     render() {
@@ -78,8 +85,13 @@ class Song extends React.Component {
                     <FlatList
                         data={this.state.files}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
-                        refreshing={this.state.refreshing}
-                        onRefresh={() => this.fetchData()}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={() => this.fetchData()}
+                            />
+                        }
+                        
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <Track track={item} />
@@ -101,4 +113,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { addToQueue, getOfflineMedia })(withTheme(Song));
+export default connect(mapStateToProps, { addToQueue })(withTheme(Song));

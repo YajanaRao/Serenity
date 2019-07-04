@@ -3,77 +3,86 @@ import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navig
 import { DarkTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
 
-import Album from './Album';
-import Artist from './Artist';
+import AlbumScreen from './Album';
+import ArtistScreen from './Artist';
 import Song from './Song';
-import Filter from '../shared/Filter';
+import FilterScreen from '../shared/Filter';
 
-const ArtistNavigation = createStackNavigator({
-    Artist: { screen: Artist },
-    Filter: { screen: Filter }
-},
-    {
-        initialRouteName: 'Artist',
-        /* The header config from HomeScreen is now here */
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: DarkTheme.colors.surface,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: DarkTheme.colors.text
-            },
-        },
-    }
-);
+const ArtistStack = createStackNavigator({
+    Artist: ArtistScreen
+})
 
-ArtistNavigation.navigationOptions = ({ navigation }) => {
-    let tabBarVisible = true;
-    if (navigation.state.index > 0) {
-        tabBarVisible = false;
-    }
+const AlbumStack = createStackNavigator({
+    Album: AlbumScreen
+})
 
-    return {
-        tabBarVisible,
-    };
-};
 
-const AlbumNavigation = createStackNavigator({
-    Album: { screen: Album },
-    Filter: { screen: Filter }
-},
-    {
-        initialRouteName: 'Album',
-        /* The header config from HomeScreen is now here */
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: DarkTheme.colors.surface,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: DarkTheme.colors.text
-            },
-        },
-    }
-);
+// const ArtistNavigation = createStackNavigator({
+//     Artist: { screen: Artist },
+//     Filter: { screen: Filter }
+// },
+//     {
+//         initialRouteName: 'Artist',
+//         /* The header config from HomeScreen is now here */
+//         defaultNavigationOptions: {
+//             headerStyle: {
+//                 backgroundColor: DarkTheme.colors.surface,
+//             },
+//             headerTintColor: '#fff',
+//             headerTitleStyle: {
+//                 color: DarkTheme.colors.text
+//             },
+//         },
+//     }
+// );
 
-AlbumNavigation.navigationOptions = ({ navigation }) => {
-    let tabBarVisible = true;
-    if (navigation.state.index > 0) {
-        tabBarVisible = false;
-    }
+// ArtistNavigation.navigationOptions = ({ navigation }) => {
+//     let tabBarVisible = true;
+//     if (navigation.state.index > 0) {
+//         tabBarVisible = false;
+//     }
 
-    return {
-        tabBarVisible,
-    };
-};
+//     return {
+//         tabBarVisible,
+//     };
+// };
+
+// const AlbumNavigation = createStackNavigator({
+//     Album: { screen: Album },
+//     Filter: { screen: Filter }
+// },
+//     {
+//         initialRouteName: 'Album',
+//         /* The header config from HomeScreen is now here */
+//         defaultNavigationOptions: {
+//             headerStyle: {
+//                 backgroundColor: DarkTheme.colors.surface,
+//             },
+//             headerTintColor: '#fff',
+//             headerTitleStyle: {
+//                 color: DarkTheme.colors.text
+//             },
+//         },
+//     }
+// );
+
+// AlbumNavigation.navigationOptions = ({ navigation }) => {
+//     let tabBarVisible = true;
+//     if (navigation.state.index > 0) {
+//         tabBarVisible = false;
+//     }
+
+//     return {
+//         tabBarVisible,
+//     };
+// };
 
 // https://reactnavigation.org/docs/en/navigation-options-resolution.html#a-tab-navigator-contains-a-stack-and-you-want-to-hide-the-tab-bar-on-specific-screens
 
-export default createMaterialTopTabNavigator({
+const TabNavigator =  createMaterialTopTabNavigator({
     Song: { screen: Song },
-    Artist: { screen: ArtistNavigation },
-    Album: { screen: AlbumNavigation },
+    Artist: { screen: ArtistStack },
+    Album: { screen: AlbumStack },
 }, {
         tabBarOptions: {
             labelStyle: {
@@ -90,3 +99,25 @@ export default createMaterialTopTabNavigator({
             },
         }
 });
+
+export default createStackNavigator({
+        Tabs: {
+            screen: TabNavigator,
+            navigationOptions: {
+                header: null
+            }
+        },
+        Filter: FilterScreen
+    },
+    {
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: DarkTheme.colors.surface,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: DarkTheme.colors.text
+            },
+        },
+    }
+)

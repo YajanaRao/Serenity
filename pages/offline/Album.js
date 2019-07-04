@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider,  Title, List, Colors } from 'react-native-paper';
+import { withTheme, Divider, Title, List, Colors } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image'; 
@@ -78,13 +78,13 @@ class Album extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    files: state.media.files
-});
+// const mapStateToProps = state => ({
+//     files: state.media.files
+// });
 
 
-export default connect(mapStateToProps)(withTheme(Album));
-// export default withTheme(Album);
+// export default connect(mapStateToProps)(withTheme(Album));
+export default withTheme(Album);
 
 const styles = StyleSheet.create({
     icons: {

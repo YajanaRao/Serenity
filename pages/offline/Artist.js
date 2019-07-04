@@ -79,12 +79,9 @@ class Artist extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    files: state.media.files
-});
 
 
-export default connect(mapStateToProps)(withTheme(Artist));
+export default withTheme(Artist);
 // export default withTheme(Artist);
 
 const styles = StyleSheet.create({
