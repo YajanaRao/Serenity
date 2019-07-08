@@ -4,6 +4,7 @@ import { View, StatusBar } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { PermissionsAndroid } from 'react-native';
+import _ from 'lodash';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -52,7 +53,7 @@ const Navigator = createAppContainer(createBottomTabNavigator({
 class RootScreen extends React.Component {
   state = {
     visible: false,
-    message: ''
+    result: ''
   };
 
   static navigationOptions = ({ navigation }) => {
@@ -92,15 +93,16 @@ class RootScreen extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    //  != nextState.result
-    if (this.props.result != prevProps.result) {
-      this.setState({
-        visible: true,
-        message: this.props.result
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (!_.isEqual(props.result, state.result)) {
+      return {
+        result: props.result,
+        visible: true
+      }
     }
+    return null
   }
+
 
 
   render() {
@@ -111,22 +113,26 @@ class RootScreen extends React.Component {
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <StatusBar backgroundColor={"#000000"} barStyle={dark ? "light-content" : "dark-content"} />
-        <Snackbar
-          style={{ marginBottom: 120 }}
-          visible={this.state.visible}
-          onDismiss={() => this.setState({ visible: false })}
-          // duration={1000}
-          action={{
-            label: 'Dismiss',
-            onPress: () => {
-              this.setState({
-                visible: false
-              })
-            },
-          }}
-        >
-          {this.state.message}
-        </Snackbar>
+        { this.state.result ? 
+          <Snackbar
+            style={{ marginBottom: 120, zIndex: 10 }}
+            visible={this.state.visible}
+            onDismiss={() => this.setState({ visible: false })}
+            // duration={1000}
+            action={{
+              label: 'Dismiss',
+              onPress: () => {
+                this.setState({
+                  visible: false
+                })
+              },
+            }}
+          >
+            {this.state.result}
+          </Snackbar>
+          : 
+          false
+        }
         <Navigator />
       </View>
 

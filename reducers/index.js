@@ -100,6 +100,12 @@ const mediaReducer = (state = INITIAL_STATE, action) => {
           active: {},
           result: "Queue cleared"
         }
+    
+    case 'NOTIFY':
+      return {
+        ...state,
+        result: action.payload
+      }
     default:
       return state;
   }
@@ -129,17 +135,7 @@ const themeReducer = (state = INITIAL_THEME, action) => {
   }
 }
 
-const settingsReducer = (state = SETTINGS_STATE, action) => {
-  switch(action.type){
-    case 'NET_INFO':
-      return {
-        ...state,
-        isConnected: action.payload
-      }
-    default: 
-      return state;
-  }
-}
+
 
 const dashboardReducer = (state = DASHBOARD_STATE, action) => {
   switch (action.type) {

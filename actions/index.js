@@ -77,57 +77,28 @@ export const downloadMedia = (item) => dispatch => {
   }
 }
 
-export const getOfflineMedia =  () => dispatch => {
-  let response = []
-  MusicFiles.getAll({
-    // blured: false, // works only when 'cover' is set to true
-    artist: true,
-    duration: true, //default : true
-    cover: true, //default : true,
-    genre: true,
-    title: true,
-    cover: true,
-    // minimumSongDuration: 10000, // get songs bigger than 10000 miliseconds duration,
-    fields: ['title', 'albumTitle', 'genre', 'lyrics', 'artwork', 'duration'] // for iOs Version
-  }).then(tracks => {
-    if(_.isArray(tracks)){
-      _.forEach(tracks, function (track) {
-        if(!track.title){
-          track.title = track.fileName.split('.')[0];
+export const getOfflineSongs = () => dispatch => {
+  RNAndroidAudioStore.getAll({})
+    .then(media => {
+      _.map(media, function (item) {
+        item.url = "file://" + item.path
+
+        if (!item.id) {
+          item.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         }
-        if(!track.album){
-          track.album = "Local files"
-        }
-        if(!track.artist){
-          if (!track.author){
-            track.artist = "Unknown artist"
-          }else {
-            track.artist = track.author
-          }
-        }
-        if(!track.cover){
-          track.cover = "https://source.unsplash.com/collection/574198/200x200"
-        }
-        response.push({
-          id: `file:/${track.path}`,
-          title: track.title,
-          url: `file://${track.path}`,
-          album: track.album,
-          artwork: track.cover,
-          artist: track.artist
-        })
+        delete item.path
+        // item.artwork = 'https://source.unsplash.com/collection/574198/120x120'
+        return item
+      });
+      dispatch({
+        type: 'OFFLINE',
+        payload: media
       })
-    }
-    dispatch({
-      type: 'OFFLINE',
-      payload: response
     })
-}).catch((error) => {
-  dispatch({
-    type: 'OFFLINE',
-    payload: []
-  })
-})
+    .catch(er => alert(JSON.stringify(error)));
+}
+
+
   
 
   // RNFS.readdir(RNFS.DocumentDirectoryPath).then(files => {
@@ -152,7 +123,7 @@ export const getOfflineMedia =  () => dispatch => {
   // })
   // .catch (err => {
   // });
-}
+// }
 
 
 
@@ -169,6 +140,10 @@ export const playMedia = (item) => dispatch => {
           })
         })
         .catch((error) => { 
+          if(!item.artwork || item.artwork == 'null' || _.isUndefined(item.artwork)){
+            item.artwork = require('../assets/app-icon.png')
+          }
+          console.log(item.artwork)
           TrackPlayer.add(item,trackId).then(() => {
             TrackPlayer.skip(item.id)
             .then(() => {
@@ -196,8 +171,10 @@ export const playMedia = (item) => dispatch => {
               })
             })
             .catch((error) => {
+              TrackPlayer.skipToNext();
               dispatch({
-                type: 'NEXT'
+                type: 'NOTIFY',
+                payload: 'Something went wrong'
               })
             })
         })
@@ -244,11 +221,20 @@ export const addToQueue = (song) => dispatch => {
         type: 'ADD_QUEUE',
         payload: _.concat(queue, update)
       })
+    }else {
+      dispatch({
+        type: 'NOTIFY',
+        payload: 'Song is already present in the queue'
+      })
     }
   })
   .catch((error) => {
     TrackPlayer.add(song);
     TrackPlayer.play();
+    dispatch({
+      type: 'NOTIFY',
+      payload: 'Something went wrong'
+    })
   })
 }
 
@@ -415,10 +401,3 @@ export const fetchBillboardHot100 = () => dispatch => {
     });
 }
 
-export const fetchNetInfo = () => dispatch => {
-  dispatch({
-    type: 'NET_INFO',
-    payload: true
-  })
-  
-}

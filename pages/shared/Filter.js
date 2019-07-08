@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
 import { View, ScrollView, FlatList, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Title, Button, withTheme, IconButton } from 'react-native-paper';
+import { Title, Button, withTheme, IconButton, Divider } from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
@@ -50,7 +50,7 @@ class Filter extends Component {
                     _.map(media, function (item) {
                         item.url = "file://" + item.path
                         delete item.path
-                        item.artwork = 'https://source.unsplash.com/collection/4799534/120x120'
+                        // item.artwork = 'https://source.unsplash.com/collection/4799534/120x120'
                         return item
                     });
                     this.setState({
@@ -69,7 +69,7 @@ class Filter extends Component {
                 _.map(media, function (item) {
                     item.url = "file://" + item.path
                     delete item.path
-                    item.artwork = 'https://source.unsplash.com/collection/4799534/120x120'
+                    // item.artwork = 'https://source.unsplash.com/collection/4799534/120x120'
                     return item
                 });
                 this.setState({ 
@@ -90,45 +90,51 @@ class Filter extends Component {
         
         // const genre = navigation.getParam('genre', null);
 
-        const albumImage = navigation.getParam('img', 'https://source.unsplash.com/collection/4799534/120x120');
+        const albumImage = navigation.getParam('img');
         const title = navigation.getParam('title', 'No Title');
 
-       
 
         return (
-            <ScrollView contentContainerStyle={[styles.container, { backgroundColor: colors.background }]}>
+            <View style={[styles.container, { backgroundColor: colors.background }]}>
+                <ScrollView>
 
-                <View style={styles.scrollViewContent}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', elevation: 4 }}>
-                        {/* <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
-                        <FastImage source={{ uri: albumImage }} style={{ width: 200, height: 200, backgroundColor: '#f7b71d' }} />
-                        {/* <Headline style={styles.title}>{title}</Headline> */}
-                    </View>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
-                        <Title>{title}</Title>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 8 }}>
-                        {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
+                    <View style={styles.scrollViewContent}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', elevation: 4 }}>
+                            { albumImage ?
+                                <FastImage source={{ uri: albumImage }} style={{ width: 200, height: 200 }} />
+                                :
+                                <FastImage
+                                    source={require('../../assets/app-icon.png')}
+                                    style={{ width: 200, height: 200 }}
+                                />
+                            }
+                        </View>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
+                            <Title>{title}</Title>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 8 }}>
+                            {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                             Download
                         </Button> */}
-                        <Button
-                            mode="contained"
-                            onPress={() => this.props.addToQueue(this.state.files)}>
-                            Play All
+                            <Button
+                                mode="contained"
+                                onPress={() => this.props.addToQueue(this.state.files)}>
+                                Play All
                         </Button>
+                        </View>
+                        <FlatList
+                            data={this.state.files}
+                            ItemSeparatorComponent={() => <Divider inset={true} />}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) =>
+                                <Track track={item} />
+                            }
+                        />
+                        <View style={{ height: 100 }} />
                     </View>
-                    <FlatList
-                        data={this.state.files}
-                        ItemSeparatorComponent={() => <Divider inset={true} />}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) =>
-                            <Track track={item} swipeable={true} />
-                        }
-                    />
-                    <View style={{ height: 100 }} />
-                </View>
 
-            </ScrollView>
+                </ScrollView>
+          </View>
         
         );
     }
