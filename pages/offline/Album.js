@@ -57,13 +57,21 @@ class Album extends React.Component {
                             <List.Item
                                 title={item.album}
                                 left={props =>  item.cover == 'null' ? 
-                                    <FastImage {...props} source={{ uri: "https://source.unsplash.com/collection/574198/200x200" }} style={styles.icons} /> : 
+                                    <FastImage {...props} source={ require('../../assets/app-icon.png') } style={styles.icons} /> : 
                                     <FastImage {...props} source={{ uri: "file://"+ item.cover }} style={styles.icons} />  
                                 }
                                 description={ item.numberOfSongs + " songs"}
-                                onPress={() => navigate('Filter', {
-                                    album: item.album, img: "file://" +item.cover, title: item.album
-                                })}
+                                onPress={() => {
+                                    if (item.cover == 'null') {
+                                        navigate('Filter', {
+                                            album: item.album, title: item.album
+                                        })
+                                    }else {
+                                        navigate('Filter', {
+                                            album: item.album, img: "file://" + item.cover, title: item.album
+                                        })
+                                    }
+                                   }}
                             />
                         }
                     />

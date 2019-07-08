@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { View, RefreshControl } from 'react-native';
 import _ from 'lodash';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
-import { addToQueue } from '../../actions';
 
+import { addToQueue, getOfflineSongs } from '../../actions';
 import Track from '../../components/Track'
 
 
@@ -20,46 +20,25 @@ class Song extends React.Component {
             refreshing: false
         }
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //     if (!_.isEmpty(nextProps.files)) {
-    //         this.setState({
-    //             files: nextProps.files,
-    //             refreshing: false
-    //         });
-    //     }   
-    // }
+    static getDerivedStateFromProps(props, state) {
+        if (!_.isEqual(props.files, state.files)) {
+            return {
+                files: props.files,
+                refreshing: false
+            }
+        }
+        return null
+    }
 
     fetchData = () => {
         this.setState({
             refreshing: true
         })
-        this.getOfflineSongs();
-    }
-
-    getOfflineSongs = () => {
-        RNAndroidAudioStore.getAll({})
-            .then(media => {
-                _.map(media, function (item) {
-                    item.url = "file://" + item.path
-
-                    if (!item.id) {
-                        item.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-                    }
-                    delete item.path
-                    item.artwork = 'https://source.unsplash.com/collection/574198/120x120'
-                    return item
-                });
-                this.setState({ 
-                    files: media,
-                    refreshing: false
-                });
-            })
-            .catch(er => alert(JSON.stringify(error)));
+        this.props.getOfflineSongs();
     }
 
     componentDidMount(){
-        this.getOfflineSongs();
+        this.props.getOfflineSongs();
     }
 
     render() {
@@ -113,4 +92,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { addToQueue })(withTheme(Song));
+export default connect(mapStateToProps, { addToQueue, getOfflineSongs })(withTheme(Song));

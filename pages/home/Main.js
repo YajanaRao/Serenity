@@ -3,11 +3,13 @@ import { withTheme, Title, Paragraph, IconButton } from 'react-native-paper';
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import NetNotify from '../../components/NetNotify';
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
 import Artist from '../../data/artist.json';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 
 
 class MainScreen extends React.Component {
@@ -71,6 +73,7 @@ class MainScreen extends React.Component {
                             </View>
                         }
                     /> */}
+                    <NetNotify/>
                     <Title style={styles.title}>Popular Albums</Title>
                         <FlatList
                             horizontal={true}

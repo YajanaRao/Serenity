@@ -45,8 +45,6 @@ class Track extends Component {
                 return false
             }
         }
-        // console.log(track)
-        // this.props.addToQueue(track);
         this.props.playMedia(track);
     }
 

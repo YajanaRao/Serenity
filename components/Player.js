@@ -167,7 +167,7 @@ class Player extends Component {
     render() {
 
         const { colors } = this.props.theme;
-
+        
         if(!_.isEmpty(this.state.active)){
             return (
                 <View>
@@ -186,19 +186,24 @@ class Player extends Component {
                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', zIndex: 1 }}>
                             <IconButton
                                 icon="close"
-                                // size={20}
                                 onPress={() => this.setModalVisible(false)}
                             />
                             <IconButton
                                 icon="more-vert"
-                                // size={20}
                                 onPress={() => this.setModalVisible(false)}
                             />
 
                         </View>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            {/* <Card.Cover source={ this.state.img } style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
-                                <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 250, height: 250, borderRadius: 4, backgroundColor: colors.primary }} />
+                                {this.state.active.artwork && _.isString(this.state.active.artwork) ? 
+                                    <FastImage 
+                                        source={{ uri: this.state.active.artwork }} 
+                                        style={{ width: 250, height: 250, borderRadius: 4, backgroundColor: colors.primary }} />
+                                    :
+                                    <FastImage 
+                                        source={ require('../assets/app-icon.png') }
+                                        style={{ width: 250, height: 250, borderRadius: 4 }} />
+                            } 
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flex: 1 }}>
                             <Love style={{ width: 60 }} track={this.state.active}/>
@@ -209,7 +214,7 @@ class Player extends Component {
 
                            <View style={{ width: 60 }}>
                                 <IconButton
-                                    icon="more-vert"
+                                    icon="repeat"
                                     // size={20}
                                     onPress={() => console.log("pressed")}
                                 />
@@ -263,7 +268,17 @@ class Player extends Component {
                         this.setModalVisible(true);
                     }}>
                     <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
-                            {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} /> : false }
+                            {this.state.active.artwork && _.isString(this.state.active.artwork) ?
+                                <FastImage 
+                                    source={{ uri: this.state.active.artwork }} 
+                                    style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} 
+                                /> 
+                                : 
+                                <FastImage
+                                    source={require('../assets/app-icon.png')} 
+                                    style={{ width: 50, height: 50, borderRadius: 4 }}
+                                />
+                            }
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}>
                             <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
                                 <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist ? this.state.active.artist : this.state.active.album }</Caption>

@@ -19,11 +19,6 @@ class Artist extends React.Component {
         }
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (!_.isEmpty(nextProps.files)) {
-    //         this.setState({ files: nextProps.files });
-    //     }
-    // }
 
     componentDidMount() {
         // this.props.getOfflineMedia()
@@ -61,9 +56,9 @@ class Artist extends React.Component {
                             <List.Item
                                 title={item.artist}
                                 description={item.numberOfSongs + " Songs"}
-                                left={props => <FastImage {...props} source={{ uri: 'https://source.unsplash.com/collection/574198/120x120' }} style={styles.icons} />}
+                                left={props => <FastImage {...props} source={ require('../../assets/app-icon.png')} style={styles.icons} />}
                                 onPress={() => navigate('Filter', {
-                                    artist: item.artist, img: 'https://source.unsplash.com/collection/574198/120x120', title: item.artist
+                                    artist: item.artist, title: item.artist
                                 })}
                             /> 
                         }
