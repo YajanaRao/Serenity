@@ -19,6 +19,7 @@ const AlbumStack = createStackNavigator({
     Album: AlbumScreen
 })
 
+
 const TabNavigator = createMaterialTopTabNavigator({
     Playlist: { screen: PlaylistStack },
     Artist: { screen: ArtistStack },
