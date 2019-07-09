@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
-import { withTheme, IconButton, Snackbar, DarkTheme, Surface } from 'react-native-paper';
+import {  createStackNavigator } from 'react-navigation';
+import {  DarkTheme } from 'react-native-paper';
 
 import SongScreen from '../shared/Songs';
 import MainScreen from './Main';
@@ -15,7 +14,7 @@ export default createStackNavigator({
     {
         initialRouteName: 'Home',
         /* The header config from HomeScreen is now here */
-        defaultNavigationOptions: {
+        defaultNavigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: DarkTheme.colors.surface,
             },
@@ -23,21 +22,5 @@ export default createStackNavigator({
             headerTitleStyle: {
                 color: DarkTheme.colors.text
             },
-        },
+        }),
     });
-
-// const AppContainer = createAppContainer(MediaNavigator);
-
-// class HomeScreen extends React.PureComponent {
-
-//     render() {
-//         return (
-//             // <NetworkContainer>
-//             <AppContainer />
-//             // </NetworkContainer>
-//         )
-
-//     }
-// }
-
-// export default withTheme(HomeScreen);

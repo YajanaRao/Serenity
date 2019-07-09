@@ -2,10 +2,11 @@ import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
 import { withTheme, Divider, Button, Title } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, RefreshControl } from 'react-native';
 import _ from 'lodash';
+import { RNAndroidAudioStore } from "react-native-get-music-files";
 
-import { addToQueue, getOfflineMedia } from '../../actions';
+import { addToQueue, getOfflineSongs } from '../../actions';
 import Track from '../../components/Track'
 
 
@@ -19,27 +20,26 @@ class Song extends React.Component {
             refreshing: false
         }
     }
-
-    componentWillReceiveProps(nextProps) {
-        if (!_.isEmpty(nextProps.files)) {
-            this.setState({
-                files: nextProps.files,
+    static getDerivedStateFromProps(props, state) {
+        if (!_.isEqual(props.files, state.files)) {
+            return {
+                files: props.files,
                 refreshing: false
-            });
-        }   
+            }
+        }
+        return null
     }
 
     fetchData = () => {
         this.setState({
             refreshing: true
         })
-        this.props.getOfflineMedia()
+        this.props.getOfflineSongs();
     }
 
-    // componentDidMount(){
-    //     console.log("calling get offline media")
-    //     this.props.getOfflineMedia()
-    // }
+    componentDidMount(){
+        this.props.getOfflineSongs();
+    }
 
     render() {
         const {
@@ -53,18 +53,24 @@ class Song extends React.Component {
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                    <View style={{ justifyContent: 'space-between', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
-                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.files)}>
+                        <Button icon="play-circle-outline" mode="text" onPress={() => this.props.addToQueue(this.state.files)}>
                             Play All
                         </Button>
-                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.files)}>
+                        {/* <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.files)}>
                             Shuffle
-                        </Button>
+                        </Button> */}
                     </View>
+                    <Divider/>
                     <FlatList
                         data={this.state.files}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
-                        refreshing={this.state.refreshing}
-                        onRefresh={() => this.fetchData()}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={() => this.fetchData()}
+                            />
+                        }
+                        
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <Track track={item} />
@@ -86,4 +92,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { addToQueue, getOfflineMedia })(withTheme(Song));
+export default connect(mapStateToProps, { addToQueue, getOfflineSongs })(withTheme(Song));

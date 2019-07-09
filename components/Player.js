@@ -20,122 +20,91 @@ class Player extends Component {
             isLoading: false,
             queue: [],
             isPlaying: false,
-            isMounted: false,
             modalVisible: false
         }
+        // this._onInitialLoad();
     }
 
 
     componentDidMount() {
-        if(!this.state.isMounted){
-            TrackPlayer.setupPlayer({}).then(() => {
-                TrackPlayer.updateOptions({
-                    stopWithApp: true,
-                    capabilities: [
-                        TrackPlayer.CAPABILITY_PLAY,
-                        TrackPlayer.CAPABILITY_PAUSE,
-                        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-                        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-                        TrackPlayer.CAPABILITY_SKIP
-                    ],
-                });
-            })
-            this._onStateChanged = TrackPlayer.addEventListener('playback-state', async (data) => {
-                requestAnimationFrame(() => {
-                    this.updateTrackStatus(data);
-                })
+        TrackPlayer.setupPlayer({}).then(() => {
+            TrackPlayer.updateOptions({
+                stopWithApp: true,
+                capabilities: [
+                    TrackPlayer.CAPABILITY_PLAY,
+                    TrackPlayer.CAPABILITY_PAUSE,
+                    TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+                    TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+                    TrackPlayer.CAPABILITY_SKIP
+                ],
             });
+        })
+        this._onStateChanged = TrackPlayer.addEventListener('playback-state', async (data) => {
+            requestAnimationFrame(() => {
+                this.updateTrackStatus(data);
+            })
+        });
 
-            this._onTrackChanged = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
-                if (data.nextTrack) {
-                    this.props.activeTrackUpdate(data.nextTrack);
+        this._onTrackChanged = TrackPlayer.addEventListener('playback-track-changed', async (data) => {
+            if (data.nextTrack) {
+                this.props.activeTrackUpdate(data.nextTrack);
+            }
+        })
+
+        this._onInitialLoad();
+    }
+
+    _onInitialLoad =  () => {
+        // console.log("has to be only once")
+        if(!_.isEmpty(this.state.queue)){
+            TrackPlayer.add(this.state.queue).then(() => {
+                if(!_.isEmpty(this.state.active)){
+                    // console.log(this.state.active)
+                    TrackPlayer.skip(this.state.active.id);
                 }
             })
-
-            this.setState({
-                isMounted: true
-            })
-
-
         }
-        
     }
 
     componentWillUnmount() {
-        if(this.state.isMounted) {
-            this._onStateChanged.remove();
-            this._onTrackChanged.remove();
-            TrackPlayer.destroy();
-            this.setState({
-                isMounted: false
-            })
-        }
+        this._onStateChanged.remove();
+        this._onTrackChanged.remove();
+        TrackPlayer.destroy();
     }
 
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.queue) {
-            this.setState({
-                queue: nextProps.queue
-            })
+    static getDerivedStateFromProps(props, state) {
+        if (!_.isEqual(props.queue, state.queue)) {
+            return {
+                queue: props.queue
+            }
         }
-        if(nextProps.active) {
-            this.setState({
-                active: nextProps.active,
-                isMounted: true
-            })
+        if (!_.isEqual(props.active, state.active)) {
+            return {
+                active: props.active
+            }
         }
+        return null
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (this.props.queue !== nextProps.queue) {
-    //         return true;
-    //     }
-    //     if (this.props.active !== nextProps.active) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
 
     updateTrackStatus = (data) => {
-        if(this.state.isMounted){
-            if (data) {
-                if (data.state == 3) {
-                    this.setState({
-                        isPlaying: true,
-                        isLoading: false
-                    })
-                }
-                else if (data.state == 2) {
-                    this.setState({
-                        isPlaying: false,
-                        isLoading: false
-                    })
-                }
-                else if (data.state == 6) {
-                    this.setState({
-                        isLoading: true,
-                        isPlaying: false
-                    })
-                }
-                else {
-                    this.setState({
-                        isPlaying: false,
-                        isLoading: false
-                    })
-                    TrackPlayer.getCurrentTrack().then((currentTrack) => {
-                        if (currentTrack == null) {
-                            TrackPlayer.reset();
-                            this.setState({
-                                isMounted: false
-                            })
-                        } else {
-                            this.skipToNext();
-                        }
-                    })
-
-                }
-            }
+        if (data.state == TrackPlayer.STATE_PLAYING) {
+            this.setState({
+                isPlaying: true,
+                isLoading: false
+            })
+        }
+        else if (data.state == TrackPlayer.STATE_BUFFERING) {
+            this.setState({
+                isLoading: true,
+                isPlaying: false
+            })
+        }
+        else {
+            this.setState({
+                isPlaying: false,
+                isLoading: false
+            })
         }
     }
 
@@ -144,11 +113,8 @@ class Player extends Component {
             TrackPlayer.skipToNext().then(() => {
                 TrackPlayer.play();
             })
-            .catch((error) => {
-                console.log(error)
-            })
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             TrackPlayer.stop();
         }
     }
@@ -159,7 +125,7 @@ class Player extends Component {
                 TrackPlayer.play();
             });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             TrackPlayer.stop();
         }
         
@@ -201,8 +167,8 @@ class Player extends Component {
     render() {
 
         const { colors } = this.props.theme;
-
-        if(!_.isEmpty(this.state.active) && this.state.isMounted){
+        
+        if(!_.isEmpty(this.state.active)){
             return (
                 <View>
                     <Modal
@@ -220,30 +186,35 @@ class Player extends Component {
                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', zIndex: 1 }}>
                             <IconButton
                                 icon="close"
-                                // size={20}
                                 onPress={() => this.setModalVisible(false)}
                             />
                             <IconButton
                                 icon="more-vert"
-                                // size={20}
                                 onPress={() => this.setModalVisible(false)}
                             />
 
                         </View>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            {/* <Card.Cover source={ this.state.img } style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
-                                <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 250, height: 250, borderRadius: 4, backgroundColor: colors.primary }} />
+                                {this.state.active.artwork && _.isString(this.state.active.artwork) ? 
+                                    <FastImage 
+                                        source={{ uri: this.state.active.artwork }} 
+                                        style={{ width: 250, height: 250, borderRadius: 4, backgroundColor: colors.primary }} />
+                                    :
+                                    <FastImage 
+                                        source={ require('../assets/app-icon.png') }
+                                        style={{ width: 250, height: 250, borderRadius: 4 }} />
+                            } 
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flex: 1 }}>
                             <Love style={{ width: 60 }} track={this.state.active}/>
                             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                                 <Title numberOfLines={1}>{this.state.active.title}</Title>
-                                <Subheading numberOfLines={1}>{this.state.active.artist}</Subheading>
+                                    <Subheading numberOfLines={1}>{this.state.active.artist ? this.state.active.artist : this.state.active.album }</Subheading>
                             </View>
 
                            <View style={{ width: 60 }}>
                                 <IconButton
-                                    icon="more-vert"
+                                    icon="repeat"
                                     // size={20}
                                     onPress={() => console.log("pressed")}
                                 />
@@ -297,10 +268,20 @@ class Player extends Component {
                         this.setModalVisible(true);
                     }}>
                     <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
-                            {this.state.active.artwork ? <FastImage source={{ uri: this.state.active.artwork }} style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} /> : false }
+                            {this.state.active.artwork && _.isString(this.state.active.artwork) ?
+                                <FastImage 
+                                    source={{ uri: this.state.active.artwork }} 
+                                    style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} 
+                                /> 
+                                : 
+                                <FastImage
+                                    source={require('../assets/app-icon.png')} 
+                                    style={{ width: 50, height: 50, borderRadius: 4 }}
+                                />
+                            }
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}>
                             <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
-                            <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist}</Caption>
+                                <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist ? this.state.active.artist : this.state.active.album }</Caption>
                         </View>
                         <View style={{ justifyContent: 'flex-end', alignItems: 'center', width: 50 }}>
                             {this.state.isLoading ?
