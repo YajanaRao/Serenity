@@ -35,8 +35,8 @@ class SwiperContainer extends React.PureComponent {
     const item = this.props.children.props.children.props.item;
     // console.log(item);
     if(item){
-      alert("downloading", item.title)
-      this.props.downloadMedia(item)
+      alert("Download feature will come soon")
+      // this.props.downloadMedia(item)
     }
   }
 

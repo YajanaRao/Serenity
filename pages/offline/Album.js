@@ -1,10 +1,11 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider, Button, Title, List, Colors } from 'react-native-paper';
+import { withTheme, Divider, Title, List, Colors } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image'; 
 import _ from 'lodash';
+import { RNAndroidAudioStore } from "react-native-get-music-files";
 
 class Album extends React.Component {
     static navigationOptions = {
@@ -14,20 +15,23 @@ class Album extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: []
-        }
+            albums: []        }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!_.isEmpty(nextProps.files)) {
-            this.setState({ files: nextProps.files });
-        }
-    }
-
-    // componentDidMount() {
-    //     console.log("calling get offline media")
-    //     this.props.getOfflineMedia()
+    // componentWillReceiveProps(nextProps) {
+    //     if (!_.isEmpty(nextProps.files)) {
+    //         this.setState({ files: nextProps.files });
+    //     }
     // }
+
+    componentDidMount() {
+        // this.props.getOfflineMedia()
+        RNAndroidAudioStore.getAlbums({})
+            .then(media => {
+                this.setState({ albums: media });
+            })
+            .catch(er => alert(JSON.stringify(error)));
+    }
 
 
     render() {
@@ -39,28 +43,35 @@ class Album extends React.Component {
 
         const { navigate } = this.props.navigation;
 
-        const albums = _.uniqBy(this.state.files, 'album');
+        // const albums = _.uniqBy(this.state.files, 'album');
 
-        if (!_.isEmpty(albums)) {
+        if (!_.isEmpty(this.state.albums)) {
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                     <FlatList
-                        data={albums}
+                        data={this.state.albums}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
                         // onRefresh={() => this.props.getOfflineMedia()}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <List.Item
                                 title={item.album}
-                                left={props => <FastImage {...props} source={{ uri: item.artwork }} style={styles.icons} /> }
-                                description={_.size(_.filter(this.state.files, function (n) {
-                                    return n.album == item.album
-                                }))+" songs"}
-                                onPress={() => navigate('Songs', {
-                                    songs: _.filter(this.state.files, function (n) {
-                                        return n.album == item.album
-                                    }), img: item.artwork, title: item.album
-                                })}
+                                left={props =>  item.cover == 'null' ? 
+                                    <FastImage {...props} source={ require('../../assets/app-icon.png') } style={styles.icons} /> : 
+                                    <FastImage {...props} source={{ uri: "file://"+ item.cover }} style={styles.icons} />  
+                                }
+                                description={ item.numberOfSongs + " songs"}
+                                onPress={() => {
+                                    if (item.cover == 'null') {
+                                        navigate('Filter', {
+                                            album: item.album, title: item.album
+                                        })
+                                    }else {
+                                        navigate('Filter', {
+                                            album: item.album, img: "file://" + item.cover, title: item.album
+                                        })
+                                    }
+                                   }}
                             />
                         }
                     />
@@ -75,13 +86,13 @@ class Album extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    files: state.media.files
-});
+// const mapStateToProps = state => ({
+//     files: state.media.files
+// });
 
 
-export default connect(mapStateToProps)(withTheme(Album));
-// export default withTheme(Album);
+// export default connect(mapStateToProps)(withTheme(Album));
+export default withTheme(Album);
 
 const styles = StyleSheet.create({
     icons: {

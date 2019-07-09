@@ -9,7 +9,7 @@
       {
         "id": "1",
         "title": "Dangerous",
-        "url": "https://dl.dropboxusercontent.com/14%20Dangerous.mp3?dl=0",
+        "url": "https://dl.dropboxusercontent.com/s/ne9tcpl9a3l670q/14%20Dangerous.mp3?dl=0",
         "artwork": "https://dl.dropboxusercontent.com/s/jtwj1bznfgw1l9l/album.jpg?dl=0",
         "album": "Dangerous",
         "artist": "Michael Jackson"
@@ -194,23 +194,6 @@
     ]
   },
   {
-    "id": 4,
-    "artwork": "https://is5-ssl.mzstatic.com/image/thumb/Music71/v4/81/0b/a4/810ba47e-952c-8818-ad3c-9899b4928cd4/8902894354943_cover.jpg/268x0w.jpg",
-    "album": "Blue eyes",
-    "artist": "Honey Singh",
-    "genre": "Bollywood",
-    "songs": [
-      {
-        "id": "31",
-        "title": "Blue eyes",
-        "url": "https://dl.dropboxusercontent.com/s/ewnrnfsr39jrc0k/BlueEyes.mp3?dl=0",
-        "artwork": "https://is5-ssl.mzstatic.com/image/thumb/Music71/v4/81/0b/a4/810ba47e-952c-8818-ad3c-9899b4928cd4/8902894354943_cover.jpg/268x0w.jpg",
-        "album": "Blue eyes",
-        "artist": "Honey Singh"
-      }
-    ]
-  },
-  {
     "id": 5,
     "artwork": "https://dl.dropboxusercontent.com/s/10dltqqnioyx1yo/Bharat.jpg?dl=0",
     "album": "Bharat",
@@ -235,7 +218,7 @@
   },
   {
     "id": 6,
-    "artwork": "https://kannadamasti.cc/wp-content/uploads/2017/09/KGF-Kannada-Songs-Download.jpg",
+    "artwork": "https://dl.dropboxusercontent.com/s/7ura4u4k200pj8z/kgf.jpg?dl=0",
     "album": "K G F",
     "artist": "Yash",
     "genre": "Sandalwood",
@@ -244,14 +227,14 @@
       {
         "id": "51",
         "title": "Salaam Rocky Bhai",
-        "url": "https://kannadasongsdownload.info/2018-Kannadamasti.Info/KGF%20(Kannadamasti.cc)/Salaam%20Rocky%20Bhai%20(Kannadamasti.cc).mp3",
+        "url": "https://dl.dropboxusercontent.com/s/8l5t7z30zy7mbed/Salaam%20Rocky%20Bhai%20%28Kannadamasti.cc%29.mp3?dl=0",
         "artwork": "https://kannadamasti.cc/wp-content/uploads/2017/09/KGF-Kannada-Songs-Download.jpg",
         "artist": "Yash"
       },
       {
         "id": "52",
         "title": " Garbadhi",
-        "url": "https://kannadasongsdownload.info/2018-Kannadamasti.Info/KGF%20(Kannadamasti.cc)/Garbadhi%20(Kannadamasti.cc).mp3",
+        "url": "https://dl.dropboxusercontent.com/s/nuxaj41gnl0psz1/Garbadhi%20%28Kannadamasti.cc%29.mp3?dl=0",
         "artwork": "https://kannadamasti.cc/wp-content/uploads/2017/09/KGF-Kannada-Songs-Download.jpg",
         "artist": "Yash"
       }
@@ -267,84 +250,22 @@
       {
         "id": "61",
         "title": "Shrungarada Hongemara",
-        "url": "https://kannadasongsdownload.info/2018-Kannadamasti.Info/Panchatantra%20(Kannadamasti.cc)/Shrungarada%20Hongemara%20(Kannadamasti.cc).mp3",
+        "url": "https://dl.dropboxusercontent.com/s/pss774wxvmn9dj2/Shrungarada%20Hongemara%20%28Kannadamasti.cc%29.mp3?dl=0",
         "artwork": "https://kannadamasti.cc/wp-content/uploads/2018/05/Panchatantra-1.jpg",
         "artist": "V Harikrishna"
       },
       {
         "id": "62",
         "title": "Beda Hogu Andbutlu",
-        "url": "https://kannadasongsdownload.info/2018-Kannadamasti.Info/Panchatantra%20(Kannadamasti.cc)/Beda%20Hogu%20Andbutlu%20-Kannadamasti.cc.mp3",
+        "url": "https://dl.dropboxusercontent.com/s/pss774wxvmn9dj2/Shrungarada%20Hongemara%20%28Kannadamasti.cc%29.mp3?dl=0",
         "artwork": "https://kannadamasti.cc/wp-content/uploads/2018/05/Panchatantra-1.jpg",
         "artist": "V Harikrishna"
       }
     ]
   },
   {
-    "id": 8,
-    "artwork": "https://dl.dropboxusercontent.com/s/ghd53461yh33i5x/divine.jpg?dl=0",
-    "album": "Divine",
-    "artist": "Divine",
-    "genre": "Rap",
-    "songs": [
-      {
-        "id": "71",
-        "title": "Sher Aaya Sher",
-        "url": "https://dl.dropboxusercontent.com/s/8avcnxmjtdujytz/Sher%20Aaya%20Sher.mp3?dl=0",
-        "artwork": "https://dl.dropboxusercontent.com/s/ghd53461yh33i5x/divine.jpg?dl=0",
-        "artist": "Divine"
-      },
-      {
-        "id": "72",
-        "title": "Mere Gully Mein",
-        "url": "http://dl2.djring.com/sd2.djring.com/128/498389/Mere Gully Mein(DJJOhAL.Com).mp3",
-        "artwork": "https://dl.dropboxusercontent.com/s/ghd53461yh33i5x/divine.jpg?dl=0",
-        "artist": "Divine"
-      }
-    ]
-  },
-  {
-    "id": 9,
-    "artwork": "https://dl.dropboxusercontent.com/s/rgg6dngku08d1ed/Ed-Sheeran-I-Dont-Care-monstajams.jpg?dl=0",
-    "album": "Justin Bieber",
-    "artist": "Justin Bieber",
-    "genre": "R&B",
-    "songs": [
-      {
-        "id": "81",
-        "title": "I Don't care",
-        "url": "https://dl.dropboxusercontent.com/s/bqwkoh3do9ihk0q/Ed-Sheeran-I-Dont-Care-Ft-Justin-Bieber--Monstajams.net.mp3?dl=0",
-        "artwork": "https://dl.dropboxusercontent.com/s/rgg6dngku08d1ed/Ed-Sheeran-I-Dont-Care-monstajams.jpg?dl=0",
-        "artist": "Justin Bieber"
-      },
-      {
-        "id": "82",
-        "title": "Love Yourself",
-        "artwork": "http://arrestedmotion.com/wp-content/uploads/2015/10/JB_Purpose-digital-deluxe-album-cover_lr.jpg",
-        "url": "http: //oranslectio.files.wordpress.com/2013/12/39-15-mozart_-adagio-fugue-in-c-minor-k-546.mp3",
-        "artist": "Justin Bieber"
-      }
-    ]
-  },
-  {
-    "id": 10,
-    "artwork": "http://mp3dio.com/siteuploads/thumb/c/1452_3.jpg",
-    "album": "Vaaste",
-    "artist": "Dhvani Bhanushali",
-    "genre": "Bollywood",
-    "songs": [
-      {
-        "id": "91",
-        "title": "Vaaste",
-        "artwork": "http://mp3dio.com/siteuploads/thumb/c/1452_3.jpg",
-        "url": "https://songspk89.in/wp-content/uploads/2019/04/VaasteSongspk89.in-320KBPS.mp3",
-        "artist": "Dhvani Bhanushali"
-      }
-    ]
-  },
-  {
     "id": 11,
-    "artwork": "https://i1.sndcdn.com/artworks-000493047675-z88w7v-t500x500.jpg",
+    "artwork": "https://dl.dropboxusercontent.com/s/t7dygv4s08q2od4/Luka%20Chuppi.jpg?dl=0",
     "album": "Luka chuppi",
     "artist": "Akhil",
     "genre": "Bollywood",
@@ -352,9 +273,23 @@
       {
         "id": "101",
         "title": "Duniya",
-        "artwork": "https://i1.sndcdn.com/artworks-000493047675-z88w7v-t500x500.jpg",
-        "url": "http://mp3dio.com/siteuploads/files/sfd7/3318/Duniya%20Luka%20Chuppi%20320kbps-(Mp3Dio).mp3",
+        "artwork": "https://dl.dropboxusercontent.com/s/o9kp5qi7c400fs3/duniya.jpg?dl=0",
+        "url": "https://dl.dropboxusercontent.com/s/wn0069rxj2ifnxi/Duniya%20%28Luka%20Chuppi%29.mp3?dl=0",
         "artist": "Akhil"
+      },
+      {
+        "id": "102",
+        "title": "Coca Cola",
+        "artwork": "https://dl.dropboxusercontent.com/s/t7dygv4s08q2od4/Luka%20Chuppi.jpg?dl=0",
+        "url": "https://dl.dropboxusercontent.com/s/ahabnbtb40njvte/Coca%20Cola%20-%20Luka%20Chuppi.mp3?dl=0",
+        "artist": "Neha Kakkar"
+      },
+      {
+        "id": "103",
+        "title": "Tu Laung Main Elaachi",
+        "artwork": "https://dl.dropboxusercontent.com/s/t7dygv4s08q2od4/Luka%20Chuppi.jpg?dl=0",
+        "url": "https://dl.dropboxusercontent.com/s/1eufjp07ts73b4p/Tu%20Laung%20Main%20Elaachi%20-%20Luka%20Chuppi.mp3?dl=0",
+        "artist": "Neha Kakkar"
       }
     ]
   }

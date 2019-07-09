@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { withTheme, Surface, List } from 'react-native-paper';
+import { withTheme, List } from 'react-native-paper';
 import { StyleSheet, NativeModules, LayoutAnimation, View } from 'react-native';
 import { connect } from 'react-redux';
-import _ from 'lodash'
-import FastImage from 'react-native-fast-image'
+import _ from 'lodash';
 
 import SwiperContainer from '../containers/SwiperContainer';
 import { playMedia, addToQueue } from '../actions';
-import Love from './Love';
 
 
 const { UIManager } = NativeModules;
@@ -47,7 +45,6 @@ class Track extends Component {
                 return false
             }
         }
-        // this.props.addToQueue(track);
         this.props.playMedia(track);
     }
 
@@ -80,7 +77,7 @@ class Track extends Component {
                         <List.Item
                             item={track}
                             title={track.title}
-                            description={track.artist}
+                            description={ track.artist ? track.artist : track.album }
                             // left={props => (
                             //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
                             // )}
@@ -97,7 +94,7 @@ class Track extends Component {
                 <List.Item
                     item={track}
                     title={track.title}
-                    description={track.artist}
+                    description={track.artist ? track.artist : track.album}
                     // left={props => (
                     //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
                     // )}

@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { withTheme, Title, Card, Paragraph, IconButton } from 'react-native-paper';
-import { StyleSheet, View, ScrollView, FlatList, Dimensions } from 'react-native';
+import { withTheme, Title, Paragraph, IconButton } from 'react-native-paper';
+import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import NetworkContainer from '../../containers/NetworkContainer';
+import NetNotify from '../../components/NetNotify';
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Artist from '../../data/artist.json';
+
 
 
 class MainScreen extends React.Component {
@@ -71,7 +73,8 @@ class MainScreen extends React.Component {
                             </View>
                         }
                     /> */}
-                    <Title style={styles.title}>Recently played</Title>
+                    <NetNotify/>
+                    <Title style={styles.title}>Popular Albums</Title>
                         <FlatList
                             horizontal={true}
                             data={Media}
@@ -111,6 +114,27 @@ class MainScreen extends React.Component {
                             </TouchableOpacity>
                         }
                     />
+
+                    <Title style={styles.title}>Popular Artist</Title>
+                    <FlatList
+                        horizontal={true}
+                        data={Artist}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) =>
+                            <TouchableOpacity
+                                style={styles.item}
+                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
+                            >
+                                <FastImage
+                                    source={{ uri: item.artwork }}
+                                    style={styles.artist}
+
+                                />
+                                <Paragraph numberOfLines={1}>{item.album}</Paragraph>
+                            </TouchableOpacity>
+                        }
+                    />
                 </View>
             </ScrollView>
         );
@@ -140,14 +164,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 4
     },
-    napsterCard: {
+    artist: {
         width: 120,
         height: 120,
-        margin: 4
-    },
-    saavanCard: {
-        width: 150,
-        height: 100,
-        margin: 4,
+        borderRadius: 60,
+        elevation: 1
     }
 });
