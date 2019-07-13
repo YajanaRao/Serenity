@@ -4,7 +4,6 @@ import { withTheme, Divider, Button, Title } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, RefreshControl } from 'react-native';
 import _ from 'lodash';
-import { RNAndroidAudioStore } from "react-native-get-music-files";
 
 import { addToQueue, getOfflineSongs } from '../../actions';
 import Track from '../../components/Track'

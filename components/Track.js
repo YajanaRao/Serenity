@@ -3,7 +3,6 @@ import { withTheme, List } from 'react-native-paper';
 import { StyleSheet, NativeModules, LayoutAnimation, View } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-
 import SwiperContainer from '../containers/SwiperContainer';
 import { playMedia, addToQueue } from '../actions';
 
@@ -59,10 +58,13 @@ class Track extends Component {
         this.setState({ hide: true })
     }
 
+
     render() {
         const {
             track,
-            swipeable
+            swipeable,
+            leftAction,
+            rightAction,
         } = this.props;
 
         const { colors } = this.props.theme;
@@ -72,7 +74,7 @@ class Track extends Component {
         }
         else if(swipeable){
             return (
-                <SwiperContainer close={() => this.close()}>
+                <SwiperContainer close={() => this.close()} leftAction={leftAction} rightAction={rightAction}>
                     <View style={[styles.surface, { backgroundColor: colors.background }]}>
                         <List.Item
                             item={track}

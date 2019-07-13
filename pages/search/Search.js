@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import {  withTheme, Subheading, Title, Colors, TouchableRipple, Divider } from 'react-native-paper';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import Genre from '../../data/genre.json';
 import Header from '../../components/Header';
@@ -20,15 +21,15 @@ class Search extends Component {
         }
     }
 
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.searchResult) {
-            this.setState({
-                searchResult: nextProps.searchResult
-            })
+    static getDerivedStateFromProps(props, state) {
+        if (!_.isEqual(props.searchResult, state.searchResult)) {
+            return {
+                searchResult: props.searchResult
+            }
         }
+        return null
     }
-   
+
 
     render() {
 
