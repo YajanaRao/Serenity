@@ -1,7 +1,6 @@
 import TrackPlayer from 'react-native-track-player';
 import _ from 'lodash';
-import * as RNFS from 'react-native-fs'; 
-import MusicFiles, { RNAndroidAudioStore } from 'react-native-get-music-files';
+import  RNAndroidAudioStore from 'react-native-get-music-files';
 
 export const updateQuery = (query) => dispatch => {
   if(query){
@@ -21,6 +20,9 @@ export const updateQuery = (query) => dispatch => {
         payload: media,
         // query: query
       });
+    })
+    .catch((error) => {
+      console.log(error)
     })
   }
   dispatch({
@@ -46,36 +48,36 @@ export const updateTheme = (theme) => dispatch => {
   
 }
 
-const _downloadFileProgress = (data) => {
-  const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
-  const text = `Progress ${percentage}%`;
-  if (percentage == 100) {
-  }
-}
+// const _downloadFileProgress = (data) => {
+//   const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
+//   const text = `Progress ${percentage}%`;
+//   if (percentage == 100) {
+//   }
+// }
 
 
-export const downloadMedia = (item) => dispatch => {
-  try {
-    if(item){
-      RNFS.downloadFile({
-        fromUrl: item.url,
-        toFile: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
-        progress: (data) => _downloadFileProgress(data),
-      }).promise.then(() => {
-        dispatch({
-          type: 'DOWNLOAD',
-          payload: [{
-            title: item.title,
-            url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
-            artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
-            artist: "Serenity"
-          }]
-        })
-      })
-    }
-  } catch (error) {
-  }
-}
+// export const downloadMedia = (item) => dispatch => {
+//   try {
+//     if(item){
+//       RNFS.downloadFile({
+//         fromUrl: item.url,
+//         toFile: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
+//         progress: (data) => _downloadFileProgress(data),
+//       }).promise.then(() => {
+//         dispatch({
+//           type: 'DOWNLOAD',
+//           payload: [{
+//             title: item.title,
+//             url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
+//             artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
+//             artist: "Serenity"
+//           }]
+//         })
+//       })
+//     }
+//   } catch (error) {
+//   }
+// }
 
 export const getOfflineSongs = () => dispatch => {
   RNAndroidAudioStore.getAll({})
@@ -95,7 +97,12 @@ export const getOfflineSongs = () => dispatch => {
         payload: media
       })
     })
-    .catch(er => alert(JSON.stringify(error)));
+    .catch(er => {
+      dispatch({
+        type: 'NOTIFY',
+        payload: 'Something went wrong'
+      })
+    });
 }
 
 

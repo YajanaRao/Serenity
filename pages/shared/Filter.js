@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { RNAndroidAudioStore } from "react-native-get-music-files";
+import RNAndroidAudioStore  from "react-native-get-music-files";
 import { View, ScrollView, FlatList, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Title, Button, withTheme, IconButton, Divider } from 'react-native-paper';
+import { Title, Button, withTheme, IconButton, Divider, Subheading } from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
@@ -50,7 +50,7 @@ class Filter extends Component {
                     _.map(media, function (item) {
                         item.url = "file://" + item.path
                         delete item.path
-                        // item.artwork = 'https://source.unsplash.com/collection/4799534/120x120'
+                        item.artwork = navigation.getParam('img')
                         return item
                     });
                     this.setState({
@@ -69,7 +69,7 @@ class Filter extends Component {
                 _.map(media, function (item) {
                     item.url = "file://" + item.path
                     delete item.path
-                    // item.artwork = 'https://source.unsplash.com/collection/4799534/120x120'
+                    item.artwork = navigation.getParam('img')
                     return item
                 });
                 this.setState({ 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { IconButton, withTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import { addToFavorite, removeFromFavorite } from '../actions';
 
@@ -9,25 +10,31 @@ class Love extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: false
+            favorite: false
         }
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (_.includes(props.favorite, props.track) !== state.favorite) {
+            console.log(props.favorite)
+            return {
+                favorite: !state.favorite
+            }
+        }
+        return null;
     }
 
     
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.favorite !== this.state.selected) {
-            this.setState({ selected: true });
-        }
-    }
+
 
     addToFavorite = () => {
         this.props.addToFavorite(this.props.track)
-        this.setState(prev => ({ selected: !prev.selected }))
+        this.setState(prev => ({ favorite: !prev.favorite }))
     }
 
     removeFromFavorite = () => {
         this.props.removeFromFavorite(this.props.track)
-        this.setState(prev => ({ selected: !prev.selected }))
+        this.setState(prev => ({ favorite: !prev.favorite }))
     }
 
     render() {
@@ -39,7 +46,7 @@ class Love extends Component {
             //     // style={{ padding: 10, alignItems: 'center', borderRadius: 5 }}
             //     >
             <View style={this.props.style}>
-                {this.state.selected ?
+                {this.state.favorite ?
                     <IconButton
                         animated={true}
                         icon="favorite"

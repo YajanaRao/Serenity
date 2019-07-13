@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Banner, IconButton } from 'react-native-paper';
-import { NetInfo } from 'react-native';
+import NetInfo from "@react-native-community/netinfo";
 import { withNavigation } from 'react-navigation';
 
 class NetNotify extends Component {
@@ -9,51 +9,39 @@ class NetNotify extends Component {
     };
 
 
-    componentWillMount() {
-        NetInfo.addEventListener('connectionChange', this.handleFirstConnectivityChange);
-        this.checkNetInfo();
+    componentDidMount() {
+        // NetInfo.addEventListener('connectionChange', this.handleFirstConnectivityChange);
+        NetInfo.addEventListener(state => {
+            this.setState({
+                isConnected: state.isConnected
+            })
+        });
+        // this.checkNetInfo();
     }
 
     checkNetInfo = () => {
-        NetInfo.getConnectionInfo().then((connectionInfo) => {
-            console.log(
-                'Initial, type: ' +
-                connectionInfo.type +
-                ', effectiveType: ' +
-                connectionInfo.effectiveType,
-            );
-            if (connectionInfo.type == 'none') {
-                this.setState({
-                    isConnected: false
-                })
-            }
+        NetInfo.fetch().then(state => {
+            console.log("Is connected?", state.isConnected);
+            this.setState({
+                isConnected: state.isConnected
+            })
         });
     }
 
     componentWillUnmount(){
-        NetInfo.removeEventListener(
-            'connectionChange',
-            this.handleFirstConnectivityChange,
-        );
+        NetInfo.removeEventListener(state => {
+            console.log("Connection type", state.type);
+            console.log("Is connected?", state.isConnected);
+            this.setState({
+                isConnected: state.isConnected
+            })
+        });
     }
 
-    handleFirstConnectivityChange = (connectionInfo) => {
-        console.log(
-            'First change, type: ' +
-            connectionInfo.type +
-            ', effectiveType: ' +
-            connectionInfo.effectiveType,
-        );
-        if(connectionInfo.type == 'none'){
-            this.setState({
-                isConnected: false
-            })
-        }else {
-            this.setState({
-                isConnected: true
-            })
-        }
-        
+    handleConnectivityChange = (state) => {
+        this.setState({
+            isConnected: state.isConnected
+        })
     }
 
     render() {

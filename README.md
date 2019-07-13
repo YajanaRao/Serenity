@@ -1,7 +1,7 @@
 
 
 # Serenity
-## A React Native Application
+## A React Native Music Player
 
 A mobile music player focused on streaming from free sources. Built with Rich UI
 

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
 import TrackPlayer from 'react-native-track-player';
 import FastImage from 'react-native-fast-image';
+import RNMediaMetadataRetriever from 'react-native-media-metadata-retriever'
 
 import { playMedia, clearQueue, activeTrackUpdate } from '../actions';
 import Track from './Track';
@@ -255,7 +256,7 @@ class Player extends Component {
                         <Divider />
                         <FlatList
                             data={this.state.queue}
-                            renderItem={({ item }) => <Track track={item} />}
+                            renderItem={({ item }) => <Track track={item} swipeable={true} leftAction={true} />}
                             keyExtractor={(item, index) => index.toString()}
                         />
                         <View style={{ height: 100 }} />

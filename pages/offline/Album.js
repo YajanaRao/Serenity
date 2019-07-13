@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image'; 
 import _ from 'lodash';
-import { RNAndroidAudioStore } from "react-native-get-music-files";
+import RNAndroidAudioStore from "react-native-get-music-files";
 
 class Album extends React.Component {
     static navigationOptions = {
@@ -30,7 +30,7 @@ class Album extends React.Component {
             .then(media => {
                 this.setState({ albums: media });
             })
-            .catch(er => alert(JSON.stringify(error)));
+            .catch(er => console.log(er));
     }
 
 
