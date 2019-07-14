@@ -4,7 +4,7 @@ import { StyleSheet, NativeModules, LayoutAnimation, View } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import SwiperContainer from '../containers/SwiperContainer';
-import { playMedia, addToQueue } from '../actions';
+import { playMedia, addToQueue } from '../actions/playerState';
 
 
 const { UIManager } = NativeModules;
@@ -14,8 +14,7 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 
 class Track extends Component {
     state = {
-        hide: false,
-        open: false
+        hide: false
     }
 
 
@@ -109,7 +108,7 @@ class Track extends Component {
 }
 
 const mapStateToProps = state => ({
-    active: state.media.active
+    active: state.playerState.active
 });
 
 export default connect(mapStateToProps, { playMedia, addToQueue })(withTheme(Track));

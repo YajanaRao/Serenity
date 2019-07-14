@@ -64,7 +64,7 @@ class Playlist extends Component {
 }
 
 const mapStateToProps = state => ({
-    favorite: state.media.favorite
+    favorite: state.playerState.favorite
 });
 
 export default connect(mapStateToProps)(withTheme(Playlist));
