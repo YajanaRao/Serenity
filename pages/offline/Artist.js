@@ -1,10 +1,11 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
 import { withTheme, Divider, Title, List, IconButton } from 'react-native-paper';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
-import  RNAndroidAudioStore from 'react-native-get-music-files';
+
+import { getOfflineArtists } from '../../actions/mediaStore';
 
 class Artist extends React.Component {
     static navigationOptions = {
@@ -14,18 +15,30 @@ class Artist extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            artists: []
+            artists: [],
+            refreshing: false
         }
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (!_.isEqual(props.artists, state.artists)) {
+            return {
+                artists: props.artists,
+                refreshing: false
+            }
+        }
+        return null
+    }
+
+    fetchData = () => {
+        this.setState({
+            refreshing: true
+        })
+        this.props.getOfflineArtists();
+    }
 
     componentDidMount() {
-        // this.props.getOfflineMedia()
-        RNAndroidAudioStore.getArtists({})
-            .then(media => {
-                this.setState({ artists: media });
-            })
-        .catch(er => console.log(er));
+        this.props.getOfflineArtists()
     }
 
 
@@ -44,12 +57,14 @@ class Artist extends React.Component {
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                     <FlatList
-                        // data={_.remove(this.state.files, function(n){
-                        //     return n.artist != null
-                        // })}
                         data={this.state.artists}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
-                        // onRefresh={() => this.props.getOfflineMedia()}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={() => this.fetchData()}
+                            />
+                        }
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) =>
                             <List.Item
@@ -76,10 +91,12 @@ class Artist extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    artists: state.mediaStore.artists
+});
 
 
-export default withTheme(Artist);
-// export default withTheme(Artist);
+export default connect(mapStateToProps, { getOfflineArtists })(withTheme(Artist));
 
 const styles = StyleSheet.create({
     icons: {

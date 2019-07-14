@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTheme, Caption, ProgressBar } from "react-native-paper";
-import { View, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ProgressComponent } from 'react-native-track-player';
 
 
