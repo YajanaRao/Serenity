@@ -51,8 +51,6 @@ class Artist extends React.Component {
 
         const { navigate } = this.props.navigation;
 
-        // const artists = _.uniqBy(this.state.files, 'artist');
-
         if (!_.isEmpty(this.state.artists)) {
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>

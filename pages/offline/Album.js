@@ -95,6 +95,9 @@ class Album extends React.Component {
         }
         return (
             <View style={{ flex: 1, backgroundColor: background, justifyContent: 'center', alignItems: 'center' }}>
+                <IconButton
+                    icon="sentiment-very-dissatisfied"
+                />
                 <Title>No offline songs found..</Title>
             </View>
         );
