@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import TrackPlayer from 'react-native-track-player';
 import _ from 'lodash';
 
 const INITIAL_QUERY = {
@@ -13,11 +12,9 @@ const INITIAL_THEME = {
 };
 
 const INITIAL_STATE = {
-  result: "",
   queue: [],
   active: {},
   favorite: [],
-  files: []
 }
 
 const DASHBOARD_STATE = {
@@ -31,24 +28,49 @@ const DASHBOARD_STATE = {
   hot100: []
 }
 
-const SETTINGS_STATE = {
-  isConnected: false
+const INITIAL_STORE = {
+  songs: [],
+  artists: [],
+  albums: []
 }
 
-const mediaReducer = (state = INITIAL_STATE, action) => {
+
+const mediaStoreReducer = (state = INITIAL_STORE, action) => {
   switch (action.type) {
     case 'DOWNLOAD':
       return {
         ...state,
-        files: _.concat(action.payload,state.files),
+        songs: _.concat(action.payload,state.songs),
         result: `${action.payload.title} downloaded successfully`
       }
 
-    case 'OFFLINE':
+    case 'OFFLINE_SONGS':
       return {
         ...state,
-        files: action.payload
+        songs: action.payload
       }
+     
+    case 'OFFLINE_ARTISTS':
+      return {
+        ...state,
+        artists: action.payload
+      }
+     
+      case 'OFFLINE_ALBUMS':
+      return {
+        ...state,
+        albums: action.payload
+      }
+     
+    default:
+      return state;
+  }
+};
+
+
+
+const playerStateReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
      
     case 'PLAY':
       return {
@@ -187,5 +209,6 @@ const dashboardReducer = (state = DASHBOARD_STATE, action) => {
 export default combineReducers({
   query: queryReducer,
   theme: themeReducer,
-  media: mediaReducer
+  playerState: playerStateReducer,
+  mediaStore: mediaStoreReducer
 });

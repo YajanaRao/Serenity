@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { addToQueue } from '../../actions';
+import { addToQueue } from '../../actions/playerState';
 import Track from '../../components/Track';
 
 class Songs extends Component {

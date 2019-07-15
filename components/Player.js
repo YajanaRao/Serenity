@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
 import TrackPlayer from 'react-native-track-player';
 import FastImage from 'react-native-fast-image';
-import RNMediaMetadataRetriever from 'react-native-media-metadata-retriever'
 
-import { playMedia, clearQueue, activeTrackUpdate } from '../actions';
+import { playMedia, clearQueue, activeTrackUpdate } from '../actions/playerState';
 import Track from './Track';
 import Love from './Love';
 import ProgressBar from './ProgressBar';
@@ -311,8 +310,8 @@ class Player extends Component {
 
 
 const mapStateToProps = state => ({
-    queue: state.media.queue,
-    active: state.media.active
+    queue: state.playerState.queue,
+    active: state.playerState.active
 });
 
 export default connect(mapStateToProps, { playMedia, clearQueue, activeTrackUpdate })(withTheme(Player));
