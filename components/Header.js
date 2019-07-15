@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { withTheme, Searchbar, IconButton } from "react-native-paper";
+import { withTheme, Searchbar } from "react-native-paper";
 import { View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import { updateQuery } from '../actions';
@@ -20,7 +19,6 @@ class Header extends Component {
 
     render() {
         const { colors } = this.props.theme;
-        const { navigation } = this.props;
 
         return (
             <View style={{ backgroundColor: colors.background }}>
@@ -44,4 +42,4 @@ class Header extends Component {
 }
 
 
-export default connect(null, { updateQuery })(withNavigation(withTheme(Header)));
+export default connect(null, { updateQuery })(withTheme(Header));

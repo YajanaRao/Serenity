@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import Track from '../../components/Track';
-import { addToQueue } from '../../actions';
+import { addToQueue } from '../../actions/playerState';
 
 class Filter extends Component {
     static navigationOptions = ({ navigation }) => {

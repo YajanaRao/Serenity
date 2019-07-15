@@ -4,7 +4,7 @@ import { withTheme, IconButton } from 'react-native-paper';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
-import { downloadMedia, addToQueue, removeFromQueue, addToFavorite } from '../actions';
+import { downloadMedia, addToQueue, removeFromQueue, addToFavorite } from '../actions/playerState';
 
 class SwiperContainer extends React.PureComponent {
 
