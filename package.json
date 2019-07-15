@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/netinfo": "^4.0.0",
-    "lodash": "4.17.11",
+    "lodash": "4.17.13",
     "react": "16.8.6",
     "react-native": "^0.60.0",
     "react-native-fast-image": "^7.0.0",
