@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RNAndroidAudioStore  from "react-native-get-music-files";
 import { View, ScrollView, FlatList, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Title, Button, withTheme, IconButton, Divider, Subheading } from 'react-native-paper';
+import { Title, Button, withTheme, IconButton, Divider } from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
@@ -42,6 +42,8 @@ class Filter extends Component {
         const { navigation } = this.props;
 
         const album = navigation.getParam('album', null);
+        const artist = navigation.getParam('artist', null);
+
         if(album){
             RNAndroidAudioStore.getSongs({
                 album: album
@@ -60,8 +62,7 @@ class Filter extends Component {
                 .catch(er => console.log(er));
         }
 
-        const artist = navigation.getParam('artist', null);
-        if (artist) {
+        else if (artist) {
             RNAndroidAudioStore.getSongs({
                 artist: artist
             })
@@ -78,6 +79,7 @@ class Filter extends Component {
             })
             .catch(er => console.log(er));
         }
+        
 
         this.props.navigation.setParams({ addToQueue: this.addToQueue });
     }
@@ -88,7 +90,7 @@ class Filter extends Component {
         const { navigation } = this.props;
 
         
-        // const genre = navigation.getParam('genre', null);
+        
 
         const albumImage = navigation.getParam('img');
         const title = navigation.getParam('title', 'No Title');

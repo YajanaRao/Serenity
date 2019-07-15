@@ -61,10 +61,7 @@ class Track extends Component {
 
     render() {
         const {
-            track,
-            swipeable,
-            leftAction,
-            rightAction,
+            track
         } = this.props;
 
         const { colors } = this.props.theme;
@@ -72,39 +69,24 @@ class Track extends Component {
         if (this.state.hide && track) {
             return false
         }
-        else if(swipeable){
-            return (
-                <SwiperContainer close={() => this.close()} leftAction={leftAction} rightAction={rightAction}>
-                    <View style={[styles.surface, { backgroundColor: colors.background }]}>
-                        <List.Item
-                            item={track}
-                            title={track.title}
-                            description={ track.artist ? track.artist : track.album }
-                            // left={props => (
-                            //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                            // )}
-                            right={props => this.renderRightIcon(props)}
-                            onPress={() => this.play()}
-                        />
-                    </View>
-                </SwiperContainer>
-            );
-        }
 
         return (
-            <View style={[styles.surface, { backgroundColor: colors.background }]}>
-                <List.Item
-                    item={track}
-                    title={track.title}
-                    description={track.artist ? track.artist : track.album}
-                    // left={props => (
-                    //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                    // )}
-                    right={props => this.renderRightIcon(props)}
-                    onPress={() => this.play()}
-                />
-            </View>
+            <SwiperContainer close={() => this.close()}>
+                <View style={[styles.surface, { backgroundColor: colors.background }]}>
+                    <List.Item
+                        item={track}
+                        title={track.title}
+                        description={ track.artist ? track.artist : track.album }
+                        // left={props => (
+                        //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
+                        // )}
+                        right={props => this.renderRightIcon(props)}
+                        onPress={() => this.play()}
+                    />
+                </View>
+            </SwiperContainer>
         );
+        
     }
 }
 

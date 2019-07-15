@@ -73,7 +73,7 @@ class Songs extends Component {
                             ItemSeparatorComponent={() => <Divider inset={true} />}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) =>
-                                <Track track={item} swipeable={true} />
+                                <Track track={item} />
                             }
                         />
                         <View style={{ height: 100 }} />
