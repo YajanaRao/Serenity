@@ -5,24 +5,22 @@ import { connect } from 'react-redux';
 import { View, RefreshControl } from 'react-native';
 import _ from 'lodash';
 
-import { addToQueue, getOfflineSongs } from '../../actions';
+import { getOfflineSongs } from '../../actions/mediaStore';
+import { addToQueue } from '../../actions/playerState';
 import Track from '../../components/Track'
-
-
-
 
 class Song extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: [],
+            songs: [],
             refreshing: false
         }
     }
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.files, state.files)) {
+        if (!_.isEqual(props.songs, state.songs)) {
             return {
-                files: props.files,
+                songs: props.songs,
                 refreshing: false
             }
         }
@@ -48,20 +46,20 @@ class Song extends React.Component {
         } = this.props;
         
 
-        if(!_.isEmpty(this.state.files)){
+        if(!_.isEmpty(this.state.songs)){
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                    <View style={{ justifyContent: 'space-between', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
-                        <Button icon="play-circle-outline" mode="text" onPress={() => this.props.addToQueue(this.state.files)}>
+                        <Button icon="play-circle-outline" mode="text" onPress={() => this.props.addToQueue(this.state.songs)}>
                             Play All
                         </Button>
-                        {/* <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.files)}>
+                        {/* <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
                             Shuffle
                         </Button> */}
                     </View>
                     <Divider/>
                     <FlatList
-                        data={this.state.files}
+                        data={this.state.songs}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
                         refreshControl={
                             <RefreshControl
@@ -87,7 +85,7 @@ class Song extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    files: state.media.files
+    songs: state.mediaStore.songs
 });
 
 
