@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
 import TrackPlayer from 'react-native-track-player';
 import FastImage from 'react-native-fast-image';
-import RNMediaMetadataRetriever from 'react-native-media-metadata-retriever'
 
-import { playMedia, clearQueue, activeTrackUpdate } from '../actions';
+import { playMedia, clearQueue, activeTrackUpdate } from '../actions/playerState';
 import Track from './Track';
 import Love from './Love';
 import ProgressBar from './ProgressBar';
@@ -55,11 +54,11 @@ class Player extends Component {
         this._onInitialLoad();
     }
 
-    _onInitialLoad =  () => {
+    _onInitialLoad = () => {
         // console.log("has to be only once")
-        if(!_.isEmpty(this.state.queue)){
+        if (!_.isEmpty(this.state.queue)) {
             TrackPlayer.add(this.state.queue).then(() => {
-                if(!_.isEmpty(this.state.active)){
+                if (!_.isEmpty(this.state.active)) {
                     // console.log(this.state.active)
                     TrackPlayer.skip(this.state.active.id);
                 }
@@ -129,10 +128,10 @@ class Player extends Component {
             // console.log(error);
             TrackPlayer.stop();
         }
-        
+
     }
 
-    
+
 
     togglePlayback = () => {
         TrackPlayer.getCurrentTrack().then((currentTrack) => {
@@ -168,8 +167,8 @@ class Player extends Component {
     render() {
 
         const { colors } = this.props.theme;
-        
-        if(!_.isEmpty(this.state.active)){
+
+        if (!_.isEmpty(this.state.active)) {
             return (
                 <View>
                     <Modal
@@ -182,124 +181,124 @@ class Player extends Component {
                         coverScreen={true}
                         onDismiss={() => this.setModalVisible(false)}
                         presentationStyle="fullScreen"
-                   >
-                    <ScrollView style={{ backgroundColor: colors.background }}>
-                        <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', zIndex: 1 }}>
-                            <IconButton
-                                icon="close"
-                                onPress={() => this.setModalVisible(false)}
-                            />
-                            <IconButton
-                                icon="more-vert"
-                                onPress={() => this.setModalVisible(false)}
-                            />
+                    >
+                        <ScrollView style={{ backgroundColor: colors.background }}>
+                            <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', zIndex: 1 }}>
+                                <IconButton
+                                    icon="close"
+                                    onPress={() => this.setModalVisible(false)}
+                                />
+                                <IconButton
+                                    icon="more-vert"
+                                    onPress={() => this.setModalVisible(false)}
+                                />
 
-                        </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                {this.state.active.artwork && _.isString(this.state.active.artwork) ? 
-                                    <FastImage 
-                                        source={{ uri: this.state.active.artwork }} 
+                            </View>
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                {this.state.active.artwork && _.isString(this.state.active.artwork) ?
+                                    <FastImage
+                                        source={{ uri: this.state.active.artwork }}
                                         style={{ width: 250, height: 250, borderRadius: 4, backgroundColor: colors.primary }} />
                                     :
-                                    <FastImage 
-                                        source={ require('../assets/app-icon.png') }
+                                    <FastImage
+                                        source={require('../assets/app-icon.png')}
                                         style={{ width: 250, height: 250, borderRadius: 4 }} />
-                            } 
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flex: 1 }}>
-                            <Love style={{ width: 60 }} track={this.state.active}/>
-                            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                                <Title numberOfLines={1}>{this.state.active.title}</Title>
-                                    <Subheading numberOfLines={1}>{this.state.active.artist ? this.state.active.artist : this.state.active.album }</Subheading>
+                                }
                             </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flex: 1 }}>
+                                <Love style={{ width: 60 }} track={this.state.active} />
+                                <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                                    <Title numberOfLines={1}>{this.state.active.title}</Title>
+                                    <Subheading numberOfLines={1}>{this.state.active.artist ? this.state.active.artist : this.state.active.album}</Subheading>
+                                </View>
 
-                           <View style={{ width: 60 }}>
+                                <View style={{ width: 60 }}>
+                                    <IconButton
+                                        icon="repeat"
+                                        // size={20}
+                                        onPress={() => console.log("pressed")}
+                                    />
+                                </View>
+                            </View>
+                            <View style={{ alignItems: 'center', justifyContent: 'center', margin: 16 }}>
+                                <ProgressBar />
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 12 }}>
                                 <IconButton
-                                    icon="repeat"
-                                    // size={20}
-                                    onPress={() => console.log("pressed")}
+                                    icon="skip-previous"
+                                    size={40}
+                                    onPress={this.skipToPrevious}
                                 />
-                           </View>
-                        </View>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', margin: 16 }}>
-                            <ProgressBar />  
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 12 }}>
-                            <IconButton
-                                icon="skip-previous"
-                                size={40}
-                                onPress={this.skipToPrevious}
-                            />
-                           
-                            <FAB
-                                loading={this.state.isLoading}
-                                icon={this.state.isPlaying ? "pause" : "play-arrow"}
-                                onPress={this.togglePlayback}
-                            />
-                            
-                            <IconButton
-                                icon="skip-next"
-                                size={40}
-                                onPress={this.skipToNext}
-                            />
-                        </View>
-                        <Divider />
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+
+                                <FAB
+                                    loading={this.state.isLoading}
+                                    icon={this.state.isPlaying ? "pause" : "play-arrow"}
+                                    onPress={this.togglePlayback}
+                                />
+
+                                <IconButton
+                                    icon="skip-next"
+                                    size={40}
+                                    onPress={this.skipToNext}
+                                />
+                            </View>
+                            <Divider />
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <Title style={{ padding: 10 }}>Queue</Title>
                                 <IconButton
                                     icon="delete"
                                     // size={40}
                                     onPress={this.clearPlaylist}
                                 />
-                        </View>
-                        
-                        <Divider />
-                        <FlatList
-                            data={this.state.queue}
-                            renderItem={({ item }) => <Track track={item} swipeable={true} leftAction={true} />}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                        <View style={{ height: 100 }} />
-                    </ScrollView>
-                </Modal>
-                <TouchableOpacity
-                    activeOpacity={0.9}
-                    style={{  height: 60, width: '100%' }}
-                    onPress={() => {
-                        this.setModalVisible(true);
-                    }}>
-                    <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
+                            </View>
+
+                            <Divider />
+                            <FlatList
+                                data={this.state.queue}
+                                renderItem={({ item }) => <Track track={item} swipeable={true} leftAction={true} />}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                            <View style={{ height: 100 }} />
+                        </ScrollView>
+                    </Modal>
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        style={{ height: 60, width: '100%' }}
+                        onPress={() => {
+                            this.setModalVisible(true);
+                        }}>
+                        <View style={[styles.playbar, { backgroundColor: colors.surface }]}>
                             {this.state.active.artwork && _.isString(this.state.active.artwork) ?
-                                <FastImage 
-                                    source={{ uri: this.state.active.artwork }} 
-                                    style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }} 
-                                /> 
-                                : 
                                 <FastImage
-                                    source={require('../assets/app-icon.png')} 
+                                    source={{ uri: this.state.active.artwork }}
+                                    style={{ width: 50, height: 50, borderRadius: 4, backgroundColor: colors.primary }}
+                                />
+                                :
+                                <FastImage
+                                    source={require('../assets/app-icon.png')}
                                     style={{ width: 50, height: 50, borderRadius: 4 }}
                                 />
                             }
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}>
-                            <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
-                                <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist ? this.state.active.artist : this.state.active.album }</Caption>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginLeft: 4 }}>
+                                <Subheading numberOfLines={1} style={{ margin: 0 }}>{this.state.active.title}</Subheading>
+                                <Caption numberOfLines={1} style={{ margin: 0 }}>{this.state.active.artist ? this.state.active.artist : this.state.active.album}</Caption>
+                            </View>
+                            <View style={{ justifyContent: 'flex-end', alignItems: 'center', width: 50 }}>
+                                {this.state.isLoading ?
+                                    <ActivityIndicator animating={true} />
+                                    :
+                                    <IconButton
+                                        icon={this.state.isPlaying ? "pause" : "play-arrow"}
+                                        animated={true}
+                                        size={34}
+                                        onPress={this.togglePlayback}
+                                        style={{ margin: 0, padding: 0 }}
+                                    />
+                                }
+                            </View>
                         </View>
-                        <View style={{ justifyContent: 'flex-end', alignItems: 'center', width: 50 }}>
-                            {this.state.isLoading ?
-                                <ActivityIndicator animating={true} />
-                                :      
-                                <IconButton
-                                    icon={this.state.isPlaying ? "pause" : "play-arrow"}
-                                    animated={true}
-                                    size={34}
-                                    onPress={this.togglePlayback}
-                                    style={{ margin: 0, padding: 0 }}
-                                />
-                            }
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
+                    </TouchableOpacity>
+                </View>
             );
         }
         else {
@@ -311,8 +310,8 @@ class Player extends Component {
 
 
 const mapStateToProps = state => ({
-    queue: state.media.queue,
-    active: state.media.active
+    queue: state.playerState.queue,
+    active: state.playerState.active
 });
 
 export default connect(mapStateToProps, { playMedia, clearQueue, activeTrackUpdate })(withTheme(Player));
@@ -327,7 +326,6 @@ const styles = StyleSheet.create({
         elevation: 0
     },
     container: {
-        justifyContent: 'center', 
+        justifyContent: 'center',
         alignItems: 'center'
-    }
-})
+    })

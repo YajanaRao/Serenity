@@ -167,42 +167,19 @@ renderLoveAction = (color, x, progress, action) => {
   };
 
   render(){
-    const { children } = this.props;
-    const { leftAction,  rightAction } = this.props;
-
-      
-    if(leftAction){
-     return(
-        <Swipeable
-          ref={this.updateRef}
-          renderLeftActions={this.renderLeftActions}>
-          {children}
-        </Swipeable>
-      )
-    }else if(rightAction){
-      return (
-        <Swipeable
-          ref={this.updateRef}
-          friction={2}
-          rightThreshold={40}
-          renderRightActions={this.renderRightActions}>
-          {children}
-        </Swipeable>
-      );
-    }else {
-      return (
-        <Swipeable
-          ref={this.updateRef}
-          friction={2}
-          leftThreshold={30}
-          rightThreshold={40}
-          onSwipeableLeftOpen={this.removeFromQueue}
-          renderLeftActions={this.renderLeftActions}
-          renderRightActions={this.renderRightActions}>
-          {children}
-        </Swipeable>
-      )
-    }
+    const { children, remove } = this.props;
+    return (
+      <Swipeable
+        ref={this.updateRef}
+        friction={2}
+        leftThreshold={30}
+        rightThreshold={40}
+        // onSwipeableLeftOpen={this.removeFromQueue}
+        renderLeftActions={ remove ? this.renderLeftActions : false }
+        renderRightActions={this.renderRightActions}>
+        {children}
+      </Swipeable>
+    )
   }
 } 
  

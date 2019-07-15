@@ -113,26 +113,22 @@ class RootScreen extends React.Component {
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <StatusBar backgroundColor={"#000000"} barStyle={dark ? "light-content" : "dark-content"} />
-        { this.state.result ? 
-          <Snackbar
-            style={{ marginBottom: 120, zIndex: 10 }}
-            visible={this.state.visible}
-            onDismiss={() => this.setState({ visible: false })}
-            // duration={1000}
-            action={{
-              label: 'Dismiss',
-              onPress: () => {
-                this.setState({
-                  visible: false
-                })
-              },
-            }}
-          >
-            {this.state.result}
-          </Snackbar>
-          : 
-          false
-        }
+        <Snackbar
+          style={{ marginBottom: 120, zIndex: 10 }}
+          visible={this.state.visible}
+          onDismiss={() => this.setState({ visible: false })}
+          // duration={1000}
+          action={{
+            label: 'Dismiss',
+            onPress: () => {
+              this.setState({
+                visible: false
+              })
+            },
+          }}
+        >
+          {this.state.result}
+        </Snackbar>
         <Navigator />
       </View>
 
