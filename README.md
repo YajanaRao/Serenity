@@ -38,7 +38,6 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Features
 - Play audio 
-- Unlimited downloads
 - Support for local files
 
 ## Planned features
@@ -48,7 +47,6 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Searching for albums (powered by last.fm and musicbrainz), album view, automatic song lookup based on artist and track name (in progress, can be dodgy sometimes)
 - Song queue, which can be exported as a playlist
 - Loading saved playlists
-- Scrobbling to last.fm (along with updating the 'now playing' status)
 - Newest releases with reviews - tracks and albums
 - Browsing by genre
 - Radio mode (automatically queue similar tracks)
@@ -56,6 +54,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Browsing by popularity
 - Country-specific top lists
 - Listening suggestions (similar artists, albums, tracks)
+- Unlimited downloads
 
 
 Build apk by running command `react-native run-android --variant=release`
@@ -67,3 +66,5 @@ This program is free software: you can redistribute it and/or modify it under th
 #### Support 
 
 Let me know if you are interested
+
+

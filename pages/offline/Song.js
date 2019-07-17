@@ -1,9 +1,10 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider, Button, Title } from 'react-native-paper';
+import { withTheme, Divider, Button, Title, Text, Surface, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { View, RefreshControl } from 'react-native';
+import { View, RefreshControl, StyleSheet } from 'react-native';
 import _ from 'lodash';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { getOfflineSongs } from '../../actions/mediaStore';
 import { addToQueue } from '../../actions/playerState';
@@ -17,6 +18,7 @@ class Song extends React.Component {
             refreshing: false
         }
     }
+
     static getDerivedStateFromProps(props, state) {
         if (!_.isEqual(props.songs, state.songs)) {
             return {
@@ -49,29 +51,42 @@ class Song extends React.Component {
         if(!_.isEmpty(this.state.songs)){
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
-                   <View style={{ justifyContent: 'space-between', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
-                        <Button icon="play-circle-outline" mode="text" onPress={() => this.props.addToQueue(this.state.songs)}>
+                   <View style={{ justifyContent: 'space-around', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
+                        <Button icon="play-arrow" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
                             Play All
                         </Button>
-                        {/* <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
+                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
                             Shuffle
-                        </Button> */}
+                        </Button>
                     </View>
                     <Divider/>
-                    <FlatList
+                    <SwipeListView
                         data={this.state.songs}
+                        renderItem={({item}) => (
+                            <Track track={item} />
+                        )}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderHiddenItem={({item}) => (
+                            <Surface style={styles.rowBack}>
+                                <IconButton
+                                    icon="add-to-queue"
+                                    onPress={() => this.props.addToQueue(item)}
+                                />
+                                <IconButton
+                                    icon="favorite"
+                                    onPress={() => this.props.addToFavorite(item)}
+                                />
+                            </Surface>
+                        )}
                         refreshControl={
                             <RefreshControl
                                 refreshing={this.state.refreshing}
                                 onRefresh={() => this.fetchData()}
                             />
                         }
-                        
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) =>
-                            <Track track={item} />
-                        }
+                        leftOpenValue={75}
+                        rightOpenValue={-75}
                     />
                 </View>
             );
@@ -90,3 +105,16 @@ const mapStateToProps = state => ({
 
 
 export default connect(mapStateToProps, { addToQueue, getOfflineSongs })(withTheme(Song));
+
+
+const styles = StyleSheet.create({
+    rowBack: {
+        alignItems: 'center',
+        // backgroundColor: '#DDD',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 15,
+        paddingRight: 15
+    },
+})

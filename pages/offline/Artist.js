@@ -4,6 +4,7 @@ import { withTheme, Divider, Title, List, IconButton } from 'react-native-paper'
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import { getOfflineArtists } from '../../actions/mediaStore';
 

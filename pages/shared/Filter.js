@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import RNAndroidAudioStore  from "react-native-get-music-files";
-import { View, ScrollView, FlatList, StyleSheet } from 'react-native';
+import { View, ScrollView, FlatList, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Title, Button, withTheme, IconButton, Divider } from 'react-native-paper';
+import { Title, Button, withTheme, IconButton, Divider , Surface} from 'react-native-paper';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 import Track from '../../components/Track';
-import { addToQueue } from '../../actions/playerState';
+import { addToQueue, addToFavorite } from '../../actions/playerState';
+import { filterAlbumSongs, filterArtistSongs } from '../../actions/mediaStore';
 
 class Filter extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -29,7 +30,7 @@ class Filter extends Component {
         super(props);
         this.state = {
             files: [],
-            isFetched: false
+            refreshing: false
         }
     }
 
@@ -37,68 +38,56 @@ class Filter extends Component {
         this.props.addToQueue(this.state.files);
     }
 
-  
-    componentDidMount() {
+    static getDerivedStateFromProps(props, state) {
+        if (!_.isEqual(props.files, state.files) || state.refreshing) {
+            return {
+                files: props.files,
+                refreshing: false
+            }
+        }
+        return null
+    }
+
+    fetchData = () => {
+        this.setState({
+            refreshing: true
+        })
         const { navigation } = this.props;
 
         const album = navigation.getParam('album', null);
         const artist = navigation.getParam('artist', null);
+        const image = navigation.getParam('img')
 
-        if(album){
-            RNAndroidAudioStore.getSongs({
-                album: album
-            })
-                .then(media => {
-                    _.map(media, function (item) {
-                        item.url = "file://" + item.path
-                        delete item.path
-                        item.artwork = navigation.getParam('img')
-                        return item
-                    });
-                    this.setState({
-                        files: media,
-                    });
-                })
-                .catch(er => console.log(er));
+        if (artist) {
+            this.props.filterArtistSongs(artist, image)
+        } else if (album) {
+            this.props.filterAlbumSongs(album, image)
         }
+    }
 
-        else if (artist) {
-            RNAndroidAudioStore.getSongs({
-                artist: artist
-            })
-            .then(media => {
-                _.map(media, function (item) {
-                    item.url = "file://" + item.path
-                    delete item.path
-                    item.artwork = navigation.getParam('img')
-                    return item
-                });
-                this.setState({ 
-                    files: media
-                });
-            })
-            .catch(er => console.log(er));
-        }
-        
-
+  
+    componentDidMount() {
+        this.fetchData();
         this.props.navigation.setParams({ addToQueue: this.addToQueue });
     }
 
     render() {
         const { colors } = this.props.theme; 
-
         const { navigation } = this.props;
-
-        
-        
 
         const albumImage = navigation.getParam('img');
         const title = navigation.getParam('title', 'No Title');
 
-
         return (
             <View style={[styles.container, { backgroundColor: colors.background }]}>
-                <ScrollView>
+                <ScrollView 
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={() => this.fetchData()}
+                        />
+                    }
+                >
 
                     <View style={styles.scrollViewContent}>
                         <View style={{ justifyContent: 'center', alignItems: 'center', elevation: 4 }}>
@@ -124,14 +113,41 @@ class Filter extends Component {
                                 Play All
                         </Button>
                         </View>
-                        <FlatList
+                        <SwipeListView
                             data={this.state.files}
                             ItemSeparatorComponent={() => <Divider inset={true} />}
                             keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => (
+                                <Track track={item} />
+                            )}
+                            renderHiddenItem={({ item }) => (
+                                <Surface style={styles.rowBack}>
+                                    <IconButton
+                                        icon="add-to-queue"
+                                        onPress={() => this.props.addToQueue(item)}
+                                    />
+                                    <IconButton
+                                        icon="favorite"
+                                        onPress={() => this.props.addToFavorite(item)}
+                                    />
+                                </Surface>
+                            )}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={() => this.fetchData()}
+                                />
+                            }
+                            leftOpenValue={75}
+                            rightOpenValue={-75}
+                        />
+                        {/* <FlatList
+                            data={this.state.files}
+                            
                             renderItem={({ item }) =>
                                 <Track track={item} />
                             }
-                        />
+                        /> */}
                         <View style={{ height: 100 }} />
                     </View>
 
@@ -142,7 +158,11 @@ class Filter extends Component {
     }
 } 
 
-export default connect(null, { addToQueue })(withTheme(Filter));
+const mapStateToProps = state => ({
+    files: state.mediaStore.files
+})
+
+export default connect(mapStateToProps, { addToQueue, filterAlbumSongs, filterArtistSongs, addToFavorite })(withTheme(Filter));
 
 const styles = StyleSheet.create(
     {
@@ -151,8 +171,14 @@ const styles = StyleSheet.create(
         },
         scrollViewContent: {
             marginTop: 10
-            // iOS uses content inset, which acts like padding.
-            // paddingTop: ,
-
+        },
+        rowBack: {
+            alignItems: 'center',
+            // backgroundColor: '#DDD',
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingLeft: 15,
+            paddingRight: 15
         },
     });

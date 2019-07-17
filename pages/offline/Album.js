@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider, Title, List, Colors } from 'react-native-paper';
+import { withTheme, Divider, Title, List, Colors, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image'; 

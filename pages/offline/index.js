@@ -4,7 +4,7 @@ import { DarkTheme } from 'react-native-paper';
 
 import AlbumScreen from './Album';
 import ArtistScreen from './Artist';
-import Song from './Song';
+import SongScreen from './Song';
 import FilterScreen from '../shared/Filter';
 
 const ArtistStack = createStackNavigator({
@@ -17,7 +17,7 @@ const AlbumStack = createStackNavigator({
 
 
 const TabNavigator =  createMaterialTopTabNavigator({
-    Song: { screen: Song },
+    Song: { screen: SongScreen },
     Artist: { screen: ArtistStack },
     Album: { screen: AlbumStack },
 }, {

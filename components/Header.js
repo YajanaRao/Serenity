@@ -3,7 +3,7 @@ import { withTheme, Searchbar } from "react-native-paper";
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { updateQuery } from '../actions';
+import { updateQuery } from '../actions/mediaStore';
 
 class Header extends Component {
 
@@ -26,13 +26,6 @@ class Header extends Component {
                     placeholder="Artists, songs or podcasts"
                     onChangeText={(text) => this.handleChange(text)}
                     value={this.state.query}
-                    // clearIcon={() => <IconButton
-                    //     icon="clear"
-                    //     // color={Colors.red500}
-                    //     // size={20}
-                    //     // onPress={() => }
-                    // />}
-                    // onIconPress={() => this.props.navigation.toggleDrawer()}
                     icon="search"
                     style={{ margin: 10 }}
                 />
