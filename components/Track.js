@@ -3,9 +3,7 @@ import { withTheme, List } from 'react-native-paper';
 import { StyleSheet, NativeModules, LayoutAnimation, View } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import SwiperContainer from '../containers/SwiperContainer';
 import { playMedia, addToQueue } from '../actions/playerState';
-
 
 const { UIManager } = NativeModules;
 
@@ -13,9 +11,6 @@ UIManager.setLayoutAnimationEnabledExperimental &&
     UIManager.setLayoutAnimationEnabledExperimental(true);
 
 class Track extends Component {
-    state = {
-        hide: false
-    }
 
 
     renderRightIcon = (props) => {
@@ -23,7 +18,6 @@ class Track extends Component {
             track,
             active
         } = this.props;
-
         if (_.isEqual(active, track)) {
             const { colors } = this.props.theme;
             return <List.Icon {...props} icon="equalizer" color={colors.accent} />
@@ -52,10 +46,6 @@ class Track extends Component {
         * Adding duration would enhance the user experience
         * Testing has to be done
     */ 
-    close = () => {
-        LayoutAnimation.spring();
-        this.setState({ hide: true })
-    }
 
 
     render() {
@@ -64,13 +54,9 @@ class Track extends Component {
         } = this.props;
 
         const { colors } = this.props.theme;
-        
-        if (this.state.hide && track) {
-            return false
-        }
 
         return (
-            <SwiperContainer close={() => this.close()}>
+            // <SwiperContainer close={() => this.close()}>
                 <View style={[styles.surface, { backgroundColor: colors.background }]}>
                     <List.Item
                         item={track}
@@ -83,7 +69,7 @@ class Track extends Component {
                         onPress={() => this.play()}
                     />
                 </View>
-            </SwiperContainer>
+            // </SwiperContainer>
         );
         
     }

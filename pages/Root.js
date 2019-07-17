@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import { View, StatusBar } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 import { connect } from 'react-redux';
@@ -10,15 +10,14 @@ import OfflineScreen from './offline';
 import SearchScreen from './search';
 import HomeScreen from './home';
 import ExploreScreen from './explore';
+import PlayerScreen from './shared/Player';
 
 import TabBar from '../components/TabBar';
-import { getOfflineMedia } from '../actions';
+
+import { initTrackPlayer, setUpTrackPlayer } from '../actions/playerState';
 
 
-
-
-
-const Navigator = createAppContainer(createBottomTabNavigator({
+const BottomNavigator = createBottomTabNavigator({
  Home: {
    screen: HomeScreen,
    navigationOptions: {
@@ -46,9 +45,25 @@ const Navigator = createAppContainer(createBottomTabNavigator({
 },
  {
    tabBarComponent: TabBar
- }));
+ });
 
 
+const RootStack = createStackNavigator(
+  {
+    Main: {
+      screen: BottomNavigator,
+    },
+    Player: {
+      screen: PlayerScreen,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
+const Navigator = createAppContainer(RootStack);
 
 class RootScreen extends React.Component {
   state = {
@@ -69,7 +84,7 @@ class RootScreen extends React.Component {
     }
   };
 
-  componentDidMount = () => {
+  requestPermission = () => {
     try {
       PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
@@ -84,7 +99,7 @@ class RootScreen extends React.Component {
         },
       ).then((granted) => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          // this.props.getOfflineMedia();
+
         } else {
         }
       })
@@ -93,14 +108,13 @@ class RootScreen extends React.Component {
     }
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (!_.isEqual(props.result, state.result)) {
-      return {
-        result: props.result,
-        visible: true
-      }
+  componentDidMount = () => {
+    this.requestPermission();
+    if(this.props.active || this.props.queue){
+      // console.log(this.props.active,this.props.queue)
+      this.props.setUpTrackPlayer();
+      this.props.initTrackPlayer(this.state.queue, this.state.active);
     }
-    return null
   }
 
 
@@ -138,7 +152,9 @@ class RootScreen extends React.Component {
 
 
 const mapStateToProps = state => ({
-  result: state.media.result
+  result: state.playerState.result,
+  queue: state.playerState.queue,
+  active: state.playerState.active,
 });
 
-export default connect(mapStateToProps, { getOfflineMedia })(withTheme(RootScreen));
+export default connect(mapStateToProps, { initTrackPlayer, setUpTrackPlayer })(withTheme(RootScreen));

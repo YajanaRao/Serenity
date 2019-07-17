@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   queue: [],
   active: {},
   favorite: [],
+  status: "init"
 }
 
 const DASHBOARD_STATE = {
@@ -31,7 +32,8 @@ const DASHBOARD_STATE = {
 const INITIAL_STORE = {
   songs: [],
   artists: [],
-  albums: []
+  albums: [],
+  files: []
 }
 
 
@@ -56,10 +58,16 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
         artists: action.payload
       }
      
-      case 'OFFLINE_ALBUMS':
+    case 'OFFLINE_ALBUMS':
       return {
         ...state,
         albums: action.payload
+      }
+
+    case 'OFFLINE_FILES':
+      return {
+        ...state,
+        files: action.payload
       }
      
     default:
@@ -76,9 +84,15 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         active: action.payload,
-        queue: _.concat(action.payload, state.queue),
+        queue: _.uniq(_.concat(action.payload, state.queue)),
         result: `Playing ${action.payload.title}`
       } 
+    
+    case 'STATUS':
+      return {
+        ...state,
+        status: action.payload
+      }
       
     case 'ACTIVE_TRACK_UPDATE':
       return {
