@@ -5,6 +5,12 @@
 
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
+<img src="https://dl.dropboxusercontent.com/s/8fnqviwlsj2gefl/screenshot-2019-07-16_19.38.22.634.png?dl=0"
+     alt="homepage"
+     height="490" 
+     width="270"
+     style="float: left; margin-right: 10px;" />
+
 ## What is this?
 Serenity is a world class music player which focuses on giving wonder full experience to the user.
 
