@@ -24,23 +24,12 @@ class Progress extends ProgressComponent {
 
     render() {
 
-        // const { colors } = this.props.theme
         const position = this.formatTime(Math.floor(this.state.position));
         const duration = this.formatTime(Math.floor(this.state.duration));
         const info = position + ' / ' + duration;
-        // let progress = this.getProgress() * 100;
-        // let buffered = this.getBufferedProgress() * 100;
-        // buffered -= progress;
-        // if (buffered < 0) buffered = 0;
 
         return (
             <View style={styles.view}>
-                {/* <TouchableWithoutFeedback>
-                    <Surface style={styles.bar}>
-                        <View style={[{ width: progress + '%', backgroundColor:  colors.primary }, styles.played]} />
-                        <View style={[{ width: buffered + '%', backgroundColor: colors.accent }, styles.buffered]} />
-                    </Surface>
-                </TouchableWithoutFeedback> */}
                 <ProgressBar progress={this.getProgress()} style={{ width: 300 }} />
                 <Caption style={styles.info}>{info}</Caption>
             </View>

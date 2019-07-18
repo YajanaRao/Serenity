@@ -122,7 +122,7 @@ class Player extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                         <Love style={{ width: 60 }} track={this.props.active} />
-                        <Lyric style={{ width: 60 }} track={this.props.active} />
+                        {/* <Lyric style={{ width: 60 }} track={this.props.active} /> */}
                         <View style={{ width: 60 }}>
                             <IconButton
                                 icon="repeat"

@@ -111,9 +111,8 @@ class RootScreen extends React.Component {
   componentDidMount = () => {
     this.requestPermission();
     if(this.props.active || this.props.queue){
-      // console.log(this.props.active,this.props.queue)
       this.props.setUpTrackPlayer();
-      this.props.initTrackPlayer(this.state.queue, this.state.active);
+      this.props.initTrackPlayer(this.props.queue, this.props.active);
     }
   }
 
@@ -122,11 +121,11 @@ class RootScreen extends React.Component {
   render() {
 
     const { colors } = this.props.theme;
-    const { dark } = this.props.theme;
+    // const { dark } = this.props.theme;
 
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <StatusBar backgroundColor={"#000000"} barStyle={dark ? "light-content" : "dark-content"} />
+        {/* <StatusBar backgroundColor={"#000000"} barStyle={dark ? "light-content" : "dark-content"} /> */}
         <Snackbar
           style={{ marginBottom: 120, zIndex: 10 }}
           visible={this.state.visible}

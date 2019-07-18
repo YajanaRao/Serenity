@@ -10,7 +10,6 @@
   "dependencies": {
     "@react-native-community/netinfo": "^4.0.0",
     "get-artist-title": "^1.1.1",
-    "get-azlyrics": "^1.0.1",
     "lodash": "4.17.13",
     "react": "16.8.6",
     "react-native": "^0.60.3",

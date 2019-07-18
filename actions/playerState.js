@@ -66,7 +66,6 @@ export const initTrackPlayer = (queue,track) => dispatch => {
     } else if (!_.isEmpty(queue) && !_.isEmpty(track)){
       TrackPlayer.add(queue).then(() => {
         TrackPlayer.skip(track.id).then(() => {
-          TrackPlayer.play();
           dispatch({
             type: 'PLAY',
             payload: track
