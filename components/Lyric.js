@@ -8,28 +8,19 @@ import { getLyrics } from '../utils';
 class Lyric extends Component {
     state = {
         visible: false,
-        track: {}
+        lyrics: ""
     };
 
-    static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.track, state.track)) {
-            if (props.track) {
-                return {
-                    track: props.track
-                }
-            }
-        }
-        return null
-    }
-
     componentDidMount(){
-        // getLyrics(this.state.track).then((lyrics) => {
-        //     console.log(lyrics)
-        // })
+        getLyrics(this.props.track).then((lyrics) => {
+            console.log(lyrics)
+            this.setState({
+                lyrics: lyrics
+            })
+        })
     }
 
     _showDialog = () => {
-        console.log("clicked on lyric")
         this.setState({ visible: true });
     }
 
@@ -49,10 +40,9 @@ class Lyric extends Component {
                         <Dialog.Title>Lyrics</Dialog.Title>
                         <Divider/>
                         <Dialog.Content>
-                            <Paragraph>Lyric feature is comming to the application</Paragraph>
                             <Dialog.ScrollArea>
                                 <ScrollView contentContainerStyle={{ paddingHorizontal: 24 }}>
-                                    <Text>This is a scrollable area</Text>
+                                    <Paragraph>Lyric feature is comming to the application. There will be some long texts here</Paragraph>
                                 </ScrollView>
                             </Dialog.ScrollArea>
                         </Dialog.Content>

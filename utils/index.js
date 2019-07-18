@@ -13,17 +13,26 @@ const getTitleAndArtist = (filename) => {
     }
 }
 
+fetchLyrics = () => {
+   let uri =  `https://azlyrics.com/lyrics/${artistName}/${songName}.html`;
+   fetch(uri).then((response) => {
+       console.log(response);
+   })
+   .catch((error) => {
+       console.log(error);
+   })
+}
 
 export const getLyrics = async (song) => {
     try {
         if(song.artist && song.title){
-            // let lyric = await lyrics.search(song.artist, song.title)
+            fetchLyrics();
             lyric = ""
             return lyric
         }else {
             let metadata = getTitleAndArtist(song.fileName)
             if(metadata){
-                let lyric = await lyrics.search(song.artist, song.title); 
+                
                 return lyric
             }
         }
