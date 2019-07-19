@@ -42,7 +42,7 @@ class Lyric extends Component {
                         <Dialog.Content>
                             <Dialog.ScrollArea>
                                 <ScrollView contentContainerStyle={{ paddingHorizontal: 24 }}>
-                                    <Paragraph>Lyric feature is comming to the application. There will be some long texts here</Paragraph>
+                                    <Paragraph>Lyric feature is coming to the application. There will be some long texts here</Paragraph>
                                 </ScrollView>
                             </Dialog.ScrollArea>
                         </Dialog.Content>
