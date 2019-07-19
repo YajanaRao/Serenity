@@ -84,7 +84,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         active: action.payload,
-        queue: _.uniq(_.concat(action.payload, state.queue)),
+        queue: _.concat(action.payload, state.queue),
         result: `Playing ${action.payload.title}`
       } 
     
@@ -103,7 +103,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
     case 'ADD_TO_FAVORITE':
       return {
         ...state,
-        favorite: _.uniq(_.concat(state.favorite, action.payload)),
+        favorite: _.concat(state.favorite, action.payload),
         result: `Added ${action.payload.title} to favorites`
       }
     case 'REMOVE_FROM_FAVORITE':
@@ -119,13 +119,13 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           active: _.head(action.payload),
-          queue: _.uniq(action.payload),
-          result: `Added ${_.size(action.payload)} songs to queue`
+          queue: action.payload,
+          result: `Modified ${_.size(action.payload)} songs to queue`
         }
       }
       return {
         ...state,
-        queue: _.uniq(action.payload),
+        queue: action.payload,
         result: `Added ${_.size(action.payload)} songs to queue`
       }
     
