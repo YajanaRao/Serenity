@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEqual, isEmpty, isString } from 'lodash';
 import FastImage from 'react-native-fast-image';
 import { Surface, ActivityIndicator, Subheading, Caption, IconButton } from 'react-native-paper';
 
@@ -21,12 +21,12 @@ class MiniPlayer extends Component {
 
 
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.active, state.active)) {
+        if (!isEqual(props.active, state.active)) {
             return {
                 active: props.active
             }
         }
-        if (!_.isEqual(props.status, state.status)) {
+        if (!isEqual(props.status, state.status)) {
             return {
                 status: props.status
             }
@@ -46,7 +46,7 @@ class MiniPlayer extends Component {
     render() {
         const { navigate } = this.props.navigation;
 
-        if (!_.isEmpty(this.state.active)) {
+        if (!isEmpty(this.state.active)) {
             return (
                 <TouchableOpacity
                     activeOpacity={0.9}
@@ -55,7 +55,7 @@ class MiniPlayer extends Component {
                         navigate('Player')
                     }}>
                     <Surface style={styles.playbar}>
-                        {this.state.active.artwork && _.isString(this.state.active.artwork) ?
+                        {this.state.active.artwork && isString(this.state.active.artwork) ?
                             <FastImage
                                 source={{ uri: this.state.active.artwork }}
                                 style={{ width: 50, height: 50, borderRadius: 4 }}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, RefreshControl } from "react-native";
 import { Subheading, FAB, withTheme, IconButton, Title, Divider, Surface } from 'react-native-paper';
-import _ from 'lodash';
+import isString from 'lodash/isString';
 import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -10,6 +10,7 @@ import Track from '../../components/Track';
 import Love from '../../components/Love';
 import ProgressBar from '../../components/ProgressBar';
 import Lyric from '../../components/Lyric';
+
 import {
     playTrack,
     clearQueue,
@@ -81,7 +82,7 @@ class Player extends Component {
 
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        {this.state.active.artwork && _.isString(this.props.active.artwork) ?
+                        {this.state.active.artwork && isString(this.props.active.artwork) ?
                             <FastImage
                                 source={{ uri: this.props.active.artwork }}
                                 style={{ width: 250, height: 250, borderRadius: 4, backgroundColor: colors.primary }} />

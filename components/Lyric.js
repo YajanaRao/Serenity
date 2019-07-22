@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Dialog, Portal, IconButton, Divider, Text, Paragraph, Button } from 'react-native-paper';
-import _ from 'lodash';
 
 import { getLyrics } from '../utils';
 

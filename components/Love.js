@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { IconButton, withTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import includes from 'lodash/includes';
 
 import { addToFavorite, removeFromFavorite } from '../actions/playerState';
 
@@ -15,7 +15,7 @@ class Love extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (_.includes(props.favorite, props.track) !== state.favorite) {
+        if (includes(props.favorite, props.track) !== state.favorite) {
             console.log(props.favorite)
             return {
                 favorite: !state.favorite

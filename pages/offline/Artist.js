@@ -3,7 +3,7 @@ import * as React from 'react';
 import { withTheme, Divider, Title, List, IconButton } from 'react-native-paper';
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import _ from 'lodash';
+import { isEqual, isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 
 import { getOfflineArtists } from '../../actions/mediaStore';
@@ -22,7 +22,7 @@ class Artist extends React.Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.artists, state.artists)) {
+        if (!isEqual(props.artists, state.artists)) {
             return {
                 artists: props.artists,
                 refreshing: false
@@ -52,7 +52,7 @@ class Artist extends React.Component {
 
         const { navigate } = this.props.navigation;
 
-        if (!_.isEmpty(this.state.artists)) {
+        if (!isEmpty(this.state.artists)) {
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                     <FlatList

@@ -1,5 +1,5 @@
 import TrackPlayer from 'react-native-track-player';
-import _ from 'lodash';
+import { isEmpty, differenceBy, isArray, isNull, isUndefined } from 'lodash';
 
 
 export const setUpTrackPlayer = () => dispatch => {
@@ -61,9 +61,9 @@ export const destroyTrackPlayer = () => dispatch => {
 
 export const initTrackPlayer = (queue,track) => dispatch => {
   try {
-    if(_.isEmpty(track) && !_.isEmpty(queue)){
+    if(isEmpty(track) && !isEmpty(queue)){
       TrackPlayer.add(queue);
-    } else if (!_.isEmpty(queue) && !_.isEmpty(track)){
+    } else if (!isEmpty(queue) && !isEmpty(track)){
       TrackPlayer.add(queue).then(() => {
         TrackPlayer.skip(track.id).then(() => {
           // TrackPlayer.play();
@@ -83,13 +83,13 @@ export const addToQueue = (song) => dispatch => {
   TrackPlayer.getQueue().then((queue) => {
     if(queue){
       let update = [];
-      if (_.isArray(song)) {
-        update = _.differenceBy(song, queue, 'id');
+      if (isArray(song)) {
+        update = differenceBy(song, queue, 'id');
       }
       else {
-        update = _.differenceBy([song], queue, 'id');
+        update = differenceBy([song], queue, 'id');
       }
-      if (!_.isEmpty(update)) {
+      if (!isEmpty(update)) {
         TrackPlayer.add(update);
         TrackPlayer.play();
         dispatch({
@@ -141,13 +141,11 @@ export const removeFromQueue = (song) => dispatch => {
   })
 }
 
-
-
 export const playMedia = (item) => dispatch => {
   try {
     if (item) {
       TrackPlayer.getTrack(item.id).then((track) => {
-        if (!_.isNull(track)) {
+        if (!isNull(track)) {
           TrackPlayer.skip(track.id).then(() => {
             TrackPlayer.play();
             dispatch({
@@ -237,7 +235,7 @@ export const skipToPrevious = () => dispatch => {
 
 //  Favorite manangement
 export const addToFavorite = (item) => dispatch => {
-  if(!_.isUndefined(item)){
+  if(!isUndefined(item)){
     dispatch({
       type: 'ADD_TO_FAVORITE',
       payload: item

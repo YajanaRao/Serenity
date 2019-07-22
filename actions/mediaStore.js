@@ -1,16 +1,13 @@
 import  RNAndroidAudioStore from 'react-native-get-music-files';
-import _ from 'lodash';
+import map from 'lodash/map';
 
 export const updateQuery = (query) => dispatch => {
     if(query){
       RNAndroidAudioStore.search({ searchParam: query }).then((media) => {
-        _.map(media, function (item) {
+        map(media, function (item) {
           item.url = "file://" + item.path
-          if (!item.id) {
-            item.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-          }
+          item.id = item.path
           delete item.path
-          item.artwork = 'https://source.unsplash.com/collection/574198/120x120'
           return item
         });
         dispatch({
@@ -33,13 +30,9 @@ export const updateQuery = (query) => dispatch => {
 export const getOfflineSongs = () => dispatch => {
   RNAndroidAudioStore.getAll({})
     .then(media => {
-      _.map(media, function (item) {
-        if (!item.id) {
-          item.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        }
+      map(media, function (item) {
+        item.id = item.path
         item.url = "file://" + item.path
-
-        
         delete item.path
         return item
       });
@@ -93,7 +86,8 @@ export const filterArtistSongs = (artist,image) => dispatch => {
     artist: artist
   })
     .then(media => {
-      _.map(media, function (item) {
+      map(media, function (item) {
+        item.id = item.path
         item.url = "file://" + item.path
         delete item.path
         item.artwork = image
@@ -112,7 +106,7 @@ export const filterAlbumSongs = (album,image) => dispatch => {
     album: album
   })
     .then(media => {
-      _.map(media, function (item) {
+      map(media, function (item) {
         item.url = "file://" + item.path
         delete item.path
         item.artwork = image

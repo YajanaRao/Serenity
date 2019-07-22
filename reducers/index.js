@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import _ from 'lodash';
+import { concat, remove, head, isEmpty, size } from 'lodash';
 
 const INITIAL_QUERY = {
   searchResult: []
@@ -42,7 +42,7 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
     case 'DOWNLOAD':
       return {
         ...state,
-        songs: _.concat(action.payload,state.songs),
+        songs: concat(action.payload,state.songs),
         result: `${action.payload.title} downloaded successfully`
       }
 
@@ -75,7 +75,8 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
   }
 };
 
-
+// TODO:
+// Normalise queue
 
 const playerStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -84,7 +85,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         active: action.payload,
-        queue: _.concat(action.payload, state.queue),
+        queue: concat(action.payload, state.queue),
         result: `Playing ${action.payload.title}`
       } 
     
@@ -103,30 +104,30 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
     case 'ADD_TO_FAVORITE':
       return {
         ...state,
-        favorite: _.concat(state.favorite, action.payload),
+        favorite: concat(state.favorite, action.payload),
         result: `Added ${action.payload.title} to favorites`
       }
     case 'REMOVE_FROM_FAVORITE':
       return {
         ...state,
-        favorite: _.remove(state.favorite, function(n){ 
+        favorite: remove(state.favorite, function(n){ 
           return n != action.payload
         }),
         result: `Removed ${action.payload.title} from favorites`
       }
     case 'ADD_QUEUE': 
-      if (_.isEmpty(state.active)){
+      if (isEmpty(state.active)){
         return {
           ...state,
-          active: _.head(action.payload),
+          active: head(action.payload),
           queue: action.payload,
-          result: `Modified ${_.size(action.payload)} songs to queue`
+          result: `Modified ${size(action.payload)} songs to queue`
         }
       }
       return {
         ...state,
         queue: action.payload,
-        result: `Added ${_.size(action.payload)} songs to queue`
+        result: `Added ${size(action.payload)} songs to queue`
       }
     
     case 'CLEAR_QUEUE':

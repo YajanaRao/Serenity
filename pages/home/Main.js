@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { withTheme, Title, Paragraph, IconButton } from 'react-native-paper';
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
-import _ from 'lodash';
 import FastImage from 'react-native-fast-image';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -21,8 +20,9 @@ class MainScreen extends React.Component {
         }
     }
 
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({ navigation, screenProps }) => {
         // header: null
+        let currentTheme = screenProps.theme;
         return {
             headerTitle: 'Home',
             headerRight: (

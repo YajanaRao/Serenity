@@ -10,13 +10,11 @@ class NetNotify extends Component {
 
 
     componentDidMount() {
-        // NetInfo.addEventListener('connectionChange', this.handleFirstConnectivityChange);
         NetInfo.addEventListener(state => {
             this.setState({
                 isConnected: state.isConnected
             })
         });
-        // this.checkNetInfo();
     }
 
     checkNetInfo = () => {

@@ -4,7 +4,6 @@ import { View, StatusBar } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { PermissionsAndroid } from 'react-native';
-import _ from 'lodash';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -142,7 +141,7 @@ class RootScreen extends React.Component {
         >
           {this.state.result}
         </Snackbar>
-        <Navigator />
+        <Navigator screenProps={{ theme: this.props.theme }}/>
       </View>
 
     )
