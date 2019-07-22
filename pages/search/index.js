@@ -11,14 +11,17 @@ export default createStackNavigator({
 },
     {
         initialRouteName: 'Search',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: DarkTheme.colors.surface,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: DarkTheme.colors.text
-            },
+        defaultNavigationOptions: ({screenProps}) => {
+            const { colors } = screenProps.theme; 
+            return {
+                 headerStyle: {
+                    backgroundColor: colors.surface,
+                },
+                headerTintColor: colors.text,
+                headerTitleStyle: {
+                    color: colors.text,
+                },
+            }
         },
     }
 );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, FlatList, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Title, Button, withTheme, IconButton, Divider , Surface} from 'react-native-paper';
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
@@ -39,7 +39,7 @@ class Filter extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.files, state.files) || state.refreshing) {
+        if (!isEqual(props.files, state.files) || state.refreshing) {
             return {
                 files: props.files,
                 refreshing: false

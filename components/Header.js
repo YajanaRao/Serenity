@@ -15,6 +15,10 @@ class Header extends Component {
         this.setState({ query: text }); 
         this.props.updateQuery(text)
     }
+
+    handleFocus = () => this.setState({ isFocused: true })
+
+    handleBlur = () => this.setState({ isFocused: false })
     
 
     render() {
@@ -23,11 +27,13 @@ class Header extends Component {
         return (
             <View style={{ backgroundColor: colors.background }}>
                 <Searchbar
+                    onFocus={this.handleFocus}
                     placeholder="Artists, songs or podcasts"
                     onChangeText={(text) => this.handleChange(text)}
                     value={this.state.query}
                     icon="search"
                     style={{ margin: 10 }}
+                    onBlur={this.handleBlur} 
                 />
             </View>
         )

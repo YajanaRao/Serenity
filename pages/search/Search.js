@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import {  withTheme, Subheading, Title, Colors, TouchableRipple, Divider } from 'react-native-paper';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 
 import Genre from '../../data/genre.json';
 import Header from '../../components/Header';
@@ -22,7 +22,7 @@ class Search extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.searchResult, state.searchResult)) {
+        if (!isEqual(props.searchResult, state.searchResult)) {
             return {
                 searchResult: props.searchResult
             }
@@ -38,7 +38,7 @@ class Search extends Component {
         return (
             <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
 
-               { _.isEmpty(this.state.searchResult) ? false :
+               { isEmpty(this.state.searchResult) ? false :
                     <View style={{ height: '100%' }}>
                         <FlatList
                             data={this.state.searchResult}

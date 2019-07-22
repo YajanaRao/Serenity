@@ -3,7 +3,7 @@ import * as React from 'react';
 import { withTheme, Divider, Button, Title, Text, Surface, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, RefreshControl, StyleSheet } from 'react-native';
-import _ from 'lodash';
+import { isEqual, isEmpty } from 'lodash';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { getOfflineSongs } from '../../actions/mediaStore';
@@ -20,7 +20,7 @@ class Song extends React.Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.songs, state.songs)) {
+        if (!isEqual(props.songs, state.songs)) {
             return {
                 songs: props.songs,
                 refreshing: false
@@ -48,7 +48,7 @@ class Song extends React.Component {
         } = this.props;
         
 
-        if(!_.isEmpty(this.state.songs)){
+        if(!isEmpty(this.state.songs)){
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                    <View style={{ justifyContent: 'space-around', alignItems: 'center', margin: 10, flexDirection: 'row' }}>

@@ -4,7 +4,7 @@ import { withTheme, Divider, Title, List, Colors, IconButton } from 'react-nativ
 import { connect } from 'react-redux';
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image'; 
-import _ from 'lodash';
+import { isEqual, isEmpty } from 'lodash';
 
 import { getOfflineAlbums } from '../../actions/mediaStore';
 
@@ -23,7 +23,7 @@ class Album extends React.Component {
 
     
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.albums, state.albums)) {
+        if (!isEqual(props.albums, state.albums)) {
             return {
                 albums: props.albums,
                 refreshing: false
@@ -55,7 +55,7 @@ class Album extends React.Component {
         const { navigate } = this.props.navigation;
 
 
-        if (!_.isEmpty(this.state.albums)) {
+        if (!isEmpty(this.state.albums)) {
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                     <FlatList

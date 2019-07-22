@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 
 export const updateTheme = (theme) => dispatch => {
   if(theme == "dark"){

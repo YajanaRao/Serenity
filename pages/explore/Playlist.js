@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { List, withTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
-import _ from 'lodash'
+import { isEqual, isEmpty, size } from 'lodash'
 
 class Playlist extends Component {
     static navigationOptions = {
@@ -14,20 +14,13 @@ class Playlist extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if(!_.isEqual(props.favorite,state.favorite)){
+        if(!isEqual(props.favorite,state.favorite)){
             return {
                 favorite: props.favorite
             }
         }
         return null
     }
-
-
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.favorite) {
-    //         this.setState({ favorite: nextProps.favorite });
-    //     }
-    // }
 
     render() {
         const { navigate } = this.props.navigation;
@@ -40,10 +33,10 @@ class Playlist extends Component {
                 />
                 <List.Item
                     title="Favorite"
-                    description={_.size(this.state.favorite)+" Favorite Songs"}
+                    description={ size(this.state.favorite)+" Favorite Songs"}
                     left={props => <List.Icon {...props} icon="favorite" />}
                     onPress={() => { 
-                        _.isEmpty(this.state.favorite) ? null :  
+                        isEmpty(this.state.favorite) ? null :  
                         navigate('Songs', 
                             { 
                                 songs: this.state.favorite, 
