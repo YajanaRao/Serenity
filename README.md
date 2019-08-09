@@ -1,6 +1,9 @@
 
 
 # Serenity
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/48bf104633504767ba3e60c7510d9422)](https://app.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade_Dashboard)
+
 ## A React Native Music Player
 
 A mobile music player focused on streaming from free sources. Built with Rich UI
