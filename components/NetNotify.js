@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Banner, IconButton } from 'react-native-paper';
 import NetInfo from "@react-native-community/netinfo";
 import { withNavigation } from 'react-navigation';
 
-class NetNotify extends Component {
+class NetNotify extends PureComponent {
     state = {
         isConnected: true
     };

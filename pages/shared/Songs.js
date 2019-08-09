@@ -56,7 +56,9 @@ class Songs extends Component {
                         <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
                             <Title>{title}</Title>
                         </View>
-                        { isEmpty(songs) ? null :
+                        { isEmpty(songs) ? 
+                        <Title>No songs</Title>
+                         :
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 8 }}>
                                 {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download

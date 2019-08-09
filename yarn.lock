@@ -5352,6 +5352,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+"react-native-audio@https://github.com/YajanaRao/react-native-audio.git":
+  version "1.2.0"
+  resolved "https://github.com/YajanaRao/react-native-audio.git#07439fd924267ee8476881d11b88858a1240f894"
+
 react-native-fast-image@^7.0.0:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-7.0.2.tgz#e06b21f42f4a9786eaa86f3db35d919070fb8403"
@@ -5414,11 +5418,6 @@ react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
   integrity sha512-Bke8KkDcDhvB/z0AS7MnQKMD2p6Kwfc1rSKlMOvg9CC5CnClQ2QEnhPSbwegKDYhUkBI92iH/BYy7hNSm5kbUQ==
   dependencies:
     prop-types "^15.6.1"
-
-react-native-track-player@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-track-player/-/react-native-track-player-1.2.0.tgz#04fecc7ab29cdb7c8252da0ff1b7cddb01cf184b"
-  integrity sha512-WN0BN1tCNuzR//I8bUDvUjMpNGQxsbxyJ7slo7nMJKU3y555uX6u4RKYZfirMP4qyclHRhmDTzgZU9OAgynRWQ==
 
 react-native-vector-icons@^6.6.0:
   version "6.6.0"

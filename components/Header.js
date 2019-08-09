@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withTheme, Searchbar } from "react-native-paper";
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { updateQuery } from '../actions/mediaStore';
 
-class Header extends Component {
+class Header extends PureComponent {
 
     state = {
         query: ''
