@@ -3,11 +3,10 @@ import { withTheme, List } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
-import { playMedia, addToQueue } from '../actions/playerState';
+import { loadTrackPlayer, addToQueue } from '../actions/playerState';
 
 /*
     TODO: 
-    - Animation to remove an item from the list
     - may not be required for all render 
     - Adding duration would enhance the user experience
     - Testing has to be done
@@ -21,7 +20,7 @@ class Track extends PureComponent {
             track,
             active
         } = this.props;
-        if (isEqual(active, track)) {
+        if (isEqual(active.id, track.id)) {
             const { colors } = this.props.theme;
             return <List.Icon {...props} icon="equalizer" color={colors.accent} />
         }
@@ -34,11 +33,11 @@ class Track extends PureComponent {
             active
         } = this.props;
         if(active){
-            if (isEqual(active, track)) {
+            if (isEqual(active.id, track.id)) {
                 return false
             }
         }
-        this.props.playMedia(track);
+        this.props.loadTrackPlayer(track);
     }
 
 
@@ -53,10 +52,9 @@ class Track extends PureComponent {
         return (
             <View style={[styles.surface, { backgroundColor: colors.background }]}>
                 <List.Item
-                    item={track}
                     title={track.title}
                     description={ track.artist ? track.artist : track.album }
-                    right={props => this.renderRightIcon(props)}
+                    right={props => this.props.active ? this.renderRightIcon(props) : false }
                     onPress={() => this.play()}
                 />
             </View>
@@ -69,7 +67,7 @@ const mapStateToProps = state => ({
     active: state.playerState.active
 });
 
-export default connect(mapStateToProps, { playMedia, addToQueue })(withTheme(Track));
+export default connect(mapStateToProps, { loadTrackPlayer, addToQueue })(withTheme(Track));
 
 const styles = StyleSheet.create(
     {

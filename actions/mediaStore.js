@@ -27,21 +27,17 @@ export const updateQuery = (query) => dispatch => {
     });
 }
 
+
 export const getOfflineSongs = () => dispatch => {
   RNAndroidAudioStore.getAll({})
     .then(media => {
-      map(media, function (item) {
-        item.id = item.path
-        item.url = "file://" + item.path
-        delete item.path
-        return item
-      });
       dispatch({
         type: 'OFFLINE_SONGS',
         payload: media
       })
     })
     .catch(er => {
+      console.log(er)
       dispatch({
         type: 'NOTIFY',
         payload: 'Something went wrong'

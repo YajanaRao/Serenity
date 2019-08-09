@@ -1,9 +1,8 @@
-import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider, Button, Title, Text, Surface, IconButton } from 'react-native-paper';
+import { withTheme, Divider, Button, Title, Surface, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, RefreshControl, StyleSheet } from 'react-native';
-import { isEqual, isEmpty } from 'lodash';
+import { isEqual, isEmpty, isArray } from 'lodash';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { getOfflineSongs } from '../../actions/mediaStore';
@@ -20,7 +19,7 @@ class Song extends React.Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (!isEqual(props.songs, state.songs)) {
+        if (!isEqual(props.songs, state.songs) || state.refreshing) { 
             return {
                 songs: props.songs,
                 refreshing: false
@@ -48,7 +47,7 @@ class Song extends React.Component {
         } = this.props;
         
 
-        if(!isEmpty(this.state.songs)){
+        if(!isEmpty(this.state.songs) && isArray(this.state.songs)){
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
                    <View style={{ justifyContent: 'space-around', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
@@ -92,9 +91,17 @@ class Song extends React.Component {
             );
           }
           return (
-              <View style={{ flex: 1, backgroundColor: background, justifyContent: 'center', alignItems: 'center' }}>
-                  <Title>No offline songs found..</Title>
-              </View>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: background,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <IconButton icon="sentiment-very-dissatisfied" />
+              <Title>No offline songs found..</Title>
+            </View>
           );
     }
 }

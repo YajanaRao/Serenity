@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
-import { View, StatusBar } from 'react-native';
+import { View } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
-import { connect } from 'react-redux';
 import { PermissionsAndroid } from 'react-native';
+import isEqual from 'lodash/isEqual';
+import { connect } from 'react-redux';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -12,8 +13,6 @@ import ExploreScreen from './explore';
 import PlayerScreen from './shared/Player';
 
 import TabBar from '../components/TabBar';
-
-import { initTrackPlayer, setUpTrackPlayer } from '../actions/playerState';
 
 
 const BottomNavigator = createBottomTabNavigator({
@@ -107,12 +106,25 @@ class RootScreen extends React.Component {
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (isEqual(props.result, state.result)) {
+      return {
+        result: props.result,
+        visible: true
+      }
+    }
+    return null
+  }
+
+
+  // FIXME: Need to enhance start up time
+
   componentDidMount = () => {
     this.requestPermission();
-    if(this.props.active || this.props.queue){
-      this.props.setUpTrackPlayer();
-      this.props.initTrackPlayer(this.props.queue, this.props.active);
-    }
+    // if(this.props.active || this.props.queue){
+    //   this.props.setUpTrackPlayer();
+    //   this.props.initTrackPlayer(this.props.queue, this.props.active);
+    // }
   }
 
 
@@ -120,11 +132,9 @@ class RootScreen extends React.Component {
   render() {
 
     const { colors } = this.props.theme;
-    // const { dark } = this.props.theme;
 
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        {/* <StatusBar backgroundColor={"#000000"} barStyle={dark ? "light-content" : "dark-content"} /> */}
         <Snackbar
           style={{ marginBottom: 120, zIndex: 10 }}
           visible={this.state.visible}
@@ -150,9 +160,7 @@ class RootScreen extends React.Component {
 
 
 const mapStateToProps = state => ({
-  result: state.playerState.result,
-  queue: state.playerState.queue,
-  active: state.playerState.active,
+  result: state.playerState.result
 });
 
-export default connect(mapStateToProps, { initTrackPlayer, setUpTrackPlayer })(withTheme(RootScreen));
+export default connect(mapStateToProps)(withTheme(RootScreen));

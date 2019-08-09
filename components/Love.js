@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import { IconButton, withTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
@@ -6,7 +6,7 @@ import includes from 'lodash/includes';
 
 import { addToFavorite, removeFromFavorite } from '../actions/playerState';
 
-class Love extends Component {
+class Love extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
