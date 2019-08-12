@@ -41,13 +41,11 @@ export const setUpTrackPlayer = () => dispatch => {
         });
       } else if (event == "skip_to_next") {
         dispatch({
-          type: "STATUS",
-          payload: "skip_to_next"
+          type: "NEXT"
         });
       } else if (event == "skip_to_previous") {
         dispatch({
-          type: "STATUS",
-          payload: "skip_to_previous"
+          type: "PREVIOUS"
         });
       }
     });
