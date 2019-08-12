@@ -3,9 +3,9 @@ import { IconButton, Divider,  withTheme, Title, Button } from 'react-native-pap
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import isEmpty  from 'lodash/isEmpty';
 
-import { addToQueue } from '../../actions';
+import { addToQueue } from '../../actions/playerState';
 import Track from '../../components/Track';
 
 class Songs extends Component {
@@ -56,7 +56,9 @@ class Songs extends Component {
                         <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
                             <Title>{title}</Title>
                         </View>
-                        {_.isEmpty(songs) ? null :
+                        { isEmpty(songs) ? 
+                        <Title>No songs</Title>
+                         :
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 8 }}>
                                 {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download
@@ -73,7 +75,7 @@ class Songs extends Component {
                             ItemSeparatorComponent={() => <Divider inset={true} />}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) =>
-                                <Track track={item} swipeable={true} />
+                                <Track track={item} />
                             }
                         />
                         <View style={{ height: 100 }} />

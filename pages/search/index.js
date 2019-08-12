@@ -1,24 +1,27 @@
 import { createStackNavigator } from 'react-navigation';
 import { DarkTheme } from 'react-native-paper';
 
-import Songs from '../shared/Songs';
+import Filter from '../shared/Filter';
 import Search from './Search';
 
 
 export default createStackNavigator({
     Search: { screen: Search },
-    Songs: { screen: Songs }
+    Filter: { screen: Filter }
 },
     {
         initialRouteName: 'Search',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: DarkTheme.colors.surface,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: DarkTheme.colors.text
-            },
+        defaultNavigationOptions: ({screenProps}) => {
+            const { colors } = screenProps.theme; 
+            return {
+                 headerStyle: {
+                    backgroundColor: colors.surface,
+                },
+                headerTintColor: colors.text,
+                headerTitleStyle: {
+                    color: colors.text,
+                },
+            }
         },
     }
 );

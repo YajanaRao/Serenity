@@ -1,8 +1,9 @@
 
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { withTheme, Caption, Portal, TouchableRipple, Colors, Surface, Divider } from 'react-native-paper';
-import Player from '../components/Player';
+import { withTheme, Caption, Portal, TouchableRipple, Colors, Surface, Divider, Text } from 'react-native-paper';
+import Player from '../pages/shared/Player';
+import MiniPlayer from '../components/MiniPlayer';
 
 // https://dev.to/hrastnik/lets-create-a-custom-animated-tab-bar-with-react-native-3496
 // activeColor: '#f0edf6',
@@ -24,7 +25,13 @@ class TabBar extends React.PureComponent {
 
         return (
             <Surface style={{ elevation: 4 }}>
-                <Player />
+                {/* <Player /> */}
+                {/* <TouchableRipple
+                    onPress={() => navigation.navigate('MyModal')}
+                >
+                    <Text>Player</Text>
+                </TouchableRipple> */}
+                <MiniPlayer/>
                 <Divider/>
                 {/* <Appbar.Header style={[styles.container, { backgroundColor: colors.Surface }]}> */}
                 <Surface style={[styles.container, { backgroundColor: colors.Surface }]}>

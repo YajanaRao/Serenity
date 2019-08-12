@@ -23,22 +23,7 @@ const AlbumStack = createStackNavigator({
 const TabNavigator = createMaterialTopTabNavigator({
     Playlist: { screen: PlaylistStack },
     Artist: { screen: ArtistStack },
-    Album: { screen: AlbumStack },
-},{
-    tabBarOptions: {
-        labelStyle: {
-            fontSize: 14,
-        },
-        tabStyle: {
-            width: 100,
-        },
-        indicatorStyle: {
-            backgroundColor: DarkTheme.colors.primary
-        },
-        style: {
-            backgroundColor: DarkTheme.colors.surface,
-        },
-    }
+    Album: { screen: AlbumStack }
 });
 
 export default createStackNavigator({
@@ -51,14 +36,17 @@ export default createStackNavigator({
     Songs: SongScreen 
 },
     {
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: DarkTheme.colors.surface,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                color: DarkTheme.colors.text,
-            },
+        defaultNavigationOptions: ({screenProps}) => {
+            const { colors } = screenProps.theme; 
+            return {
+                 headerStyle: {
+                    backgroundColor: colors.surface,
+                },
+                headerTintColor: colors.text,
+                headerTitleStyle: {
+                    color: colors.text,
+                },
+            }
         },
     }
 );
