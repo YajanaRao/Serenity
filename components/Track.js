@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withTheme, List } from 'react-native-paper';
-import { StyleSheet, NativeModules, LayoutAnimation, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import SwiperContainer from '../containers/SwiperContainer';
-import { playMedia, addToQueue } from '../actions';
+import isEqual from 'lodash/isEqual';
+import { loadTrackPlayer, addToQueue } from '../actions/playerState';
 
-
-const { UIManager } = NativeModules;
-
-UIManager.setLayoutAnimationEnabledExperimental &&
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-
-class Track extends Component {
-    state = {
-        hide: false,
-        open: false
-    }
+/*
+    TODO: 
+    - may not be required for all render 
+    - Adding duration would enhance the user experience
+    - Testing has to be done
+*/ 
+// FIXME: Testing the application
+class Track extends PureComponent {
 
 
     renderRightIcon = (props) => {
@@ -24,95 +20,54 @@ class Track extends Component {
             track,
             active
         } = this.props;
-
-        if (_.isEqual(active, track)) {
+        if (isEqual(active.id, track.id)) {
             const { colors } = this.props.theme;
             return <List.Icon {...props} icon="equalizer" color={colors.accent} />
         }
-        // return <Love track={track} />
-        // return <List.Icon {...props} icon="more-vert" onPress={() => this.setState({ open: true })} />
         return false;
     }
-    // Playing a song is the song is not playing 
+
     play = () => {
         const {
             track,
             active
         } = this.props;
         if(active){
-            if (_.isEqual(active, track)) {
+            if (isEqual(active.id, track.id)) {
                 return false
             }
         }
-        this.props.playMedia(track);
+        this.props.loadTrackPlayer(track);
     }
 
-    /*
-        * Animation to remove an item from the list
-        * may not be required for all render 
-        * Adding duration would enhance the user experience
-        * Testing has to be done
-    */ 
-    close = () => {
-        LayoutAnimation.spring();
-        this.setState({ hide: true })
-    }
 
 
     render() {
         const {
-            track,
-            swipeable,
-            leftAction,
-            rightAction,
+            track
         } = this.props;
 
         const { colors } = this.props.theme;
-        
-        if (this.state.hide && track) {
-            return false
-        }
-        else if(swipeable){
-            return (
-                <SwiperContainer close={() => this.close()} leftAction={leftAction} rightAction={rightAction}>
-                    <View style={[styles.surface, { backgroundColor: colors.background }]}>
-                        <List.Item
-                            item={track}
-                            title={track.title}
-                            description={ track.artist ? track.artist : track.album }
-                            // left={props => (
-                            //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                            // )}
-                            right={props => this.renderRightIcon(props)}
-                            onPress={() => this.play()}
-                        />
-                    </View>
-                </SwiperContainer>
-            );
-        }
 
         return (
             <View style={[styles.surface, { backgroundColor: colors.background }]}>
                 <List.Item
-                    item={track}
                     title={track.title}
-                    description={track.artist ? track.artist : track.album}
-                    // left={props => (
-                    //     <FastImage {...props} source={{ uri: track.artwork }} style={styles.icons} />
-                    // )}
-                    right={props => this.renderRightIcon(props)}
+                    description={ track.artist ? track.artist : track.album }
+                    right={props => this.props.active ? this.renderRightIcon(props) : false }
                     onPress={() => this.play()}
                 />
             </View>
         );
+        
     }
 }
 
 const mapStateToProps = state => ({
-    active: state.media.active
+    active: state.playerState.active
 });
 
-export default connect(mapStateToProps, { playMedia, addToQueue })(withTheme(Track));
+export default connect(mapStateToProps, { loadTrackPlayer, addToQueue })(withTheme(Track));
 
 const styles = StyleSheet.create(
     {

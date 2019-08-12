@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import { IconButton, withTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import includes from 'lodash/includes';
 
-import { addToFavorite, removeFromFavorite } from '../actions';
+import { addToFavorite, removeFromFavorite } from '../actions/playerState';
 
-class Love extends Component {
+class Love extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +15,7 @@ class Love extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (_.includes(props.favorite, props.track) !== state.favorite) {
+        if (includes(props.favorite, props.track) !== state.favorite) {
             console.log(props.favorite)
             return {
                 favorite: !state.favorite
@@ -67,7 +67,7 @@ class Love extends Component {
 }
 
 const mapStateToProps = state => ({
-    favorite: state.media.favorite
+    favorite: state.playerState.favorite
 });
 
 export default connect(mapStateToProps, { addToFavorite, removeFromFavorite })(withTheme(Love));

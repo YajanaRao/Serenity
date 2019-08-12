@@ -1,28 +1,27 @@
-import { FlatList } from 'react-native-gesture-handler';
 import * as React from 'react';
-import { withTheme, Divider, Button, Title } from 'react-native-paper';
+import { withTheme, Divider, Button, Title, Surface, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { View, RefreshControl } from 'react-native';
-import _ from 'lodash';
+import { View, RefreshControl, StyleSheet } from 'react-native';
+import { isEqual, isEmpty, isArray } from 'lodash';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
-import { addToQueue, getOfflineSongs } from '../../actions';
+import { getOfflineSongs } from '../../actions/mediaStore';
+import { addToQueue } from '../../actions/playerState';
 import Track from '../../components/Track'
-
-
-
 
 class Song extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            files: [],
+            songs: [],
             refreshing: false
         }
     }
+
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.files, state.files)) {
+        if (!isEqual(props.songs, state.songs) || state.refreshing) { 
             return {
-                files: props.files,
+                songs: props.songs,
                 refreshing: false
             }
         }
@@ -48,47 +47,81 @@ class Song extends React.Component {
         } = this.props;
         
 
-        if(!_.isEmpty(this.state.files)){
+        if(!isEmpty(this.state.songs) && isArray(this.state.songs)){
             return (
                 <View style={{ flex: 1, backgroundColor: background }}>
-                   <View style={{ justifyContent: 'space-between', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
-                        <Button icon="play-circle-outline" mode="text" onPress={() => this.props.addToQueue(this.state.files)}>
+                   <View style={{ justifyContent: 'space-around', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
+                        <Button icon="play-arrow" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
                             Play All
                         </Button>
-                        {/* <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.files)}>
+                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
                             Shuffle
-                        </Button> */}
+                        </Button>
                     </View>
                     <Divider/>
-                    <FlatList
-                        data={this.state.files}
+                    <SwipeListView
+                        data={this.state.songs}
+                        renderItem={({item}) => (
+                            <Track track={item} />
+                        )}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderHiddenItem={({item}) => (
+                            <Surface style={styles.rowBack}>
+                                <IconButton
+                                    icon="add-to-queue"
+                                    onPress={() => this.props.addToQueue(item)}
+                                />
+                                <IconButton
+                                    icon="favorite"
+                                    onPress={() => this.props.addToFavorite(item)}
+                                />
+                            </Surface>
+                        )}
                         refreshControl={
                             <RefreshControl
                                 refreshing={this.state.refreshing}
                                 onRefresh={() => this.fetchData()}
                             />
                         }
-                        
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) =>
-                            <Track track={item} />
-                        }
+                        leftOpenValue={75}
+                        rightOpenValue={-75}
                     />
                 </View>
             );
           }
           return (
-              <View style={{ flex: 1, backgroundColor: background, justifyContent: 'center', alignItems: 'center' }}>
-                  <Title>No offline songs found..</Title>
-              </View>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: background,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <IconButton icon="sentiment-very-dissatisfied" />
+              <Title>No offline songs found..</Title>
+            </View>
           );
     }
 }
 
 const mapStateToProps = state => ({
-    files: state.media.files
+    songs: state.mediaStore.songs
 });
 
 
 export default connect(mapStateToProps, { addToQueue, getOfflineSongs })(withTheme(Song));
+
+
+const styles = StyleSheet.create({
+    rowBack: {
+        alignItems: 'center',
+        // backgroundColor: '#DDD',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 15,
+        paddingRight: 15
+    },
+})

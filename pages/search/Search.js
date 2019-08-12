@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import {  withTheme, Subheading, Title, Colors, TouchableRipple, Divider } from 'react-native-paper';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 
 import Genre from '../../data/genre.json';
 import Header from '../../components/Header';
@@ -22,7 +22,7 @@ class Search extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (!_.isEqual(props.searchResult, state.searchResult)) {
+        if (!isEqual(props.searchResult, state.searchResult)) {
             return {
                 searchResult: props.searchResult
             }
@@ -38,14 +38,18 @@ class Search extends Component {
         return (
             <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
 
-                <FlatList
-                    data={this.state.searchResult}
-                    ItemSeparatorComponent={() => <Divider inset={true} />}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) =>
-                        <Track track={item} swipeable={true} />
-                    }
-                />
+               { isEmpty(this.state.searchResult) ? false :
+                    <View style={{ height: '100%' }}>
+                        <FlatList
+                            data={this.state.searchResult}
+                            ItemSeparatorComponent={() => <Divider inset={true} />}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) =>
+                                <Track track={item} swipeable={true} />
+                            }
+                        />
+                    </View>
+                }
 
                 <Title style={styles.headline}>All Moods & Geners</Title>
                 <View style={styles.container}>
@@ -54,7 +58,7 @@ class Search extends Component {
                         keyExtractor={(item, index) => index.toString()}
                         numColumns={2}
                         renderItem={({ item }) =>
-                            <TouchableRipple style={styles.item} onPress={() => navigate('Songs', { songs: [], img: item.image, title: item.title })}>
+                            <TouchableRipple style={styles.item} onPress={() => navigate('Filter', { songs: [], img: item.image, title: item.title })}>
                                 <Subheading style={{ color: 'white' }} numberOfLines={1}>{item.title}</Subheading>
                             </TouchableRipple>
                         }
@@ -82,10 +86,8 @@ const styles = StyleSheet.create({
     },
     searchbar: {
         margin: 10,
-        // marginTop: Constants.statusBarHeight,
     },
     item: {
-        // width: 150,
         backgroundColor: Colors.lightBlueA100,
         borderRadius: 4,
         flex: 1,
@@ -95,10 +97,6 @@ const styles = StyleSheet.create({
         margin: 4,
         elevation: 8
     },
-    // photo: {
-    //     borderRadius: 8,
-    //     margin: 4
-    // },
     headline: {
         textAlign: 'center',
     }
