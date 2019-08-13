@@ -158,6 +158,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         queue: union(state.queue, action.payload),
+        active: head(state.queue),
         result: `Added ${size(action.payload)} songs to queue`
       };
 
