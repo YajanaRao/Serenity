@@ -78,7 +78,8 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    enableHermes: true
+    enableHermes: true,
+    hermesCommand: "../node_modules/hermes-engine/%OS-BIN%/hermes"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -107,7 +108,7 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-def enableHermes = project.ext.react.get("enableHermes", false);
+def enableHermes = project.ext.react.get("enableHermes", true);
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -187,7 +188,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
 }
 
 // Run this once to be able to run the application with BUCK
