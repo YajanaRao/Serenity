@@ -18,8 +18,7 @@ class MiniPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: {},
-      status: "init"
+      active: {}
     };
   }
 

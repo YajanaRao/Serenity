@@ -122,7 +122,8 @@ export const skipToPrevious = () => dispatch => {
 };
 
 export const destroyTrackPlayer = () => dispatch => {
-  console.log("Remove track player")
+  console.log("Remove track player");
+  Audio.destroy();
   subscription.remove();
   dispatch({
     type: "NOTIFY",
