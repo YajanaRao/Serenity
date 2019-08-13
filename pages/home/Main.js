@@ -11,14 +11,7 @@ import Artist from '../../data/artist.json';
 
 
 
-class MainScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isConnected: false,
-            isLoaded: false
-        }
-    }
+class MainScreen extends React.PureComponent {
 
     static navigationOptions = ({ navigation, screenProps }) => {
         // header: null
@@ -34,21 +27,6 @@ class MainScreen extends React.Component {
         }
 
     };
-
-
-
-
-    apiRequests = () => {
-        if (!this.state.isLoaded) {
-            this.setState({
-                isLoaded: true
-            })
-        }
-    }
-
-    componentDidMount(){
-        this.apiRequests();
-    }
 
     render() {
         const { colors } = this.props.theme

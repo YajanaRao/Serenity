@@ -41,7 +41,7 @@ class Search extends Component {
                { isEmpty(this.state.searchResult) ? false :
                     <View style={{ height: '100%' }}>
                         <FlatList
-                            data={this.state.searchResult}
+                            data={this.props.searchResult}
                             ItemSeparatorComponent={() => <Divider inset={true} />}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) =>
