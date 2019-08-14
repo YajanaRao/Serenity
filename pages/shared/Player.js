@@ -137,13 +137,18 @@ class Player extends PureComponent {
                 size={40}
                 onPress={this.props.skipToPrevious}
               />
-              <IconButton
-                icon={this.props.status === "playing" ? "pause" : "play-arrow"}
+              <FAB
+                icon={
+                  this.props.status === "playing" ? "pause" : "play-arrow"
+                }
+                onPress={() => this.togglePlayback()}
+              />
+              {/* <IconButton
                 animated={true}
                 size={34}
-                onPress={() => this.togglePlayback()}
+                onPress={() => }
                 style={{ margin: 0, padding: 0 }}
-              />
+              /> */}
               <IconButton
                 icon="skip-next"
                 size={40}
