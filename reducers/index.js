@@ -108,7 +108,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       };
     case "NEXT":
       var index = findIndex(state.queue, function(song) {
-        return song.id === state.active.id;
+        return !isEmpty(state.active) && song.id === state.active.id;
       });
       return {
         ...state,
@@ -117,7 +117,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
 
     case "PREVIOUS":
       var index = findIndex(state.queue, function(song) {
-        return song.id === state.active.id;
+        return !isEmpty(state.active) && song.id === state.active.id;
       });
       return {
         ...state,

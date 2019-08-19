@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 import isEqual from "lodash/isEqual";
 import isUndefined from "lodash/isUndefined";
-import { loadTrackPlayer, addToQueue } from "../actions/playerState";
+import { loadTrackPlayer, playTrack } from "../actions/playerState";
 import isEmpty from "lodash/isEmpty";
 
 /*
@@ -37,6 +37,7 @@ class Track extends PureComponent {
       }
     }
     this.props.loadTrackPlayer(track);
+    this.props.playTrack();
   };
 
   render() {
@@ -64,7 +65,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loadTrackPlayer, addToQueue }
+  { loadTrackPlayer, playTrack }
 )(withTheme(Track));
 
 const styles = StyleSheet.create({
