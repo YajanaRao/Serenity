@@ -1,4 +1,4 @@
-import Audio from "react-native-audio";
+import RNAudio from "react-native-audio";
 import { isUndefined } from "lodash";
 import { DeviceEventEmitter } from "react-native";
 /* 
@@ -57,7 +57,7 @@ export const setUpTrackPlayer = () => dispatch => {
 export const loadTrackPlayer = item => dispatch => {
   try {
     if (typeof(item) !== "undefined" && typeof(item.url) !== "undefined") {
-      Audio.load(item.url);
+      RNAudio.load(item.url);
       dispatch({
         type: "LOAD",
         payload: item
@@ -75,7 +75,7 @@ export const loadTrackPlayer = item => dispatch => {
 
 export const playTrack = () => dispatch => {
   try {
-    Audio.play();
+    RNAudio.play();
     dispatch({
       type: "PLAY"
     });
@@ -86,7 +86,7 @@ export const playTrack = () => dispatch => {
 
 export const pauseTrack = () => dispatch => {
   try {
-    Audio.pause();
+    RNAudio.pause();
     dispatch({
       type: "PAUSE"
     });
@@ -123,7 +123,7 @@ export const skipToPrevious = () => dispatch => {
 
 export const destroyTrackPlayer = () => dispatch => {
   console.log("Remove track player");
-  Audio.destroy();
+  RNAudio.destroy();
   subscription.remove();
   dispatch({
     type: "NOTIFY",
