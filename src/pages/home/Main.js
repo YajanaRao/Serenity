@@ -8,6 +8,8 @@ import NetNotify from '../../components/NetNotify';
 import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
 import Artist from '../../data/artist.json';
+import Recent from '../../components/Recent';
+import Quote from '../../components/Quote';
 
 
 
@@ -34,10 +36,11 @@ class MainScreen extends React.PureComponent {
         const { navigate } = this.props.navigation;
 
         return (
-            <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-                
-                <View style={{ }}>
-                    {/* <FlatList
+          <ScrollView
+            style={{ flex: 1, backgroundColor: colors.background }}
+          >
+            <View style={{}}>
+              {/* <FlatList
                         pagingEnabled={true}
                         horizontal={true}
                         data={Media}
@@ -51,70 +54,97 @@ class MainScreen extends React.PureComponent {
                             </View>
                         }
                     /> */}
-                    <NetNotify/>
-                    <Title style={styles.title}>Popular Albums</Title>
-                        <FlatList
-                            horizontal={true}
-                            data={Media}
-                            keyExtractor={(item, index) => index.toString()}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={({ item }) =>
-                                <TouchableOpacity 
-                                    style={styles.item}
-                                    onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
-                                >
-                                    <FastImage
-                                        source={{ uri: item.artwork }}
-                                        style={styles.photo}
-                                        
-                                    />
-                                    <Paragraph numberOfLines={1}>{item.album}</Paragraph>
-                                </TouchableOpacity>
-                            }
-                        />
+              <NetNotify />
 
-                    <Title style={styles.title}>Top 15</Title>
-                    <FlatList
-                        horizontal={true}
-                        data={Top20}
-                        keyExtractor={(item, index) => index.toString()}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item }) =>
-                            <TouchableOpacity 
-                                style={styles.item}
-                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
-                            >
-                                <FastImage
-                                    source={{ uri: item.artwork }}
-                                    style={styles.photo}
-                                />
-                                <Paragraph numberOfLines={1}>{item.album}</Paragraph>
-                            </TouchableOpacity>
-                        }
+              <Recent/>
+
+              <Quote/>
+              
+              <Title style={styles.title}>Popular Albums</Title>
+              <FlatList
+                horizontal={true}
+                data={Media}
+                keyExtractor={(item, index) => index.toString()}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.item}
+                    onPress={() =>
+                      navigate("Songs", {
+                        songs: item.songs,
+                        img: item.artwork,
+                        title: item.album
+                      })
+                    }
+                  >
+                    <FastImage
+                      source={{ uri: item.artwork }}
+                      style={styles.photo}
                     />
+                    <Paragraph numberOfLines={1}>
+                      {item.album}
+                    </Paragraph>
+                  </TouchableOpacity>
+                )}
+              />
 
-                    <Title style={styles.title}>Popular Artist</Title>
-                    <FlatList
-                        horizontal={true}
-                        data={Artist}
-                        keyExtractor={(item, index) => index.toString()}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item }) =>
-                            <TouchableOpacity
-                                style={styles.item}
-                                onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
-                            >
-                                <FastImage
-                                    source={{ uri: item.artwork }}
-                                    style={styles.artist}
-
-                                />
-                                <Paragraph numberOfLines={1}>{item.album}</Paragraph>
-                            </TouchableOpacity>
-                        }
+              <Title style={styles.title}>Top 15</Title>
+              <FlatList
+                horizontal={true}
+                data={Top20}
+                keyExtractor={(item, index) => index.toString()}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.item}
+                    onPress={() =>
+                      navigate("Songs", {
+                        songs: item.songs,
+                        img: item.artwork,
+                        title: item.album
+                      })
+                    }
+                  >
+                    <FastImage
+                      source={{ uri: item.artwork }}
+                      style={styles.photo}
                     />
-                </View>
-            </ScrollView>
+                    <Paragraph numberOfLines={1}>
+                      {item.album}
+                    </Paragraph>
+                  </TouchableOpacity>
+                )}
+              />
+
+              <Title style={styles.title}>Popular Artist</Title>
+              <FlatList
+                horizontal={true}
+                data={Artist}
+                keyExtractor={(item, index) => index.toString()}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.item}
+                    onPress={() =>
+                      navigate("Songs", {
+                        songs: item.songs,
+                        img: item.artwork,
+                        title: item.album
+                      })
+                    }
+                  >
+                    <FastImage
+                      source={{ uri: item.artwork }}
+                      style={styles.artist}
+                    />
+                    <Paragraph numberOfLines={1}>
+                      {item.album}
+                    </Paragraph>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+          </ScrollView>
         );
     }
 }

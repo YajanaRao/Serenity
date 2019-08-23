@@ -11,7 +11,6 @@ import SearchScreen from './search';
 import HomeScreen from './home';
 import ExploreScreen from './explore';
 import PlayerScreen from './shared/Player';
-
 import TabBar from '../components/TabBar';
 
 
@@ -107,7 +106,7 @@ class RootScreen extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (isEqual(props.result, state.result)) {
+    if (!isEqual(props.result, state.result)) {
       return {
         result: props.result,
         visible: true

@@ -12,6 +12,7 @@ import {
 } from "react-native-paper";
 import isString from "lodash/isString";
 import isUndefined from "lodash/isUndefined";
+import isEmpty from "lodash/isEmpty";
 import { connect } from "react-redux";
 import FastImage from "react-native-fast-image";
 import { SwipeListView } from "react-native-swipe-list-view";
@@ -54,18 +55,12 @@ class Player extends PureComponent {
 
   render() {
     const { colors } = this.props.theme;
+
     if (!isUndefined(this.props.active)) {
       return (
         <View style={{ backgroundColor: colors.background, flex: 1 }}>
           <ScrollView>
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center",
-                zIndex: 1
-              }}
-            >
+            <View style={styles.container}>
               <IconButton
                 icon="close"
                 onPress={() => this.props.navigation.goBack()}
@@ -75,63 +70,35 @@ class Player extends PureComponent {
                             onPress={() => this.props.navigation.goBack()}
                         /> */}
             </View>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+            <View style={styles.centerContainer}>
               {isString(this.props.active.artwork) ? (
                 <FastImage
                   source={{ uri: this.props.active.artwork }}
-                  style={{
-                    width: 250,
-                    height: 250,
-                    borderRadius: 4,
-                    backgroundColor: colors.primary
-                  }}
+                  style={[
+                    styles.artCover,
+                    { backgroundColor: colors.primary }
+                  ]}
                 />
               ) : (
                 <FastImage
                   source={require("../../assets/app-icon.png")}
-                  style={{ width: 250, height: 250, borderRadius: 4 }}
+                  style={styles.artCover}
                 />
               )}
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flex: 1
-              }}
-            >
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flex: 1
-                }}
-              >
-                <Title numberOfLines={1}>{this.props.active.title}</Title>
-                <Subheading numberOfLines={1}>
-                  {this.props.active.artist
-                    ? this.props.active.artist
-                    : this.props.active.album}
-                </Subheading>
-              </View>
+            <View style={styles.centerContainer}>
+              <Title numberOfLines={1}>{this.props.active.title}</Title>
+              <Subheading numberOfLines={1}>
+                {this.props.active.artist
+                  ? this.props.active.artist
+                  : this.props.active.album}
+              </Subheading>
             </View>
             {/* <View style={{ alignItems: 'center', justifyContent: 'center', margin: 16 }}>
                         <ProgressBar />
                     </View> */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-                margin: 12
-              }}
-            >
+            <View style={styles.playerToolbox}>
+              <Love style={{ width: 60 }} track={this.props.active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
@@ -143,74 +110,59 @@ class Player extends PureComponent {
                 }
                 onPress={() => this.togglePlayback()}
               />
-              {/* <IconButton
-                animated={true}
-                size={34}
-                onPress={() => }
-                style={{ margin: 0, padding: 0 }}
-              /> */}
               <IconButton
                 icon="skip-next"
                 size={40}
                 onPress={this.props.skipToNext}
               />
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 1
-              }}
-            >
-              <Love style={{ width: 60 }} track={this.props.active} />
-              {/* <Lyric style={{ width: 60 }} track={this.props.active} /> */}
-              <View style={{ width: 60 }}>
-                <IconButton
-                  icon="repeat"
-                  // size={20}
-                  onPress={() => console.log("pressed")}
-                />
-              </View>
-            </View>
-            <Divider />
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}
-            >
-              <Title style={{ padding: 10 }}>Queue</Title>
               <IconButton
-                icon="delete"
-                // size={40}
-                onPress={this.clearPlaylist}
+                icon="repeat"
+                // size={20}
+                onPress={() => console.log("pressed")}
               />
             </View>
-
+            {/* <View style={styles.rowContainer}>
+              <Lyric style={{ width: 60 }} track={this.props.active} />
+            </View> */}
             <Divider />
-            <SwipeListView
-              data={this.props.queue}
-              renderItem={({ item }) => <Track track={item} />}
-              ItemSeparatorComponent={() => <Divider inset={true} />}
-              keyExtractor={(item, index) => index.toString()}
-              renderHiddenItem={({ item }) => (
-                <Surface style={styles.rowBack}>
-                  <IconButton
-                    icon="delete"
-                    color={colors.error}
-                    onPress={() => this.props.removeFromQueue(item)}
-                  />
-                  <Love track={this.props.active} />
-                </Surface>
-              )}
-              leftOpenValue={75}
-              rightOpenValue={-75}
-              closeOnRowPress={true}
-              closeOnRowOpen={true}
-              useNativeDriver={true}
-            />
+          
+            { !isEmpty(this.props.queue) ? (
+             <View>
+                 <View style={styles.rowContainer}>
+                    <Title style={{ padding: 10 }}>Queue</Title>
+                    <IconButton
+                      icon="delete"
+                      // size={40}
+                      onPress={this.clearPlaylist}
+                    />
+                  </View>
+
+                  <Divider />
+                  <SwipeListView
+                      data={this.props.queue}
+                      renderItem={({ item }) => <Track track={item} />}
+                      ItemSeparatorComponent={() => <Divider inset={true} />}
+                      keyExtractor={(item, index) => index.toString()}
+                      renderHiddenItem={({ item }) => (
+                        <Surface style={styles.rowBack}>
+                          <IconButton
+                            icon="delete"
+                            color={colors.error}
+                            onPress={() => this.props.removeFromQueue(item)}
+                          />
+                          <Love track={this.props.active} />
+                        </Surface>
+                      )}
+                      leftOpenValue={75}
+                      rightOpenValue={-75}
+                      closeOnRowPress={true}
+                      closeOnRowOpen={true}
+                      useNativeDriver={true}
+                    />
+             </View>
+            ): false }
+
+
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
@@ -241,18 +193,23 @@ export default connect(
 )(withTheme(Player));
 
 const styles = StyleSheet.create({
-  playbar: {
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 8,
-    elevation: 0
-  },
   container: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    zIndex: 1
+  },
+  centerContainer: {
     justifyContent: "center",
     alignItems: "center"
   },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flex: 1
+  },
+  artCover: { width: 250, height: 250, borderRadius: 4 },
   rowBack: {
     alignItems: "center",
     // backgroundColor: '#DDD',
@@ -261,5 +218,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingLeft: 15,
     paddingRight: 15
+  },
+  playerToolbox: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    margin: 12
   }
 });
