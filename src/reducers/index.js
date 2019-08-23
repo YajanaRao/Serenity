@@ -4,10 +4,10 @@ import {
   remove,
   head,
   isEmpty,
+  isArray,
   size,
   union,
-  findIndex,
-  nth
+  drop
 } from "lodash";
 
 const INITIAL_QUERY = {
@@ -20,8 +20,9 @@ const INITIAL_THEME = {
 
 const INITIAL_STATE = {
   queue: [],
-  active: {},
   favorite: [],
+  history: [],
+  active: {},
   status: "init"
 };
 
@@ -98,8 +99,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         active: action.payload,
-        queue: union([action.payload], state.queue),
-        status: "ready",
+        status: "ready"
       };
     case "PAUSE":
       return {
@@ -107,32 +107,28 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         status: "paused"
       };
     case "NEXT":
-      var index = findIndex(state.queue, function(song) {
-        return !isEmpty(state.active) && song.id === state.active.id;
-      });
+      if (isEmpty(state.queue)) {
+        return {
+          ...state,
+          result: "Queue is empty"
+        };
+      }
       return {
         ...state,
-        active: nth(state.queue, index + 1)
+        history: concat([state.active], state.history),
+        active: head(state.queue),
+        queue: drop(state.queue)
       };
 
     case "PREVIOUS":
-      var index = findIndex(state.queue, function(song) {
-        return !isEmpty(state.active) && song.id === state.active.id;
-      });
       return {
         ...state,
-        active: nth(state.queue, index - 1)
+        active: head(state.history)
       };
     case "STATUS":
       return {
         ...state,
         status: action.payload
-      };
-
-    case "ACTIVE_TRACK_UPDATE":
-      return {
-        ...state,
-        active: action.payload
       };
 
     case "ADD_TO_FAVORITE":
@@ -155,10 +151,32 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         queue: state.queue
       };
     case "ADD_QUEUE":
+      if (!isArray(action.payload)) {
+        if (isEmpty(state.active)) {
+          return {
+            ...state,
+            active: head(state.queue),
+            queue: union(state.queue, [action.payload]),
+            result: `Added ${size(action.payload)} songs to queue`
+          };
+        }
+        return {
+          ...state,
+          queue: union(state.queue, [action.payload]),
+          result: `Added ${size(action.payload)} songs to queue`
+        };
+      }
+      if (isEmpty(state.active)) {
+        return {
+          ...state,
+          active: head(state.queue),
+          queue: union(state.queue, [action.payload]),
+          result: `Added ${size(action.payload)} songs to queue`
+        };
+      }
       return {
         ...state,
         queue: union(state.queue, action.payload),
-        active: head(state.queue),
         result: `Added ${size(action.payload)} songs to queue`
       };
 
@@ -173,7 +191,6 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         queue: action.payload,
-        active: {},
         result: "Queue cleared"
       };
 
