@@ -134,7 +134,7 @@ class RootScreen extends React.Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-      { this.state.message ?  <Snackbar
+      { this.state.result ?  <Snackbar
           style={{ marginBottom: 120, zIndex: 10 }}
           visible={this.state.visible}
           onDismiss={() => this.setState({ visible: false })}
