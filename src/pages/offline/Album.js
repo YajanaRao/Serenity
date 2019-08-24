@@ -70,21 +70,17 @@ class Album extends React.Component {
             renderItem={({ item }) => (
               <List.Item
                 title={item.album}
-                left={props =>
-                  item.cover == "null" ? (
-                    <FastImage
-                      {...props}
-                      source={require("../../assets/note.png")}
-                      style={styles.icons}
-                    />
-                  ) : (
-                    <FastImage
-                      {...props}
-                      source={{ uri: "file://" + item.cover }}
-                      style={styles.icons}
-                    />
-                  )
-                }
+                left={props => (
+                  <FastImage
+                    {...props}
+                    source={
+                      item.cover == "null"
+                        ? require("../../assets/note.png")
+                        : { uri: "file://" + item.cover }
+                    }
+                    style={styles.icons}
+                  />
+                )}
                 description={item.numberOfSongs + " songs"}
                 onPress={() => {
                   if (item.cover == "null") {

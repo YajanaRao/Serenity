@@ -9,7 +9,7 @@ export default class FetchExample extends React.Component {
   }
 
   componentDidMount() {
-    return fetch("https://quotes.rest/qod.json")
+    fetch("https://quotes.rest/qod.json")
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -33,7 +33,7 @@ export default class FetchExample extends React.Component {
             marginTop: 10
           }}
         >
-          <View style={{ height: 200 }} />
+          <View style={{ height: 200, borderRadius: 4 }} />
         </Surface>
       );
     }

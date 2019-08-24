@@ -76,12 +76,12 @@ class Player extends PureComponent {
                   source={{ uri: this.props.active.artwork }}
                   style={[
                     styles.artCover,
-                    { backgroundColor: colors.primary }
+                    { backgroundColor: colors.surface }
                   ]}
                 />
               ) : (
                 <FastImage
-                  source={require("../../assets/app-icon.png")}
+                  source={require("../../assets/note.png")}
                   style={styles.artCover}
                 />
               )}
@@ -125,43 +125,44 @@ class Player extends PureComponent {
               <Lyric style={{ width: 60 }} track={this.props.active} />
             </View> */}
             <Divider />
-          
-            { !isEmpty(this.props.queue) ? (
-             <View>
-                 <View style={styles.rowContainer}>
-                    <Title style={{ padding: 10 }}>Queue</Title>
-                    <IconButton
-                      icon="delete"
-                      // size={40}
-                      onPress={this.clearPlaylist}
-                    />
-                  </View>
 
-                  <Divider />
-                  <SwipeListView
-                      data={this.props.queue}
-                      renderItem={({ item }) => <Track track={item} />}
-                      ItemSeparatorComponent={() => <Divider inset={true} />}
-                      keyExtractor={(item, index) => index.toString()}
-                      renderHiddenItem={({ item }) => (
-                        <Surface style={styles.rowBack}>
-                          <IconButton
-                            icon="delete"
-                            color={colors.error}
-                            onPress={() => this.props.removeFromQueue(item)}
-                          />
-                          <Love track={this.props.active} />
-                        </Surface>
-                      )}
-                      leftOpenValue={75}
-                      rightOpenValue={-75}
-                      closeOnRowPress={true}
-                      closeOnRowOpen={true}
-                      useNativeDriver={true}
-                    />
-             </View>
-            ): false }
+            {!isEmpty(this.props.queue) ? (
+              <View>
+                <View style={styles.rowContainer}>
+                  <Title style={{ padding: 10 }}>Queue</Title>
+                  <IconButton
+                    icon="delete"
+                    // size={40}
+                    onPress={this.clearPlaylist}
+                  />
+                </View>
 
+                <Divider />
+                <SwipeListView
+                  data={this.props.queue}
+                  renderItem={({ item }) => <Track track={item} />}
+                  ItemSeparatorComponent={() => <Divider inset={true} />}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderHiddenItem={({ item }) => (
+                    <Surface style={styles.rowBack}>
+                      <IconButton
+                        icon="delete"
+                        color={colors.error}
+                        onPress={() => this.props.removeFromQueue(item)}
+                      />
+                      <Love track={this.props.active} />
+                    </Surface>
+                  )}
+                  leftOpenValue={75}
+                  rightOpenValue={-75}
+                  closeOnRowPress={true}
+                  closeOnRowOpen={true}
+                  useNativeDriver={true}
+                />
+              </View>
+            ) : (
+              false
+            )}
 
             <View style={{ height: 100 }} />
           </ScrollView>

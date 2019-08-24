@@ -56,10 +56,10 @@ class MainScreen extends React.PureComponent {
                     /> */}
               <NetNotify />
 
-              <Recent/>
+              {/* <Recent/> */}
 
-              <Quote/>
-              
+              {/* <Quote/> */}
+
               <Title style={styles.title}>Popular Albums</Title>
               <FlatList
                 horizontal={true}
