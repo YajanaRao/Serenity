@@ -108,17 +108,12 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         status: 'paused',
       };
     case 'NEXT':
-      if (isEmpty(state.queue)) {
-        return {
-          ...state,
-          result: 'Queue is empty',
-        }
-      }
       return {
         ...state,
+        state: "paused",
         history: concat([state.active], state.history),
-        active: head(state.queue),
-        queue: drop(state.queue),
+        active: isEmpty(state.queue) ? state.active : head(state.queue),
+        queue: isEmpty(state.queue) ? state.queue : drop(state.queue),
       };
 
     case 'PREVIOUS':
@@ -126,6 +121,13 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         active: head(state.history),
       };
+
+    case 'COMPLETED':
+      return {
+        ...state,
+        status: "pause",
+
+      }
     case 'STATUS':
       return {
         ...state,

@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 import { PermissionsAndroid } from 'react-native';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 
 import OfflineScreen from './offline';
@@ -134,6 +135,7 @@ class RootScreen extends React.Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
+        { !isEmpty(this.state.result) ?       
         <Snackbar
           style={{ marginBottom: 120, zIndex: 10 }}
           visible={this.state.visible}
@@ -149,7 +151,8 @@ class RootScreen extends React.Component {
           }}
         >
           {this.state.result}
-        </Snackbar>
+        </Snackbar>  : false }
+  
         <Navigator screenProps={{ theme: this.props.theme }}/>
       </View>
 
