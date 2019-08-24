@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import { withTheme, Title, Paragraph } from "react-native-paper";
 import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import isEqual from "lodash/isEqual";
 import isEmpty from "lodash/isEmpty";
 import FastImage from "react-native-fast-image";
 
@@ -18,7 +17,7 @@ class Recent extends PureComponent {
   };
 
   render() {
-    if (this.props.history) {
+    if (!isEmpty(this.props.history)) {
       return (
         <View style={styles.surface}>
           <Title style={styles.title}>Recent songs</Title>
