@@ -106,7 +106,7 @@ class Album extends React.Component {
       <View
         style={{
           flex: 1,
-          backgroundColor: background,
+          backgroundColor: colors.background,
           justifyContent: "center",
           alignItems: "center"
         }}

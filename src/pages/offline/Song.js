@@ -19,7 +19,7 @@ class Song extends React.Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (!isEqual(props.songs, state.songs) || state.refreshing) { 
+        if (!isEqual(props.songs, state.songs) || state.refreshing) {
             return {
                 songs: props.songs,
                 refreshing: false
@@ -35,22 +35,18 @@ class Song extends React.Component {
         this.props.getOfflineSongs();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getOfflineSongs();
     }
 
     render() {
-        const {
-            theme: {
-                colors: { background },
-            },
-        } = this.props;
-        
+        const { colors } = this.props.theme;
 
-        if(!isEmpty(this.state.songs) && isArray(this.state.songs)){
+
+        if (!isEmpty(this.state.songs) && isArray(this.state.songs)) {
             return (
-                <View style={{ flex: 1, backgroundColor: background }}>
-                   <View style={{ justifyContent: 'space-around', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
+                <View style={{ flex: 1, backgroundColor: colors.background }}>
+                    <View style={{ justifyContent: 'space-around', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
                         <Button icon="play-arrow" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
                             Play All
                         </Button>
@@ -58,15 +54,15 @@ class Song extends React.Component {
                             Shuffle
                         </Button>
                     </View>
-                    <Divider/>
+                    <Divider />
                     <SwipeListView
                         data={this.state.songs}
-                        renderItem={({item}) => (
+                        renderItem={({ item }) => (
                             <Track track={item} />
                         )}
                         ItemSeparatorComponent={() => <Divider inset={true} />}
                         keyExtractor={(item, index) => index.toString()}
-                        renderHiddenItem={({item}) => (
+                        renderHiddenItem={({ item }) => (
                             <Surface style={styles.rowBack}>
                                 <IconButton
                                     icon="add-to-queue"
@@ -89,20 +85,20 @@ class Song extends React.Component {
                     />
                 </View>
             );
-          }
-          return (
+        }
+        return (
             <View
-              style={{
-                flex: 1,
-                backgroundColor: background,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
+                style={{
+                    flex: 1,
+                    backgroundColor: colors.background,
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
             >
-              <IconButton icon="sentiment-very-dissatisfied" />
-              <Title>No offline songs found..</Title>
+                <IconButton icon="sentiment-very-dissatisfied" />
+                <Title>No offline songs found..</Title>
             </View>
-          );
+        );
     }
 }
 
