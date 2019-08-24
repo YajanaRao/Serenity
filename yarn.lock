@@ -4827,7 +4827,7 @@ react-lifecycles-compat@^3.0.4:
 
 "react-native-audio@https://github.com/YajanaRao/react-native-audio.git":
   version "1.2.0"
-  resolved "https://github.com/YajanaRao/react-native-audio.git#0d53d5b0d0f3ae8c406121bf9b7f5cba3b72e03e"
+  resolved "https://github.com/YajanaRao/react-native-audio.git#18e48651a7d93a06381621b0d7fd5a2443965349"
 
 react-native-fast-image@^7.0.0:
   version "7.0.2"

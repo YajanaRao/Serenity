@@ -26,18 +26,16 @@ var subscription = null;
 export const setUpTrackPlayer = () => dispatch => {
   try {
     console.log("Setup up track player")
-    subscription = DeviceEventEmitter.addListener("media", function(event) {
+    subscription = DeviceEventEmitter.addListener("media", function (event) {
       // handle event
       console.log(event)
       if (event == "paused") {
         dispatch({
-          type: "STATUS",
-          payload: "paused"
+          type: "PAUSE"
         });
       } else if (event == "playing") {
         dispatch({
-          type: "STATUS",
-          payload: "playing"
+          type: "PLAY"
         });
       } else if (event == "skip_to_next") {
         dispatch({
@@ -46,6 +44,10 @@ export const setUpTrackPlayer = () => dispatch => {
       } else if (event == "skip_to_previous") {
         dispatch({
           type: "PREVIOUS"
+        });
+      } else if (event == "completed") {
+        dispatch({
+          type: "NEXT"
         });
       }
     });
@@ -56,13 +58,13 @@ export const setUpTrackPlayer = () => dispatch => {
 
 export const loadTrackPlayer = item => dispatch => {
   try {
-    if (typeof(item) !== "undefined" && typeof(item.url) !== "undefined") {
+    if (typeof (item) !== "undefined" && typeof (item.url) !== "undefined") {
       RNAudio.load(item.url);
       dispatch({
         type: "LOAD",
         payload: item
       });
-    } else if (typeof(item) !== "undefined" && typeof(item.path) !== "undefined") {
+    } else if (typeof (item) !== "undefined" && typeof (item.path) !== "undefined") {
       dispatch({
         type: "LOAD",
         payload: item
