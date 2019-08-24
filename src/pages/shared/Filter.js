@@ -79,81 +79,108 @@ class Filter extends Component {
         const title = navigation.getParam('title', 'No Title');
 
         return (
-            <View style={[styles.container, { backgroundColor: colors.background }]}>
-                <ScrollView 
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={() => this.fetchData()}
-                        />
-                    }
+          <View
+            style={[
+              styles.container,
+              { backgroundColor: colors.background }
+            ]}
+          >
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={() => this.fetchData()}
+                />
+              }
+            >
+              <View style={styles.scrollViewContent}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    elevation: 4
+                  }}
                 >
-
-                    <View style={styles.scrollViewContent}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', elevation: 4 }}>
-                            { albumImage ?
-                                <FastImage source={{ uri: albumImage }} style={{ width: 200, height: 200 }} />
-                                :
-                                <FastImage
-                                    source={require('../../assets/app-icon.png')}
-                                    style={{ width: 200, height: 200 }}
-                                />
-                            }
-                        </View>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', margin: 10 }}>
-                            <Title>{title}</Title>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 8 }}>
-                            {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
+                  {albumImage ? (
+                    <FastImage
+                      source={{ uri: albumImage }}
+                      style={styles.artCover}
+                    />
+                  ) : (
+                    <FastImage
+                      source={require("../../assets/note.png")}
+                      style={styles.artCover}
+                    />
+                  )}
+                </View>
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: 10
+                  }}
+                >
+                  <Title>{title}</Title>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                    marginBottom: 8
+                  }}
+                >
+                  {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                             Download
                         </Button> */}
-                            <Button
-                                mode="contained"
-                                onPress={() => this.props.addToQueue(this.state.files)}>
-                                Play All
-                        </Button>
-                        </View>
-                        <SwipeListView
-                            data={this.state.files}
-                            ItemSeparatorComponent={() => <Divider inset={true} />}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => (
-                                <Track track={item} />
-                            )}
-                            renderHiddenItem={({ item }) => (
-                                <Surface style={styles.rowBack}>
-                                    <IconButton
-                                        icon="add-to-queue"
-                                        onPress={() => this.props.addToQueue(item)}
-                                    />
-                                    <IconButton
-                                        icon="favorite"
-                                        onPress={() => this.props.addToFavorite(item)}
-                                    />
-                                </Surface>
-                            )}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={this.state.refreshing}
-                                    onRefresh={() => this.fetchData()}
-                                />
-                            }
-                            leftOpenValue={75}
-                            rightOpenValue={-75}
-                        />
-                        {/* <FlatList
+                  <Button
+                    mode="contained"
+                    onPress={() =>
+                      this.props.addToQueue(this.state.files)
+                    }
+                  >
+                    Play All
+                  </Button>
+                </View>
+                <SwipeListView
+                  data={this.state.files}
+                  ItemSeparatorComponent={() => (
+                    <Divider inset={true} />
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderItem={({ item }) => <Track track={item} />}
+                  renderHiddenItem={({ item }) => (
+                    <Surface style={styles.rowBack}>
+                      <IconButton
+                        icon="add-to-queue"
+                        onPress={() => this.props.addToQueue(item)}
+                      />
+                      <IconButton
+                        icon="favorite"
+                        onPress={() => this.props.addToFavorite(item)}
+                      />
+                    </Surface>
+                  )}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={this.state.refreshing}
+                      onRefresh={() => this.fetchData()}
+                    />
+                  }
+                  leftOpenValue={75}
+                  rightOpenValue={-75}
+                />
+                {/* <FlatList
                             data={this.state.files}
                             
                             renderItem={({ item }) =>
                                 <Track track={item} />
                             }
                         /> */}
-                        <View style={{ height: 100 }} />
-                    </View>
-
-                </ScrollView>
+                <View style={{ height: 100 }} />
+              </View>
+            </ScrollView>
           </View>
-        
         );
     }
 } 
@@ -164,21 +191,21 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, { addToQueue, filterAlbumSongs, filterArtistSongs, addToFavorite })(withTheme(Filter));
 
-const styles = StyleSheet.create(
-    {
-        container: {
-            flex: 1
-        },
-        scrollViewContent: {
-            marginTop: 10
-        },
-        rowBack: {
-            alignItems: 'center',
-            // backgroundColor: '#DDD',
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingLeft: 15,
-            paddingRight: 15
-        },
-    });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  scrollViewContent: {
+    marginTop: 10
+  },
+  rowBack: {
+    alignItems: "center",
+    // backgroundColor: '#DDD',
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 15,
+    paddingRight: 15
+  },
+  artCover: { width: 200, height: 200, backgroundColor: "#d7d1c9" }
+});

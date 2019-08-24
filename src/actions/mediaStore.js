@@ -5,7 +5,7 @@ export const updateQuery = (query) => dispatch => {
     if(query){
       RNAndroidAudioStore.search({ searchParam: query }).then((media) => {
         map(media, function (item) {
-          item.url = "file://" + item.path
+          item.url = item.path
           item.id = item.path
           delete item.path
           return item
@@ -84,7 +84,7 @@ export const filterArtistSongs = (artist,image) => dispatch => {
     .then(media => {
       map(media, function (item) {
         item.id = item.path
-        item.url = "file://" + item.path
+        item.url = item.path
         delete item.path
         item.artwork = image
         return item
@@ -103,7 +103,7 @@ export const filterAlbumSongs = (album,image) => dispatch => {
   })
     .then(media => {
       map(media, function (item) {
-        item.url = "file://" + item.path
+        item.url = item.path
         delete item.path
         item.artwork = image
         return item

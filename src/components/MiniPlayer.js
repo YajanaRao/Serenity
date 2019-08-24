@@ -65,20 +65,12 @@ class MiniPlayer extends Component {
             isString(this.state.active.artwork) ? (
               <FastImage
                 source={{ uri: this.state.active.artwork }}
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 4
-                }}
+                style={styles.artwork}
               />
             ) : (
               <FastImage
-                source={require("../assets/app-icon.png")}
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 4
-                }}
+                source={require("../assets/note.png")}
+                style={styles.artwork}
               />
             )}
             <View
@@ -106,7 +98,9 @@ class MiniPlayer extends Component {
               }}
             >
               <IconButton
-                icon={this.props.status === "playing" ? "pause" : "play-arrow"}
+                icon={
+                  this.props.status === "playing" ? "pause" : "play-arrow"
+                }
                 animated={true}
                 size={34}
                 onPress={() => this.togglePlayback()}
@@ -146,5 +140,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 8,
     elevation: 0
+  },
+  artwork: {
+    width: 50,
+    height: 50,
+    borderRadius: 4,
+    backgroundColor: "#d7d1c9"
   }
 });
