@@ -134,7 +134,7 @@ class RootScreen extends React.Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <Snackbar
+      { this.state.message ?  <Snackbar
           style={{ marginBottom: 120, zIndex: 10 }}
           visible={this.state.visible}
           onDismiss={() => this.setState({ visible: false })}
@@ -149,7 +149,8 @@ class RootScreen extends React.Component {
           }}
         >
           {this.state.result}
-        </Snackbar>
+        </Snackbar> : false }
+       
         <Navigator screenProps={{ theme: this.props.theme }}/>
       </View>
 
