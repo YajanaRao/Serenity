@@ -116,15 +116,8 @@ class RootScreen extends React.Component {
     return null
   }
 
-
-  // FIXME: Need to enhance start up time
-
   componentDidMount = () => {
     this.requestPermission();
-    // if(this.props.active || this.props.queue){
-    //   this.props.setUpTrackPlayer();
-    //   this.props.initTrackPlayer(this.props.queue, this.props.active);
-    // }
   }
 
 

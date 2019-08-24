@@ -79,9 +79,7 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
         files: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -198,9 +196,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         result: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -212,9 +208,7 @@ const queryReducer = (state = INITIAL_QUERY, action) => {
         searchResult: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -226,9 +220,7 @@ const themeReducer = (state = INITIAL_THEME, action) => {
         themeType: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -275,9 +267,7 @@ const dashboardReducer = (state = DASHBOARD_STATE, action) => {
         hot100: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
