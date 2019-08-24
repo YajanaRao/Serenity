@@ -37,8 +37,7 @@ class MainScreen extends React.PureComponent {
 
         return (
           <ScrollView
-            style={{ flex: 1, backgroundColor: colors.background }}
-          >
+            style={{flex: 1, backgroundColor: colors.background}}>
             <View style={{}}>
               {/* <FlatList
                         pagingEnabled={true}
@@ -56,9 +55,9 @@ class MainScreen extends React.PureComponent {
                     /> */}
               <NetNotify />
 
-              {/* <Recent/> */}
+              <Quote />
 
-              {/* <Quote/> */}
+              <Recent/>
 
               <Title style={styles.title}>Popular Albums</Title>
               <FlatList
@@ -66,19 +65,18 @@ class MainScreen extends React.PureComponent {
                 data={Media}
                 keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                   <TouchableOpacity
                     style={styles.item}
                     onPress={() =>
-                      navigate("Songs", {
+                      navigate('Songs', {
                         songs: item.songs,
                         img: item.artwork,
-                        title: item.album
+                        title: item.album,
                       })
-                    }
-                  >
+                    }>
                     <FastImage
-                      source={{ uri: item.artwork }}
+                      source={{uri: item.artwork}}
                       style={styles.photo}
                     />
                     <Paragraph numberOfLines={1}>
@@ -94,19 +92,18 @@ class MainScreen extends React.PureComponent {
                 data={Top20}
                 keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                   <TouchableOpacity
                     style={styles.item}
                     onPress={() =>
-                      navigate("Songs", {
+                      navigate('Songs', {
                         songs: item.songs,
                         img: item.artwork,
-                        title: item.album
+                        title: item.album,
                       })
-                    }
-                  >
+                    }>
                     <FastImage
-                      source={{ uri: item.artwork }}
+                      source={{uri: item.artwork}}
                       style={styles.photo}
                     />
                     <Paragraph numberOfLines={1}>
@@ -122,19 +119,18 @@ class MainScreen extends React.PureComponent {
                 data={Artist}
                 keyExtractor={(item, index) => index.toString()}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                   <TouchableOpacity
                     style={styles.item}
                     onPress={() =>
-                      navigate("Songs", {
+                      navigate('Songs', {
                         songs: item.songs,
                         img: item.artwork,
-                        title: item.album
+                        title: item.album,
                       })
-                    }
-                  >
+                    }>
                     <FastImage
-                      source={{ uri: item.artwork }}
+                      source={{uri: item.artwork}}
                       style={styles.artist}
                     />
                     <Paragraph numberOfLines={1}>
