@@ -151,8 +151,8 @@ class RootScreen extends React.Component {
           }}
         >
           {this.state.result}
-        </Snackbar>  : false }
-  
+        </Snackbar> : false }
+       
         <Navigator screenProps={{ theme: this.props.theme }}/>
       </View>
 
