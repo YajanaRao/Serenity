@@ -59,17 +59,13 @@ export const setUpTrackPlayer = () => dispatch => {
 export const loadTrackPlayer = item => dispatch => {
   try {
     if (typeof (item) !== "undefined" && typeof (item.url) !== "undefined") {
+      console.log("loading song");
       RNAudio.load(item.url);
       dispatch({
         type: "LOAD",
         payload: item
       });
-    } else if (typeof (item) !== "undefined" && typeof (item.path) !== "undefined") {
-      dispatch({
-        type: "LOAD",
-        payload: item
-      });
-    }
+    } 
   } catch (error) {
     console.log("loadTrackPlayer: ", error);
   }
@@ -77,6 +73,7 @@ export const loadTrackPlayer = item => dispatch => {
 
 export const playTrack = () => dispatch => {
   try {
+    console.log("play");
     RNAudio.play();
     dispatch({
       type: "PLAY"

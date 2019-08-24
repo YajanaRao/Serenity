@@ -25,16 +25,9 @@ class TabBar extends React.PureComponent {
 
         return (
             <Surface style={{ elevation: 4 }}>
-                {/* <Player /> */}
-                {/* <TouchableRipple
-                    onPress={() => navigation.navigate('MyModal')}
-                >
-                    <Text>Player</Text>
-                </TouchableRipple> */}
                 <MiniPlayer/>
                 <Divider/>
-                {/* <Appbar.Header style={[styles.container, { backgroundColor: colors.Surface }]}> */}
-                <Surface style={[styles.container, { backgroundColor: colors.Surface }]}>
+                <Surface style={styles.container}>
                     {routes.map((route, routeIndex) => {
                         const isRouteActive = routeIndex === activeRouteIndex;
                         const tintColor = isRouteActive ? colors.primary : colors.text;
@@ -62,7 +55,6 @@ class TabBar extends React.PureComponent {
                         );
                     })}
                 </Surface>
-                {/* </Appbar.Header> */}
             </Surface>
            
         );
