@@ -74,13 +74,7 @@ class Artist extends React.Component {
               <List.Item
                 title={item.artist}
                 description={item.numberOfSongs + " Songs"}
-                left={props => (
-                  <FastImage
-                    {...props}
-                    source={require("../../assets/app-icon.png")}
-                    style={styles.icons}
-                  />
-                )}
+                left={props => <List.Icon {...props} icon="person" />}
                 onPress={() =>
                   navigate("Filter", {
                     artist: item.artist,
