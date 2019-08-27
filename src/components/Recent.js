@@ -46,7 +46,7 @@ class Recent extends PureComponent {
                     />
                   )}
 
-                  <Paragraph numberOfLines={1}>{item.album}</Paragraph>
+                  <Paragraph numberOfLines={1}>{item.title}</Paragraph>
                 </TouchableOpacity>
               ) : (
                 false

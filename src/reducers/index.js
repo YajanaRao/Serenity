@@ -79,9 +79,7 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
         files: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -90,48 +88,39 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
 
 const playerStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'PLAY':
+    case 'STATUS':
       return {
         ...state,
-        status: 'playing',
-        result: `Playing ${state.active.title}`,
+        status: action.status,
+        result: `${action.status} ${state.active.title}`,
       };
     case 'LOAD':
       return {
         ...state,
-        active: action.payload,
-        status: 'ready',
-      };
-    case 'PAUSE':
-      return {
-        ...state,
-        status: 'paused',
+        active: action.track,
+        status: action.status,
       };
     case 'NEXT':
       return {
         ...state,
-        state: "paused",
-        history: concat([state.active], state.history),
-        active: isEmpty(state.queue) ? state.active : head(state.queue),
-        queue: isEmpty(state.queue) ? state.queue : drop(state.queue),
+        status: action.status,
+        history: isEmpty(action.track) ? state.history : concat([state.active], state.history),
+        active: isEmpty(action.track) ? state.active : action.track,
+        queue: isEmpty(state.queue) ? [] : drop(state.queue),
       };
 
     case 'PREVIOUS':
       return {
         ...state,
-        active: head(state.history),
+        status: action.status,
+        active: isEmpty(state.history) ? state.active : head(state.history),
+        history: isEmpty(state.history) ? [] : drop(state.history), 
       };
 
     case 'COMPLETED':
       return {
         ...state,
-        status: "pause",
-
-      }
-    case 'STATUS':
-      return {
-        ...state,
-        status: action.payload,
+        status: 'paused',
       };
 
     case 'ADD_TO_FAVORITE':
@@ -162,9 +151,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
             : head(state.queue),
           queue: union(
             state.queue,
-            !isArray(action.payload)
-              ? [action.payload]
-              : action.payload,
+            !isArray(action.payload) ? [action.payload] : action.payload,
           ),
           result: `Added ${size(action.payload)} songs to queue`,
         };
@@ -192,15 +179,20 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         result: 'Queue cleared',
       };
 
+    case 'CLEAR_HISTORY':
+      return {
+        ...state,
+        history: [],
+        result: 'History cleared',
+      };
+
     case 'NOTIFY':
       return {
         ...state,
         result: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -212,9 +204,7 @@ const queryReducer = (state = INITIAL_QUERY, action) => {
         searchResult: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -226,9 +216,7 @@ const themeReducer = (state = INITIAL_THEME, action) => {
         themeType: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 
@@ -275,9 +263,7 @@ const dashboardReducer = (state = DASHBOARD_STATE, action) => {
         hot100: action.payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 

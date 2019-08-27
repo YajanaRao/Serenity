@@ -1,6 +1,9 @@
-import RNAudio from "react-native-audio";
-import { isUndefined } from "lodash";
-import { DeviceEventEmitter } from "react-native";
+import RNAudio from 'react-native-audio';
+import isUndefined from 'lodash/isUndefined';
+import {DeviceEventEmitter} from 'react-native';
+import Analytics from 'appcenter-analytics';
+import isEmpty from 'lodash/isEmpty';
+import head from 'lodash/head';
 /* 
  TODO:
  - Queue management in javascript
@@ -25,53 +28,48 @@ var subscription = null;
 
 export const setUpTrackPlayer = () => dispatch => {
   try {
-    console.log("Setup up track player")
-    subscription = DeviceEventEmitter.addListener("media", function (event) {
+    if (__DEV__) {
+      Analytics.setEnabled(false);
+    }
+    subscription = DeviceEventEmitter.addListener('media', function(event) {
       // handle event
-      console.log(event)
-      if (event == "paused") {
+      console.log('from event listener', event);
+      if (event == 'skip_to_next') {
+        dispatch(skipToNext());
+      } else if (event == 'skip_to_previous') {
+        dispatch(skipToPrevious());
+      } else if (event == 'completed') {
+        dispatch(skipToNext());
+      } else {
         dispatch({
-          type: "PAUSE"
-        });
-      } else if (event == "playing") {
-        dispatch({
-          type: "PLAY"
-        });
-      } else if (event == "skip_to_next") {
-        dispatch({
-          type: "NEXT"
-        });
-      } else if (event == "skip_to_previous") {
-        dispatch({
-          type: "PREVIOUS"
-        });
-      } else if (event == "completed") {
-        dispatch({
-          type: "NEXT"
+          type: 'STATUS',
+          status: event,
         });
       }
     });
   } catch (error) {
     console.log(error);
+    Analytics.trackEvent('error', error);
   }
 };
 
-export const loadTrackPlayer = item => dispatch => {
+export const loadTrackPlayer = (item, playOnLoad = true) => dispatch => {
   try {
-    if (typeof (item) !== "undefined" && typeof (item.url) !== "undefined") {
-      RNAudio.load(item.url);
-      dispatch({
-        type: "LOAD",
-        payload: item
+    if (!isEmpty(item) && typeof item.url !== 'undefined') {
+      RNAudio.load(item.url).then(() => {
+        if (playOnLoad) {
+          RNAudio.play();
+        }
       });
-    } else if (typeof (item) !== "undefined" && typeof (item.path) !== "undefined") {
       dispatch({
-        type: "LOAD",
-        payload: item
+        type: 'LOAD',
+        track: item,
+        status: playOnLoad ? 'playing' : 'paused',
       });
     }
   } catch (error) {
-    console.log("loadTrackPlayer: ", error);
+    console.log('loadTrackPlayer: ', error);
+    Analytics.trackEvent('error', error);
   }
 };
 
@@ -79,10 +77,12 @@ export const playTrack = () => dispatch => {
   try {
     RNAudio.play();
     dispatch({
-      type: "PLAY"
+      type: 'STATUS',
+      status: 'playing',
     });
   } catch (error) {
-    console.log("something went wrong", error);
+    console.log('something went wrong', error);
+    Analytics.trackEvent('error', error);
   }
 };
 
@@ -90,46 +90,67 @@ export const pauseTrack = () => dispatch => {
   try {
     RNAudio.pause();
     dispatch({
-      type: "PAUSE"
+      type: 'STATUS',
+      status: 'paused',
     });
   } catch (error) {
     console.log(error);
+    Analytics.trackEvent('error', error);
   }
 };
 
 // FIXME: implement with javascript
 
-export const skipToNext = () => dispatch => {
+export const skipToNext = () => (dispatch, getState) => {
   try {
-    dispatch({
-      type: "NEXT"
-    });
+    queue = getState().playerState.queue;
+    track = isEmpty(queue) ? null : head(queue);
+    if (!isEmpty(track) && typeof track.url !== 'undefined') {
+      RNAudio.load(track.url).then(() => {
+        RNAudio.play();
+      });
+      dispatch({
+        type: 'NEXT',
+        track: track,
+        status: 'playing',
+      });
+    }
   } catch (error) {
     console.log(error);
+    Analytics.trackEvent('error', error);
     // TrackPlayer.stop();
   }
 };
 
 // FIXME: implement with javascript
 
-export const skipToPrevious = () => dispatch => {
+export const skipToPrevious = () => (dispatch, getState) => {
   try {
-    dispatch({
-      type: "PREVIOUS"
-    });
+    history = getState().playerState.history;
+    track = isEmpty(history) ? null : head(history);
+    if (!isEmpty(track) && typeof track.url !== 'undefined') {
+      RNAudio.load(track.url).then(() => {
+        RNAudio.play();
+      });
+      dispatch({
+        type: 'PREVIOUS',
+        track: track,
+        status: 'playing',
+      });
+    }
   } catch (error) {
     console.log(error);
+    Analytics.trackEvent('error', error);
     // TrackPlayer.stop();
   }
 };
 
 export const destroyTrackPlayer = () => dispatch => {
-  console.log("Remove track player");
   RNAudio.destroy();
   subscription.remove();
   dispatch({
-    type: "NOTIFY",
-    payload: null
+    type: 'NOTIFY',
+    payload: null,
   });
 };
 
@@ -137,27 +158,27 @@ export const destroyTrackPlayer = () => dispatch => {
 
 export const getQueue = () => dispatch => {
   dispatch({
-    type: "QUEUE"
+    type: 'QUEUE',
   });
 };
 export const addToQueue = song => dispatch => {
   dispatch({
-    type: "ADD_QUEUE",
-    payload: song
+    type: 'ADD_QUEUE',
+    payload: song,
   });
 };
 
 export const removeFromQueue = song => dispatch => {
   dispatch({
-    type: "REMOVE_QUEUE",
-    payload: song
+    type: 'REMOVE_QUEUE',
+    payload: song,
   });
 };
 
 export const clearQueue = () => dispatch => {
   dispatch({
-    type: "CLEAR_QUEUE",
-    payload: []
+    type: 'CLEAR_QUEUE',
+    payload: [],
   });
 };
 
@@ -165,15 +186,21 @@ export const clearQueue = () => dispatch => {
 export const addToFavorite = item => dispatch => {
   if (!isUndefined(item)) {
     dispatch({
-      type: "ADD_TO_FAVORITE",
-      payload: item
+      type: 'ADD_TO_FAVORITE',
+      payload: item,
     });
   }
 };
 
 export const removeFromFavorite = item => dispatch => {
   dispatch({
-    type: "REMOVE_FROM_FAVORITE",
-    payload: item
+    type: 'REMOVE_FROM_FAVORITE',
+    payload: item,
+  });
+};
+
+export const clearHistory = () => dispatch => {
+  dispatch({
+    type: 'CLEAR_HISTORY',
   });
 };

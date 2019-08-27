@@ -4,6 +4,7 @@ import { withTheme, Text, Switch, Drawer, TouchableRipple, DarkTheme, DefaultThe
 import { connect } from 'react-redux';
 
 import { updateTheme } from '../../actions';
+import { clearHistory } from '../../actions/playerState';
 
 class Settings extends React.PureComponent {
 
@@ -20,19 +21,33 @@ class Settings extends React.PureComponent {
     this.props.updateTheme(theme);
   }
 
+  _clearHistory = () => {
+    this.props.clearHistory();
+  }
+
   render() {
     const { colors } = this.props.theme;
     const { dark } = this.props.theme;
     return (
-      <View style={{ backgroundColor: colors.background, flex: 1 }}>
+      <View style={{backgroundColor: colors.background, flex: 1}}>
         <ScrollView>
           <Drawer.Section title="Preferences">
             <TouchableRipple onPress={() => this._toggleTheme(dark)}>
               <View style={styles.preference}>
                 <Text>Dark Theme</Text>
                 <View pointerEvents="none">
-                  <Switch value={ dark } />
+                  <Switch value={dark} />
                 </View>
+              </View>
+            </TouchableRipple>
+          </Drawer.Section>
+          <Drawer.Section title="Data">
+            <TouchableRipple onPress={this._clearHistory}>
+              <View style={styles.preference}>
+                <Text>Clear history</Text>
+                {/* <View pointerEvents="none">
+                  <Switch value={dark} />
+                </View> */}
               </View>
             </TouchableRipple>
           </Drawer.Section>
@@ -42,7 +57,7 @@ class Settings extends React.PureComponent {
   }
 }
 
-export default connect(null, { updateTheme })(withTheme(Settings));
+export default connect(null, { updateTheme, clearHistory })(withTheme(Settings));
 
 const styles = StyleSheet.create({
   preference: {
