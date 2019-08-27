@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import { withTheme, Text, Switch, Drawer, TouchableRipple, DarkTheme, DefaultTheme } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -22,7 +22,19 @@ class Settings extends React.PureComponent {
   }
 
   _clearHistory = () => {
-    this.props.clearHistory();
+    Alert.alert(
+      'Clear History',
+      'Do you want to clear your history ?',
+      [
+        {text: 'Yes', onPress: () => this.props.clearHistory()},
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
   }
 
   render() {
