@@ -7,7 +7,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { getOfflineSongs } from '../../actions/mediaStore';
 import { addToQueue } from '../../actions/playerState';
-import Track from '../../components/Track'
+import TrackContainer from '../../containers/TrackContainer';
 
 class Song extends React.Component {
     constructor(props) {
@@ -45,45 +45,55 @@ class Song extends React.Component {
 
         if (!isEmpty(this.state.songs) && isArray(this.state.songs)) {
             return (
-                <View style={{ flex: 1, backgroundColor: colors.background }}>
-                    <View style={{ justifyContent: 'space-around', alignItems: 'center', margin: 10, flexDirection: 'row' }}>
-                        <Button icon="play-arrow" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
-                            Play All
-                        </Button>
-                        <Button icon="play-circle-outline" mode="contained" onPress={() => this.props.addToQueue(this.state.songs)}>
-                            Shuffle
-                        </Button>
-                    </View>
-                    <Divider />
-                    <SwipeListView
-                        data={this.state.songs}
-                        renderItem={({ item }) => (
-                            <Track track={item} />
-                        )}
-                        ItemSeparatorComponent={() => <Divider inset={true} />}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderHiddenItem={({ item }) => (
-                            <Surface style={styles.rowBack}>
-                                <IconButton
-                                    icon="add-to-queue"
-                                    onPress={() => this.props.addToQueue(item)}
-                                />
-                                <IconButton
-                                    icon="favorite"
-                                    onPress={() => this.props.addToFavorite(item)}
-                                />
-                            </Surface>
-                        )}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refreshing}
-                                onRefresh={() => this.fetchData()}
-                            />
-                        }
-                        leftOpenValue={75}
-                        rightOpenValue={-75}
-                    />
+              <View style={{flex: 1, backgroundColor: colors.background}}>
+                <View
+                  style={{
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    margin: 10,
+                    flexDirection: 'row',
+                  }}>
+                  <Button
+                    icon="play-arrow"
+                    mode="contained"
+                    onPress={() => this.props.addToQueue(this.state.songs)}>
+                    Play All
+                  </Button>
+                  <Button
+                    icon="play-circle-outline"
+                    mode="contained"
+                    onPress={() => this.props.addToQueue(this.state.songs)}>
+                    Shuffle
+                  </Button>
                 </View>
+                <Divider />
+                <SwipeListView
+                  data={this.state.songs}
+                  renderItem={({item}) => <TrackContainer track={item} />}
+                  ItemSeparatorComponent={() => <Divider inset={true} />}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderHiddenItem={({item}) => (
+                    <Surface style={styles.rowBack}>
+                      <IconButton
+                        icon="add-to-queue"
+                        onPress={() => this.props.addToQueue(item)}
+                      />
+                      <IconButton
+                        icon="favorite"
+                        onPress={() => this.props.addToFavorite(item)}
+                      />
+                    </Surface>
+                  )}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={this.state.refreshing}
+                      onRefresh={() => this.fetchData()}
+                    />
+                  }
+                  leftOpenValue={75}
+                  rightOpenValue={-75}
+                />
+              </View>
             );
         }
         return (

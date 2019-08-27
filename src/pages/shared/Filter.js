@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
-import Track from '../../components/Track';
+import TrackContainer from '../../containers/TrackContainer';
 import { addToQueue, addToFavorite } from '../../actions/playerState';
 import { filterAlbumSongs, filterArtistSongs } from '../../actions/mediaStore';
 
@@ -80,76 +80,63 @@ class Filter extends Component {
 
         return (
           <View
-            style={[
-              styles.container,
-              { backgroundColor: colors.background }
-            ]}
-          >
+            style={[styles.container, {backgroundColor: colors.background}]}>
             <ScrollView
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.refreshing}
                   onRefresh={() => this.fetchData()}
                 />
-              }
-            >
+              }>
               <View style={styles.scrollViewContent}>
                 <View
                   style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    elevation: 4
-                  }}
-                >
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    elevation: 4,
+                  }}>
                   {albumImage ? (
                     <FastImage
-                      source={{ uri: albumImage }}
+                      source={{uri: albumImage}}
                       style={styles.artCover}
                     />
                   ) : (
                     <FastImage
-                      source={require("../../assets/note.png")}
+                      source={require('../../assets/note.png')}
                       style={styles.artCover}
                     />
                   )}
                 </View>
                 <View
                   style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: 10
-                  }}
-                >
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: 10,
+                  }}>
                   <Title>{title}</Title>
                 </View>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                    marginBottom: 8
-                  }}
-                >
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    marginBottom: 8,
+                  }}>
                   {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                             Download
                         </Button> */}
                   <Button
                     mode="contained"
-                    onPress={() =>
-                      this.props.addToQueue(this.state.files)
-                    }
-                  >
+                    onPress={() => this.props.addToQueue(this.state.files)}>
                     Play All
                   </Button>
                 </View>
                 <SwipeListView
                   data={this.state.files}
-                  ItemSeparatorComponent={() => (
-                    <Divider inset={true} />
-                  )}
+                  ItemSeparatorComponent={() => <Divider inset={true} />}
                   keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => <Track track={item} />}
-                  renderHiddenItem={({ item }) => (
+                  renderItem={({item}) => <TrackContainer track={item} />}
+                  renderHiddenItem={({item}) => (
                     <Surface style={styles.rowBack}>
                       <IconButton
                         icon="add-to-queue"
@@ -177,7 +164,7 @@ class Filter extends Component {
                                 <Track track={item} />
                             }
                         /> */}
-                <View style={{ height: 100 }} />
+                <View style={{height: 100}} />
               </View>
             </ScrollView>
           </View>
