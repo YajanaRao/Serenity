@@ -32,20 +32,18 @@ class TrackContainer extends React.Component {
   }
 
   play = () => {
-    const {track, active} = this.props;
-    if (!isEmpty(active)) {
-      if (isEqual(active.id, track.id)) {
-        return false;
-      }
+    const {track} = this.props;
+    if (!this.state.isActive) {
+      this.props.loadTrackPlayer(track);
     }
-    this.props.loadTrackPlayer(track);
-    // this.props.playTrack();
   };
 
   render() {
     const {track} = this.props;
 
-    return <Track track={track} play={this.play} active={this.state.isActive} />;
+    return (
+      <Track track={track} play={this.play} active={this.state.isActive} />
+    );
   }
 }
 
@@ -57,4 +55,3 @@ export default connect(
   mapStateToProps,
   {loadTrackPlayer, playTrack},
 )(TrackContainer);
-
