@@ -77,15 +77,16 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 4,
-    backgroundColor: "#d7d1c9"
+    backgroundColor: '#d7d1c9',
   },
   title: {
     paddingTop: 10,
-    textAlign: "center"
+    textAlign: 'center',
   },
   item: {
     marginLeft: 12,
     marginBottom: 4,
-    alignItems: "center"
-  }
+    alignItems: 'center',
+    width: 120
+  },
 });

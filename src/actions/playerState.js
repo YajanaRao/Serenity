@@ -53,19 +53,23 @@ export const setUpTrackPlayer = () => dispatch => {
   }
 };
 
-export const loadTrackPlayer = (item, playOnLoad = true) => dispatch => {
+export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
   try {
-    if (!isEmpty(item) && typeof item.url !== 'undefined') {
-      RNAudio.load(item.url).then(() => {
+    url = track.url ? track.url : track.path;
+    console.log(url);
+    if (url) {
+      RNAudio.load(url).then(() => {
         if (playOnLoad) {
           RNAudio.play();
         }
       });
       dispatch({
         type: 'LOAD',
-        track: item,
+        track: track,
         status: playOnLoad ? 'playing' : 'paused',
       });
+    }else {
+      console.log(track)
     }
   } catch (error) {
     console.log('loadTrackPlayer: ', error);
@@ -105,8 +109,9 @@ export const skipToNext = () => (dispatch, getState) => {
   try {
     queue = getState().playerState.queue;
     track = isEmpty(queue) ? null : head(queue);
-    if (!isEmpty(track) && typeof track.url !== 'undefined') {
-      RNAudio.load(track.url).then(() => {
+    url = track.url ? track.url : track.path; 
+    if (url) {
+      RNAudio.load(url).then(() => {
         RNAudio.play();
       });
       dispatch({
@@ -114,6 +119,11 @@ export const skipToNext = () => (dispatch, getState) => {
         track: track,
         status: 'playing',
       });
+    }else {
+      dispatch({
+        type: 'STATUS',
+        status: 'paused'
+      })
     }
   } catch (error) {
     console.log(error);
@@ -128,14 +138,20 @@ export const skipToPrevious = () => (dispatch, getState) => {
   try {
     history = getState().playerState.history;
     track = isEmpty(history) ? null : head(history);
-    if (!isEmpty(track) && typeof track.url !== 'undefined') {
-      RNAudio.load(track.url).then(() => {
+    url = track.url ? track.url : track.path;
+    if (url) {
+      RNAudio.load(url).then(() => {
         RNAudio.play();
       });
       dispatch({
         type: 'PREVIOUS',
         track: track,
         status: 'playing',
+      });
+    }else {
+      dispatch({
+        type: 'STATUS',
+        status: 'paused',
       });
     }
   } catch (error) {
