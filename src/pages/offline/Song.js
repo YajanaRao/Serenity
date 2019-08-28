@@ -97,17 +97,22 @@ class Song extends React.Component {
             );
         }
         return (
-            <View
-                style={{
-                    flex: 1,
-                    backgroundColor: colors.background,
-                    justifyContent: "center",
-                    alignItems: "center"
-                }}
-            >
-                <IconButton icon="sentiment-very-dissatisfied" />
-                <Title>No offline songs found..</Title>
-            </View>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: colors.background,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <IconButton icon="sentiment-very-dissatisfied" />
+            <Title>No offline songs found..</Title>
+            <Button
+              icon="refresh"
+              mode="outlined"
+              onPress={this.fetchData}>
+              Refresh
+            </Button>
+          </View>
         );
     }
 }
