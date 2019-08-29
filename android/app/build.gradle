@@ -97,7 +97,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 /**
  * Use international variant JavaScriptCore
@@ -152,7 +152,7 @@ android {
             storeFile file('release.keystore')
             storePassword 'serenity'
             keyAlias 'serenity'
-            keyPassword 'serentiy'
+            keyPassword 'serenity'
         }
     }
     buildTypes {
@@ -164,6 +164,7 @@ android {
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
+            shrinkResources true 
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
