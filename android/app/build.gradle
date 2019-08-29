@@ -78,8 +78,8 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    enableHermes: false,
-    hermesCommand: "../node_modules/hermes-engine/%OS-BIN%/hermes"
+    enableHermes: true,
+    hermesCommand: "../node_modules/hermesvm/%OS-BIN%/hermes"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -162,7 +162,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
