@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withTheme, Divider, Button, Title, Surface, IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { View, RefreshControl, StyleSheet } from 'react-native';
+import { View, RefreshControl, StyleSheet, ScrollView } from 'react-native';
 import { isEqual, isEmpty, isArray } from 'lodash';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
@@ -45,7 +45,7 @@ class Song extends React.Component {
 
         if (!isEmpty(this.state.songs) && isArray(this.state.songs)) {
             return (
-              <View style={{flex: 1, backgroundColor: colors.background}}>
+              <ScrollView style={{flex: 1, backgroundColor: colors.background}}>
                 <View
                   style={{
                     justifyContent: 'space-around',
@@ -55,17 +55,17 @@ class Song extends React.Component {
                   }}>
                   <Button
                     icon="play-arrow"
-                    mode="contained"
+                    mode="outlined"
                     onPress={() => this.props.addToQueue(this.state.songs)}>
                     Play All
                   </Button>
                   <Button
                     icon="play-circle-outline"
-                    mode="contained"
+                    mode="outlined"
                     onPress={() => this.props.addToQueue(this.state.songs)}>
                     Shuffle
                   </Button>
-                </View>
+               </View>
                 <Divider />
                 <SwipeListView
                   data={this.state.songs}
@@ -93,7 +93,7 @@ class Song extends React.Component {
                   leftOpenValue={75}
                   rightOpenValue={-75}
                 />
-              </View>
+              </ScrollView>
             );
         }
         return (
