@@ -6,6 +6,7 @@ import { PermissionsAndroid } from 'react-native';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
+import Crashes from 'appcenter-crashes';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -103,6 +104,21 @@ class RootScreen extends React.Component {
       })
     } catch (err) {
       console.warn(err);
+    }
+  }
+
+  checkForCrash = async () => {
+    const didCrash = await Crashes.hasCrashedInLastSession();
+    if(didCrash){
+      // const crashReport = await Crashes.lastSessionCrashReport();
+      Crashes.setListener({
+        shouldProcess: function(report) {
+          return true; // return true if the crash report should be processed, otherwise false.
+        },
+
+        // Other callbacks must also be defined at the same time if used.
+        // Default values are used if a method with return parameter is not defined.
+      });
     }
   }
 

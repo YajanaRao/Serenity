@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import isEmpty  from 'lodash/isEmpty';
 
 import { addToQueue } from '../../actions/playerState';
-import Track from '../../components/Track';
+import TrackContainer from '../../containers/TrackContainer';
 
 class Songs extends Component {
 
@@ -75,7 +75,7 @@ class Songs extends Component {
                             ItemSeparatorComponent={() => <Divider inset={true} />}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) =>
-                                <Track track={item} />
+                                <TrackContainer track={item} />
                             }
                         />
                         <View style={{ height: 100 }} />
