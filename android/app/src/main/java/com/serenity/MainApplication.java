@@ -1,22 +1,18 @@
 package com.serenity;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.facebook.react.PackageList;
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
+import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.cinder92.musicfiles.RNReactNativeGetMusicFilesPackage;
-import com.rnfs.RNFSPackage;
-import com.dylanvann.fastimage.FastImageViewPackage;
-import com.guichaguri.trackplayer.TrackPlayer;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
+
+
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
-import com.drazail.rnandroidstore.RNAndroidStorePackage;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -29,16 +25,13 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNReactNativeGetMusicFilesPackage(),
-            new RNFSPackage(),
-            new FastImageViewPackage(),
-            new TrackPlayer(),
-            new RNGestureHandlerPackage(),
-            new VectorIconsPackage(),
-            new RNAndroidStorePackage()
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for
+      // example:
+      // packages.add(new MyReactNativePackage());
+      // packages.add(new RNReactNativeGetMusicFilesPackage());
+      return packages;
     }
 
     @Override
