@@ -1,6 +1,12 @@
 import React from 'react';
 import {ImageBackground, View} from 'react-native';
-import {Paragraph, Surface} from 'react-native-paper';
+import {
+  Surface,
+  IconButton,
+  Title,
+  Subheading,
+} from 'react-native-paper';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class FetchExample extends React.Component {
   constructor(props) {
@@ -36,9 +42,18 @@ export default class FetchExample extends React.Component {
             marginRight: 12,
             marginTop: 10,
           }}>
-          <View style={{height: 200, borderRadius: 4, padding: 20}}>
-            <Paragraph>Offline is the new luxury</Paragraph>
-          </View>
+          <LinearGradient
+            colors={['#B24592', '#F15F79']}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            style={{height: 200, borderRadius: 4, padding: 20, justifyContent: 'center', alignItems: 'center'}}>
+            <IconButton
+              icon="signal-wifi-off"
+            />
+            <Title>Offline</Title>
+            <Subheading>Offline is the new luxury</Subheading>
+          </LinearGradient>
+          {/* <View style={{height: 200, borderRadius: 4, padding: 20}}></View> */}
         </Surface>
       );
     }
@@ -49,7 +64,7 @@ export default class FetchExample extends React.Component {
           source={{uri: this.state.dataSource.background}}
           style={{padding: 20, height: 200}}
           imageStyle={{borderRadius: 4}}>
-          <Paragraph>{this.state.dataSource.quote}</Paragraph>
+          <Subheading>{this.state.dataSource.quote}</Subheading>
         </ImageBackground>
       </View>
     );
