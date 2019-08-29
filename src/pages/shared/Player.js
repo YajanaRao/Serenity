@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import FastImage from "react-native-fast-image";
 import { SwipeListView } from "react-native-swipe-list-view";
 
-import Track from "../../components/Track";
+import TrackContainer from '../../containers/TrackContainer';
 import Love from "../../components/Love";
 // import ProgressBar from '../../components/ProgressBar';
 
@@ -58,7 +58,7 @@ class Player extends PureComponent {
 
     if (!isUndefined(this.props.active)) {
       return (
-        <View style={{ backgroundColor: colors.background, flex: 1 }}>
+        <View style={{backgroundColor: colors.background, flex: 1}}>
           <ScrollView>
             <View style={styles.container}>
               <IconButton
@@ -73,15 +73,12 @@ class Player extends PureComponent {
             <View style={styles.centerContainer}>
               {isString(this.props.active.artwork) ? (
                 <FastImage
-                  source={{ uri: this.props.active.artwork }}
-                  style={[
-                    styles.artCover,
-                    { backgroundColor: colors.surface }
-                  ]}
+                  source={{uri: this.props.active.artwork}}
+                  style={[styles.artCover, {backgroundColor: colors.surface}]}
                 />
               ) : (
                 <FastImage
-                  source={require("../../assets/note.png")}
+                  source={require('../../assets/note.png')}
                   style={styles.artCover}
                 />
               )}
@@ -98,16 +95,14 @@ class Player extends PureComponent {
                         <ProgressBar />
                     </View> */}
             <View style={styles.playerToolbox}>
-              <Love style={{ width: 60 }} track={this.props.active} />
+              <Love style={{width: 60}} track={this.props.active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
                 onPress={this.props.skipToPrevious}
               />
               <FAB
-                icon={
-                  this.props.status === "playing" ? "pause" : "play-arrow"
-                }
+                icon={this.props.status === 'playing' ? 'pause' : 'play-arrow'}
                 onPress={() => this.togglePlayback()}
               />
               <IconButton
@@ -118,7 +113,7 @@ class Player extends PureComponent {
               <IconButton
                 icon="repeat"
                 // size={20}
-                onPress={() => console.log("pressed")}
+                onPress={() => console.log('pressed')}
               />
             </View>
             {/* <View style={styles.rowContainer}>
@@ -129,7 +124,7 @@ class Player extends PureComponent {
             {!isEmpty(this.props.queue) ? (
               <View>
                 <View style={styles.rowContainer}>
-                  <Title style={{ padding: 10 }}>Queue</Title>
+                  <Title style={{padding: 10}}>Queue</Title>
                   <IconButton
                     icon="delete"
                     // size={40}
@@ -140,10 +135,10 @@ class Player extends PureComponent {
                 <Divider />
                 <SwipeListView
                   data={this.props.queue}
-                  renderItem={({ item }) => <Track track={item} />}
+                  renderItem={({item}) => <TrackContainer track={item} />}
                   ItemSeparatorComponent={() => <Divider inset={true} />}
                   keyExtractor={(item, index) => index.toString()}
-                  renderHiddenItem={({ item }) => (
+                  renderHiddenItem={({item}) => (
                     <Surface style={styles.rowBack}>
                       <IconButton
                         icon="delete"
@@ -164,7 +159,7 @@ class Player extends PureComponent {
               false
             )}
 
-            <View style={{ height: 100 }} />
+            <View style={{height: 100}} />
           </ScrollView>
         </View>
       );
