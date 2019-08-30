@@ -65,7 +65,7 @@ class Songs extends Component {
                             </Button> */}
                                 <Button
                                     mode="contained"
-                                    onPress={() => this.props.addToQueue(songs)}>
+                                    onPress={this.props.addToQueue}>
                                     Play All
                             </Button>
                             </View>

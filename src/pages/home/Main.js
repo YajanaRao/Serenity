@@ -38,7 +38,7 @@ class MainScreen extends React.PureComponent {
         return (
           <ScrollView
             style={{flex: 1, backgroundColor: colors.background}}>
-            <View style={{}}>
+            <View>
               {/* <FlatList
                         pagingEnabled={true}
                         horizontal={true}

@@ -29,7 +29,7 @@ class Header extends PureComponent {
                 <Searchbar
                     onFocus={this.handleFocus}
                     placeholder="Artists, songs or podcasts"
-                    onChangeText={(text) => this.handleChange(text)}
+                    onChangeText={this.handleChange}
                     value={this.state.query}
                     icon="search"
                     style={{ margin: 10 }}

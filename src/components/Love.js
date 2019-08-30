@@ -16,7 +16,6 @@ class Love extends PureComponent {
 
     static getDerivedStateFromProps(props, state) {
         if (includes(props.favorite, props.track) !== state.favorite) {
-            console.log(props.favorite)
             return {
                 favorite: !state.favorite
             }
@@ -41,23 +40,19 @@ class Love extends PureComponent {
 
         const { colors } = this.props.theme;
         return (
-            // <LinearGradient
-            //     colors={['#ee0979', '#fc1c62', '#ff364a', '#ff512f', '#ff6a00']}
-            //     // style={{ padding: 10, alignItems: 'center', borderRadius: 5 }}
-            //     >
             <View style={this.props.style}>
                 {this.state.favorite ?
                     <IconButton
                         animated={true}
                         icon="favorite"
-                        onPress={() => this.removeFromFavorite()}
+                        onPress={this.removeFromFavorite}
                         color={colors.error}
                     />
                     :
                     <IconButton
                         animated={true}
                         icon="favorite-border"
-                        onPress={() => this.addToFavorite()}
+                        onPress={this.addToFavorite}
                     />
                 }
 
