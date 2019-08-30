@@ -28,8 +28,6 @@ class NetNotify extends PureComponent {
 
     componentWillUnmount(){
         NetInfo.removeEventListener(state => {
-            console.log("Connection type", state.type);
-            console.log("Is connected?", state.isConnected);
             this.setState({
                 isConnected: state.isConnected
             })

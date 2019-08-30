@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 
 import { getOfflineArtists } from "../../actions/mediaStore";
 
-class Artist extends React.Component {
+class Artist extends React.PureComponent {
   static navigationOptions = {
     header: null
   };
@@ -66,7 +66,7 @@ class Artist extends React.Component {
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
-                onRefresh={() => this.fetchData()}
+                onRefresh={this.fetchData}
               />
             }
             keyExtractor={(item, index) => index.toString()}
