@@ -14,6 +14,7 @@ import FastImage from "react-native-fast-image";
 import { isEqual, isEmpty } from "lodash";
 
 import { getOfflineAlbums } from "../../actions/mediaStore";
+import Blank from "../../components/Blank";
 
 class Album extends React.PureComponent {
   static navigationOptions = {
@@ -103,17 +104,7 @@ class Album extends React.PureComponent {
       );
     }
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: colors.background,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <IconButton icon="sentiment-very-dissatisfied" />
-        <Title>No offline songs found..</Title>
-      </View>
+      <Blank text={"No offline songs found.."} fetchData={this.fetchData} />
     );
   }
 }
