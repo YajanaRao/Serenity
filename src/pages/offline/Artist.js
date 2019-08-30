@@ -1,10 +1,11 @@
 import { FlatList } from "react-native-gesture-handler";
-import * as React from "react";
+import React from "react";
 import {
   withTheme,
   Divider,
   Title,
   List,
+  Button,
   IconButton
 } from "react-native-paper";
 import { View, StyleSheet, RefreshControl } from "react-native";
@@ -97,7 +98,13 @@ class Artist extends React.Component {
         }}
       >
         <IconButton icon="sentiment-very-dissatisfied" />
-        <Title>No offline songs found..</Title>
+        <Title>No offline Artists found..</Title>
+        <Button
+          icon="refresh"
+          mode="outlined"
+          onPress={this.fetchData}>
+          Refresh
+        </Button>
       </View>
     );
   }
