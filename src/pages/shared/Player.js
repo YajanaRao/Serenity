@@ -63,7 +63,7 @@ class Player extends PureComponent {
             <View style={styles.container}>
               <IconButton
                 icon="close"
-                onPress={() => this.props.navigation.goBack()}
+                onPress={this.props.navigation.goBack}
               />
               {/* <IconButton
                             icon="more-vert"
@@ -113,7 +113,7 @@ class Player extends PureComponent {
               <IconButton
                 icon="repeat"
                 // size={20}
-                onPress={() => console.log('pressed')}
+                // onPress={}
               />
             </View>
             {/* <View style={styles.rowContainer}>

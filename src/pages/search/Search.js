@@ -57,7 +57,7 @@ class Search extends Component {
               data={this.props.searchResult}
               ItemSeparatorComponent={() => <Divider inset={true} />}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => <Track track={item} swipeable={true} />}
+              renderItem={({item}) => <Track track={item} />}
             />
           </View>
         )}

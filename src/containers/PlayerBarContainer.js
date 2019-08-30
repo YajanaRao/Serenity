@@ -37,11 +37,20 @@ class MiniPlayer extends Component {
     }
   };
 
+  navigateToPlayer = () => {
+    this.props.navigation.navigate('Player')
+  }
+
   render() {
 
     if (!isEmpty(this.props.active)) {
       return (
-       <PlayerBar active={this.props.active} status={this.props.status} togglePlayback={this.togglePlayback} />
+        <PlayerBar
+          active={this.props.active}
+          status={this.props.status}
+          togglePlayback={this.togglePlayback}
+          navigateToPlayer={this.navigateToPlayer}
+        />
       );
     } else {
       return false;
