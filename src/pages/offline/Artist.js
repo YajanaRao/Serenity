@@ -3,17 +3,15 @@ import React from "react";
 import {
   withTheme,
   Divider,
-  Title,
-  List,
-  Button,
-  IconButton
+  List
 } from "react-native-paper";
 import { View, StyleSheet, RefreshControl } from "react-native";
-import FastImage from "react-native-fast-image";
+
 import { isEqual, isEmpty } from "lodash";
 import { connect } from "react-redux";
 
 import { getOfflineArtists } from "../../actions/mediaStore";
+import Blank from "../../components/Blank";
 
 class Artist extends React.PureComponent {
   static navigationOptions = {
@@ -89,23 +87,7 @@ class Artist extends React.PureComponent {
       );
     }
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: background,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <IconButton icon="sentiment-very-dissatisfied" />
-        <Title>No offline Artists found..</Title>
-        <Button
-          icon="refresh"
-          mode="outlined"
-          onPress={this.fetchData}>
-          Refresh
-        </Button>
-      </View>
+      <Blank text={"No offline Artists found.."} fetchData={this.fetchData} />
     );
   }
 }
