@@ -8,7 +8,7 @@ import {
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default class FetchExample extends React.Component {
+export default class FetchExample extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {isLoading: true};

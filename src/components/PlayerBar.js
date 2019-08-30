@@ -9,9 +9,7 @@ const PlayerBar = props => {
       <TouchableOpacity
           activeOpacity={0.9}
           style={{height: 60, width: '100%'}}
-          onPress={() => {
-            props.navigation.navigate('Player');
-          }}>
+          onPress={props.navigateToPlayer}>
           <Surface style={styles.playBar}>
             {props.active.artwork ? (
               <FastImage
@@ -60,7 +58,7 @@ const PlayerBar = props => {
   )
 }
 
-export default withNavigation(PlayerBar);
+export default PlayerBar;
 
 const styles = StyleSheet.create({
   playBar: {

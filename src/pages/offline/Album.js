@@ -15,7 +15,7 @@ import { isEqual, isEmpty } from "lodash";
 
 import { getOfflineAlbums } from "../../actions/mediaStore";
 
-class Album extends React.Component {
+class Album extends React.PureComponent {
   static navigationOptions = {
     header: null
   };

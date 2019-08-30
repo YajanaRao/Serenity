@@ -85,7 +85,7 @@ class Filter extends Component {
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.refreshing}
-                  onRefresh={() => this.fetchData()}
+                  onRefresh={this.fetchData}
                 />
               }>
               <View style={styles.scrollViewContent}>
@@ -151,7 +151,7 @@ class Filter extends Component {
                   refreshControl={
                     <RefreshControl
                       refreshing={this.state.refreshing}
-                      onRefresh={() => this.fetchData()}
+                      onRefresh={this.fetchData}
                     />
                   }
                   leftOpenValue={75}

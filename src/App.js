@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import RootNavigator from './RootNavigator';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
