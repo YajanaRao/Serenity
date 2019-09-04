@@ -5,11 +5,11 @@ import FastImage from 'react-native-fast-image';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import NetNotify from '../../components/NetNotify';
-import Media from '../../data/media.json';
 import Top20 from '../../data/top20.json';
 import Artist from '../../data/artist.json';
 import Recent from '../../components/Recent';
 import Quote from '../../components/Quote';
+import Popular from '../../components/Popular';
 
 
 
@@ -29,6 +29,14 @@ class MainScreen extends React.PureComponent {
         }
 
     };
+
+    navigateToSongs = (songs,artwork,title) => {
+      this.props.navigation.navigate('Songs', {
+        songs: songs,
+        img: artwork,
+        title: title,
+    })
+    }
 
     render() {
         const { colors } = this.props.theme
@@ -58,33 +66,7 @@ class MainScreen extends React.PureComponent {
               <Quote />
 
               <Recent/>
-
-              <Title style={styles.title}>Popular Albums</Title>
-              <FlatList
-                horizontal={true}
-                data={Media}
-                keyExtractor={(item, index) => index.toString()}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={styles.item}
-                    onPress={() =>
-                      navigate('Songs', {
-                        songs: item.songs,
-                        img: item.artwork,
-                        title: item.album,
-                      })
-                    }>
-                    <FastImage
-                      source={{uri: item.artwork}}
-                      style={styles.photo}
-                    />
-                    <Paragraph numberOfLines={1}>
-                      {item.album}
-                    </Paragraph>
-                  </TouchableOpacity>
-                )}
-              />
+              <Popular navigate={this.navigateToSongs}/>
 
               <Title style={styles.title}>Top 15</Title>
               <FlatList

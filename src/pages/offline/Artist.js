@@ -1,18 +1,17 @@
 import { FlatList } from "react-native-gesture-handler";
-import * as React from "react";
+import React from "react";
 import {
   withTheme,
   Divider,
-  Title,
-  List,
-  IconButton
+  List
 } from "react-native-paper";
 import { View, StyleSheet, RefreshControl } from "react-native";
-import FastImage from "react-native-fast-image";
+
 import { isEqual, isEmpty } from "lodash";
 import { connect } from "react-redux";
 
 import { getOfflineArtists } from "../../actions/mediaStore";
+import Blank from "../../components/Blank";
 
 class Artist extends React.PureComponent {
   static navigationOptions = {
@@ -88,17 +87,7 @@ class Artist extends React.PureComponent {
       );
     }
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: background,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <IconButton icon="sentiment-very-dissatisfied" />
-        <Title>No offline songs found..</Title>
-      </View>
+      <Blank text={"No offline Artists found.."} fetchData={this.fetchData} />
     );
   }
 }
