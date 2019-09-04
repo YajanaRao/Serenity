@@ -162,7 +162,7 @@ export const skipToPrevious = () => (dispatch, getState) => {
 };
 
 export const destroyTrackPlayer = () => dispatch => {
-  RNAudio.destroy();
+  // RNAudio.destroy();
   subscription.remove();
   dispatch({
     type: 'NOTIFY',

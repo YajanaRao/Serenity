@@ -3,10 +3,7 @@ import * as React from "react";
 import {
   withTheme,
   Divider,
-  Title,
   List,
-  Colors,
-  IconButton
 } from "react-native-paper";
 import { connect } from "react-redux";
 import { View, StyleSheet, RefreshControl } from "react-native";
@@ -64,7 +61,8 @@ class Album extends React.PureComponent {
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
-                onRefresh={() => this.fetchData()}
+                onRefresh={this.fetchData}
+
               />
             }
             keyExtractor={(item, index) => index.toString()}
