@@ -44,7 +44,7 @@ class Settings extends React.PureComponent {
       <View style={{backgroundColor: colors.background, flex: 1}}>
         <ScrollView>
           <Drawer.Section title="Preferences">
-            <TouchableRipple onPress={() => this._toggleTheme(dark)}>
+            <TouchableRipple onPress={this._toggleTheme}>
               <View style={styles.preference}>
                 <Text>Dark Theme</Text>
                 <View pointerEvents="none">

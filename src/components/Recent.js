@@ -1,36 +1,23 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { withTheme, Title, Paragraph } from "react-native-paper";
 import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
-import isEmpty from "lodash/isEmpty";
 import FastImage from "react-native-fast-image";
 
-import { loadTrackPlayer, playTrack } from "../actions/playerState";
-
 // FIXME: Testing the application
-class Recent extends PureComponent {
-  play = (track) => {
-    if (!isEmpty(track)) {
-      this.props.loadTrackPlayer(track);
-      this.props.playTrack();
-    }
-  };
-
-  render() {
-    if (!isEmpty(this.props.history)) {
-      return (
+const Recent = (props) => {
+    return (
         <View style={styles.surface}>
           <Title style={styles.title}>Recent songs</Title>
           <FlatList
             horizontal={true}
-            data={this.props.history}
+            data={props.history}
             keyExtractor={(item, index) => index.toString()}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) =>
               item ? (
                 <TouchableOpacity
                   style={styles.item}
-                  onPress={() => this.play(item)}
+                  onPress={() => props.play(item)}
                 >
                   {item.artwork ? (
                     <FastImage
@@ -55,22 +42,9 @@ class Recent extends PureComponent {
           />
         </View>
       );
-    }
-    return false;
-  }
 }
 
-const mapStateToProps = state => ({
-  history: state.playerState.history
-});
-
-export default connect(
-  mapStateToProps,
-  {
-    loadTrackPlayer,
-    playTrack
-  }
-)(withTheme(Recent));
+export default withTheme(Recent);
 
 const styles = StyleSheet.create({
   photo: {

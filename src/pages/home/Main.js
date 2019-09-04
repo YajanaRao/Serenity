@@ -7,8 +7,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import NetNotify from '../../components/NetNotify';
 import Top20 from '../../data/top20.json';
 import Artist from '../../data/artist.json';
-import Recent from '../../components/Recent';
-import Quote from '../../components/Quote';
+import RecentContainer from '../../containers/RecentContainer';
+import QuoteContainer from '../../containers/QuoteContainer';
 import Popular from '../../components/Popular';
 
 
@@ -63,9 +63,9 @@ class MainScreen extends React.PureComponent {
                     /> */}
               <NetNotify />
 
-              <Quote />
+              <QuoteContainer />
 
-              <Recent/>
+              <RecentContainer/>
               <Popular navigate={this.navigateToSongs}/>
 
               <Title style={styles.title}>Top 15</Title>
