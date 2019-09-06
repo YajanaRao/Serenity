@@ -33,4 +33,3 @@ export default connect(
     playTrack,
   },
 )(RecentContainer);
-

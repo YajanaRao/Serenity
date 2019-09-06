@@ -13,8 +13,6 @@ import {
 import PlayerBar from '../components/PlayerBar';
 
 class MiniPlayer extends Component {
-
-
   componentDidMount() {
     this.props.setUpTrackPlayer();
     if (!isEmpty(this.props.active)) {
@@ -35,11 +33,10 @@ class MiniPlayer extends Component {
   };
 
   navigateToPlayer = () => {
-    this.props.navigation.navigate('Player')
-  }
+    this.props.navigation.navigate('Player');
+  };
 
   render() {
-
     if (!isEmpty(this.props.active)) {
       return (
         <PlayerBar
@@ -70,4 +67,3 @@ export default connect(
     setUpTrackPlayer,
   },
 )(withNavigation(MiniPlayer));
-

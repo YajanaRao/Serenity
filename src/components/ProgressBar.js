@@ -1,10 +1,10 @@
-import React from "react";
-import { withTheme, Caption, ProgressBar } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
-import { useTrackPlayerProgress } from "react-native-track-player";
+import React from 'react';
+import {withTheme, Caption, ProgressBar} from 'react-native-paper';
+import {View, StyleSheet} from 'react-native';
+import {useTrackPlayerProgress} from 'react-native-track-player';
 
 function formatTwoDigits(n) {
-  return n < 10 ? "0" + n : n;
+  return n < 10 ? '0' + n : n;
 }
 
 function formatTime(seconds) {
@@ -14,26 +14,23 @@ function formatTime(seconds) {
     const hh = Math.floor(seconds / 3600);
 
     if (hh > 0) {
-      return hh + ":" + formatTwoDigits(mm) + ":" + formatTwoDigits(ss);
+      return hh + ':' + formatTwoDigits(mm) + ':' + formatTwoDigits(ss);
     } else {
-      return mm + ":" + formatTwoDigits(ss);
+      return mm + ':' + formatTwoDigits(ss);
     }
   }
-  return "0:00";
+  return '0:00';
 }
 
 function Progress() {
   const progress = useTrackPlayerProgress();
   const position = formatTime(Math.floor(progress.position));
   const duration = formatTime(Math.floor(progress.duration));
-  const info = position + " / " + duration;
+  const info = position + ' / ' + duration;
   const prog = parseInt(progress.position) / parseInt(progress.duration);
   return (
     <View style={styles.view}>
-      <ProgressBar
-        progress={ prog ? prog : 0 }
-        style={{ width: 300 }}
-      />
+      <ProgressBar progress={prog ? prog : 0} style={{width: 300}} />
       <Caption style={styles.info}>{info}</Caption>
     </View>
   );
@@ -61,25 +58,25 @@ export default withTheme(Progress);
 
 const styles = StyleSheet.create({
   view: {
-    flexDirection: "column",
-    alignItems: "center",
+    flexDirection: 'column',
+    alignItems: 'center',
     flex: 1,
-    width: "100%"
+    width: '100%',
   },
   info: {
-    margin: 4
+    margin: 4,
   },
   bar: {
     height: 5,
-    width: "100%",
+    width: '100%',
     margin: 10,
-    flexDirection: "row",
-    alignItems: "flex-start"
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   played: {
-    height: 5
+    height: 5,
   },
   buffered: {
-    height: 5
-  }
+    height: 5,
+  },
 });

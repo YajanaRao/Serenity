@@ -36,7 +36,6 @@ class Love extends PureComponent {
   render() {
     const {colors} = this.props.theme;
     return (
-        
       <View style={this.props.style}>
         {this.state.favorite ? (
           <IconButton
