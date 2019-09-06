@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
-import { View } from 'react-native';
-import { withTheme, IconButton, Snackbar } from 'react-native-paper';
-import { PermissionsAndroid } from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createStackNavigator} from 'react-navigation-stack';
+import {View} from 'react-native';
+import {withTheme, IconButton, Snackbar} from 'react-native-paper';
+import {PermissionsAndroid} from 'react-native';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Crashes from 'appcenter-crashes';
 
 import OfflineScreen from './offline';
@@ -13,39 +15,63 @@ import SearchScreen from './search';
 import HomeScreen from './home';
 import ExploreScreen from './explore';
 import PlayerScreen from './shared/Player';
-import TabBar from '../components/TabBar';
+import BottomTabBar from '../components/BottomTabBar';
 
-
-const BottomNavigator = createBottomTabNavigator({
- Home: {
-   screen: HomeScreen,
-   navigationOptions: {
-     tabBarIcon: ({ tintColor }) => <IconButton icon="home" color={tintColor} style={{ margin: 0, padding: 0 }} />
-   }
- },
- Search: {
-   screen: SearchScreen,
-   navigationOptions: {
-     tabBarIcon: ({ tintColor }) => <IconButton icon="search" color={tintColor} style={{ margin: 0, padding: 0 }} />
-   }
- },
- Explore: {
-   screen: ExploreScreen,
-   navigationOptions: {
-     tabBarIcon: ({ tintColor }) => <IconButton icon="explore" color={tintColor} style={{ margin: 0, padding: 0 }} />
-   }
- },
- Offline: {
-   screen: OfflineScreen,
-   navigationOptions: {
-     tabBarIcon: ({ tintColor }) => <IconButton icon="save" color={tintColor} style={{ margin: 0, padding: 0 }} />
-   }
- }
-},
- {
-   tabBarComponent: TabBar
- });
-
+const BottomNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <IconButton
+            icon="home"
+            color={tintColor}
+            style={{margin: 0, padding: 0}}
+          />
+        ),
+      },
+    },
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <IconButton
+            icon="search"
+            color={tintColor}
+            style={{margin: 0, padding: 0}}
+          />
+        ),
+      },
+    },
+    Explore: {
+      screen: ExploreScreen,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <IconButton
+            icon="explore"
+            color={tintColor}
+            style={{margin: 0, padding: 0}}
+          />
+        ),
+      },
+    },
+    Offline: {
+      screen: OfflineScreen,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <IconButton
+            icon="save"
+            color={tintColor}
+            style={{margin: 0, padding: 0}}
+          />
+        ),
+      },
+    },
+  },
+  {
+    tabBarComponent: BottomTabBar,
+  },
+);
 
 const RootStack = createStackNavigator(
   {
@@ -59,7 +85,7 @@ const RootStack = createStackNavigator(
   {
     mode: 'modal',
     headerMode: 'none',
-  }
+  },
 );
 
 const Navigator = createAppContainer(RootStack);
@@ -67,10 +93,10 @@ const Navigator = createAppContainer(RootStack);
 class RootScreen extends React.Component {
   state = {
     visible: false,
-    result: ''
+    result: '',
   };
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({navigation}) => {
     return {
       headerTitle: 'Home',
       headerRight: (
@@ -79,8 +105,8 @@ class RootScreen extends React.Component {
           color={'black'}
           onPress={() => navigation.navigate('Settings')}
         />
-      )
-    }
+      ),
+    };
   };
 
   requestPermission = () => {
@@ -96,20 +122,19 @@ class RootScreen extends React.Component {
           buttonNegative: 'Cancel',
           buttonPositive: 'OK',
         },
-      ).then((granted) => {
+      ).then(granted => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-
         } else {
         }
-      })
+      });
     } catch (err) {
       console.warn(err);
     }
-  }
+  };
 
   checkForCrash = async () => {
     const didCrash = await Crashes.hasCrashedInLastSession();
-    if(didCrash){
+    if (didCrash) {
       // const crashReport = await Crashes.lastSessionCrashReport();
       Crashes.setListener({
         shouldProcess: function(report) {
@@ -120,67 +145,62 @@ class RootScreen extends React.Component {
         // Default values are used if a method with return parameter is not defined.
       });
     }
-  }
+  };
 
   static getDerivedStateFromProps(props, state) {
     if (!isEqual(props.result, state.result)) {
       return {
         result: props.result,
-        visible: true
-      }
+        visible: true,
+      };
     }
-    return null
+    return null;
   }
-
 
   // FIXME: Need to enhance start up time
 
   componentDidMount = () => {
     this.requestPermission();
 
-        
     // if(this.props.active || this.props.queue){
     //   this.props.setUpTrackPlayer();
     //   this.props.initTrackPlayer(this.props.queue, this.props.active);
     // }
-  }
-
-
+  };
 
   render() {
-
-    const { colors } = this.props.theme;
+    const {colors} = this.props.theme;
 
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-        { !isEmpty(this.state.result) ?       
-        <Snackbar
-          style={{ marginBottom: 120, zIndex: 10 }}
-          visible={this.state.visible}
-          onDismiss={() => this.setState({ visible: false })}
-          // duration={1000}
-          action={{
-            label: 'Dismiss',
-            onPress: () => {
-              this.setState({
-                visible: false
-              })
-            },
-          }}
-        >
-          {this.state.result}
-        </Snackbar> : false }
-       
-        <Navigator screenProps={{ theme: this.props.theme }}/>
-      </View>
+      <View style={{flex: 1, backgroundColor: colors.background}}>
+        {!isEmpty(this.state.result) ? (
+          <Snackbar
+            style={{marginBottom: 120, zIndex: 10}}
+            visible={this.state.visible}
+            onDismiss={() => this.setState({visible: false})}
+            // duration={1000}
+            action={{
+              label: 'Dismiss',
+              onPress: () => {
+                this.setState({
+                  visible: false,
+                });
+              },
+            }}>
+            {this.state.result}
+          </Snackbar>
+        ) : (
+          false
+        )}
 
-    )
+        <Navigator screenProps={{theme: this.props.theme}} />
+      </View>
+    );
   }
 }
 
-
 const mapStateToProps = state => ({
-  result: state.playerState.result
+  result: state.playerState.result,
 });
 
 export default connect(mapStateToProps)(withTheme(RootScreen));

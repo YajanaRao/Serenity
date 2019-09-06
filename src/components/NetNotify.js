@@ -9,18 +9,17 @@ class NetNotify extends PureComponent {
     this.state = {
       isConnected: true,
     };
-    this.unsubscribe; 
+    this.unsubscribe;
   }
 
   componentDidMount() {
     this.unsubscribe = NetInfo.addEventListener(state => {
-        this.handleConnectivityChange(state);
+      this.handleConnectivityChange(state);
     });
   }
 
   checkNetInfo = () => {
     NetInfo.fetch().then(state => {
-      console.log('Is connected?', state.isConnected);
       this.setState({
         isConnected: state.isConnected,
       });

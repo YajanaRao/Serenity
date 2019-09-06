@@ -1,5 +1,4 @@
-import { createStackNavigator } from 'react-navigation';
-import { DarkTheme } from 'react-native-paper';
+import {createStackNavigator} from 'react-navigation-stack';
 
 import Filter from '../shared/Filter';
 import Search from './Search';

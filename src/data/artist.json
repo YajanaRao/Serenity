@@ -1,6 +1,6 @@
 [
     {
-        "id": 8,
+        "id": "8",
         "artwork": "https://dl.dropboxusercontent.com/s/ghd53461yh33i5x/divine.jpg?dl=0",
         "album": "Divine",
         "artist": "Divine",
@@ -23,7 +23,7 @@
         ]
     },
     {
-        "id": 9,
+        "id": "9",
         "artwork": "https://dl.dropboxusercontent.com/s/tvzzaeaiq9neuq1/jb.jpg?dl=0",
         "album": "Justin Bieber",
         "artist": "Justin Bieber",
@@ -92,7 +92,7 @@
         ]
     },
     {
-        "id": 4,
+        "id": "4",
         "artwork": "https://dl.dropboxusercontent.com/s/aneyhupo0nii7h8/honey-singh.jpg?dl=0",
         "album": "Honey Singh",
         "artist": "Honey Singh",

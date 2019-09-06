@@ -18,7 +18,7 @@ import FastImage from "react-native-fast-image";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 import TrackContainer from '../../containers/TrackContainer';
-import Love from "../../components/Love";
+import LoveContainer from '../../containers/LoveContainer';
 // import ProgressBar from '../../components/ProgressBar';
 
 import {
@@ -61,10 +61,7 @@ class Player extends PureComponent {
         <View style={{backgroundColor: colors.background, flex: 1}}>
           <ScrollView>
             <View style={styles.container}>
-              <IconButton
-                icon="close"
-                onPress={this.props.navigation.goBack}
-              />
+              <IconButton icon="close" onPress={this.props.navigation.goBack} />
               {/* <IconButton
                             icon="more-vert"
                             onPress={() => this.props.navigation.goBack()}
@@ -95,7 +92,7 @@ class Player extends PureComponent {
                         <ProgressBar />
                     </View> */}
             <View style={styles.playerToolbox}>
-              <Love style={{width: 60}} track={this.props.active} />
+              <LoveContainer style={{width: 60}} track={this.props.active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
