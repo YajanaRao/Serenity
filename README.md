@@ -59,7 +59,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Newest releases with reviews - tracks and albums
 - Browsing by genre
 - Radio mode (automatically queue similar tracks)
-- Realtime lyrics
+- Real time lyrics
 - Browsing by popularity
 - Country-specific top lists
 - Listening suggestions (similar artists, albums, tracks)
