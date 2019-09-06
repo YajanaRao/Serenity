@@ -1,20 +1,20 @@
-
 # Serenity
 
 ## A React Native Music Player
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=YajanaRao/Serenity&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <img src="https://dl.dropboxusercontent.com/s/8fnqviwlsj2gefl/screenshot-2019-07-16_19.38.22.634.png?dl=0"
      alt="homepage"
-     height="490" 
+     height="490"
      width="270"
      style="float: left; margin-right: 10px;" />
 
 ## What is this?
+
 Serenity is a world class music player which focuses on giving wonder full experience to the user.
 
 ## Aspects Involved
@@ -22,13 +22,15 @@ Serenity is a world class music player which focuses on giving wonder full exper
 ### Music
 
 - In the words of Plato
-    > Music gives a soul to the universe, wings to the mind, flight to the imagination and life to everything. 
+
+  > Music gives a soul to the universe, wings to the mind, flight to the imagination and life to everything.
 
 - In the words of Billy Joel
-    > I think music in itself is healing. It’s an explosive expression of humanity. It’s something we are all touched by. No matter what culture we’re from, everyone loves music. 
+
+  > I think music in itself is healing. It’s an explosive expression of humanity. It’s something we are all touched by. No matter what culture we’re from, everyone loves music.
 
 - In the words of Albert Schweitzer
-    > There are two means of refuge from the miseries of life: music and cats.
+  > There are two means of refuge from the miseries of life: music and cats.
 
 ### Artificial Intelligence
 
@@ -37,8 +39,8 @@ Serenity is a world class music player which focuses on giving wonder full exper
 ### Awesome UI
 
 - > Beauty ain't always a little, cute colored flower. Beauty is anything where people be like, 'Damn.'
-- In the words of Yajana  
-    > When I admire the wonders of an Application or the beauty of the UI, my soul expands in the worship of the creator 
+- In the words of Yajana
+  > When I admire the wonders of an Application or the beauty of the UI, my soul expands in the worship of the creator
 
 ## Pre-alpha release
 
