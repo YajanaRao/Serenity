@@ -1,6 +1,5 @@
 import React from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {withNavigation} from 'react-navigation';
 import FastImage from 'react-native-fast-image';
 import {Surface, Subheading, Caption, IconButton} from 'react-native-paper';
 
