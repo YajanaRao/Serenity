@@ -10,8 +10,6 @@ import {
   withTheme,
   Subheading,
   Title,
-  Colors,
-  TouchableRipple,
   Divider,
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';

@@ -5,11 +5,11 @@ import FastImage from 'react-native-fast-image';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import NetNotify from '../../components/NetNotify';
-import Top20 from '../../data/top20.json';
-import Artist from '../../data/artist.json';
+import Top20Container from '../../containers/Top20Container';
+import ArtistContainer from '../../containers/ArtistContainer';
 import RecentContainer from '../../containers/RecentContainer';
 import QuoteContainer from '../../containers/QuoteContainer';
-import Popular from '../../components/Popular';
+import PopularContainer from '../../containers/PopularContainer';
 
 
 
@@ -30,18 +30,10 @@ class MainScreen extends React.PureComponent {
 
     };
 
-    navigateToSongs = (songs,artwork,title) => {
-      this.props.navigation.navigate('Songs', {
-        songs: songs,
-        img: artwork,
-        title: title,
-    })
-    }
+
 
     render() {
         const { colors } = this.props.theme
-
-        const { navigate } = this.props.navigation;
 
         return (
           <ScrollView
@@ -66,61 +58,11 @@ class MainScreen extends React.PureComponent {
               <QuoteContainer />
 
               <RecentContainer/>
-              <Popular navigate={this.navigateToSongs}/>
+              <PopularContainer/>
 
-              <Title style={styles.title}>Top 15</Title>
-              <FlatList
-                horizontal={true}
-                data={Top20}
-                keyExtractor={(item, index) => index.toString()}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={styles.item}
-                    onPress={() =>
-                      navigate('Songs', {
-                        songs: item.songs,
-                        img: item.artwork,
-                        title: item.album,
-                      })
-                    }>
-                    <FastImage
-                      source={{uri: item.artwork}}
-                      style={styles.photo}
-                    />
-                    <Paragraph numberOfLines={1}>
-                      {item.album}
-                    </Paragraph>
-                  </TouchableOpacity>
-                )}
-              />
+              <Top20Container/>
 
-              <Title style={styles.title}>Popular Artist</Title>
-              <FlatList
-                horizontal={true}
-                data={Artist}
-                keyExtractor={(item, index) => index.toString()}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={styles.item}
-                    onPress={() =>
-                      navigate('Songs', {
-                        songs: item.songs,
-                        img: item.artwork,
-                        title: item.album,
-                      })
-                    }>
-                    <FastImage
-                      source={{uri: item.artwork}}
-                      style={styles.artist}
-                    />
-                    <Paragraph numberOfLines={1}>
-                      {item.album}
-                    </Paragraph>
-                  </TouchableOpacity>
-                )}
-              />
+             <ArtistContainer/>
             </View>
           </ScrollView>
         );
@@ -150,10 +92,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 4
     },
-    artist: {
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        elevation: 1
-    }
+
 });

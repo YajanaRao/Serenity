@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import {loadTrackPlayer, playTrack} from '../actions/playerState';
-import isEmpty from 'lodash/isEmpty';
 import Track from '../components/Track';
 
 /*

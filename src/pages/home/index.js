@@ -1,5 +1,4 @@
-import {  createStackNavigator } from 'react-navigation';
-import {  DarkTheme } from 'react-native-paper';
+import {createStackNavigator} from 'react-navigation-stack';
 
 import SongScreen from '../shared/Songs';
 import MainScreen from './Main';

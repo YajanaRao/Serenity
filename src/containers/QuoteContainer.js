@@ -30,32 +30,7 @@ export default class QuoteContainer extends React.PureComponent {
 
   render() {
     if (this.state.isLoading || this.state.dataSource == 'undefined') {
-      return (
-        <Surface
-          style={{
-            flex: 1,
-            marginLeft: 12,
-            marginRight: 12,
-            marginTop: 10,
-          }}>
-          <LinearGradient
-            colors={['#B24592', '#F15F79']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            style={{
-              height: 200,
-              borderRadius: 4,
-              padding: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <IconButton icon="signal-wifi-off" />
-            <Title>Offline</Title>
-            <Subheading>Offline is the new luxury</Subheading>
-          </LinearGradient>
-          {/* <View style={{height: 200, borderRadius: 4, padding: 20}}></View> */}
-        </Surface>
-      );
+      return false
     }
 
     return (

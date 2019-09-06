@@ -22,8 +22,19 @@ class Playlist extends Component {
         return null
     }
 
+    navigateToSongs = () => {
+        if(!isEmpty(this.state.favorite)){
+            this.props.navigation.navigate('Songs', 
+                            { 
+                                songs: this.state.favorite, 
+                                img: "https://source.unsplash.com/collection/403065/120x120", 
+                                title: "Favorites" 
+                            }
+                        )
+        }
+    }
+
     render() {
-        const { navigate } = this.props.navigation;
         const { colors } = this.props.theme;
         return (
             <View style={{ flex: 1, backgroundColor: colors.background }}>
@@ -35,16 +46,7 @@ class Playlist extends Component {
                     title="Favorite"
                     description={ size(this.state.favorite)+" Favorite Songs"}
                     left={props => <List.Icon {...props} icon="favorite" />}
-                    onPress={() => { 
-                        isEmpty(this.state.favorite) ? null :  
-                        navigate('Songs', 
-                            { 
-                                songs: this.state.favorite, 
-                                img: "https://source.unsplash.com/collection/403065/120x120", 
-                                title: "Favorites" 
-                            }
-                        )
-                    }}
+                    onPress={this.navigateToSongs}
                 />
                 <List.Item
                     title="My Fav"
