@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, ScrollView, FlatList, StyleSheet, RefreshControl } from 'react-native';
+import { View, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Title, Button, withTheme, IconButton, Divider , Surface} from 'react-native-paper';
+import { Title, Button, withTheme, IconButton} from 'react-native-paper';
 import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
-import { SwipeListView } from 'react-native-swipe-list-view';
 
-import TrackContainer from '../../containers/TrackContainer';
-import { addToQueue, addToFavorite } from '../../actions/playerState';
+import { addToQueue } from '../../actions/playerState';
 import { filterAlbumSongs, filterArtistSongs } from '../../actions/mediaStore';
+import SwipeListContainer from '../../containers/SwipeListContainer';
 
 class Filter extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -131,39 +130,7 @@ class Filter extends Component {
                     Play All
                   </Button>
                 </View>
-                <SwipeListView
-                  data={this.state.files}
-                  ItemSeparatorComponent={() => <Divider inset={true} />}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({item}) => <TrackContainer track={item} />}
-                  renderHiddenItem={({item}) => (
-                    <Surface style={styles.rowBack}>
-                      <IconButton
-                        icon="add-to-queue"
-                        onPress={() => this.props.addToQueue(item)}
-                      />
-                      <IconButton
-                        icon="favorite"
-                        onPress={() => this.props.addToFavorite(item)}
-                      />
-                    </Surface>
-                  )}
-                  refreshControl={
-                    <RefreshControl
-                      refreshing={this.state.refreshing}
-                      onRefresh={this.fetchData}
-                    />
-                  }
-                  leftOpenValue={75}
-                  rightOpenValue={-75}
-                />
-                {/* <FlatList
-                            data={this.state.files}
-                            
-                            renderItem={({ item }) =>
-                                <Track track={item} />
-                            }
-                        /> */}
+                <SwipeListContainer data={this.state.files} fetchData={this.fetchData} />
                 <View style={{height: 100}} />
               </View>
             </ScrollView>
@@ -176,7 +143,7 @@ const mapStateToProps = state => ({
     files: state.mediaStore.files
 })
 
-export default connect(mapStateToProps, { addToQueue, filterAlbumSongs, filterArtistSongs, addToFavorite })(withTheme(Filter));
+export default connect(mapStateToProps, { addToQueue, filterAlbumSongs, filterArtistSongs })(withTheme(Filter));
 
 const styles = StyleSheet.create({
   container: {
@@ -184,15 +151,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     marginTop: 10
-  },
-  rowBack: {
-    alignItems: "center",
-    // backgroundColor: '#DDD',
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingLeft: 15,
-    paddingRight: 15
   },
   artCover: { width: 200, height: 200, backgroundColor: "#d7d1c9" }
 });

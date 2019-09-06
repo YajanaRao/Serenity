@@ -28,9 +28,6 @@ var subscription = null;
 
 export const setUpTrackPlayer = () => dispatch => {
   try {
-    if (__DEV__) {
-      Analytics.setEnabled(false);
-    }
     subscription = DeviceEventEmitter.addListener('media', function(event) {
       // handle event
       console.log('from event listener', event);
@@ -56,7 +53,6 @@ export const setUpTrackPlayer = () => dispatch => {
 export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
   try {
     url = track.url ? track.url : track.path;
-    console.log(url);
     if (url) {
       RNAudio.load(url).then(() => {
         if (playOnLoad) {

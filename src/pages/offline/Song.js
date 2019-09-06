@@ -9,12 +9,12 @@ import {
 import {connect} from 'react-redux';
 import {View, RefreshControl, StyleSheet, ScrollView} from 'react-native';
 import {isEqual, isEmpty, isArray} from 'lodash';
-import {SwipeListView} from 'react-native-swipe-list-view';
 
 import {getOfflineSongs} from '../../actions/mediaStore';
 import {addToQueue} from '../../actions/playerState';
 import TrackContainer from '../../containers/TrackContainer';
 import Blank from '../../components/Blank';
+import { FlatList } from 'react-native-gesture-handler';
 
 class Song extends React.Component {
   constructor(props) {
@@ -73,31 +73,17 @@ class Song extends React.Component {
             </Button>
           </View>
           <Divider />
-          <SwipeListView
+          <FlatList
             data={this.state.songs}
             renderItem={({item}) => <TrackContainer track={item} />}
             ItemSeparatorComponent={() => <Divider inset={true} />}
             keyExtractor={(item, index) => index.toString()}
-            renderHiddenItem={({item}) => (
-              <Surface style={styles.rowBack}>
-                <IconButton
-                  icon="add-to-queue"
-                  onPress={() => this.props.addToQueue(item)}
-                />
-                <IconButton
-                  icon="favorite"
-                  onPress={() => this.props.addToFavorite(item)}
-                />
-              </Surface>
-            )}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
-                onRefresh={() => this.fetchData()}
+                onRefresh={this.fetchData}
               />
             }
-            leftOpenValue={75}
-            rightOpenValue={-75}
           />
         </ScrollView>
       );

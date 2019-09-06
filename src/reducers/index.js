@@ -126,9 +126,10 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       };
 
     case 'ADD_TO_FAVORITE':
+      
       return {
         ...state,
-        favorite: union(state.favorite, action.payload),
+        favorite: union(state.favorite, isArray(action.payload) ? action.payload : [action.payload]),
         result: `Added ${action.payload.title} to favorites`,
       };
     case 'REMOVE_FROM_FAVORITE':
