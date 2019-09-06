@@ -1,6 +1,4 @@
 import React from 'react';
-import {Title, Surface} from 'react-native-paper';
-import {View, StyleSheet} from 'react-native';
 import AlbumGallery from '../components/AlbumGallery';
 import { withNavigation } from 'react-navigation';
 
@@ -12,7 +10,9 @@ class PopularContainer extends React.PureComponent {
 
   componentDidMount() {
     try {
-      fetch('https://api.myjson.com/bins/ujgz3')
+      fetch(
+        'https://dl.dropboxusercontent.com/s/nrd1fi5lb3i330i/media.json?dl=0',
+      )
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
@@ -49,9 +49,3 @@ class PopularContainer extends React.PureComponent {
 
 export default withNavigation(PopularContainer);
 
-const styles = StyleSheet.create({
-  title: {
-    paddingTop: 10,
-    textAlign: 'center',
-  },
-});

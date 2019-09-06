@@ -3,7 +3,8 @@ import React from "react";
 import {
   withTheme,
   Divider,
-  List
+  List, 
+  Avatar
 } from "react-native-paper";
 import { View, StyleSheet, RefreshControl } from "react-native";
 
@@ -48,17 +49,14 @@ class Artist extends React.PureComponent {
   }
 
   render() {
-    const {
-      theme: {
-        colors: { background }
-      }
-    } = this.props;
+
+    const { colors } = this.props.theme;
 
     const { navigate } = this.props.navigation;
 
     if (!isEmpty(this.state.artists)) {
       return (
-        <View style={{ flex: 1, backgroundColor: background }}>
+        <View style={{flex: 1, backgroundColor: colors.background}}>
           <FlatList
             data={this.state.artists}
             ItemSeparatorComponent={() => <Divider inset={true} />}
@@ -69,15 +67,23 @@ class Artist extends React.PureComponent {
               />
             }
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <List.Item
                 title={item.artist}
-                description={item.numberOfSongs + " Songs"}
-                left={props => <List.Icon {...props} icon="person" />}
+                description={item.numberOfSongs + ' Songs'}
+                left={props => (
+                  <Avatar.Text
+                    {...props}
+                    // style={{backgroundColor: colors.surface}}
+                    // icon="person"
+                    // size={24}
+                    label={item.artist.charAt(0)}
+                  />
+                )}
                 onPress={() =>
-                  navigate("Filter", {
+                  navigate('Filter', {
                     artist: item.artist,
-                    title: item.artist
+                    title: item.artist,
                   })
                 }
               />

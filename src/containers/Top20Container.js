@@ -10,7 +10,9 @@ class Top20Container extends React.PureComponent {
 
   componentDidMount() {
     try {
-      fetch('https://api.myjson.com/bins/y857j')
+      fetch(
+        'https://dl.dropboxusercontent.com/s/1yclr05vm4l49ws/top20.json?dl=0',
+      )
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
