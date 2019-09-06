@@ -76,7 +76,7 @@ class Artist extends React.PureComponent {
                     {...props}
                     // style={{backgroundColor: colors.surface}}
                     // icon="person"
-                    // size={24}
+                    // size={44}
                     label={item.artist.charAt(0)}
                   />
                 )}
