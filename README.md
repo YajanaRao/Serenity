@@ -4,6 +4,7 @@
 ## A React Native Music Player
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=YajanaRao/Serenity&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
