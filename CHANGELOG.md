@@ -14,8 +14,8 @@
 ## 22 May 2019
 
 1. Layout animation in Track for removing an item from list - (Not Stable)
-2. Working on player animation 
-    * Resolving the issue with player to minimize and maximize performance and handling player component hiding.
+2. Working on player animation
+   - Resolving the issue with player to minimize and maximize performance and handling player component hiding.
 
 ## 13 June 2019
 
@@ -27,5 +27,5 @@
 
 1. Material design guide lines
 2. Updated track to enable and disable swiping
-    `swipeable`
+   `swipeable`
 3. Found issue with offline tracks
