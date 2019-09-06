@@ -1,44 +1,44 @@
-import React, { PureComponent } from 'react';
-import { withTheme, Searchbar } from "react-native-paper";
-import { View } from 'react-native';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {withTheme, Searchbar} from 'react-native-paper';
+import {View} from 'react-native';
+import {connect} from 'react-redux';
 
-import { updateQuery } from '../actions/mediaStore';
+import {updateQuery} from '../actions/mediaStore';
 
 class Header extends PureComponent {
+  state = {
+    query: '',
+  };
 
-    state = {
-        query: ''
-    }
+  handleChange = text => {
+    this.setState({query: text});
+    this.props.updateQuery(text);
+  };
 
-    handleChange = (text) => {
-        this.setState({ query: text }); 
-        this.props.updateQuery(text)
-    }
+  handleFocus = () => this.setState({isFocused: true});
 
-    handleFocus = () => this.setState({ isFocused: true })
+  handleBlur = () => this.setState({isFocused: false});
 
-    handleBlur = () => this.setState({ isFocused: false })
-    
+  render() {
+    const {colors} = this.props.theme;
 
-    render() {
-        const { colors } = this.props.theme;
-
-        return (
-            <View style={{ backgroundColor: colors.background }}>
-                <Searchbar
-                    onFocus={this.handleFocus}
-                    placeholder="Artists, songs or podcasts"
-                    onChangeText={this.handleChange}
-                    value={this.state.query}
-                    icon="search"
-                    style={{ margin: 10 }}
-                    onBlur={this.handleBlur} 
-                />
-            </View>
-        )
-    }
+    return (
+      <View style={{backgroundColor: colors.background}}>
+        <Searchbar
+          onFocus={this.handleFocus}
+          placeholder="Artists, songs or podcasts"
+          onChangeText={this.handleChange}
+          value={this.state.query}
+          icon="search"
+          style={{margin: 10}}
+          onBlur={this.handleBlur}
+        />
+      </View>
+    );
+  }
 }
 
-
-export default connect(null, { updateQuery })(withTheme(Header));
+export default connect(
+  null,
+  {updateQuery},
+)(withTheme(Header));

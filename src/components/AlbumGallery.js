@@ -30,7 +30,7 @@ const AlbumGallery = props => {
             height: 120,
             marginLeft: 12,
             marginBottom: 12,
-            elevation: 1
+            elevation: 1,
           }}
         />
       )}

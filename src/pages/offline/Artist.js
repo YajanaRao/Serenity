@@ -1,29 +1,23 @@
-import { FlatList } from "react-native-gesture-handler";
-import React from "react";
-import {
-  withTheme,
-  Divider,
-  List, 
-  Avatar
-} from "react-native-paper";
-import { View, StyleSheet, RefreshControl } from "react-native";
+import {FlatList} from 'react-native-gesture-handler';
+import React from 'react';
+import {withTheme, Divider, List, Avatar} from 'react-native-paper';
+import {View, StyleSheet, RefreshControl} from 'react-native';
+import {isEqual, isEmpty} from 'lodash';
+import {connect} from 'react-redux';
 
-import { isEqual, isEmpty } from "lodash";
-import { connect } from "react-redux";
-
-import { getOfflineArtists } from "../../actions/mediaStore";
-import Blank from "../../components/Blank";
+import {getOfflineArtists} from '../../actions/mediaStore';
+import Blank from '../../components/Blank';
 
 class Artist extends React.PureComponent {
   static navigationOptions = {
-    header: null
+    header: null,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       artists: [],
-      refreshing: false
+      refreshing: false,
     };
   }
 
@@ -31,7 +25,7 @@ class Artist extends React.PureComponent {
     if (!isEqual(props.artists, state.artists)) {
       return {
         artists: props.artists,
-        refreshing: false
+        refreshing: false,
       };
     }
     return null;
@@ -39,7 +33,7 @@ class Artist extends React.PureComponent {
 
   fetchData = () => {
     this.setState({
-      refreshing: true
+      refreshing: true,
     });
     this.props.getOfflineArtists();
   };
@@ -49,10 +43,9 @@ class Artist extends React.PureComponent {
   }
 
   render() {
+    const {colors} = this.props.theme;
 
-    const { colors } = this.props.theme;
-
-    const { navigate } = this.props.navigation;
+    const {navigate} = this.props.navigation;
 
     if (!isEmpty(this.state.artists)) {
       return (
@@ -93,24 +86,24 @@ class Artist extends React.PureComponent {
       );
     }
     return (
-      <Blank text={"No offline Artists found.."} fetchData={this.fetchData} />
+      <Blank text={'No offline Artists found..'} fetchData={this.fetchData} />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  artists: state.mediaStore.artists
+  artists: state.mediaStore.artists,
 });
 
 export default connect(
   mapStateToProps,
-  { getOfflineArtists }
+  {getOfflineArtists},
 )(withTheme(Artist));
 
 const styles = StyleSheet.create({
   icons: {
     width: 60,
     height: 60,
-    borderRadius: 30
-  }
+    borderRadius: 30,
+  },
 });

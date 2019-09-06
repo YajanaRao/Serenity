@@ -30,7 +30,7 @@ export default class QuoteContainer extends React.PureComponent {
 
   render() {
     if (this.state.isLoading || this.state.dataSource == 'undefined') {
-      return false
+      return false;
     }
 
     return (

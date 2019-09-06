@@ -1,6 +1,6 @@
 import React from 'react';
 import AlbumGallery from '../components/AlbumGallery';
-import { withNavigation } from 'react-navigation';
+import {withNavigation} from 'react-navigation';
 
 class PopularContainer extends React.PureComponent {
   constructor(props) {
@@ -48,4 +48,3 @@ class PopularContainer extends React.PureComponent {
 }
 
 export default withNavigation(PopularContainer);
-
