@@ -104,7 +104,9 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         status: action.status,
-        history: isEmpty(action.track) ? state.history : concat([state.active], state.history),
+        history: isEmpty(action.track)
+          ? state.history
+          : concat([state.active], state.history),
         active: isEmpty(action.track) ? state.active : action.track,
         queue: isEmpty(state.queue) ? [] : drop(state.queue),
       };
@@ -114,7 +116,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         status: action.status,
         active: isEmpty(state.history) ? state.active : head(state.history),
-        history: isEmpty(state.history) ? [] : drop(state.history), 
+        history: isEmpty(state.history) ? [] : drop(state.history),
       };
 
     case 'COMPLETED':

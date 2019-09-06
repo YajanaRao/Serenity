@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {View, ScrollView, StyleSheet, RefreshControl} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import {
   Subheading,
   FAB,
