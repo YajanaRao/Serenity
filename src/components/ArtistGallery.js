@@ -6,7 +6,7 @@ import FastImage from 'react-native-fast-image';
 const ArtistGallery = props => {
   return (
     <View>
-      <Title style={styles.title}>Popular Artist</Title>
+      <Title style={styles.title}>{props.title}</Title>
       {props.data ? (
         <FlatList
           horizontal={true}

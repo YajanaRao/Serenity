@@ -3,8 +3,6 @@ import { List, withTheme } from 'react-native-paper';
 import { StyleSheet, ScrollView, View, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import Media from '../../data/media.json';
-
 
 class Album extends React.Component {
     static navigationOptions = {
@@ -24,7 +22,7 @@ class Album extends React.Component {
         return (
             <View style={{ flex: 1, backgroundColor: background }}>
                <ScrollView contentContainerStyle={styles.content}>
-                    <FlatList
+                    {/* <FlatList
                         data={Media}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) => (
@@ -38,7 +36,7 @@ class Album extends React.Component {
                                 onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                             />
                         )}
-                    />
+                    /> */}
                 </ScrollView>
            </View>
         );

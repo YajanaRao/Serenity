@@ -1,8 +1,8 @@
 import React from 'react';
-import ArtstGallery from '../components/ArtistGallery';
+import ArtistGallery from '../components/ArtistGallery';
 import {withNavigation} from 'react-navigation';
 
-class Top20Container extends React.PureComponent {
+class ArtistContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {isLoading: true};
@@ -10,7 +10,9 @@ class Top20Container extends React.PureComponent {
 
   componentDidMount() {
     try {
-      fetch('https://api.myjson.com/bins/lujjj')
+      fetch(
+        'https://dl.dropboxusercontent.com/s/ju7jj3uttzw1vow/artist.json?dl=0',
+      )
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
@@ -35,8 +37,8 @@ class Top20Container extends React.PureComponent {
   };
   render() {
     return (
-      <ArtstGallery
-        title={'Popular Albums'}
+      <ArtistGallery
+        title={'Popular Artists'}
         data={this.state.data}
         navigateToSongs={this.navigateToSongs}
       />
@@ -44,4 +46,4 @@ class Top20Container extends React.PureComponent {
   }
 }
 
-export default withNavigation(Top20Container);
+export default withNavigation(ArtistContainer);
