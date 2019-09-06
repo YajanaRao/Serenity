@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import {connect} from 'react-redux';
-import {isEqual, isEmpty, isString} from 'lodash';
-import FastImage from 'react-native-fast-image';
-import {Surface, Subheading, Caption, IconButton} from 'react-native-paper';
+import {isEmpty} from 'lodash';
 
 import {
   playTrack,
@@ -74,19 +71,3 @@ export default connect(
   },
 )(withNavigation(MiniPlayer));
 
-const styles = StyleSheet.create({
-  playBar: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    padding: 8,
-    elevation: 0,
-  },
-  artwork: {
-    width: 50,
-    height: 50,
-    borderRadius: 4,
-    backgroundColor: '#d7d1c9',
-  },
-});
