@@ -16,7 +16,6 @@ import isEmpty from 'lodash/isEmpty';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {SwipeListView} from 'react-native-swipe-list-view';
-import LinearGradient from 'react-native-linear-gradient';
 
 import TrackContainer from '../../containers/TrackContainer';
 import LoveContainer from '../../containers/LoveContainer';
@@ -32,6 +31,7 @@ import {
   getQueue,
   getTrackStatus,
 } from '../../actions/playerState';
+import DefaultImage from '../../components/DefaultImage';
 
 class Player extends PureComponent {
   constructor(props) {
@@ -79,14 +79,7 @@ class Player extends PureComponent {
                   style={[styles.artCover, {backgroundColor: colors.surface}]}
                 />
               ) : (
-                <LinearGradient
-                  colors={['#2980B9', '#6DD5FA', '#FFFFFF']}
-                  style={styles.artCover}>
-                  <FastImage
-                    source={require('../../assets/note.png')}
-                    style={styles.artCover}
-                  />
-                </LinearGradient>
+                <DefaultImage style={styles.artCover} />
               )}
             </View>
             <View style={styles.centerContainer}>

@@ -2,6 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Surface, Subheading, Caption, IconButton} from 'react-native-paper';
+import DefaultImage from './DefaultImage';
 
 const PlayerBar = props => {
   return (
@@ -16,10 +17,7 @@ const PlayerBar = props => {
             style={styles.artwork}
           />
         ) : (
-          <FastImage
-            source={require('../assets/note.png')}
-            style={styles.artwork}
-          />
+          <DefaultImage style={styles.artwork} />
         )}
         <View
           style={{
