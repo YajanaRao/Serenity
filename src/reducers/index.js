@@ -44,7 +44,7 @@ const INITIAL_STORE = {
   files: [],
 };
 
-// FIXME: Javascript implimentation
+// FIXME: Javascript implementation
 
 const mediaStoreReducer = (state = INITIAL_STORE, action) => {
   switch (action.type) {
@@ -84,7 +84,7 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
 };
 
 // TODO:
-// Normalise queue
+// Normalize queue
 
 const playerStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -126,10 +126,12 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       };
 
     case 'ADD_TO_FAVORITE':
-      
       return {
         ...state,
-        favorite: union(state.favorite, isArray(action.payload) ? action.payload : [action.payload]),
+        favorite: union(
+          state.favorite,
+          isArray(action.payload) ? action.payload : [action.payload],
+        ),
         result: `Added ${action.payload.title} to favorites`,
       };
     case 'REMOVE_FROM_FAVORITE':

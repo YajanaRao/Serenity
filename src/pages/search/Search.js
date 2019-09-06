@@ -6,12 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import {
-  withTheme,
-  Subheading,
-  Title,
-  Divider,
-} from 'react-native-paper';
+import {withTheme, Subheading, Title, Divider} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import {connect} from 'react-redux';
 import {isEmpty, isEqual} from 'lodash';
@@ -60,7 +55,7 @@ class Search extends Component {
           </View>
         )}
 
-        <Title style={styles.headline}>All Moods & Geners</Title>
+        <Title style={styles.headline}>All Moods & Genres</Title>
         <View style={styles.container}>
           <FlatList
             data={Genre}
@@ -69,7 +64,7 @@ class Search extends Component {
             renderItem={({item}) => (
               <TouchableOpacity
                 style={{
-                  flex: 1
+                  flex: 1,
                 }}
                 onPress={() =>
                   navigate('Filter', {

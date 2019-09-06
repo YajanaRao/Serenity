@@ -7,6 +7,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import {addToQueue} from '../../actions/playerState';
 import SwipeListContainer from '../../containers/SwipeListContainer';
+import DefaultImage from '../../components/DefaultImage';
 
 class Songs extends Component {
   static navigationOptions = ({navigation}) => {
@@ -34,10 +35,7 @@ class Songs extends Component {
     const {navigation} = this.props;
 
     const songs = navigation.getParam('songs', []);
-    const albumImage = navigation.getParam(
-      'img',
-      'https://source.unsplash.com/collection/4799534/120x120',
-    );
+    const albumImage = navigation.getParam('img');
     const title = navigation.getParam('title', 'No Title');
 
     const {colors} = this.props.theme;
@@ -47,8 +45,11 @@ class Songs extends Component {
         <ScrollView>
           <View style={styles.scrollViewContent}>
             <View style={styles.coverContainer}>
-              {/* <Card.Cover source={{ uri: albumImage }} style={{ width: 250, height: 250, borderRadius: 4 }} /> */}
-              <FastImage source={{uri: albumImage}} style={styles.artCover} />
+              {albumImage ? (
+                <FastImage source={{uri: albumImage}} style={styles.artCover} />
+              ) : (
+                <DefaultImage style={styles.artCover} />
+              )}
               {/* <Headline style={styles.title}>{title}</Headline> */}
             </View>
             <View style={styles.titleContainer}>
@@ -99,6 +100,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 8,
   },
-  artCover: {width: 200, height: 200, backgroundColor: '#f7b71d'},
+  artCover: {width: 200, height: 200},
   titleContainer: {alignItems: 'center', justifyContent: 'center', margin: 10},
 });
