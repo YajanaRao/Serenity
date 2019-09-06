@@ -3,7 +3,6 @@ package com.serenity;
 import android.app.Application;
 
 import com.facebook.react.PackageList;
-import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
 
 
