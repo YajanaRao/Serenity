@@ -16,6 +16,7 @@ import isEmpty from 'lodash/isEmpty';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {SwipeListView} from 'react-native-swipe-list-view';
+import LinearGradient from 'react-native-linear-gradient';
 
 import TrackContainer from '../../containers/TrackContainer';
 import LoveContainer from '../../containers/LoveContainer';
@@ -78,10 +79,14 @@ class Player extends PureComponent {
                   style={[styles.artCover, {backgroundColor: colors.surface}]}
                 />
               ) : (
-                <FastImage
-                  source={require('../../assets/note.png')}
-                  style={styles.artCover}
-                />
+                <LinearGradient
+                  colors={['#2980B9', '#6DD5FA', '#FFFFFF']}
+                  style={styles.artCover}>
+                  <FastImage
+                    source={require('../../assets/note.png')}
+                    style={styles.artCover}
+                  />
+                </LinearGradient>
               )}
             </View>
             <View style={styles.centerContainer}>
@@ -146,7 +151,7 @@ class Player extends PureComponent {
                         color={colors.error}
                         onPress={() => this.props.removeFromQueue(item)}
                       />
-                      <Love track={this.props.active} />
+                      <LoveContainer track={this.props.active} />
                     </Surface>
                   )}
                   leftOpenValue={75}
@@ -199,6 +204,7 @@ const styles = StyleSheet.create({
   centerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 8,
   },
   rowContainer: {
     flexDirection: 'row',
