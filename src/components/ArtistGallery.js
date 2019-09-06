@@ -2,6 +2,7 @@ import React from 'react';
 import {withTheme, Paragraph, Title, Surface} from 'react-native-paper';
 import {StyleSheet, View, TouchableOpacity, FlatList} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import ArtistCard from './ArtistCard';
 
 const ArtistGallery = props => {
   return (
@@ -14,14 +15,14 @@ const ArtistGallery = props => {
           keyExtractor={(item, index) => index.toString()}
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => (
-            <TouchableOpacity
-              style={styles.item}
+            <ArtistCard
               onPress={() =>
                 props.navigateToSongs(item.songs, item.artwork, item.album)
-              }>
-              <FastImage source={{uri: item.artwork}} style={styles.artist} />
-              <Paragraph numberOfLines={1}>{item.album}</Paragraph>
-            </TouchableOpacity>
+              }
+              songs={item.songs}
+              artwork={item.artwork}
+              album={item.album}
+            />
           )}
         />
       ) : (
