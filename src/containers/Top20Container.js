@@ -5,7 +5,7 @@ import AlbumGallery from '../components/AlbumGallery';
 class Top20Container extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {isLoading: true};
+    this.state = {isLoading: true, data: []};
   }
 
   componentDidMount() {

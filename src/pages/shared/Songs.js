@@ -24,7 +24,9 @@ class Songs extends Component {
   };
 
   addToQueue = () => {
-    this.props.addToQueue(this.props.navigation.getParam('songs'));
+    let songs = this.props.navigation.getParam('songs');
+    console.log(songs);
+    this.props.addToQueue(songs);
   };
 
   componentDidMount() {
@@ -62,7 +64,7 @@ class Songs extends Component {
                 {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download
                             </Button> */}
-                <Button mode="contained" onPress={this.props.addToQueue}>
+                <Button mode="contained" onPress={this.addToQueue}>
                   Play All
                 </Button>
               </View>

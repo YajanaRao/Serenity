@@ -1,15 +1,19 @@
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import FastImage from 'react-native-fast-image';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PropTypes from 'prop-types'
+
 
 const DefaultImage = props => {
   return (
-    <LinearGradient
-      colors={['#00B4DB', '#0083B0']}
-      style={props.style}>
-      <FastImage source={require('../assets/note.png')} style={props.style} />
+    <LinearGradient colors={['#11998e', '#38ef7d']} style={props.style}>
+      <Icon name="music" color="#ffffff" size={props.style.height} />
     </LinearGradient>
   );
+};
+
+DefaultImage.propTypes = {
+  style: PropTypes.object,
 };
 
 export default DefaultImage;

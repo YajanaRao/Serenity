@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import {
   Subheading,
@@ -7,33 +7,27 @@ import {
   IconButton,
   Title,
   Divider,
-  Surface,
   ActivityIndicator,
 } from 'react-native-paper';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
-import isEmpty from 'lodash/isEmpty';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
-import {SwipeListView} from 'react-native-swipe-list-view';
+import PropTypes from 'prop-types';
 
-import TrackContainer from '../../containers/TrackContainer';
+import QueueContainer from '../../containers/QueueContainer';
 import LoveContainer from '../../containers/LoveContainer';
 // import ProgressBar from '../../components/ProgressBar';
 
 import {
   playTrack,
-  clearQueue,
   skipToNext,
   skipToPrevious,
   pauseTrack,
-  removeFromQueue,
-  getQueue,
-  getTrackStatus,
 } from '../../actions/playerState';
 import DefaultImage from '../../components/DefaultImage';
 
-class Player extends PureComponent {
+class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,11 +41,6 @@ class Player extends PureComponent {
     } else {
       this.props.playTrack();
     }
-  };
-
-  clearPlaylist = () => {
-    this.props.clearQueue();
-    this.props.navigation.goBack();
   };
 
   close = () => {
@@ -120,44 +109,7 @@ class Player extends PureComponent {
             </View> */}
             <Divider />
 
-            {!isEmpty(this.props.queue) ? (
-              <View>
-                <View style={styles.rowContainer}>
-                  <Title style={{padding: 10}}>Queue</Title>
-                  <IconButton
-                    icon="delete"
-                    // size={40}
-                    onPress={this.clearPlaylist}
-                  />
-                </View>
-
-                <Divider />
-                <SwipeListView
-                  data={this.props.queue}
-                  renderItem={({item}) => <TrackContainer track={item} />}
-                  ItemSeparatorComponent={() => <Divider inset={true} />}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderHiddenItem={({item}) => (
-                    <Surface style={styles.rowBack}>
-                      <IconButton
-                        icon="delete"
-                        color={colors.error}
-                        onPress={() => this.props.removeFromQueue(item)}
-                      />
-                      <LoveContainer track={this.props.active} />
-                    </Surface>
-                  )}
-                  leftOpenValue={75}
-                  rightOpenValue={-75}
-                  closeOnRowPress={true}
-                  closeOnRowOpen={true}
-                  useNativeDriver={true}
-                />
-              </View>
-            ) : (
-              false
-            )}
-
+            <QueueContainer/>
             <View style={{height: 100}} />
           </ScrollView>
         </View>
@@ -167,8 +119,16 @@ class Player extends PureComponent {
   }
 }
 
+Player.propTypes = {
+  status: PropTypes.string.isRequired,
+  active: PropTypes.object.isRequired,
+  pauseTrack: PropTypes.func.isRequired,
+  playTrack: PropTypes.func.isRequired,
+  skipToNext: PropTypes.func.isRequired,
+  skipToPrevious: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
-  queue: state.playerState.queue,
   active: state.playerState.active,
   status: state.playerState.status,
 });
@@ -178,12 +138,8 @@ export default connect(
   {
     playTrack,
     pauseTrack,
-    clearQueue,
     skipToNext,
     skipToPrevious,
-    removeFromQueue,
-    getQueue,
-    getTrackStatus,
   },
 )(withTheme(Player));
 

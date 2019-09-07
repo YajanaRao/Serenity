@@ -7,7 +7,9 @@ import Quote from '../components/Quote';
 export default class QuoteContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {isLoading: true};
+    this.state = {
+      dataSource: {}
+    }
   }
 
   componentDidMount() {
@@ -16,7 +18,6 @@ export default class QuoteContainer extends React.PureComponent {
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
-            isLoading: false,
             dataSource: responseJson.contents.quotes[0],
           });
         })
@@ -29,7 +30,7 @@ export default class QuoteContainer extends React.PureComponent {
   }
 
   render() {
-    if (this.state.isLoading || this.state.dataSource == 'undefined') {
+    if (this.state.dataSource == 'undefined') {
       return false;
     }
 
