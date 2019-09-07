@@ -91,8 +91,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
     case 'STATUS':
       return {
         ...state,
-        status: action.status,
-        result: `${action.status} ${state.active.title}`,
+        status: action.status
       };
     case 'LOAD':
       return {
@@ -158,7 +157,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
             state.queue,
             !isArray(action.payload) ? [action.payload] : action.payload,
           ),
-          result: `Added ${size(action.payload)} songs to queue`,
+          result: `Playing songs from the queue`,
         };
       }
       return {

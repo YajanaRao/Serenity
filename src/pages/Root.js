@@ -8,7 +8,7 @@ import {PermissionsAndroid} from 'react-native';
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
 import {connect} from 'react-redux';
-import Crashes from 'appcenter-crashes';
+import Crashes, {UserConfirmation} from 'appcenter-crashes';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -133,17 +133,29 @@ class RootScreen extends React.Component {
   };
 
   checkForCrash = async () => {
+    await Crashes.setEnabled(true);
     const didCrash = await Crashes.hasCrashedInLastSession();
     if (didCrash) {
-      // const crashReport = await Crashes.lastSessionCrashReport();
+      const crashReport = await Crashes.lastSessionCrashReport();
+      const hadLowMemoryWarning = await Crashes.hasReceivedMemoryWarningInLastSession();
       Crashes.setListener({
         shouldProcess: function(report) {
           return true; // return true if the crash report should be processed, otherwise false.
         },
 
+        onSendingSucceeded: function(report) {
+          // called when crash report sent successfully.
+          console.log("success");
+        },
+        onSendingFailed: function(report) {
+          // called when crash report could not be sent.
+          console.log("failed");
+        },
+
         // Other callbacks must also be defined at the same time if used.
         // Default values are used if a method with return parameter is not defined.
       });
+      Crashes.notifyUserConfirmation(UserConfirmation.SEND);
     }
   };
 
@@ -161,11 +173,7 @@ class RootScreen extends React.Component {
 
   componentDidMount = () => {
     this.requestPermission();
-
-    // if(this.props.active || this.props.queue){
-    //   this.props.setUpTrackPlayer();
-    //   this.props.initTrackPlayer(this.props.queue, this.props.active);
-    // }
+    this.checkForCrash();
   };
 
   render() {

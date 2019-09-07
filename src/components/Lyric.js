@@ -5,7 +5,6 @@ import {
   Portal,
   IconButton,
   Divider,
-  Text,
   Paragraph,
   Button,
 } from 'react-native-paper';

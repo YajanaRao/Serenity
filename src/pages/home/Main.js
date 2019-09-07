@@ -8,6 +8,7 @@ import ArtistContainer from '../../containers/ArtistContainer';
 import RecentContainer from '../../containers/RecentContainer';
 import QuoteContainer from '../../containers/QuoteContainer';
 import PopularContainer from '../../containers/PopularContainer';
+import OnlineContainer from '../../containers/OnlineContainer';
 
 class MainScreen extends React.PureComponent {
   static navigationOptions = ({navigation}) => {
@@ -31,9 +32,11 @@ class MainScreen extends React.PureComponent {
           <NetNotify />
           <QuoteContainer />
           <RecentContainer />
-          <PopularContainer />
-          <Top20Container />
-          <ArtistContainer />
+          <OnlineContainer>
+            <PopularContainer />
+            <Top20Container />
+            <ArtistContainer />
+          </OnlineContainer>
         </View>
       </ScrollView>
     );

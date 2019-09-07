@@ -174,6 +174,7 @@ export const getQueue = () => dispatch => {
   });
 };
 export const addToQueue = song => dispatch => {
+  console.log(song);
   dispatch({
     type: 'ADD_QUEUE',
     payload: song,

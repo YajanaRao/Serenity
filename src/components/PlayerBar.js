@@ -2,7 +2,10 @@ import React from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Surface, Subheading, Caption, IconButton} from 'react-native-paper';
+import PropTypes from 'prop-types'
+
 import DefaultImage from './DefaultImage';
+
 
 const PlayerBar = props => {
   return (
@@ -50,6 +53,13 @@ const PlayerBar = props => {
       </Surface>
     </TouchableOpacity>
   );
+};
+
+PlayerBar.propTypes = {
+  status: PropTypes.string.isRequired,
+  navigateToPlayer: PropTypes.func.isRequired,
+  togglePlayback: PropTypes.func.isRequired,
+  active: PropTypes.object.isRequired,
 };
 
 export default PlayerBar;

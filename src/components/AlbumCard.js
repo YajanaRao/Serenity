@@ -1,9 +1,10 @@
 import React from 'react';
-import {withTheme, Paragraph} from 'react-native-paper';
+import {Paragraph} from 'react-native-paper';
 import {StyleSheet,TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import PropTypes from 'prop-types'
 
-const AlbumGallery = props => {
+const AlbumCard = props => {
   return (
     <TouchableOpacity
       style={styles.item}
@@ -14,7 +15,13 @@ const AlbumGallery = props => {
   );
 };
 
-export default withTheme(AlbumGallery);
+export default AlbumCard;
+
+AlbumCard.prototype = {
+  onPress: PropTypes.func.isRequired,
+  artwork: PropTypes.string.isRequired,
+  album: PropTypes.string.isRequired,
+}
 
 const styles = StyleSheet.create({
   item: {

@@ -2,9 +2,7 @@ import * as React from 'react';
 import {
   withTheme,
   Divider,
-  Button,
-  Surface,
-  IconButton,
+  Button
 } from 'react-native-paper';
 import {connect} from 'react-redux';
 import {View, RefreshControl, StyleSheet, ScrollView} from 'react-native';

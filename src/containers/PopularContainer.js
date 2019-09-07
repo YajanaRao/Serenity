@@ -5,7 +5,7 @@ import {withNavigation} from 'react-navigation';
 class PopularContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {isLoading: true};
+    this.state = {isLoading: true, data: []};
   }
 
   componentDidMount() {
