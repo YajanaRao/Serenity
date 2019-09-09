@@ -1,6 +1,6 @@
 import React from 'react';
 import {withNavigation} from 'react-navigation';
-import AlbumGallery from '../components/AlbumGallery';
+import AlbumScrollView from '../components/AlbumScrollView';
 
 class Top20Container extends React.PureComponent {
   constructor(props) {
@@ -37,7 +37,7 @@ class Top20Container extends React.PureComponent {
   };
   render() {
     return (
-      <AlbumGallery
+      <AlbumScrollView
         title={'Top 15'}
         data={this.state.data}
         navigateToSongs={this.navigateToSongs}

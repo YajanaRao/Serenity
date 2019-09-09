@@ -1,6 +1,6 @@
 import React from 'react';
-import AlbumGallery from '../components/AlbumGallery';
 import {withNavigation} from 'react-navigation';
+import AlbumScrollView from '../components/AlbumScrollView';
 
 class PopularContainer extends React.PureComponent {
   constructor(props) {
@@ -38,7 +38,7 @@ class PopularContainer extends React.PureComponent {
 
   render() {
     return (
-      <AlbumGallery
+      <AlbumScrollView
         title={'Popular Albums'}
         data={this.state.data}
         navigateToSongs={this.navigateToSongs}

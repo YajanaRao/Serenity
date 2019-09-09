@@ -1,7 +1,7 @@
 import React from 'react';
-import {withTheme, Button, Subheading} from 'react-native-paper';
+import {withTheme, Button} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import Tree from './Tree';
 
 const Blank = props => {
   const {colors} = props.theme;
@@ -13,14 +13,12 @@ const Blank = props => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <FastImage
-        source={require('../assets/tree.png')}
-        style={[styles.icons, {backgroundColor: colors.background}]}
-      />
-      <Subheading>{props.text}</Subheading>
-      <Button icon="refresh" mode="outlined" onPress={props.fetchData}>
-        Refresh
-      </Button>
+      <Tree message={props.text} />
+      <View>
+        <Button icon="refresh" mode="outlined" onPress={props.fetchData}>
+          Refresh
+        </Button>
+      </View>
     </View>
   );
 };

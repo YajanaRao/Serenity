@@ -1,6 +1,4 @@
 import React from 'react';
-import {Surface, IconButton, Title, Subheading} from 'react-native-paper';
-import LinearGradient from 'react-native-linear-gradient';
 
 import Quote from '../components/Quote';
 
@@ -30,7 +28,7 @@ export default class QuoteContainer extends React.PureComponent {
   }
 
   render() {
-    if (this.state.dataSource == 'undefined') {
+    if (this.state.dataSource.quote == 'undefined') {
       return false;
     }
 
