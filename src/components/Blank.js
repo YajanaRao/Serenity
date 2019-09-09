@@ -1,21 +1,15 @@
 import React from 'react';
-import {withTheme, Button} from 'react-native-paper';
+import {Button, withTheme} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import Tree from './Tree';
 
 const Blank = props => {
-  const {colors} = props.theme;
+  const { colors } = props.theme;
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.background,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+    <View style={[styles.container, { backgroundColor: colors.background}]}>
       <Tree message={props.text} />
-      <View>
-        <Button icon="refresh" mode="outlined" onPress={props.fetchData}>
+      <View style={styles.padding}>
+        <Button icon="refresh" mode="text" onPress={props.fetchData}>
           Refresh
         </Button>
       </View>
@@ -26,9 +20,12 @@ const Blank = props => {
 export default withTheme(Blank);
 
 const styles = StyleSheet.create({
-  icons: {
-    width: 209,
-    height: 220,
-    borderRadius: 4,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  padding: {
+    margin: 4,
   },
 });

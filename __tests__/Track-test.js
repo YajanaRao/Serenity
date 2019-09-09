@@ -25,10 +25,13 @@ it('Active track renders correctly', () => {
   );
 });
 
-it('Track with album name renders correctly', () => {
+it('Blank component renders correctly', () => {
   const track = {title: 'title', album: 'Testing'};
   const play = jest.fn();
-  renderer.create(
-    <Track track={track} active={true} play={play} />,
-  );
+  const tree = renderer
+    .create(
+      <Track track={track} active={true} play={play} />
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
