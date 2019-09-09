@@ -1,11 +1,10 @@
 import React from 'react';
-import {Title} from 'react-native-paper';
-import {StyleSheet, View, FlatList} from 'react-native';
-import PropTypes from 'prop-types'
+import {Title, Paragraph} from 'react-native-paper';
+import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import PropTypes from 'prop-types';
 
-import ArtistCard from './ArtistCard';
-
-const ArtistGallery = props => {
+const AlbumScrollView = props => {
   return (
     <View>
       <Title style={styles.title}>{props.title}</Title>
@@ -15,26 +14,26 @@ const ArtistGallery = props => {
         keyExtractor={(item, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
-          <ArtistCard
+          <TouchableOpacity
+            style={styles.item}
             onPress={() =>
               props.navigateToSongs(item.songs, item.artwork, item.album)
-            }
-            songs={item.songs}
-            artwork={item.artwork}
-            album={item.album}
-          />
+            }>
+            <FastImage source={{uri: item.artwork}} style={styles.photo} />
+            <Paragraph numberOfLines={1}>{item.album}</Paragraph>
+          </TouchableOpacity>
         )}
       />
     </View>
   );
 };
 
-export default ArtistGallery;
-
-ArtistGallery.propTypes = {
+AlbumScrollView.propTypes = {
   data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
 };
+
+export default AlbumScrollView;
 
 const styles = StyleSheet.create({
   title: {
@@ -46,10 +45,10 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     alignItems: 'center',
   },
-  artist: {
+  photo: {
     width: 120,
     height: 120,
-    borderRadius: 60,
+    // borderRadius: 12,
     elevation: 1,
   },
 });

@@ -105,7 +105,7 @@ export const skipToNext = () => (dispatch, getState) => {
   try {
     queue = getState().playerState.queue;
     track = isEmpty(queue) ? null : head(queue);
-    url = track.url ? track.url : track.path; 
+    url = track ? track.url : track.path; 
     if (url) {
       RNAudio.load(url).then(() => {
         RNAudio.play();

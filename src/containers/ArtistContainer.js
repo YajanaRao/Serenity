@@ -1,6 +1,6 @@
 import React from 'react';
-import ArtistGallery from '../components/ArtistGallery';
 import {withNavigation} from 'react-navigation';
+import ArtistScrollView from '../components/ArtistScrollView';
 
 class ArtistContainer extends React.PureComponent {
   constructor(props) {
@@ -37,7 +37,7 @@ class ArtistContainer extends React.PureComponent {
   };
   render() {
     return (
-      <ArtistGallery
+      <ArtistScrollView
         title={'Popular Artists'}
         data={this.state.data}
         navigateToSongs={this.navigateToSongs}
