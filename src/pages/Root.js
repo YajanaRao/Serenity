@@ -169,20 +169,12 @@ class RootScreen extends React.Component {
     return null;
   }
 
-<<<<<<< HEAD
-  componentDidMount = () => {
-    this.requestPermission();
-  }
-
-
-=======
   // FIXME: Need to enhance start up time
 
   componentDidMount = () => {
     this.requestPermission();
     this.checkForCrash();
   };
->>>>>>> 60bc0c416fb36fd732d9747ce3216598b4f6287b
 
   render() {
     const {colors} = this.props.theme;
