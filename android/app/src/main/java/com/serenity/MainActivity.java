@@ -17,6 +17,11 @@ public class MainActivity extends ReactActivity {
     }
 
     @Override
+    public void invokeDefaultOnBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected ReactActivityDelegate createReactActivityDelegate() {
         return new ReactActivityDelegate(this, getMainComponentName()) {
             @Override

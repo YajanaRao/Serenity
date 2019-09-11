@@ -1,30 +1,34 @@
 import * as React from 'react';
-import { List, withTheme } from 'react-native-paper';
-import { StyleSheet, ScrollView, View, FlatList } from 'react-native';
+import {List, withTheme} from 'react-native-paper';
+import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
 import FastImage from 'react-native-fast-image';
-
-import Media from '../../data/media.json';
-
+import EmptyFavoriteAlbums from '../../components/EmptyFavoriteAlbums';
 
 class Album extends React.Component {
-    static navigationOptions = {
-        header: null
-    }
-    
-    render() {
+  static navigationOptions = {
+    header: null,
+  };
 
-        const {
-            theme: {
-                colors: { background },
-            },
-        } = this.props;
+  render() {
+    const {
+      theme: {
+        colors: {background},
+      },
+    } = this.props;
 
-        const { navigate } = this.props.navigation;
+    const {navigate} = this.props.navigation;
 
-        return (
-            <View style={{ flex: 1, backgroundColor: background }}>
-               <ScrollView contentContainerStyle={styles.content}>
-                    <FlatList
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: background,
+          },
+        ]}>
+        <EmptyFavoriteAlbums />
+        {/* <ScrollView contentContainerStyle={styles.content}> */}
+        {/* <FlatList
                         data={Media}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) => (
@@ -38,38 +42,42 @@ class Album extends React.Component {
                                 onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                             />
                         )}
-                    />
-                </ScrollView>
-           </View>
-        );
-    }
+                    /> */}
+        {/* </ScrollView> */}
+      </View>
+    );
+  }
 }
-
 
 export default withTheme(Album);
 
 const styles = StyleSheet.create({
-    content: {
-        // flexDirection: 'row',
-        // flexWrap: 'wrap',
-        padding: 4,
-    },
-    item: {
-        flex: 1,
-        // padding: 4,
-    },
-    icons: {
-        width: 50,
-        borderRadius: 4
-    },
-    photo: {
-        height: 150,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // borderRadius: 8,
-        // elevation: 4
-    },
-    title: {
-        textAlign: 'center'
-    }
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    padding: 4,
+  },
+  item: {
+    flex: 1,
+    // padding: 4,
+  },
+  icons: {
+    width: 50,
+    borderRadius: 4,
+  },
+  photo: {
+    height: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderRadius: 8,
+    // elevation: 4
+  },
+  title: {
+    textAlign: 'center',
+  },
 });

@@ -1,5 +1,5 @@
-import React, { PureComponent } from "react";
-import { View, ScrollView, StyleSheet, RefreshControl } from "react-native";
+import React from 'react';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import {
   Subheading,
   FAB,
@@ -7,64 +7,55 @@ import {
   IconButton,
   Title,
   Divider,
-  Surface,
-  ActivityIndicator
-} from "react-native-paper";
-import isString from "lodash/isString";
-import isUndefined from "lodash/isUndefined";
-import isEmpty from "lodash/isEmpty";
-import { connect } from "react-redux";
-import FastImage from "react-native-fast-image";
-import { SwipeListView } from "react-native-swipe-list-view";
+  ActivityIndicator,
+} from 'react-native-paper';
+import isString from 'lodash/isString';
+import isUndefined from 'lodash/isUndefined';
+import {connect} from 'react-redux';
+import FastImage from 'react-native-fast-image';
+import PropTypes from 'prop-types';
 
-import TrackContainer from '../../containers/TrackContainer';
-import Love from "../../components/Love";
+import QueueContainer from '../../containers/QueueContainer';
+import LoveContainer from '../../containers/LoveContainer';
 // import ProgressBar from '../../components/ProgressBar';
 
 import {
   playTrack,
-  clearQueue,
   skipToNext,
   skipToPrevious,
   pauseTrack,
-  removeFromQueue,
-  getQueue,
-  getTrackStatus
-} from "../../actions/playerState";
+} from '../../actions/playerState';
+import DefaultImage from '../../components/DefaultImage';
 
-class Player extends PureComponent {
+class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      refreshing: false
+      refreshing: false,
     };
   }
 
   togglePlayback = () => {
-    if (this.props.status == "playing") {
+    if (this.props.status == 'playing') {
       this.props.pauseTrack();
     } else {
       this.props.playTrack();
     }
   };
 
-  clearPlaylist = () => {
-    this.props.clearQueue();
+  close = () => {
     this.props.navigation.goBack();
   };
 
   render() {
-    const { colors } = this.props.theme;
+    const {colors} = this.props.theme;
 
     if (!isUndefined(this.props.active)) {
       return (
         <View style={{backgroundColor: colors.background, flex: 1}}>
           <ScrollView>
             <View style={styles.container}>
-              <IconButton
-                icon="close"
-                onPress={() => this.props.navigation.goBack()}
-              />
+              <IconButton icon="close" onPress={this.close} />
               {/* <IconButton
                             icon="more-vert"
                             onPress={() => this.props.navigation.goBack()}
@@ -77,10 +68,7 @@ class Player extends PureComponent {
                   style={[styles.artCover, {backgroundColor: colors.surface}]}
                 />
               ) : (
-                <FastImage
-                  source={require('../../assets/note.png')}
-                  style={styles.artCover}
-                />
+                <DefaultImage style={styles.artCover} />
               )}
             </View>
             <View style={styles.centerContainer}>
@@ -95,7 +83,7 @@ class Player extends PureComponent {
                         <ProgressBar />
                     </View> */}
             <View style={styles.playerToolbox}>
-              <Love style={{width: 60}} track={this.props.active} />
+              <LoveContainer style={{width: 60}} track={this.props.active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
@@ -103,7 +91,7 @@ class Player extends PureComponent {
               />
               <FAB
                 icon={this.props.status === 'playing' ? 'pause' : 'play-arrow'}
-                onPress={() => this.togglePlayback()}
+                onPress={this.togglePlayback}
               />
               <IconButton
                 icon="skip-next"
@@ -113,7 +101,7 @@ class Player extends PureComponent {
               <IconButton
                 icon="repeat"
                 // size={20}
-                onPress={() => console.log('pressed')}
+                // onPress={}
               />
             </View>
             {/* <View style={styles.rowContainer}>
@@ -121,44 +109,7 @@ class Player extends PureComponent {
             </View> */}
             <Divider />
 
-            {!isEmpty(this.props.queue) ? (
-              <View>
-                <View style={styles.rowContainer}>
-                  <Title style={{padding: 10}}>Queue</Title>
-                  <IconButton
-                    icon="delete"
-                    // size={40}
-                    onPress={this.clearPlaylist}
-                  />
-                </View>
-
-                <Divider />
-                <SwipeListView
-                  data={this.props.queue}
-                  renderItem={({item}) => <TrackContainer track={item} />}
-                  ItemSeparatorComponent={() => <Divider inset={true} />}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderHiddenItem={({item}) => (
-                    <Surface style={styles.rowBack}>
-                      <IconButton
-                        icon="delete"
-                        color={colors.error}
-                        onPress={() => this.props.removeFromQueue(item)}
-                      />
-                      <Love track={this.props.active} />
-                    </Surface>
-                  )}
-                  leftOpenValue={75}
-                  rightOpenValue={-75}
-                  closeOnRowPress={true}
-                  closeOnRowOpen={true}
-                  useNativeDriver={true}
-                />
-              </View>
-            ) : (
-              false
-            )}
-
+            <QueueContainer/>
             <View style={{height: 100}} />
           </ScrollView>
         </View>
@@ -168,10 +119,18 @@ class Player extends PureComponent {
   }
 }
 
+Player.propTypes = {
+  status: PropTypes.string.isRequired,
+  active: PropTypes.object.isRequired,
+  pauseTrack: PropTypes.func.isRequired,
+  playTrack: PropTypes.func.isRequired,
+  skipToNext: PropTypes.func.isRequired,
+  skipToPrevious: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
-  queue: state.playerState.queue,
   active: state.playerState.active,
-  status: state.playerState.status
+  status: state.playerState.status,
 });
 
 export default connect(
@@ -179,46 +138,43 @@ export default connect(
   {
     playTrack,
     pauseTrack,
-    clearQueue,
     skipToNext,
     skipToPrevious,
-    removeFromQueue,
-    getQueue,
-    getTrackStatus
-  }
+  },
 )(withTheme(Player));
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-    zIndex: 1
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 1,
   },
   centerContainer: {
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 8,
   },
   rowContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flex: 1
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 1,
   },
-  artCover: { width: 250, height: 250, borderRadius: 4 },
+  artCover: {width: 250, height: 250, borderRadius: 4},
   rowBack: {
-    alignItems: "center",
+    alignItems: 'center',
     // backgroundColor: '#DDD',
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
   },
   playerToolbox: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    margin: 12
-  }
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    margin: 12,
+  },
 });

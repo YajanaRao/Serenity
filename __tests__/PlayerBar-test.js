@@ -17,7 +17,7 @@ it('Playing play bar renders correctly without art cover', () => {
     <PlayerBar
       status={'playing'}
       active={track}
-      navigation={navigation}
+      navigateToPlayer={navigation}
       togglePlayback={togglePlayback}
     />,
   );
@@ -31,7 +31,7 @@ it('Pause play bar renders correctly without art cover', () => {
     <PlayerBar
       status={'pause'}
       active={track}
-      navigation={navigation}
+      navigateToPlayer={navigation}
       togglePlayback={togglePlayback}
     />,
   );
@@ -46,7 +46,7 @@ it('Track with album name renders correctly without art cover', () => {
     <PlayerBar
       status={'pause'}
       active={track}
-      navigation={navigation}
+      navigateToPlayer={navigation}
       togglePlayback={togglePlayback}
     />,
   );
@@ -61,7 +61,7 @@ it('Playing play bar renders correctly with art cover', () => {
     <PlayerBar
       status={'playing'}
       active={track}
-      navigation={navigation}
+      navigateToPlayer={navigation}
       togglePlayback={togglePlayback}
     />,
   );
@@ -75,7 +75,7 @@ it('Pause play bar renders correctly with art cover', () => {
     <PlayerBar
       status={'pause'}
       active={track}
-      navigation={navigation}
+      navigateToPlayer={navigation}
       togglePlayback={togglePlayback}
     />,
   );
@@ -89,7 +89,7 @@ it('Track with album name renders correctly with art cover', () => {
     <PlayerBar
       status={'pause'}
       active={track}
-      navigation={navigation}
+      navigateToPlayer={navigation}
       togglePlayback={togglePlayback}
     />,
   );

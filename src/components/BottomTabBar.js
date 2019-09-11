@@ -14,7 +14,7 @@ import PlayerBarContainer from '../containers/PlayerBarContainer';
 // activeColor: '#f0edf6',
 //  inactiveColor: '#3e2465',
 
-const TabBar = props => {
+const BottomTabBar = props => {
   const {
     renderIcon,
     getLabelText,
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(TabBar);
+export default withTheme(BottomTabBar);
