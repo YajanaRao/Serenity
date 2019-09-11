@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import {loadTrackPlayer, playTrack} from '../actions/playerState';
-import isEmpty from 'lodash/isEmpty';
 import Track from '../components/Track';
 
 /*
@@ -22,7 +21,7 @@ class TrackContainer extends React.Component {
 
   componentDidMount() {
     const {track, active} = this.props;
-    if (!isUndefined(active.id)) {
+    if (!isUndefined(active)) {
       if (isEqual(active.title, track.title)) {
         this.setState({
           isActive: true,

@@ -44,7 +44,7 @@ const INITIAL_STORE = {
   files: [],
 };
 
-// FIXME: Javascript implimentation
+// FIXME: Javascript implementation
 
 const mediaStoreReducer = (state = INITIAL_STORE, action) => {
   switch (action.type) {
@@ -84,15 +84,14 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
 };
 
 // TODO:
-// Normalise queue
+// Normalize queue
 
 const playerStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'STATUS':
       return {
         ...state,
-        status: action.status,
-        result: `${action.status} ${state.active.title}`,
+        status: action.status
       };
     case 'LOAD':
       return {
@@ -104,7 +103,9 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         status: action.status,
-        history: isEmpty(action.track) ? state.history : concat([state.active], state.history),
+        history: isEmpty(action.track)
+          ? state.history
+          : concat([state.active], state.history),
         active: isEmpty(action.track) ? state.active : action.track,
         queue: isEmpty(state.queue) ? [] : drop(state.queue),
       };
@@ -114,7 +115,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         status: action.status,
         active: isEmpty(state.history) ? state.active : head(state.history),
-        history: isEmpty(state.history) ? [] : drop(state.history), 
+        history: isEmpty(state.history) ? [] : drop(state.history),
       };
 
     case 'COMPLETED':
@@ -126,7 +127,10 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
     case 'ADD_TO_FAVORITE':
       return {
         ...state,
-        favorite: union(state.favorite, action.payload),
+        favorite: union(
+          state.favorite,
+          isArray(action.payload) ? action.payload : [action.payload],
+        ),
         result: `Added ${action.payload.title} to favorites`,
       };
     case 'REMOVE_FROM_FAVORITE':
@@ -153,7 +157,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
             state.queue,
             !isArray(action.payload) ? [action.payload] : action.payload,
           ),
-          result: `Added ${size(action.payload)} songs to queue`,
+          result: `Playing songs from the queue`,
         };
       }
       return {

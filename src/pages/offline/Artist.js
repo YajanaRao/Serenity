@@ -1,29 +1,23 @@
-import { FlatList } from "react-native-gesture-handler";
-import * as React from "react";
-import {
-  withTheme,
-  Divider,
-  Title,
-  List,
-  IconButton
-} from "react-native-paper";
-import { View, StyleSheet, RefreshControl } from "react-native";
-import FastImage from "react-native-fast-image";
-import { isEqual, isEmpty } from "lodash";
-import { connect } from "react-redux";
+import {FlatList} from 'react-native-gesture-handler';
+import React from 'react';
+import {withTheme, Divider, List, Avatar} from 'react-native-paper';
+import {View, StyleSheet, RefreshControl} from 'react-native';
+import {isEqual, isEmpty} from 'lodash';
+import {connect} from 'react-redux';
 
-import { getOfflineArtists } from "../../actions/mediaStore";
+import {getOfflineArtists} from '../../actions/mediaStore';
+import Blank from '../../components/Blank';
 
-class Artist extends React.Component {
+class Artist extends React.PureComponent {
   static navigationOptions = {
-    header: null
+    header: null,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       artists: [],
-      refreshing: false
+      refreshing: false,
     };
   }
 
@@ -31,7 +25,7 @@ class Artist extends React.Component {
     if (!isEqual(props.artists, state.artists)) {
       return {
         artists: props.artists,
-        refreshing: false
+        refreshing: false,
       };
     }
     return null;
@@ -39,7 +33,7 @@ class Artist extends React.Component {
 
   fetchData = () => {
     this.setState({
-      refreshing: true
+      refreshing: true,
     });
     this.props.getOfflineArtists();
   };
@@ -49,36 +43,40 @@ class Artist extends React.Component {
   }
 
   render() {
-    const {
-      theme: {
-        colors: { background }
-      }
-    } = this.props;
+    const {colors} = this.props.theme;
 
-    const { navigate } = this.props.navigation;
+    const {navigate} = this.props.navigation;
 
     if (!isEmpty(this.state.artists)) {
       return (
-        <View style={{ flex: 1, backgroundColor: background }}>
+        <View style={{flex: 1, backgroundColor: colors.background}}>
           <FlatList
             data={this.state.artists}
             ItemSeparatorComponent={() => <Divider inset={true} />}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
-                onRefresh={() => this.fetchData()}
+                onRefresh={this.fetchData}
               />
             }
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <List.Item
                 title={item.artist}
-                description={item.numberOfSongs + " Songs"}
-                left={props => <List.Icon {...props} icon="person" />}
+                description={item.numberOfSongs + ' Songs'}
+                left={props => (
+                  <Avatar.Text
+                    {...props}
+                    // style={{backgroundColor: colors.surface}}
+                    // icon="person"
+                    // size={44}
+                    label={item.artist.charAt(0)}
+                  />
+                )}
                 onPress={() =>
-                  navigate("Filter", {
+                  navigate('Filter', {
                     artist: item.artist,
-                    title: item.artist
+                    title: item.artist,
                   })
                 }
               />
@@ -88,34 +86,24 @@ class Artist extends React.Component {
       );
     }
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: background,
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <IconButton icon="sentiment-very-dissatisfied" />
-        <Title>No offline songs found..</Title>
-      </View>
+      <Blank text={'No offline Artists found..'} fetchData={this.fetchData} />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  artists: state.mediaStore.artists
+  artists: state.mediaStore.artists,
 });
 
 export default connect(
   mapStateToProps,
-  { getOfflineArtists }
+  {getOfflineArtists},
 )(withTheme(Artist));
 
 const styles = StyleSheet.create({
   icons: {
     width: 60,
     height: 60,
-    borderRadius: 30
-  }
+    borderRadius: 30,
+  },
 });

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { withTheme, Avatar, List } from 'react-native-paper';
-import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
-import Artists from '../../data/artist.json';
 
 class Artist extends Component {
     static navigationOptions = {
@@ -28,7 +26,7 @@ class Artist extends Component {
                     title="Add artist"
                     left={props => <Avatar.Icon {...props} style={{ backgroundColor: colors.surface}} icon="add" />}
                 />
-                <FlatList
+                {/* <FlatList
                     data={Artists}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
@@ -38,7 +36,7 @@ class Artist extends Component {
                             onPress={() => navigate('Songs', { songs: item.songs, img: item.artwork, title: item.album })}
                         />
                     )}
-                />
+                /> */}
                
                 {/* <List.Item
                     title="Brodha V"

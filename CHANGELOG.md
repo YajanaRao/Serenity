@@ -1,4 +1,7 @@
+# Change Log
+
 ## 7 May 2019
+
 1. Recent albums horizontal scroll view
 2. Trending albums vertical scroll view
 3. Music list on click albums
@@ -8,12 +11,11 @@
 7. Search album by name
 8. List of all albums
 
-
 ## 22 May 2019
-1. Layout animation in Track for removing an item from list - (Not Stable)
-2. Working on player animation 
-    * Resolving the issue with player to minimize and maxize performance and handling player component hiding.
 
+1. Layout animation in Track for removing an item from list - (Not Stable)
+2. Working on player animation
+   - Resolving the issue with player to minimize and maximize performance and handling player component hiding.
 
 ## 13 June 2019
 
@@ -21,9 +23,9 @@
 2. Bottom tab navigator
 3. Stack Navigator
 
+## 24 June 2019
 
-## 24 June 2019 
 1. Material design guide lines
 2. Updated track to enable and disable swiping
-    `swipeable`
+   `swipeable`
 3. Found issue with offline tracks

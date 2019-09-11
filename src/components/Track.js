@@ -1,6 +1,7 @@
 import React from 'react';
 import {withTheme, List} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
+import PropTypes from 'prop-types';
 
 /*
     TODO: 
@@ -32,13 +33,14 @@ const Track = props => {
   );
 };
 
+Track.prototype = {
+  track: PropTypes.object.isRequired,
+  active: PropTypes.bool.isRequired,
+};
+
 export default withTheme(Track);
 
 const styles = StyleSheet.create({
-  icons: {
-    width: 50,
-    borderRadius: 4,
-  },
   surface: {
     padding: 0,
     margin: 0,
