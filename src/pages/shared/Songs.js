@@ -25,7 +25,7 @@ class Songs extends Component {
 
   addToQueue = () => {
     let songs = this.props.navigation.getParam('songs');
-    console.log(songs);
+    console.log("add to queue", songs);
     this.props.addToQueue(songs);
   };
 

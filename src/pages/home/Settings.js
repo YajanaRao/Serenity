@@ -1,25 +1,29 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
-import { withTheme, Text, Switch, Drawer, TouchableRipple, DarkTheme, DefaultTheme } from 'react-native-paper';
-import { connect } from 'react-redux';
+import {View, ScrollView, StyleSheet, Alert} from 'react-native';
+import {
+  withTheme,
+  Text,
+  Switch,
+  Drawer,
+  TouchableRipple,
+} from 'react-native-paper';
+import {connect} from 'react-redux';
 
-import { updateTheme } from '../../actions';
-import { clearHistory } from '../../actions/playerState';
+import {updateTheme} from '../../actions';
+import {clearHistory} from '../../actions/playerState';
 
 class Settings extends React.PureComponent {
-
   static navigationOptions = {
     headerTitle: 'Settings',
   };
 
-
-  _toggleTheme = (dark) => {
+  _toggleTheme = dark => {
     let theme = 'default';
     if (dark) {
       theme = 'dark';
     }
     this.props.updateTheme(theme);
-  }
+  };
 
   _clearHistory = () => {
     Alert.alert(
@@ -35,11 +39,11 @@ class Settings extends React.PureComponent {
       ],
       {cancelable: false},
     );
-  }
+  };
 
   render() {
-    const { colors } = this.props.theme;
-    const { dark } = this.props.theme;
+    const {colors} = this.props.theme;
+    const {dark} = this.props.theme;
     return (
       <View style={{backgroundColor: colors.background, flex: 1}}>
         <ScrollView>
@@ -69,7 +73,10 @@ class Settings extends React.PureComponent {
   }
 }
 
-export default connect(null, { updateTheme, clearHistory })(withTheme(Settings));
+export default connect(
+  null,
+  {updateTheme, clearHistory},
+)(withTheme(Settings));
 
 const styles = StyleSheet.create({
   preference: {
