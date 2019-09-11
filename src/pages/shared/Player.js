@@ -17,13 +17,14 @@ import PropTypes from 'prop-types';
 
 import QueueContainer from '../../containers/QueueContainer';
 import LoveContainer from '../../containers/LoveContainer';
-// import ProgressBar from '../../components/ProgressBar';
+import ProgressBar from '../../components/ProgressBar';
 
 import {
   playTrack,
   skipToNext,
   skipToPrevious,
   pauseTrack,
+  repeatSongs,
 } from '../../actions/playerState';
 import DefaultImage from '../../components/DefaultImage';
 
@@ -40,6 +41,15 @@ class Player extends React.Component {
       this.props.pauseTrack();
     } else {
       this.props.playTrack();
+    }
+  };
+
+  updateRepeatType = () => {
+    console.log(this.props.repeat);
+    if (this.props.repeat == 'repeat-all') {
+      this.props.repeatSongs('repeat-one');
+    } else {
+      this.props.repeatSongs('repeat-all');
     }
   };
 
@@ -79,9 +89,14 @@ class Player extends React.Component {
                   : this.props.active.album}
               </Subheading>
             </View>
-            {/* <View style={{ alignItems: 'center', justifyContent: 'center', margin: 16 }}>
-                        <ProgressBar />
-                    </View> */}
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: 16,
+              }}>
+              <ProgressBar />
+            </View>
             <View style={styles.playerToolbox}>
               <LoveContainer style={{width: 60}} track={this.props.active} />
               <IconButton
@@ -98,18 +113,26 @@ class Player extends React.Component {
                 size={40}
                 onPress={this.props.skipToNext}
               />
-              <IconButton
-                icon="repeat"
-                // size={20}
-                // onPress={}
-              />
+              {this.props.repeat == 'repeat-all' ? (
+                <IconButton
+                  icon="repeat"
+                  // size={20}
+                  onPress={this.updateRepeatType}
+                />
+              ) : (
+                <IconButton
+                  icon="repeat-one"
+                  // size={20}
+                  onPress={this.updateRepeatType}
+                />
+              )}
             </View>
             {/* <View style={styles.rowContainer}>
               <Lyric style={{ width: 60 }} track={this.props.active} />
             </View> */}
             <Divider />
 
-            <QueueContainer/>
+            <QueueContainer />
             <View style={{height: 100}} />
           </ScrollView>
         </View>
@@ -122,6 +145,7 @@ class Player extends React.Component {
 Player.propTypes = {
   status: PropTypes.string.isRequired,
   active: PropTypes.object.isRequired,
+  repeat: PropTypes.string.isRequired,
   pauseTrack: PropTypes.func.isRequired,
   playTrack: PropTypes.func.isRequired,
   skipToNext: PropTypes.func.isRequired,
@@ -131,6 +155,7 @@ Player.propTypes = {
 const mapStateToProps = state => ({
   active: state.playerState.active,
   status: state.playerState.status,
+  repeat: state.config.repeat,
 });
 
 export default connect(
@@ -140,6 +165,7 @@ export default connect(
     pauseTrack,
     skipToNext,
     skipToPrevious,
+    repeatSongs,
   },
 )(withTheme(Player));
 
