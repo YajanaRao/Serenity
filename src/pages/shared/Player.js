@@ -26,7 +26,6 @@ import {
   pauseTrack,
   repeatSongs,
 } from '../../actions/playerState';
-import { initializeProgressBar } from '../../actions/playerState';
 import DefaultImage from '../../components/DefaultImage';
 
 class Player extends React.Component {
@@ -35,10 +34,6 @@ class Player extends React.Component {
     this.state = {
       refreshing: false,
     };
-  }
-
-  componentDidMount(){
-    initializeProgressBar();
   }
 
   togglePlayback = () => {
