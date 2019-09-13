@@ -26,6 +26,14 @@ import head from 'lodash/head';
 
 var subscription = null;
 
+export const initializeProgressBar = () => {
+  try {
+    RNAudio.init();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const setUpTrackPlayer = () => dispatch => {
   try {
     subscription = DeviceEventEmitter.addListener('media', function(event) {
@@ -132,8 +140,9 @@ export const skipToNext = () => (dispatch, getState) => {
       track = isEmpty(queue) ? null : head(queue);
     }
     console.log(track);
-    url = track ? track.url : track.path;
-    if (url) {
+    
+    if (track) {
+      url = track.url ? track.url : track.path;
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
