@@ -2,6 +2,7 @@ import React from 'react';
 import {withTheme, Title, Paragraph} from 'react-native-paper';
 import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import DefaultImage from './DefaultImage';
 
 // FIXME: Testing the application
 const Recent = props => {
@@ -26,10 +27,7 @@ const Recent = props => {
                   style={styles.photo}
                 />
               ) : (
-                <FastImage
-                  source={require('../assets/note.png')}
-                  style={styles.photo}
-                />
+                <DefaultImage style={styles.photo} />
               )}
 
               <Paragraph numberOfLines={1}>{item.title}</Paragraph>
