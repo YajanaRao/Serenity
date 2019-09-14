@@ -139,7 +139,6 @@ export const skipToNext = () => (dispatch, getState) => {
     } else {
       track = isEmpty(queue) ? null : head(queue);
     }
-    console.log(track);
     
     if (track) {
       url = track.url ? track.url : track.path;
