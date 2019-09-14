@@ -26,14 +26,6 @@ import head from 'lodash/head';
 
 var subscription = null;
 
-export const initializeProgressBar = () => {
-  try {
-    RNAudio.init();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export const setUpTrackPlayer = () => dispatch => {
   try {
     subscription = DeviceEventEmitter.addListener('media', function(event) {
