@@ -1,12 +1,12 @@
 import React from 'react';
-import {withTheme} from 'react-native-paper';
-import {View, StyleSheet} from 'react-native';
-import {ProgressBar} from 'react-native-audio';
+import { withTheme } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
+import { ProgressBar } from 'react-native-audio';
 
-const Progress = () => {
+const Progress = ({status}) => {
   return (
     <View style={styles.view}>
-      <ProgressBar style={styles.bar} />
+      <ProgressBar style={styles.bar} status={status} />
     </View>
   );
 };
@@ -24,10 +24,8 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   bar: {
-    height: 5,
+    height: '100%',
     width: '100%',
-    margin: 10,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    margin: 10
   }
 });
