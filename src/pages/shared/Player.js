@@ -95,7 +95,7 @@ class Player extends React.Component {
                 justifyContent: 'center',
                 margin: 16,
               }}>
-              <ProgressBar />
+              <ProgressBar status={this.props.status} />
             </View>
             <View style={styles.playerToolbox}>
               <LoveContainer style={{width: 60}} track={this.props.active} />
