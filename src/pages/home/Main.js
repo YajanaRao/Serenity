@@ -30,9 +30,9 @@ class MainScreen extends React.PureComponent {
       <ScrollView style={{flex: 1, backgroundColor: colors.background}}>
         <View>
           <NetNotify />
-          <QuoteContainer />
           <RecentContainer />
           <OnlineContainer>
+            <QuoteContainer />
             <PopularContainer />
             <Top20Container />
             <ArtistContainer />
