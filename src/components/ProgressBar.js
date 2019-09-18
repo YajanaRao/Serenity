@@ -8,11 +8,9 @@ const Progress = ({status}) => {
     <View style={styles.view}>
       <ProgressBar style={styles.bar} status={status} />
       {/* <Slider
-        style={{width: 200, height: 40}}
+        style={styles.bar}
         minimumValue={0}
         maximumValue={1}
-        minimumTrackTintColor="#FFFFFF"
-        maximumTrackTintColor="#000000"
       /> */}
     </View>
   );
