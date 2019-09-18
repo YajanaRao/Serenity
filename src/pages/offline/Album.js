@@ -1,28 +1,24 @@
-import { FlatList } from "react-native-gesture-handler";
-import * as React from "react";
-import {
-  withTheme,
-  Divider,
-  List,
-} from "react-native-paper";
-import { connect } from "react-redux";
-import { View, StyleSheet, RefreshControl } from "react-native";
-import FastImage from "react-native-fast-image";
-import { isEqual, isEmpty } from "lodash";
+import {FlatList} from 'react-native-gesture-handler';
+import * as React from 'react';
+import {withTheme, Divider, List} from 'react-native-paper';
+import {connect} from 'react-redux';
+import {View, StyleSheet, RefreshControl} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {isEqual, isEmpty} from 'lodash';
 
-import { getOfflineAlbums } from "../../actions/mediaStore";
-import Blank from "../../components/Blank";
+import {getOfflineAlbums} from '../../actions/mediaStore';
+import Blank from '../../components/Blank';
 
 class Album extends React.PureComponent {
   static navigationOptions = {
-    header: null
+    header: null,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       albums: [],
-      refreshing: false
+      refreshing: false,
     };
   }
 
@@ -30,7 +26,7 @@ class Album extends React.PureComponent {
     if (!isEqual(props.albums, state.albums)) {
       return {
         albums: props.albums,
-        refreshing: false
+        refreshing: false,
       };
     }
     return null;
@@ -38,7 +34,7 @@ class Album extends React.PureComponent {
 
   fetchData = () => {
     this.setState({
-      refreshing: true
+      refreshing: true,
     });
     this.props.getOfflineAlbums();
   };
@@ -48,13 +44,13 @@ class Album extends React.PureComponent {
   }
 
   render() {
-    const { colors } = this.props.theme;
+    const {colors} = this.props.theme;
 
-    const { navigate } = this.props.navigation;
+    const {navigate} = this.props.navigation;
 
     if (!isEmpty(this.state.albums)) {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={{flex: 1, backgroundColor: colors.background}}>
           <FlatList
             data={this.state.albums}
             ItemSeparatorComponent={() => <Divider inset={true} />}
@@ -62,36 +58,35 @@ class Album extends React.PureComponent {
               <RefreshControl
                 refreshing={this.state.refreshing}
                 onRefresh={this.fetchData}
-
               />
             }
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <List.Item
                 title={item.album}
-                left={props => (
-                  <FastImage
-                    {...props}
-                    source={
-                      item.cover == "null"
-                        ? require("../../assets/note.png")
-                        : { uri: "file://" + item.cover }
-                    }
-                    style={styles.icons}
-                  />
-                )}
-                description={item.numberOfSongs + " songs"}
+                left={props =>
+                  item.cover == null ? (
+                    <DefaultImage />
+                  ) : (
+                    <FastImage
+                      {...props}
+                      source={{uri: 'file://' + item.cover}}
+                      style={styles.icons}
+                    />
+                  )
+                }
+                description={item.numberOfSongs + ' songs'}
                 onPress={() => {
-                  if (item.cover == "null") {
-                    navigate("Filter", {
+                  if (item.cover == 'null') {
+                    navigate('Filter', {
                       album: item.album,
-                      title: item.album
+                      title: item.album,
                     });
                   } else {
-                    navigate("Filter", {
+                    navigate('Filter', {
                       album: item.album,
-                      img: "file://" + item.cover,
-                      title: item.album
+                      img: 'file://' + item.cover,
+                      title: item.album,
                     });
                   }
                 }}
@@ -102,24 +97,24 @@ class Album extends React.PureComponent {
       );
     }
     return (
-      <Blank text={"No offline songs found.."} fetchData={this.fetchData} />
+      <Blank text={'No offline songs found..'} fetchData={this.fetchData} />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  albums: state.mediaStore.albums
+  albums: state.mediaStore.albums,
 });
 
 export default connect(
   mapStateToProps,
-  { getOfflineAlbums }
+  {getOfflineAlbums},
 )(withTheme(Album));
 
 const styles = StyleSheet.create({
   icons: {
     width: 50,
     borderRadius: 4,
-    backgroundColor: "#d7d1c9"
-  }
+    backgroundColor: '#d7d1c9',
+  },
 });
