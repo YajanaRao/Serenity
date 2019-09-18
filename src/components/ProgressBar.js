@@ -1,12 +1,19 @@
 import React from 'react';
 import { withTheme } from 'react-native-paper';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Slider } from 'react-native';
 import { ProgressBar } from 'react-native-audio';
 
 const Progress = ({status}) => {
   return (
     <View style={styles.view}>
       <ProgressBar style={styles.bar} status={status} />
+      {/* <Slider
+        style={{width: 200, height: 40}}
+        minimumValue={0}
+        maximumValue={1}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
+      /> */}
     </View>
   );
 };
@@ -24,7 +31,7 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   bar: {
-    height: '100%',
+    height: 30,
     width: '100%',
     margin: 10
   }
