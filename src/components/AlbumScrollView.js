@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   photo: {
     width: 120,
     height: 120,
-    // borderRadius: 12,
-    elevation: 1,
+    borderRadius: 12,
+    elevation: 4,
   },
 });

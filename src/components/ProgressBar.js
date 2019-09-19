@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   },
   bar: {
     height: 30,
-    width: '100%',
-    margin: 10
+    width: '100%'
   }
 });

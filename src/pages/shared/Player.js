@@ -98,7 +98,7 @@ class Player extends React.Component {
               <ProgressBar status={this.props.status} />
             </View>
             <View style={styles.playerToolbox}>
-              <LoveContainer style={{width: 60}} track={this.props.active} />
+              <LoveContainer track={this.props.active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  artCover: {width: 250, height: 250, borderRadius: 4},
+  artCover: {width: 250, height: 250, borderRadius: 12, elevation: 4 },
   rowBack: {
     alignItems: 'center',
     // backgroundColor: '#DDD',
