@@ -89,12 +89,7 @@ class Player extends React.Component {
                   : this.props.active.album}
               </Subheading>
             </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: 16,
-              }}>
+            <View style={styles.centerContainer}>
               <ProgressBar status={this.props.status} />
             </View>
             <View style={styles.playerToolbox}>
@@ -165,7 +160,7 @@ export default connect(
     pauseTrack,
     skipToNext,
     skipToPrevious,
-    repeatSongs
+    repeatSongs,
   },
 )(withTheme(Player));
 
@@ -180,6 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
+    marginHorizontal: 16,
   },
   rowContainer: {
     flexDirection: 'row',
@@ -187,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  artCover: {width: 250, height: 250, borderRadius: 12, elevation: 4 },
+  artCover: {width: 250, height: 250, borderRadius: 12, elevation: 4},
   rowBack: {
     alignItems: 'center',
     // backgroundColor: '#DDD',
