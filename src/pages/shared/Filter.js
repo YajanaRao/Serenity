@@ -149,5 +149,5 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     marginTop: 10,
   },
-  artCover: {width: 200, height: 200, backgroundColor: '#d7d1c9'},
+  artCover: {width: 200, height: 200, borderRadius: 12, elevation: 4 },
 });

@@ -1,17 +1,17 @@
 import React from 'react';
-import {withTheme, Title, Paragraph} from 'react-native-paper';
+import {Title, Paragraph} from 'react-native-paper';
 import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import DefaultImage from './DefaultImage';
 
 // FIXME: Testing the application
-const Recent = props => {
+const TrackScrollView = props => {
   return (
     <View style={styles.surface}>
-      <Title style={styles.title}>Recent songs</Title>
+      <Title style={styles.title}>{props.title}</Title>
       <FlatList
         horizontal={true}
-        data={props.history}
+        data={props.data}
         keyExtractor={(item, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) =>
@@ -41,14 +41,14 @@ const Recent = props => {
   );
 };
 
-export default withTheme(Recent);
+export default TrackScrollView;
 
 const styles = StyleSheet.create({
   photo: {
     width: 120,
     height: 120,
-    borderRadius: 4,
-    backgroundColor: '#d7d1c9',
+    borderRadius: 12,
+    elevation: 4
   },
   title: {
     paddingTop: 10,
