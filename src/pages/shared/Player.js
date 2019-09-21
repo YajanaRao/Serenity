@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import {
   Subheading,
   FAB,
@@ -11,7 +11,7 @@ import {
 } from 'react-native-paper';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 
@@ -58,11 +58,11 @@ class Player extends React.Component {
   };
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
 
     if (!isUndefined(this.props.active)) {
       return (
-        <View style={{backgroundColor: colors.background, flex: 1}}>
+        <View style={{ backgroundColor: colors.background, flex: 1 }}>
           <ScrollView>
             <View style={styles.container}>
               <IconButton icon="close" onPress={this.close} />
@@ -74,12 +74,12 @@ class Player extends React.Component {
             <View style={styles.centerContainer}>
               {isString(this.props.active.artwork) ? (
                 <FastImage
-                  source={{uri: this.props.active.artwork}}
-                  style={[styles.artCover, {backgroundColor: colors.surface}]}
+                  source={{ uri: this.props.active.artwork }}
+                  style={[styles.artCover, { backgroundColor: colors.surface }]}
                 />
               ) : (
-                <DefaultImage style={styles.artCover} />
-              )}
+                  <DefaultImage style={styles.artCover} />
+                )}
             </View>
             <View style={styles.centerContainer}>
               <Title numberOfLines={1}>{this.props.active.title}</Title>
@@ -89,12 +89,7 @@ class Player extends React.Component {
                   : this.props.active.album}
               </Subheading>
             </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: 16,
-              }}>
+            <View style={styles.centerContainer}>
               <ProgressBar />
             </View>
             <View style={styles.playerToolbox}>
@@ -120,12 +115,12 @@ class Player extends React.Component {
                   onPress={this.updateRepeatType}
                 />
               ) : (
-                <IconButton
-                  icon="repeat-one"
-                  // size={20}
-                  onPress={this.updateRepeatType}
-                />
-              )}
+                  <IconButton
+                    icon="repeat-one"
+                    // size={20}
+                    onPress={this.updateRepeatType}
+                  />
+                )}
             </View>
             {/* <View style={styles.rowContainer}>
               <Lyric style={{ width: 60 }} track={this.props.active} />
@@ -133,7 +128,7 @@ class Player extends React.Component {
             <Divider />
 
             <QueueContainer />
-            <View style={{height: 100}} />
+            <View style={{ height: 100 }} />
           </ScrollView>
         </View>
       );
@@ -165,7 +160,7 @@ export default connect(
     pauseTrack,
     skipToNext,
     skipToPrevious,
-    repeatSongs
+    repeatSongs,
   },
 )(withTheme(Player));
 
@@ -180,6 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
+    marginHorizontal: 16,
   },
   rowContainer: {
     flexDirection: 'row',
@@ -187,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  artCover: {width: 250, height: 250, borderRadius: 12, elevation: 4 },
+  artCover: { width: 250, height: 250, borderRadius: 12, elevation: 4 },
   rowBack: {
     alignItems: 'center',
     // backgroundColor: '#DDD',

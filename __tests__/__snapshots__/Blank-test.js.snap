@@ -3,12 +3,16 @@
 exports[`Blank component renders correctly 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "#f6f6f6",
-      "flex": 1,
-      "justifyContent": "center",
-    }
+    Array [
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      },
+      Object {
+        "backgroundColor": "#f6f6f6",
+      },
+    ]
   }
 >
   <View
@@ -95,7 +99,13 @@ exports[`Blank component renders correctly 1`] = `
       Hello
     </Text>
   </View>
-  <View>
+  <View
+    style={
+      Object {
+        "margin": 4,
+      }
+    }
+  >
     <View
       style={
         Object {
