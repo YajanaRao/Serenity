@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const AlbumScrollView = props => {
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Title style={styles.title}>{props.title}</Title>
       <FlatList
         horizontal={true}

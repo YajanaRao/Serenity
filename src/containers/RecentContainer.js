@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 
 import TrackScrollView from '../components/TrackScrollView';
 import { loadTrackPlayer, playTrack } from '../actions/playerState';
