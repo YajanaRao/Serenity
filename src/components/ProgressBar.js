@@ -3,10 +3,10 @@ import { withTheme } from 'react-native-paper';
 import { View, StyleSheet, Slider } from 'react-native';
 import { ProgressBar } from 'react-native-audio';
 
-const Progress = ({status}) => {
+const Progress = () => {
   return (
     <View style={styles.view}>
-      <ProgressBar style={styles.bar} status={status} />
+      <ProgressBar style={styles.bar} />
       {/* <Slider
         style={styles.bar}
         minimumValue={0}

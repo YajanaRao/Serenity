@@ -35,7 +35,7 @@ export const setUpTrackPlayer = () => dispatch => {
         dispatch(skipToNext());
       } else if (event == 'skip_to_previous') {
         dispatch(skipToPrevious());
-      } else if (event == 'completed') {
+      } else if (event == 'skip_to_next') {
         dispatch(skipToNext());
       } else {
         dispatch({

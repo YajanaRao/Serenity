@@ -1,34 +1,34 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import {ActivityIndicator} from 'react-native-paper';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import Tree from '../components/Tree';
+import ExpensiveContainer from './ExpensiveContainer';
 
 class OnlineContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       isConnected: true,
-      isLoaded: false,
     };
     this.unsubscribe;
   }
 
   componentDidMount() {
+    setTimeout(() => {
       NetInfo.fetch().then(state => {
-      this.setState({
-        isConnected: state.isConnected,
-        isLoaded: true
-      });
-      if(!state.isConnected){
-        this.unsubscribe = NetInfo.addEventListener(state => {
-            this.handleConnectivityChange(state);
+        this.setState({
+          isConnected: state.isConnected,
         });
-      }
-    });
+        if (!state.isConnected) {
+          this.unsubscribe = NetInfo.addEventListener(state => {
+            this.handleConnectivityChange(state);
+          });
+        }
+      });
+    }, 5000);
+  
   }
 
-  
 
   componentWillUnmount() {
     this.unsubscribe();
@@ -41,14 +41,14 @@ class OnlineContainer extends PureComponent {
   };
 
   render() {
-    if (!this.state.isLoaded) {
-      return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <ActivityIndicator />
-        </View>
-      );
+    if (this.state.isConnected) {
+      return <ExpensiveContainer />
     }
-    return this.state.isConnected ? this.props.children : <Tree message="You must be offline"/>;
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+        <Tree message="Waiting for data" />
+      </View>
+    )
   }
 }
 
