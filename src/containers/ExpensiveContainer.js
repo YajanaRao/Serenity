@@ -16,13 +16,14 @@ class ExpensiveContainer extends PureComponent {
   }
 
   componentDidMount() {
-    if(this.props.load){
-        QuoteContainer = require('./QuoteContainer').default;
-        PopularContainer = require('./PopularContainer').default;
-        Top20Container = require('./Top20Container').default;
-        ArtistContainer = require('./ArtistContainer').default;
-        setTimeout(() => this.setState({isLoaded: true}), 5000);
-    }
+     
+     setTimeout(() => {
+       QuoteContainer = require('./QuoteContainer').default;
+       PopularContainer = require('./PopularContainer').default;
+       Top20Container = require('./Top20Container').default;
+       ArtistContainer = require('./ArtistContainer').default;
+       this.setState({isLoaded: true})
+      }, 3000);
   }
 
 
@@ -31,7 +32,7 @@ class ExpensiveContainer extends PureComponent {
     if (!this.state.isLoaded) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 500 }}>
-          <ActivityIndicator />
+          <ActivityIndicator size="large" />
         </View>
       );
     }

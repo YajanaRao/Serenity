@@ -1,14 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator, Headline } from 'react-native-paper';
+import { ActivityIndicator, Headline, withTheme } from 'react-native-paper';
 
-const Welcome = () => {
+const Welcome = (props) => {
+    const { colors } = props.theme; 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Headline style={{ margin: 16, fontSize: 34, fontWeight: 'bold' }} >Serenity</Headline>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
+            <Headline style={{ margin: 16, fontSize: 40, fontWeight: 'bold', padding: 16 }} >Serenity</Headline>
             <ActivityIndicator animating={true} size="large" />
         </View>
     )
 }
 
-export default Welcome;
+export default withTheme(Welcome);

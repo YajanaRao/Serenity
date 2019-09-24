@@ -14,18 +14,16 @@ class OnlineContainer extends PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      NetInfo.fetch().then(state => {
-        this.setState({
-          isConnected: state.isConnected,
-        });
-        if (!state.isConnected) {
-          this.unsubscribe = NetInfo.addEventListener(state => {
-            this.handleConnectivityChange(state);
-          });
-        }
+    NetInfo.fetch().then(state => {
+      this.setState({
+        isConnected: state.isConnected,
       });
-    }, 5000);
+      if (!state.isConnected) {
+        this.unsubscribe = NetInfo.addEventListener(state => {
+          this.handleConnectivityChange(state);
+        });
+      }
+    });
   
   }
 
