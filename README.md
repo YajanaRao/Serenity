@@ -51,6 +51,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 - Play audio
 - Support for local files
+- Browsing by genre
 
 ## Planned features
 
@@ -61,7 +62,6 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Song queue, which can be exported as a playlist
 - Loading saved playlists
 - Newest releases with reviews - tracks and albums
-- Browsing by genre
 - Radio mode (automatically queue similar tracks)
 - Real time lyrics
 - Browsing by popularity
