@@ -143,6 +143,7 @@ export const skipToNext = () => (dispatch, getState) => {
         status: 'playing',
       });
     } else {
+      RNAudio.pause();
       dispatch({
         type: 'STATUS',
         status: 'paused',
