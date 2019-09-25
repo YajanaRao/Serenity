@@ -6,6 +6,9 @@ import {
   Switch,
   Drawer,
   TouchableRipple,
+  Portal,
+  Dialog,
+  ActivityIndicator
 } from 'react-native-paper';
 import {connect} from 'react-redux';
 
@@ -40,6 +43,8 @@ class Settings extends React.PureComponent {
       {cancelable: false},
     );
   };
+
+
 
   render() {
     const {colors} = this.props.theme;

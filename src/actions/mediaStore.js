@@ -1,14 +1,15 @@
-import  RNAndroidAudioStore from 'react-native-get-music-files';
+import RNAndroidAudioStore from 'react-native-get-music-files';
 import map from 'lodash/map';
 
-export const updateQuery = (query) => dispatch => {
-    if(query){
-      RNAndroidAudioStore.search({ searchParam: query }).then((media) => {
-        map(media, function (item) {
-          item.url = item.path
-          item.id = item.path
-          delete item.path
-          return item
+export const updateQuery = query => dispatch => {
+  if (query) {
+    RNAndroidAudioStore.search({searchParam: query})
+      .then(media => {
+        map(media, function(item) {
+          item.url = item.path;
+          item.id = item.path;
+          delete item.path;
+          return item;
         });
         dispatch({
           type: 'UPDATE_QUERY',
@@ -16,102 +17,102 @@ export const updateQuery = (query) => dispatch => {
           // query: query
         });
       })
-      .catch((error) => {
-        console.log(error)
-      })
-    }
+      .catch(error => {
+        console.log(error);
+      });
+  } else {
     dispatch({
       type: 'UPDATE_QUERY',
-      payload: [],
+      payload: false,
       // query: query
     });
-}
-
+  }
+};
 
 export const getOfflineSongs = () => dispatch => {
   RNAndroidAudioStore.getAll({})
     .then(media => {
       dispatch({
         type: 'OFFLINE_SONGS',
-        payload: media
-      })
+        payload: media,
+      });
     })
     .catch(er => {
-      console.log(er)
+      console.log(er);
       dispatch({
         type: 'NOTIFY',
-        payload: 'Something went wrong'
-      })
+        payload: 'Something went wrong',
+      });
     });
-}
-  
+};
+
 export const getOfflineArtists = () => dispatch => {
   RNAndroidAudioStore.getArtists({})
     .then(media => {
       dispatch({
         type: 'OFFLINE_ARTISTS',
-        payload: media
-      })
+        payload: media,
+      });
     })
     .catch(er => {
-        dispatch({
+      dispatch({
         type: 'NOTIFY',
-        payload: 'Something went wrong'
-      })
+        payload: 'Something went wrong',
+      });
     });
-}
+};
 
 export const getOfflineAlbums = () => dispatch => {
   RNAndroidAudioStore.getAlbums({})
-  .then(media => {
-    dispatch({
-      type: 'OFFLINE_ALBUMS',
-      payload: media
+    .then(media => {
+      dispatch({
+        type: 'OFFLINE_ALBUMS',
+        payload: media,
+      });
     })
-  })
-  .catch(er => {
+    .catch(er => {
       dispatch({
         type: 'NOTIFY',
-        payload: 'Something went wrong'
-      })
-  });
-}
+        payload: 'Something went wrong',
+      });
+    });
+};
 
-export const filterArtistSongs = (artist,image) => dispatch => {
+export const filterArtistSongs = (artist, image) => dispatch => {
   RNAndroidAudioStore.getSongs({
-    artist: artist
+    artist: artist,
   })
     .then(media => {
-      map(media, function (item) {
-        item.id = item.path
-        item.url = item.path
-        delete item.path
-        item.artwork = image
-        return item
+      map(media, function(item) {
+        item.id = item.path;
+        item.url = item.path;
+        delete item.path;
+        item.artwork = image;
+        return item;
       });
       dispatch({
         type: 'OFFLINE_FILES',
-        payload: media
+        payload: media,
       });
     })
     .catch(er => console.log(er));
-}
+};
 
-export const filterAlbumSongs = (album,image) => dispatch => {
+export const filterAlbumSongs = (album, image) => dispatch => {
   RNAndroidAudioStore.getSongs({
-    album: album
+    album: album,
   })
     .then(media => {
-      map(media, function (item) {
-        item.url = item.path
-        delete item.path
-        item.artwork = image
-        return item
+      map(media, function(item) {
+        item.url = item.path;
+        delete item.path;
+        item.artwork = image;
+        return item;
       });
       dispatch({
         type: 'OFFLINE_FILES',
-        payload: media
+        payload: media,
       });
     })
     .catch(er => console.log(er));
-} 
+};

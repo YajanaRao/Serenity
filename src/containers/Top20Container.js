@@ -11,7 +11,7 @@ class Top20Container extends React.PureComponent {
   componentDidMount() {
     try {
       fetch(
-        'https://gist.githubusercontent.com/YajanaRao/afddeb588e2e299de1b0ced2db0f195b/raw/e525763fde0697e9e4da5bc40179628997741f97/top20.json',
+        'https://gist.githubusercontent.com/YajanaRao/afddeb588e2e299de1b0ced2db0f195b/raw/6c1c58dbb766d0a3aa62af4e43a360a283078652/top20.json',
       )
         .then(response => response.json())
         .then(responseJson => {
