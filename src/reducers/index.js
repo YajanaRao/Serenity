@@ -12,7 +12,7 @@ import {
 } from 'lodash';
 
 const INITIAL_QUERY = {
-  searchResult: [],
+  searchResult: false,
 };
 
 const INITIAL_CONFIG = {
