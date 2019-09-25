@@ -24,7 +24,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResult: [],
+      searchResult: false,
     };
   }
 
@@ -42,54 +42,48 @@ class Search extends Component {
     const {navigate} = this.props.navigation;
     return (
       <ScrollView style={{flex: 1, backgroundColor: colors.background}}>
-        {isEmpty(this.state.searchResult) ? (
-          false
+        {this.state.searchResult ? (
+          <FlatList
+            data={this.props.searchResult}
+            ItemSeparatorComponent={() => <Divider inset={true} />}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => <Track track={item} />}
+          />
         ) : (
-          <View style={{height: '100%'}}>
-            <FlatList
-              data={this.props.searchResult}
-              ItemSeparatorComponent={() => <Divider inset={true} />}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => <Track track={item} />}
-            />
+          <View>
+            <Title style={styles.headline}>All Moods & Genres</Title>
+            <View style={styles.container}>
+              <FlatList
+                data={Genre}
+                keyExtractor={(item, index) => index.toString()}
+                numColumns={2}
+                renderItem={({item}) => (
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                    }}
+                    onPress={() =>
+                      navigate('Filter', {
+                        songs: [],
+                        img: item.image,
+                        title: item.title,
+                      })
+                    }>
+                    <LinearGradient
+                      colors={item.colors}
+                      start={{x: 0, y: 0}}
+                      end={{x: 1, y: 0}}
+                      style={styles.item}>
+                      <Subheading style={{color: 'white'}} numberOfLines={1}>
+                        {item.title}
+                      </Subheading>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
           </View>
         )}
-
-        <Title style={styles.headline}>All Moods & Genres</Title>
-        <View style={styles.container}>
-          <FlatList
-            data={Genre}
-            keyExtractor={(item, index) => index.toString()}
-            numColumns={2}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                }}
-                onPress={() =>
-                  navigate('Filter', {
-                    songs: [],
-                    img: item.image,
-                    title: item.title,
-                  })
-                }>
-                <LinearGradient
-                  colors={item.colors}
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 0}}
-                  style={styles.item}>
-                  <Subheading style={{color: 'white'}} numberOfLines={1}>
-                    {item.title}
-                  </Subheading>
-
-                  {/* <Subheading style={{color: 'white'}} numberOfLines={1}>
-                      {item.title}
-                    </Subheading> */}
-                </LinearGradient>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
       </ScrollView>
     );
   }
