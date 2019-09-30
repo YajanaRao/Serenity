@@ -14,11 +14,6 @@ class Love extends PureComponent {
     };
   }
 
-  componentDidMount() {
-    console.log(this.props.favorite);
-    console.log(includes(this.props.favorite, this.props.track));
-  }
-
   static getDerivedStateFromProps(props, state) {
     if (includes(props.favorite, props.track) !== state.favorite) {
       return {
@@ -29,7 +24,6 @@ class Love extends PureComponent {
   }
 
   addToFavorite = () => {
-    console.log("Add to favorite");
     this.props.addToFavorite(this.props.track);
     this.setState(prev => ({favorite: !prev.favorite}));
   };

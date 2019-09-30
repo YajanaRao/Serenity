@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const ArtistScrollView = props => {
   return (
     <View>
-      <Title style={styles.title}>{props.title}</Title>
+      { props.data ? <Title style={styles.title}>{props.title}</Title> : false }
       <FlatList
         horizontal={true}
         data={props.data}

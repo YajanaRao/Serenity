@@ -8,14 +8,16 @@ import {
   size,
   union,
   drop,
+  shuffle
 } from 'lodash';
 
 const INITIAL_QUERY = {
-  searchResult: [],
+  searchResult: false,
 };
 
-const INITIAL_THEME = {
+const INITIAL_CONFIG = {
   themeType: 'dark',
+  repeat: 'repeat-all',
 };
 
 const INITIAL_STATE = {
@@ -123,7 +125,14 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         status: 'paused',
       };
-
+    
+    case 'SHUFFLE_PLAY':
+      let queue = shuffle(action.songs);
+      return {
+        ...state,
+        queue: queue,
+        active: head(queue)
+      }
     case 'ADD_TO_FAVORITE':
       return {
         ...state,
@@ -212,13 +221,18 @@ const queryReducer = (state = INITIAL_QUERY, action) => {
   }
 };
 
-const themeReducer = (state = INITIAL_THEME, action) => {
+const configReducer = (state = INITIAL_CONFIG, action) => {
   switch (action.type) {
     case 'UPDATE_THEME':
       return {
         ...state,
         themeType: action.payload,
       };
+    case 'REPEAT':
+      return {
+        ...state,
+        repeat: action.repeat
+      }
     default:
       return state;
   }
@@ -273,7 +287,7 @@ const dashboardReducer = (state = DASHBOARD_STATE, action) => {
 
 export default combineReducers({
   query: queryReducer,
-  theme: themeReducer,
+  config: configReducer,
   playerState: playerStateReducer,
   mediaStore: mediaStoreReducer,
 });

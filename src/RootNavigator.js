@@ -45,7 +45,7 @@ class RootNavigator extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  themeType: state.theme.themeType,
+  themeType: state.config.themeType,
 });
 
 export default connect(mapStateToProps)(RootNavigator);
