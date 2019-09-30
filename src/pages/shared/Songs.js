@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import {IconButton, withTheme, Title, Button} from 'react-native-paper';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import React, { Component } from 'react';
+import { IconButton, withTheme, Title, Button } from 'react-native-paper';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import {addToQueue} from '../../actions/playerState';
+import { addToQueue } from '../../actions/playerState';
 import SwipeListContainer from '../../containers/SwipeListContainer';
 import DefaultImage from '../../components/DefaultImage';
 
 class Songs extends Component {
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     // header: null
     return {
       headerTitle: navigation.getParam('title'),
@@ -25,33 +25,32 @@ class Songs extends Component {
 
   addToQueue = () => {
     let songs = this.props.navigation.getParam('songs');
-    console.log(songs);
     this.props.addToQueue(songs);
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({addToQueue: this.addToQueue});
+    this.props.navigation.setParams({ addToQueue: this.addToQueue });
   }
 
   render() {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
 
     const songs = navigation.getParam('songs', []);
     const albumImage = navigation.getParam('img');
     const title = navigation.getParam('title', 'No Title');
 
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
 
     return (
-      <View style={[styles.container, {backgroundColor: colors.background}]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
         <ScrollView>
           <View style={styles.scrollViewContent}>
             <View style={styles.coverContainer}>
               {albumImage ? (
-                <FastImage source={{uri: albumImage}} style={styles.artCover} />
+                <FastImage source={{ uri: albumImage }} style={styles.artCover} />
               ) : (
-                <DefaultImage style={styles.artCover} />
-              )}
+                  <DefaultImage style={styles.artCover} />
+                )}
               {/* <Headline style={styles.title}>{title}</Headline> */}
             </View>
             <View style={styles.titleContainer}>
@@ -60,18 +59,18 @@ class Songs extends Component {
             {isEmpty(songs) ? (
               <Title>No songs</Title>
             ) : (
-              <View style={styles.buttonContainer}>
-                {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
+                <View style={styles.buttonContainer}>
+                  {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download
                             </Button> */}
-                <Button mode="contained" onPress={this.addToQueue}>
-                  Play All
+                  <Button mode="contained" onPress={this.addToQueue}>
+                    Play All
                 </Button>
-              </View>
-            )}
+                </View>
+              )}
 
             <SwipeListContainer data={songs} />
-            <View style={{height: 100}} />
+            <View style={{ height: 100 }} />
           </View>
         </ScrollView>
       </View>
@@ -81,7 +80,7 @@ class Songs extends Component {
 
 export default connect(
   null,
-  {addToQueue},
+  { addToQueue },
 )(withTheme(Songs));
 
 const styles = StyleSheet.create({
@@ -102,6 +101,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 8,
   },
-  artCover: {width: 200, height: 200},
-  titleContainer: {alignItems: 'center', justifyContent: 'center', margin: 10},
+  artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12 },
+  titleContainer: { alignItems: 'center', justifyContent: 'center', margin: 10 },
 });

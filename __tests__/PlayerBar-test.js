@@ -10,7 +10,7 @@ import PlayerBar from '../src/components/PlayerBar';
 import renderer from 'react-test-renderer';
 
 it('Playing play bar renders correctly without art cover', () => {
-  const track = { title: 'title', artist: 'Tester' } 
+  const track = {title: 'title', artist: 'Tester'};
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
@@ -21,6 +21,23 @@ it('Playing play bar renders correctly without art cover', () => {
       togglePlayback={togglePlayback}
     />,
   );
+});
+
+it('Blank component renders correctly', () => {
+  const track = {title: 'title', artist: 'Tester'};
+  const navigation = jest.fn();
+  const togglePlayback = jest.fn();
+  const tree = renderer
+    .create(
+      <PlayerBar
+        status={'playing'}
+        active={track}
+        navigateToPlayer={navigation}
+        togglePlayback={togglePlayback}
+      />,
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
 
 it('Pause play bar renders correctly without art cover', () => {
@@ -37,7 +54,6 @@ it('Pause play bar renders correctly without art cover', () => {
   );
 });
 
-
 it('Track with album name renders correctly without art cover', () => {
   const track = {title: 'title', album: 'Testing'};
   const navigation = jest.fn();
@@ -51,7 +67,6 @@ it('Track with album name renders correctly without art cover', () => {
     />,
   );
 });
-
 
 it('Playing play bar renders correctly with art cover', () => {
   const track = {title: 'title', album: 'Testing', artcover: 'test'};

@@ -14,6 +14,7 @@ class QueueContainer extends Component {
   clearPlaylist = () => {
     this.props.clearQueue();
   };
+  
   render() {
     return !isEmpty(this.props.queue) ? (
       <View>
