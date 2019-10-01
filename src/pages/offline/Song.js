@@ -9,7 +9,7 @@ import {View, RefreshControl, StyleSheet, ScrollView} from 'react-native';
 import {isEqual, isEmpty, isArray} from 'lodash';
 
 import {getOfflineSongs} from '../../actions/mediaStore';
-import {addToQueue} from '../../actions/playerState';
+import {addToQueue, shufflePlay} from '../../actions/playerState';
 import TrackContainer from '../../containers/TrackContainer';
 import Blank from '../../components/Blank';
 import { FlatList } from 'react-native-gesture-handler';
@@ -51,12 +51,7 @@ class Song extends React.Component {
       return (
         <ScrollView style={{flex: 1, backgroundColor: colors.background}}>
           <View
-            style={{
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              margin: 10,
-              flexDirection: 'row',
-            }}>
+            style={styles.container}>
             <Button
               icon="play-arrow"
               mode="outlined"
@@ -64,9 +59,9 @@ class Song extends React.Component {
               Play All
             </Button>
             <Button
-              icon="play-circle-outline"
+              icon="shuffle"
               mode="outlined"
-              onPress={() => this.props.addToQueue(this.state.songs)}>
+              onPress={() => this.props.shufflePlay(this.state.songs)}>
               Shuffle
             </Button>
           </View>
@@ -98,17 +93,14 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {addToQueue, getOfflineSongs},
+  {addToQueue, getOfflineSongs, shufflePlay},
 )(withTheme(Song));
 
 const styles = StyleSheet.create({
-  rowBack: {
+  container: {
+    justifyContent: 'space-around',
     alignItems: 'center',
-    // backgroundColor: '#DDD',
-    flex: 1,
+    margin: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 15,
-    paddingRight: 15,
   },
 });

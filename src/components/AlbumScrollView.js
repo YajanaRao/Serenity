@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 const AlbumScrollView = props => {
   return (
-    <View>
-      <Title style={styles.title}>{props.title}</Title>
+    <View style={{flex: 1}}>
+      { props.data ? <Title style={styles.title}>{props.title}</Title> : false }
       <FlatList
         horizontal={true}
         data={props.data}
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   photo: {
     width: 120,
     height: 120,
-    // borderRadius: 12,
-    elevation: 1,
+    borderRadius: 12,
+    elevation: 4,
   },
 });

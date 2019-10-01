@@ -2,10 +2,9 @@ import React from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Surface, Subheading, Caption, IconButton} from 'react-native-paper';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import DefaultImage from './DefaultImage';
-
 
 const PlayerBar = props => {
   return (
@@ -22,13 +21,7 @@ const PlayerBar = props => {
         ) : (
           <DefaultImage style={styles.artwork} />
         )}
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginLeft: 4,
-          }}>
+        <View style={styles.textContainer}>
           <Subheading numberOfLines={1} style={{margin: 0}}>
             {props.active.title}
           </Subheading>
@@ -36,12 +29,7 @@ const PlayerBar = props => {
             {props.active.artist ? props.active.artist : props.active.album}
           </Caption>
         </View>
-        <View
-          style={{
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            width: 50,
-          }}>
+        <View style={styles.iconContainer}>
           <IconButton
             icon={props.status === 'playing' ? 'pause' : 'play-arrow'}
             animated={true}
@@ -72,6 +60,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 8,
     elevation: 0,
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 4,
+  },
+  iconContainer: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: 50,
   },
   artwork: {
     width: 50,
