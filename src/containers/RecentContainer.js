@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import Recent from '../components/Recent';
-import {loadTrackPlayer, playTrack} from '../actions/playerState';
+import TrackScrollView from '../components/TrackScrollView';
+import { loadTrackPlayer, playTrack } from '../actions/playerState';
 
 // FIXME: Testing the application
 class RecentContainer extends PureComponent {
@@ -15,8 +15,12 @@ class RecentContainer extends PureComponent {
   };
 
   render() {
-    if (!isEmpty(this.props.history)) {
-      return <Recent history={this.props.history} play={this.play} />;
+    if (this.props.history.length > 3) {
+      return <TrackScrollView
+        title={'Recent songs'}
+        data={this.props.history}
+        play={this.play}
+      />
     }
     return false;
   }

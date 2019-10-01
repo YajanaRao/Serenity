@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {List, withTheme} from 'react-native-paper';
+import {
+  List,
+  withTheme,
+  Portal,
+  Dialog,
+  TextInput,
+  Button,
+} from 'react-native-paper';
 import {connect} from 'react-redux';
 import {isEqual, isEmpty, size} from 'lodash';
 
@@ -11,6 +18,8 @@ class Playlist extends Component {
 
   state = {
     favorite: [],
+    playlist: '',
+    visible: false,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -31,13 +40,35 @@ class Playlist extends Component {
     }
   };
 
+  _showDialog = () => this.setState({visible: true});
+
+  _hideDialog = () => this.setState({visible: false});
+
   render() {
     const {colors} = this.props.theme;
     return (
       <View style={{flex: 1, backgroundColor: colors.background}}>
+        <Portal>
+          <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
+            <Dialog.Title>Enter your playlist name</Dialog.Title>
+            <Dialog.Content>
+              <TextInput
+                mode="outlined"
+                label="Playlist Name"
+                value={this.state.playlist}
+                onChangeText={playlist => this.setState({playlist})}
+              />
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={this._hideDialog}>Cancel</Button>
+              <Button onPress={this._hideDialog}>Create</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
         <List.Item
           title="Create Playlist"
           left={props => <List.Icon {...props} icon="add" />}
+          onPress={this._showDialog}
         />
         <List.Item
           title="Favorite"
