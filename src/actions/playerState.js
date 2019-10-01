@@ -4,6 +4,8 @@ import {DeviceEventEmitter} from 'react-native';
 import Analytics from 'appcenter-analytics';
 import isEmpty from 'lodash/isEmpty';
 import head from 'lodash/head';
+
+import { addSong } from './realmAction';
 /* 
  TODO:
  - Queue management in javascript
@@ -104,6 +106,7 @@ export const pauseTrack = () => dispatch => {
 
 export const skipToNext = () => (dispatch, getState) => {
   try {
+    addSong("user-playlist--000002", getState().playerState.active);
     queue = getState().playerState.queue;
     track = isEmpty(queue) ? null : head(queue);
     url = track ? track.url : track.path; 
