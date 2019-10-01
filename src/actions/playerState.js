@@ -37,7 +37,7 @@ export const setUpTrackPlayer = () => dispatch => {
         dispatch(skipToNext());
       } else if (event == 'skip_to_previous') {
         dispatch(skipToPrevious());
-      } else if (event == 'completed') {
+      } else if (event == 'skip_to_next') {
         dispatch(skipToNext());
       } else {
         dispatch({
@@ -66,8 +66,8 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
         track: track,
         status: playOnLoad ? 'playing' : 'paused',
       });
-    }else {
-      console.log(track)
+    } else {
+      console.log(track);
     }
   } catch (error) {
     console.log('loadTrackPlayer: ', error);
@@ -86,6 +86,28 @@ export const playTrack = () => dispatch => {
   } catch (error) {
     console.log('something went wrong', error);
     Analytics.trackEvent('error', error);
+  }
+};
+
+export const repeatSongs = type => dispatch => {
+  try {
+    dispatch({
+      type: 'REPEAT',
+      repeat: type,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const shufflePlay = songs => dispatch => {
+  try {
+    dispatch({
+      type: 'SHUFFLE_PLAY',
+      songs: songs,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -108,9 +130,14 @@ export const skipToNext = () => (dispatch, getState) => {
   try {
     addSong("user-playlist--000002", getState().playerState.active);
     queue = getState().playerState.queue;
-    track = isEmpty(queue) ? null : head(queue);
-    url = track ? track.url : track.path; 
-    if (url) {
+    if (getState().config.repeat == 'repeat-one') {
+      track = getState().playerState.active;
+    } else {
+      track = isEmpty(queue) ? null : head(queue);
+    }
+    
+    if (track) {
+      url = track.url ? track.url : track.path;
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
@@ -119,11 +146,12 @@ export const skipToNext = () => (dispatch, getState) => {
         track: track,
         status: 'playing',
       });
-    }else {
+    } else {
+      RNAudio.pause();
       dispatch({
         type: 'STATUS',
-        status: 'paused'
-      })
+        status: 'paused',
+      });
     }
   } catch (error) {
     console.log(error);
@@ -148,7 +176,7 @@ export const skipToPrevious = () => (dispatch, getState) => {
         track: track,
         status: 'playing',
       });
-    }else {
+    } else {
       dispatch({
         type: 'STATUS',
         status: 'paused',
@@ -177,8 +205,8 @@ export const getQueue = () => dispatch => {
     type: 'QUEUE',
   });
 };
+
 export const addToQueue = song => dispatch => {
-  console.log(song);
   dispatch({
     type: 'ADD_QUEUE',
     payload: song,

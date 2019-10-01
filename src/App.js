@@ -2,18 +2,16 @@ import React from 'react';
 import RootNavigator from './RootNavigator';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {ActivityIndicator, View} from 'react-native';
 
 import configureStore from './store';
+import Welcome from './components/Welcome';
 
 const {store, persistor} = configureStore();
 
 class App extends React.Component {
   renderActivityIndicator = () => {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" />
-      </View>
+      <Welcome/>
     );
   };
   render() {
