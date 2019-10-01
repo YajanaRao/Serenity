@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import {
   Subheading,
   FAB,
@@ -11,19 +11,20 @@ import {
 } from 'react-native-paper';
 import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 
 import QueueContainer from '../../containers/QueueContainer';
 import LoveContainer from '../../containers/LoveContainer';
-// import ProgressBar from '../../components/ProgressBar';
+import ProgressBar from '../../components/ProgressBar';
 
 import {
   playTrack,
   skipToNext,
   skipToPrevious,
   pauseTrack,
+  repeatSongs,
 } from '../../actions/playerState';
 import DefaultImage from '../../components/DefaultImage';
 
@@ -43,16 +44,25 @@ class Player extends React.Component {
     }
   };
 
+  updateRepeatType = () => {
+    console.log(this.props.repeat);
+    if (this.props.repeat == 'repeat-all') {
+      this.props.repeatSongs('repeat-one');
+    } else {
+      this.props.repeatSongs('repeat-all');
+    }
+  };
+
   close = () => {
     this.props.navigation.goBack();
   };
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
 
     if (!isUndefined(this.props.active)) {
       return (
-        <View style={{backgroundColor: colors.background, flex: 1}}>
+        <View style={{ backgroundColor: colors.background, flex: 1 }}>
           <ScrollView>
             <View style={styles.container}>
               <IconButton icon="close" onPress={this.close} />
@@ -64,12 +74,12 @@ class Player extends React.Component {
             <View style={styles.centerContainer}>
               {isString(this.props.active.artwork) ? (
                 <FastImage
-                  source={{uri: this.props.active.artwork}}
-                  style={[styles.artCover, {backgroundColor: colors.surface}]}
+                  source={{ uri: this.props.active.artwork }}
+                  style={[styles.artCover, { backgroundColor: colors.surface }]}
                 />
               ) : (
-                <DefaultImage style={styles.artCover} />
-              )}
+                  <DefaultImage style={styles.artCover} />
+                )}
             </View>
             <View style={styles.centerContainer}>
               <Title numberOfLines={1}>{this.props.active.title}</Title>
@@ -79,11 +89,11 @@ class Player extends React.Component {
                   : this.props.active.album}
               </Subheading>
             </View>
-            {/* <View style={{ alignItems: 'center', justifyContent: 'center', margin: 16 }}>
-                        <ProgressBar />
-                    </View> */}
+            <View style={styles.centerContainer}>
+              <ProgressBar />
+            </View>
             <View style={styles.playerToolbox}>
-              <LoveContainer style={{width: 60}} track={this.props.active} />
+              <LoveContainer track={this.props.active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
@@ -98,19 +108,27 @@ class Player extends React.Component {
                 size={40}
                 onPress={this.props.skipToNext}
               />
-              <IconButton
-                icon="repeat"
-                // size={20}
-                // onPress={}
-              />
+              {this.props.repeat == 'repeat-all' ? (
+                <IconButton
+                  icon="repeat"
+                  // size={20}
+                  onPress={this.updateRepeatType}
+                />
+              ) : (
+                  <IconButton
+                    icon="repeat-one"
+                    // size={20}
+                    onPress={this.updateRepeatType}
+                  />
+                )}
             </View>
             {/* <View style={styles.rowContainer}>
               <Lyric style={{ width: 60 }} track={this.props.active} />
             </View> */}
             <Divider />
 
-            <QueueContainer/>
-            <View style={{height: 100}} />
+            <QueueContainer />
+            <View style={{ height: 100 }} />
           </ScrollView>
         </View>
       );
@@ -122,6 +140,7 @@ class Player extends React.Component {
 Player.propTypes = {
   status: PropTypes.string.isRequired,
   active: PropTypes.object.isRequired,
+  repeat: PropTypes.string.isRequired,
   pauseTrack: PropTypes.func.isRequired,
   playTrack: PropTypes.func.isRequired,
   skipToNext: PropTypes.func.isRequired,
@@ -131,6 +150,7 @@ Player.propTypes = {
 const mapStateToProps = state => ({
   active: state.playerState.active,
   status: state.playerState.status,
+  repeat: state.config.repeat,
 });
 
 export default connect(
@@ -140,6 +160,7 @@ export default connect(
     pauseTrack,
     skipToNext,
     skipToPrevious,
+    repeatSongs,
   },
 )(withTheme(Player));
 
@@ -154,6 +175,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
+    marginHorizontal: 16,
   },
   rowContainer: {
     flexDirection: 'row',
@@ -161,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  artCover: {width: 250, height: 250, borderRadius: 4},
+  artCover: { width: 250, height: 250, borderRadius: 12, elevation: 4 },
   rowBack: {
     alignItems: 'center',
     // backgroundColor: '#DDD',
