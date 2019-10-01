@@ -29,3 +29,9 @@
 2. Updated track to enable and disable swiping
    `swipeable`
 3. Found issue with offline tracks
+
+
+## 01 October 2019
+
+1. MongoDB online database integration with realm for online songs.
+2. Queue and Recently played playlists handling using realm.
