@@ -18,6 +18,7 @@ const INITIAL_QUERY = {
 const INITIAL_CONFIG = {
   themeType: 'dark',
   repeat: 'repeat-all',
+  setup: false
 };
 
 const INITIAL_STATE = {
@@ -229,6 +230,11 @@ const configReducer = (state = INITIAL_CONFIG, action) => {
       }
     default:
       return state;
+    case 'DEFAULT_SETUP':
+      return {
+        ...state,
+        setup: action.payload
+      }
   }
 };
 

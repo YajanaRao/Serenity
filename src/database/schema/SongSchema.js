@@ -6,7 +6,7 @@ const SongSchema = {
     properties: { 
         id: 'string',
         title: 'string',
-        artcover: 'string?',
+        artwork: 'string?',
         artist: 'string?',
         album: 'string?',
         url: 'string'
