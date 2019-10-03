@@ -6,7 +6,8 @@ const PlaylistSchema = {
     properties: {
         id: 'string',
         name: { type: 'string', indexed: true },
-        songs: 'Song[]'
+        songs: 'Song[]',
+        owner: 'string?'
     }
 }
 

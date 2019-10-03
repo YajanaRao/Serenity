@@ -3,6 +3,8 @@ import {withTheme, List} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import PropTypes from 'prop-types';
 
+
+
 /*
     TODO: 
     - may not be required for all render 
@@ -15,8 +17,10 @@ const Track = props => {
   const {track, active} = props;
   const {colors} = props.theme;
 
+
   return (
     <View style={[styles.surface, {backgroundColor: colors.background}]}>
+    
       <List.Item
         title={track.title}
         description={track.artist ? track.artist : track.album}
@@ -24,6 +28,7 @@ const Track = props => {
           active ? (
             <List.Icon {...props} icon="equalizer" color={colors.accent} />
           ) : (
+            // <List.Icon {...props} icon="more-vert" onPress={() => bs.current.snapTo(1)}/>
             false
           )
         }

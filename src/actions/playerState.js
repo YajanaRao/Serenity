@@ -128,7 +128,7 @@ export const pauseTrack = () => dispatch => {
 
 export const skipToNext = () => (dispatch, getState) => {
   try {
-    addSong("user-playlist--000002", getState().playerState.active);
+    addSong("user-playlist--000001", getState().playerState.active);
     queue = getState().playerState.queue;
     if (getState().config.repeat == 'repeat-one') {
       track = getState().playerState.active;
