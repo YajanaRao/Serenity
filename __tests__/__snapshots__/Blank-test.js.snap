@@ -20,6 +20,7 @@ exports[`Blank component renders correctly 1`] = `
       Object {
         "alignItems": "center",
         "justifyContent": "center",
+        "marginTop": 16,
       }
     }
   >
