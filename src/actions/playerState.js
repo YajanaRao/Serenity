@@ -4,17 +4,17 @@ import {DeviceEventEmitter} from 'react-native';
 import Analytics from 'appcenter-analytics';
 import isEmpty from 'lodash/isEmpty';
 import head from 'lodash/head';
-/* 
+/*
  TODO:
  - Queue management in javascript
  - Player functions
-  * Init Track player 
+  * Init Track player
     Setup Track Player
     Add Capabilities
     Once on every mount
-  * Load a track to the track player 
+  * Load a track to the track player
     On Every Track Change execute the method
-    flag to play on load 
+    flag to play on load
   * Play
     Track the status change of the track
     Create a notification bar
@@ -131,7 +131,7 @@ export const skipToNext = () => (dispatch, getState) => {
     } else {
       track = isEmpty(queue) ? null : head(queue);
     }
-    
+
     if (track) {
       url = track.url ? track.url : track.path;
       RNAudio.load(url).then(() => {
@@ -195,12 +195,6 @@ export const destroyTrackPlayer = () => dispatch => {
 };
 
 // NOTE: Queue management
-
-export const getQueue = () => dispatch => {
-  dispatch({
-    type: 'QUEUE',
-  });
-};
 
 export const addToQueue = song => dispatch => {
   dispatch({

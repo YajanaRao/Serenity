@@ -48,7 +48,7 @@ const INITIAL_STORE = {
 
 // FIXME: Javascript implementation
 
-const mediaStoreReducer = (state = INITIAL_STORE, action) => {
+export const mediaStoreReducer = (state = INITIAL_STORE, action) => {
   switch (action.type) {
     case 'DOWNLOAD':
       return {
@@ -88,7 +88,7 @@ const mediaStoreReducer = (state = INITIAL_STORE, action) => {
 // TODO:
 // Normalize queue
 
-const playerStateReducer = (state = INITIAL_STATE, action) => {
+export const playerStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'STATUS':
       return {
@@ -125,7 +125,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         status: 'paused',
       };
-    
+
     case 'SHUFFLE_PLAY':
       let queue = shuffle(action.songs);
       return {
@@ -138,7 +138,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         favorite: union(
           state.favorite,
-          isArray(action.payload) ? action.payload : [action.payload],
+          [action.payload],
         ),
         result: `Added ${action.payload.title} to favorites`,
       };
@@ -151,20 +151,18 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         result: `Removed ${action.payload.title} from favorites`,
       };
 
-    case 'QUEUE':
-      return {
-        queue: state.queue,
-      };
     case 'ADD_QUEUE':
+      const actionPayloadNormalized = isArray(action.payload) ? action.payload : [ action.payload ]
+
       if (isEmpty(state.active)) {
         return {
           ...state,
           active: isEmpty(state.queue)
-            ? head(action.payload)
+            ? head(actionPayloadNormalized)
             : head(state.queue),
           queue: union(
             state.queue,
-            !isArray(action.payload) ? [action.payload] : action.payload,
+            actionPayloadNormalized,
           ),
           result: `Playing songs from the queue`,
         };
@@ -173,9 +171,9 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         queue: union(
           state.queue,
-          !isArray(action.payload) ? [action.payload] : action.payload,
+          actionPayloadNormalized,
         ),
-        result: `Added ${size(action.payload)} songs to queue`,
+        result: `Added ${size(actionPayloadNormalized)} songs to queue`,
       };
 
     case 'REMOVE_QUEUE':
@@ -209,7 +207,7 @@ const playerStateReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-const queryReducer = (state = INITIAL_QUERY, action) => {
+export const queryReducer = (state = INITIAL_QUERY, action) => {
   switch (action.type) {
     case 'UPDATE_QUERY':
       return {
@@ -221,7 +219,7 @@ const queryReducer = (state = INITIAL_QUERY, action) => {
   }
 };
 
-const configReducer = (state = INITIAL_CONFIG, action) => {
+export const configReducer = (state = INITIAL_CONFIG, action) => {
   switch (action.type) {
     case 'UPDATE_THEME':
       return {
