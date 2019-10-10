@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image';
 import {Title, Button, withTheme, IconButton} from 'react-native-paper';
 import isEqual from 'lodash/isEqual';
 import {connect} from 'react-redux';
-
+import PropTypes from 'prop-types';
 import {addToQueue} from '../../actions/playerState';
 import {filterAlbumSongs, filterArtistSongs} from '../../actions/mediaStore';
 import SwipeListContainer from '../../containers/SwipeListContainer';
@@ -136,6 +136,14 @@ class Filter extends Component {
 const mapStateToProps = state => ({
   files: state.mediaStore.files,
 });
+
+Filter.propTypes = {
+  theme: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+  addToQueue: PropTypes.func.isRequired,
+  filterArtistSongs: PropTypes.func.isRequired,
+  filterAlbumSongs:PropTypes.func.isRequired
+}
 
 export default connect(
   mapStateToProps,

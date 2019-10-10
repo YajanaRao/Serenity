@@ -3,6 +3,7 @@ import {List, withTheme} from 'react-native-paper';
 import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import EmptyFavoriteAlbums from '../../components/EmptyFavoriteAlbums';
+import PropTypes from 'prop-types';
 
 class Album extends React.Component {
   static navigationOptions = {
@@ -50,6 +51,10 @@ class Album extends React.Component {
 }
 
 export default withTheme(Album);
+
+Album.propTypes = {
+  theme: PropTypes.object.isRequired
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import {withNavigation} from 'react-navigation';
 import AlbumScrollView from '../components/AlbumScrollView';
+import PropTypes from 'prop-types';
 
 class PopularContainer extends React.PureComponent {
   constructor(props) {
@@ -45,6 +46,10 @@ class PopularContainer extends React.PureComponent {
       />
     );
   }
+}
+
+PopularContainer.propTypes = {
+  navigation: PropTypes.object.isRequired
 }
 
 export default withNavigation(PopularContainer);

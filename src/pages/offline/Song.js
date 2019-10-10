@@ -7,7 +7,7 @@ import {
 import {connect} from 'react-redux';
 import {View, RefreshControl, StyleSheet, ScrollView} from 'react-native';
 import {isEqual, isEmpty, isArray} from 'lodash';
-
+import PropTypes from 'prop-types';
 import {getOfflineSongs} from '../../actions/mediaStore';
 import {addToQueue, shufflePlay} from '../../actions/playerState';
 import TrackContainer from '../../containers/TrackContainer';
@@ -90,6 +90,15 @@ class Song extends React.Component {
 const mapStateToProps = state => ({
   songs: state.mediaStore.songs,
 });
+
+Song.propTypes = {
+  songs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getOfflineSongs: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+  shufflePlay: PropTypes.func.isRequired,
+  addToQueue: PropTypes.func.isRequired
+}
 
 export default connect(
   mapStateToProps,

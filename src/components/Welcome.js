@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ActivityIndicator, Headline, withTheme } from 'react-native-paper';
+import PropTypes from 'prop-types';
 
 const Welcome = (props) => {
     const { colors } = props.theme; 
@@ -10,6 +11,10 @@ const Welcome = (props) => {
             <ActivityIndicator animating={true} size="large" />
         </View>
     )
+}
+
+Welcome.propTypes = {
+    theme: PropTypes.object.isRequired
 }
 
 export default withTheme(Welcome);

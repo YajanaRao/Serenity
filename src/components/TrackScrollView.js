@@ -3,6 +3,7 @@ import {Title, Paragraph} from 'react-native-paper';
 import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import DefaultImage from './DefaultImage';
+import PropTypes from 'prop-types';
 
 // FIXME: Testing the application
 const TrackScrollView = props => {
@@ -42,6 +43,11 @@ const TrackScrollView = props => {
 };
 
 export default TrackScrollView;
+
+TrackScrollView.propTypes = {
+  title: PropTypes.string.isRequired,
+  play: PropTypes.func.isRequired
+}
 
 const styles = StyleSheet.create({
   photo: {

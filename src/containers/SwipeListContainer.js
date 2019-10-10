@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import isEqual from 'lodash/isEqual';
-
+import PropTypes from 'prop-types';
 import SwipeList from '../components/SwipeList';
 import {addToQueue, addToFavorite} from '../actions/playerState';
 
@@ -17,6 +16,12 @@ class SwipeListContainer extends React.Component {
       />
     );
   }
+}
+
+SwipeListContainer.propTypes = {
+  data: PropTypes.object.isRequired,
+  addToFavorite: PropTypes.func.isRequired,
+  addToQueue: PropTypes.func.isRequired
 }
 
 export default connect(
