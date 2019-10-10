@@ -2,6 +2,7 @@ import React from 'react';
 import { Surface, IconButton, Divider} from 'react-native-paper';
 import {RefreshControl, StyleSheet} from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
+import PropTypes from 'prop-types';
 
 import TrackContainer from '../containers/TrackContainer';
 
@@ -31,6 +32,12 @@ const SwipeList = props => {
 }
 
 export default SwipeList;
+
+SwipeList.propTypes = {
+  data: PropTypes.object.isRequired,
+  addToQueue: PropTypes.func.isRequired,
+  addToFavorite: PropTypes.func.isRequired
+}
 
 const styles = StyleSheet.create({
   rowBack: {

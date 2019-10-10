@@ -7,7 +7,7 @@ import {
   Surface,
   Divider,
 } from 'react-native-paper';
-
+import PropTypes from 'prop-types';
 import PlayerBarContainer from '../containers/PlayerBarContainer';
 
 // https://dev.to/hrastnik/lets-create-a-custom-animated-tab-bar-with-react-native-3496
@@ -70,6 +70,16 @@ const BottomTabBar = props => {
     </Surface>
   );
 };
+
+BottomTabBar.propTypes = {
+  renderIcon: PropTypes.func.isRequired,
+  getLabelText: PropTypes.func.isRequired,
+  onTabPress: PropTypes.func.isRequired,
+  onTabLongPress: PropTypes.func.isRequired,
+  getAccessibilityLabel: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
+}
 
 const styles = StyleSheet.create({
   container: {

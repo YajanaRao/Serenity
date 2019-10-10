@@ -33,7 +33,7 @@ const Track = props => {
   );
 };
 
-Track.prototype = {
+Track.propTypes = {
   track: PropTypes.object.isRequired,
   active: PropTypes.bool.isRequired,
 };

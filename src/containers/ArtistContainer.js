@@ -1,6 +1,7 @@
 import React from 'react';
 import {withNavigation} from 'react-navigation';
 import ArtistScrollView from '../components/ArtistScrollView';
+import PropTypes from 'prop-types';
 
 class ArtistContainer extends React.PureComponent {
   constructor(props) {
@@ -44,6 +45,10 @@ class ArtistContainer extends React.PureComponent {
       />
     );
   }
+}
+
+ArtistContainer.propTypes = {
+  navigation: PropTypes.object.isRequired
 }
 
 export default withNavigation(ArtistContainer);

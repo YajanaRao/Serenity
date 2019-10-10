@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {View, StyleSheet, RefreshControl} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {isEqual, isEmpty} from 'lodash';
-
+import PropTypes from 'prop-types';
 import {getOfflineAlbums} from '../../actions/mediaStore';
 import Blank from '../../components/Blank';
 
@@ -105,6 +105,13 @@ class Album extends React.PureComponent {
 const mapStateToProps = state => ({
   albums: state.mediaStore.albums,
 });
+
+Album.propTypes = {
+  albums: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getOfflineAlbums: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
+}
 
 export default connect(
   mapStateToProps,

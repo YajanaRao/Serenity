@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, withTheme} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import Tree from './Tree';
+import PropTypes from 'prop-types';
 
 const Blank = props => {
   const { colors } = props.theme;
@@ -18,6 +19,10 @@ const Blank = props => {
 };
 
 export default withTheme(Blank);
+
+Blank.propTypes = {
+  theme: PropTypes.object.isRequired
+}
 
 const styles = StyleSheet.create({
   container: {
