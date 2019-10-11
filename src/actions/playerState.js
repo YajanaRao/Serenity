@@ -1,11 +1,10 @@
 import RNAudio from 'react-native-audio';
-import isUndefined from 'lodash/isUndefined';
-import {DeviceEventEmitter} from 'react-native';
+import { DeviceEventEmitter } from 'react-native';
 import Analytics from 'appcenter-analytics';
-import isEmpty from 'lodash/isEmpty';
 import head from 'lodash/head';
+import isEmpty from 'lodash/isEmpty';
 
-import { addSong } from './realmAction';
+import { addSong, removeSong, getQueuedSongs, getPlayedSongs, clearAllSongs } from './realmAction';
 /* 
  TODO:
  - Queue management in javascript
@@ -28,9 +27,13 @@ import { addSong } from './realmAction';
 
 var subscription = null;
 
+const QUEUE_ID = "user-playlist--000003";
+const HISTORY_ID = "user-playlist--000001";
+const FAVOURITE_ID = "user-playlist--000002";
+
 export const setUpTrackPlayer = () => dispatch => {
   try {
-    subscription = DeviceEventEmitter.addListener('media', function(event) {
+    subscription = DeviceEventEmitter.addListener('media', function (event) {
       // handle event
       console.log('from event listener', event);
       if (event == 'skip_to_next') {
@@ -125,19 +128,21 @@ export const pauseTrack = () => dispatch => {
 };
 
 // FIXME: implement with javascript
-
 export const skipToNext = () => (dispatch, getState) => {
   try {
-    addSong("user-playlist--000001", getState().playerState.active);
-    queue = getState().playerState.queue;
-    if (getState().config.repeat == 'repeat-one') {
-      track = getState().playerState.active;
-    } else {
-      track = isEmpty(queue) ? null : head(queue);
-    }
-    
-    if (track) {
-      url = track.url ? track.url : track.path;
+    let queue = getQueuedSongs();
+    let track = null;
+    if (queue.length > 1) {
+      let playedTrack = head(queue);
+      if (getState().config.repeat == 'repeat-one') {
+        track = playedTrack;
+      } else {
+        addSong(HISTORY_ID, playedTrack);
+        removeSong(QUEUE_ID, playedTrack);
+        track = head(getQueuedSongs());
+      }
+      let url = track.url ? track.url : track.path;
+      console.log("track url: ", url);
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
@@ -154,29 +159,32 @@ export const skipToNext = () => (dispatch, getState) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.log("skipToNext: ", error);
     Analytics.trackEvent('error', error);
-    // TrackPlayer.stop();
   }
 };
 
 // FIXME: implement with javascript
-
-export const skipToPrevious = () => (dispatch, getState) => {
+export const skipToPrevious = () => (dispatch) => {
   try {
-    history = getState().playerState.history;
-    track = isEmpty(history) ? null : head(history);
-    url = track.url ? track.url : track.path;
-    if (url) {
-      RNAudio.load(url).then(() => {
-        RNAudio.play();
-      });
-      dispatch({
-        type: 'PREVIOUS',
-        track: track,
-        status: 'playing',
-      });
-    } else {
+    let history = getPlayedSongs();
+    if (history.length) {
+      let track = getPlayedSongs()[0];
+      addSong(QUEUE_ID, track);
+      let url = track.url ? track.url : track.path;
+      if (url) {
+        RNAudio.load(url).then(() => {
+          RNAudio.play();
+        });
+        dispatch({
+          type: 'PREVIOUS',
+          track: track,
+          status: 'playing',
+        });
+      }
+    }
+    else {
+      RNAudio.pause();
       dispatch({
         type: 'STATUS',
         status: 'paused',
@@ -206,11 +214,15 @@ export const getQueue = () => dispatch => {
   });
 };
 
-export const addToQueue = song => dispatch => {
-  dispatch({
-    type: 'ADD_QUEUE',
-    payload: song,
-  });
+export const addToQueue = song => (dispatch, getState) => {
+  addSong(QUEUE_ID, song);
+  if (isEmpty(getState().playerState.active)) {
+    dispatch({
+      type: 'LOAD',
+      status: 'paused',
+      track: getQueuedSongs()[0],
+    });
+  }
 };
 
 export const removeFromQueue = song => dispatch => {
@@ -221,31 +233,27 @@ export const removeFromQueue = song => dispatch => {
 };
 
 export const clearQueue = () => dispatch => {
+  RNAudio.pause();
+  clearAllSongs(QUEUE_ID);
   dispatch({
-    type: 'CLEAR_QUEUE',
-    payload: [],
+    type: 'LOAD',
+    track: {},
+    status: 'init'
   });
 };
 
-//  Favorite management
-export const addToFavorite = item => dispatch => {
-  if (!isUndefined(item)) {
-    dispatch({
-      type: 'ADD_TO_FAVORITE',
-      payload: item,
-    });
-  }
-};
-
-export const removeFromFavorite = item => dispatch => {
+export const addToFavourite = song => dispatch => {
+  addSong(FAVOURITE_ID, song);
   dispatch({
-    type: 'REMOVE_FROM_FAVORITE',
-    payload: item,
+    type: 'NOTIFY',
+    payload: 'Added song to queue'
   });
-};
+}
 
 export const clearHistory = () => dispatch => {
+  clearAllSongs(HISTORY_ID);
   dispatch({
-    type: 'CLEAR_HISTORY',
+    type: 'NOTIFY',
+    payload: 'Cleared history'
   });
 };

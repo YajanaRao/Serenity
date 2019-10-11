@@ -43,12 +43,6 @@ class SwipeList extends React.Component {
             <Dialog.ScrollArea>
               <ScrollView contentContainerStyle={{ marginHorizontal: 16, marginVertical: 16 }}>
                 <Title style={{ textAlign: 'center' }}>Add to Playlist</Title>
-                <List.Item
-                  title="Favorite"
-                  description={'Favorite Songs'}
-                  left={props => <List.Icon {...props} icon="favorite" />}
-                  onPress={() => props.addToFavorite(this.state.song)}
-                />
                 <PlaylistComponent song={this.state.song} addToPlaylist={this.addToPlaylist} />
               </ScrollView>
             </Dialog.ScrollArea>

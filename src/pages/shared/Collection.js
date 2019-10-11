@@ -111,7 +111,7 @@ class Collection extends Component {
   renderInner = () => (
     <Surface style={styles.panel}>
       {this.state.playlist.owner != 'You' ?
-        <TouchableWithoutFeedback onPress={this.deletePlaylist}>
+        <TouchableWithoutFeedback onPress={() => console.log("playlist liked")}>
           <List.Item
             title="like"
             left={props => <List.Icon {...props} icon="favorite" />}

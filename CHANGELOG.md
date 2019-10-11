@@ -29,3 +29,8 @@
 2. Updated track to enable and disable swiping
    `swipeable`
 3. Found issue with offline tracks
+
+## 11 October 2019
+
+1. Move queue and history to realm database
+2. 
