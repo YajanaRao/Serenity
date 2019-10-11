@@ -127,7 +127,7 @@ class Player extends React.Component {
             </View> */}
             <Divider />
 
-            <QueueContainer />
+            <QueueContainer close={this.close}/>
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>

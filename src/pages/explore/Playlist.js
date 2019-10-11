@@ -105,12 +105,6 @@ class Playlist extends Component {
             left={props => <List.Icon {...props} icon="add" />}
             onPress={this._showDialog}
           />
-          <List.Item
-            title="Favorite"
-            description={size(this.state.favorite) + ' Favorite Songs'}
-            left={props => <List.Icon {...props} icon="favorite" />}
-            onPress={this.navigateToSongs}
-          />
           <FlatList
             data={this.state.playlists}
             keyExtractor={(item, index) => index.toString()}

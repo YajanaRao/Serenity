@@ -212,7 +212,7 @@ class RootScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  result: state.playerState.result,
+  result: state.query.message,
 });
 
 export default connect(mapStateToProps)(withTheme(RootScreen));
