@@ -131,14 +131,14 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        ndk { abiFilters "armeabi-v7a", "x86", "mips", "mips64" }
+        ndk { abiFilters "armeabi", "armeabi-v7a", "x86", "x86_64", "mips", "mips64" }
     }
     splits {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86"
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
     signingConfigs {
