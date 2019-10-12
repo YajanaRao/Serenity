@@ -19,6 +19,6 @@ export default Quote = props => {
 };
 
 Quote.propTypes = {
-  backgroundImage: PropTypes.string.isRequired,
-  quote: PropTypes.string.isRequired
+  backgroundImage: PropTypes.string,
+  quote: PropTypes.string
 }
