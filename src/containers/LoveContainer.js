@@ -7,13 +7,17 @@ import { addToFavourite } from '../actions/playerState';
 
 class Love extends PureComponent {
 
+  addToFavourite = () => {
+    this.props.addToFavourite(this.props.track)
+  }
+
   render() {
     return (
       <View style={this.props.style}>
         <IconButton
           animated={true}
           icon="favorite-border"
-          onPress={this.props.addToFavourite}
+          onPress={this.addToFavourite}
         />
       </View>
     );
