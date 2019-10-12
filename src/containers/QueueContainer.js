@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import isEmpty from 'lodash/isEmpty';
 import {Surface, Title, IconButton, Divider} from 'react-native-paper';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
