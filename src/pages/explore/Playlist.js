@@ -1,26 +1,35 @@
-import React, {Component} from 'react';
-import {View} from 'react-native';
-import {
-  List,
-  withTheme,
-  Portal,
-  Dialog,
-  TextInput,
-  Button,
-} from 'react-native-paper';
-import {connect} from 'react-redux';
-import {isEqual, isEmpty, size} from 'lodash';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { List, withTheme, Portal, Dialog, TextInput, Button } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { isEqual, isEmpty, size } from 'lodash';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { getAllPlaylists, createPlaylist } from '../../actions/realmAction'
+import realm from '../../database';
+
 
 class Playlist extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favorite: [],
+      visible: false,
+      playlistName: null,
+      playlists: []
+    };
+
+    realm.addListener('change', () => {
+      this.setState({
+        playlists: getAllPlaylists()
+      })
+    })
+  }
+
   static navigationOptions = {
     header: null,
   };
 
-  state = {
-    favorite: [],
-    playlist: '',
-    visible: false,
-  };
+
 
   static getDerivedStateFromProps(props, state) {
     if (!isEqual(props.favorite, state.favorite)) {
@@ -40,14 +49,39 @@ class Playlist extends Component {
     }
   };
 
-  _showDialog = () => this.setState({visible: true});
+  navigateToCollection = (playlist) => {
+    this.props.navigation.navigate('Songs', {
+      playlist: playlist
+    })
+  }
 
-  _hideDialog = () => this.setState({visible: false});
+
+  _showDialog = () => this.setState({ visible: true });
+
+  _hideDialog = () => this.setState({ visible: false });
+
+  _createPlaylist = () => {
+    this._hideDialog();
+    if (this.state.playlistName) {
+      createPlaylist(this.state.playlistName);
+      this.setState({ playlistName: null });
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      playlists: getAllPlaylists()
+    })
+  }
+
+  onChangeText = text => {
+    this.setState({ playlistName: text })
+  }
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
     return (
-      <View style={{flex: 1, backgroundColor: colors.background}}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <Portal>
           <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
             <Dialog.Title>Enter your playlist name</Dialog.Title>
@@ -55,32 +89,35 @@ class Playlist extends Component {
               <TextInput
                 mode="outlined"
                 label="Playlist Name"
-                value={this.state.playlist}
-                onChangeText={playlist => this.setState({playlist})}
+                value={this.state.playlistName}
+                onChangeText={this.onChangeText}
               />
             </Dialog.Content>
             <Dialog.Actions>
               <Button onPress={this._hideDialog}>Cancel</Button>
-              <Button onPress={this._hideDialog}>Create</Button>
+              <Button onPress={this._createPlaylist}>Create</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
-        <List.Item
-          title="Create Playlist"
-          left={props => <List.Icon {...props} icon="add" />}
-          onPress={this._showDialog}
-        />
-        <List.Item
-          title="Favorite"
-          description={size(this.state.favorite) + ' Favorite Songs'}
-          left={props => <List.Icon {...props} icon="favorite" />}
-          onPress={this.navigateToSongs}
-        />
-        <List.Item
-          title="My Fav"
-          description="by you"
-          left={props => <List.Icon {...props} icon="audiotrack" />}
-        />
+        <ScrollView>
+          <List.Item
+            title="Create Playlist"
+            left={props => <List.Icon {...props} icon="add" />}
+            onPress={this._showDialog}
+          />
+          <FlatList
+            data={this.state.playlists}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <List.Item
+                title={item.name}
+                description={"by " + item.owner}
+                left={props => <List.Icon {...props} icon="audiotrack" />}
+                onPress={() => this.navigateToCollection(item)}
+              />
+            )}
+          />
+        </ScrollView>
       </View>
     );
   }

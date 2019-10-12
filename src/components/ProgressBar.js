@@ -1,6 +1,6 @@
 import React from 'react';
 import { withTheme } from 'react-native-paper';
-import { View, StyleSheet, Slider } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ProgressBar } from 'react-native-audio';
 
 const Progress = () => {

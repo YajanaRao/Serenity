@@ -1,3 +1,4 @@
+import { defaultDBSetup } from './realmAction';
 
 export const updateTheme = (theme) => dispatch => {
   if(theme == "dark"){
@@ -11,8 +12,14 @@ export const updateTheme = (theme) => dispatch => {
       payload: 'dark'
     })
   }
-  
-  
+}
+
+export const defaultSetup = () => dispatch => {
+  defaultDBSetup();
+  dispatch({
+    type: 'DEFAULT_SETUP',
+    payload: true
+  })
 }
 
 // const _downloadFileProgress = (data) => {

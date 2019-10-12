@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import {
   concat,
   remove,
@@ -13,17 +13,16 @@ import {
 
 const INITIAL_QUERY = {
   searchResult: false,
+  message: null
 };
 
 const INITIAL_CONFIG = {
   themeType: 'dark',
   repeat: 'repeat-all',
+  setup: false
 };
 
 const INITIAL_STATE = {
-  queue: [],
-  favorite: [],
-  history: [],
   active: {},
   status: 'init',
 };
@@ -105,19 +104,14 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         status: action.status,
-        history: isEmpty(action.track)
-          ? state.history
-          : concat([state.active], state.history),
         active: isEmpty(action.track) ? state.active : action.track,
-        queue: isEmpty(state.queue) ? [] : drop(state.queue),
       };
 
     case 'PREVIOUS':
       return {
         ...state,
         status: action.status,
-        active: isEmpty(state.history) ? state.active : head(state.history),
-        history: isEmpty(state.history) ? [] : drop(state.history),
+        active: action.track,
       };
 
     case 'COMPLETED':
@@ -127,11 +121,11 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
       };
 
     case 'SHUFFLE_PLAY':
-      let queue = shuffle(action.songs);
+      // let queue = shuffle(action.songs);
       return {
         ...state,
-        queue: queue,
-        active: head(queue)
+        // queue: queue,
+        // active: head(queue)
       }
     case 'ADD_TO_FAVORITE':
       return {
@@ -145,63 +139,12 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
     case 'REMOVE_FROM_FAVORITE':
       return {
         ...state,
-        favorite: remove(state.favorite, function(n) {
+        favorite: remove(state.favorite, function (n) {
           return n.id != action.payload.id;
         }),
         result: `Removed ${action.payload.title} from favorites`,
       };
 
-    case 'ADD_QUEUE':
-      const actionPayloadNormalized = isArray(action.payload) ? action.payload : [ action.payload ]
-
-      if (isEmpty(state.active)) {
-        return {
-          ...state,
-          active: isEmpty(state.queue)
-            ? head(actionPayloadNormalized)
-            : head(state.queue),
-          queue: union(
-            state.queue,
-            actionPayloadNormalized,
-          ),
-          result: `Playing songs from the queue`,
-        };
-      }
-      return {
-        ...state,
-        queue: union(
-          state.queue,
-          actionPayloadNormalized,
-        ),
-        result: `Added ${size(actionPayloadNormalized)} songs to queue`,
-      };
-
-    case 'REMOVE_QUEUE':
-      return {
-        ...state,
-        queue: remove(state.queue, function(n) {
-          return n.id != action.payload.id;
-        }),
-      };
-    case 'CLEAR_QUEUE':
-      return {
-        ...state,
-        queue: action.payload,
-        result: 'Queue cleared',
-      };
-
-    case 'CLEAR_HISTORY':
-      return {
-        ...state,
-        history: [],
-        result: 'History cleared',
-      };
-
-    case 'NOTIFY':
-      return {
-        ...state,
-        result: action.payload,
-      };
     default:
       return state;
   }
@@ -214,6 +157,11 @@ export const queryReducer = (state = INITIAL_QUERY, action) => {
         ...state,
         searchResult: action.payload,
       };
+    case 'NOTIFY':
+      return {
+        ...state,
+        message: action.payload
+      }
     default:
       return state;
   }
@@ -233,6 +181,11 @@ export const configReducer = (state = INITIAL_CONFIG, action) => {
       }
     default:
       return state;
+    case 'DEFAULT_SETUP':
+      return {
+        ...state,
+        setup: action.payload
+      }
   }
 };
 
