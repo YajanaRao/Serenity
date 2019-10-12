@@ -6,7 +6,7 @@ import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import {addToFavorite, removeFromFavorite} from '../actions/playerState';
 
-class Love extends PureComponent {
+class LoveContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,10 +63,10 @@ const mapStateToProps = state => ({
 LoveContainer.propTypes = {
   track: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  favorite: PropTypes.object.isRequired
+  favorite: PropTypes.object
 }
 
 export default connect(
   mapStateToProps,
   {addToFavorite, removeFromFavorite},
-)(withTheme(Love));
+)(withTheme(LoveContainer));

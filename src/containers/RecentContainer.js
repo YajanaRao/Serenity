@@ -15,7 +15,7 @@ class RecentContainer extends PureComponent {
   };
 
   render() {
-    if (this.props.history.length > 3) {
+    if (this.props.history && this.props.history.length > 3) {
       return <TrackScrollView
         title={'Recent songs'}
         data={this.props.history}
@@ -31,7 +31,7 @@ const mapStateToProps = state => ({
 });
 
 RecentContainer.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 }
 
 export default connect(
