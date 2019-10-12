@@ -2,14 +2,10 @@ import RNAudio from 'react-native-audio';
 import { DeviceEventEmitter } from 'react-native';
 import Analytics from 'appcenter-analytics';
 import head from 'lodash/head';
-<<<<<<< HEAD
-/*
-=======
 import isEmpty from 'lodash/isEmpty';
 
 import { addSong, removeSong, getQueuedSongs, getPlayedSongs, clearAllSongs } from './realmAction';
 /* 
->>>>>>> realm
  TODO:
  - Queue management in javascript
  - Player functions
@@ -134,17 +130,6 @@ export const pauseTrack = () => dispatch => {
 // FIXME: implement with javascript
 export const skipToNext = () => (dispatch, getState) => {
   try {
-<<<<<<< HEAD
-    queue = getState().playerState.queue;
-    if (getState().config.repeat == 'repeat-one') {
-      track = getState().playerState.active;
-    } else {
-      track = isEmpty(queue) ? null : head(queue);
-    }
-
-    if (track) {
-      url = track.url ? track.url : track.path;
-=======
     let queue = getQueuedSongs();
     let track = null;
     if (queue.length > 1) {
@@ -158,7 +143,6 @@ export const skipToNext = () => (dispatch, getState) => {
       }
       let url = track.url ? track.url : track.path;
       console.log("track url: ", url);
->>>>>>> realm
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
@@ -224,13 +208,6 @@ export const destroyTrackPlayer = () => dispatch => {
 
 // NOTE: Queue management
 
-<<<<<<< HEAD
-export const addToQueue = song => dispatch => {
-  dispatch({
-    type: 'ADD_QUEUE',
-    payload: song,
-  });
-=======
 export const getQueue = () => dispatch => {
   dispatch({
     type: 'QUEUE',
@@ -246,7 +223,6 @@ export const addToQueue = song => (dispatch, getState) => {
       track: getQueuedSongs()[0],
     });
   }
->>>>>>> realm
 };
 
 export const removeFromQueue = song => dispatch => {

@@ -4,7 +4,7 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-
+import PropTypes from 'prop-types';
 import { addToQueue } from '../../actions/playerState';
 import SwipeListContainer from '../../containers/SwipeListContainer';
 import DefaultImage from '../../components/DefaultImage';
@@ -76,6 +76,12 @@ class Songs extends Component {
       </View>
     );
   }
+}
+
+Songs.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+  addToQueue: PropTypes.func.isRequired
 }
 
 export default connect(

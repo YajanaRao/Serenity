@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {withNavigation} from 'react-navigation';
 import {connect} from 'react-redux';
 import {isEmpty} from 'lodash';
-
+import PropTypes from 'prop-types';
 import {
   playTrack,
   pauseTrack,
@@ -56,6 +56,16 @@ const mapStateToProps = state => ({
   active: state.playerState.active,
   status: state.playerState.status,
 });
+
+MiniPlayer.propTypes = {
+  active: PropTypes.object.isRequired,
+  status: PropTypes.string.isRequired,
+  playTrack: PropTypes.func.isRequired,
+  pauseTrack: PropTypes.func.isRequired,
+  loadTrackPlayer: PropTypes.func.isRequired,
+  destroyTrackPlayer: PropTypes.func.isRequired,
+  setUpTrackPlayer: PropTypes.func.isRequired
+}
 
 export default connect(
   mapStateToProps,

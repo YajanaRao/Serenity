@@ -2,10 +2,13 @@ import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { addToFavourite } from '../actions/playerState';
 
-class Love extends PureComponent {
+
+
+class LoveContainer extends PureComponent {
 
   addToFavourite = () => {
     this.props.addToFavourite(this.props.track)
@@ -25,7 +28,11 @@ class Love extends PureComponent {
 }
 
 
+LoveContainer.propTypes = {
+  track: PropTypes.object
+}
+
 export default connect(
   null,
   { addToFavourite },
-)(Love);
+)(LoveContainer);

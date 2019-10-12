@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Surface, IconButton, Divider, Button, Dialog, Portal, List, Title } from 'react-native-paper';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import React from 'react';
+import { Surface, IconButton, Divider, Portal, Dialog, Title} from 'react-native-paper';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {SwipeListView} from 'react-native-swipe-list-view';
+import PropTypes from 'prop-types';
 
 import TrackContainer from '../containers/TrackContainer';
 import PlaylistComponent from './PlaylistComponent';
@@ -90,6 +91,10 @@ class SwipeList extends React.Component {
 
 
 export default SwipeList;
+
+SwipeList.propTypes = {
+  data: PropTypes.array,
+}
 
 const styles = StyleSheet.create({
   rowBack: {
