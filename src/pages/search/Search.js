@@ -10,7 +10,7 @@ import {withTheme, Subheading, Title, Divider} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import {connect} from 'react-redux';
 import {isEmpty, isEqual} from 'lodash';
-
+import PropTypes from 'prop-types';
 import Genre from '../../data/genre.json';
 import Header from '../../components/Header';
 import Track from '../../components/Track';
@@ -92,6 +92,12 @@ class Search extends Component {
 const mapStateToProps = state => ({
   searchResult: state.query.searchResult,
 });
+
+Search.propTypes = {
+  theme: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+  searchResult: PropTypes.arrayOf(PropTypes.object).isRequired
+}
 
 export default connect(mapStateToProps)(withTheme(Search));
 

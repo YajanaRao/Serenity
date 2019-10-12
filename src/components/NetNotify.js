@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {Banner, IconButton} from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
 import {withNavigation} from 'react-navigation';
+import PropTypes from 'prop-types';
 
 class NetNotify extends PureComponent {
   constructor(props) {
@@ -64,6 +65,10 @@ class NetNotify extends PureComponent {
       </Banner>
     );
   }
+}
+
+NetNotify.propTypes = {
+  navigation: PropTypes.object.isRequired
 }
 
 export default withNavigation(NetNotify);

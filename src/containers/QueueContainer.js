@@ -5,7 +5,7 @@ import {Surface, Title, IconButton, Divider} from 'react-native-paper';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-
+import PropTypes from 'prop-types';
 import {clearQueue, removeFromQueue} from '../actions/playerState';
 import TrackContainer from './TrackContainer';
 import LoveContainer from './LoveContainer';

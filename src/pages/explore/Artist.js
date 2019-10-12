@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
+import PropTypes from 'prop-types';
 
 class Artist extends Component {
   static navigationOptions = {
@@ -105,6 +106,11 @@ class Artist extends Component {
   }
 }
 export default withTheme(Artist);
+
+Artist.propTypes = {
+  theme: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
+}
 
 const styles = StyleSheet.create({
   icons: {
