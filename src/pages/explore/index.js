@@ -4,7 +4,7 @@ import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import AlbumScreen from './Album';
 import ArtistScreen from './Artist';
 import PlaylistScreen from './Playlist';
-import SongScreen from '../shared/Songs';
+import Collection from '../shared/Collection';
 
 const PlaylistStack = createStackNavigator({
   Playlist: PlaylistScreen,
@@ -32,7 +32,7 @@ export default createStackNavigator(
         header: null,
       },
     },
-    Songs: SongScreen,
+    Songs: Collection,
   },
   {
     defaultNavigationOptions: ({screenProps}) => {

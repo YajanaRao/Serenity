@@ -35,3 +35,7 @@
 
 1. MongoDB online database integration with realm for online songs.
 2. Queue and Recently played playlists handling using realm.
+## 11 October 2019
+
+1. Move queue and history to realm database
+2. 

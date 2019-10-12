@@ -4,9 +4,13 @@ import isEmpty from 'lodash/isEmpty';
 
 import TrackScrollView from '../components/TrackScrollView';
 import { loadTrackPlayer, playTrack } from '../actions/playerState';
+import { getPlayedSongs } from '../actions/realmAction';
 
 // FIXME: Testing the application
 class RecentContainer extends PureComponent {
+  state = {
+    history: []
+  }
   play = track => {
     if (!isEmpty(track)) {
       this.props.loadTrackPlayer(track);
@@ -14,11 +18,17 @@ class RecentContainer extends PureComponent {
     }
   };
 
+  componentDidMount() {
+    this.setState({
+      history: getPlayedSongs()
+    })
+  }
+
   render() {
-    if (this.props.history.length > 3) {
+    if (this.state.history.length > 3) {
       return <TrackScrollView
         title={'Recent songs'}
-        data={this.props.history}
+        data={this.state.history}
         play={this.play}
       />
     }
@@ -26,12 +36,8 @@ class RecentContainer extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  history: state.playerState.history,
-});
 
-export default connect(
-  mapStateToProps,
+export default connect(null,
   {
     loadTrackPlayer,
     playTrack,
