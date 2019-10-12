@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {IconButton, withTheme} from 'react-native-paper';
 import {connect} from 'react-redux';
 import includes from 'lodash/includes';
-
+import PropTypes from 'prop-types';
 import {addToFavorite, removeFromFavorite} from '../actions/playerState';
 
 class Love extends PureComponent {
@@ -59,6 +59,12 @@ class Love extends PureComponent {
 const mapStateToProps = state => ({
   favorite: state.playerState.favorite,
 });
+
+LoveContainer.propTypes = {
+  track: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+  favorite: PropTypes.object.isRequired
+}
 
 export default connect(
   mapStateToProps,

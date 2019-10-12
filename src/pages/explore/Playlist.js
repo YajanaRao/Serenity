@@ -10,6 +10,7 @@ import {
 } from 'react-native-paper';
 import {connect} from 'react-redux';
 import {isEqual, isEmpty, size} from 'lodash';
+import PropTypes from 'prop-types';
 
 class Playlist extends Component {
   static navigationOptions = {
@@ -89,5 +90,11 @@ class Playlist extends Component {
 const mapStateToProps = state => ({
   favorite: state.playerState.favorite,
 });
+
+Playlist.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  favorite: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
+}
 
 export default connect(mapStateToProps)(withTheme(Playlist));

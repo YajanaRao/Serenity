@@ -4,6 +4,7 @@ import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import {loadTrackPlayer, playTrack} from '../actions/playerState';
 import Track from '../components/Track';
+import PropTypes from 'prop-types';
 
 /*
     TODO: 
@@ -49,6 +50,11 @@ class TrackContainer extends React.Component {
 const mapStateToProps = state => ({
   active: state.playerState.active,
 });
+
+TrackContainer.propTypes = {
+  active: PropTypes.object.isRequired,
+  track: PropTypes.object.isRequired
+}
 
 export default connect(
   mapStateToProps,

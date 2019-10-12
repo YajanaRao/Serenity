@@ -1,6 +1,7 @@
 import React from 'react';
 import {withNavigation} from 'react-navigation';
 import AlbumScrollView from '../components/AlbumScrollView';
+import PropTypes from 'prop-types';
 
 class Top20Container extends React.PureComponent {
   constructor(props) {
@@ -44,6 +45,9 @@ class Top20Container extends React.PureComponent {
       />
     );
   }
+}
+Top20Container.propTypes = {
+  navigation: PropTypes.object.isRequired
 }
 
 export default withNavigation(Top20Container);

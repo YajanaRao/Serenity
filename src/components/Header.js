@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {withTheme, Searchbar} from 'react-native-paper';
 import {View} from 'react-native';
 import {connect} from 'react-redux';
-
+import PropTypes from 'prop-types';
 import {updateQuery} from '../actions/mediaStore';
 
 class Header extends PureComponent {
@@ -31,6 +31,11 @@ class Header extends PureComponent {
       </View>
     );
   }
+}
+
+Header.propTypes = {
+  updateQuery: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
 export default connect(

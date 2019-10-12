@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-
+import PropTypes from 'prop-types';
 import TrackScrollView from '../components/TrackScrollView';
 import { loadTrackPlayer, playTrack } from '../actions/playerState';
 
@@ -29,6 +29,10 @@ class RecentContainer extends PureComponent {
 const mapStateToProps = state => ({
   history: state.playerState.history,
 });
+
+RecentContainer.propTypes = {
+  history: PropTypes.object.isRequired
+}
 
 export default connect(
   mapStateToProps,

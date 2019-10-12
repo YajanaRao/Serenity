@@ -21,6 +21,7 @@ const Tree = props => {
 
 Tree.propTypes = {
     message: PropTypes.string.isRequired,
+    theme: PropTypes.object.isRequired
 };
 
 export default withTheme(Tree);

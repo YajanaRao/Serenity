@@ -11,7 +11,7 @@ import {
   ActivityIndicator
 } from 'react-native-paper';
 import {connect} from 'react-redux';
-
+import PropTypes from 'prop-types';
 import {updateTheme} from '../../actions';
 import {clearHistory} from '../../actions/playerState';
 
@@ -76,6 +76,12 @@ class Settings extends React.PureComponent {
       </View>
     );
   }
+}
+
+Settings.propTypes = {
+  theme: PropTypes.object.isRequired,
+  clearHistory: PropTypes.func.isRequired,
+  updateTheme: PropTypes.func.isRequired
 }
 
 export default connect(

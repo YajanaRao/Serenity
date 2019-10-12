@@ -1,6 +1,7 @@
 import React from 'react';
 import {ImageBackground, View} from 'react-native';
 import {Title} from 'react-native-paper';
+import PropTypes from 'prop-types';
 
 export default Quote = props => {
   return (
@@ -16,3 +17,8 @@ export default Quote = props => {
     </View>
   );
 };
+
+Quote.propTypes = {
+  backgroundImage: PropTypes.string.isRequired,
+  quote: PropTypes.string.isRequired
+}
