@@ -2,18 +2,16 @@ import React, {Component} from 'react';
 import {
   View,
   StyleSheet,
-  ScrollView,
-  FlatList,
   TouchableOpacity,
 } from 'react-native';
 import {withTheme, Subheading, Title, Divider} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import {connect} from 'react-redux';
-import {isEmpty, isEqual} from 'lodash';
-
+import {isEqual} from 'lodash';
 import Genre from '../../data/genre.json';
 import Header from '../../components/Header';
 import Track from '../../components/Track';
+import { ScrollView, FlatList } from 'react-navigation';
 
 class Search extends Component {
   static navigationOptions = ({navigation}) => {
@@ -92,6 +90,7 @@ class Search extends Component {
 const mapStateToProps = state => ({
   searchResult: state.query.searchResult,
 });
+
 
 export default connect(mapStateToProps)(withTheme(Search));
 

@@ -4,7 +4,7 @@ import {withTheme, Divider, List, Avatar} from 'react-native-paper';
 import {View, StyleSheet, RefreshControl} from 'react-native';
 import {isEqual, isEmpty} from 'lodash';
 import {connect} from 'react-redux';
-
+import PropTypes from 'prop-types';
 import {getOfflineArtists} from '../../actions/mediaStore';
 import Blank from '../../components/Blank';
 
@@ -94,6 +94,13 @@ class Artist extends React.PureComponent {
 const mapStateToProps = state => ({
   artists: state.mediaStore.artists,
 });
+
+Artist.propTypes = {
+  artists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getOfflineArtists: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
+}
 
 export default connect(
   mapStateToProps,

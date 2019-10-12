@@ -40,8 +40,8 @@ export const getOfflineSongs = () => dispatch => {
     .catch(er => {
       console.log(er);
       dispatch({
-        type: 'NOTIFY',
-        payload: 'Something went wrong',
+        type: 'OFFLINE_SONGS',
+        payload: [],
       });
     });
 };

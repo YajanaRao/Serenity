@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { List, withTheme, Portal, Dialog, TextInput, Button } from 'react-native-paper';
-import { connect } from 'react-redux';
-import { isEqual, isEmpty, size } from 'lodash';
+import { List, Portal, Dialog, TextInput, Button, withTheme } from 'react-native-paper';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { getAllPlaylists, createPlaylist } from '../../actions/realmAction'
 import realm from '../../database';
-
+import PropTypes from 'prop-types';
 
 class Playlist extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favorite: [],
       visible: false,
       playlistName: null,
       playlists: []
@@ -29,25 +26,6 @@ class Playlist extends Component {
     header: null,
   };
 
-
-
-  static getDerivedStateFromProps(props, state) {
-    if (!isEqual(props.favorite, state.favorite)) {
-      return {
-        favorite: props.favorite,
-      };
-    }
-    return null;
-  }
-
-  navigateToSongs = () => {
-    if (!isEmpty(this.state.favorite)) {
-      this.props.navigation.navigate('Songs', {
-        songs: this.state.favorite,
-        title: 'Favorites',
-      });
-    }
-  };
 
   navigateToCollection = (playlist) => {
     this.props.navigation.navigate('Songs', {
@@ -123,8 +101,10 @@ class Playlist extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  favorite: state.playerState.favorite,
-});
 
-export default connect(mapStateToProps)(withTheme(Playlist));
+Playlist.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
+}
+
+export default withTheme(Playlist);

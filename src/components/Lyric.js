@@ -8,7 +8,7 @@ import {
   Paragraph,
   Button,
 } from 'react-native-paper';
-
+import PropTypes from 'prop-types';
 import {getLyrics} from '../utils';
 
 class Lyric extends Component {
@@ -58,6 +58,11 @@ class Lyric extends Component {
       </View>
     );
   }
+}
+
+Lyric.propTypes = {
+  style: PropTypes.object.isRequired,
+  track: PropTypes.object.isRequired
 }
 
 export default Lyric;

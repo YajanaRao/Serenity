@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-
+import PropTypes from 'prop-types';
 import TrackScrollView from '../components/TrackScrollView';
 import { loadTrackPlayer, playTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
@@ -25,7 +25,7 @@ class RecentContainer extends PureComponent {
   }
 
   render() {
-    if (this.state.history.length > 3) {
+    if (this.props.history && this.props.history.length > 3) {
       return <TrackScrollView
         title={'Recent songs'}
         data={this.state.history}
@@ -37,7 +37,9 @@ class RecentContainer extends PureComponent {
 }
 
 
-export default connect(null,
+
+export default connect(
+  null,
   {
     loadTrackPlayer,
     playTrack,

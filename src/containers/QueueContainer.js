@@ -98,6 +98,7 @@ class QueueContainer extends Component {
 
 
 QueueContainer.propTypes = {
+  queue: PropTypes.array,
   clearQueue: PropTypes.func.isRequired,
   removeFromQueue: PropTypes.func.isRequired,
 };

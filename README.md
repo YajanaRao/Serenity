@@ -1,6 +1,6 @@
 # Serenity
 
-## A React Native Music Player
+## A React Native Music Player for Android
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
@@ -16,7 +16,7 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
 
 ## What is this?
 
-Serenity is a world class music player which focuses on giving wonder full experience to the user.
+Serenity is a world class music player which focuses on giving wonderful experience to the user.
 
 ## Aspects Involved
 
@@ -55,9 +55,9 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Planned features
 
-- Searching for and playing music from youtube (including integration with playlists), bandcamp (including albums), and soundcloud
-- Searching for related songs in youtube
-- Downloading from youtube
+- Searching for and playing music from YouTube (including integration with playlists), bandcamp (including albums), and soundcloud
+- Searching for related songs in YouTube
+- Downloading from YouTube
 - Searching for albums (powered by last.fm and musicbrainz), album view, automatic song lookup based on artist and track name (in progress, can be dodgy sometimes)
 - Song queue, which can be exported as a playlist
 - Loading saved playlists
