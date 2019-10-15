@@ -1,10 +1,16 @@
 import RNAudio from 'react-native-audio';
-import { DeviceEventEmitter } from 'react-native';
+import {DeviceEventEmitter} from 'react-native';
 import Analytics from 'appcenter-analytics';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 
-import { addSong, removeSong, getQueuedSongs, getPlayedSongs, clearAllSongs } from './realmAction';
+import {
+  addSong,
+  removeSong,
+  getQueuedSongs,
+  getPlayedSongs,
+  clearAllSongs,
+} from './realmAction';
 /* 
  TODO:
  - Queue management in javascript
@@ -27,13 +33,13 @@ import { addSong, removeSong, getQueuedSongs, getPlayedSongs, clearAllSongs } fr
 
 var subscription = null;
 
-const QUEUE_ID = "user-playlist--000003";
-const HISTORY_ID = "user-playlist--000001";
-const FAVOURITE_ID = "user-playlist--000002";
+const QUEUE_ID = 'user-playlist--000003';
+const HISTORY_ID = 'user-playlist--000001';
+const FAVOURITE_ID = 'user-playlist--000002';
 
 export const setUpTrackPlayer = () => dispatch => {
   try {
-    subscription = DeviceEventEmitter.addListener('media', function (event) {
+    subscription = DeviceEventEmitter.addListener('media', function(event) {
       // handle event
       console.log('from event listener', event);
       if (event == 'skip_to_next') {
@@ -80,7 +86,7 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
 
 export const playTrack = () => dispatch => {
   try {
-    console.log("play");
+    console.log('play');
     RNAudio.play();
     dispatch({
       type: 'STATUS',
@@ -142,7 +148,7 @@ export const skipToNext = () => (dispatch, getState) => {
         track = head(getQueuedSongs());
       }
       let url = track.url ? track.url : track.path;
-      console.log("track url: ", url);
+      console.log('track url: ', url);
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
@@ -159,13 +165,13 @@ export const skipToNext = () => (dispatch, getState) => {
       });
     }
   } catch (error) {
-    console.log("skipToNext: ", error);
+    console.log('skipToNext: ', error);
     Analytics.trackEvent('error', error);
   }
 };
 
 // FIXME: implement with javascript
-export const skipToPrevious = () => (dispatch) => {
+export const skipToPrevious = () => dispatch => {
   try {
     let history = getPlayedSongs();
     if (history.length) {
@@ -182,8 +188,7 @@ export const skipToPrevious = () => (dispatch) => {
           status: 'playing',
         });
       }
-    }
-    else {
+    } else {
       RNAudio.pause();
       dispatch({
         type: 'STATUS',
@@ -238,7 +243,7 @@ export const clearQueue = () => dispatch => {
   dispatch({
     type: 'LOAD',
     track: {},
-    status: 'init'
+    status: 'init',
   });
 };
 
@@ -246,14 +251,22 @@ export const addToFavourite = song => dispatch => {
   addSong(FAVOURITE_ID, song);
   dispatch({
     type: 'NOTIFY',
-    payload: 'Added song to queue'
+    payload: 'Added song to queue',
   });
-}
+};
+
+export const addToPlaylist = (id, song) => dispatch => {
+  addSong(id, song);
+  dispatch({
+    type: 'NOTIFY',
+    payload: 'Added to the playlist',
+  });
+};
 
 export const clearHistory = () => dispatch => {
   clearAllSongs(HISTORY_ID);
   dispatch({
     type: 'NOTIFY',
-    payload: 'Cleared history'
+    payload: 'Cleared history',
   });
 };

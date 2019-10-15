@@ -12,7 +12,7 @@ import {
 } from '../actions/playerState';
 import PlayerBar from '../components/PlayerBar';
 
-class MiniPlayer extends Component {
+class PlayerBarContainer extends Component {
   componentDidMount() {
     this.props.setUpTrackPlayer();
     if (!isEmpty(this.props.active)) {
@@ -57,15 +57,15 @@ const mapStateToProps = state => ({
   status: state.playerState.status,
 });
 
-MiniPlayer.propTypes = {
+PlayerBarContainer.propTypes = {
   active: PropTypes.object.isRequired,
   status: PropTypes.string.isRequired,
   playTrack: PropTypes.func.isRequired,
   pauseTrack: PropTypes.func.isRequired,
   loadTrackPlayer: PropTypes.func.isRequired,
   destroyTrackPlayer: PropTypes.func.isRequired,
-  setUpTrackPlayer: PropTypes.func.isRequired
-}
+  setUpTrackPlayer: PropTypes.func.isRequired,
+};
 
 export default connect(
   mapStateToProps,
@@ -76,4 +76,4 @@ export default connect(
     destroyTrackPlayer,
     setUpTrackPlayer,
   },
-)(withNavigation(MiniPlayer));
+)(withNavigation(PlayerBarContainer));

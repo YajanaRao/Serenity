@@ -1,8 +1,15 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import { List, Portal, Dialog, TextInput, Button, withTheme } from 'react-native-paper';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import { getAllPlaylists, createPlaylist } from '../../actions/realmAction'
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import {
+  List,
+  Portal,
+  Dialog,
+  TextInput,
+  Button,
+  withTheme,
+} from 'react-native-paper';
+import {FlatList, ScrollView} from 'react-navigation';
+import {getAllPlaylists, createPlaylist} from '../../actions/realmAction';
 import realm from '../../database';
 import PropTypes from 'prop-types';
 
@@ -12,54 +19,52 @@ class Playlist extends Component {
     this.state = {
       visible: false,
       playlistName: null,
-      playlists: []
+      playlists: [],
     };
 
     realm.addListener('change', () => {
       this.setState({
-        playlists: getAllPlaylists()
-      })
-    })
+        playlists: getAllPlaylists(),
+      });
+    });
   }
 
   static navigationOptions = {
     header: null,
   };
 
-
-  navigateToCollection = (playlist) => {
+  navigateToCollection = playlist => {
     this.props.navigation.navigate('Songs', {
-      playlist: playlist
-    })
-  }
+      playlist: playlist,
+    });
+  };
 
+  _showDialog = () => this.setState({visible: true});
 
-  _showDialog = () => this.setState({ visible: true });
-
-  _hideDialog = () => this.setState({ visible: false });
+  _hideDialog = () => this.setState({visible: false});
 
   _createPlaylist = () => {
     this._hideDialog();
     if (this.state.playlistName) {
       createPlaylist(this.state.playlistName);
-      this.setState({ playlistName: null });
+      this.setState({playlistName: null});
     }
-  }
+  };
 
   componentDidMount() {
     this.setState({
-      playlists: getAllPlaylists()
-    })
+      playlists: getAllPlaylists(),
+    });
   }
 
   onChangeText = text => {
-    this.setState({ playlistName: text })
-  }
+    this.setState({playlistName: text});
+  };
 
   render() {
-    const { colors } = this.props.theme;
+    const {colors} = this.props.theme;
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <View style={{flex: 1, backgroundColor: colors.background}}>
         <Portal>
           <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
             <Dialog.Title>Enter your playlist name</Dialog.Title>
@@ -86,10 +91,10 @@ class Playlist extends Component {
           <FlatList
             data={this.state.playlists}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <List.Item
                 title={item.name}
-                description={"by " + item.owner}
+                description={'by ' + item.owner}
                 left={props => <List.Icon {...props} icon="audiotrack" />}
                 onPress={() => this.navigateToCollection(item)}
               />
@@ -101,10 +106,9 @@ class Playlist extends Component {
   }
 }
 
-
 Playlist.propTypes = {
   navigation: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
-}
+  theme: PropTypes.object.isRequired,
+};
 
 export default withTheme(Playlist);
