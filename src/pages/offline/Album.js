@@ -1,4 +1,4 @@
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList} from 'react-navigation';
 import * as React from 'react';
 import {withTheme, Divider, List} from 'react-native-paper';
 import {connect} from 'react-redux';
@@ -110,8 +110,8 @@ Album.propTypes = {
   albums: PropTypes.arrayOf(PropTypes.object).isRequired,
   getOfflineAlbums: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired
-}
+  navigation: PropTypes.object.isRequired,
+};
 
 export default connect(
   mapStateToProps,

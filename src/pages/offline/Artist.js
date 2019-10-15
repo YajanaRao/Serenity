@@ -1,4 +1,4 @@
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList} from 'react-navigation';
 import React from 'react';
 import {withTheme, Divider, List, Avatar} from 'react-native-paper';
 import {View, StyleSheet, RefreshControl} from 'react-native';
@@ -99,8 +99,8 @@ Artist.propTypes = {
   artists: PropTypes.arrayOf(PropTypes.object).isRequired,
   getOfflineArtists: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired
-}
+  navigation: PropTypes.object.isRequired,
+};
 
 export default connect(
   mapStateToProps,
