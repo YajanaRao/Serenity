@@ -1,4 +1,4 @@
-# Serenity
+# Serenity 🏵️
 
 ## A React Native Music Player for Android
 
