@@ -17,15 +17,16 @@ class RootNavigator extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    var theme = 'default';
+    let theme = 'default';
     if (state.theme.dark) {
       theme = 'dark';
     }
-    const themeType = props.themeType;
-    if (themeType != theme) {
-      if (themeType == 'dark') {
+    const {themeType} = props;
+    if (themeType !== theme) {
+      if (themeType === 'dark') {
         return {theme: DarkTheme};
-      } else if (themeType == 'default') {
+      }
+      if (themeType === 'default') {
         return {theme: DefaultTheme};
       }
       return {
@@ -36,8 +37,9 @@ class RootNavigator extends React.Component {
   }
 
   render() {
+    const {theme} = this.state;
     return (
-      <PaperProvider theme={this.state.theme}>
+      <PaperProvider theme={theme}>
         <RootScreen />
       </PaperProvider>
     );
