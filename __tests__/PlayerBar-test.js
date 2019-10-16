@@ -10,7 +10,7 @@ import PlayerBar from '../src/components/PlayerBar';
 // Note: test renderer must be required after react-native.
 
 it('Playing play bar renders correctly without art cover', () => {
-  const track = {title: 'title', artist: 'Tester'};
+  const track = { title: 'title', artist: 'Tester' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
@@ -24,7 +24,7 @@ it('Playing play bar renders correctly without art cover', () => {
 });
 
 it('Blank component renders correctly', () => {
-  const track = {title: 'title', artist: 'Tester'};
+  const track = { title: 'title', artist: 'Tester' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   const tree = renderer
@@ -41,7 +41,7 @@ it('Blank component renders correctly', () => {
 });
 
 it('Pause play bar renders correctly without art cover', () => {
-  const track = {title: 'title', artist: 'Tester'};
+  const track = { title: 'title', artist: 'Tester' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
@@ -55,7 +55,7 @@ it('Pause play bar renders correctly without art cover', () => {
 });
 
 it('Track with album name renders correctly without art cover', () => {
-  const track = {title: 'title', album: 'Testing'};
+  const track = { title: 'title', album: 'Testing' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
@@ -69,7 +69,7 @@ it('Track with album name renders correctly without art cover', () => {
 });
 
 it('Playing play bar renders correctly with art cover', () => {
-  const track = {title: 'title', album: 'Testing', artcover: 'test'};
+  const track = { title: 'title', album: 'Testing', artcover: 'test' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
@@ -83,7 +83,7 @@ it('Playing play bar renders correctly with art cover', () => {
 });
 
 it('Pause play bar renders correctly with art cover', () => {
-  const track = {title: 'title', album: 'Testing', artcover: 'test'};
+  const track = { title: 'title', album: 'Testing', artcover: 'test' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
@@ -97,7 +97,7 @@ it('Pause play bar renders correctly with art cover', () => {
 });
 
 it('Track with album name renders correctly with art cover', () => {
-  const track = {title: 'title', album: 'Testing', artcover: 'test'};
+  const track = { title: 'title', album: 'Testing', artcover: 'test' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(

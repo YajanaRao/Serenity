@@ -7,10 +7,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../reducers';
 
 const persistConfig = {
-    key: "root",
-    storage: AsyncStorage,
-    blacklist: ['query']
-    // stateReconciler: autoMergeLevel2,
+  key: 'root',
+  storage: AsyncStorage,
+  blacklist: ['query'],
+  // stateReconciler: autoMergeLevel2,
 };
 
 const middleware = [thunk];
@@ -19,19 +19,14 @@ const middleware = [thunk];
 //     middleware.push(createLogger())
 // }
 
-
-
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default () => {
-    let store = createStore(
-        persistedReducer,
-        // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-        composeWithDevTools(
-            applyMiddleware(...middleware),
-        )
-    );
-    let persistor = persistStore(store)
-    return { store, persistor }
-}
-
+  const store = createStore(
+    persistedReducer,
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    composeWithDevTools(applyMiddleware(...middleware)),
+  );
+  const persistor = persistStore(store);
+  return { store, persistor };
+};

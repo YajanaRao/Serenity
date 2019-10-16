@@ -1,43 +1,92 @@
 import React from 'react';
-import { Surface, IconButton, Divider} from 'react-native-paper';
-import {RefreshControl, StyleSheet} from 'react-native';
-import {SwipeListView} from 'react-native-swipe-list-view';
+import {
+  Surface,
+  IconButton,
+  Divider,
+  Portal,
+  Dialog,
+  Title,
+} from 'react-native-paper';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import PropTypes from 'prop-types';
 
 import TrackContainer from '../containers/TrackContainer';
+import PlaylistComponent from './PlaylistComponent';
 
-const SwipeList = props => {
+class SwipeList extends React.Component {
+  state = {
+    visible: false,
+    song: null,
+  };
+
+  addToPlaylist = (id, song) => {
+    this.props.addToPlaylist(id, song);
+    this._hideModal();
+  };
+
+  _showModal = song => {
+    this.setState({
+      visible: true,
+      song,
+    });
+  };
+
+  _hideModal = () => {
+    this.setState({
+      visible: false,
+      song: null,
+    });
+  };
+
+  render() {
     return (
-      <SwipeListView
-        data={props.data}
-        ItemSeparatorComponent={() => <Divider inset={true} />}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => <TrackContainer track={item} />}
-        renderHiddenItem={({item}) => (
-          <Surface style={styles.rowBack}>
-            <IconButton
-              icon="add-to-queue"
-              onPress={() => props.addToQueue(item)}
-            />
-            <IconButton
-              icon="favorite"
-              onPress={() => props.addToFavorite(item)}
-            />
-          </Surface>
-        )}
-        leftOpenValue={75}
-        rightOpenValue={-75}
-      />
+      <View>
+        <Portal>
+          <Dialog visible={this.state.visible} onDismiss={this._hideModal}>
+            <Dialog.ScrollArea>
+              <ScrollView
+                contentContainerStyle={{
+                  marginHorizontal: 16,
+                  marginVertical: 16,
+                }}
+              >
+                <Title style={{ textAlign: 'center' }}>Add to Playlist</Title>
+                <PlaylistComponent
+                  song={this.state.song}
+                  addToPlaylist={this.addToPlaylist}
+                />
+              </ScrollView>
+            </Dialog.ScrollArea>
+          </Dialog>
+        </Portal>
+        <SwipeListView
+          data={this.props.data}
+          ItemSeparatorComponent={() => <Divider inset />}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => <TrackContainer track={item} />}
+          renderHiddenItem={({ item }) => (
+            <Surface style={styles.rowBack}>
+              <IconButton
+                icon="add-to-queue"
+                onPress={() => this.props.addToQueue(item)}
+              />
+              <IconButton icon="queue" onPress={() => this._showModal(item)} />
+            </Surface>
+          )}
+          leftOpenValue={75}
+          rightOpenValue={-75}
+        />
+      </View>
     );
+  }
 }
 
 export default SwipeList;
 
 SwipeList.propTypes = {
-  data: PropTypes.object.isRequired,
-  addToQueue: PropTypes.func.isRequired,
-  addToFavorite: PropTypes.func.isRequired
-}
+  data: PropTypes.array,
+};
 
 const styles = StyleSheet.create({
   rowBack: {
@@ -48,5 +97,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 15,
     paddingRight: 15,
-  }
+  },
 });

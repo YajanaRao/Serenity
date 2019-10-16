@@ -4,40 +4,50 @@ import {
   DarkTheme,
   DefaultTheme,
 } from 'react-native-paper';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import RootScreen from './pages/Root';
+import { defaultSetup } from './actions';
 
 class RootNavigator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       theme: DarkTheme,
+      themeType: 'dark',
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    let theme = 'default';
-    if (state.theme.dark) {
-      theme = 'dark';
+  componentDidMount() {
+    if (!this.props.setup) {
+      this.props.defaultSetup();
     }
-    const {themeType} = props;
-    if (themeType !== theme) {
-      if (themeType === 'dark') {
-        return {theme: DarkTheme};
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.themeType != state.themeType) {
+      if (props.themeType == 'dark') {
+        return {
+          theme: DarkTheme,
+          themeType: 'dark',
+        };
       }
-      if (themeType === 'default') {
-        return {theme: DefaultTheme};
+      if (props.themeType == 'default') {
+        return {
+          theme: DefaultTheme,
+          themeType: 'default',
+        };
       }
       return {
         theme: DarkTheme,
+        themeType: 'dark',
       };
     }
     return null;
   }
 
   render() {
-    const {theme} = this.state;
+    const { theme } = this.state;
     return (
       <PaperProvider theme={theme}>
         <RootScreen />
@@ -48,6 +58,10 @@ class RootNavigator extends React.Component {
 
 const mapStateToProps = state => ({
   themeType: state.config.themeType,
+  setup: state.config.setup,
 });
 
-export default connect(mapStateToProps)(RootNavigator);
+export default connect(
+  mapStateToProps,
+  { defaultSetup },
+)(RootNavigator);

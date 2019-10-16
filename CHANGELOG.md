@@ -30,8 +30,17 @@
    `swipeable`
 3. Found issue with offline tracks
 
-
 ## 01 October 2019
 
 1. MongoDB online database integration with realm for online songs.
 2. Queue and Recently played playlists handling using realm.
+
+## 11 October 2019
+
+1. Move queue and history to realm database
+
+## 14 October 2019
+
+1. Notify user on add song to playlist
+2. On click to scroll up feature in album page and artist page
+3. Play all songs from playlists

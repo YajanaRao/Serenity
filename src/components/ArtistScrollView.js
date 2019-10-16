@@ -1,25 +1,26 @@
 import React from 'react';
-import {Paragraph,Title} from 'react-native-paper';
-import {StyleSheet, TouchableOpacity, View, FlatList} from 'react-native';
+import { Paragraph, Title } from 'react-native-paper';
+import { StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 
 const ArtistScrollView = props => {
   return (
     <View>
-      { props.data ? <Title style={styles.title}>{props.title}</Title> : false }
+      {props.data ? <Title style={styles.title}>{props.title}</Title> : false}
       <FlatList
-        horizontal={true}
+        horizontal
         data={props.data}
         keyExtractor={(item, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.item}
             onPress={() =>
               props.navigateToSongs(item.songs, item.artwork, item.album)
-            }>
-            <FastImage source={{uri: item.artwork}} style={styles.artist} />
+            }
+          >
+            <FastImage source={{ uri: item.artwork }} style={styles.artist} />
             <Paragraph numberOfLines={1}>{item.album}</Paragraph>
           </TouchableOpacity>
         )}

@@ -1,7 +1,7 @@
 import React from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Surface, Subheading, Caption, IconButton} from 'react-native-paper';
+import { Surface, Subheading, Caption, IconButton } from 'react-native-paper';
 import PropTypes from 'prop-types';
 
 import DefaultImage from './DefaultImage';
@@ -10,32 +10,33 @@ const PlayerBar = props => {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
-      style={{height: 60, width: '100%'}}
-      onPress={props.navigateToPlayer}>
+      style={{ height: 60, width: '100%' }}
+      onPress={props.navigateToPlayer}
+    >
       <Surface style={styles.playBar}>
         {props.active.artwork ? (
           <FastImage
-            source={{uri: props.active.artwork}}
+            source={{ uri: props.active.artwork }}
             style={styles.artwork}
           />
         ) : (
           <DefaultImage style={styles.artwork} />
         )}
         <View style={styles.textContainer}>
-          <Subheading numberOfLines={1} style={{margin: 0}}>
+          <Subheading numberOfLines={1} style={{ margin: 0 }}>
             {props.active.title}
           </Subheading>
-          <Caption numberOfLines={1} style={{margin: 0}}>
+          <Caption numberOfLines={1} style={{ margin: 0 }}>
             {props.active.artist ? props.active.artist : props.active.album}
           </Caption>
         </View>
         <View style={styles.iconContainer}>
           <IconButton
             icon={props.status === 'playing' ? 'pause' : 'play-arrow'}
-            animated={true}
+            animated
             size={34}
             onPress={props.togglePlayback}
-            style={{margin: 0, padding: 0}}
+            style={{ margin: 0, padding: 0 }}
           />
         </View>
       </Surface>

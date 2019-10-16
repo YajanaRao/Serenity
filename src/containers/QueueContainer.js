@@ -1,24 +1,65 @@
-import React, {Component} from 'react';
-import {SwipeListView} from 'react-native-swipe-list-view';
+import React, { Component } from 'react';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import isEmpty from 'lodash/isEmpty';
-import {Surface, Title, IconButton, Divider} from 'react-native-paper';
-import {connect} from 'react-redux';
-import { View, StyleSheet } from 'react-native';
+import { Surface, Title, IconButton, Divider } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import {clearQueue, removeFromQueue} from '../actions/playerState';
+import { connect } from 'react-redux';
+import { View, StyleSheet, Alert } from 'react-native';
+
+import { clearQueue, removeFromQueue } from '../actions/playerState';
+import { getQueuedSongs } from '../actions/realmAction';
 import TrackContainer from './TrackContainer';
 import LoveContainer from './LoveContainer';
+import realm from '../database';
 
 class QueueContainer extends Component {
-  clearPlaylist = () => {
-    this.props.clearQueue();
+  state = {
+    queue: [],
   };
-  
+
+  clearPlaylist = () => {
+    Alert.alert(
+      'Clear Queue',
+      'Clear queue would stop current playing song',
+      [
+        {
+          text: 'Yes',
+          onPress: () => {
+            this.props.close();
+            this.props.clearQueue();
+          },
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  componentDidMount() {
+    this.setState({
+      queue: getQueuedSongs(),
+    });
+
+    realm.addListener('change', () => {
+      this.setState({
+        queue: getQueuedSongs(),
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    realm.removeAllListeners();
+  }
+
   render() {
-    return !isEmpty(this.props.queue) ? (
+    return !isEmpty(this.state.queue) ? (
       <View>
         <View style={styles.rowContainer}>
-          <Title style={{padding: 10}}>Queue</Title>
+          <Title style={{ padding: 10 }}>Queue</Title>
           <IconButton
             icon="delete"
             // size={40}
@@ -28,15 +69,15 @@ class QueueContainer extends Component {
 
         <Divider />
         <SwipeListView
-          data={this.props.queue}
-          renderItem={({item}) => <TrackContainer track={item} />}
-          ItemSeparatorComponent={() => <Divider inset={true} />}
+          data={this.state.queue}
+          renderItem={({ item }) => <TrackContainer track={item} />}
+          ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
-          renderHiddenItem={({item}) => (
+          renderHiddenItem={({ item }) => (
             <Surface style={styles.rowBack}>
               <IconButton
                 icon="delete"
-                color={'#dd1818'}
+                color="#dd1818"
                 onPress={() => this.props.removeFromQueue(item)}
               />
               <LoveContainer track={this.props.active} />
@@ -44,9 +85,9 @@ class QueueContainer extends Component {
           )}
           leftOpenValue={75}
           rightOpenValue={-75}
-          closeOnRowPress={true}
-          closeOnRowOpen={true}
-          useNativeDriver={true}
+          closeOnRowPress
+          closeOnRowOpen
+          useNativeDriver
         />
       </View>
     ) : (
@@ -55,10 +96,6 @@ class QueueContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  queue: state.playerState.queue,
-});
-
 QueueContainer.propTypes = {
   queue: PropTypes.array,
   clearQueue: PropTypes.func.isRequired,
@@ -66,7 +103,7 @@ QueueContainer.propTypes = {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   {
     clearQueue,
     removeFromQueue,
@@ -90,4 +127,3 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
 });
-
