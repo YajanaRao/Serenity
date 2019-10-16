@@ -44,3 +44,8 @@
 1. Notify user on add song to playlist
 2. On click to scroll up feature in album page and artist page
 3. Play all songs from playlists
+
+## 16 October 2019
+
+1. Add artists to favourites in explore page
+2. Close bottom sheet on click on outside
