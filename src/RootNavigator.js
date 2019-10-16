@@ -14,13 +14,12 @@ class RootNavigator extends React.Component {
     super(props);
     this.state = {
       theme: DarkTheme,
-      themeType: 'dark'
+      themeType: 'dark',
     };
   }
 
   componentDidMount() {
     if (!this.props.setup) {
-      console.log("creating setup")
       this.props.defaultSetup();
     }
   }
@@ -30,25 +29,26 @@ class RootNavigator extends React.Component {
       if (props.themeType == 'dark') {
         return {
           theme: DarkTheme,
-          themeType: 'dark'
+          themeType: 'dark',
         };
       } else if (props.themeType == 'default') {
         return {
           theme: DefaultTheme,
-          themeType: 'default'
+          themeType: 'default',
         };
       }
       return {
         theme: DarkTheme,
-        themeType: 'dark'
+        themeType: 'dark',
       };
     }
     return null;
   }
 
   render() {
+    const { theme } = this.state;
     return (
-      <PaperProvider theme={this.state.theme}>
+      <PaperProvider theme={theme}>
         <RootScreen />
       </PaperProvider>
     );
@@ -57,7 +57,10 @@ class RootNavigator extends React.Component {
 
 const mapStateToProps = state => ({
   themeType: state.config.themeType,
-  setup: state.config.setup
+  setup: state.config.setup,
 });
 
-export default connect(mapStateToProps, { defaultSetup })(RootNavigator);
+export default connect(
+  mapStateToProps,
+  { defaultSetup },
+)(RootNavigator);
