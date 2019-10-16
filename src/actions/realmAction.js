@@ -9,16 +9,25 @@ import {ALBUM_SCHEMA_NAME} from '../database/schema/AlbumSchema';
 
 export const userPlaylistIdPrefix = 'user-playlist--';
 export const userSongIdPrefix = 'user-song--';
+export const artistIdPrefix = 'artist--';
 
 const _generateId = () => {
   const playlists = realm.objects(PLAYLIST_SCHEMA_NAME).sorted('id', true);
   let max = 1;
   if (playlists.length > 0) {
     max = parseInt(playlists[0].id.split(userPlaylistIdPrefix)[1], 10) + 1;
-    console.log(playlists[0].id.split(userPlaylistIdPrefix)[1]);
   }
   // The user can create a max of 100000 playlists :)
   return `${userPlaylistIdPrefix}${max.toString().padStart(6, '0')}`;
+};
+
+const _generateArtistId = () => {
+  const artists = realm.objects(ARTIST_SCHEMA_NAME).sorted('id', true);
+  let max = 1;
+  if (artists.length > 0) {
+    max = parseInt(artists[0].id.split(artistIdPrefix)[1], 10) + 1;
+  }
+  return `${artistIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
 const _generateSongId = () => {
@@ -165,12 +174,24 @@ export const renamePlaylist = (id, playlistName) => {
   });
 };
 
-export const addArtist = artist => {
+export const addArtist = artists => {
+  console.log('adding artist to array', artists);
   realm.write(() => {
-    realm.create(ARTIST_SCHEMA_NAME, {
-      name: artist.name,
-      cover: artist.cover,
-    });
+    if (Array.isArray(artists)) {
+      artists.forEach(artist => {
+        realm.create(ARTIST_SCHEMA_NAME, {
+          id: _generateArtistId(),
+          name: artist.name,
+          cover: artist.cover,
+        });
+      });
+    } else {
+      realm.create(ARTIST_SCHEMA_NAME, {
+        id: _generateArtistId(),
+        name: artists.name,
+        cover: artists.cover,
+      });
+    }
   });
 };
 
@@ -182,4 +203,12 @@ export const addAlbum = album => {
       artist: album.artist,
     });
   });
+};
+
+export const getArtists = () => {
+  try {
+    return values(realm.objects(ARTIST_SCHEMA_NAME));
+  } catch (error) {
+    console.log('getArtists: ', error);
+  }
 };

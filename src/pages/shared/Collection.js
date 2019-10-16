@@ -12,29 +12,23 @@ import {
   TextInput,
   Subheading,
 } from 'react-native-paper';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  FlatList,
-  Alert,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import {StyleSheet, View, Dimensions, FlatList, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import values from 'lodash/values';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import Share from 'react-native-share';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {addToQueue} from '../../actions/playerState';
 import {deletePlaylist, renamePlaylist} from '../../actions/realmAction';
 import TrackContainer from '../../containers/TrackContainer';
 import DefaultImage from '../../components/DefaultImage';
 
-const AnimatedTouchable = Animated.createAnimatedComponent(
-  TouchableWithoutFeedback,
-);
+// fix on click issue
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 class Collection extends Component {
   constructor(props) {
@@ -86,7 +80,7 @@ class Collection extends Component {
         {cancelable: false},
       );
     }
-    this.bs.current.snapTo(3);
+    this.bs.current.snapTo(1);
   };
 
   renamePlaylist = () => {
@@ -95,6 +89,7 @@ class Collection extends Component {
   };
 
   sharePlaylist = () => {
+    this.bs.current.snapTo(1);
     const options = {
       title: 'Share file',
       message: 'Listen to this song on Serenity',
@@ -110,7 +105,6 @@ class Collection extends Component {
       .catch(err => {
         err && console.log(err);
       });
-    this.bs.current.snapTo(3);
   };
 
   onChangeText = text => {
@@ -129,7 +123,7 @@ class Collection extends Component {
     this.setState({
       visible: true,
     });
-    this.bs.current.snapTo(3);
+    this.bs.current.snapTo(1);
   };
 
   componentDidMount() {
@@ -137,58 +131,73 @@ class Collection extends Component {
   }
 
   openBottomSheet = () => {
-    if (this.state.playlist.owner != 'You') {
-      this.bs.current.snapTo(2);
-    } else if (this.state.playlist.songs < 1) {
-      this.bs.current.snapTo(1);
-    } else {
-      this.bs.current.snapTo(0);
-    }
+    this.bs.current.snapTo(0);
   };
 
-  renderInner = () => (
-    <Surface style={styles.panel}>
-      {this.state.playlist.owner != 'You' ? (
-        <TouchableWithoutFeedback onPress={() => console.log('playlist liked')}>
-          <List.Item
-            title="like"
-            left={props => <List.Icon {...props} icon="favorite" />}
-          />
+  renderInner = colors => (
+    <View style={styles.panel}>
+      {/* <TouchableWithoutFeedback onPress={() => console.log("pressed")} style={{ backgroundColor: 'green', flex: 1, height: 100 }}> */}
+      <LinearGradient
+        colors={['#ffffff00', colors.surface]}
+        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableWithoutFeedback
+          onPress={() => this.bs.current.snapTo(1)}
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: Dimensions.get('window').width,
+          }}>
+          <DefaultImage style={styles.artCover} />
+          <Title>{this.state.playlist.name}</Title>
+          <Subheading>{'by ' + this.state.playlist.owner}</Subheading>
         </TouchableWithoutFeedback>
-      ) : (
-        <View>
-          <TouchableWithoutFeedback onPress={this.deletePlaylist}>
+      </LinearGradient>
+      {/* </TouchableWithoutFeedback> */}
+      <Surface>
+        {this.state.playlist.owner != 'You' ? (
+          <TouchableWithoutFeedback
+            onPress={() => console.log('playlist liked')}>
             <List.Item
-              title="Delete Playlist"
-              left={props => <List.Icon {...props} icon="close" />}
+              title="like"
+              left={props => <List.Icon {...props} icon="favorite" />}
             />
           </TouchableWithoutFeedback>
-          {this.state.playlist.songs.length < 1 ? (
-            false
-          ) : (
-            <TouchableWithoutFeedback onPress={this.renamePlaylist}>
+        ) : (
+          <View>
+            <TouchableWithoutFeedback onPress={this.deletePlaylist}>
               <List.Item
-                title="Edit Playlist"
-                left={props => <List.Icon {...props} icon="list" />}
+                title="Delete Playlist"
+                left={props => <List.Icon {...props} icon="close" />}
               />
             </TouchableWithoutFeedback>
-          )}
-          <TouchableWithoutFeedback onPress={this._showDailog}>
-            <List.Item
-              title="Rename Playlist"
-              left={props => <List.Icon {...props} icon="edit" />}
-            />
-          </TouchableWithoutFeedback>
-        </View>
-      )}
+            {this.state.playlist.songs.length < 1 ? (
+              false
+            ) : (
+              <TouchableWithoutFeedback onPress={this.renamePlaylist}>
+                <List.Item
+                  title="Edit Playlist"
+                  left={props => <List.Icon {...props} icon="list" />}
+                />
+              </TouchableWithoutFeedback>
+            )}
+            <TouchableWithoutFeedback onPress={this._showDailog}>
+              <List.Item
+                title="Rename Playlist"
+                left={props => <List.Icon {...props} icon="edit" />}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        )}
 
-      <TouchableWithoutFeedback onPress={this.sharePlaylist}>
-        <List.Item
-          title="Share"
-          left={props => <List.Icon {...props} icon="share" />}
-        />
-      </TouchableWithoutFeedback>
-    </Surface>
+        <TouchableWithoutFeedback onPress={this.sharePlaylist}>
+          <List.Item
+            title="Share"
+            left={props => <List.Icon {...props} icon="share" />}
+          />
+        </TouchableWithoutFeedback>
+      </Surface>
+    </View>
   );
 
   render() {
@@ -213,13 +222,13 @@ class Collection extends Component {
               },
             ]}
             pointerEvents="none"
-            onPress={() => this.bs.current.snapTo(3)}
+            // onPress={() => this.bs.current.snapTo(3)}
           />
           <BottomSheet
             ref={this.bs}
-            snapPoints={['50%', '35%', '25%', 0]}
-            renderContent={this.renderInner}
-            initialSnap={3}
+            snapPoints={['100%', 0]}
+            renderContent={() => this.renderInner(colors)}
+            initialSnap={1}
             callbackNode={this.sheetOpenValue}
           />
         </Portal>
@@ -240,49 +249,37 @@ class Collection extends Component {
             </Dialog.Actions>
           </Dialog>
         </Portal>
-        <ScrollView>
-          <View style={styles.scrollViewContent}>
-            <View style={styles.coverContainer}>
-              <DefaultImage style={styles.artCover} />
-              {/* <Headline style={styles.title}>{title}</Headline> */}
-            </View>
-            <View style={styles.titleContainer}>
-              <Title>{this.state.playlist.name}</Title>
-              <Subheading>{'by ' + this.state.playlist.owner}</Subheading>
-              {/* <Chip icon="add" mode="contained" onPress={() => this.bs.current.snapTo(0)}>
-                Add Songs
-              </Chip> */}
-            </View>
-            {isEmpty(this.state.playlist.songs) ? (
-              <View style={{flex: 1, margin: 16}}>
-                <Title style={{textAlign: 'center'}}>
-                  Let's find some songs for your playlist
-                </Title>
-                <Button>Find songs</Button>
-              </View>
-            ) : (
-              <View style={styles.buttonContainer}>
-                <Button mode="contained" onPress={this.addToQueue}>
-                  Play All
-                </Button>
-              </View>
-            )}
-
-            <FlatList
-              data={this.state.playlist.songs}
-              renderItem={({item}) => <TrackContainer track={item} />}
-              ItemSeparatorComponent={() => <Divider inset={true} />}
-              keyExtractor={(item, index) => index.toString()}
-              // refreshControl={
-              //   <RefreshControl
-              //     refreshing={this.state.refreshing}
-              //     onRefresh={this.fetchData}
-              //   />
-              // }
-            />
-            <View style={{height: 100}} />
+        <View style={styles.scrollViewContent}>
+          <View style={styles.coverContainer}>
+            <DefaultImage style={styles.artCover} />
           </View>
-        </ScrollView>
+          <View style={styles.titleContainer}>
+            <Title>{this.state.playlist.name}</Title>
+            <Subheading>{'by ' + this.state.playlist.owner}</Subheading>
+          </View>
+          {isEmpty(this.state.playlist.songs) ? (
+            <View style={{flex: 1, margin: 16}}>
+              <Title style={{textAlign: 'center'}}>
+                Let's find some songs for your playlist
+              </Title>
+              <Button>Find songs</Button>
+            </View>
+          ) : (
+            <View style={styles.buttonContainer}>
+              <Button mode="contained" onPress={this.addToQueue}>
+                Play All
+              </Button>
+            </View>
+          )}
+
+          <FlatList
+            data={this.state.playlist.songs}
+            renderItem={({item}) => <TrackContainer track={item} />}
+            ItemSeparatorComponent={() => <Divider inset={true} />}
+            keyExtractor={(item, index) => index.toString()}
+          />
+          <View style={{height: 100}} />
+        </View>
       </View>
     );
   }
@@ -311,18 +308,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 8,
   },
-  artCover: {width: 200, height: 200},
+  artCover: {width: 200, height: 200, elevation: 4, borderRadius: 12},
   titleContainer: {alignItems: 'center', justifyContent: 'center', margin: 10},
   panel: {
     height: '100%',
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    // shadowColor: '#000000',
-    // shadowOffset: { width: 0, height: 0 },
-    // shadowRadius: 5,
-    // shadowOpacity: 0.4,
-    elevation: 12,
+    // elevation: 12,
     zIndex: 1000,
   },
 });

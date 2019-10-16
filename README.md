@@ -55,6 +55,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Planned features
 
+- Creating a backup on Google Drive and sync audio from it
 - Searching for and playing music from YouTube (including integration with playlists), bandcamp (including albums), and soundcloud
 - Searching for related songs in YouTube
 - Downloading from YouTube

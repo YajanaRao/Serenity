@@ -57,6 +57,10 @@ class Playlist extends Component {
     });
   }
 
+  componentWillUnmount() {
+    realm.removeAllListeners();
+  }
+
   onChangeText = text => {
     this.setState({playlistName: text});
   };
@@ -83,12 +87,14 @@ class Playlist extends Component {
           </Dialog>
         </Portal>
         <ScrollView>
-          <List.Item
-            title="Create Playlist"
-            left={props => <List.Icon {...props} icon="add" />}
-            onPress={this._showDialog}
-          />
           <FlatList
+            ListHeaderComponent={() => (
+              <List.Item
+                title="Create Playlist"
+                left={props => <List.Icon {...props} icon="add" />}
+                onPress={this._showDialog}
+              />
+            )}
             data={this.state.playlists}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
