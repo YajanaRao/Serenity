@@ -10,10 +10,11 @@ import {
   Searchbar,
   ActivityIndicator,
 } from 'react-native-paper';
-import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 
 import ArtistComponent from '../../components/ArtistComponent';
+import {addArtist, getArtists} from '../../actions/realmAction';
+import realm from '../../database';
 
 class Artist extends Component {
   static navigationOptions = {
@@ -25,6 +26,8 @@ class Artist extends Component {
     this.state = {
       data: [],
       visible: false,
+      addArtists: [],
+      artists: [],
     };
   }
 
@@ -37,18 +40,41 @@ class Artist extends Component {
         .then(responseJson => {
           this.setState({
             data: responseJson,
+            artists: getArtists(),
           });
         })
         .catch(error => {
           console.log(error);
           this.setState({
             visible: false,
+            artists: getArtists(),
           });
         });
+      realm.addListener('change', () => {
+        this.setState({
+          artists: getArtists(),
+        });
+      });
     } catch (error) {
       console.log(error);
     }
   }
+
+  componentWillUnmount() {
+    realm.removeAllListeners();
+  }
+
+  addArtistsToArray = artist => {
+    let data = [];
+    data['name'] = artist.artist;
+    data['cover'] = artist.artwork;
+    this.state.addArtists.push(data);
+  };
+
+  addArtists = () => {
+    addArtist(this.state.addArtists);
+    this._hideDialog();
+  };
 
   _showDialog = () => this.setState({visible: true});
 
@@ -58,16 +84,31 @@ class Artist extends Component {
     const {colors} = this.props.theme;
     return (
       <View style={{backgroundColor: colors.background, flex: 1}}>
-        <List.Item
-          title="Add artist"
-          left={props => (
-            <Avatar.Icon
-              {...props}
-              style={{backgroundColor: colors.surface}}
-              icon="add"
+        <FlatList
+          ListHeaderComponent={() => (
+            <List.Item
+              title="Add artist"
+              left={props => (
+                <Avatar.Icon
+                  {...props}
+                  style={{backgroundColor: colors.surface}}
+                  icon="add"
+                />
+              )}
+              onPress={this._showDialog}
             />
           )}
-          onPress={this._showDialog}
+          data={this.state.artists}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item}) => (
+            <List.Item
+              title={item.name}
+              left={props => (
+                <Avatar.Image {...props} source={{uri: item.cover}} />
+              )}
+              // onPress={this._showDialog}
+            />
+          )}
         />
         <Portal>
           <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
@@ -87,7 +128,12 @@ class Artist extends Component {
                   data={this.state.data}
                   keyExtractor={(item, index) => index.toString()}
                   numColumns={3}
-                  renderItem={({item}) => <ArtistComponent item={item} />}
+                  renderItem={({item}) => (
+                    <ArtistComponent
+                      item={item}
+                      addArtist={this.addArtistsToArray}
+                    />
+                  )}
                 />
               ) : (
                 <View style={{margin: 16}}>
@@ -97,7 +143,7 @@ class Artist extends Component {
             </Dialog.ScrollArea>
             <Dialog.Actions>
               <Button onPress={this._hideDialog}>Cancel</Button>
-              <Button onPress={this._hideDialog}>Ok</Button>
+              <Button onPress={this.addArtists}>Ok</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
@@ -111,11 +157,3 @@ Artist.propTypes = {
   theme: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };
-
-const styles = StyleSheet.create({
-  icons: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-  },
-});
