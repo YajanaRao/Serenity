@@ -1,12 +1,12 @@
 import React from 'react';
-import {withNavigation} from 'react-navigation';
-import ArtistScrollView from '../components/ArtistScrollView';
+import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
+import ArtistScrollView from '../components/ArtistScrollView';
 
 class ArtistContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {isLoading: true, data: []};
+    this.state = { isLoading: true, data: [] };
   }
 
   componentDidMount() {
@@ -31,15 +31,16 @@ class ArtistContainer extends React.PureComponent {
 
   navigateToSongs = (songs, artwork, title) => {
     this.props.navigation.navigate('Songs', {
-      songs: songs,
+      songs,
       img: artwork,
-      title: title,
+      title,
     });
   };
+
   render() {
     return (
       <ArtistScrollView
-        title={'Popular Artists'}
+        title="Popular Artists"
         data={this.state.data}
         navigateToSongs={this.navigateToSongs}
       />
@@ -48,7 +49,7 @@ class ArtistContainer extends React.PureComponent {
 }
 
 ArtistContainer.propTypes = {
-  navigation: PropTypes.object.isRequired
-}
+  navigation: PropTypes.object.isRequired,
+};
 
 export default withNavigation(ArtistContainer);

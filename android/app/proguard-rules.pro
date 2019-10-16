@@ -26,3 +26,5 @@
 }
 
 -keep class com.facebook.hermes.unicode.** { *; }
+
+-keep class io.realm.react.**

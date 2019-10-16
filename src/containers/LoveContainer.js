@@ -1,72 +1,34 @@
-import React, {PureComponent} from 'react';
-import {View} from 'react-native';
-import {IconButton, withTheme} from 'react-native-paper';
-import {connect} from 'react-redux';
-import includes from 'lodash/includes';
+import React, { PureComponent } from 'react';
+import { View } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {addToFavorite, removeFromFavorite} from '../actions/playerState';
+
+import { addToFavourite } from '../actions/playerState';
 
 class LoveContainer extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      favorite: false,
-    };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (includes(props.favorite, props.track) !== state.favorite) {
-      return {
-        favorite: !state.favorite,
-      };
-    }
-    return null;
-  }
-
-  addToFavorite = () => {
-    this.props.addToFavorite(this.props.track);
-    this.setState(prev => ({favorite: !prev.favorite}));
-  };
-
-  removeFromFavorite = () => {
-    this.props.removeFromFavorite(this.props.track);
-    this.setState(prev => ({favorite: !prev.favorite}));
+  addToFavourite = () => {
+    this.props.addToFavourite(this.props.track);
   };
 
   render() {
-    const {colors} = this.props.theme;
     return (
       <View style={this.props.style}>
-        {this.state.favorite ? (
-          <IconButton
-            animated={true}
-            icon="favorite"
-            onPress={this.removeFromFavorite}
-            color={colors.error}
-          />
-        ) : (
-          <IconButton
-            animated={true}
-            icon="favorite-border"
-            onPress={this.addToFavorite}
-          />
-        )}
+        <IconButton
+          animated
+          icon="favorite-border"
+          onPress={this.addToFavourite}
+        />
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  favorite: state.playerState.favorite,
-});
-
 LoveContainer.propTypes = {
-  track: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-  favorite: PropTypes.object
-}
+  track: PropTypes.object,
+};
 
 export default connect(
-  mapStateToProps,
-  {addToFavorite, removeFromFavorite},
-)(withTheme(LoveContainer));
+  null,
+  { addToFavourite },
+)(LoveContainer);

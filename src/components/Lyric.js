@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, ScrollView} from 'react-native';
+import React, { Component } from 'react';
+import { View, ScrollView } from 'react-native';
 import {
   Dialog,
   Portal,
@@ -9,7 +9,7 @@ import {
   Button,
 } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import {getLyrics} from '../utils';
+import { getLyrics } from '../utils';
 
 class Lyric extends Component {
   state = {
@@ -21,28 +21,28 @@ class Lyric extends Component {
     getLyrics(this.props.track).then(lyrics => {
       console.log(lyrics);
       this.setState({
-        lyrics: lyrics,
+        lyrics,
       });
     });
   }
 
   _showDialog = () => {
-    this.setState({visible: true});
+    this.setState({ visible: true });
   };
 
-  _hideDialog = () => this.setState({visible: false});
+  _hideDialog = () => this.setState({ visible: false });
 
   render() {
     return (
       <View style={this.props.style}>
         <IconButton icon="subtitles" onPress={this._showDialog} />
-        <Portal style={{zIndex: 200}}>
+        <Portal style={{ zIndex: 200 }}>
           <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
             <Dialog.Title>Lyrics</Dialog.Title>
             <Divider />
             <Dialog.Content>
               <Dialog.ScrollArea>
-                <ScrollView contentContainerStyle={{paddingHorizontal: 24}}>
+                <ScrollView contentContainerStyle={{ paddingHorizontal: 24 }}>
                   <Paragraph>
                     Lyric feature is coming to the application. There will be
                     some long texts here
@@ -62,7 +62,7 @@ class Lyric extends Component {
 
 Lyric.propTypes = {
   style: PropTypes.object.isRequired,
-  track: PropTypes.object.isRequired
-}
+  track: PropTypes.object.isRequired,
+};
 
 export default Lyric;

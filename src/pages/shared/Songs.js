@@ -24,7 +24,7 @@ class Songs extends Component {
   };
 
   addToQueue = () => {
-    let songs = this.props.navigation.getParam('songs');
+    const songs = this.props.navigation.getParam('songs');
     this.props.addToQueue(songs);
   };
 
@@ -47,10 +47,13 @@ class Songs extends Component {
           <View style={styles.scrollViewContent}>
             <View style={styles.coverContainer}>
               {albumImage ? (
-                <FastImage source={{ uri: albumImage }} style={styles.artCover} />
+                <FastImage
+                  source={{ uri: albumImage }}
+                  style={styles.artCover}
+                />
               ) : (
-                  <DefaultImage style={styles.artCover} />
-                )}
+                <DefaultImage style={styles.artCover} />
+              )}
               {/* <Headline style={styles.title}>{title}</Headline> */}
             </View>
             <View style={styles.titleContainer}>
@@ -59,15 +62,15 @@ class Songs extends Component {
             {isEmpty(songs) ? (
               <Title>No songs</Title>
             ) : (
-                <View style={styles.buttonContainer}>
-                  {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
+              <View style={styles.buttonContainer}>
+                {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                                 Download
                             </Button> */}
-                  <Button mode="contained" onPress={this.addToQueue}>
-                    Play All
+                <Button mode="contained" onPress={this.addToQueue}>
+                  Play All
                 </Button>
-                </View>
-              )}
+              </View>
+            )}
 
             <SwipeListContainer data={songs} />
             <View style={{ height: 100 }} />
@@ -81,8 +84,8 @@ class Songs extends Component {
 Songs.propTypes = {
   navigation: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  addToQueue: PropTypes.func.isRequired
-}
+  addToQueue: PropTypes.func.isRequired,
+};
 
 export default connect(
   null,
@@ -108,5 +111,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12 },
-  titleContainer: { alignItems: 'center', justifyContent: 'center', margin: 10 },
+  titleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+  },
 });

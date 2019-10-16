@@ -1,12 +1,12 @@
 import React from 'react';
-import {withNavigation} from 'react-navigation';
-import AlbumScrollView from '../components/AlbumScrollView';
+import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
+import AlbumScrollView from '../components/AlbumScrollView';
 
 class Top20Container extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {isLoading: true, data: []};
+    this.state = { isLoading: true, data: [] };
   }
 
   componentDidMount() {
@@ -31,15 +31,16 @@ class Top20Container extends React.PureComponent {
 
   navigateToSongs = (songs, artwork, title) => {
     this.props.navigation.navigate('Songs', {
-      songs: songs,
+      songs,
       img: artwork,
-      title: title,
+      title,
     });
   };
+
   render() {
     return (
       <AlbumScrollView
-        title={'Top 15'}
+        title="Top 15"
         data={this.state.data}
         navigateToSongs={this.navigateToSongs}
       />
@@ -47,7 +48,7 @@ class Top20Container extends React.PureComponent {
   }
 }
 Top20Container.propTypes = {
-  navigation: PropTypes.object.isRequired
-}
+  navigation: PropTypes.object.isRequired,
+};
 
 export default withNavigation(Top20Container);

@@ -123,7 +123,7 @@ exports[`Blank component renders correctly 1`] = `
       <View
         accessibilityRole="button"
         accessible={true}
-        clickable={true}
+        focusable={true}
         isTVSelectable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}

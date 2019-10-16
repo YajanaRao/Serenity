@@ -3,7 +3,7 @@ import map from 'lodash/map';
 
 export const updateQuery = query => dispatch => {
   if (query) {
-    RNAndroidAudioStore.search({searchParam: query})
+    RNAndroidAudioStore.search({ searchParam: query })
       .then(media => {
         map(media, function(item) {
           item.url = item.path;
@@ -40,8 +40,8 @@ export const getOfflineSongs = () => dispatch => {
     .catch(er => {
       console.log(er);
       dispatch({
-        type: 'NOTIFY',
-        payload: 'Something went wrong',
+        type: 'OFFLINE_SONGS',
+        payload: [],
       });
     });
 };
@@ -80,7 +80,7 @@ export const getOfflineAlbums = () => dispatch => {
 
 export const filterArtistSongs = (artist, image) => dispatch => {
   RNAndroidAudioStore.getSongs({
-    artist: artist,
+    artist,
   })
     .then(media => {
       map(media, function(item) {
@@ -100,7 +100,7 @@ export const filterArtistSongs = (artist, image) => dispatch => {
 
 export const filterAlbumSongs = (album, image) => dispatch => {
   RNAndroidAudioStore.getSongs({
-    album: album,
+    album,
   })
     .then(media => {
       map(media, function(item) {

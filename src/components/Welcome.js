@@ -1,20 +1,18 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ActivityIndicator, Headline, withTheme } from 'react-native-paper';
-import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Welcome = (props) => {
-    const { colors } = props.theme; 
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {/* <Headline style={{ margin: 16, fontSize: 48, fontWeight: 'bold', padding: 16 }} >Serenity</Headline> */}
-            <ActivityIndicator animating={true} size="large" />
-        </View>
-    )
-}
+const Welcome = () => (
+  <View
+    style={{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#00F260',
+    }}
+  >
+    <Icon name="music" color="#ffffff" size={40} />
+  </View>
+);
 
-Welcome.propTypes = {
-    theme: PropTypes.object.isRequired
-}
-
-export default withTheme(Welcome);
+export default Welcome;

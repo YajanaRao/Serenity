@@ -78,8 +78,8 @@ class Player extends React.Component {
                   style={[styles.artCover, { backgroundColor: colors.surface }]}
                 />
               ) : (
-                  <DefaultImage style={styles.artCover} />
-                )}
+                <DefaultImage style={styles.artCover} />
+              )}
             </View>
             <View style={styles.centerContainer}>
               <Title numberOfLines={1}>{this.props.active.title}</Title>
@@ -115,19 +115,19 @@ class Player extends React.Component {
                   onPress={this.updateRepeatType}
                 />
               ) : (
-                  <IconButton
-                    icon="repeat-one"
-                    // size={20}
-                    onPress={this.updateRepeatType}
-                  />
-                )}
+                <IconButton
+                  icon="repeat-one"
+                  // size={20}
+                  onPress={this.updateRepeatType}
+                />
+              )}
             </View>
             {/* <View style={styles.rowContainer}>
               <Lyric style={{ width: 60 }} track={this.props.active} />
             </View> */}
             <Divider />
 
-            <QueueContainer />
+            <QueueContainer close={this.close} />
             <View style={{ height: 100 }} />
           </ScrollView>
         </View>
