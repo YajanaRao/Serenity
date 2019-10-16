@@ -6,19 +6,16 @@ import PropTypes from 'prop-types';
 
 import { addToFavourite } from '../actions/playerState';
 
-
-
 class LoveContainer extends PureComponent {
-
   addToFavourite = () => {
-    this.props.addToFavourite(this.props.track)
-  }
+    this.props.addToFavourite(this.props.track);
+  };
 
   render() {
     return (
       <View style={this.props.style}>
         <IconButton
-          animated={true}
+          animated
           icon="favorite-border"
           onPress={this.addToFavourite}
         />
@@ -27,10 +24,9 @@ class LoveContainer extends PureComponent {
   }
 }
 
-
 LoveContainer.propTypes = {
-  track: PropTypes.object
-}
+  track: PropTypes.object,
+};
 
 export default connect(
   null,

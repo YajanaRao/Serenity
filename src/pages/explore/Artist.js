@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import React, { Component } from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
 import {
   withTheme,
   Avatar,
@@ -13,7 +13,7 @@ import {
 import PropTypes from 'prop-types';
 
 import ArtistComponent from '../../components/ArtistComponent';
-import {addArtist, getArtists} from '../../actions/realmAction';
+import { addArtist, getArtists } from '../../actions/realmAction';
 import realm from '../../database';
 
 class Artist extends Component {
@@ -65,9 +65,9 @@ class Artist extends Component {
   }
 
   addArtistsToArray = artist => {
-    let data = [];
-    data['name'] = artist.artist;
-    data['cover'] = artist.artwork;
+    const data = [];
+    data.name = artist.artist;
+    data.cover = artist.artwork;
     this.state.addArtists.push(data);
   };
 
@@ -76,14 +76,14 @@ class Artist extends Component {
     this._hideDialog();
   };
 
-  _showDialog = () => this.setState({visible: true});
+  _showDialog = () => this.setState({ visible: true });
 
-  _hideDialog = () => this.setState({visible: false});
+  _hideDialog = () => this.setState({ visible: false });
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
     return (
-      <View style={{backgroundColor: colors.background, flex: 1}}>
+      <View style={{ backgroundColor: colors.background, flex: 1 }}>
         <FlatList
           ListHeaderComponent={() => (
             <List.Item
@@ -91,7 +91,7 @@ class Artist extends Component {
               left={props => (
                 <Avatar.Icon
                   {...props}
-                  style={{backgroundColor: colors.surface}}
+                  style={{ backgroundColor: colors.surface }}
                   icon="add"
                 />
               )}
@@ -100,11 +100,11 @@ class Artist extends Component {
           )}
           data={this.state.artists}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <List.Item
               title={item.name}
               left={props => (
-                <Avatar.Image {...props} source={{uri: item.cover}} />
+                <Avatar.Image {...props} source={{ uri: item.cover }} />
               )}
               // onPress={this._showDialog}
             />
@@ -117,7 +117,7 @@ class Artist extends Component {
               <Searchbar
                 placeholder="Search"
                 onChangeText={query => {
-                  this.setState({firstQuery: query});
+                  this.setState({ firstQuery: query });
                 }}
                 value={this.state.firstQuery}
               />
@@ -128,7 +128,7 @@ class Artist extends Component {
                   data={this.state.data}
                   keyExtractor={(item, index) => index.toString()}
                   numColumns={3}
-                  renderItem={({item}) => (
+                  renderItem={({ item }) => (
                     <ArtistComponent
                       item={item}
                       addArtist={this.addArtistsToArray}
@@ -136,7 +136,7 @@ class Artist extends Component {
                   )}
                 />
               ) : (
-                <View style={{margin: 16}}>
+                <View style={{ margin: 16 }}>
                   <ActivityIndicator size="large" />
                 </View>
               )}

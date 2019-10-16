@@ -3,11 +3,16 @@ import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Welcome = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#00F260" }}>
-       <Icon name="music" color="#ffffff" size={40}  />
-    </View>
-)
-
-
+  <View
+    style={{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#00F260',
+    }}
+  >
+    <Icon name="music" color="#ffffff" size={40} />
+  </View>
+);
 
 export default Welcome;

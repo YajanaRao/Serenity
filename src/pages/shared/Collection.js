@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   IconButton,
   withTheme,
@@ -12,8 +12,8 @@ import {
   TextInput,
   Subheading,
 } from 'react-native-paper';
-import {StyleSheet, View, Dimensions, FlatList, Alert} from 'react-native';
-import {connect} from 'react-redux';
+import { StyleSheet, View, Dimensions, FlatList, Alert } from 'react-native';
+import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import values from 'lodash/values';
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -22,13 +22,13 @@ import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {addToQueue} from '../../actions/playerState';
-import {deletePlaylist, renamePlaylist} from '../../actions/realmAction';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { addToQueue } from '../../actions/playerState';
+import { deletePlaylist, renamePlaylist } from '../../actions/realmAction';
 import TrackContainer from '../../containers/TrackContainer';
 import DefaultImage from '../../components/DefaultImage';
 
 // fix on click issue
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 class Collection extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Collection extends Component {
     };
   }
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     // header: null
     return {
       headerTitle: navigation.getParam('playlist').name,
@@ -62,7 +62,7 @@ class Collection extends Component {
     if (this.state.playlist.id) {
       Alert.alert(
         'Delete playlist',
-        'Are you sure you want to delete ' + this.state.playlist.name,
+        `Are you sure you want to delete ${this.state.playlist.name}`,
         [
           {
             text: 'NO',
@@ -77,7 +77,7 @@ class Collection extends Component {
             },
           },
         ],
-        {cancelable: false},
+        { cancelable: false },
       );
     }
     this.bs.current.snapTo(1);
@@ -127,7 +127,7 @@ class Collection extends Component {
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({openMenu: this.openBottomSheet});
+    this.props.navigation.setParams({ openMenu: this.openBottomSheet });
   }
 
   openBottomSheet = () => {
@@ -139,7 +139,8 @@ class Collection extends Component {
       {/* <TouchableWithoutFeedback onPress={() => console.log("pressed")} style={{ backgroundColor: 'green', flex: 1, height: 100 }}> */}
       <LinearGradient
         colors={['#ffffff00', colors.surface]}
-        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      >
         <TouchableWithoutFeedback
           onPress={() => this.bs.current.snapTo(1)}
           style={{
@@ -147,17 +148,19 @@ class Collection extends Component {
             justifyContent: 'center',
             alignItems: 'center',
             width: Dimensions.get('window').width,
-          }}>
+          }}
+        >
           <DefaultImage style={styles.artCover} />
           <Title>{this.state.playlist.name}</Title>
-          <Subheading>{'by ' + this.state.playlist.owner}</Subheading>
+          <Subheading>{`by ${this.state.playlist.owner}`}</Subheading>
         </TouchableWithoutFeedback>
       </LinearGradient>
       {/* </TouchableWithoutFeedback> */}
       <Surface>
         {this.state.playlist.owner != 'You' ? (
           <TouchableWithoutFeedback
-            onPress={() => console.log('playlist liked')}>
+            onPress={() => console.log('playlist liked')}
+          >
             <List.Item
               title="like"
               left={props => <List.Icon {...props} icon="favorite" />}
@@ -201,10 +204,10 @@ class Collection extends Component {
   );
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
 
     return (
-      <View style={[styles.container, {backgroundColor: colors.background}]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
         <Portal>
           <Animated.View
             style={[
@@ -255,11 +258,11 @@ class Collection extends Component {
           </View>
           <View style={styles.titleContainer}>
             <Title>{this.state.playlist.name}</Title>
-            <Subheading>{'by ' + this.state.playlist.owner}</Subheading>
+            <Subheading>{`by ${this.state.playlist.owner}`}</Subheading>
           </View>
           {isEmpty(this.state.playlist.songs) ? (
-            <View style={{flex: 1, margin: 16}}>
-              <Title style={{textAlign: 'center'}}>
+            <View style={{ flex: 1, margin: 16 }}>
+              <Title style={{ textAlign: 'center' }}>
                 Let's find some songs for your playlist
               </Title>
               <Button>Find songs</Button>
@@ -274,11 +277,11 @@ class Collection extends Component {
 
           <FlatList
             data={this.state.playlist.songs}
-            renderItem={({item}) => <TrackContainer track={item} />}
-            ItemSeparatorComponent={() => <Divider inset={true} />}
+            renderItem={({ item }) => <TrackContainer track={item} />}
+            ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
           />
-          <View style={{height: 100}} />
+          <View style={{ height: 100 }} />
         </View>
       </View>
     );
@@ -287,7 +290,7 @@ class Collection extends Component {
 
 export default connect(
   null,
-  {addToQueue},
+  { addToQueue },
 )(withTheme(Collection));
 
 const styles = StyleSheet.create({
@@ -308,8 +311,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 8,
   },
-  artCover: {width: 200, height: 200, elevation: 4, borderRadius: 12},
-  titleContainer: {alignItems: 'center', justifyContent: 'center', margin: 10},
+  artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12 },
+  titleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+  },
   panel: {
     height: '100%',
     paddingTop: 20,

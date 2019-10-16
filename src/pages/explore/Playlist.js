@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View} from 'react-native';
+import React, { Component } from 'react';
+import { View } from 'react-native';
 import {
   List,
   Portal,
@@ -8,10 +8,10 @@ import {
   Button,
   withTheme,
 } from 'react-native-paper';
-import {FlatList, ScrollView} from 'react-navigation';
-import {getAllPlaylists, createPlaylist} from '../../actions/realmAction';
-import realm from '../../database';
+import { FlatList } from 'react-navigation';
 import PropTypes from 'prop-types';
+import { getAllPlaylists, createPlaylist } from '../../actions/realmAction';
+import realm from '../../database';
 
 class Playlist extends Component {
   constructor(props) {
@@ -35,19 +35,19 @@ class Playlist extends Component {
 
   navigateToCollection = playlist => {
     this.props.navigation.navigate('Songs', {
-      playlist: playlist,
+      playlist,
     });
   };
 
-  _showDialog = () => this.setState({visible: true});
+  _showDialog = () => this.setState({ visible: true });
 
-  _hideDialog = () => this.setState({visible: false});
+  _hideDialog = () => this.setState({ visible: false });
 
   _createPlaylist = () => {
     this._hideDialog();
     if (this.state.playlistName) {
       createPlaylist(this.state.playlistName);
-      this.setState({playlistName: null});
+      this.setState({ playlistName: null });
     }
   };
 
@@ -62,13 +62,13 @@ class Playlist extends Component {
   }
 
   onChangeText = text => {
-    this.setState({playlistName: text});
+    this.setState({ playlistName: text });
   };
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
     return (
-      <View style={{flex: 1, backgroundColor: colors.background}}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         <Portal>
           <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
             <Dialog.Title>Enter your playlist name</Dialog.Title>
@@ -86,27 +86,25 @@ class Playlist extends Component {
             </Dialog.Actions>
           </Dialog>
         </Portal>
-        <ScrollView>
-          <FlatList
-            ListHeaderComponent={() => (
-              <List.Item
-                title="Create Playlist"
-                left={props => <List.Icon {...props} icon="add" />}
-                onPress={this._showDialog}
-              />
-            )}
-            data={this.state.playlists}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => (
-              <List.Item
-                title={item.name}
-                description={'by ' + item.owner}
-                left={props => <List.Icon {...props} icon="audiotrack" />}
-                onPress={() => this.navigateToCollection(item)}
-              />
-            )}
-          />
-        </ScrollView>
+        <FlatList
+          ListHeaderComponent={() => (
+            <List.Item
+              title="Create Playlist"
+              left={props => <List.Icon {...props} icon="add" />}
+              onPress={this._showDialog}
+            />
+          )}
+          data={this.state.playlists}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <List.Item
+              title={item.name}
+              description={`by ${item.owner}`}
+              left={props => <List.Icon {...props} icon="audiotrack" />}
+              onPress={() => this.navigateToCollection(item)}
+            />
+          )}
+        />
       </View>
     );
   }

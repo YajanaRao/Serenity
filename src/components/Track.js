@@ -1,9 +1,7 @@
 import React from 'react';
-import {withTheme, List} from 'react-native-paper';
-import {StyleSheet, View} from 'react-native';
+import { withTheme, List } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-
-
 
 /*
     TODO: 
@@ -14,13 +12,11 @@ import PropTypes from 'prop-types';
 
 // FIXME: Testing the application
 const Track = props => {
-  const {track, active} = props;
-  const {colors} = props.theme;
-
+  const { track, active } = props;
+  const { colors } = props.theme;
 
   return (
-    <View style={[styles.surface, {backgroundColor: colors.background}]}>
-    
+    <View style={[styles.surface, { backgroundColor: colors.background }]}>
       <List.Item
         title={track.title}
         description={track.artist ? track.artist : track.album}

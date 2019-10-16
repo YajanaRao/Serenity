@@ -1,14 +1,14 @@
 import * as React from 'react';
-import {createAppContainer} from 'react-navigation';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {createStackNavigator} from 'react-navigation-stack';
-import {View} from 'react-native';
-import {withTheme, IconButton, Snackbar} from 'react-native-paper';
-import {PermissionsAndroid} from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import { View, PermissionsAndroid } from 'react-native';
+import { withTheme, IconButton, Snackbar } from 'react-native-paper';
+
 import isEqual from 'lodash/isEqual';
 import isEmpty from 'lodash/isEmpty';
-import {connect} from 'react-redux';
-import Crashes, {UserConfirmation} from 'appcenter-crashes';
+import { connect } from 'react-redux';
+import Crashes, { UserConfirmation } from 'appcenter-crashes';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -22,11 +22,11 @@ const BottomNavigator = createBottomTabNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <IconButton
             icon="home"
             color={tintColor}
-            style={{margin: 0, padding: 0}}
+            style={{ margin: 0, padding: 0 }}
           />
         ),
       },
@@ -34,11 +34,11 @@ const BottomNavigator = createBottomTabNavigator(
     Search: {
       screen: SearchScreen,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <IconButton
             icon="search"
             color={tintColor}
-            style={{margin: 0, padding: 0}}
+            style={{ margin: 0, padding: 0 }}
           />
         ),
       },
@@ -46,11 +46,11 @@ const BottomNavigator = createBottomTabNavigator(
     Explore: {
       screen: ExploreScreen,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <IconButton
             icon="explore"
             color={tintColor}
-            style={{margin: 0, padding: 0}}
+            style={{ margin: 0, padding: 0 }}
           />
         ),
       },
@@ -58,11 +58,11 @@ const BottomNavigator = createBottomTabNavigator(
     Offline: {
       screen: OfflineScreen,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <IconButton
             icon="save"
             color={tintColor}
-            style={{margin: 0, padding: 0}}
+            style={{ margin: 0, padding: 0 }}
           />
         ),
       },
@@ -96,13 +96,13 @@ class RootScreen extends React.Component {
     result: '',
   };
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Home',
       headerRight: (
         <IconButton
           icon="settings"
-          color={'black'}
+          color="black"
           onPress={() => navigation.navigate('Settings')}
         />
       ),
@@ -137,29 +137,28 @@ class RootScreen extends React.Component {
     const didCrash = await Crashes.hasCrashedInLastSession();
     if (didCrash) {
       try {
-         const crashReport = await Crashes.lastSessionCrashReport();
-         Crashes.setListener({
-           shouldProcess: function(report) {
-             return true; // return true if the crash report should be processed, otherwise false.
-           },
+        const crashReport = await Crashes.lastSessionCrashReport();
+        Crashes.setListener({
+          shouldProcess(report) {
+            return true; // return true if the crash report should be processed, otherwise false.
+          },
 
-           onSendingSucceeded: function(report) {
-             // called when crash report sent successfully.
-             console.log('success');
-           },
-           onSendingFailed: function(report) {
-             // called when crash report could not be sent.
-             console.log('failed');
-           },
+          onSendingSucceeded(report) {
+            // called when crash report sent successfully.
+            console.log('success');
+          },
+          onSendingFailed(report) {
+            // called when crash report could not be sent.
+            console.log('failed');
+          },
 
-           // Other callbacks must also be defined at the same time if used.
-           // Default values are used if a method with return parameter is not defined.
-         });
-         Crashes.notifyUserConfirmation(UserConfirmation.SEND);
+          // Other callbacks must also be defined at the same time if used.
+          // Default values are used if a method with return parameter is not defined.
+        });
+        Crashes.notifyUserConfirmation(UserConfirmation.SEND);
       } catch (error) {
         console.log(error);
       }
-     
     }
   };
 
@@ -181,15 +180,15 @@ class RootScreen extends React.Component {
   };
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
 
     return (
-      <View style={{flex: 1, backgroundColor: colors.background}}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
         {!isEmpty(this.state.result) ? (
           <Snackbar
-            style={{marginBottom: 120, zIndex: 10}}
+            style={{ marginBottom: 120, zIndex: 10 }}
             visible={this.state.visible}
-            onDismiss={() => this.setState({visible: false})}
+            onDismiss={() => this.setState({ visible: false })}
             // duration={1000}
             action={{
               label: 'Dismiss',
@@ -198,14 +197,15 @@ class RootScreen extends React.Component {
                   visible: false,
                 });
               },
-            }}>
+            }}
+          >
             {this.state.result}
           </Snackbar>
         ) : (
           false
         )}
 
-        <Navigator screenProps={{theme: this.props.theme}} />
+        <Navigator screenProps={{ theme: this.props.theme }} />
       </View>
     );
   }

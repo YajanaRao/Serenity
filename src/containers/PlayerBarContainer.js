@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {withNavigation} from 'react-navigation';
-import {connect} from 'react-redux';
-import {isEmpty} from 'lodash';
+import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import {
   playTrack,
@@ -46,9 +46,8 @@ class PlayerBarContainer extends Component {
           navigateToPlayer={this.navigateToPlayer}
         />
       );
-    } else {
-      return false;
     }
+    return false;
   }
 }
 

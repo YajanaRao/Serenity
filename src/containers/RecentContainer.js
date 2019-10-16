@@ -9,8 +9,9 @@ import { getPlayedSongs } from '../actions/realmAction';
 // FIXME: Testing the application
 class RecentContainer extends PureComponent {
   state = {
-    history: []
-  }
+    history: [],
+  };
+
   play = track => {
     if (!isEmpty(track)) {
       this.props.loadTrackPlayer(track);
@@ -20,23 +21,23 @@ class RecentContainer extends PureComponent {
 
   componentDidMount() {
     this.setState({
-      history: getPlayedSongs()
-    })
+      history: getPlayedSongs(),
+    });
   }
 
   render() {
     if (this.props.history && this.props.history.length > 3) {
-      return <TrackScrollView
-        title={'Recent songs'}
-        data={this.state.history}
-        play={this.play}
-      />
+      return (
+        <TrackScrollView
+          title="Recent songs"
+          data={this.state.history}
+          play={this.play}
+        />
+      );
     }
     return false;
   }
 }
-
-
 
 export default connect(
   null,
