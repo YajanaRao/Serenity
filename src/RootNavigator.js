@@ -25,14 +25,14 @@ class RootNavigator extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.themeType != state.themeType) {
-      if (props.themeType == 'dark') {
+    if (props.themeType !== state.themeType) {
+      if (props.themeType === 'dark') {
         return {
           theme: DarkTheme,
           themeType: 'dark',
         };
       }
-      if (props.themeType == 'default') {
+      if (props.themeType === 'default') {
         return {
           theme: DefaultTheme,
           themeType: 'default',
