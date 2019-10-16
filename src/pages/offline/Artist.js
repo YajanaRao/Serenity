@@ -1,11 +1,11 @@
-import {FlatList} from 'react-navigation';
+import { FlatList } from 'react-navigation';
 import React from 'react';
-import {withTheme, Divider, List, Avatar} from 'react-native-paper';
-import {View, StyleSheet, RefreshControl} from 'react-native';
-import {isEqual, isEmpty} from 'lodash';
-import {connect} from 'react-redux';
+import { withTheme, Divider, List, Avatar } from 'react-native-paper';
+import { View, StyleSheet, RefreshControl } from 'react-native';
+import { isEqual, isEmpty } from 'lodash';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {getOfflineArtists} from '../../actions/mediaStore';
+import { getOfflineArtists } from '../../actions/mediaStore';
 import Blank from '../../components/Blank';
 
 class Artist extends React.PureComponent {
@@ -43,16 +43,16 @@ class Artist extends React.PureComponent {
   }
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
 
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
 
     if (!isEmpty(this.state.artists)) {
       return (
-        <View style={{flex: 1, backgroundColor: colors.background}}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.artists}
-            ItemSeparatorComponent={() => <Divider inset={true} />}
+            ItemSeparatorComponent={() => <Divider inset />}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
@@ -60,10 +60,10 @@ class Artist extends React.PureComponent {
               />
             }
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <List.Item
                 title={item.artist}
-                description={item.numberOfSongs + ' Songs'}
+                description={`${item.numberOfSongs} Songs`}
                 left={props => (
                   <Avatar.Text
                     {...props}
@@ -86,7 +86,7 @@ class Artist extends React.PureComponent {
       );
     }
     return (
-      <Blank text={'No offline Artists found..'} fetchData={this.fetchData} />
+      <Blank text="No offline Artists found.." fetchData={this.fetchData} />
     );
   }
 }
@@ -104,7 +104,7 @@ Artist.propTypes = {
 
 export default connect(
   mapStateToProps,
-  {getOfflineArtists},
+  { getOfflineArtists },
 )(withTheme(Artist));
 
 const styles = StyleSheet.create({

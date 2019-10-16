@@ -1,12 +1,12 @@
-import {FlatList} from 'react-navigation';
+import { FlatList } from 'react-navigation';
 import * as React from 'react';
-import {withTheme, Divider, List} from 'react-native-paper';
-import {connect} from 'react-redux';
-import {View, StyleSheet, RefreshControl} from 'react-native';
+import { withTheme, Divider, List } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { View, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {isEqual, isEmpty} from 'lodash';
+import { isEqual, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import {getOfflineAlbums} from '../../actions/mediaStore';
+import { getOfflineAlbums } from '../../actions/mediaStore';
 import Blank from '../../components/Blank';
 
 class Album extends React.PureComponent {
@@ -44,16 +44,16 @@ class Album extends React.PureComponent {
   }
 
   render() {
-    const {colors} = this.props.theme;
+    const { colors } = this.props.theme;
 
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
 
     if (!isEmpty(this.state.albums)) {
       return (
-        <View style={{flex: 1, backgroundColor: colors.background}}>
+        <View style={{ flex: 1, backgroundColor: colors.background }}>
           <FlatList
             data={this.state.albums}
-            ItemSeparatorComponent={() => <Divider inset={true} />}
+            ItemSeparatorComponent={() => <Divider inset />}
             refreshControl={
               <RefreshControl
                 refreshing={this.state.refreshing}
@@ -61,7 +61,7 @@ class Album extends React.PureComponent {
               />
             }
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <List.Item
                 title={item.album}
                 left={props =>
@@ -70,12 +70,12 @@ class Album extends React.PureComponent {
                   ) : (
                     <FastImage
                       {...props}
-                      source={{uri: 'file://' + item.cover}}
+                      source={{ uri: `file://${item.cover}` }}
                       style={styles.icons}
                     />
                   )
                 }
-                description={item.numberOfSongs + ' songs'}
+                description={`${item.numberOfSongs} songs`}
                 onPress={() => {
                   if (item.cover == 'null') {
                     navigate('Filter', {
@@ -85,7 +85,7 @@ class Album extends React.PureComponent {
                   } else {
                     navigate('Filter', {
                       album: item.album,
-                      img: 'file://' + item.cover,
+                      img: `file://${item.cover}`,
                       title: item.album,
                     });
                   }
@@ -96,9 +96,7 @@ class Album extends React.PureComponent {
         </View>
       );
     }
-    return (
-      <Blank text={'No offline songs found..'} fetchData={this.fetchData} />
-    );
+    return <Blank text="No offline songs found.." fetchData={this.fetchData} />;
   }
 }
 
@@ -115,7 +113,7 @@ Album.propTypes = {
 
 export default connect(
   mapStateToProps,
-  {getOfflineAlbums},
+  { getOfflineAlbums },
 )(withTheme(Album));
 
 const styles = StyleSheet.create({

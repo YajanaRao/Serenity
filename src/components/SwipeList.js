@@ -7,8 +7,8 @@ import {
   Dialog,
   Title,
 } from 'react-native-paper';
-import {View, StyleSheet, ScrollView} from 'react-native';
-import {SwipeListView} from 'react-native-swipe-list-view';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import PropTypes from 'prop-types';
 
 import TrackContainer from '../containers/TrackContainer';
@@ -28,7 +28,7 @@ class SwipeList extends React.Component {
   _showModal = song => {
     this.setState({
       visible: true,
-      song: song,
+      song,
     });
   };
 
@@ -49,8 +49,9 @@ class SwipeList extends React.Component {
                 contentContainerStyle={{
                   marginHorizontal: 16,
                   marginVertical: 16,
-                }}>
-                <Title style={{textAlign: 'center'}}>Add to Playlist</Title>
+                }}
+              >
+                <Title style={{ textAlign: 'center' }}>Add to Playlist</Title>
                 <PlaylistComponent
                   song={this.state.song}
                   addToPlaylist={this.addToPlaylist}
@@ -61,10 +62,10 @@ class SwipeList extends React.Component {
         </Portal>
         <SwipeListView
           data={this.props.data}
-          ItemSeparatorComponent={() => <Divider inset={true} />}
+          ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => <TrackContainer track={item} />}
-          renderHiddenItem={({item}) => (
+          renderItem={({ item }) => <TrackContainer track={item} />}
+          renderHiddenItem={({ item }) => (
             <Surface style={styles.rowBack}>
               <IconButton
                 icon="add-to-queue"

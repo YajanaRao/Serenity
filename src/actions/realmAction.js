@@ -2,10 +2,10 @@ import values from 'lodash/values';
 
 import realm from '../database';
 
-import {PLAYLIST_SCHEMA_NAME} from '../database/schema/PlaylistSchema';
-import {SONG_SCHEMA_NAME} from '../database/schema/SongSchema';
-import {ARTIST_SCHEMA_NAME} from '../database/schema/ArtistSchema';
-import {ALBUM_SCHEMA_NAME} from '../database/schema/AlbumSchema';
+import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
+import { SONG_SCHEMA_NAME } from '../database/schema/SongSchema';
+import { ARTIST_SCHEMA_NAME } from '../database/schema/ArtistSchema';
+import { ALBUM_SCHEMA_NAME } from '../database/schema/AlbumSchema';
 
 export const userPlaylistIdPrefix = 'user-playlist--';
 export const userSongIdPrefix = 'user-song--';
@@ -43,19 +43,19 @@ const _generateSongId = () => {
 export const defaultDBSetup = () => {
   realm.write(() => {
     realm.create(PLAYLIST_SCHEMA_NAME, {
-      id: userPlaylistIdPrefix + '000001',
+      id: `${userPlaylistIdPrefix}000001`,
       name: 'Recently Played',
       owner: 'Serenity',
     });
 
     realm.create(PLAYLIST_SCHEMA_NAME, {
-      id: userPlaylistIdPrefix + '000002',
+      id: `${userPlaylistIdPrefix}000002`,
       name: 'Favourite',
       owner: 'Serenity',
     });
 
     realm.create(PLAYLIST_SCHEMA_NAME, {
-      id: userPlaylistIdPrefix + '000003',
+      id: `${userPlaylistIdPrefix}000003`,
       name: 'Queue',
       owner: 'Serenity',
     });
@@ -102,8 +102,8 @@ export const createPlaylist = playlistName => {
 export const removeSong = (id, song) => {
   try {
     realm.write(() => {
-      let playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
-      let item = playlist.songs.filtered(`id = $0`, song.id);
+      const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
+      const item = playlist.songs.filtered(`id = $0`, song.id);
       realm.delete(item);
     });
   } catch (error) {
@@ -114,7 +114,7 @@ export const removeSong = (id, song) => {
 export const addSong = (id, songs) => {
   try {
     realm.write(() => {
-      let playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
+      const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
       if (Array.isArray(songs)) {
         songs.forEach(song => {
           playlist.songs.push({
@@ -145,7 +145,7 @@ export const addSong = (id, songs) => {
 export const clearAllSongs = id => {
   try {
     realm.write(() => {
-      let playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
+      const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
       realm.delete(playlist.songs);
     });
   } catch (error) {
@@ -155,7 +155,7 @@ export const clearAllSongs = id => {
 
 export const deletePlaylist = id => {
   realm.write(() => {
-    let playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
+    const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
     console.log(playlist);
     realm.delete(playlist);
   });
@@ -166,7 +166,7 @@ export const renamePlaylist = (id, playlistName) => {
     realm.create(
       PLAYLIST_SCHEMA_NAME,
       {
-        id: id,
+        id,
         name: playlistName,
       },
       true,

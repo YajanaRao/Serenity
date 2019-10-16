@@ -14,18 +14,20 @@ import realm from '../database';
 
 class QueueContainer extends Component {
   state = {
-    queue: []
-  }
+    queue: [],
+  };
+
   clearPlaylist = () => {
     Alert.alert(
       'Clear Queue',
       'Clear queue would stop current playing song',
       [
         {
-          text: 'Yes', onPress: () => {
+          text: 'Yes',
+          onPress: () => {
             this.props.close();
             this.props.clearQueue();
-          }
+          },
         },
         {
           text: 'Cancel',
@@ -35,19 +37,18 @@ class QueueContainer extends Component {
       ],
       { cancelable: false },
     );
-
   };
 
   componentDidMount() {
     this.setState({
-      queue: getQueuedSongs()
-    })
+      queue: getQueuedSongs(),
+    });
 
     realm.addListener('change', () => {
       this.setState({
-        queue: getQueuedSongs()
-      })
-    })
+        queue: getQueuedSongs(),
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -70,13 +71,13 @@ class QueueContainer extends Component {
         <SwipeListView
           data={this.state.queue}
           renderItem={({ item }) => <TrackContainer track={item} />}
-          ItemSeparatorComponent={() => <Divider inset={true} />}
+          ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
           renderHiddenItem={({ item }) => (
             <Surface style={styles.rowBack}>
               <IconButton
                 icon="delete"
-                color={'#dd1818'}
+                color="#dd1818"
                 onPress={() => this.props.removeFromQueue(item)}
               />
               <LoveContainer track={this.props.active} />
@@ -84,18 +85,16 @@ class QueueContainer extends Component {
           )}
           leftOpenValue={75}
           rightOpenValue={-75}
-          closeOnRowPress={true}
-          closeOnRowOpen={true}
-          useNativeDriver={true}
+          closeOnRowPress
+          closeOnRowOpen
+          useNativeDriver
         />
       </View>
     ) : (
-        false
-      );
+      false
+    );
   }
 }
-
-
 
 QueueContainer.propTypes = {
   queue: PropTypes.array,
@@ -128,4 +127,3 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
 });
-

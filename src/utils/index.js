@@ -3,9 +3,9 @@ import getArtistTitle from 'get-artist-title';
 const getTitleAndArtist = filename => {
   metadata = [];
   try {
-    let [artist, title] = getArtistTitle(filename);
-    metadata['artist'] = artist;
-    metadata['title'] = title;
+    const [artist, title] = getArtistTitle(filename);
+    metadata.artist = artist;
+    metadata.title = title;
     return metadata;
   } catch (error) {
     console.log(error);
@@ -14,7 +14,7 @@ const getTitleAndArtist = filename => {
 };
 
 fetchLyrics = () => {
-  let uri = `https://azlyrics.com/lyrics/${artistName}/${songName}.html`;
+  const uri = `https://azlyrics.com/lyrics/${artistName}/${songName}.html`;
   fetch(uri)
     .then(response => {
       console.log(response);
@@ -30,11 +30,10 @@ export const getLyrics = async song => {
       fetchLyrics();
       lyric = '';
       return lyric;
-    } else {
-      let metadata = getTitleAndArtist(song.fileName);
-      if (metadata) {
-        return lyric;
-      }
+    }
+    const metadata = getTitleAndArtist(song.fileName);
+    if (metadata) {
+      return lyric;
     }
   } catch (error) {}
 };

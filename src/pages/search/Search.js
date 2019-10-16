@@ -1,24 +1,21 @@
-import React, {Component} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import {withTheme, Subheading, Title, Divider} from 'react-native-paper';
+import React, { Component } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { withTheme, Subheading, Title, Divider } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
-import {connect} from 'react-redux';
-import {isEqual} from 'lodash';
+import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
+import { ScrollView, FlatList } from 'react-navigation';
 import Genre from '../../data/genre.json';
 import Header from '../../components/Header';
 import Track from '../../components/Track';
-import { ScrollView, FlatList } from 'react-navigation';
 
 class Search extends Component {
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       header: <Header />,
     };
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,16 +33,16 @@ class Search extends Component {
   }
 
   render() {
-    const {colors} = this.props.theme;
-    const {navigate} = this.props.navigation;
+    const { colors } = this.props.theme;
+    const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={{flex: 1, backgroundColor: colors.background}}>
+      <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
         {this.state.searchResult ? (
           <FlatList
             data={this.props.searchResult}
-            ItemSeparatorComponent={() => <Divider inset={true} />}
+            ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => <Track track={item} />}
+            renderItem={({ item }) => <Track track={item} />}
           />
         ) : (
           <View>
@@ -55,7 +52,7 @@ class Search extends Component {
                 data={Genre}
                 keyExtractor={(item, index) => index.toString()}
                 numColumns={2}
-                renderItem={({item}) => (
+                renderItem={({ item }) => (
                   <TouchableOpacity
                     style={{
                       flex: 1,
@@ -66,13 +63,15 @@ class Search extends Component {
                         img: item.image,
                         title: item.title,
                       })
-                    }>
+                    }
+                  >
                     <LinearGradient
                       colors={item.colors}
-                      start={{x: 0, y: 0}}
-                      end={{x: 1, y: 0}}
-                      style={styles.item}>
-                      <Subheading style={{color: 'white'}} numberOfLines={1}>
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                      style={styles.item}
+                    >
+                      <Subheading style={{ color: 'white' }} numberOfLines={1}>
                         {item.title}
                       </Subheading>
                     </LinearGradient>
@@ -90,7 +89,6 @@ class Search extends Component {
 const mapStateToProps = state => ({
   searchResult: state.query.searchResult,
 });
-
 
 export default connect(mapStateToProps)(withTheme(Search));
 

@@ -1,5 +1,5 @@
 import RNAudio from 'react-native-audio';
-import {DeviceEventEmitter} from 'react-native';
+import { DeviceEventEmitter } from 'react-native';
 import Analytics from 'appcenter-analytics';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
@@ -31,7 +31,7 @@ import {
 
 */
 
-var subscription = null;
+let subscription = null;
 
 const QUEUE_ID = 'user-playlist--000003';
 const HISTORY_ID = 'user-playlist--000001';
@@ -72,7 +72,7 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
       });
       dispatch({
         type: 'LOAD',
-        track: track,
+        track,
         status: playOnLoad ? 'playing' : 'paused',
       });
     } else {
@@ -113,7 +113,7 @@ export const shufflePlay = songs => dispatch => {
   try {
     dispatch({
       type: 'SHUFFLE_PLAY',
-      songs: songs,
+      songs,
     });
   } catch (error) {
     console.log(error);
@@ -136,10 +136,10 @@ export const pauseTrack = () => dispatch => {
 // FIXME: implement with javascript
 export const skipToNext = () => (dispatch, getState) => {
   try {
-    let queue = getQueuedSongs();
+    const queue = getQueuedSongs();
     let track = null;
     if (queue.length > 1) {
-      let playedTrack = head(queue);
+      const playedTrack = head(queue);
       if (getState().config.repeat == 'repeat-one') {
         track = playedTrack;
       } else {
@@ -147,14 +147,14 @@ export const skipToNext = () => (dispatch, getState) => {
         removeSong(QUEUE_ID, playedTrack);
         track = head(getQueuedSongs());
       }
-      let url = track.url ? track.url : track.path;
+      const url = track.url ? track.url : track.path;
       console.log('track url: ', url);
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
       dispatch({
         type: 'NEXT',
-        track: track,
+        track,
         status: 'playing',
       });
     } else {
@@ -173,18 +173,18 @@ export const skipToNext = () => (dispatch, getState) => {
 // FIXME: implement with javascript
 export const skipToPrevious = () => dispatch => {
   try {
-    let history = getPlayedSongs();
+    const history = getPlayedSongs();
     if (history.length) {
-      let track = getPlayedSongs()[0];
+      const track = getPlayedSongs()[0];
       addSong(QUEUE_ID, track);
-      let url = track.url ? track.url : track.path;
+      const url = track.url ? track.url : track.path;
       if (url) {
         RNAudio.load(url).then(() => {
           RNAudio.play();
         });
         dispatch({
           type: 'PREVIOUS',
-          track: track,
+          track,
           status: 'playing',
         });
       }

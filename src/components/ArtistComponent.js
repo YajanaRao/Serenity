@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {Chip, Avatar, Badge, Caption} from 'react-native-paper';
-import {TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { Chip, Avatar, Badge, Caption } from 'react-native-paper';
+import { TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 function ArtistComponent(props) {
@@ -13,8 +13,9 @@ function ArtistComponent(props) {
 
   return (
     <TouchableOpacity
-      style={{margin: 8, justifyContent: 'center', alignItems: 'center'}}
-      onPress={selectArtits}>
+      style={{ margin: 8, justifyContent: 'center', alignItems: 'center' }}
+      onPress={selectArtits}
+    >
       <Badge
         style={{
           right: 2,
@@ -23,11 +24,12 @@ function ArtistComponent(props) {
           zIndex: 10,
         }}
         size={24}
-        visible={selected}></Badge>
+        visible={selected}
+      />
       <Avatar.Image
-        source={{uri: props.item.artwork}}
+        source={{ uri: props.item.artwork }}
         size={80}
-        style={{margin: 0}}
+        style={{ margin: 0 }}
       />
       <Caption>{props.item.artist}</Caption>
     </TouchableOpacity>

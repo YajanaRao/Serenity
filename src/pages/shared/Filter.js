@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import {View, ScrollView, StyleSheet, RefreshControl} from 'react-native';
+import React, { Component } from 'react';
+import { View, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Title, Button, withTheme, IconButton} from 'react-native-paper';
+import { Title, Button, withTheme, IconButton } from 'react-native-paper';
 import isEqual from 'lodash/isEqual';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {addToQueue} from '../../actions/playerState';
-import {filterAlbumSongs, filterArtistSongs} from '../../actions/mediaStore';
+import { addToQueue } from '../../actions/playerState';
+import { filterAlbumSongs, filterArtistSongs } from '../../actions/mediaStore';
 import SwipeListContainer from '../../containers/SwipeListContainer';
 import DefaultImage from '../../components/DefaultImage';
 
 class Filter extends Component {
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     // header: null
     return {
       headerTitle: navigation.getParam('title'),
@@ -50,7 +50,7 @@ class Filter extends Component {
     this.setState({
       refreshing: true,
     });
-    const {navigation} = this.props;
+    const { navigation } = this.props;
 
     const album = navigation.getParam('album', null);
     const artist = navigation.getParam('artist', null);
@@ -65,34 +65,39 @@ class Filter extends Component {
 
   componentDidMount() {
     this.fetchData();
-    this.props.navigation.setParams({addToQueue: this.addToQueue});
+    this.props.navigation.setParams({ addToQueue: this.addToQueue });
   }
 
   render() {
-    const {colors} = this.props.theme;
-    const {navigation} = this.props;
+    const { colors } = this.props.theme;
+    const { navigation } = this.props;
 
     const albumImage = navigation.getParam('img');
     const title = navigation.getParam('title', 'No Title');
 
     return (
-      <View style={[styles.container, {backgroundColor: colors.background}]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
         <ScrollView
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
               onRefresh={this.fetchData}
             />
-          }>
+          }
+        >
           <View style={styles.scrollViewContent}>
             <View
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 elevation: 4,
-              }}>
+              }}
+            >
               {albumImage ? (
-                <FastImage source={{uri: albumImage}} style={styles.artCover} />
+                <FastImage
+                  source={{ uri: albumImage }}
+                  style={styles.artCover}
+                />
               ) : (
                 <DefaultImage style={styles.artCover} />
               )}
@@ -102,7 +107,8 @@ class Filter extends Component {
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: 10,
-              }}>
+              }}
+            >
               <Title>{title}</Title>
             </View>
             <View
@@ -111,13 +117,15 @@ class Filter extends Component {
                 alignItems: 'center',
                 justifyContent: 'space-around',
                 marginBottom: 8,
-              }}>
+              }}
+            >
               {/* <Button icon="get-app" mode="contained" onPress={() => console.log('Pressed')}>
                             Download
                         </Button> */}
               <Button
                 mode="contained"
-                onPress={() => this.props.addToQueue(this.state.files)}>
+                onPress={() => this.props.addToQueue(this.state.files)}
+              >
                 Play All
               </Button>
             </View>
@@ -125,7 +133,7 @@ class Filter extends Component {
               data={this.state.files}
               fetchData={this.fetchData}
             />
-            <View style={{height: 100}} />
+            <View style={{ height: 100 }} />
           </View>
         </ScrollView>
       </View>
@@ -142,12 +150,12 @@ Filter.propTypes = {
   navigation: PropTypes.object.isRequired,
   addToQueue: PropTypes.func.isRequired,
   filterArtistSongs: PropTypes.func.isRequired,
-  filterAlbumSongs:PropTypes.func.isRequired
-}
+  filterAlbumSongs: PropTypes.func.isRequired,
+};
 
 export default connect(
   mapStateToProps,
-  {addToQueue, filterAlbumSongs, filterArtistSongs},
+  { addToQueue, filterAlbumSongs, filterArtistSongs },
 )(withTheme(Filter));
 
 const styles = StyleSheet.create({
@@ -157,5 +165,5 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     marginTop: 10,
   },
-  artCover: {width: 200, height: 200, borderRadius: 12, elevation: 4 },
+  artCover: { width: 200, height: 200, borderRadius: 12, elevation: 4 },
 });

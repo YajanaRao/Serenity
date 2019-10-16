@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import {
   withTheme,
   Caption,
@@ -24,14 +24,14 @@ const BottomTabBar = props => {
     navigation,
   } = props;
 
-  const {colors} = props.theme;
+  const { colors } = props.theme;
 
-  const {routes, index: activeRouteIndex} = navigation.state;
+  const { routes, index: activeRouteIndex } = navigation.state;
   return (
-    <Surface style={{elevation: 4}}>
+    <Surface style={{ elevation: 4 }}>
       <PlayerBarContainer />
       <Divider />
-      <Surface style={[styles.container, {backgroundColor: colors.Surface}]}>
+      <Surface style={[styles.container, { backgroundColor: colors.Surface }]}>
         {routes.map((route, routeIndex) => {
           const isRouteActive = routeIndex === activeRouteIndex;
           const tintColor = isRouteActive ? colors.primary : colors.text;
@@ -41,16 +41,17 @@ const BottomTabBar = props => {
               style={styles.tabButton}
               rippleColor={colors.primary}
               underlayColor={colors.primary}
-              borderless={true}
+              borderless
               onPress={() => {
-                onTabPress({route});
+                onTabPress({ route });
               }}
               onLongPress={() => {
-                onTabLongPress({route});
+                onTabLongPress({ route });
               }}
-              accessibilityLabel={getAccessibilityLabel({route})}>
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                {renderIcon({route, focused: isRouteActive, tintColor})}
+              accessibilityLabel={getAccessibilityLabel({ route })}
+            >
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                {renderIcon({ route, focused: isRouteActive, tintColor })}
 
                 <Caption
                   style={{
@@ -59,8 +60,9 @@ const BottomTabBar = props => {
                     fontSize: 10,
                     margin: 0,
                     padding: 0,
-                  }}>
-                  {getLabelText({route})}
+                  }}
+                >
+                  {getLabelText({ route })}
                 </Caption>
               </View>
             </TouchableRipple>
@@ -78,8 +80,8 @@ BottomTabBar.propTypes = {
   onTabLongPress: PropTypes.func.isRequired,
   getAccessibilityLabel: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
-}
+  theme: PropTypes.object.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

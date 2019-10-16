@@ -31,7 +31,8 @@ class RootNavigator extends React.Component {
           theme: DarkTheme,
           themeType: 'dark',
         };
-      } else if (props.themeType == 'default') {
+      }
+      if (props.themeType == 'default') {
         return {
           theme: DefaultTheme,
           themeType: 'default',
