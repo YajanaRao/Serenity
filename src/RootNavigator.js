@@ -19,8 +19,9 @@ class RootNavigator extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.setup) {
-      this.props.defaultSetup();
+    const { setup, defaultSetupFromProps = defaultSetup } = this.props; 
+    if (!setup) {
+      defaultSetupFromProps();
     }
   }
 
