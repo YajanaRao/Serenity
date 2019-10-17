@@ -31,25 +31,23 @@ import DefaultImage from '../../components/DefaultImage';
 class Player extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      refreshing: false,
-    };
   }
 
   togglePlayback = () => {
-    if (this.props.status == 'playing') {
-      this.props.pauseTrack();
+    const { pauseTrack, playTrack, status } = this.props;
+    if (status === 'playing') {
+      pauseTrack();
     } else {
-      this.props.playTrack();
+      playTrack();
     }
   };
 
   updateRepeatType = () => {
-    console.log(this.props.repeat);
-    if (this.props.repeat == 'repeat-all') {
-      this.props.repeatSongs('repeat-one');
+    const { repeatSongs, repeat } = this.props;
+    if (repeat === 'repeat-all') {
+      repeatSongs('repeat-one');
     } else {
-      this.props.repeatSongs('repeat-all');
+      repeatSongs('repeat-all');
     }
   };
 
@@ -108,7 +106,7 @@ class Player extends React.Component {
                 size={40}
                 onPress={this.props.skipToNext}
               />
-              {this.props.repeat == 'repeat-all' ? (
+              {this.props.repeat === 'repeat-all' ? (
                 <IconButton
                   icon="repeat"
                   // size={20}

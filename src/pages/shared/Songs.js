@@ -23,23 +23,25 @@ class Songs extends Component {
     };
   };
 
-  addToQueue = () => {
-    const songs = this.props.navigation.getParam('songs');
-    this.props.addToQueue(songs);
-  };
-
   componentDidMount() {
-    this.props.navigation.setParams({ addToQueue: this.addToQueue });
+    const { navigation } = this.props;
+    navigation.setParams({ addToQueue: this.addToQueue });
   }
 
+  addToQueue = () => {
+    const { navigation, addToQueue } = this.props;
+    const songs = navigation.getParam('songs');
+    addToQueue(songs);
+  };
+
   render() {
-    const { navigation } = this.props;
+    const { navigation, theme } = this.props;
 
     const songs = navigation.getParam('songs', []);
     const albumImage = navigation.getParam('img');
     const title = navigation.getParam('title', 'No Title');
 
-    const { colors } = this.props.theme;
+    const { colors } = theme;
 
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>

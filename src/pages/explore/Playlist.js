@@ -39,12 +39,12 @@ class Playlist extends Component {
     });
   };
 
-  _showDialog = () => this.setState({ visible: true });
+  showDialog = () => this.setState({ visible: true });
 
-  _hideDialog = () => this.setState({ visible: false });
+  hideDialog = () => this.setState({ visible: false });
 
-  _createPlaylist = () => {
-    this._hideDialog();
+  createPlaylist = () => {
+    this.hideDialog();
     if (this.state.playlistName) {
       createPlaylist(this.state.playlistName);
       this.setState({ playlistName: null });
@@ -70,7 +70,7 @@ class Playlist extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <Portal>
-          <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
+          <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
             <Dialog.Title>Enter your playlist name</Dialog.Title>
             <Dialog.Content>
               <TextInput
@@ -81,8 +81,8 @@ class Playlist extends Component {
               />
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={this._hideDialog}>Cancel</Button>
-              <Button onPress={this._createPlaylist}>Create</Button>
+              <Button onPress={this.hideDialog}>Cancel</Button>
+              <Button onPress={this.createPlaylist}>Create</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
@@ -91,7 +91,7 @@ class Playlist extends Component {
             <List.Item
               title="Create Playlist"
               left={props => <List.Icon {...props} icon="add" />}
-              onPress={this._showDialog}
+              onPress={this.showDialog}
             />
           )}
           data={this.state.playlists}
