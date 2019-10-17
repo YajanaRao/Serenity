@@ -57,39 +57,37 @@ class QueueContainer extends Component {
 
   render() {
     return !isEmpty(this.state.queue) ? (
-      <View>
-        <View style={styles.rowContainer}>
-          <Title style={{ padding: 10 }}>Queue</Title>
-          <IconButton
-            icon="delete"
-            // size={40}
-            onPress={this.clearPlaylist}
-          />
-        </View>
-
-        <Divider />
-        <SwipeListView
-          data={this.state.queue}
-          renderItem={({ item }) => <TrackContainer track={item} />}
-          ItemSeparatorComponent={() => <Divider inset />}
-          keyExtractor={(item, index) => index.toString()}
-          renderHiddenItem={({ item }) => (
-            <Surface style={styles.rowBack}>
-              <IconButton
-                icon="delete"
-                color="#dd1818"
-                onPress={() => this.props.removeFromQueue(item)}
-              />
-              <LoveContainer track={this.props.active} />
-            </Surface>
-          )}
-          leftOpenValue={75}
-          rightOpenValue={-75}
-          closeOnRowPress
-          closeOnRowOpen
-          useNativeDriver
-        />
-      </View>
+      <SwipeListView
+        data={this.state.queue}
+        ListHeaderComponent={() => (
+          <View style={styles.rowContainer}>
+            <Title style={{ padding: 10 }}>Queue</Title>
+            <IconButton
+              icon="delete"
+              // size={40}
+              onPress={this.clearPlaylist}
+            />
+          </View>
+        )}
+        renderItem={({ item }) => <TrackContainer track={item} />}
+        ItemSeparatorComponent={() => <Divider inset />}
+        keyExtractor={(item, index) => index.toString()}
+        renderHiddenItem={({ item }) => (
+          <Surface style={styles.rowBack}>
+            <IconButton
+              icon="delete"
+              color="#dd1818"
+              onPress={() => this.props.removeFromQueue(item)}
+            />
+            <LoveContainer track={this.props.active} />
+          </Surface>
+        )}
+        leftOpenValue={75}
+        rightOpenValue={-75}
+        closeOnRowPress
+        closeOnRowOpen
+        useNativeDriver
+      />
     ) : (
       false
     );

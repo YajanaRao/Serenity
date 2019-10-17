@@ -1,26 +1,24 @@
 import React from 'react';
 import { Title, Paragraph } from 'react-native-paper';
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
+
 import DefaultImage from './DefaultImage';
 
 // FIXME: Testing the application
-const TrackScrollView = props => {
+const TrackScrollView = ({ title, data, play }) => {
   return (
-    <View style={styles.surface}>
-      <Title style={styles.title}>{props.title}</Title>
+    <View>
+      <Title style={styles.title}>{title}</Title>
       <FlatList
         horizontal
-        data={props.data}
+        data={data}
         keyExtractor={(item, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) =>
           item ? (
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => props.play(item)}
-            >
+            <TouchableOpacity style={styles.item} onPress={() => play(item)}>
               {item.artwork ? (
                 <FastImage
                   source={{

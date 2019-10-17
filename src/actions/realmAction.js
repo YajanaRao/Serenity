@@ -79,10 +79,10 @@ export const getQueuedSongs = () => {
 
 export const getPlayedSongs = () => {
   try {
-    return values(
-      realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, 'user-playlist--000001')
-        .songs,
-    );
+    return realm.objectForPrimaryKey(
+      PLAYLIST_SCHEMA_NAME,
+      'user-playlist--000001',
+    ).songs;
   } catch (error) {
     console.log('getPlayedSongs: ', error);
   }
