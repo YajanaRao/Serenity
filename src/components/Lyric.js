@@ -26,18 +26,18 @@ class Lyric extends Component {
     });
   }
 
-  _showDialog = () => {
+  showDialog = () => {
     this.setState({ visible: true });
   };
 
-  _hideDialog = () => this.setState({ visible: false });
+  hideDialog = () => this.setState({ visible: false });
 
   render() {
     return (
       <View style={this.props.style}>
-        <IconButton icon="subtitles" onPress={this._showDialog} />
+        <IconButton icon="subtitles" onPress={this.showDialog} />
         <Portal style={{ zIndex: 200 }}>
-          <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
+          <Dialog visible={this.state.visible} onDismiss={this.hideDialog}>
             <Dialog.Title>Lyrics</Dialog.Title>
             <Divider />
             <Dialog.Content>
@@ -51,7 +51,7 @@ class Lyric extends Component {
               </Dialog.ScrollArea>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={this._hideDialog}>Close</Button>
+              <Button onPress={this.hideDialog}>Close</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
