@@ -19,7 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, android, and test
       run: |
-        npm ci
+        npm install
         npm android --if-present
         npm test
       env:
