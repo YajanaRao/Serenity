@@ -24,12 +24,12 @@ class OnlineContainer extends PureComponent {
         });
       }
     });
-  
   }
 
-
   componentWillUnmount() {
-    this.unsubscribe();
+    if (this.unsubscribe !== null) {
+      this.unsubscribe();
+    }
   }
 
   handleConnectivityChange = state => {
@@ -40,13 +40,13 @@ class OnlineContainer extends PureComponent {
 
   render() {
     if (this.state.isConnected) {
-      return <ExpensiveContainer />
+      return <ExpensiveContainer />;
     }
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Tree message="Waiting for data" />
       </View>
-    )
+    );
   }
 }
 

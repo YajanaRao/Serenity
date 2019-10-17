@@ -10,28 +10,43 @@ import {
 } from 'react-native-paper';
 import { FlatList } from 'react-navigation';
 import PropTypes from 'prop-types';
+import values from 'lodash/values';
+
 import { getAllPlaylists, createPlaylist } from '../../actions/realmAction';
-import realm from '../../database';
 
 class Playlist extends Component {
   constructor(props) {
     super(props);
+    this.realmPlaylists = getAllPlaylists();
+    const playlists = values(this.realmPlaylists);
     this.state = {
       visible: false,
       playlistName: null,
-      playlists: [],
+      playlists,
     };
-
-    realm.addListener('change', () => {
-      this.setState({
-        playlists: getAllPlaylists(),
-      });
-    });
   }
 
   static navigationOptions = {
     header: null,
   };
+
+  componentDidMount() {
+    this.realmPlaylists.addListener((playlists, changes) => {
+      if (
+        changes.insertions.length > 0 ||
+        changes.modifications.length > 0 ||
+        changes.deletions.length > 0
+      ) {
+        this.setState({
+          playlists: values(playlists),
+        });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.realmPlaylists.removeAllListeners();
+  }
 
   navigateToCollection = playlist => {
     this.props.navigation.navigate('Songs', {
@@ -50,16 +65,6 @@ class Playlist extends Component {
       this.setState({ playlistName: null });
     }
   };
-
-  componentDidMount() {
-    this.setState({
-      playlists: getAllPlaylists(),
-    });
-  }
-
-  componentWillUnmount() {
-    realm.removeAllListeners();
-  }
 
   onChangeText = text => {
     this.setState({ playlistName: text });

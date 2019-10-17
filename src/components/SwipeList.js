@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Surface,
@@ -7,39 +8,60 @@ import {
   Dialog,
   Title,
 } from 'react-native-paper';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 
 import TrackContainer from '../containers/TrackContainer';
 import PlaylistComponent from './PlaylistComponent';
+import ListSongHeader from './ListSongHeader';
 
 class SwipeList extends React.Component {
   state = {
     visible: false,
     song: null,
+    refreshing: false,
   };
 
   addToPlaylist = (id, song) => {
-    this.props.addToPlaylist(id, song);
-    this._hideModal();
+    const { addToPlaylist } = this.props;
+    addToPlaylist(id, song);
+    this.hideModal();
   };
 
-  _showModal = song => {
+  addSongsToQueue = () => {
+    const { data, addToQueue } = this.props;
+    addToQueue(data);
+  };
+
+  showModal = song => {
     this.setState({
       visible: true,
       song,
     });
   };
 
-  _hideModal = () => {
+  hideModal = () => {
     this.setState({
       visible: false,
       song: null,
     });
   };
 
+  refreshData = async () => {
+    const { fetchData } = this.props;
+    this.setState({
+      refreshing: true,
+    });
+    await fetchData();
+    this.setState({
+      refreshing: false,
+    });
+  };
+
   render() {
+    const { data, title, cover } = this.props;
+    const { song, visible, refreshing } = this.state;
     return (
       <View>
         <Portal>
@@ -53,7 +75,7 @@ class SwipeList extends React.Component {
               >
                 <Title style={{ textAlign: 'center' }}>Add to Playlist</Title>
                 <PlaylistComponent
-                  song={this.state.song}
+                  song={song}
                   addToPlaylist={this.addToPlaylist}
                 />
               </ScrollView>
@@ -61,17 +83,32 @@ class SwipeList extends React.Component {
           </Dialog>
         </Portal>
         <SwipeListView
-          data={this.props.data}
+          data={data}
+          ListHeaderComponent={() => (
+            <ListSongHeader
+              title={title}
+              cover={cover}
+              isEmpty={isEmpty(data)}
+              addSongsToQueue={this.addSongsToQueue}
+            />
+          )}
+          ListFooterComponent={() => <View style={{ height: 100 }} />}
           ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <TrackContainer track={item} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={this.refreshData}
+            />
+          }
           renderHiddenItem={({ item }) => (
             <Surface style={styles.rowBack}>
               <IconButton
                 icon="add-to-queue"
                 onPress={() => this.props.addToQueue(item)}
               />
-              <IconButton icon="queue" onPress={() => this._showModal(item)} />
+              <IconButton icon="queue" onPress={() => this.showModal(item)} />
             </Surface>
           )}
           leftOpenValue={75}

@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import QueueContainer from '../../containers/QueueContainer';
 import LoveContainer from '../../containers/LoveContainer';
 import ProgressBar from '../../components/ProgressBar';
+import Screen from '../../components/Screen';
 
 import {
   playTrack,
@@ -29,10 +30,6 @@ import {
 import DefaultImage from '../../components/DefaultImage';
 
 class Player extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   togglePlayback = () => {
     const { pauseTrack, playTrack, status } = this.props;
     if (status === 'playing') {
@@ -52,15 +49,16 @@ class Player extends React.Component {
   };
 
   close = () => {
-    this.props.navigation.goBack();
+    const { navigation } = this.props;
+    navigation.goBack();
   };
 
   render() {
-    const { colors } = this.props.theme;
+    const { active, status, repeat, skipToPrevious, skipToNext } = this.props;
 
-    if (!isUndefined(this.props.active)) {
+    if (!isUndefined(active)) {
       return (
-        <View style={{ backgroundColor: colors.background, flex: 1 }}>
+        <Screen>
           <ScrollView>
             <View style={styles.container}>
               <IconButton icon="close" onPress={this.close} />
@@ -70,43 +68,37 @@ class Player extends React.Component {
                         /> */}
             </View>
             <View style={styles.centerContainer}>
-              {isString(this.props.active.artwork) ? (
+              {isString(active.artwork) ? (
                 <FastImage
-                  source={{ uri: this.props.active.artwork }}
-                  style={[styles.artCover, { backgroundColor: colors.surface }]}
+                  source={{ uri: active.artwork }}
+                  style={[styles.artCover]}
                 />
               ) : (
                 <DefaultImage style={styles.artCover} />
               )}
             </View>
             <View style={styles.centerContainer}>
-              <Title numberOfLines={1}>{this.props.active.title}</Title>
+              <Title numberOfLines={1}>{active.title}</Title>
               <Subheading numberOfLines={1}>
-                {this.props.active.artist
-                  ? this.props.active.artist
-                  : this.props.active.album}
+                {active.artist ? active.artist : active.album}
               </Subheading>
             </View>
             <View style={styles.centerContainer}>
               <ProgressBar />
             </View>
             <View style={styles.playerToolbox}>
-              <LoveContainer track={this.props.active} />
+              <LoveContainer track={active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
-                onPress={this.props.skipToPrevious}
+                onPress={skipToPrevious}
               />
               <FAB
-                icon={this.props.status === 'playing' ? 'pause' : 'play-arrow'}
+                icon={status === 'playing' ? 'pause' : 'play-arrow'}
                 onPress={this.togglePlayback}
               />
-              <IconButton
-                icon="skip-next"
-                size={40}
-                onPress={this.props.skipToNext}
-              />
-              {this.props.repeat === 'repeat-all' ? (
+              <IconButton icon="skip-next" size={40} onPress={skipToNext} />
+              {repeat === 'repeat-all' ? (
                 <IconButton
                   icon="repeat"
                   // size={20}
@@ -128,7 +120,7 @@ class Player extends React.Component {
             <QueueContainer close={this.close} />
             <View style={{ height: 100 }} />
           </ScrollView>
-        </View>
+        </Screen>
       );
     }
     return <ActivityIndicator />;
@@ -160,7 +152,7 @@ export default connect(
     skipToPrevious,
     repeatSongs,
   },
-)(withTheme(Player));
+)(Player);
 
 const styles = StyleSheet.create({
   container: {
