@@ -10,7 +10,6 @@ class OnlineContainer extends PureComponent {
     this.state = {
       isConnected: true,
     };
-    this.unsubscribe;
   }
 
   componentDidMount() {
