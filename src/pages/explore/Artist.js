@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import {
   withTheme,
   Avatar,
@@ -15,12 +15,9 @@ import PropTypes from 'prop-types';
 import ArtistComponent from '../../components/ArtistComponent';
 import { addArtist, getArtists } from '../../actions/realmAction';
 import realm from '../../database';
+import Screen from '../../components/Screen';
 
 class Artist extends Component {
-  static navigationOptions = {
-    header: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -66,24 +63,32 @@ class Artist extends Component {
 
   addArtistsToArray = artist => {
     const data = [];
+    const { addArtists } = this.state;
     data.name = artist.artist;
     data.cover = artist.artwork;
-    this.state.addArtists.push(data);
+    addArtists.push(data);
   };
 
   addArtists = () => {
-    addArtist(this.state.addArtists);
-    this._hideDialog();
+    const { addArtists } = this.state;
+    addArtist(addArtists);
+    this.hideDialog();
   };
 
-  _showDialog = () => this.setState({ visible: true });
+  showDialog = () => this.setState({ visible: true });
 
-  _hideDialog = () => this.setState({ visible: false });
+  hideDialog = () => this.setState({ visible: false });
+
+  
+  static navigationOptions = {
+    header: null,
+  };
 
   render() {
-    const { colors } = this.props.theme;
+    const { theme: { colors } } = this.props;
+    const { visible, firstQuery, artists, data } = this.state;
     return (
-      <View style={{ backgroundColor: colors.background, flex: 1 }}>
+      <Screen>
         <FlatList
           ListHeaderComponent={() => (
             <List.Item
@@ -95,10 +100,10 @@ class Artist extends Component {
                   icon="add"
                 />
               )}
-              onPress={this._showDialog}
+              onPress={this.showDialog}
             />
           )}
-          data={this.state.artists}
+          data={artists}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <List.Item
@@ -111,7 +116,7 @@ class Artist extends Component {
           )}
         />
         <Portal>
-          <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
+          <Dialog visible={visible} onDismiss={this.hideDialog}>
             <Dialog.Title>Choose more artists you like.</Dialog.Title>
             <Dialog.Content>
               <Searchbar
@@ -119,13 +124,13 @@ class Artist extends Component {
                 onChangeText={query => {
                   this.setState({ firstQuery: query });
                 }}
-                value={this.state.firstQuery}
+                value={firstQuery}
               />
             </Dialog.Content>
             <Dialog.ScrollArea>
-              {this.state.data.length ? (
+              {data.length ? (
                 <FlatList
-                  data={this.state.data}
+                  data={data}
                   keyExtractor={(item, index) => index.toString()}
                   numColumns={3}
                   renderItem={({ item }) => (
@@ -142,12 +147,12 @@ class Artist extends Component {
               )}
             </Dialog.ScrollArea>
             <Dialog.Actions>
-              <Button onPress={this._hideDialog}>Cancel</Button>
+              <Button onPress={this.hideDialog}>Cancel</Button>
               <Button onPress={this.addArtists}>Ok</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
-      </View>
+      </Screen>
     );
   }
 }

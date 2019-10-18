@@ -1,59 +1,61 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import {View, ScrollView, StyleSheet, Alert} from 'react-native';
+import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
-  withTheme,
   Text,
   Switch,
   Drawer,
   TouchableRipple,
-  Portal,
-  Dialog,
-  ActivityIndicator
+  withTheme,
 } from 'react-native-paper';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {updateTheme} from '../../actions';
-import {clearHistory} from '../../actions/playerState';
+import { connect } from 'react-redux';
+
+import Screen from '../../components/Screen';
+import { updateTheme } from '../../actions';
+import { clearHistory } from '../../actions/playerState';
 
 class Settings extends React.PureComponent {
-  static navigationOptions = {
-    headerTitle: 'Settings',
-  };
-
-  _toggleTheme = dark => {
+  
+  toggleTheme = dark => {
+    const { updateTheme } = this.props;
     let theme = 'default';
     if (dark) {
       theme = 'dark';
     }
-    this.props.updateTheme(theme);
+    updateTheme(theme);
   };
 
-  _clearHistory = () => {
+  clearHistory = () => {
+    const { clearHistory } = this.props;
     Alert.alert(
       'Clear History',
       'Do you want to clear your history ?',
       [
-        {text: 'Yes', onPress: () => this.props.clearHistory()},
+        { text: 'Yes', onPress: () => clearHistory() },
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   };
 
+  static navigationOptions = {
+    headerTitle: 'Settings',
+  };
 
 
   render() {
-    const {colors} = this.props.theme;
-    const {dark} = this.props.theme;
+    const {
+      theme: { dark },
+    } = this.props;
     return (
-      <View style={{backgroundColor: colors.background, flex: 1}}>
+      <Screen>
         <ScrollView>
           <Drawer.Section title="Preferences">
-            <TouchableRipple onPress={() => this._toggleTheme(dark)}>
+            <TouchableRipple onPress={() => this.toggleTheme(dark)}>
               <View style={styles.preference}>
                 <Text>Dark Theme</Text>
                 <View pointerEvents="none">
@@ -63,7 +65,7 @@ class Settings extends React.PureComponent {
             </TouchableRipple>
           </Drawer.Section>
           <Drawer.Section title="Data">
-            <TouchableRipple onPress={this._clearHistory}>
+            <TouchableRipple onPress={this.clearHistory}>
               <View style={styles.preference}>
                 <Text>Clear history</Text>
                 {/* <View pointerEvents="none">
@@ -73,20 +75,19 @@ class Settings extends React.PureComponent {
             </TouchableRipple>
           </Drawer.Section>
         </ScrollView>
-      </View>
+      </Screen>
     );
   }
 }
 
 Settings.propTypes = {
-  theme: PropTypes.object.isRequired,
   clearHistory: PropTypes.func.isRequired,
-  updateTheme: PropTypes.func.isRequired
-}
+  updateTheme: PropTypes.func.isRequired,
+};
 
 export default connect(
   null,
-  {updateTheme, clearHistory},
+  { updateTheme, clearHistory },
 )(withTheme(Settings));
 
 const styles = StyleSheet.create({

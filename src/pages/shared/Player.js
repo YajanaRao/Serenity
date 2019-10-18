@@ -3,7 +3,6 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import {
   Subheading,
   FAB,
-  withTheme,
   IconButton,
   Title,
   Divider,

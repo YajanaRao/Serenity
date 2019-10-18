@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import { View, PermissionsAndroid } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 
 import isEqual from 'lodash/isEqual';
@@ -16,6 +16,8 @@ import HomeScreen from './home';
 import ExploreScreen from './explore';
 import PlayerScreen from './shared/Player';
 import BottomTabBar from '../components/BottomTabBar';
+
+import Screen from '../components/Screen';
 
 const BottomNavigator = createBottomTabNavigator(
   {
@@ -91,11 +93,6 @@ const RootStack = createStackNavigator(
 const Navigator = createAppContainer(RootStack);
 
 class RootScreen extends React.Component {
-  state = {
-    visible: false,
-    result: '',
-  };
-
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Home',
@@ -107,6 +104,31 @@ class RootScreen extends React.Component {
         />
       ),
     };
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      result: '',
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (!isEqual(props.result, state.result)) {
+      return {
+        result: props.result,
+        visible: true,
+      };
+    }
+    return null;
+  }
+
+  // FIXME: Need to enhance start up time
+
+  componentDidMount = () => {
+    this.requestPermission();
+    this.checkForCrash();
   };
 
   requestPermission = () => {
@@ -124,7 +146,13 @@ class RootScreen extends React.Component {
         },
       ).then(granted => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          this.setState({
+            result: 'Able to access offline songs'
+          })
         } else {
+          this.setState({
+            result: 'Permission to access offline files denied'
+          })
         }
       });
     } catch (err) {
@@ -162,32 +190,16 @@ class RootScreen extends React.Component {
     }
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (!isEqual(props.result, state.result)) {
-      return {
-        result: props.result,
-        visible: true,
-      };
-    }
-    return null;
-  }
-
-  // FIXME: Need to enhance start up time
-
-  componentDidMount = () => {
-    this.requestPermission();
-    this.checkForCrash();
-  };
-
   render() {
-    const { colors } = this.props.theme;
+    const { theme } = this.props;
+    const { result, visible } = this.state;
 
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
-        {!isEmpty(this.state.result) ? (
+      <Screen>
+        {!isEmpty(result) ? (
           <Snackbar
             style={{ marginBottom: 120, zIndex: 10 }}
-            visible={this.state.visible}
+            visible={visible}
             onDismiss={() => this.setState({ visible: false })}
             // duration={1000}
             action={{
@@ -199,14 +211,14 @@ class RootScreen extends React.Component {
               },
             }}
           >
-            {this.state.result}
+            {result}
           </Snackbar>
         ) : (
           false
         )}
 
-        <Navigator screenProps={{ theme: this.props.theme }} />
-      </View>
+        <Navigator screenProps={{ theme }} />
+      </Screen>
     );
   }
 }

@@ -80,7 +80,6 @@ class Filter extends Component {
             fetchData={this.fetchData}
             title={title}
             cover={albumImage}
-            fetchData={this.fetchData}
           />
         </View>
       </Screen>
