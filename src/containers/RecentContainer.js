@@ -19,17 +19,17 @@ class RecentContainer extends PureComponent {
   }
 
   componentDidMount() {
-    console.log("history", this.state.history);
-    if (this.state.history.length) {
+    const { history } = this.state;
+    if (history.length) {
       this.realmSongs.addListener((songs, changes) => {
         if (
           changes.insertions.length > 0 ||
           changes.modifications.length > 0 ||
           changes.deletions.length > 0
         ) {
-          const history = values(songs);
+          const song = values(songs);
           this.setState({
-            history,
+            history: song
           });
         }
       });
@@ -37,7 +37,8 @@ class RecentContainer extends PureComponent {
   }
 
   componentWillUnmount() {
-    if (this.realmSongs.length) {
+    const { history } = this.state;
+    if (history.length) {
       this.realmSongs.removeAllListeners();
     }
   }

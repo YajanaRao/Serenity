@@ -5,19 +5,52 @@ import { Surface, Title, IconButton, Divider } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Alert } from 'react-native';
+import values from 'lodash/values';
 
 import { clearQueue, removeFromQueue } from '../actions/playerState';
 import { getQueuedSongs } from '../actions/realmAction';
 import TrackContainer from './TrackContainer';
 import LoveContainer from './LoveContainer';
-import realm from '../database';
+
 
 class QueueContainer extends Component {
-  state = {
-    queue: [],
-  };
+  constructor(props) {
+    super(props);
+    this.realmSongs = getQueuedSongs();
+    const queue = values(this.realmSongs);
+    this.state = {
+      queue,
+    };
+  }
+
+  componentDidMount() {
+    const { queue } = this.state;
+    if (queue.length) {
+      this.realmSongs.addListener((songs, changes) => {
+        if (
+          changes.insertions.length > 0 ||
+          changes.modifications.length > 0 ||
+          changes.deletions.length > 0
+        ) {
+          const song = values(songs);
+          this.setState({
+            queue: song
+          });
+        }
+      });
+    }
+  }
+
+
+  componentWillUnmount() {
+    const { queue } = this.state;
+    if (queue.length) {
+      this.realmSongs.removeAllListeners();
+    }
+  }
 
   clearPlaylist = () => {
+    const { close, clearQueue } = this.props;
     Alert.alert(
       'Clear Queue',
       'Clear queue would stop current playing song',
@@ -25,8 +58,8 @@ class QueueContainer extends Component {
         {
           text: 'Yes',
           onPress: () => {
-            this.props.close();
-            this.props.clearQueue();
+            close();
+            clearQueue();
           },
         },
         {
@@ -39,26 +72,12 @@ class QueueContainer extends Component {
     );
   };
 
-  componentDidMount() {
-    this.setState({
-      queue: getQueuedSongs(),
-    });
-
-    realm.addListener('change', () => {
-      this.setState({
-        queue: getQueuedSongs(),
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    realm.removeAllListeners();
-  }
-
   render() {
-    return !isEmpty(this.state.queue) ? (
+    const { queue } = this.state;
+    const { active, removeFromQueue } = this.props;
+    return !isEmpty(queue) ? (
       <SwipeListView
-        data={this.state.queue}
+        data={queue}
         ListHeaderComponent={() => (
           <View style={styles.rowContainer}>
             <Title style={{ padding: 10 }}>Queue</Title>
@@ -77,9 +96,9 @@ class QueueContainer extends Component {
             <IconButton
               icon="delete"
               color="#dd1818"
-              onPress={() => this.props.removeFromQueue(item)}
+              onPress={() => removeFromQueue(item)}
             />
-            <LoveContainer track={this.props.active} />
+            <LoveContainer track={active} />
           </Surface>
         )}
         leftOpenValue={75}
@@ -95,7 +114,6 @@ class QueueContainer extends Component {
 }
 
 QueueContainer.propTypes = {
-  queue: PropTypes.array,
   clearQueue: PropTypes.func.isRequired,
   removeFromQueue: PropTypes.func.isRequired,
 };
