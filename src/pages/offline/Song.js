@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { View, RefreshControl, StyleSheet } from 'react-native';
 import { isEqual, isEmpty, isArray } from 'lodash';
 import PropTypes from 'prop-types';
-import { ScrollView, FlatList } from 'react-navigation';
+import { FlatList } from 'react-navigation';
 import { getOfflineSongs } from '../../actions/mediaStore';
 import { addToQueue, shufflePlay } from '../../actions/playerState';
 import TrackContainer from '../../containers/TrackContainer';
@@ -44,43 +44,41 @@ class Song extends React.Component {
   };
 
   render() {
-
     const { songs, refreshing } = this.state;
     const { addToQueue, shufflePlay } = this.props;
     if (!isEmpty(songs) && isArray(songs)) {
       return (
         <Screen>
-          <ScrollView>
-            <View style={styles.container}>
-              <Button
-                icon="play-arrow"
-                mode="outlined"
-                onPress={() => addToQueue(songs)}
-              >
-                Play All
-              </Button>
-              <Button
-                icon="shuffle"
-                mode="outlined"
-                onPress={() => shufflePlay(songs)}
-              >
-                Shuffle
-              </Button>
-            </View>
-            <Divider />
-            <FlatList
-              data={songs}
-              renderItem={({ item }) => <TrackContainer track={item} />}
-              ItemSeparatorComponent={() => <Divider inset />}
-              keyExtractor={(item, index) => index.toString()}
-              refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={this.fetchData}
-                />
-              }
-            />
-          </ScrollView>
+          <FlatList
+            data={songs}
+            ListHeaderComponent={() => (
+              <View style={styles.container}>
+                <Button
+                  icon="play-arrow"
+                  mode="outlined"
+                  onPress={() => addToQueue(songs)}
+                >
+                  Play All
+                </Button>
+                <Button
+                  icon="shuffle"
+                  mode="outlined"
+                  onPress={() => shufflePlay(songs)}
+                >
+                  Shuffle
+                </Button>
+              </View>
+            )}
+            renderItem={({ item }) => <TrackContainer track={item} />}
+            ItemSeparatorComponent={() => <Divider inset />}
+            keyExtractor={(item, index) => index.toString()}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={this.fetchData}
+              />
+            }
+          />
         </Screen>
       );
     }

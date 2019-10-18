@@ -49,3 +49,8 @@
 
 1. Add artists to favourites in explore page
 2. Close bottom sheet on click on outside
+
+## 18 October 2019
+
+1. Added lint 💥💥
+2. Fixed many small issues 🐜
