@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withTheme, Divider, Button } from 'react-native-paper';
+import { Divider, Button } from 'react-native-paper';
 import { connect } from 'react-redux';
 import { View, RefreshControl, StyleSheet } from 'react-native';
 import { isEqual, isEmpty, isArray } from 'lodash';
@@ -9,6 +9,7 @@ import { getOfflineSongs } from '../../actions/mediaStore';
 import { addToQueue, shufflePlay } from '../../actions/playerState';
 import TrackContainer from '../../containers/TrackContainer';
 import Blank from '../../components/Blank';
+import Screen from '../../components/Screen';
 
 class Song extends React.Component {
   constructor(props) {

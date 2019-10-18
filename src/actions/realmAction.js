@@ -72,8 +72,8 @@ export const getQueuedSongs = () => {
       PLAYLIST_SCHEMA_NAME,
       'user-playlist--000003',
     );
-    if (queue.length) {
-      return values(queue.songs);
+    if (queue !== undefined) {
+      return queue.songs;
     }
     return [];
   } catch (error) {
@@ -125,13 +125,14 @@ export const addSong = (id, songs) => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
       if (Array.isArray(songs)) {
         songs.forEach(song => {
+          const url = song.url ? song.url : song.path;
           playlist.songs.push({
             id: generateSongId(),
             title: song.title,
             artwork: song.artwork,
             artist: song.artist,
             album: song.album,
-            url: song.url,
+            url,
           });
         });
       } else {
