@@ -29,53 +29,58 @@ class Song extends React.Component {
     return null;
   }
 
+  componentDidMount() {
+    const { getOfflineSongs } = this.props;
+    getOfflineSongs();
+  }
+
   fetchData = () => {
+    const { getOfflineSongs } = this.props;
     this.setState({
       refreshing: true,
     });
-    this.props.getOfflineSongs();
+    getOfflineSongs();
   };
 
-  componentDidMount() {
-    this.props.getOfflineSongs();
-  }
-
   render() {
-    const { colors } = this.props.theme;
 
-    if (!isEmpty(this.state.songs) && isArray(this.state.songs)) {
+    const { songs, refreshing } = this.state;
+    const { addToQueue, shufflePlay } = this.props;
+    if (!isEmpty(songs) && isArray(songs)) {
       return (
-        <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-          <View style={styles.container}>
-            <Button
-              icon="play-arrow"
-              mode="outlined"
-              onPress={() => this.props.addToQueue(this.state.songs)}
-            >
-              Play All
-            </Button>
-            <Button
-              icon="shuffle"
-              mode="outlined"
-              onPress={() => this.props.shufflePlay(this.state.songs)}
-            >
-              Shuffle
-            </Button>
-          </View>
-          <Divider />
-          <FlatList
-            data={this.state.songs}
-            renderItem={({ item }) => <TrackContainer track={item} />}
-            ItemSeparatorComponent={() => <Divider inset />}
-            keyExtractor={(item, index) => index.toString()}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.fetchData}
-              />
-            }
-          />
-        </ScrollView>
+        <Screen>
+          <ScrollView>
+            <View style={styles.container}>
+              <Button
+                icon="play-arrow"
+                mode="outlined"
+                onPress={() => addToQueue(songs)}
+              >
+                Play All
+              </Button>
+              <Button
+                icon="shuffle"
+                mode="outlined"
+                onPress={() => shufflePlay(songs)}
+              >
+                Shuffle
+              </Button>
+            </View>
+            <Divider />
+            <FlatList
+              data={songs}
+              renderItem={({ item }) => <TrackContainer track={item} />}
+              ItemSeparatorComponent={() => <Divider inset />}
+              keyExtractor={(item, index) => index.toString()}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={this.fetchData}
+                />
+              }
+            />
+          </ScrollView>
+        </Screen>
       );
     }
     return <Blank text="No offline songs found.." fetchData={this.fetchData} />;
@@ -89,7 +94,6 @@ const mapStateToProps = state => ({
 Song.propTypes = {
   songs: PropTypes.arrayOf(PropTypes.object).isRequired,
   getOfflineSongs: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
   shufflePlay: PropTypes.func.isRequired,
   addToQueue: PropTypes.func.isRequired,
@@ -98,7 +102,7 @@ Song.propTypes = {
 export default connect(
   mapStateToProps,
   { addToQueue, getOfflineSongs, shufflePlay },
-)(withTheme(Song));
+)(Song);
 
 const styles = StyleSheet.create({
   container: {

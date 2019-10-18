@@ -221,11 +221,12 @@ export const getQueue = () => dispatch => {
 
 export const addToQueue = song => (dispatch, getState) => {
   addSong(QUEUE_ID, song);
+  const queue = getQueuedSongs();
   if (isEmpty(getState().playerState.active)) {
     dispatch({
       type: 'LOAD',
       status: 'paused',
-      track: getQueuedSongs()[0],
+      track: queue[0],
     });
   }
 };

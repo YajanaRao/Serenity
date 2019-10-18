@@ -11,7 +11,7 @@ export const userPlaylistIdPrefix = 'user-playlist--';
 export const userSongIdPrefix = 'user-song--';
 export const artistIdPrefix = 'artist--';
 
-const _generateId = () => {
+const generateId = () => {
   const playlists = realm.objects(PLAYLIST_SCHEMA_NAME).sorted('id', true);
   let max = 1;
   if (playlists.length > 0) {
@@ -21,7 +21,7 @@ const _generateId = () => {
   return `${userPlaylistIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
-const _generateArtistId = () => {
+const generateArtistId = () => {
   const artists = realm.objects(ARTIST_SCHEMA_NAME).sorted('id', true);
   let max = 1;
   if (artists.length > 0) {
@@ -30,7 +30,7 @@ const _generateArtistId = () => {
   return `${artistIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
-const _generateSongId = () => {
+const generateSongId = () => {
   const songs = realm.objects(SONG_SCHEMA_NAME).sorted('id', true);
   let max = 1;
   if (songs.length > 0) {
@@ -50,7 +50,7 @@ export const defaultDBSetup = () => {
 
     realm.create(PLAYLIST_SCHEMA_NAME, {
       id: `${userPlaylistIdPrefix}000002`,
-      name: 'Favourite',
+      name: 'Favorite',
       owner: 'Serenity',
     });
 
@@ -68,10 +68,14 @@ export const getAllPlaylists = () => {
 
 export const getQueuedSongs = () => {
   try {
-    return values(
-      realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, 'user-playlist--000003')
-        .songs,
+    const queue = realm.objectForPrimaryKey(
+      PLAYLIST_SCHEMA_NAME,
+      'user-playlist--000003',
     );
+    if (queue.length) {
+      return values(queue.songs);
+    }
+    return [];
   } catch (error) {
     console.log('getQueuedSongs: ', error);
   }
@@ -79,10 +83,14 @@ export const getQueuedSongs = () => {
 
 export const getPlayedSongs = () => {
   try {
-    return realm.objectForPrimaryKey(
+    const history = realm.objectForPrimaryKey(
       PLAYLIST_SCHEMA_NAME,
       'user-playlist--000001',
-    ).songs;
+    );
+    if (history !== undefined) {
+      return history.songs;
+    }
+    return [];
   } catch (error) {
     console.log('getPlayedSongs: ', error);
   }
@@ -91,7 +99,7 @@ export const getPlayedSongs = () => {
 export const createPlaylist = playlistName => {
   realm.write(() => {
     realm.create(PLAYLIST_SCHEMA_NAME, {
-      id: _generateId(),
+      id: generateId(),
       name: playlistName,
       owner: 'You',
     });
@@ -118,7 +126,7 @@ export const addSong = (id, songs) => {
       if (Array.isArray(songs)) {
         songs.forEach(song => {
           playlist.songs.push({
-            id: _generateSongId(),
+            id: generateSongId(),
             title: song.title,
             artwork: song.artwork,
             artist: song.artist,
@@ -128,7 +136,7 @@ export const addSong = (id, songs) => {
         });
       } else {
         playlist.songs.push({
-          id: _generateSongId(),
+          id: generateSongId(),
           title: songs.title,
           artwork: songs.artwork,
           artist: songs.artist,
@@ -180,14 +188,14 @@ export const addArtist = artists => {
     if (Array.isArray(artists)) {
       artists.forEach(artist => {
         realm.create(ARTIST_SCHEMA_NAME, {
-          id: _generateArtistId(),
+          id: generateArtistId(),
           name: artist.name,
           cover: artist.cover,
         });
       });
     } else {
       realm.create(ARTIST_SCHEMA_NAME, {
-        id: _generateArtistId(),
+        id: generateArtistId(),
         name: artists.name,
         cover: artists.cover,
       });

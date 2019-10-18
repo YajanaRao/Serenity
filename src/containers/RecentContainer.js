@@ -18,40 +18,43 @@ class RecentContainer extends PureComponent {
     };
   }
 
-  play = track => {
-    if (!isEmpty(track)) {
-      this.props.loadTrackPlayer(track);
-      this.props.playTrack();
-    }
-  };
-
   componentDidMount() {
-    this.realmSongs.addListener((songs, changes) => {
-      if (
-        changes.insertions.length > 0 ||
-        changes.modifications.length > 0 ||
-        changes.deletions.length > 0
-      ) {
-        const history = values(songs);
-        this.setState({
-          history,
-        });
-      }
-    });
+    console.log("history", this.state.history);
+    if (this.state.history.length) {
+      this.realmSongs.addListener((songs, changes) => {
+        if (
+          changes.insertions.length > 0 ||
+          changes.modifications.length > 0 ||
+          changes.deletions.length > 0
+        ) {
+          const history = values(songs);
+          this.setState({
+            history,
+          });
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
-    this.realmSongs.removeAllListeners();
+    if (this.realmSongs.length) {
+      this.realmSongs.removeAllListeners();
+    }
   }
 
+  play = track => {
+    const { loadTrackPlayer, playTrack } = this.props;
+    if (!isEmpty(track)) {
+      loadTrackPlayer(track);
+      playTrack();
+    }
+  };
+
   render() {
-    if (this.state.history.length) {
+    const { history } = this.state;
+    if (history.length) {
       return (
-        <TrackScrollView
-          title="Recent songs"
-          data={this.state.history}
-          play={this.play}
-        />
+        <TrackScrollView title="Recent songs" data={history} play={this.play} />
       );
     }
     return false;

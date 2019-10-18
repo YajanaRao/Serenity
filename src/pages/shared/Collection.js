@@ -67,7 +67,11 @@ class Collection extends Component {
   };
 
   deletePlaylist = () => {
-    const { id, name } = this.state.playlist;
+    const {
+      playlist: { id, name },
+    } = this.state;
+    const { navigation } = this.props;
+
     if (id) {
       Alert.alert(
         'Delete playlist',
@@ -82,7 +86,7 @@ class Collection extends Component {
             text: 'YES',
             onPress: () => {
               deletePlaylist(id);
-              this.props.navigation.goBack();
+              navigation.goBack();
             },
           },
         ],
@@ -216,10 +220,9 @@ class Collection extends Component {
   };
 
   render() {
-    const { theme } = this.props;
+    const { theme: { colors } } = this.props;
     const { playlist, visible, playlistName } = this.state;
     const { name, owner, songs } = playlist;
-    const { colors } = theme;
 
     return (
       <Screen>

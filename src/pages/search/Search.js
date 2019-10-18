@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { withTheme, Subheading, Title, Divider } from 'react-native-paper';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Subheading, Title, Divider } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
@@ -34,12 +34,13 @@ class Search extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigation: {navigate } } = this.props;
+    const { searchResult } = this.state;
     return (
       <Screen>
-        {this.state.searchResult ? (
+        {searchResult ? (
           <FlatList
-            data={this.props.searchResult}
+            data={searchResult}
             ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => <Track track={item} />}
