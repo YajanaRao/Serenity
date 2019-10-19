@@ -15,10 +15,12 @@ import Track from '../components/Track';
 
 // FIXME: Testing the application
 class TrackContainer extends React.Component {
-  state = {
-    isActive: false,
-    track: {},
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isActive: false
+    };
+  }
 
   componentDidMount() {
     const { track, active } = this.props;
@@ -33,17 +35,17 @@ class TrackContainer extends React.Component {
 
   play = () => {
     const { track } = this.props;
-    if (!this.state.isActive) {
+    const { isActive } = this.state;
+    if (!isActive) {
       this.props.loadTrackPlayer(track);
     }
   };
 
   render() {
     const { track } = this.props;
+    const { isActive } = this.state;
 
-    return (
-      <Track track={track} play={this.play} active={this.state.isActive} />
-    );
+    return <Track track={track} play={this.play} active={isActive} />;
   }
 }
 

@@ -3,6 +3,7 @@ import { DeviceEventEmitter } from 'react-native';
 import Analytics from 'appcenter-analytics';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
+import values from 'lodash/values';
 
 import {
   addSong,
@@ -63,7 +64,7 @@ export const setUpTrackPlayer = () => dispatch => {
 
 export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
   try {
-    url = track.url ? track.url : track.path;
+    const url = track.url ? track.url : track.path;
     if (url) {
       RNAudio.load(url).then(() => {
         if (playOnLoad) {
@@ -140,15 +141,15 @@ export const skipToNext = () => (dispatch, getState) => {
     let track = null;
     if (queue.length > 1) {
       const playedTrack = head(queue);
-      if (getState().config.repeat == 'repeat-one') {
+      if (getState().config.repeat === 'repeat-one') {
         track = playedTrack;
       } else {
         addSong(HISTORY_ID, playedTrack);
         removeSong(QUEUE_ID, playedTrack);
-        track = head(getQueuedSongs());
+        const updatedQueue = values(getQueuedSongs());
+        track = head(updatedQueue);
       }
       const url = track.url ? track.url : track.path;
-      console.log('track url: ', url);
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
