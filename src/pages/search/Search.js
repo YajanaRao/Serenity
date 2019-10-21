@@ -7,8 +7,8 @@ import { isEqual } from 'lodash';
 import { FlatList } from 'react-navigation';
 import Genre from '../../data/genre.json';
 import Header from '../../components/Header';
-import Track from '../../components/Track';
 import Screen from '../../components/Screen';
+import TrackContainer from '../../containers/TrackContainer';
 
 class Search extends Component {
   static navigationOptions = () => {
@@ -46,7 +46,7 @@ class Search extends Component {
             key={searchResult.length}
             ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <Track track={item} />}
+            renderItem={({ item }) => <TrackContainer track={item} />}
           />
         ) : (
           <FlatList
