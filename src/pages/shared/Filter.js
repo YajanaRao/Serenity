@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addToQueue } from '../../actions/playerState';
 import { filterAlbumSongs, filterArtistSongs } from '../../actions/mediaStore';
-import SwipeListContainer from '../../containers/SwipeListContainer';
+import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
 
 class Filter extends Component {
@@ -75,7 +75,7 @@ class Filter extends Component {
     return (
       <Screen>
         <View style={styles.scrollViewContent}>
-          <SwipeListContainer
+          <SongListContainer
             data={files}
             fetchData={this.fetchData}
             title={title}

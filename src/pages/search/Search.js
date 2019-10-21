@@ -34,7 +34,9 @@ class Search extends Component {
   }
 
   render() {
-    const { navigation: {navigate } } = this.props;
+    const {
+      navigation: { navigate },
+    } = this.props;
     const { searchResult } = this.state;
     return (
       <Screen>

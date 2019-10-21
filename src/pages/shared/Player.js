@@ -15,7 +15,7 @@ import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 
 import QueueContainer from '../../containers/QueueContainer';
-import LoveContainer from '../../containers/LoveContainer';
+import FavContainer from '../../containers/FavContainer';
 import ProgressBar from '../../components/ProgressBar';
 import Screen from '../../components/Screen';
 
@@ -86,7 +86,7 @@ class Player extends React.Component {
               <ProgressBar />
             </View>
             <View style={styles.playerToolbox}>
-              <LoveContainer track={active} />
+              <FavContainer type="track" item={active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
