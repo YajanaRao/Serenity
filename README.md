@@ -2,6 +2,7 @@
 
 ## A React Native Music Player for Android
 
+![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 [![Build status](https://build.appcenter.ms/v0.1/apps/02bea713-2b20-4be4-834e-cb062f142359/branches/update/badge)](https://appcenter.ms)
