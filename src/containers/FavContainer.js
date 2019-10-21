@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addToFavourite } from '../actions/playerState';
+import Fav from '../components/Fav';
 
-class LoveContainer extends PureComponent {
+class FavContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +29,7 @@ class LoveContainer extends PureComponent {
 
   render() {
     const { liked } = this.state;
-    const { style } = this.props;
+    const { style, type } = this.props;
     return (
       <Fav
         liked={liked}
@@ -40,12 +41,16 @@ class LoveContainer extends PureComponent {
   }
 }
 
-LoveContainer.propTypes = {
+FavContainer.propTypes = {
   item: PropTypes.object,
   type: PropTypes.string.isRequired,
+};
+
+FavContainer.defaultProps = {
+  type: 'song',
 };
 
 export default connect(
   null,
   { addToFavourite },
-)(LoveContainer);
+)(FavContainer);

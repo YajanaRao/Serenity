@@ -90,19 +90,6 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
         active: action.track,
         status: action.status,
       };
-    case 'NEXT':
-      return {
-        ...state,
-        status: action.status,
-        active: isEmpty(action.track) ? state.active : action.track,
-      };
-
-    case 'PREVIOUS':
-      return {
-        ...state,
-        status: action.status,
-        active: action.track,
-      };
 
     case 'COMPLETED':
       return {

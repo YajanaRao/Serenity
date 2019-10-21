@@ -43,12 +43,14 @@ class Search extends Component {
         {searchResult ? (
           <FlatList
             data={searchResult}
+            key={searchResult.length}
             ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => <Track track={item} />}
           />
         ) : (
           <FlatList
+            key="Genre"
             data={Genre}
             keyExtractor={(item, index) => index.toString()}
             numColumns={2}

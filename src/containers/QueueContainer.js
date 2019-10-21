@@ -5,10 +5,10 @@ import { Surface, Title, IconButton, Divider } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Alert } from 'react-native';
-import values from 'lodash/values';
 
 import { clearQueue, removeFromQueue } from '../actions/playerState';
 import { getQueuedSongs } from '../actions/realmAction';
+import { deserializeSongs } from '../utils/database';
 import TrackContainer from './TrackContainer';
 import FavContainer from './FavContainer';
 
@@ -16,7 +16,7 @@ class QueueContainer extends Component {
   constructor(props) {
     super(props);
     this.realmSongs = getQueuedSongs();
-    const queue = values(this.realmSongs);
+    const queue = deserializeSongs(this.realmSongs);
     this.state = {
       queue,
     };
@@ -31,7 +31,7 @@ class QueueContainer extends Component {
           changes.modifications.length > 0 ||
           changes.deletions.length > 0
         ) {
-          const song = values(songs);
+          const song = deserializeSongs(songs);
           this.setState({
             queue: song,
           });
@@ -73,6 +73,7 @@ class QueueContainer extends Component {
   render() {
     const { queue } = this.state;
     const { active, removeFromQueue } = this.props;
+
     return !isEmpty(queue) ? (
       <SwipeListView
         data={queue}

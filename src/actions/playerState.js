@@ -11,6 +11,7 @@ import {
   getPlayedSongs,
   clearAllSongs,
 } from './realmAction';
+import { deserializeSongs } from '../utils/database';
 /* 
  TODO:
  - Queue management in javascript
@@ -63,7 +64,7 @@ export const setUpTrackPlayer = () => dispatch => {
 
 export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
   try {
-    url = track.url ? track.url : track.path;
+    const url = track.url ? track.url : track.path;
     if (url) {
       RNAudio.load(url).then(() => {
         if (playOnLoad) {
@@ -86,7 +87,6 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
 
 export const playTrack = () => dispatch => {
   try {
-    console.log('play');
     RNAudio.play();
     dispatch({
       type: 'STATUS',
@@ -136,24 +136,24 @@ export const pauseTrack = () => dispatch => {
 // FIXME: implement with javascript
 export const skipToNext = () => (dispatch, getState) => {
   try {
-    const queue = getQueuedSongs();
+    const queue = deserializeSongs(getQueuedSongs());
     let track = null;
-    if (queue.length > 1) {
-      const playedTrack = head(queue);
-      if (getState().config.repeat == 'repeat-one') {
-        track = playedTrack;
-      } else {
-        addSong(HISTORY_ID, playedTrack);
-        removeSong(QUEUE_ID, playedTrack);
-        track = head(getQueuedSongs());
-      }
+    if (getState().config.repeat === 'repeat-one') {
+      dispatch(playTrack());
+    } else if (queue.length) {
+      const playedTrack = getState().playerState.active;
+      track = head(queue);
+      addSong(HISTORY_ID, playedTrack);
+      removeSong(QUEUE_ID, track);
+    }
+
+    if (track) {
       const url = track.url ? track.url : track.path;
-      console.log('track url: ', url);
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
       dispatch({
-        type: 'NEXT',
+        type: 'LOAD',
         track,
         status: 'playing',
       });
@@ -175,15 +175,15 @@ export const skipToPrevious = () => dispatch => {
   try {
     const history = getPlayedSongs();
     if (history.length) {
-      const track = getPlayedSongs()[0];
-      addSong(QUEUE_ID, track);
+      const track = head(history);
+      // addSong(QUEUE_ID, track);
       const url = track.url ? track.url : track.path;
       if (url) {
         RNAudio.load(url).then(() => {
           RNAudio.play();
         });
         dispatch({
-          type: 'PREVIOUS',
+          type: 'LOAD',
           track,
           status: 'playing',
         });
@@ -226,7 +226,7 @@ export const addToQueue = song => (dispatch, getState) => {
     dispatch({
       type: 'LOAD',
       status: 'paused',
-      track: queue[0],
+      track: head(queue),
     });
   }
 };

@@ -126,23 +126,26 @@ export const addSong = (id, songs) => {
       if (Array.isArray(songs)) {
         songs.forEach(song => {
           const url = song.url ? song.url : song.path;
-          playlist.songs.push({
-            id: generateSongId(),
-            title: song.title,
-            artwork: song.artwork,
-            artist: song.artist,
-            album: song.album,
-            url,
-          });
+          if (url !== undefined) {
+            playlist.songs.push({
+              id: generateSongId(),
+              title: song.title,
+              artwork: song.artwork,
+              artist: song.artist,
+              album: song.album,
+              url,
+            });
+          }
         });
       } else {
+        const url = songs.url ? songs.url : songs.path;
         playlist.songs.push({
           id: generateSongId(),
           title: songs.title,
           artwork: songs.artwork,
           artist: songs.artist,
           album: songs.album,
-          url: songs.url,
+          url,
         });
       }
     });
