@@ -10,8 +10,7 @@ import values from 'lodash/values';
 import { clearQueue, removeFromQueue } from '../actions/playerState';
 import { getQueuedSongs } from '../actions/realmAction';
 import TrackContainer from './TrackContainer';
-import LoveContainer from './LoveContainer';
-
+import FavContainer from './FavContainer';
 
 class QueueContainer extends Component {
   constructor(props) {
@@ -34,13 +33,12 @@ class QueueContainer extends Component {
         ) {
           const song = values(songs);
           this.setState({
-            queue: song
+            queue: song,
           });
         }
       });
     }
   }
-
 
   componentWillUnmount() {
     const { queue } = this.state;
@@ -98,7 +96,7 @@ class QueueContainer extends Component {
               color="#dd1818"
               onPress={() => removeFromQueue(item)}
             />
-            <LoveContainer track={active} />
+            <FavContainer track={active} type="song" />
           </Surface>
         )}
         leftOpenValue={75}

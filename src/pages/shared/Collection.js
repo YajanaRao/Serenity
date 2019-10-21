@@ -20,7 +20,6 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
-
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { addToQueue } from '../../actions/playerState';
 import { deletePlaylist, renamePlaylist } from '../../actions/realmAction';
@@ -153,7 +152,7 @@ class Collection extends Component {
       <View style={styles.panel}>
         {/* <TouchableWithoutFeedback onPress={() => console.log("pressed")} style={{ backgroundColor: 'green', flex: 1, height: 100 }}> */}
         <LinearGradient
-          colors={['#fffff000', colors.surface]}
+          colors={['rgba(0,0,0, .9)', colors.surface]}
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <TouchableWithoutFeedback
@@ -172,6 +171,14 @@ class Collection extends Component {
         </LinearGradient>
         {/* </TouchableWithoutFeedback> */}
         <Surface>
+          <TouchableWithoutFeedback onPress={this.addToQueue}>
+            <List.Item
+              title="Play All"
+              left={props => (
+                <List.Icon {...props} icon="play-circle-outline" />
+              )}
+            />
+          </TouchableWithoutFeedback>
           {owner !== 'You' ? (
             <TouchableWithoutFeedback
               onPress={() => console.log('playlist liked')}
@@ -233,7 +240,7 @@ class Collection extends Component {
             style={[
               {
                 flex: 1,
-                backgroundColor: 'rgba(0,0,0, .5)',
+                backgroundColor: 'rgba(0,0,0, .7)',
                 ...StyleSheet.absoluteFillObject,
               },
               {
@@ -302,7 +309,7 @@ class Collection extends Component {
             renderItem={({ item }) => <TrackContainer track={item} />}
             ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
-            ListFooterComponent={() => <View style={{ height: 100}} />}
+            ListFooterComponent={() => <View style={{ height: 100 }} />}
           />
           <View style={{ height: 100 }} />
         </View>

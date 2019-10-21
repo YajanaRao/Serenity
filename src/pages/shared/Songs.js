@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addToQueue } from '../../actions/playerState';
-import SwipeListContainer from '../../containers/SwipeListContainer';
+import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
+import Fav from '../../components/Fav';
 
 class Songs extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -14,10 +15,13 @@ class Songs extends Component {
     return {
       headerTitle: navigation.getParam('title'),
       headerRight: (
-        <IconButton
-          icon="play-circle-outline"
-          onPress={navigation.getParam('addToQueue')}
-        />
+        <View style={{ flexDirection: 'row' }}>
+          <Fav />
+          <IconButton
+            icon="play-circle-outline"
+            onPress={navigation.getParam('addToQueue')}
+          />
+        </View>
       ),
     };
   };
@@ -43,7 +47,7 @@ class Songs extends Component {
     return (
       <Screen>
         <View style={styles.scrollViewContent}>
-          <SwipeListContainer data={songs} cover={albumImage} title={title} />
+          <SongListContainer data={songs} cover={albumImage} title={title} />
           <View style={{ height: 100 }} />
         </View>
       </Screen>

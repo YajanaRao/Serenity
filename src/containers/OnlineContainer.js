@@ -8,8 +8,9 @@ class OnlineContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isConnected: true,
+      isConnected: false,
     };
+    this.unsubscribe = null;
   }
 
   componentDidMount() {
@@ -38,8 +39,9 @@ class OnlineContainer extends PureComponent {
   };
 
   render() {
-    if (this.state.isConnected) {
-      return <ExpensiveContainer />;
+    const { isConnected } = this.state;
+    if (isConnected) {
+      return <ExpensiveContainer load={isConnected} />;
     }
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
