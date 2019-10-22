@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { concat, remove, isEmpty, union } from 'lodash';
+import { concat, remove, union } from 'lodash';
 
 const INITIAL_QUERY = {
   searchResult: false,

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addToFavourite } from '../actions/playerState';
+import { addSongToFavorite, addAlbumToFavorite } from '../actions/playerState';
 import Fav from '../components/Fav';
 
 class FavContainer extends PureComponent {
@@ -14,8 +14,13 @@ class FavContainer extends PureComponent {
   }
 
   addToFavourite = () => {
-    const { item, type } = this.props;
-    this.props.addToFavourite(item);
+    const { item, type, addSongToFavorite, addAlbumToFavorite } = this.props;
+    if (type === 'song') {
+      addSongToFavorite(item);
+    } else if (type === 'album') {
+      addAlbumToFavorite(item);
+    }
+
     this.setState({
       liked: true,
     });
@@ -29,12 +34,12 @@ class FavContainer extends PureComponent {
 
   render() {
     const { liked } = this.state;
-    const { style, type } = this.props;
+    const { style } = this.props;
     return (
       <Fav
         liked={liked}
         style={style}
-        addToFavourite={this.addToFavourite}
+        addToFavorite={this.addToFavourite}
         removeFromFavorite={this.removeFromFavorite}
       />
     );
@@ -42,8 +47,8 @@ class FavContainer extends PureComponent {
 }
 
 FavContainer.propTypes = {
-  item: PropTypes.object,
-  type: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
+  type: PropTypes.string,
 };
 
 FavContainer.defaultProps = {
@@ -52,5 +57,5 @@ FavContainer.defaultProps = {
 
 export default connect(
   null,
-  { addToFavourite },
+  { addSongToFavorite, addAlbumToFavorite },
 )(FavContainer);
