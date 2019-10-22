@@ -83,7 +83,7 @@ it('Playing play bar renders correctly with art cover', () => {
 });
 
 it('Pause play bar renders correctly with art cover', () => {
-  const track = { title: 'title', album: 'Testing', artcover: 'test' };
+  const track = { title: 'title', album: 'Testing', artwork: 'test' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
@@ -97,7 +97,7 @@ it('Pause play bar renders correctly with art cover', () => {
 });
 
 it('Track with album name renders correctly with art cover', () => {
-  const track = { title: 'title', album: 'Testing', artcover: 'test' };
+  const track = { title: 'title', album: 'Testing', artwork: 'test' };
   const navigation = jest.fn();
   const togglePlayback = jest.fn();
   renderer.create(
