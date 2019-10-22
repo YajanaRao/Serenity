@@ -1,16 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SwipeList from '../components/SwipeList';
-import {addToQueue, addToPlaylist} from '../actions/playerState';
+import { addToQueue, addToPlaylist } from '../actions/playerState';
 
 class SwipeListContainer extends React.Component {
   render() {
     return (
       <SwipeList
-        data={this.props.data}
-        addToPlaylist={this.props.addToPlaylist}
-        addToQueue={this.props.addToQueue}
+        {...this.props}
         refreshing={false}
         fetchData={this.fetchData}
       />
@@ -24,5 +22,5 @@ SwipeListContainer.propTypes = {
 
 export default connect(
   null,
-  {addToQueue, addToPlaylist},
+  { addToQueue, addToPlaylist },
 )(SwipeListContainer);

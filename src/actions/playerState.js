@@ -1,6 +1,5 @@
 import RNAudio from 'react-native-audio';
 import { DeviceEventEmitter } from 'react-native';
-import Analytics from 'appcenter-analytics';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 
@@ -10,26 +9,10 @@ import {
   getQueuedSongs,
   getPlayedSongs,
   clearAllSongs,
+  addAlbum,
 } from './realmAction';
-/* 
- TODO:
- - Queue management in javascript
- - Player functions
-  * Init Track player
-    Setup Track Player
-    Add Capabilities
-    Once on every mount
-  * Load a track to the track player
-    On Every Track Change execute the method
-    flag to play on load
-  * Play
-    Track the status change of the track
-    Create a notification bar
-  * Pause
-  * Destroy track player
-    On Every Un mount
-
-*/
+import { deserializeSongs } from '../utils/database';
+import log from '../utils/logging';
 
 let subscription = null;
 
@@ -39,14 +22,14 @@ const FAVOURITE_ID = 'user-playlist--000002';
 
 export const setUpTrackPlayer = () => dispatch => {
   try {
-    subscription = DeviceEventEmitter.addListener('media', function(event) {
+    subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
-      console.log('from event listener', event);
-      if (event == 'skip_to_next') {
+      log('from event listener', event);
+      if (event === 'skip_to_next') {
         dispatch(skipToNext());
-      } else if (event == 'skip_to_previous') {
+      } else if (event === 'skip_to_previous') {
         dispatch(skipToPrevious());
-      } else if (event == 'skip_to_next') {
+      } else if (event === 'skip_to_next') {
         dispatch(skipToNext());
       } else {
         dispatch({
@@ -56,14 +39,13 @@ export const setUpTrackPlayer = () => dispatch => {
       }
     });
   } catch (error) {
-    console.log(error);
-    Analytics.trackEvent('error', error);
+    log(error);
   }
 };
 
 export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
   try {
-    url = track.url ? track.url : track.path;
+    const url = track.url ? track.url : track.path;
     if (url) {
       RNAudio.load(url).then(() => {
         if (playOnLoad) {
@@ -76,25 +58,22 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
         status: playOnLoad ? 'playing' : 'paused',
       });
     } else {
-      console.log(track);
+      log(track);
     }
   } catch (error) {
-    console.log('loadTrackPlayer: ', error);
-    Analytics.trackEvent('error', error);
+    log('loadTrackPlayer: ', error);
   }
 };
 
 export const playTrack = () => dispatch => {
   try {
-    console.log('play');
     RNAudio.play();
     dispatch({
       type: 'STATUS',
       status: 'playing',
     });
   } catch (error) {
-    console.log('something went wrong', error);
-    Analytics.trackEvent('error', error);
+    log('something went wrong', error);
   }
 };
 
@@ -105,7 +84,7 @@ export const repeatSongs = type => dispatch => {
       repeat: type,
     });
   } catch (error) {
-    console.log(error);
+    log(error);
   }
 };
 
@@ -116,7 +95,7 @@ export const shufflePlay = songs => dispatch => {
       songs,
     });
   } catch (error) {
-    console.log(error);
+    log(error);
   }
 };
 
@@ -128,32 +107,30 @@ export const pauseTrack = () => dispatch => {
       status: 'paused',
     });
   } catch (error) {
-    console.log(error);
-    Analytics.trackEvent('error', error);
+    log(error);
   }
 };
 
-// FIXME: implement with javascript
 export const skipToNext = () => (dispatch, getState) => {
   try {
-    const queue = getQueuedSongs();
+    const queue = deserializeSongs(getQueuedSongs());
     let track = null;
-    if (queue.length > 1) {
-      const playedTrack = head(queue);
-      if (getState().config.repeat == 'repeat-one') {
-        track = playedTrack;
-      } else {
-        addSong(HISTORY_ID, playedTrack);
-        removeSong(QUEUE_ID, playedTrack);
-        track = head(getQueuedSongs());
-      }
+    if (getState().config.repeat === 'repeat-one') {
+      dispatch(playTrack());
+    } else if (queue.length) {
+      const playedTrack = getState().playerState.active;
+      track = head(queue);
+      addSong(HISTORY_ID, playedTrack);
+      removeSong(QUEUE_ID, track);
+    }
+
+    if (track) {
       const url = track.url ? track.url : track.path;
-      console.log('track url: ', url);
       RNAudio.load(url).then(() => {
         RNAudio.play();
       });
       dispatch({
-        type: 'NEXT',
+        type: 'LOAD',
         track,
         status: 'playing',
       });
@@ -165,25 +142,23 @@ export const skipToNext = () => (dispatch, getState) => {
       });
     }
   } catch (error) {
-    console.log('skipToNext: ', error);
-    Analytics.trackEvent('error', error);
+    log('skipToNext: ', error);
   }
 };
 
-// FIXME: implement with javascript
 export const skipToPrevious = () => dispatch => {
   try {
     const history = getPlayedSongs();
     if (history.length) {
-      const track = getPlayedSongs()[0];
-      addSong(QUEUE_ID, track);
+      const track = head(history);
+      // addSong(QUEUE_ID, track);
       const url = track.url ? track.url : track.path;
       if (url) {
         RNAudio.load(url).then(() => {
           RNAudio.play();
         });
         dispatch({
-          type: 'PREVIOUS',
+          type: 'LOAD',
           track,
           status: 'playing',
         });
@@ -196,9 +171,7 @@ export const skipToPrevious = () => dispatch => {
       });
     }
   } catch (error) {
-    console.log(error);
-    Analytics.trackEvent('error', error);
-    // TrackPlayer.stop();
+    log(error);
   }
 };
 
@@ -221,11 +194,12 @@ export const getQueue = () => dispatch => {
 
 export const addToQueue = song => (dispatch, getState) => {
   addSong(QUEUE_ID, song);
+  const queue = getQueuedSongs();
   if (isEmpty(getState().playerState.active)) {
     dispatch({
       type: 'LOAD',
       status: 'paused',
-      track: getQueuedSongs()[0],
+      track: head(queue),
     });
   }
 };
@@ -247,11 +221,19 @@ export const clearQueue = () => dispatch => {
   });
 };
 
-export const addToFavourite = song => dispatch => {
+export const addSongToFavorite = song => dispatch => {
   addSong(FAVOURITE_ID, song);
   dispatch({
     type: 'NOTIFY',
     payload: 'Added song to queue',
+  });
+};
+
+export const addAlbumToFavorite = album => dispatch => {
+  addAlbum(album);
+  dispatch({
+    type: 'NOTIFY',
+    payload: 'Added album to favorite',
   });
 };
 

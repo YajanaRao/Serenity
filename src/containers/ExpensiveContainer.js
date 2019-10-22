@@ -16,13 +16,14 @@ class ExpensiveContainer extends PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    const { load } = this.props;
+    if (load) {
       QuoteContainer = require('./QuoteContainer').default;
       PopularContainer = require('./PopularContainer').default;
       Top20Container = require('./Top20Container').default;
       ArtistContainer = require('./ArtistContainer').default;
       this.setState({ isLoaded: true });
-    }, 3000);
+    }
   }
 
   render() {

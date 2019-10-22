@@ -1,38 +1,61 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
+import values from 'lodash/values';
+
 import TrackScrollView from '../components/TrackScrollView';
 import { loadTrackPlayer, playTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 
 // FIXME: Testing the application
 class RecentContainer extends PureComponent {
-  state = {
-    history: [],
-  };
+  constructor(props) {
+    super(props);
+    this.realmSongs = getPlayedSongs();
+    const history = values(this.realmSongs);
+    this.state = {
+      history,
+    };
+  }
+
+  componentDidMount() {
+    const { history } = this.state;
+    if (history.length) {
+      this.realmSongs.addListener((songs, changes) => {
+        if (
+          changes.insertions.length > 0 ||
+          changes.modifications.length > 0 ||
+          changes.deletions.length > 0
+        ) {
+          const song = values(songs);
+          this.setState({
+            history: song
+          });
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    const { history } = this.state;
+    if (history.length) {
+      this.realmSongs.removeAllListeners();
+    }
+  }
 
   play = track => {
+    const { loadTrackPlayer, playTrack } = this.props;
     if (!isEmpty(track)) {
-      this.props.loadTrackPlayer(track);
-      this.props.playTrack();
+      loadTrackPlayer(track);
+      playTrack();
     }
   };
 
-  componentDidMount() {
-    this.setState({
-      history: getPlayedSongs(),
-    });
-  }
-
   render() {
-    if (this.props.history && this.props.history.length > 3) {
+    const { history } = this.state;
+    if (history.length) {
       return (
-        <TrackScrollView
-          title="Recent songs"
-          data={this.state.history}
-          play={this.play}
-        />
+        <TrackScrollView title="Recent songs" data={history} play={this.play} />
       );
     }
     return false;

@@ -8,16 +8,47 @@ import { View, StyleSheet, Alert } from 'react-native';
 
 import { clearQueue, removeFromQueue } from '../actions/playerState';
 import { getQueuedSongs } from '../actions/realmAction';
+import { deserializeSongs } from '../utils/database';
 import TrackContainer from './TrackContainer';
-import LoveContainer from './LoveContainer';
-import realm from '../database';
+import FavContainer from './FavContainer';
 
 class QueueContainer extends Component {
-  state = {
-    queue: [],
-  };
+  constructor(props) {
+    super(props);
+    this.realmSongs = getQueuedSongs();
+    const queue = deserializeSongs(this.realmSongs);
+    this.state = {
+      queue,
+    };
+  }
+
+  componentDidMount() {
+    const { queue } = this.state;
+    if (queue.length) {
+      this.realmSongs.addListener((songs, changes) => {
+        if (
+          changes.insertions.length > 0 ||
+          changes.modifications.length > 0 ||
+          changes.deletions.length > 0
+        ) {
+          const song = deserializeSongs(songs);
+          this.setState({
+            queue: song,
+          });
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    const { queue } = this.state;
+    if (queue.length) {
+      this.realmSongs.removeAllListeners();
+    }
+  }
 
   clearPlaylist = () => {
+    const { close, clearQueue } = this.props;
     Alert.alert(
       'Clear Queue',
       'Clear queue would stop current playing song',
@@ -25,8 +56,8 @@ class QueueContainer extends Component {
         {
           text: 'Yes',
           onPress: () => {
-            this.props.close();
-            this.props.clearQueue();
+            close();
+            clearQueue();
           },
         },
         {
@@ -39,57 +70,42 @@ class QueueContainer extends Component {
     );
   };
 
-  componentDidMount() {
-    this.setState({
-      queue: getQueuedSongs(),
-    });
-
-    realm.addListener('change', () => {
-      this.setState({
-        queue: getQueuedSongs(),
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    realm.removeAllListeners();
-  }
-
   render() {
-    return !isEmpty(this.state.queue) ? (
-      <View>
-        <View style={styles.rowContainer}>
-          <Title style={{ padding: 10 }}>Queue</Title>
-          <IconButton
-            icon="delete"
-            // size={40}
-            onPress={this.clearPlaylist}
-          />
-        </View>
+    const { queue } = this.state;
+    const { active, removeFromQueue } = this.props;
 
-        <Divider />
-        <SwipeListView
-          data={this.state.queue}
-          renderItem={({ item }) => <TrackContainer track={item} />}
-          ItemSeparatorComponent={() => <Divider inset />}
-          keyExtractor={(item, index) => index.toString()}
-          renderHiddenItem={({ item }) => (
-            <Surface style={styles.rowBack}>
-              <IconButton
-                icon="delete"
-                color="#dd1818"
-                onPress={() => this.props.removeFromQueue(item)}
-              />
-              <LoveContainer track={this.props.active} />
-            </Surface>
-          )}
-          leftOpenValue={75}
-          rightOpenValue={-75}
-          closeOnRowPress
-          closeOnRowOpen
-          useNativeDriver
-        />
-      </View>
+    return !isEmpty(queue) ? (
+      <SwipeListView
+        data={queue}
+        ListHeaderComponent={() => (
+          <View style={styles.rowContainer}>
+            <Title style={{ padding: 10 }}>Queue</Title>
+            <IconButton
+              icon="delete"
+              // size={40}
+              onPress={this.clearPlaylist}
+            />
+          </View>
+        )}
+        renderItem={({ item }) => <TrackContainer track={item} />}
+        ItemSeparatorComponent={() => <Divider inset />}
+        keyExtractor={(item, index) => index.toString()}
+        renderHiddenItem={({ item }) => (
+          <Surface style={styles.rowBack}>
+            <IconButton
+              icon="delete"
+              color="#dd1818"
+              onPress={() => removeFromQueue(item)}
+            />
+            <FavContainer track={active} type="song" />
+          </Surface>
+        )}
+        leftOpenValue={75}
+        rightOpenValue={-75}
+        closeOnRowPress
+        closeOnRowOpen
+        useNativeDriver
+      />
     ) : (
       false
     );
@@ -97,7 +113,6 @@ class QueueContainer extends Component {
 }
 
 QueueContainer.propTypes = {
-  queue: PropTypes.array,
   clearQueue: PropTypes.func.isRequired,
   removeFromQueue: PropTypes.func.isRequired,
 };

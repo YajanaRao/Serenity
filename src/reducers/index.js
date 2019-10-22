@@ -1,25 +1,15 @@
 import { combineReducers } from 'redux';
-import {
-  concat,
-  remove,
-  head,
-  isEmpty,
-  isArray,
-  size,
-  union,
-  drop,
-  shuffle
-} from 'lodash';
+import { concat, remove, union } from 'lodash';
 
 const INITIAL_QUERY = {
   searchResult: false,
-  message: null
+  message: null,
 };
 
 const INITIAL_CONFIG = {
   themeType: 'dark',
   repeat: 'repeat-all',
-  setup: false
+  setup: false,
 };
 
 const INITIAL_STATE = {
@@ -92,26 +82,13 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
     case 'STATUS':
       return {
         ...state,
-        status: action.status
+        status: action.status,
       };
     case 'LOAD':
       return {
         ...state,
         active: action.track,
         status: action.status,
-      };
-    case 'NEXT':
-      return {
-        ...state,
-        status: action.status,
-        active: isEmpty(action.track) ? state.active : action.track,
-      };
-
-    case 'PREVIOUS':
-      return {
-        ...state,
-        status: action.status,
-        active: action.track,
       };
 
     case 'COMPLETED':
@@ -126,21 +103,18 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         // queue: queue,
         // active: head(queue)
-      }
+      };
     case 'ADD_TO_FAVORITE':
       return {
         ...state,
-        favorite: union(
-          state.favorite,
-          [action.payload],
-        ),
+        favorite: union(state.favorite, [action.payload]),
         result: `Added ${action.payload.title} to favorites`,
       };
     case 'REMOVE_FROM_FAVORITE':
       return {
         ...state,
-        favorite: remove(state.favorite, function (n) {
-          return n.id != action.payload.id;
+        favorite: remove(state.favorite, function(n) {
+          return n.id !== action.payload.id;
         }),
         result: `Removed ${action.payload.title} from favorites`,
       };
@@ -160,8 +134,8 @@ export const queryReducer = (state = INITIAL_QUERY, action) => {
     case 'NOTIFY':
       return {
         ...state,
-        message: action.payload
-      }
+        message: action.payload,
+      };
     default:
       return state;
   }
@@ -177,15 +151,15 @@ export const configReducer = (state = INITIAL_CONFIG, action) => {
     case 'REPEAT':
       return {
         ...state,
-        repeat: action.repeat
-      }
+        repeat: action.repeat,
+      };
     default:
       return state;
     case 'DEFAULT_SETUP':
       return {
         ...state,
-        setup: action.payload
-      }
+        setup: action.payload,
+      };
   }
 };
 

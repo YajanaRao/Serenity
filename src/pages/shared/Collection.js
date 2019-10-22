@@ -20,27 +20,16 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { addToQueue } from '../../actions/playerState';
 import { deletePlaylist, renamePlaylist } from '../../actions/realmAction';
 import TrackContainer from '../../containers/TrackContainer';
 import DefaultImage from '../../components/DefaultImage';
+import Screen from '../../components/Screen';
 
 // fix on click issue
 
 class Collection extends Component {
-  constructor(props) {
-    super(props);
-    this.bs = React.createRef();
-    this.sheetOpenValue = new Animated.Value(1);
-    this.state = {
-      visible: false,
-      playlist: props.navigation.getParam('playlist'),
-    };
-  }
-
   static navigationOptions = ({ navigation }) => {
     // header: null
     return {
@@ -54,15 +43,38 @@ class Collection extends Component {
     };
   };
 
+  constructor(props) {
+    super(props);
+    this.bs = React.createRef();
+    this.sheetOpenValue = new Animated.Value(1);
+    this.state = {
+      visible: false,
+      playlist: props.navigation.getParam('playlist'),
+    };
+  }
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    navigation.setParams({ openMenu: this.openBottomSheet });
+  }
+
   addToQueue = () => {
-    this.props.addToQueue(values(this.state.playlist.songs));
+    const { addToQueue } = this.props;
+    const { playlist } = this.state;
+    const { songs } = playlist;
+    addToQueue(values(songs));
   };
 
   deletePlaylist = () => {
-    if (this.state.playlist.id) {
+    const {
+      playlist: { id, name },
+    } = this.state;
+    const { navigation } = this.props;
+
+    if (id) {
       Alert.alert(
         'Delete playlist',
-        `Are you sure you want to delete ${this.state.playlist.name}`,
+        `Are you sure you want to delete ${name}`,
         [
           {
             text: 'NO',
@@ -72,8 +84,8 @@ class Collection extends Component {
           {
             text: 'YES',
             onPress: () => {
-              deletePlaylist(this.state.playlist.id);
-              this.props.navigation.goBack();
+              deletePlaylist(id);
+              navigation.goBack();
             },
           },
         ],
@@ -84,8 +96,11 @@ class Collection extends Component {
   };
 
   renamePlaylist = () => {
-    renamePlaylist(this.state.playlist.id, this.state.playlist.name);
-    this._hideDialog();
+    const {
+      playlist: { id, name },
+    } = this.state;
+    renamePlaylist(id, name);
+    this.hideDialog();
   };
 
   sharePlaylist = () => {
@@ -113,107 +128,119 @@ class Collection extends Component {
     });
   };
 
-  _hideDialog = () => {
+  hideDialog = () => {
     this.setState({
       visible: false,
     });
   };
 
-  _showDailog = () => {
+  showDailog = () => {
     this.setState({
       visible: true,
     });
     this.bs.current.snapTo(1);
   };
 
-  componentDidMount() {
-    this.props.navigation.setParams({ openMenu: this.openBottomSheet });
-  }
-
   openBottomSheet = () => {
     this.bs.current.snapTo(0);
   };
 
-  renderInner = colors => (
-    <View style={styles.panel}>
-      {/* <TouchableWithoutFeedback onPress={() => console.log("pressed")} style={{ backgroundColor: 'green', flex: 1, height: 100 }}> */}
-      <LinearGradient
-        colors={['#ffffff00', colors.surface]}
-        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-      >
-        <TouchableWithoutFeedback
-          onPress={() => this.bs.current.snapTo(1)}
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: Dimensions.get('window').width,
-          }}
+  renderInner = colors => {
+    const { playlist } = this.state;
+    const { name, owner, songs } = playlist;
+    return (
+      <View style={styles.panel}>
+        {/* <TouchableWithoutFeedback onPress={() => console.log("pressed")} style={{ backgroundColor: 'green', flex: 1, height: 100 }}> */}
+        <LinearGradient
+          colors={['rgba(0,0,0, .9)', colors.surface]}
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <DefaultImage style={styles.artCover} />
-          <Title>{this.state.playlist.name}</Title>
-          <Subheading>{`by ${this.state.playlist.owner}`}</Subheading>
-        </TouchableWithoutFeedback>
-      </LinearGradient>
-      {/* </TouchableWithoutFeedback> */}
-      <Surface>
-        {this.state.playlist.owner != 'You' ? (
           <TouchableWithoutFeedback
-            onPress={() => console.log('playlist liked')}
+            onPress={() => this.bs.current.snapTo(1)}
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: Dimensions.get('window').width,
+            }}
           >
+            <DefaultImage style={styles.artCover} />
+            <Title>{name}</Title>
+            <Subheading>{`by ${owner}`}</Subheading>
+          </TouchableWithoutFeedback>
+        </LinearGradient>
+        {/* </TouchableWithoutFeedback> */}
+        <Surface>
+          <TouchableWithoutFeedback onPress={this.addToQueue}>
             <List.Item
-              title="like"
-              left={props => <List.Icon {...props} icon="favorite" />}
+              title="Play All"
+              left={props => (
+                <List.Icon {...props} icon="play-circle-outline" />
+              )}
             />
           </TouchableWithoutFeedback>
-        ) : (
-          <View>
-            <TouchableWithoutFeedback onPress={this.deletePlaylist}>
+          {owner !== 'You' ? (
+            <TouchableWithoutFeedback
+              onPress={() => console.log('playlist liked')}
+            >
               <List.Item
-                title="Delete Playlist"
-                left={props => <List.Icon {...props} icon="close" />}
+                title="like"
+                left={props => <List.Icon {...props} icon="favorite" />}
               />
             </TouchableWithoutFeedback>
-            {this.state.playlist.songs.length < 1 ? (
-              false
-            ) : (
-              <TouchableWithoutFeedback onPress={this.renamePlaylist}>
+          ) : (
+            <View>
+              <TouchableWithoutFeedback onPress={this.deletePlaylist}>
                 <List.Item
-                  title="Edit Playlist"
-                  left={props => <List.Icon {...props} icon="list" />}
+                  title="Delete Playlist"
+                  left={props => <List.Icon {...props} icon="close" />}
                 />
               </TouchableWithoutFeedback>
-            )}
-            <TouchableWithoutFeedback onPress={this._showDailog}>
-              <List.Item
-                title="Rename Playlist"
-                left={props => <List.Icon {...props} icon="edit" />}
-              />
-            </TouchableWithoutFeedback>
-          </View>
-        )}
+              {songs.length < 1 ? (
+                false
+              ) : (
+                <TouchableWithoutFeedback onPress={this.renamePlaylist}>
+                  <List.Item
+                    title="Edit Playlist"
+                    left={props => <List.Icon {...props} icon="list" />}
+                  />
+                </TouchableWithoutFeedback>
+              )}
+              <TouchableWithoutFeedback onPress={this.showDailog}>
+                <List.Item
+                  title="Rename Playlist"
+                  left={props => <List.Icon {...props} icon="edit" />}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+          )}
 
-        <TouchableWithoutFeedback onPress={this.sharePlaylist}>
-          <List.Item
-            title="Share"
-            left={props => <List.Icon {...props} icon="share" />}
-          />
-        </TouchableWithoutFeedback>
-      </Surface>
-    </View>
-  );
+          <TouchableWithoutFeedback onPress={this.sharePlaylist}>
+            <List.Item
+              title="Share"
+              left={props => <List.Icon {...props} icon="share" />}
+            />
+          </TouchableWithoutFeedback>
+        </Surface>
+      </View>
+    );
+  };
 
   render() {
-    const { colors } = this.props.theme;
+    const {
+      theme: { colors },
+    } = this.props;
+    const { playlist, visible, playlistName } = this.state;
+    const { name, owner, songs } = playlist;
 
     return (
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <Screen>
         <Portal>
           <Animated.View
             style={[
               {
                 flex: 1,
-                backgroundColor: 'rgba(0,0,0, .5)',
+                backgroundColor: 'rgba(0,0,0, .7)',
                 ...StyleSheet.absoluteFillObject,
               },
               {
@@ -225,7 +252,6 @@ class Collection extends Component {
               },
             ]}
             pointerEvents="none"
-            // onPress={() => this.bs.current.snapTo(3)}
           />
           <BottomSheet
             ref={this.bs}
@@ -236,54 +262,58 @@ class Collection extends Component {
           />
         </Portal>
         <Portal>
-          <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
+          <Dialog visible={visible} onDismiss={this.hideDialog}>
             <Dialog.Title>Renaming</Dialog.Title>
             <Dialog.Content>
               <TextInput
                 mode="outlined"
                 label="Playlist Name"
-                value={this.state.playlistName}
+                value={playlistName}
                 onChangeText={this.onChangeText}
               />
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={this._hideDialog}>Cancel</Button>
+              <Button onPress={this.hideDialog}>Cancel</Button>
               <Button onPress={this.renamePlaylist}>Rename</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
         <View style={styles.scrollViewContent}>
-          <View style={styles.coverContainer}>
-            <DefaultImage style={styles.artCover} />
-          </View>
-          <View style={styles.titleContainer}>
-            <Title>{this.state.playlist.name}</Title>
-            <Subheading>{`by ${this.state.playlist.owner}`}</Subheading>
-          </View>
-          {isEmpty(this.state.playlist.songs) ? (
-            <View style={{ flex: 1, margin: 16 }}>
-              <Title style={{ textAlign: 'center' }}>
-                Let's find some songs for your playlist
-              </Title>
-              <Button>Find songs</Button>
-            </View>
-          ) : (
-            <View style={styles.buttonContainer}>
-              <Button mode="contained" onPress={this.addToQueue}>
-                Play All
-              </Button>
-            </View>
-          )}
-
           <FlatList
-            data={this.state.playlist.songs}
+            ListHeaderComponent={() => (
+              <View>
+                <View style={styles.coverContainer}>
+                  <DefaultImage style={styles.artCover} />
+                </View>
+                <View style={styles.titleContainer}>
+                  <Title>{name}</Title>
+                  <Subheading>{`by ${owner}`}</Subheading>
+                </View>
+                {isEmpty(songs) ? (
+                  <View style={{ flex: 1, margin: 16 }}>
+                    <Title style={{ textAlign: 'center' }}>
+                      Let's find some songs for your playlist
+                    </Title>
+                    <Button>Find songs</Button>
+                  </View>
+                ) : (
+                  <View style={styles.buttonContainer}>
+                    <Button mode="contained" onPress={this.addToQueue}>
+                      Play All
+                    </Button>
+                  </View>
+                )}
+              </View>
+            )}
+            data={songs}
             renderItem={({ item }) => <TrackContainer track={item} />}
             ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
+            ListFooterComponent={() => <View style={{ height: 100 }} />}
           />
           <View style={{ height: 100 }} />
         </View>
-      </View>
+      </Screen>
     );
   }
 }

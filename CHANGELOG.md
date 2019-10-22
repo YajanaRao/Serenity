@@ -49,3 +49,23 @@
 
 1. Add artists to favourites in explore page
 2. Close bottom sheet on click on outside
+
+## 18 October 2019
+
+1. Added lint 💥💥
+2. Fixed many small issues 🐜
+
+## October release
+
+1. Bookmark artists
+2. Bookmark albums
+3. Playlists
+
+## November release
+
+1. Play next
+2. Share songs
+
+## December release
+
+1. Integration with google drive 🎊
