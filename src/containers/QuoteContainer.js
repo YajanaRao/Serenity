@@ -6,8 +6,8 @@ export default class QuoteContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: {}
-    }
+      dataSource: {},
+    };
   }
 
   componentDidMount() {
@@ -28,14 +28,15 @@ export default class QuoteContainer extends React.PureComponent {
   }
 
   render() {
-    if (this.state.dataSource.quote == 'undefined') {
+    const { dataSource } = this.state;
+    if (dataSource.quote === 'undefined') {
       return false;
     }
 
     return (
       <Quote
-        backgroundImage={this.state.dataSource.background}
-        quote={this.state.dataSource.quote}
+        backgroundImage="https://source.unsplash.com/random"
+        quote={dataSource.quote}
       />
     );
   }
