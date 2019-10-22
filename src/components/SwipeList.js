@@ -17,11 +17,14 @@ import PlaylistComponent from './PlaylistComponent';
 import ListSongHeader from './ListSongHeader';
 
 class SwipeList extends React.Component {
-  state = {
-    visible: false,
-    song: null,
-    refreshing: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      song: null,
+      refreshing: false,
+    };
+  }
 
   addToPlaylist = (id, song) => {
     const { addToPlaylist } = this.props;
@@ -60,12 +63,12 @@ class SwipeList extends React.Component {
   };
 
   render() {
-    const { data, title, cover } = this.props;
+    const { data, title, cover, addToQueue } = this.props;
     const { song, visible, refreshing } = this.state;
     return (
       <View>
         <Portal>
-          <Dialog visible={this.state.visible} onDismiss={this._hideModal}>
+          <Dialog visible={visible} onDismiss={this.hideModal}>
             <Dialog.ScrollArea>
               <ScrollView
                 contentContainerStyle={{
@@ -105,10 +108,13 @@ class SwipeList extends React.Component {
           renderHiddenItem={({ item }) => (
             <Surface style={styles.rowBack}>
               <IconButton
-                icon="add-to-queue"
-                onPress={() => this.props.addToQueue(item)}
+                icon="playlist-play"
+                onPress={() => addToQueue(item)}
               />
-              <IconButton icon="queue" onPress={() => this.showModal(item)} />
+              <IconButton
+                icon="playlist-plus"
+                onPress={() => this.showModal(item)}
+              />
             </Surface>
           )}
           leftOpenValue={75}

@@ -38,7 +38,7 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <IconButton
-            icon="search"
+            icon="magnify"
             color={tintColor}
             style={{ margin: 0, padding: 0 }}
           />
@@ -50,7 +50,7 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <IconButton
-            icon="explore"
+            icon="compass"
             color={tintColor}
             style={{ margin: 0, padding: 0 }}
           />
@@ -62,7 +62,7 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <IconButton
-            icon="save"
+            icon="library-music"
             color={tintColor}
             style={{ margin: 0, padding: 0 }}
           />
@@ -147,12 +147,12 @@ class RootScreen extends React.Component {
       ).then(granted => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           this.setState({
-            result: 'Able to access offline songs'
-          })
+            result: 'Able to access offline songs',
+          });
         } else {
           this.setState({
-            result: 'Permission to access offline files denied'
-          })
+            result: 'Permission to access offline files denied',
+          });
         }
       });
     } catch (err) {

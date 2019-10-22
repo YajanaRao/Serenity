@@ -6,36 +6,33 @@ import PropTypes from 'prop-types';
 
 import DefaultImage from './DefaultImage';
 
-const PlayerBar = props => {
+const PlayerBar = ({ active, status, togglePlayback, navigateToPlayer }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
       style={{ height: 60, width: '100%' }}
-      onPress={props.navigateToPlayer}
+      onPress={navigateToPlayer}
     >
       <Surface style={styles.playBar}>
-        {props.active.artwork ? (
-          <FastImage
-            source={{ uri: props.active.artwork }}
-            style={styles.artwork}
-          />
+        {active.artwork ? (
+          <FastImage source={{ uri: active.artwork }} style={styles.artwork} />
         ) : (
           <DefaultImage style={styles.artwork} />
         )}
         <View style={styles.textContainer}>
           <Subheading numberOfLines={1} style={{ margin: 0 }}>
-            {props.active.title}
+            {active.title}
           </Subheading>
           <Caption numberOfLines={1} style={{ margin: 0 }}>
-            {props.active.artist ? props.active.artist : props.active.album}
+            {active.artist ? active.artist : active.album}
           </Caption>
         </View>
         <View style={styles.iconContainer}>
           <IconButton
-            icon={props.status === 'playing' ? 'pause' : 'play-arrow'}
+            icon={status === 'playing' ? 'pause' : 'play'}
             animated
             size={34}
-            onPress={props.togglePlayback}
+            onPress={togglePlayback}
             style={{ margin: 0, padding: 0 }}
           />
         </View>

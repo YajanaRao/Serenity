@@ -60,7 +60,6 @@ class Playlist extends Component {
     this.setState({ playlistName: text });
   };
 
-  
   static navigationOptions = {
     header: null,
   };
@@ -90,7 +89,7 @@ class Playlist extends Component {
           ListHeaderComponent={() => (
             <List.Item
               title="Create Playlist"
-              left={props => <List.Icon {...props} icon="add" />}
+              left={props => <List.Icon {...props} icon="plus" />}
               onPress={this.showDialog}
             />
           )}
@@ -100,7 +99,7 @@ class Playlist extends Component {
             <List.Item
               title={item.name}
               description={`by ${item.owner}`}
-              left={props => <List.Icon {...props} icon="audiotrack" />}
+              left={props => <List.Icon {...props} icon="playlist-music" />}
               onPress={() => this.navigateToCollection(item)}
             />
           )}

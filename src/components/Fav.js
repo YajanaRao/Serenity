@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 const Fav = ({ style, liked, addToFavorite, removeFromFavorite }) => (
   <View style={style}>
     {liked ? (
-      <IconButton animated icon="favorite" onPress={removeFromFavorite} />
+      <IconButton animated icon="heart" onPress={removeFromFavorite} />
     ) : (
-      <IconButton animated icon="favorite-border" onPress={addToFavorite} />
+      <IconButton animated icon="heart-outline" onPress={addToFavorite} />
     )}
   </View>
 );
