@@ -1,11 +1,12 @@
 import RNAndroidAudioStore from 'react-native-get-music-files';
 import map from 'lodash/map';
+import log from '../utils/logging';
 
 export const updateQuery = query => dispatch => {
   if (query) {
     RNAndroidAudioStore.search({ searchParam: query })
       .then(media => {
-        map(media, function(item) {
+        map(media, item => {
           item.url = item.path;
           item.id = item.path;
           delete item.path;
@@ -18,7 +19,7 @@ export const updateQuery = query => dispatch => {
         });
       })
       .catch(error => {
-        console.log(error);
+        log(error);
       });
   } else {
     dispatch({
@@ -38,7 +39,7 @@ export const getOfflineSongs = () => dispatch => {
       });
     })
     .catch(er => {
-      console.log(er);
+      log(er);
       dispatch({
         type: 'OFFLINE_SONGS',
         payload: [],
@@ -55,6 +56,7 @@ export const getOfflineArtists = () => dispatch => {
       });
     })
     .catch(er => {
+      log(er);
       dispatch({
         type: 'NOTIFY',
         payload: 'Something went wrong',
@@ -71,6 +73,7 @@ export const getOfflineAlbums = () => dispatch => {
       });
     })
     .catch(er => {
+      log(er);
       dispatch({
         type: 'NOTIFY',
         payload: 'Something went wrong',
@@ -83,7 +86,7 @@ export const filterArtistSongs = (artist, image) => dispatch => {
     artist,
   })
     .then(media => {
-      map(media, function(item) {
+      map(media, item => {
         item.id = item.path;
         item.url = item.path;
         delete item.path;
@@ -95,7 +98,7 @@ export const filterArtistSongs = (artist, image) => dispatch => {
         payload: media,
       });
     })
-    .catch(er => console.log(er));
+    .catch(er => log(er));
 };
 
 export const filterAlbumSongs = (album, image) => dispatch => {
@@ -103,7 +106,7 @@ export const filterAlbumSongs = (album, image) => dispatch => {
     album,
   })
     .then(media => {
-      map(media, function(item) {
+      map(media, item => {
         item.url = item.path;
         delete item.path;
         item.artwork = image;
@@ -114,5 +117,5 @@ export const filterAlbumSongs = (album, image) => dispatch => {
         payload: media,
       });
     })
-    .catch(er => console.log(er));
+    .catch(er => log(er));
 };

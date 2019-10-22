@@ -1,7 +1,7 @@
 import { defaultDBSetup } from './realmAction';
 
 export const updateTheme = (theme) => dispatch => {
-  if(theme == "dark"){
+  if(theme === "dark"){
     dispatch({
       type: 'UPDATE_THEME',
       payload: 'default'

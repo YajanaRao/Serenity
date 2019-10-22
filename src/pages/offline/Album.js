@@ -1,19 +1,17 @@
 import { FlatList } from 'react-navigation';
 import * as React from 'react';
-import { withTheme, Divider, List } from 'react-native-paper';
+import { Divider, List } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { View, StyleSheet, RefreshControl } from 'react-native';
+import { StyleSheet, RefreshControl } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { isEqual, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { getOfflineAlbums } from '../../actions/mediaStore';
 import Blank from '../../components/Blank';
+import Screen from '../../components/Screen';
+import DefaultImage from '../../components/DefaultImage';
 
 class Album extends React.PureComponent {
-  static navigationOptions = {
-    header: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -32,31 +30,38 @@ class Album extends React.PureComponent {
     return null;
   }
 
+  componentDidMount() {
+    const { getOfflineAlbums } = this.props;
+    getOfflineAlbums();
+  }
+
   fetchData = () => {
+    const { getOfflineAlbums } = this.props;
     this.setState({
       refreshing: true,
     });
-    this.props.getOfflineAlbums();
+    getOfflineAlbums();
   };
 
-  componentDidMount() {
-    this.props.getOfflineAlbums();
-  }
+  static navigationOptions = {
+    header: null,
+  };
 
   render() {
-    const { colors } = this.props.theme;
+    const {
+      navigation: { navigate },
+    } = this.props;
+    const { albums, refreshing } = this.state;
 
-    const { navigate } = this.props.navigation;
-
-    if (!isEmpty(this.state.albums)) {
+    if (!isEmpty(albums)) {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <Screen>
           <FlatList
-            data={this.state.albums}
+            data={albums}
             ItemSeparatorComponent={() => <Divider inset />}
             refreshControl={
               <RefreshControl
-                refreshing={this.state.refreshing}
+                refreshing={refreshing}
                 onRefresh={this.fetchData}
               />
             }
@@ -93,7 +98,7 @@ class Album extends React.PureComponent {
               />
             )}
           />
-        </View>
+        </Screen>
       );
     }
     return <Blank text="No offline songs found.." fetchData={this.fetchData} />;
@@ -107,14 +112,13 @@ const mapStateToProps = state => ({
 Album.propTypes = {
   albums: PropTypes.arrayOf(PropTypes.object).isRequired,
   getOfflineAlbums: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };
 
 export default connect(
   mapStateToProps,
   { getOfflineAlbums },
-)(withTheme(Album));
+)(Album);
 
 const styles = StyleSheet.create({
   icons: {

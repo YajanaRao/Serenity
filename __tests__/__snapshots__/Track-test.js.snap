@@ -50,7 +50,8 @@ exports[`Blank component renders correctly 1`] = `
         style={
           Array [
             Object {
-              "margin": 8,
+              "marginVertical": 6,
+              "paddingLeft": 8,
             },
             Object {
               "flex": 1,
@@ -65,9 +66,9 @@ exports[`Blank component renders correctly 1`] = `
             Array [
               Object {
                 "color": "#000000",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
-                "writingDirection": "ltr",
               },
               Array [
                 Object {
@@ -89,9 +90,9 @@ exports[`Blank component renders correctly 1`] = `
             Array [
               Object {
                 "color": "#000000",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
-                "writingDirection": "ltr",
               },
               Array [
                 Object {
@@ -119,7 +120,9 @@ exports[`Blank component renders correctly 1`] = `
               "margin": 8,
               "width": 40,
             },
-            undefined,
+            Object {
+              "marginRight": 0,
+            },
           ]
         }
       >
@@ -147,7 +150,7 @@ exports[`Blank component renders correctly 1`] = `
                 },
               ],
               Object {
-                "fontFamily": "Material Icons",
+                "fontFamily": "Material Design Icons",
                 "fontStyle": "normal",
                 "fontWeight": "normal",
               },
@@ -155,7 +158,7 @@ exports[`Blank component renders correctly 1`] = `
             ]
           }
         >
-          
+          
         </Text>
       </View>
     </View>

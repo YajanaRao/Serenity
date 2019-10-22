@@ -22,9 +22,10 @@ const BottomTabBar = props => {
     onTabLongPress,
     getAccessibilityLabel,
     navigation,
+    theme,
   } = props;
 
-  const { colors } = props.theme;
+  const { colors } = theme;
 
   const { routes, index: activeRouteIndex } = navigation.state;
   return (

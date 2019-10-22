@@ -1,13 +1,14 @@
 import React from 'react';
 
 import Quote from '../components/Quote';
+import log from '../utils/logging';
 
 export default class QuoteContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: {}
-    }
+      dataSource: {},
+    };
   }
 
   componentDidMount() {
@@ -20,22 +21,23 @@ export default class QuoteContainer extends React.PureComponent {
           });
         })
         .catch(error => {
-          console.log(error);
+          log(error);
         });
     } catch (error) {
-      console.log(error);
+      log(error);
     }
   }
 
   render() {
-    if (this.state.dataSource.quote == 'undefined') {
+    const { dataSource } = this.state;
+    if (dataSource.quote === 'undefined') {
       return false;
     }
 
     return (
       <Quote
-        backgroundImage={this.state.dataSource.background}
-        quote={this.state.dataSource.quote}
+        backgroundImage="https://source.unsplash.com/random"
+        quote={dataSource.quote}
       />
     );
   }

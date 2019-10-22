@@ -2,6 +2,7 @@
 
 ## A React Native Music Player for Android
 
+![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 
@@ -55,6 +56,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 ## Planned features
 
 - Creating a backup on Google Drive and sync audio from it 🎶
+- Support for web (React Native Web) and Windows desktop (React Native Windows)
 - Searching for and playing music from YouTube (including integration with playlists), bandcamp (including albums), and soundcloud
 - Searching for related songs in YouTube
 - Downloading from YouTube

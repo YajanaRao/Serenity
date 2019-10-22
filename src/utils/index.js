@@ -1,24 +1,24 @@
-fetchLyrics = () => {
+const fetchLyrics = (artistName, songName) => {
   const uri = `https://azlyrics.com/lyrics/${artistName}/${songName}.html`;
   fetch(uri)
     .then(response => {
-      console.log(response);
+      // console.log(response);
+      return response;
     })
     .catch(error => {
-      console.log(error);
+      // console.log(error);
+      return error;
     });
 };
 
 export const getLyrics = async song => {
   try {
+    let lyric = '';
     if (song.artist && song.title) {
-      fetchLyrics();
-      lyric = '';
+      lyric = fetchLyrics(song.artist, song.title);
       return lyric;
     }
-    const metadata = getTitleAndArtist(song.fileName);
-    if (metadata) {
-      return lyric;
-    }
-  } catch (error) {}
+  } catch (error) {
+    return error;
+  }
 };

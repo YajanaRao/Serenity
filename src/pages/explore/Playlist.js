@@ -1,88 +1,87 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import {
-  List,
-  Portal,
-  Dialog,
-  TextInput,
-  Button,
-  withTheme,
-} from 'react-native-paper';
+import { List, Portal, Dialog, TextInput, Button } from 'react-native-paper';
 import { FlatList } from 'react-navigation';
-import PropTypes from 'prop-types';
+import values from 'lodash/values';
+
 import { getAllPlaylists, createPlaylist } from '../../actions/realmAction';
-import realm from '../../database';
+import Screen from '../../components/Screen';
 
 class Playlist extends Component {
   constructor(props) {
     super(props);
+    this.realmPlaylists = getAllPlaylists();
+    const playlists = values(this.realmPlaylists);
     this.state = {
       visible: false,
       playlistName: null,
-      playlists: [],
+      playlists,
     };
-
-    realm.addListener('change', () => {
-      this.setState({
-        playlists: getAllPlaylists(),
-      });
-    });
   }
 
-  static navigationOptions = {
-    header: null,
-  };
-
-  navigateToCollection = playlist => {
-    this.props.navigation.navigate('Songs', {
-      playlist,
-    });
-  };
-
-  _showDialog = () => this.setState({ visible: true });
-
-  _hideDialog = () => this.setState({ visible: false });
-
-  _createPlaylist = () => {
-    this._hideDialog();
-    if (this.state.playlistName) {
-      createPlaylist(this.state.playlistName);
-      this.setState({ playlistName: null });
-    }
-  };
-
   componentDidMount() {
-    this.setState({
-      playlists: getAllPlaylists(),
+    this.realmPlaylists.addListener((playlists, changes) => {
+      if (
+        changes.insertions.length > 0 ||
+        changes.modifications.length > 0 ||
+        changes.deletions.length > 0
+      ) {
+        this.setState({
+          playlists: values(playlists),
+        });
+      }
     });
   }
 
   componentWillUnmount() {
-    realm.removeAllListeners();
+    this.realmPlaylists.removeAllListeners();
   }
+
+  navigateToCollection = playlist => {
+    const { navigation } = this.props;
+    navigation.navigate('Songs', {
+      playlist,
+    });
+  };
+
+  showDialog = () => this.setState({ visible: true });
+
+  hideDialog = () => this.setState({ visible: false });
+
+  createPlaylist = () => {
+    const { playlistName } = this.state;
+    this.hideDialog();
+    if (playlistName) {
+      createPlaylist(playlistName);
+      this.setState({ playlistName: null });
+    }
+  };
 
   onChangeText = text => {
     this.setState({ playlistName: text });
   };
 
+  static navigationOptions = {
+    header: null,
+  };
+
   render() {
-    const { colors } = this.props.theme;
+    const { visible, playlistName, playlists } = this.state;
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <Screen>
         <Portal>
-          <Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
+          <Dialog visible={visible} onDismiss={this.hideDialog}>
             <Dialog.Title>Enter your playlist name</Dialog.Title>
             <Dialog.Content>
               <TextInput
                 mode="outlined"
                 label="Playlist Name"
-                value={this.state.playlistName}
+                value={playlistName}
                 onChangeText={this.onChangeText}
               />
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={this._hideDialog}>Cancel</Button>
-              <Button onPress={this._createPlaylist}>Create</Button>
+              <Button onPress={this.hideDialog}>Cancel</Button>
+              <Button onPress={this.createPlaylist}>Create</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
@@ -90,29 +89,24 @@ class Playlist extends Component {
           ListHeaderComponent={() => (
             <List.Item
               title="Create Playlist"
-              left={props => <List.Icon {...props} icon="add" />}
-              onPress={this._showDialog}
+              left={props => <List.Icon {...props} icon="plus" />}
+              onPress={this.showDialog}
             />
           )}
-          data={this.state.playlists}
+          data={playlists}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <List.Item
               title={item.name}
               description={`by ${item.owner}`}
-              left={props => <List.Icon {...props} icon="audiotrack" />}
+              left={props => <List.Icon {...props} icon="playlist-music" />}
               onPress={() => this.navigateToCollection(item)}
             />
           )}
         />
-      </View>
+      </Screen>
     );
   }
 }
 
-Playlist.propTypes = {
-  navigation: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-};
-
-export default withTheme(Playlist);
+export default Playlist;

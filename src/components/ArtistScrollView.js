@@ -4,20 +4,20 @@ import { StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import PropTypes from 'prop-types';
 
-const ArtistScrollView = props => {
+const ArtistScrollView = ({ data, title, navigateToSongs }) => {
   return (
     <View>
-      {props.data ? <Title style={styles.title}>{props.title}</Title> : false}
+      {data ? <Title style={styles.title}>{title}</Title> : false}
       <FlatList
         horizontal
-        data={props.data}
+        data={data}
         keyExtractor={(item, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.item}
             onPress={() =>
-              props.navigateToSongs(item.songs, item.artwork, item.album)
+              navigateToSongs(item.songs, item.artwork, item.album)
             }
           >
             <FastImage source={{ uri: item.artwork }} style={styles.artist} />

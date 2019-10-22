@@ -1,18 +1,15 @@
 import { FlatList } from 'react-navigation';
 import React from 'react';
-import { withTheme, Divider, List, Avatar } from 'react-native-paper';
-import { View, StyleSheet, RefreshControl } from 'react-native';
+import { Divider, List, Avatar } from 'react-native-paper';
+import { RefreshControl } from 'react-native';
 import { isEqual, isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getOfflineArtists } from '../../actions/mediaStore';
 import Blank from '../../components/Blank';
+import Screen from '../../components/Screen';
 
 class Artist extends React.PureComponent {
-  static navigationOptions = {
-    header: null,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -31,31 +28,39 @@ class Artist extends React.PureComponent {
     return null;
   }
 
+  componentDidMount() {
+    const { getOfflineArtists } = this.props;
+    getOfflineArtists();
+  }
+
   fetchData = () => {
+    const { getOfflineArtists } = this.props;
     this.setState({
       refreshing: true,
     });
-    this.props.getOfflineArtists();
+    getOfflineArtists();
   };
 
-  componentDidMount() {
-    this.props.getOfflineArtists();
-  }
+  static navigationOptions = {
+    header: null,
+  };
 
   render() {
-    const { colors } = this.props.theme;
+    const {
+      navigation: { navigate },
+    } = this.props;
 
-    const { navigate } = this.props.navigation;
+    const { artists, refreshing } = this.state;
 
-    if (!isEmpty(this.state.artists)) {
+    if (!isEmpty(artists)) {
       return (
-        <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <Screen>
           <FlatList
-            data={this.state.artists}
+            data={artists}
             ItemSeparatorComponent={() => <Divider inset />}
             refreshControl={
               <RefreshControl
-                refreshing={this.state.refreshing}
+                refreshing={refreshing}
                 onRefresh={this.fetchData}
               />
             }
@@ -82,7 +87,7 @@ class Artist extends React.PureComponent {
               />
             )}
           />
-        </View>
+        </Screen>
       );
     }
     return (
@@ -98,19 +103,10 @@ const mapStateToProps = state => ({
 Artist.propTypes = {
   artists: PropTypes.arrayOf(PropTypes.object).isRequired,
   getOfflineArtists: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };
 
 export default connect(
   mapStateToProps,
   { getOfflineArtists },
-)(withTheme(Artist));
-
-const styles = StyleSheet.create({
-  icons: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-  },
-});
+)(Artist);

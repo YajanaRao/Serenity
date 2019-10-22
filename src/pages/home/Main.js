@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { withTheme, IconButton } from 'react-native-paper';
-import { View } from 'react-native';
-import PropTypes from 'prop-types';
+import { IconButton } from 'react-native-paper';
 import { ScrollView } from 'react-navigation';
+
 import NetNotify from '../../components/NetNotify';
 import RecentContainer from '../../containers/RecentContainer';
 import OnlineContainer from '../../containers/OnlineContainer';
+import Screen from '../../components/Screen';
 
 class MainScreen extends React.PureComponent {
   static navigationOptions = ({ navigation }) => {
@@ -20,32 +20,17 @@ class MainScreen extends React.PureComponent {
     };
   };
 
-  state = {
-    isLoaded: false,
-  };
-
-  componentDidMount() {
-    if (!this.state.isLoaded) {
-    }
-  }
-
   render() {
-    const { colors } = this.props.theme;
-
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-        <View>
+      <Screen>
+        <ScrollView>
           <NetNotify />
           <RecentContainer />
           <OnlineContainer />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </Screen>
     );
   }
 }
 
-MainScreen.propTypes = {
-  theme: PropTypes.object.isRequired,
-};
-
-export default withTheme(MainScreen);
+export default MainScreen;
