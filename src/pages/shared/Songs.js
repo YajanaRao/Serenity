@@ -7,16 +7,19 @@ import PropTypes from 'prop-types';
 import { addToQueue } from '../../actions/playerState';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
-import Fav from '../../components/Fav';
+import FavContainer from '../../containers/FavContainer';
 
 class Songs extends Component {
   static navigationOptions = ({ navigation }) => {
+    const item = {};
+    item.cover = navigation.getParam('img');
+    item.name = navigation.getParam('title');
     // header: null
     return {
       headerTitle: navigation.getParam('title'),
       headerRight: (
         <View style={{ flexDirection: 'row' }}>
-          <Fav />
+          <FavContainer item={item} type="album" />
           <IconButton
             icon="play-circle-outline"
             onPress={navigation.getParam('addToQueue')}

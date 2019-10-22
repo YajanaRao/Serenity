@@ -10,6 +10,7 @@ import { ALBUM_SCHEMA_NAME } from '../database/schema/AlbumSchema';
 export const userPlaylistIdPrefix = 'user-playlist--';
 export const userSongIdPrefix = 'user-song--';
 export const artistIdPrefix = 'artist--';
+export const albumIdPrefix = 'album--';
 
 const generateId = () => {
   const playlists = realm.objects(PLAYLIST_SCHEMA_NAME).sorted('id', true);
@@ -21,6 +22,16 @@ const generateId = () => {
   return `${userPlaylistIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
+const generateSongId = () => {
+  const songs = realm.objects(SONG_SCHEMA_NAME).sorted('id', true);
+  let max = 1;
+  if (songs.length > 0) {
+    max = parseInt(songs[0].id.split(userSongIdPrefix)[1], 10) + 1;
+  }
+  // The user can create a max of 100000 playlists :)
+  return `${userSongIdPrefix}${max.toString().padStart(6, '0')}`;
+};
+
 const generateArtistId = () => {
   const artists = realm.objects(ARTIST_SCHEMA_NAME).sorted('id', true);
   let max = 1;
@@ -30,14 +41,13 @@ const generateArtistId = () => {
   return `${artistIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
-const generateSongId = () => {
-  const songs = realm.objects(SONG_SCHEMA_NAME).sorted('id', true);
+const generateAlbumId = () => {
+  const albums = realm.objects(ALBUM_SCHEMA_NAME).sorted('id', true);
   let max = 1;
-  if (songs.length > 0) {
-    max = parseInt(songs[0].id.split(userSongIdPrefix)[1], 10) + 1;
+  if (albums.length > 0) {
+    max = parseInt(albums[0].id.split(albumIdPrefix)[1], 10) + 1;
   }
-  // The user can create a max of 100000 playlists :)
-  return `${userSongIdPrefix}${max.toString().padStart(6, '0')}`;
+  return `${albumIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
 export const defaultDBSetup = () => {
@@ -93,6 +103,7 @@ export const getPlayedSongs = () => {
     return [];
   } catch (error) {
     console.log('getPlayedSongs: ', error);
+    return [];
   }
 };
 
@@ -187,7 +198,6 @@ export const renamePlaylist = (id, playlistName) => {
 };
 
 export const addArtist = artists => {
-  console.log('adding artist to array', artists);
   realm.write(() => {
     if (Array.isArray(artists)) {
       artists.forEach(artist => {
@@ -210,6 +220,7 @@ export const addArtist = artists => {
 export const addAlbum = album => {
   realm.write(() => {
     realm.create(ALBUM_SCHEMA_NAME, {
+      id: generateAlbumId(),
       name: album.name,
       cover: album.cover,
       artist: album.artist,
@@ -221,6 +232,16 @@ export const getArtists = () => {
   try {
     return values(realm.objects(ARTIST_SCHEMA_NAME));
   } catch (error) {
-    console.log('getArtists: ', error);
+    console.debug('getArtists: ', error);
+    return [];
+  }
+};
+
+export const getAlbums = () => {
+  try {
+    return realm.objects(ALBUM_SCHEMA_NAME);
+  } catch (error) {
+    console.debug('getAlbums: ', error);
+    return [];
   }
 };

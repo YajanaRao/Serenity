@@ -10,27 +10,9 @@ import {
   getQueuedSongs,
   getPlayedSongs,
   clearAllSongs,
+  addAlbum,
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
-/* 
- TODO:
- - Queue management in javascript
- - Player functions
-  * Init Track player
-    Setup Track Player
-    Add Capabilities
-    Once on every mount
-  * Load a track to the track player
-    On Every Track Change execute the method
-    flag to play on load
-  * Play
-    Track the status change of the track
-    Create a notification bar
-  * Pause
-  * Destroy track player
-    On Every Un mount
-
-*/
 
 let subscription = null;
 
@@ -133,7 +115,6 @@ export const pauseTrack = () => dispatch => {
   }
 };
 
-// FIXME: implement with javascript
 export const skipToNext = () => (dispatch, getState) => {
   try {
     const queue = deserializeSongs(getQueuedSongs());
@@ -170,7 +151,6 @@ export const skipToNext = () => (dispatch, getState) => {
   }
 };
 
-// FIXME: implement with javascript
 export const skipToPrevious = () => dispatch => {
   try {
     const history = getPlayedSongs();
@@ -248,11 +228,19 @@ export const clearQueue = () => dispatch => {
   });
 };
 
-export const addToFavourite = song => dispatch => {
+export const addSongToFavorite = song => dispatch => {
   addSong(FAVOURITE_ID, song);
   dispatch({
     type: 'NOTIFY',
     payload: 'Added song to queue',
+  });
+};
+
+export const addAlbumToFavorite = album => dispatch => {
+  addAlbum(album);
+  dispatch({
+    type: 'NOTIFY',
+    payload: 'Added album to favorite',
   });
 };
 
