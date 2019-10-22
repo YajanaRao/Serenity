@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Quote from '../components/Quote';
+import log from '../utils/logging';
 
 export default class QuoteContainer extends React.PureComponent {
   constructor(props) {
@@ -20,10 +21,10 @@ export default class QuoteContainer extends React.PureComponent {
           });
         })
         .catch(error => {
-          console.log(error);
+          log(error);
         });
     } catch (error) {
-      console.log(error);
+      log(error);
     }
   }
 

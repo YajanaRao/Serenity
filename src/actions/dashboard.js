@@ -1,3 +1,5 @@
+import log from '../utils/logging';
+
 export const fetchTopAlbums = () => dispatch => {
   fetch(
     'http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=disco&api_key=fe67816d712b419bf98ee9a4c2a1baea&format=json&limit=20',
@@ -10,7 +12,7 @@ export const fetchTopAlbums = () => dispatch => {
       });
     })
     .catch(error => {
-      console.error(error);
+      log(error);
     });
 };
 
@@ -26,7 +28,7 @@ export const fetchLastFMTopTracks = () => dispatch => {
       });
     })
     .catch(error => {
-      console.error(error);
+      log(error);
     });
 };
 
@@ -42,7 +44,7 @@ export const fetchNapsterTopTracks = () => dispatch => {
       });
     })
     .catch(error => {
-      console.error(error);
+      log(error);
     });
 };
 
@@ -58,7 +60,7 @@ export const fetchLastFMTopArtists = () => dispatch => {
       });
     })
     .catch(error => {
-      console.error(error);
+      log(error);
     });
 };
 
@@ -74,7 +76,7 @@ export const fetchNapsterTopArtists = () => dispatch => {
       });
     })
     .catch(error => {
-      console.error(error);
+      log(error);
     });
 };
 
@@ -84,28 +86,30 @@ export const fetchJioSavanData = type => dispatch => {
       .then(response => response.json())
       .then(responseJson => {
         const response = responseJson._bodyInit.split('-->')[1];
-        responseJson = JSON.parse(response.trim());
+        const res = JSON.parse(response.trim());
         if (type === 'genres') {
           dispatch({
             type: 'JIO_SAVAN_GENRES',
-            payload: responseJson.genres,
+            payload: res.genres,
           });
         } else if (type === 'charts') {
           dispatch({
             type: 'JIO_SAVAN_CHARTS',
-            payload: responseJson.charts,
+            payload: res.charts,
           });
         } else if (type === 'new_albums') {
           dispatch({
             type: 'JIO_SAVAN_NEW_ALBUMS',
-            payload: responseJson.new_albums,
+            payload: res.new_albums,
           });
         }
       })
       .catch(error => {
-        console.error(error);
+        log(error);
       });
-  } catch (error) {}
+  } catch (error) {
+    log(error);
+  }
 };
 
 export const fetchKannadaTopSongs = () => dispatch => {
@@ -118,7 +122,7 @@ export const fetchKannadaTopSongs = () => dispatch => {
       });
     })
     .catch(error => {
-      console.error(error);
+      log(error);
     });
 };
 
@@ -132,6 +136,6 @@ export const fetchBillboardHot100 = () => dispatch => {
       });
     })
     .catch(error => {
-      console.error(error);
+      log(error);
     });
 };

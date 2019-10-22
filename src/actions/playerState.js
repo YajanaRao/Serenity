@@ -1,6 +1,5 @@
 import RNAudio from 'react-native-audio';
 import { DeviceEventEmitter } from 'react-native';
-import Analytics from 'appcenter-analytics';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 
@@ -13,6 +12,7 @@ import {
   addAlbum,
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
+import log from '../utils/logging';
 
 let subscription = null;
 
@@ -22,14 +22,14 @@ const FAVOURITE_ID = 'user-playlist--000002';
 
 export const setUpTrackPlayer = () => dispatch => {
   try {
-    subscription = DeviceEventEmitter.addListener('media', function(event) {
+    subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
-      console.log('from event listener', event);
-      if (event == 'skip_to_next') {
+      log('from event listener', event);
+      if (event === 'skip_to_next') {
         dispatch(skipToNext());
-      } else if (event == 'skip_to_previous') {
+      } else if (event === 'skip_to_previous') {
         dispatch(skipToPrevious());
-      } else if (event == 'skip_to_next') {
+      } else if (event === 'skip_to_next') {
         dispatch(skipToNext());
       } else {
         dispatch({
@@ -39,8 +39,7 @@ export const setUpTrackPlayer = () => dispatch => {
       }
     });
   } catch (error) {
-    console.log(error);
-    Analytics.trackEvent('error', error);
+    log(error);
   }
 };
 
@@ -59,11 +58,10 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
         status: playOnLoad ? 'playing' : 'paused',
       });
     } else {
-      console.log(track);
+      log(track);
     }
   } catch (error) {
-    console.log('loadTrackPlayer: ', error);
-    Analytics.trackEvent('error', error);
+    log('loadTrackPlayer: ', error);
   }
 };
 
@@ -75,8 +73,7 @@ export const playTrack = () => dispatch => {
       status: 'playing',
     });
   } catch (error) {
-    console.log('something went wrong', error);
-    Analytics.trackEvent('error', error);
+    log('something went wrong', error);
   }
 };
 
@@ -87,7 +84,7 @@ export const repeatSongs = type => dispatch => {
       repeat: type,
     });
   } catch (error) {
-    console.log(error);
+    log(error);
   }
 };
 
@@ -98,7 +95,7 @@ export const shufflePlay = songs => dispatch => {
       songs,
     });
   } catch (error) {
-    console.log(error);
+    log(error);
   }
 };
 
@@ -110,8 +107,7 @@ export const pauseTrack = () => dispatch => {
       status: 'paused',
     });
   } catch (error) {
-    console.log(error);
-    Analytics.trackEvent('error', error);
+    log(error);
   }
 };
 
@@ -146,8 +142,7 @@ export const skipToNext = () => (dispatch, getState) => {
       });
     }
   } catch (error) {
-    console.log('skipToNext: ', error);
-    Analytics.trackEvent('error', error);
+    log('skipToNext: ', error);
   }
 };
 
@@ -176,9 +171,7 @@ export const skipToPrevious = () => dispatch => {
       });
     }
   } catch (error) {
-    console.log(error);
-    Analytics.trackEvent('error', error);
-    // TrackPlayer.stop();
+    log(error);
   }
 };
 
