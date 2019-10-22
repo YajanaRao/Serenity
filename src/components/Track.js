@@ -18,7 +18,7 @@ const Track = ({ theme: { colors }, track, active, play }) => (
       description={track.artist ? track.artist : track.album}
       right={props =>
         active ? (
-          <List.Icon {...props} icon="equalizer" color={colors.accent} />
+          <List.Icon {...props} icon="poll" color={colors.accent} />
         ) : (
           // <List.Icon {...props} icon="more-vert" onPress={() => bs.current.snapTo(1)}/>
           false

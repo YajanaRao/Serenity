@@ -79,13 +79,14 @@ class Artist extends Component {
 
   hideDialog = () => this.setState({ visible: false });
 
-  
   static navigationOptions = {
     header: null,
   };
 
   render() {
-    const { theme: { colors } } = this.props;
+    const {
+      theme: { colors },
+    } = this.props;
     const { visible, firstQuery, artists, data } = this.state;
     return (
       <Screen>
@@ -97,7 +98,7 @@ class Artist extends Component {
                 <Avatar.Icon
                   {...props}
                   style={{ backgroundColor: colors.surface }}
-                  icon="add"
+                  icon="plus"
                 />
               )}
               onPress={this.showDialog}

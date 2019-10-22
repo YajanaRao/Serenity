@@ -54,7 +54,7 @@ class Song extends React.Component {
             ListHeaderComponent={() => (
               <View style={styles.container}>
                 <Button
-                  icon="play-arrow"
+                  icon="play"
                   mode="outlined"
                   onPress={() => addToQueue(songs)}
                 >
