@@ -592,8 +592,8 @@
   resolved "https://registry.yarnpkg.com/@hapi/bourne/-/bourne-1.3.2.tgz#0a7095adea067243ce3283e1b56b8a8f453b242a"
 
 "@hapi/hoek@8.x.x", "@hapi/hoek@^8.3.0":
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.3.1.tgz#227d29efdb158e4a64590224add90c820f94d20e"
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.3.2.tgz#91e7188edebc5d876f0b91a860f555ff06f0782b"
 
 "@hapi/joi@^15.0.3":
   version "15.1.1"
@@ -934,8 +934,8 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "12.11.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.11.1.tgz#1fd7b821f798b7fa29f667a1be8f3442bb8922a3"
+  version "12.11.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.11.2.tgz#75ba3beda30d690b89a5089ca1c6e8e386150b76"
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1031,7 +1031,7 @@ acorn-globals@^4.1.0:
     acorn "^6.0.1"
     acorn-walk "^6.0.1"
 
-acorn-jsx@^5.0.2:
+acorn-jsx@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.1.0.tgz#294adb71b57398b0680015f0a38c563ee1db5384"
 
@@ -1047,7 +1047,7 @@ acorn@^6.0.1:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.3.0.tgz#0087509119ffa4fc0a0041d1e93a417e68cb856e"
 
-acorn@^7.0.0:
+acorn@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
 
@@ -1748,11 +1748,7 @@ command-line-args@^4.0.6:
     find-replace "^1.0.3"
     typical "^2.6.1"
 
-commander@2.20.0:
-  version "2.20.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
-
-commander@^2.11.0, commander@^2.19.0:
+commander@^2.11.0, commander@^2.19.0, commander@~2.20.3:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
 
@@ -1857,7 +1853,7 @@ cosmiconfig@^5.0.5, cosmiconfig@^5.1.0, cosmiconfig@^5.2.1:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-create-react-class@^15.6.3:
+create-react-class@*, create-react-class@^15.6.3:
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   dependencies:
@@ -2060,6 +2056,15 @@ depd@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
 
+deprecated-react-native-listview@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/deprecated-react-native-listview/-/deprecated-react-native-listview-0.0.6.tgz#f9169dd703398a7792e5bcb8b851e741a8cb6980"
+  dependencies:
+    create-react-class "*"
+    fbjs "*"
+    invariant "*"
+    react-clone-referenced-element "*"
+
 destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
@@ -2150,8 +2155,8 @@ errorhandler@^1.5.0:
     escape-html "~1.0.3"
 
 es-abstract@^1.12.0, es-abstract@^1.15.0, es-abstract@^1.5.1, es-abstract@^1.7.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.15.0.tgz#8884928ec7e40a79e3c9bc812d37d10c8b24cc57"
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.16.0.tgz#d3a26dc9c3283ac9750dca569586e976d9dcc06d"
   dependencies:
     es-to-primitive "^1.2.0"
     function-bind "^1.1.1"
@@ -2353,10 +2358,10 @@ eslint-scope@^5.0.0:
     estraverse "^4.1.1"
 
 eslint-utils@^1.3.1, eslint-utils@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.4.2.tgz#166a5180ef6ab7eb462f162fd0e6f2463d7309ab"
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.4.3.tgz#74fec7c54d0776b6f67e0251040b5806564e981f"
   dependencies:
-    eslint-visitor-keys "^1.0.0"
+    eslint-visitor-keys "^1.1.0"
 
 eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   version "1.1.0"
@@ -2405,11 +2410,11 @@ eslint@^6.5.1:
     v8-compile-cache "^2.0.3"
 
 espree@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/espree/-/espree-6.1.1.tgz#7f80e5f7257fc47db450022d723e356daeb1e5de"
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/espree/-/espree-6.1.2.tgz#6c272650932b4f91c3714e5e7b5f5e2ecf47262d"
   dependencies:
-    acorn "^7.0.0"
-    acorn-jsx "^5.0.2"
+    acorn "^7.1.0"
+    acorn-jsx "^5.1.0"
     eslint-visitor-keys "^1.1.0"
 
 esprima@^3.1.3:
@@ -2629,11 +2634,12 @@ fbjs-scripts@^1.1.0:
     semver "^5.1.0"
     through2 "^2.0.0"
 
-fbjs@^0.8.9:
-  version "0.8.17"
-  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
+fbjs@*, fbjs@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-1.0.0.tgz#52c215e0883a3c86af2a7a776ed51525ae8e0a5a"
   dependencies:
-    core-js "^1.0.0"
+    core-js "^2.4.1"
+    fbjs-css-vars "^1.0.0"
     isomorphic-fetch "^2.1.1"
     loose-envify "^1.0.0"
     object-assign "^4.1.0"
@@ -2641,12 +2647,11 @@ fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-fbjs@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-1.0.0.tgz#52c215e0883a3c86af2a7a776ed51525ae8e0a5a"
+fbjs@^0.8.9:
+  version "0.8.17"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   dependencies:
-    core-js "^2.4.1"
-    fbjs-css-vars "^1.0.0"
+    core-js "^1.0.0"
     isomorphic-fetch "^2.1.1"
     loose-envify "^1.0.0"
     object-assign "^4.1.0"
@@ -2903,8 +2908,8 @@ glob@^5.0.15:
     path-is-absolute "^1.0.0"
 
 glob@^7.1.1, glob@^7.1.2, glob@^7.1.3:
-  version "7.1.4"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.4.tgz#aa608a2f6c577ad357e1ae5a5c26d9a8d1969255"
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.5.tgz#6714c69bee20f3c3e64c4dd905553e532b40cdc0"
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
@@ -2934,8 +2939,8 @@ hammerjs@^2.0.8:
   resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
 
 handlebars@^4.1.2:
-  version "4.4.3"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.4.3.tgz#180bae52c1d0e9ec0c15d7e82a4362d662762f6e"
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.4.5.tgz#1b1f94f9bfe7379adda86a8b73fb570265a0dddd"
   dependencies:
     neo-async "^2.6.0"
     optimist "^0.6.1"
@@ -3054,8 +3059,8 @@ http-signature@~1.2.0:
     sshpk "^1.7.0"
 
 https-proxy-agent@^2.2.1:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.2.tgz#271ea8e90f836ac9f119daccd39c19ff7dfb0793"
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.3.tgz#fb6cd98ed5b9c35056b5a73cd01a8a721d7193d1"
   dependencies:
     agent-base "^4.3.0"
     debug "^3.1.0"
@@ -3185,7 +3190,7 @@ inquirer@^6.4.1:
     strip-ansi "^5.1.0"
     through "^2.3.6"
 
-invariant@^2.2.4:
+invariant@*, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
@@ -5130,6 +5135,10 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-clone-referenced-element@*:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-clone-referenced-element/-/react-clone-referenced-element-1.1.0.tgz#9cdda7f2aeb54fea791f3ab8c6ab96c7a77d0158"
+
 react-devtools-core@^3.6.3:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-3.6.3.tgz#977d95b684c6ad28205f0c62e1e12c5f16675814"
@@ -5255,8 +5264,8 @@ react-native@0.61.2:
     whatwg-fetch "^3.0.0"
 
 react-navigation-stack@^1.5.1:
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-1.9.4.tgz#9de7537bb83a1d30a177957bc7932b9447f4c409"
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-1.10.2.tgz#86521ec876ce030b54073b89d31d3a1d82e6675b"
   dependencies:
     prop-types "^15.7.2"
 
@@ -5360,12 +5369,13 @@ readable-stream@^2.0.1, readable-stream@^2.0.6, readable-stream@^2.2.2, readable
     util-deprecate "~1.0.1"
 
 realm@^3.1.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/realm/-/realm-3.2.0.tgz#32aa87c98d9db5f0c289f4d235bd35813620a903"
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/realm/-/realm-3.3.0.tgz#fe3663f501cc26c3f2ef8f204afe5e5515a89d30"
   dependencies:
     command-line-args "^4.0.6"
     decompress "^4.2.0"
     deepmerge "2.1.0"
+    deprecated-react-native-listview "0.0.6"
     fs-extra "^4.0.3"
     https-proxy-agent "^2.2.1"
     ini "^1.3.5"
@@ -5458,8 +5468,8 @@ regexpu-core@^4.6.0:
     unicode-match-property-value-ecmascript "^1.1.0"
 
 regjsgen@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/regjsgen/-/regjsgen-0.5.0.tgz#a7634dc08f89209c2049adda3525711fb97265dd"
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/regjsgen/-/regjsgen-0.5.1.tgz#48f0bf1a5ea205196929c0d9798b42d1ed98443c"
 
 regjsparser@^0.6.0:
   version "0.6.0"
@@ -6288,10 +6298,10 @@ uglify-es@^3.1.9:
     source-map "~0.6.1"
 
 uglify-js@^3.1.4:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.6.2.tgz#fd8048c86d990ddd29fe99d3300e0cb329103f4d"
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.6.3.tgz#1351533bbe22cc698f012589ed6bd4cbd971bff8"
   dependencies:
-    commander "2.20.0"
+    commander "~2.20.3"
     source-map "~0.6.1"
 
 ultron@1.0.x:
@@ -6464,8 +6474,8 @@ whatwg-url@^6.4.1:
     webidl-conversions "^4.0.2"
 
 whatwg-url@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-7.0.0.tgz#fde926fa54a599f3adf82dff25a9f7be02dc6edd"
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-7.1.0.tgz#c2c492f1eca612988efd3d2266be1b9fc6170d06"
   dependencies:
     lodash.sortby "^4.7.0"
     tr46 "^1.0.1"

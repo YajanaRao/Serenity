@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import DefaultImage from './DefaultImage';
 
 const PlayerBar = ({ active, status, togglePlayback, navigateToPlayer }) => {
+  const { artwork, artist, album, title } = active;
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -14,17 +15,17 @@ const PlayerBar = ({ active, status, togglePlayback, navigateToPlayer }) => {
       onPress={navigateToPlayer}
     >
       <Surface style={styles.playBar}>
-        {active.artwork ? (
-          <FastImage source={{ uri: active.artwork }} style={styles.artwork} />
+        {artwork ? (
+          <FastImage source={{ uri: artwork }} style={styles.artwork} />
         ) : (
           <DefaultImage style={styles.artwork} />
         )}
         <View style={styles.textContainer}>
           <Subheading numberOfLines={1} style={{ margin: 0 }}>
-            {active.title}
+            {title}
           </Subheading>
           <Caption numberOfLines={1} style={{ margin: 0 }}>
-            {active.artist ? active.artist : active.album}
+            {artist || album}
           </Caption>
         </View>
         <View style={styles.iconContainer}>

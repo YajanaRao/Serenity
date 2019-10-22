@@ -14,34 +14,39 @@ import PlayerBar from '../components/PlayerBar';
 
 class PlayerBarContainer extends Component {
   componentDidMount() {
-    this.props.setUpTrackPlayer();
-    if (!isEmpty(this.props.active)) {
-      this.props.loadTrackPlayer(this.props.active, false);
+    const { active, setUpTrackPlayer, loadTrackPlayer } = this.props;
+    setUpTrackPlayer();
+    if (!isEmpty(active)) {
+      loadTrackPlayer(active, false);
     }
   }
 
   componentWillUnmount() {
-    this.props.destroyTrackPlayer();
+    const { destroyTrackPlayer } = this.props;
+    destroyTrackPlayer();
   }
 
   togglePlayback = () => {
-    if (this.props.status == 'playing') {
-      this.props.pauseTrack();
+    const { status, pauseTrack, playTrack } = this.props;
+    if (status === 'playing') {
+      pauseTrack();
     } else {
-      this.props.playTrack();
+      playTrack();
     }
   };
 
   navigateToPlayer = () => {
-    this.props.navigation.navigate('Player');
+    const { navigation } = this.props;
+    navigation.navigate('Player');
   };
 
   render() {
-    if (!isEmpty(this.props.active)) {
+    const { active, status } = this.props;
+    if (!isEmpty(active)) {
       return (
         <PlayerBar
-          active={this.props.active}
-          status={this.props.status}
+          active={active}
+          status={status}
           togglePlayback={this.togglePlayback}
           navigateToPlayer={this.navigateToPlayer}
         />
