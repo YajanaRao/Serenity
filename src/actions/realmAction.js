@@ -6,6 +6,7 @@ import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
 import { SONG_SCHEMA_NAME } from '../database/schema/SongSchema';
 import { ARTIST_SCHEMA_NAME } from '../database/schema/ArtistSchema';
 import { ALBUM_SCHEMA_NAME } from '../database/schema/AlbumSchema';
+import log from '../utils/logging';
 
 export const userPlaylistIdPrefix = 'user-playlist--';
 export const userSongIdPrefix = 'user-song--';
@@ -87,7 +88,8 @@ export const getQueuedSongs = () => {
     }
     return [];
   } catch (error) {
-    console.log('getQueuedSongs: ', error);
+    log('getQueuedSongs: ', error);
+    return [];
   }
 };
 
@@ -102,7 +104,7 @@ export const getPlayedSongs = () => {
     }
     return [];
   } catch (error) {
-    console.log('getPlayedSongs: ', error);
+    log('getPlayedSongs: ', error);
     return [];
   }
 };
@@ -126,7 +128,7 @@ export const removeSong = (id, song) => {
       realm.delete(item);
     });
   } catch (error) {
-    console.log('removeSong: ', error);
+    log('removeSong: ', error);
   }
 };
 
@@ -161,7 +163,7 @@ export const addSong = (id, songs) => {
       }
     });
   } catch (error) {
-    console.log('addSong: ', error, songs);
+    log('addSong: ', error, songs);
   }
 };
 
@@ -172,14 +174,13 @@ export const clearAllSongs = id => {
       realm.delete(playlist.songs);
     });
   } catch (error) {
-    console.log('clearAllSongs: ', error);
+    log('clearAllSongs: ', error);
   }
 };
 
 export const deletePlaylist = id => {
   realm.write(() => {
     const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
-    console.log(playlist);
     realm.delete(playlist);
   });
 };
@@ -232,7 +233,7 @@ export const getArtists = () => {
   try {
     return values(realm.objects(ARTIST_SCHEMA_NAME));
   } catch (error) {
-    console.debug('getArtists: ', error);
+    log('getArtists: ', error);
     return [];
   }
 };
@@ -241,7 +242,7 @@ export const getAlbums = () => {
   try {
     return realm.objects(ALBUM_SCHEMA_NAME);
   } catch (error) {
-    console.debug('getAlbums: ', error);
+    log('getAlbums: ', error);
     return [];
   }
 };

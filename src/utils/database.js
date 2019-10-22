@@ -1,4 +1,5 @@
 import values from 'lodash/values';
+import log from './logging';
 
 export const deserializeSongs = realmObject => {
   try {
@@ -11,7 +12,8 @@ export const deserializeSongs = realmObject => {
       url: item.url ? item.url : item.path,
     }));
   } catch (error) {
-    console.log('deserializeSongs: ', error);
+    log('deserializeSongs: ', error);
+    return false;
   }
 };
 
