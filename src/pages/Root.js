@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import { PermissionsAndroid } from 'react-native';
+import { PermissionsAndroid, StatusBar } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 
 import isEqual from 'lodash/isEqual';
@@ -16,8 +16,9 @@ import HomeScreen from './home';
 import ExploreScreen from './explore';
 import PlayerScreen from './shared/Player';
 import BottomTabBar from '../components/BottomTabBar';
-
 import Screen from '../components/Screen';
+
+import log from '../utils/logging';
 
 const BottomNavigator = createBottomTabNavigator(
   {
@@ -156,7 +157,7 @@ class RootScreen extends React.Component {
         }
       });
     } catch (err) {
-      console.warn(err);
+      log(err);
     }
   };
 
@@ -165,7 +166,7 @@ class RootScreen extends React.Component {
     const didCrash = await Crashes.hasCrashedInLastSession();
     if (didCrash) {
       try {
-        const crashReport = await Crashes.lastSessionCrashReport();
+        // const crashReport = await Crashes.lastSessionCrashReport();
         Crashes.setListener({
           shouldProcess(report) {
             return true; // return true if the crash report should be processed, otherwise false.
@@ -173,11 +174,11 @@ class RootScreen extends React.Component {
 
           onSendingSucceeded(report) {
             // called when crash report sent successfully.
-            console.log('success');
+            log(report);
           },
           onSendingFailed(report) {
             // called when crash report could not be sent.
-            console.log('failed');
+            log(report);
           },
 
           // Other callbacks must also be defined at the same time if used.
@@ -185,7 +186,7 @@ class RootScreen extends React.Component {
         });
         Crashes.notifyUserConfirmation(UserConfirmation.SEND);
       } catch (error) {
-        console.log(error);
+        log(error);
       }
     }
   };
@@ -216,7 +217,7 @@ class RootScreen extends React.Component {
         ) : (
           false
         )}
-
+        {/* <StatusBar backgroundColor={theme.colors.primary} barStyle="light-content" /> */}
         <Navigator screenProps={{ theme }} />
       </Screen>
     );

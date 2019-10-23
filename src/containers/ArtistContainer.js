@@ -6,7 +6,7 @@ import ArtistScrollView from '../components/ArtistScrollView';
 class ArtistContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { isLoading: true, data: [] };
+    this.state = { data: [] };
   }
 
   componentDidMount() {
@@ -17,7 +17,6 @@ class ArtistContainer extends React.PureComponent {
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
-            isLoading: false,
             data: responseJson,
           });
         })
@@ -29,19 +28,19 @@ class ArtistContainer extends React.PureComponent {
     }
   }
 
-  navigateToSongs = (songs, artwork, title) => {
-    this.props.navigation.navigate('Songs', {
-      songs,
-      img: artwork,
-      title,
+  navigateToSongs = artist => {
+    const { navigation } = this.props;
+    navigation.navigate('Songs', {
+      artist: artist,
     });
   };
 
   render() {
+    const { data } = this.state;
     return (
       <ArtistScrollView
         title="Popular Artists"
-        data={this.state.data}
+        data={data}
         navigateToSongs={this.navigateToSongs}
       />
     );

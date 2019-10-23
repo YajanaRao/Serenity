@@ -13,7 +13,21 @@ export const deserializeSongs = realmObject => {
     }));
   } catch (error) {
     log('deserializeSongs: ', error);
-    return false;
+    return [];
+  }
+};
+
+export const deserializeAlbums = realmObject => {
+  try {
+    return values(realmObject).map(item => ({
+      id: item.id,
+      name: item.name,
+      cover: item.cover,
+      artist: item.artist,
+    }));
+  } catch (error) {
+    log(error);
+    return [];
   }
 };
 

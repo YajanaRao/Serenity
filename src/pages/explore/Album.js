@@ -1,5 +1,4 @@
 import * as React from 'react';
-import values from 'lodash/values';
 import { FlatList } from 'react-native';
 import { List } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
@@ -7,12 +6,13 @@ import FastImage from 'react-native-fast-image';
 import Screen from '../../components/Screen';
 import EmptyFavoriteAlbums from '../../components/EmptyFavoriteAlbums';
 import { getAlbums } from '../../actions/realmAction';
+import { deserializeAlbums } from '../../utils/database';
 
 class Album extends React.Component {
   constructor(props) {
     super(props);
     this.realmAlbums = getAlbums();
-    const albums = values(this.realmAlbums);
+    const albums = deserializeAlbums(this.realmAlbums);
     this.state = {
       albums,
     };
@@ -26,7 +26,7 @@ class Album extends React.Component {
         changes.deletions.length > 0
       ) {
         this.setState({
-          albums: values(albums),
+          albums: deserializeAlbums(albums),
         });
       }
     });

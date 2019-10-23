@@ -10,6 +10,7 @@ import {
   getPlayedSongs,
   clearAllSongs,
   addAlbum,
+  removeAlbum,
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
 import log from '../utils/logging';
@@ -234,6 +235,14 @@ export const addAlbumToFavorite = album => dispatch => {
   dispatch({
     type: 'NOTIFY',
     payload: 'Added album to favorite',
+  });
+};
+
+export const removeAlbumFromFavorite = album => dispatch => {
+  removeAlbum(album);
+  dispatch({
+    type: 'NOTIFY',
+    payload: 'Album removed from favorites',
   });
 };
 

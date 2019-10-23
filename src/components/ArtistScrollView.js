@@ -16,9 +16,7 @@ const ArtistScrollView = ({ data, title, navigateToSongs }) => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={() =>
-              navigateToSongs(item.songs, item.artwork, item.album)
-            }
+            onPress={() => navigateToSongs(item)}
           >
             <FastImage source={{ uri: item.artwork }} style={styles.artist} />
             <Paragraph numberOfLines={1}>{item.album}</Paragraph>
