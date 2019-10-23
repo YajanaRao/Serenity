@@ -221,12 +221,30 @@ export const addArtist = artists => {
 export const addAlbum = album => {
   realm.write(() => {
     realm.create(ALBUM_SCHEMA_NAME, {
-      id: generateAlbumId(),
-      name: album.name,
-      cover: album.cover,
+      id: album.id.toString(),
+      name: album.album,
+      cover: album.artwork,
       artist: album.artist,
     });
   });
+};
+
+export const removeAlbum = album => {
+  realm.write(() => {
+    const albumObject = realm.objectForPrimaryKey(
+      ALBUM_SCHEMA_NAME,
+      album.id.toString(),
+    );
+    realm.delete(albumObject);
+  });
+};
+
+export const isAlbumPresent = id => {
+  const album = realm.objectForPrimaryKey(ALBUM_SCHEMA_NAME, id.toString());
+  if (album) {
+    return true;
+  }
+  return false;
 };
 
 export const getArtists = () => {

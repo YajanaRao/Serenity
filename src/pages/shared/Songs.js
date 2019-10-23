@@ -11,15 +11,14 @@ import FavContainer from '../../containers/FavContainer';
 
 class Songs extends Component {
   static navigationOptions = ({ navigation }) => {
-    const item = {};
-    item.cover = navigation.getParam('img');
-    item.name = navigation.getParam('title');
+    const { params } = navigation.state;
+    const item = params.artist || params.album;
     // header: null
     return {
-      headerTitle: navigation.getParam('title'),
+      headerTitle: item.album || item.artist,
       headerRight: (
         <View style={{ flexDirection: 'row' }}>
-          <FavContainer item={item} type="album" />
+          <FavContainer item={item} type={params.album ? 'album' : 'artist'} />
           <IconButton
             icon="play-circle-outline"
             onPress={navigation.getParam('addToQueue')}
@@ -36,21 +35,24 @@ class Songs extends Component {
 
   addSongsToQueue = () => {
     const { navigation, addToQueue } = this.props;
-    const songs = navigation.getParam('songs');
-    addToQueue(songs);
+    const { params } = navigation.state;
+    const collection = params.album;
+    addToQueue(collection.songs);
   };
 
   render() {
     const { navigation } = this.props;
-
-    const songs = navigation.getParam('songs', []);
-    const albumImage = navigation.getParam('img');
-    const title = navigation.getParam('title', 'No Title');
+    const { params } = navigation.state;
+    const collection = params.artist || params.album;
 
     return (
       <Screen>
         <View style={styles.scrollViewContent}>
-          <SongListContainer data={songs} cover={albumImage} title={title} />
+          <SongListContainer
+            data={collection.songs}
+            cover={collection.artwork}
+            title={collection.album}
+          />
           <View style={{ height: 100 }} />
         </View>
       </Screen>

@@ -2,7 +2,12 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addSongToFavorite, addAlbumToFavorite } from '../actions/playerState';
+import {
+  addSongToFavorite,
+  addAlbumToFavorite,
+  removeAlbumFromFavorite,
+} from '../actions/playerState';
+import { isAlbumPresent } from '../actions/realmAction';
 import Fav from '../components/Fav';
 
 class FavContainer extends PureComponent {
@@ -11,6 +16,19 @@ class FavContainer extends PureComponent {
     this.state = {
       liked: false,
     };
+  }
+
+  componentDidMount() {
+    const { type, item } = this.props;
+    if (type === 'album') {
+      console.log(isAlbumPresent(item.id));
+      if (isAlbumPresent(item.id)) {
+        console.log('checking album is true');
+        this.setState({
+          liked: true,
+        });
+      }
+    }
   }
 
   addToFavourite = () => {
@@ -27,6 +45,10 @@ class FavContainer extends PureComponent {
   };
 
   removeFromFavorite = () => {
+    const { item, type, removeAlbumFromFavorite } = this.props;
+    if (type === 'album') {
+      removeAlbumFromFavorite(item);
+    }
     this.setState({
       liked: false,
     });
@@ -57,5 +79,5 @@ FavContainer.defaultProps = {
 
 export default connect(
   null,
-  { addSongToFavorite, addAlbumToFavorite },
+  { addSongToFavorite, addAlbumToFavorite, removeAlbumFromFavorite },
 )(FavContainer);

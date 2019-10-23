@@ -6,7 +6,7 @@ import AlbumScrollView from '../components/AlbumScrollView';
 class Top20Container extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { isLoading: true, data: [] };
+    this.state = { data: [] };
   }
 
   componentDidMount() {
@@ -17,7 +17,6 @@ class Top20Container extends React.PureComponent {
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
-            isLoading: false,
             data: responseJson,
           });
         })
@@ -29,19 +28,19 @@ class Top20Container extends React.PureComponent {
     }
   }
 
-  navigateToSongs = (songs, artwork, title) => {
-    this.props.navigation.navigate('Songs', {
-      songs,
-      img: artwork,
-      title,
+  navigateToSongs = album => {
+    const { navigation } = this.props;
+    navigation.navigate('Songs', {
+      album: album,
     });
   };
 
   render() {
+    const { data } = this.state;
     return (
       <AlbumScrollView
         title="Top 15"
-        data={this.state.data}
+        data={data}
         navigateToSongs={this.navigateToSongs}
       />
     );
