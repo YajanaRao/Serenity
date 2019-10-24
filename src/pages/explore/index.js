@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import AlbumScreen from './Album';
 import ArtistScreen from './Artist';
 import PlaylistScreen from './Playlist';
-import CollectionScreen from '../shared/Collection';
+import PlaylistSongs from '../shared/PlaylistSongs';
 import AlbumSongs from '../shared/AlbumSongs';
 import ArtistSongs from '../shared/ArtistSongs';
 
@@ -34,7 +34,7 @@ export default createStackNavigator(
         header: null,
       },
     },
-    Songs: CollectionScreen,
+    Songs: PlaylistSongs,
     AlbumSongs,
     ArtistSongs,
   },
