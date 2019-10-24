@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import ArtistComponent from '../../components/ArtistComponent';
 import { addArtist, getArtists } from '../../actions/realmAction';
 import { deserializeArtists } from '../../utils/database';
+import log from '../../utils/logging';
 import Screen from '../../components/Screen';
 
 class Artist extends Component {
@@ -42,7 +43,7 @@ class Artist extends Component {
           });
         })
         .catch(error => {
-          console.log(error);
+          log(error);
           this.setState({
             visible: false,
           });
@@ -59,7 +60,7 @@ class Artist extends Component {
         }
       });
     } catch (error) {
-      console.log(error);
+      log(error);
     }
   }
 
@@ -89,6 +90,7 @@ class Artist extends Component {
   render() {
     const {
       theme: { colors },
+      navigation: { navigate },
     } = this.props;
     const { visible, firstQuery, artists, data } = this.state;
     return (
@@ -97,9 +99,9 @@ class Artist extends Component {
           ListHeaderComponent={() => (
             <List.Item
               title="Add artist"
-              left={props => (
+              left={() => (
                 <Avatar.Icon
-                  {...props}
+                  // {...props}
                   style={{ backgroundColor: colors.surface }}
                   icon="plus"
                 />
@@ -112,10 +114,12 @@ class Artist extends Component {
           renderItem={({ item }) => (
             <List.Item
               title={item.name}
-              left={props => (
-                <Avatar.Image {...props} source={{ uri: item.cover }} />
-              )}
-              // onPress={this._showDialog}
+              left={() => <Avatar.Image source={{ uri: item.cover }} />}
+              onPress={() => {
+                navigate('ArtistSongs', {
+                  artist: item,
+                });
+              }}
             />
           )}
         />

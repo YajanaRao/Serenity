@@ -42,9 +42,9 @@ class Album extends React.Component {
 
   render() {
     const { albums } = this.state;
-    // const {
-    //   navigation: { navigate }
-    // } = this.props;
+    const {
+      navigation: { navigate },
+    } = this.props;
     return (
       <Screen>
         {albums.length ? (
@@ -55,19 +55,18 @@ class Album extends React.Component {
               <List.Item
                 title={item.name}
                 description={item.artist}
-                left={props => (
+                left={() => (
                   <FastImage
-                    {...props}
+                    // {...props}
                     source={{ uri: item.cover }}
                     style={{ width: 50, height: 50, borderRadius: 4 }}
                   />
                 )}
-                // onPress={() =>
-                //   navigate("Songs", {
-                //     songs: item.songs,
-                //     img: item.artwork,
-                //     title: item.album
-                //   })}
+                onPress={() => {
+                  navigate('AlbumSongs', {
+                    album: item,
+                  });
+                }}
               />
             )}
           />
