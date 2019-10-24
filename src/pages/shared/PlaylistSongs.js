@@ -29,6 +29,7 @@ import Screen from '../../components/Screen';
 import log, { logEvent } from '../../utils/logging';
 
 // fix on click issue
+// {"accent": "#03dac6", "backdrop": "rgba(0, 0, 0, 0.5)", "background": "#121212", "disabled": "rgba(255, 255, 255, 0.38)", "error": "#CF6679", "notification": "#ff80ab", "onBackground": "#FFFFFF", "onSurface": "#FFFFFF", "placeholder": "rgba(255, 255, 255, 0.54)", "primary": "#BB86FC", "surface": "#121212", "text": "#ffffff"}
 
 class Collection extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -147,13 +148,16 @@ class Collection extends Component {
     this.bs.current.snapTo(0);
   };
 
-  renderInner = colors => {
+  renderInner = () => {
+    const {
+      theme: { colors },
+    } = this.props;
     const { playlist } = this.state;
     const { name, owner, songs } = playlist;
     return (
       <View style={styles.panel}>
         <LinearGradient
-          colors={['rgba(0,0,0, .9)', colors.surface]}
+          colors={['rgba(0,0,0, .9)', colors.background, colors.surface]}
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <TouchableWithoutFeedback
@@ -229,9 +233,6 @@ class Collection extends Component {
   };
 
   render() {
-    const {
-      theme: { colors },
-    } = this.props;
     const { playlist, visible, playlistName } = this.state;
     const { name, owner, songs } = playlist;
 
@@ -258,7 +259,7 @@ class Collection extends Component {
           <BottomSheet
             ref={this.bs}
             snapPoints={['100%', 0]}
-            renderContent={() => this.renderInner(colors)}
+            renderContent={this.renderInner}
             initialSnap={1}
             callbackNode={this.sheetOpenValue}
           />
