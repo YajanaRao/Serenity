@@ -75,25 +75,16 @@ class Album extends React.PureComponent {
                   ) : (
                     <FastImage
                       {...props}
-                      source={{ uri: `file://${item.cover}` }}
+                      source={{ uri: item.cover }}
                       style={styles.icons}
                     />
                   )
                 }
                 description={`${item.numberOfSongs} songs`}
                 onPress={() => {
-                  if (item.cover == 'null') {
-                    navigate('Filter', {
-                      album: item.album,
-                      title: item.album,
-                    });
-                  } else {
-                    navigate('Filter', {
-                      album: item.album,
-                      img: `file://${item.cover}`,
-                      title: item.album,
-                    });
-                  }
+                  navigate('Filter', {
+                    album: item,
+                  });
                 }}
               />
             )}

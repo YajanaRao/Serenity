@@ -97,7 +97,7 @@ class FavContainer extends PureComponent {
       <Fav
         liked={liked}
         style={style}
-        addToFavorite={this.addToFavourite}
+        addToFavorite={this.addToFavorite}
         removeFromFavorite={this.removeFromFavorite}
       />
     );

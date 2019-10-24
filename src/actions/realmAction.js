@@ -243,7 +243,7 @@ export const addAlbum = album => {
     realm.create(ALBUM_SCHEMA_NAME, {
       id: album.id.toString(),
       name: album.album,
-      cover: album.artwork,
+      cover: album.artwork || album.cover,
       artist: album.artist,
     });
   });

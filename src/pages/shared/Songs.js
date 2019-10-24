@@ -13,7 +13,6 @@ class Songs extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
     const item = params.artist || params.album;
-    // header: null
     return {
       headerTitle: item.album || item.artist,
       headerRight: (
