@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { Chip, Avatar, Badge, Caption } from 'react-native-paper';
+import { Avatar, Badge, Caption } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
-import FastImage from 'react-native-fast-image';
 
-function ArtistComponent(props) {
+function ArtistComponent({ item, addArtist }) {
   const [selected, selectArtist] = useState(false);
 
   const selectArtits = () => {
     selectArtist(true);
-    props.addArtist(props.item);
+    addArtist(item);
   };
 
   return (
     <TouchableOpacity
-      style={{ margin: 8, justifyContent: 'center', alignItems: 'center' }}
+      style={{
+        margin: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+      }}
       onPress={selectArtits}
     >
       <Badge
@@ -27,11 +31,11 @@ function ArtistComponent(props) {
         visible={selected}
       />
       <Avatar.Image
-        source={{ uri: props.item.artwork }}
-        size={80}
+        source={{ uri: item.artwork }}
+        // size={80}
         style={{ margin: 0 }}
       />
-      <Caption>{props.item.artist}</Caption>
+      <Caption>{item.artist}</Caption>
     </TouchableOpacity>
   );
 }

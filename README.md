@@ -8,11 +8,37 @@
 
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
-<img src="https://dl.dropboxusercontent.com/s/8fnqviwlsj2gefl/screenshot-2019-07-16_19.38.22.634.png?dl=0"
-     alt="homepage"
-     height="490"
-     width="270"
-     style="float: left; margin-right: 10px;" />
+<p float="left">
+     <img src="https://dl.dropboxusercontent.com/s/wxw2in2ikslg7f9/Screenshot_2019-10-23-23-33-42-998_com.serenity.png?dl=0"
+          alt="homepage"
+          height="320"
+          width="160"
+          style="float: left; margin-right: 10px;" />
+     <img src="https://dl.dropboxusercontent.com/s/1eq9fpi57i9uedq/Screenshot_2019-10-23-23-33-48-532_com.serenity.png?dl=0"
+         alt="searchpage"
+         height="320"
+         width="160"
+         style="float: left; margin-right: 10px;"
+     />
+     <img src="https://dl.dropboxusercontent.com/s/dbjbqfuabinty3m/Screenshot_2019-10-23-23-34-17-429_com.serenity.png?dl=0"
+         alt="albumpage"
+         height="320"
+         width="160"
+         style="float: left; margin-right: 10px;"
+     />
+     <img src="https://dl.dropboxusercontent.com/s/mcw8uasljo52274/Screenshot_2019-10-23-23-35-41-341_com.serenity.png?dl=0"
+         alt="albumpage"
+         height="320"
+         width="160"
+         style="float: left; margin-right: 10px;"
+     />
+     <img src="https://dl.dropboxusercontent.com/s/nzkbnzh635cvv4q/Screenshot_2019-10-23-23-33-52-889_com.serenity.png?dl=0"
+         alt="playlistpage"
+         height="320"
+         width="160"
+         style="float: left; margin-right: 10px;"
+     />
+</p>
 
 ## What is this?
 
@@ -52,26 +78,24 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Play audio
 - Support for local files
 - Browsing by genre
+- Loading saved playlists
+- Song queue, which can be exported as a playlist
 
 ## Planned features
 
+- Radio mode (automatically queue similar tracks)
 - Creating a backup on Google Drive and sync audio from it 🎶
 - Support for web (React Native Web) and Windows desktop (React Native Windows)
 - Searching for and playing music from YouTube (including integration with playlists), bandcamp (including albums), and soundcloud
 - Searching for related songs in YouTube
 - Downloading from YouTube
 - Searching for albums (powered by last.fm and musicbrainz), album view, automatic song lookup based on artist and track name (in progress, can be dodgy sometimes)
-- Song queue, which can be exported as a playlist
-- Loading saved playlists
 - Newest releases with reviews - tracks and albums
-- Radio mode (automatically queue similar tracks)
 - Real time lyrics
 - Browsing by popularity
 - Country-specific top lists
 - Listening suggestions (similar artists, albums, tracks)
 - Unlimited downloads
-
-Build apk by running command `react-native run-android --variant=release`
 
 ## Development Process
 

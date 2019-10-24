@@ -14,17 +14,20 @@ import PropTypes from 'prop-types';
 
 import ArtistComponent from '../../components/ArtistComponent';
 import { addArtist, getArtists } from '../../actions/realmAction';
-import realm from '../../database';
+import { deserializeArtists } from '../../utils/database';
+import log from '../../utils/logging';
 import Screen from '../../components/Screen';
 
 class Artist extends Component {
   constructor(props) {
     super(props);
+    this.realmArtists = getArtists();
+    const artists = deserializeArtists(this.realmArtists);
     this.state = {
       data: [],
       visible: false,
       addArtists: [],
-      artists: [],
+      artists,
     };
   }
 
@@ -37,36 +40,37 @@ class Artist extends Component {
         .then(responseJson => {
           this.setState({
             data: responseJson,
-            artists: getArtists(),
           });
         })
         .catch(error => {
-          console.log(error);
+          log(error);
           this.setState({
             visible: false,
-            artists: getArtists(),
           });
         });
-      realm.addListener('change', () => {
-        this.setState({
-          artists: getArtists(),
-        });
+      this.realmArtists.addListener((artists, changes) => {
+        if (
+          changes.insertions.length > 0 ||
+          changes.modifications.length > 0 ||
+          changes.deletions.length > 0
+        ) {
+          this.setState({
+            artists: deserializeArtists(artists),
+          });
+        }
       });
     } catch (error) {
-      console.log(error);
+      log(error);
     }
   }
 
   componentWillUnmount() {
-    realm.removeAllListeners();
+    this.realmArtists.removeAllListeners();
   }
 
   addArtistsToArray = artist => {
-    const data = [];
     const { addArtists } = this.state;
-    data.name = artist.artist;
-    data.cover = artist.artwork;
-    addArtists.push(data);
+    addArtists.push(artist);
   };
 
   addArtists = () => {
@@ -86,6 +90,7 @@ class Artist extends Component {
   render() {
     const {
       theme: { colors },
+      navigation: { navigate },
     } = this.props;
     const { visible, firstQuery, artists, data } = this.state;
     return (
@@ -94,9 +99,9 @@ class Artist extends Component {
           ListHeaderComponent={() => (
             <List.Item
               title="Add artist"
-              left={props => (
+              left={() => (
                 <Avatar.Icon
-                  {...props}
+                  // {...props}
                   style={{ backgroundColor: colors.surface }}
                   icon="plus"
                 />
@@ -109,10 +114,12 @@ class Artist extends Component {
           renderItem={({ item }) => (
             <List.Item
               title={item.name}
-              left={props => (
-                <Avatar.Image {...props} source={{ uri: item.cover }} />
-              )}
-              // onPress={this._showDialog}
+              left={() => <Avatar.Image source={{ uri: item.cover }} />}
+              onPress={() => {
+                navigate('ArtistSongs', {
+                  artist: item,
+                });
+              }}
             />
           )}
         />

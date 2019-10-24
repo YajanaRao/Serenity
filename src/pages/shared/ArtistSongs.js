@@ -4,21 +4,26 @@ import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addToQueue } from '../../actions/playerState';
+import { findArtistSongs } from '../../actions/mediaStore';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
+import FavContainer from '../../containers/FavContainer';
 
-class Filter extends Component {
+class ArtistSongs extends Component {
   static navigationOptions = ({ navigation }) => {
     const {
-      params: { genre },
+      params: { artist },
     } = navigation.state;
     return {
-      headerTitle: genre.title,
+      headerTitle: artist.name || artist.artist,
       headerRight: (
-        <IconButton
-          icon="play-circle-outline"
-          onPress={navigation.getParam('addToQueue')}
-        />
+        <View style={{ flexDirection: 'row' }}>
+          <FavContainer item={artist} type="artist" />
+          <IconButton
+            icon="play-circle-outline"
+            onPress={navigation.getParam('addToQueue')}
+          />
+        </View>
       ),
     };
   };
@@ -43,22 +48,23 @@ class Filter extends Component {
   };
 
   fetchData = () => {
-    // const { navigation } = this.props;
-    // const { params } = navigation.state;
-    // const collection = params.artist || params.album;
-    // if (params.artist) {
-    //   findArtistSongs(collection.artist);
-    // } else if (params.album) {
-    //   findAlbumSongs(collection.album);
-    // }
+    const { navigation } = this.props;
+    const {
+      params: { artist },
+    } = navigation.state;
+    const songsPromise = findArtistSongs(artist.name || artist.artist);
+    songsPromise.then(songs => {
+      this.setState({
+        files: songs,
+      });
+    });
   };
 
   render() {
     const { navigation } = this.props;
     const { files } = this.state;
-
     const {
-      params: { genre },
+      params: { artist },
     } = navigation.state;
 
     return (
@@ -67,8 +73,8 @@ class Filter extends Component {
           <SongListContainer
             data={files}
             fetchData={this.fetchData}
-            title={genre.title}
-            cover={genre.image}
+            title={artist.name || artist.artist}
+            cover={artist.cover}
           />
         </View>
       </Screen>
@@ -76,19 +82,15 @@ class Filter extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  files: state.mediaStore.files,
-});
-
-Filter.propTypes = {
+ArtistSongs.propTypes = {
   navigation: PropTypes.object.isRequired,
   addToQueue: PropTypes.func.isRequired,
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   { addToQueue },
-)(Filter);
+)(ArtistSongs);
 
 const styles = StyleSheet.create({
   scrollViewContent: {

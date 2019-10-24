@@ -31,7 +31,7 @@ class ArtistContainer extends React.PureComponent {
   navigateToSongs = artist => {
     const { navigation } = this.props;
     navigation.navigate('Songs', {
-      artist: artist,
+      artist,
     });
   };
 

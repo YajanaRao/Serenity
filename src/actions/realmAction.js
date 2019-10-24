@@ -203,19 +203,39 @@ export const addArtist = artists => {
     if (Array.isArray(artists)) {
       artists.forEach(artist => {
         realm.create(ARTIST_SCHEMA_NAME, {
-          id: generateArtistId(),
-          name: artist.name,
-          cover: artist.cover,
+          id: artist.id.toString(),
+          name: artist.artist,
+          cover: artist.artwork,
         });
       });
     } else {
       realm.create(ARTIST_SCHEMA_NAME, {
-        id: generateArtistId(),
-        name: artists.name,
-        cover: artists.cover,
+        id: artists.id.toString(),
+        name: artists.artist,
+        cover: artists.artwork,
       });
     }
   });
+};
+
+export const removeArtist = id => {
+  realm.write(() => {
+    const artistObject = realm.objectForPrimaryKey(
+      ARTIST_SCHEMA_NAME,
+      id.toString(),
+    );
+    if (artistObject) {
+      realm.delete(artistObject);
+    }
+  });
+};
+
+export const isArtistPresent = id => {
+  const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id.toString());
+  if (artist) {
+    return true;
+  }
+  return false;
 };
 
 export const addAlbum = album => {
@@ -223,17 +243,17 @@ export const addAlbum = album => {
     realm.create(ALBUM_SCHEMA_NAME, {
       id: album.id.toString(),
       name: album.album,
-      cover: album.artwork,
+      cover: album.artwork || album.cover,
       artist: album.artist,
     });
   });
 };
 
-export const removeAlbum = album => {
+export const removeAlbum = id => {
   realm.write(() => {
     const albumObject = realm.objectForPrimaryKey(
       ALBUM_SCHEMA_NAME,
-      album.id.toString(),
+      id.toString(),
     );
     realm.delete(albumObject);
   });
@@ -249,7 +269,7 @@ export const isAlbumPresent = id => {
 
 export const getArtists = () => {
   try {
-    return values(realm.objects(ARTIST_SCHEMA_NAME));
+    return realm.objects(ARTIST_SCHEMA_NAME);
   } catch (error) {
     log('getArtists: ', error);
     return [];

@@ -1,10 +1,12 @@
-import {createStackNavigator} from 'react-navigation-stack';
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import AlbumScreen from './Album';
 import ArtistScreen from './Artist';
 import PlaylistScreen from './Playlist';
-import Collection from '../shared/Collection';
+import PlaylistSongs from '../shared/PlaylistSongs';
+import AlbumSongs from '../shared/AlbumSongs';
+import ArtistSongs from '../shared/ArtistSongs';
 
 const PlaylistStack = createStackNavigator({
   Playlist: PlaylistScreen,
@@ -19,9 +21,9 @@ const AlbumStack = createStackNavigator({
 });
 
 const TabNavigator = createMaterialTopTabNavigator({
-  Playlist: {screen: PlaylistStack},
-  Artist: {screen: ArtistStack},
-  Album: {screen: AlbumStack},
+  Playlist: { screen: PlaylistStack },
+  Artist: { screen: ArtistStack },
+  Album: { screen: AlbumStack },
 });
 
 export default createStackNavigator(
@@ -32,11 +34,13 @@ export default createStackNavigator(
         header: null,
       },
     },
-    Songs: Collection,
+    Songs: PlaylistSongs,
+    AlbumSongs,
+    ArtistSongs,
   },
   {
-    defaultNavigationOptions: ({screenProps}) => {
-      const {colors} = screenProps.theme;
+    defaultNavigationOptions: ({ screenProps }) => {
+      const { colors } = screenProps.theme;
       return {
         headerStyle: {
           backgroundColor: colors.surface,

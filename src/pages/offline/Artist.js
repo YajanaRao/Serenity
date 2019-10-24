@@ -79,9 +79,8 @@ class Artist extends React.PureComponent {
                   />
                 )}
                 onPress={() =>
-                  navigate('Filter', {
-                    artist: item.artist,
-                    title: item.artist,
+                  navigate('ArtistSongs', {
+                    artist: item,
                   })
                 }
               />

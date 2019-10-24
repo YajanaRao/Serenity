@@ -234,15 +234,15 @@ export const addAlbumToFavorite = album => dispatch => {
   addAlbum(album);
   dispatch({
     type: 'NOTIFY',
-    payload: 'Added album to favorite',
+    payload: `Added album ${album.album} to favorite`,
   });
 };
 
 export const removeAlbumFromFavorite = album => dispatch => {
-  removeAlbum(album);
+  removeAlbum(album.id);
   dispatch({
     type: 'NOTIFY',
-    payload: 'Album removed from favorites',
+    payload: `Album removed from favorites`,
   });
 };
 
