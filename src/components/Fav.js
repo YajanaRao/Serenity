@@ -4,7 +4,7 @@ import { IconButton } from 'react-native-paper';
 import PropTypes from 'prop-types';
 
 const Fav = ({ style, liked, addToFavorite, removeFromFavorite }) => (
-  <View style={style}>
+  <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
     {liked ? (
       <IconButton animated icon="heart" onPress={removeFromFavorite} />
     ) : (
@@ -20,9 +20,9 @@ Fav.propTypes = {
   removeFromFavorite: PropTypes.func,
 };
 
-Fav.defaultProps = {
-  style: {},
-  liked: false,
-};
+// Fav.defaultProps = {
+//   style: {alignItems: 'center' },
+//   liked: false,
+// };
 
 export default Fav;

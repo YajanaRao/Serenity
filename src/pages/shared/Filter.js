@@ -8,17 +8,23 @@ import { addToQueue } from '../../actions/playerState';
 import { filterAlbumSongs, filterArtistSongs } from '../../actions/mediaStore';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
+import FavContainer from '../../containers/FavContainer';
 
 class Filter extends Component {
   static navigationOptions = ({ navigation }) => {
-    // header: null
+    const { params } = navigation.state;
+    const item = params.artist || params.album;
+    console.log(item);
     return {
-      headerTitle: navigation.getParam('title'),
+      headerTitle: item.album || item.artist,
       headerRight: (
-        <IconButton
-          icon="play-circle-outline"
-          onPress={navigation.getParam('addToQueue')}
-        />
+        <View style={{ flexDirection: 'row' }}>
+          <FavContainer item={item} type={item.album ? 'album' : 'artist'} />
+          <IconButton
+            icon="play-circle-outline"
+            onPress={navigation.getParam('addToQueue')}
+          />
+        </View>
       ),
     };
   };
@@ -53,15 +59,13 @@ class Filter extends Component {
 
   fetchData = () => {
     const { navigation, filterAlbumSongs, filterArtistSongs } = this.props;
+    const { params } = navigation.state;
+    const collection = params.artist || params.album;
 
-    const album = navigation.getParam('album', null);
-    const artist = navigation.getParam('artist', null);
-    const image = navigation.getParam('img');
-
-    if (artist) {
-      filterArtistSongs(artist, image);
-    } else if (album) {
-      filterAlbumSongs(album, image);
+    if (params.artist) {
+      filterArtistSongs(collection.artist, collection.cover);
+    } else if (params.album) {
+      filterAlbumSongs(collection.album, collection.cover);
     }
   };
 
@@ -69,8 +73,8 @@ class Filter extends Component {
     const { navigation } = this.props;
     const { files } = this.state;
 
-    const albumImage = navigation.getParam('img');
-    const title = navigation.getParam('title', 'No Title');
+    const { params } = navigation.state;
+    const collection = params.artist || params.album;
 
     return (
       <Screen>
@@ -78,8 +82,8 @@ class Filter extends Component {
           <SongListContainer
             data={files}
             fetchData={this.fetchData}
-            title={title}
-            cover={albumImage}
+            title={collection.album || collection.artist}
+            cover={collection.cover}
           />
         </View>
       </Screen>
