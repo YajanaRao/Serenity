@@ -12,7 +12,7 @@ const PlaylistComponent = props => {
         <List.Item
           title={item.name}
           description={`by ${item.owner}`}
-          left={props => <List.Icon {...props} icon="audiotrack" />}
+          left={props => <List.Icon {...props} icon="playlist-music" />}
           onPress={() => props.addToPlaylist(item.id, props.song)}
         />
       )}

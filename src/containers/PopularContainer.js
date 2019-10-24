@@ -2,6 +2,7 @@ import React from 'react';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import AlbumScrollView from '../components/AlbumScrollView';
+import log from '../utils/logging';
 
 class PopularContainer extends React.PureComponent {
   constructor(props) {
@@ -21,17 +22,17 @@ class PopularContainer extends React.PureComponent {
           });
         })
         .catch(error => {
-          console.log(error);
+          log(error);
         });
     } catch (error) {
-      console.log(error);
+      log(error);
     }
   }
 
   navigateToSongs = album => {
     const { navigation } = this.props;
     navigation.navigate('Songs', {
-      album: album,
+      album,
     });
   };
 

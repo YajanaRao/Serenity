@@ -7,8 +7,14 @@ import {
   addAlbumToFavorite,
   removeAlbumFromFavorite,
 } from '../actions/playerState';
-import { isAlbumPresent } from '../actions/realmAction';
+import {
+  isAlbumPresent,
+  isArtistPresent,
+  addArtist,
+  removeArtist,
+} from '../actions/realmAction';
 import Fav from '../components/Fav';
+import Follow from '../components/Follow';
 
 class FavContainer extends PureComponent {
   constructor(props) {
@@ -21,9 +27,13 @@ class FavContainer extends PureComponent {
   componentDidMount() {
     const { type, item } = this.props;
     if (type === 'album') {
-      console.log(isAlbumPresent(item.id));
       if (isAlbumPresent(item.id)) {
-        console.log('checking album is true');
+        this.setState({
+          liked: true,
+        });
+      }
+    } else if (type === 'artist') {
+      if (isArtistPresent(item.id)) {
         this.setState({
           liked: true,
         });
@@ -31,7 +41,23 @@ class FavContainer extends PureComponent {
     }
   }
 
-  addToFavourite = () => {
+  addArtistToFavorite = () => {
+    const { item } = this.props;
+    addArtist(item);
+    this.setState({
+      liked: true,
+    });
+  };
+
+  removeArtistFromFav = () => {
+    const { item } = this.props;
+    removeArtist(item.id);
+    this.setState({
+      liked: false,
+    });
+  };
+
+  addToFavorite = () => {
     const { item, type, addSongToFavorite, addAlbumToFavorite } = this.props;
     if (type === 'song') {
       addSongToFavorite(item);
@@ -56,7 +82,17 @@ class FavContainer extends PureComponent {
 
   render() {
     const { liked } = this.state;
-    const { style } = this.props;
+    const { style, type } = this.props;
+    if (type === 'artist') {
+      return (
+        <Follow
+          liked={liked}
+          style={style}
+          addToFavorite={this.addArtistToFavorite}
+          removeFromFavorite={this.removeArtistFromFav}
+        />
+      );
+    }
     return (
       <Fav
         liked={liked}
