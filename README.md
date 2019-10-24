@@ -7,12 +7,12 @@
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 
 A mobile music player focused on streaming from free sources. Built with Rich UI
-
+<p>
 <img src="https://dl.dropboxusercontent.com/s/wxw2in2ikslg7f9/Screenshot_2019-10-23-23-33-42-998_com.serenity.png?dl=0"
      alt="homepage"
      height="430"
      width="200"
-     style="float: left; margin-right: 10px;" />
+     style="float: left; margin-right: 10px;" /> |
 
 <img src="https://dl.dropboxusercontent.com/s/1eq9fpi57i9uedq/Screenshot_2019-10-23-23-33-48-532_com.serenity.png?dl=0"
     alt="searchpage"
@@ -41,7 +41,7 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
     width="200"
     style="float: left; margin-right: 10px;"
 />
-
+</p>
 ## What is this?
 
 Serenity is a world class music player which focuses on giving wonderful experience to the user.
