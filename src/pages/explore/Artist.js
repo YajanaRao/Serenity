@@ -14,17 +14,19 @@ import PropTypes from 'prop-types';
 
 import ArtistComponent from '../../components/ArtistComponent';
 import { addArtist, getArtists } from '../../actions/realmAction';
-import realm from '../../database';
+import { deserializeArtists } from '../../utils/database';
 import Screen from '../../components/Screen';
 
 class Artist extends Component {
   constructor(props) {
     super(props);
+    this.realmArtists = getArtists();
+    const artists = deserializeArtists(this.realmArtists);
     this.state = {
       data: [],
       visible: false,
       addArtists: [],
-      artists: [],
+      artists,
     };
   }
 
@@ -37,20 +39,24 @@ class Artist extends Component {
         .then(responseJson => {
           this.setState({
             data: responseJson,
-            artists: getArtists(),
           });
         })
         .catch(error => {
           console.log(error);
           this.setState({
             visible: false,
-            artists: getArtists(),
           });
         });
-      realm.addListener('change', () => {
-        this.setState({
-          artists: getArtists(),
-        });
+      this.realmArtists.addListener((artists, changes) => {
+        if (
+          changes.insertions.length > 0 ||
+          changes.modifications.length > 0 ||
+          changes.deletions.length > 0
+        ) {
+          this.setState({
+            artists: deserializeArtists(artists),
+          });
+        }
       });
     } catch (error) {
       console.log(error);
@@ -58,15 +64,12 @@ class Artist extends Component {
   }
 
   componentWillUnmount() {
-    realm.removeAllListeners();
+    this.realmArtists.removeAllListeners();
   }
 
   addArtistsToArray = artist => {
-    const data = [];
     const { addArtists } = this.state;
-    data.name = artist.artist;
-    data.cover = artist.artwork;
-    addArtists.push(data);
+    addArtists.push(artist);
   };
 
   addArtists = () => {

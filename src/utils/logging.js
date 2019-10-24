@@ -8,3 +8,11 @@ export default function log(string) {
     Analytics.trackEvent('error', string);
   }
 }
+
+export function logEvent(event, message) {
+  if (__DEV__) {
+    console.log(event, message);
+  } else {
+    Analytics.trackEvent(event, message);
+  }
+}

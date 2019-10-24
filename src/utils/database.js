@@ -31,6 +31,19 @@ export const deserializeAlbums = realmObject => {
   }
 };
 
+export const deserializeArtists = realmObject => {
+  try {
+    return values(realmObject).map(item => ({
+      id: item.id,
+      name: item.name,
+      cover: item.cover,
+    }));
+  } catch (error) {
+    log(error);
+    return [];
+  }
+};
+
 export const deserializePlaylists = realmObject => {
   return values(realmObject);
 };
