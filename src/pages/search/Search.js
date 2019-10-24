@@ -65,8 +65,7 @@ class Search extends Component {
                 onPress={() =>
                   navigate('Filter', {
                     songs: [],
-                    img: item.image,
-                    title: item.title,
+                    genre: item,
                   })
                 }
               >

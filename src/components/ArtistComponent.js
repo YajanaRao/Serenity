@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Chip, Avatar, Badge, Caption } from 'react-native-paper';
+import { Avatar, Badge, Caption } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
-import FastImage from 'react-native-fast-image';
 
 function ArtistComponent({ item, addArtist }) {
   const [selected, selectArtist] = useState(false);
