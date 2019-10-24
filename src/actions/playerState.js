@@ -242,7 +242,7 @@ export const removeAlbumFromFavorite = album => dispatch => {
   removeAlbum(album.id);
   dispatch({
     type: 'NOTIFY',
-    payload: `Album ${album.album} removed from favorites`,
+    payload: `Album removed from favorites`,
   });
 };
 

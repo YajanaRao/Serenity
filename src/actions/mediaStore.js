@@ -81,41 +81,32 @@ export const getOfflineAlbums = () => dispatch => {
     });
 };
 
-export const filterArtistSongs = (artist, image) => dispatch => {
-  RNAndroidAudioStore.getSongs({
-    artist,
-  })
-    .then(media => {
-      map(media, item => {
-        item.id = item.path;
-        item.url = item.path;
-        delete item.path;
-        item.artwork = image;
-        return item;
-      });
-      dispatch({
-        type: 'OFFLINE_FILES',
-        payload: media,
-      });
-    })
-    .catch(er => log(er));
-};
-
-export const filterAlbumSongs = (album, image) => dispatch => {
-  RNAndroidAudioStore.getSongs({
+export const findAlbumSongs = async album => {
+  const songs = await RNAndroidAudioStore.getSongs({
     album,
   })
     .then(media => {
-      map(media, item => {
+      return map(media, item => {
         item.url = item.path;
         delete item.path;
-        item.artwork = image;
         return item;
-      });
-      dispatch({
-        type: 'OFFLINE_FILES',
-        payload: media,
       });
     })
     .catch(er => log(er));
+  return songs;
+};
+
+export const findArtistSongs = async artist => {
+  const songs = await RNAndroidAudioStore.getSongs({
+    artist,
+  })
+    .then(media => {
+      return map(media, item => {
+        item.url = item.path;
+        delete item.path;
+        return item;
+      });
+    })
+    .catch(er => log(er));
+  return songs;
 };

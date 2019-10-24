@@ -82,7 +82,7 @@ class Album extends React.PureComponent {
                 }
                 description={`${item.numberOfSongs} songs`}
                 onPress={() => {
-                  navigate('Filter', {
+                  navigate('AlbumSongs', {
                     album: item,
                   });
                 }}

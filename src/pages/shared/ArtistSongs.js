@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { IconButton } from 'react-native-paper';
-import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addToQueue } from '../../actions/playerState';
-import { filterAlbumSongs, filterArtistSongs } from '../../actions/mediaStore';
+import { findArtistSongs } from '../../actions/mediaStore';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
 import FavContainer from '../../containers/FavContainer';
 
-class Filter extends Component {
+class ArtistSongs extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state;
-    const item = params.artist || params.album;
+    const {
+      params: { artist },
+    } = navigation.state;
     return {
-      headerTitle: item.album || item.artist,
+      headerTitle: artist.name || artist.artist,
       headerRight: (
         <View style={{ flexDirection: 'row' }}>
-          <FavContainer item={item} type={item.album ? 'album' : 'artist'} />
+          <FavContainer item={artist} type="artist" />
           <IconButton
             icon="play-circle-outline"
             onPress={navigation.getParam('addToQueue')}
@@ -35,15 +35,6 @@ class Filter extends Component {
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (!isEqual(props.files, state.files) || state.refreshing) {
-      return {
-        files: props.files,
-      };
-    }
-    return null;
-  }
-
   componentDidMount() {
     const { navigation } = this.props;
     this.fetchData();
@@ -57,23 +48,24 @@ class Filter extends Component {
   };
 
   fetchData = () => {
-    const { navigation, filterAlbumSongs, filterArtistSongs } = this.props;
-    const { params } = navigation.state;
-    const collection = params.artist || params.album;
-
-    if (params.artist) {
-      filterArtistSongs(collection.artist, collection.cover);
-    } else if (params.album) {
-      filterAlbumSongs(collection.album, collection.cover);
-    }
+    const { navigation } = this.props;
+    const {
+      params: { artist },
+    } = navigation.state;
+    const songsPromise = findArtistSongs(artist.name || artist.artist);
+    songsPromise.then(songs => {
+      this.setState({
+        files: songs,
+      });
+    });
   };
 
   render() {
     const { navigation } = this.props;
     const { files } = this.state;
-
-    const { params } = navigation.state;
-    const collection = params.artist || params.album;
+    const {
+      params: { artist },
+    } = navigation.state;
 
     return (
       <Screen>
@@ -81,8 +73,8 @@ class Filter extends Component {
           <SongListContainer
             data={files}
             fetchData={this.fetchData}
-            title={collection.album || collection.artist}
-            cover={collection.cover}
+            title={artist.name || artist.artist}
+            cover={artist.cover}
           />
         </View>
       </Screen>
@@ -90,25 +82,18 @@ class Filter extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  files: state.mediaStore.files,
-});
-
-Filter.propTypes = {
+ArtistSongs.propTypes = {
   navigation: PropTypes.object.isRequired,
   addToQueue: PropTypes.func.isRequired,
-  filterArtistSongs: PropTypes.func.isRequired,
-  filterAlbumSongs: PropTypes.func.isRequired,
 };
 
 export default connect(
-  mapStateToProps,
-  { addToQueue, filterAlbumSongs, filterArtistSongs },
-)(Filter);
+  null,
+  { addToQueue },
+)(ArtistSongs);
 
 const styles = StyleSheet.create({
   scrollViewContent: {
     marginTop: 10,
   },
-  artCover: { width: 200, height: 200, borderRadius: 12, elevation: 4 },
 });
