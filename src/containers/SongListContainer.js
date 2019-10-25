@@ -6,13 +6,22 @@ import { addToQueue, addToPlaylist } from '../actions/playerState';
 
 class SwipeListContainer extends React.PureComponent {
   render() {
-    const { fetchData, data, title, cover } = this.props;
+    const {
+      data,
+      title,
+      cover,
+      addToPlaylist,
+      addToQueue,
+      fetchData,
+    } = this.props;
     return (
       <SwipeList
         data={data}
         title={title}
         cover={cover}
         fetchData={fetchData}
+        addToPlaylist={addToPlaylist}
+        addToQueue={addToQueue}
       />
     );
   }

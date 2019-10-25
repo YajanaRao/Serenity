@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'io.fabric'
 
 import com.android.build.OutputFile
 
@@ -166,7 +167,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             shrinkResources true 
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -188,6 +189,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
@@ -209,4 +212,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
+apply plugin: 'com.google.gms.google-services'
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
