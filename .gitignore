@@ -30,6 +30,17 @@ build/
 local.properties
 *.iml
 
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
 # node.js
 #
 node_modules/
