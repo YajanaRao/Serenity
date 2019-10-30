@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -63,14 +62,12 @@ class Filter extends Component {
 
     return (
       <Screen>
-        <View style={styles.scrollViewContent}>
-          <SongListContainer
-            data={files}
-            fetchData={this.fetchData}
-            title={genre.title}
-            cover={genre.image}
-          />
-        </View>
+        <SongListContainer
+          data={files}
+          fetchData={this.fetchData}
+          title={genre.title}
+          cover={genre.image}
+        />
       </Screen>
     );
   }
@@ -89,9 +86,3 @@ export default connect(
   mapStateToProps,
   { addToQueue },
 )(Filter);
-
-const styles = StyleSheet.create({
-  scrollViewContent: {
-    marginTop: 10,
-  },
-});
