@@ -1,33 +1,41 @@
 import RNAndroidAudioStore from 'react-native-get-music-files';
 import map from 'lodash/map';
+import isEmpty from 'lodash/isEmpty';
 import log from '../utils/logging';
 
-export const updateQuery = query => dispatch => {
-  if (query) {
-    RNAndroidAudioStore.search({ searchParam: query })
-      .then(media => {
-        map(media, item => {
-          item.url = item.path;
-          item.id = item.path;
-          delete item.path;
-          return item;
+export const updateQuery = query => {
+  return async dispatch => {
+    if (query) {
+      const media = await RNAndroidAudioStore.search({ searchParam: query })
+        .then(songs => {
+          return map(songs, item => {
+            item.url = item.path;
+            delete item.path;
+            return item;
+          });
+        })
+        .catch(error => {
+          log(error);
         });
+
+      if (isEmpty(media)) {
+        dispatch({
+          type: 'UPDATE_QUERY',
+          payload: [],
+        });
+      } else {
         dispatch({
           type: 'UPDATE_QUERY',
           payload: media,
-          // query: query
         });
-      })
-      .catch(error => {
-        log(error);
+      }
+    } else {
+      dispatch({
+        type: 'UPDATE_QUERY',
+        payload: false,
       });
-  } else {
-    dispatch({
-      type: 'UPDATE_QUERY',
-      payload: false,
-      // query: query
-    });
-  }
+    }
+  };
 };
 
 export const getOfflineSongs = () => dispatch => {
