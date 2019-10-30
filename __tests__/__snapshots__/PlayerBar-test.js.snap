@@ -99,20 +99,22 @@ exports[`Blank component renders correctly 1`] = `
           Array [
             Object {
               "color": "#000000",
-              "fontFamily": "Helvetica Neue",
+              "fontFamily": "System",
+              "fontWeight": "400",
               "textAlign": "left",
-              "writingDirection": "ltr",
             },
             Array [
               Object {
                 "color": "rgba(0, 0, 0, 0.87)",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
                 "writingDirection": "ltr",
               },
               Array [
                 Object {
                   "fontSize": 16,
+                  "letterSpacing": 0.5,
                   "lineHeight": 24,
                   "marginVertical": 2,
                 },
@@ -123,6 +125,7 @@ exports[`Blank component renders correctly 1`] = `
               Array [
                 Object {
                   "fontSize": 16,
+                  "letterSpacing": 0.5,
                   "lineHeight": 24,
                   "marginVertical": 2,
                 },
@@ -142,20 +145,22 @@ exports[`Blank component renders correctly 1`] = `
           Array [
             Object {
               "color": "#000000",
-              "fontFamily": "Helvetica Neue",
+              "fontFamily": "System",
+              "fontWeight": "400",
               "textAlign": "left",
-              "writingDirection": "ltr",
             },
             Array [
               Object {
                 "color": "rgba(0, 0, 0, 0.54)",
-                "fontFamily": "Helvetica Neue",
+                "fontFamily": "System",
+                "fontWeight": "400",
                 "textAlign": "left",
                 "writingDirection": "ltr",
               },
               Array [
                 Object {
                   "fontSize": 12,
+                  "letterSpacing": 0.4,
                   "lineHeight": 20,
                   "marginVertical": 2,
                 },
@@ -166,6 +171,7 @@ exports[`Blank component renders correctly 1`] = `
               Array [
                 Object {
                   "fontSize": 12,
+                  "letterSpacing": 0.4,
                   "lineHeight": 20,
                   "marginVertical": 2,
                 },
@@ -191,6 +197,7 @@ exports[`Blank component renders correctly 1`] = `
     >
       <View
         accessibilityRole="button"
+        accessibilityStates={Array []}
         accessible={true}
         focusable={true}
         hitSlop={
@@ -217,12 +224,14 @@ exports[`Blank component renders correctly 1`] = `
             Array [
               Object {
                 "alignItems": "center",
-                "borderRadius": 18,
-                "height": 36,
                 "justifyContent": "center",
                 "margin": 6,
-                "overflow": "visible",
-                "width": 36,
+                "overflow": "hidden",
+              },
+              Object {
+                "borderRadius": 25.5,
+                "height": 51,
+                "width": 51,
               },
               undefined,
               Object {
@@ -291,7 +300,7 @@ exports[`Blank component renders correctly 1`] = `
                       },
                     ],
                     Object {
-                      "fontFamily": "Material Icons",
+                      "fontFamily": "Material Design Icons",
                       "fontStyle": "normal",
                       "fontWeight": "normal",
                     },
@@ -299,7 +308,7 @@ exports[`Blank component renders correctly 1`] = `
                   ]
                 }
               >
-                
+                
               </Text>
             </View>
           </View>
