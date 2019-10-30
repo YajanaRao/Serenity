@@ -41,6 +41,9 @@ local.properties
 # Java class files
 *.class
 
+## Debug files
+*.hprof
+
 # node.js
 #
 node_modules/
