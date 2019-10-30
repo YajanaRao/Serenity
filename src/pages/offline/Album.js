@@ -41,6 +41,9 @@ class Album extends React.PureComponent {
       refreshing: true,
     });
     getOfflineAlbums();
+    this.setState({
+      refreshing: false,
+    });
   };
 
   static navigationOptions = {

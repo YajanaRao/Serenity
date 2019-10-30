@@ -39,6 +39,9 @@ class Artist extends React.PureComponent {
       refreshing: true,
     });
     getOfflineArtists();
+    this.setState({
+      refreshing: false,
+    });
   };
 
   static navigationOptions = {

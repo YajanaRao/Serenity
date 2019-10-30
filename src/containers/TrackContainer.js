@@ -24,7 +24,7 @@ class TrackContainer extends React.Component {
 
   componentDidMount() {
     const { track, active } = this.props;
-    if (!isUndefined(active)) {
+    if (!isUndefined(active) && track.id) {
       if (isEqual(active.id, track.id)) {
         this.setState({
           isActive: true,

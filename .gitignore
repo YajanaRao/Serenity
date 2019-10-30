@@ -30,6 +30,20 @@ build/
 local.properties
 *.iml
 
+# Built application files
+*.apk
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+## Debug files
+*.hprof
+
 # node.js
 #
 node_modules/
@@ -54,3 +68,6 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+# firebase
+*/google-services.json

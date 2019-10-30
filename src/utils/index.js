@@ -11,14 +11,16 @@ const fetchLyrics = (artistName, songName) => {
     });
 };
 
-export const getLyrics = async song => {
+const getLyrics = async song => {
   try {
     let lyric = '';
     if (song.artist && song.title) {
       lyric = fetchLyrics(song.artist, song.title);
-      return lyric;
     }
+    return lyric;
   } catch (error) {
     return error;
   }
 };
+
+export default getLyrics;

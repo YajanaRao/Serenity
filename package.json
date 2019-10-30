@@ -1,7 +1,7 @@
 {
   "name": "Serenity",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -28,7 +28,7 @@
     "react-native-gesture-handler": "^1.4.1",
     "react-native-get-music-files": "https://github.com/YajanaRao/react-native-get-music-files.git",
     "react-native-linear-gradient": "^2.5.6",
-    "react-native-paper": "^3.0.0",
+    "react-native-paper": "^3.1.1",
     "react-native-reanimated": "^1.2.0",
     "react-native-share": "^2.0.0",
     "react-native-swipe-list-view": "^2.0.0",
