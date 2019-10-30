@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import values from 'lodash/values';
+import { deserializeSongs } from '../utils/database';
 
 import TrackScrollView from '../components/TrackScrollView';
 import { loadTrackPlayer, playTrack } from '../actions/playerState';
@@ -12,7 +12,7 @@ class RecentContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.realmSongs = getPlayedSongs();
-    const history = values(this.realmSongs);
+    const history = deserializeSongs(this.realmSongs);
     this.state = {
       history,
     };
@@ -27,9 +27,9 @@ class RecentContainer extends PureComponent {
           changes.modifications.length > 0 ||
           changes.deletions.length > 0
         ) {
-          const song = values(songs);
+          const song = deserializeSongs(songs);
           this.setState({
-            history: song
+            history: song,
           });
         }
       });

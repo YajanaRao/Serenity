@@ -127,10 +127,12 @@ class RootScreen extends React.Component {
 
   // FIXME: Need to enhance start up time
 
-  componentDidMount = () => {
-    this.requestPermission();
-    this.checkForCrash();
-  };
+  componentDidMount() {
+    requestAnimationFrame(() => {
+      this.requestPermission();
+      this.checkForCrash();
+    });
+  }
 
   requestPermission = () => {
     try {

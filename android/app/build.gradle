@@ -80,6 +80,8 @@ import com.android.build.OutputFile
 project.ext.react = [
     entryFile: "index.js",
     enableHermes: false,
+    bundleCommand: "ram-bundle",
+    extraPackagerArgs: ["--indexed-ram-bundle"],
     hermesCommand: "../node_modules/hermesvm/%OS-BIN%/hermes"
 ]
 
