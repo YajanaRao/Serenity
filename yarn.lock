@@ -5171,9 +5171,9 @@ react-native-gesture-handler@^1.4.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-"react-native-get-music-files@git+https://github.com/YajanaRao/react-native-get-music-files.git":
+"react-native-get-music-files@https://github.com/YajanaRao/react-native-get-music-files.git":
   version "2.1.0"
-  resolved "git+https://github.com/YajanaRao/react-native-get-music-files.git#dc3282e0a21dd2d56ac9e5d8067f0e394aae54a0"
+  resolved "https://github.com/YajanaRao/react-native-get-music-files.git#8b7c415cd352cb09279baf81ed5de1f8f16075c4"
 
 react-native-linear-gradient@^2.5.6:
   version "2.5.6"

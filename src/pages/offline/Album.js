@@ -70,8 +70,8 @@ class Album extends React.PureComponent {
               <List.Item
                 title={item.album}
                 left={props =>
-                  item.cover == null ? (
-                    <DefaultImage />
+                  item.cover === null ? (
+                    <DefaultImage style={styles.icons} />
                   ) : (
                     <FastImage
                       {...props}

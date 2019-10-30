@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 
 const DefaultImage = ({ style }) => {
   return (
-    <LinearGradient colors={['#11998e', '#38ef7d']} style={style}>
+    <LinearGradient
+      colors={['#11998e', '#38ef7d']}
+      style={[style, { justifyContent: 'center', alignItems: 'center' }]}
+    >
       <Icon name="music" color="#ffffff" size={style.height} />
     </LinearGradient>
   );
