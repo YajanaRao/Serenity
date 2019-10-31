@@ -1,5 +1,5 @@
 import React from 'react';
-import { Surface, Title } from 'react-native-paper';
+import { Surface, Title, Paragraph, Divider } from 'react-native-paper';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -17,21 +17,23 @@ class ErrorBoundary extends React.Component {
   }
 
   render() {
-    if (this.state.errorInfo) {
+    const { error, errorInfo } = this.state;
+    const { children } = this.props;
+    if (errorInfo) {
       // Error path
       return (
         <Surface>
           <Title>Something went wrong.</Title>
-          {/* <details style={{ whiteSpace: 'pre-wrap' }}>
-              {this.state.error && this.state.error.toString()}
-              <br />
-              {this.state.errorInfo.componentStack}
-            </details> */}
+          <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+            {error && error.toString()}
+          </Paragraph>
+          <Divider />
+          <Paragraph>{errorInfo.componentStack}</Paragraph>
         </Surface>
       );
     }
     // Normally, just render children
-    return this.props.children;
+    return children;
   }
 }
 
