@@ -8,6 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint *.js **/*.js",
+    "log": "react-native log-android",
     "build": "react-native run-android --variant=release"
   },
   "husky": {
@@ -43,6 +44,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
+    "prop-types": "^15.7.2",
     "redux-thunk": "2.3.0"
   },
   "devDependencies": {
@@ -64,7 +66,6 @@
     "metro-react-native-babel-preset": "0.56.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
-    "prop-types": "^15.7.2",
     "react-test-renderer": "16.9.0"
   },
   "jest": {

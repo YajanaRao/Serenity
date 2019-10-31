@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
 import { View } from 'react-native';
+import ErrorBoundary from './ErrorBoundary';
 
 let QuoteContainer = null;
 let PopularContainer = null;
@@ -42,12 +43,12 @@ class ExpensiveContainer extends PureComponent {
       );
     }
     return (
-      <View>
+      <ErrorBoundary>
         <QuoteContainer />
         <PopularContainer />
         <Top20Container />
         <ArtistContainer />
-      </View>
+      </ErrorBoundary>
     );
   }
 }

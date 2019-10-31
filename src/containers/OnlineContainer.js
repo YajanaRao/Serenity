@@ -45,7 +45,7 @@ class OnlineContainer extends PureComponent {
     }
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Tree message="Waiting for data" />
+        <Tree message="You are not connected to internet" />
       </View>
     );
   }
