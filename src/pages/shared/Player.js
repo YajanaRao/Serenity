@@ -32,9 +32,13 @@ class Player extends React.Component {
   togglePlayback = () => {
     const { pauseTrack, playTrack, status } = this.props;
     if (status === 'playing') {
-      pauseTrack();
+      requestAnimationFrame(() => {
+        pauseTrack();
+      });
     } else {
-      playTrack();
+      requestAnimationFrame(() => {
+        playTrack();
+      });
     }
   };
 
@@ -86,7 +90,7 @@ class Player extends React.Component {
               <ProgressBar />
             </View>
             <View style={styles.playerToolbox}>
-              <FavContainer type="track" item={active} />
+              <FavContainer type="song" item={active} />
               <IconButton
                 icon="skip-previous"
                 size={40}
@@ -128,7 +132,12 @@ class Player extends React.Component {
 
 Player.propTypes = {
   status: PropTypes.string.isRequired,
-  active: PropTypes.object.isRequired,
+  active: PropTypes.shape({
+    artwork: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    album: PropTypes.string,
+    artist: PropTypes.string,
+  }).isRequired,
   repeat: PropTypes.string.isRequired,
   pauseTrack: PropTypes.func.isRequired,
   playTrack: PropTypes.func.isRequired,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IconButton } from 'react-native-paper';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -46,14 +46,11 @@ class Songs extends Component {
 
     return (
       <Screen>
-        <View style={styles.scrollViewContent}>
-          <SongListContainer
-            data={collection.songs}
-            cover={collection.artwork}
-            title={collection.album}
-          />
-          <View style={{ height: 100 }} />
-        </View>
+        <SongListContainer
+          data={collection.songs}
+          cover={collection.artwork}
+          title={collection.album}
+        />
       </Screen>
     );
   }
@@ -68,9 +65,3 @@ export default connect(
   null,
   { addToQueue },
 )(Songs);
-
-const styles = StyleSheet.create({
-  scrollViewContent: {
-    marginTop: 10,
-  },
-});

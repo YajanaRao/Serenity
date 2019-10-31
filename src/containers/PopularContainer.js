@@ -1,51 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import AlbumScrollView from '../components/AlbumScrollView';
-import log from '../utils/logging';
 
-class PopularContainer extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = { data: [] };
-  }
+function PopularContainer({ navigation }) {
+  const [data, setData] = useState([]);
 
-  componentDidMount() {
-    try {
-      fetch(
-        'https://dl.dropboxusercontent.com/s/nrd1fi5lb3i330i/media.json?dl=0',
-      )
-        .then(response => response.json())
-        .then(responseJson => {
-          this.setState({
-            data: responseJson,
-          });
-        })
-        .catch(error => {
-          log(error);
-        });
-    } catch (error) {
-      log(error);
-    }
-  }
+  useEffect(() => {
+    fetch('https://dl.dropboxusercontent.com/s/nrd1fi5lb3i330i/media.json?dl=0')
+      .then(res => res.json())
+      .then(res => setData(res));
+  });
 
-  navigateToSongs = album => {
-    const { navigation } = this.props;
+  function navigateToSongs(album) {
     navigation.navigate('Songs', {
       album,
     });
-  };
-
-  render() {
-    const { data } = this.state;
-    return (
-      <AlbumScrollView
-        title="Popular Albums"
-        data={data}
-        navigateToSongs={this.navigateToSongs}
-      />
-    );
   }
+
+  return (
+    <AlbumScrollView
+      title="Popular Albums"
+      data={data}
+      navigateToSongs={navigateToSongs}
+    />
+  );
 }
 
 PopularContainer.propTypes = {

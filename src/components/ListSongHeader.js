@@ -6,7 +6,7 @@ import FastImage from 'react-native-fast-image';
 import DefaultImage from './DefaultImage';
 
 const ListSongHeader = ({ title, cover, isEmpty, addSongsToQueue }) => (
-  <View>
+  <View style={styles.topMargin}>
     <View style={styles.coverContainer}>
       {cover ? (
         <FastImage source={{ uri: cover }} style={styles.artCover} />
@@ -34,6 +34,9 @@ const ListSongHeader = ({ title, cover, isEmpty, addSongsToQueue }) => (
 export default ListSongHeader;
 
 const styles = StyleSheet.create({
+  topMargin: {
+    marginTop: 10,
+  },
   coverContainer: {
     justifyContent: 'center',
     alignItems: 'center',

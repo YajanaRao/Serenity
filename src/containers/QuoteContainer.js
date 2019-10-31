@@ -1,44 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTheme } from 'react-native-paper';
 
 import Quote from '../components/Quote';
 import log from '../utils/logging';
 
-export default class QuoteContainer extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataSource: {},
-    };
-  }
+function QuoteContainer() {
+  const [dataSource, setDataSource] = useState({});
+  const theme = useTheme();
 
-  componentDidMount() {
-    try {
-      fetch('https://quotes.rest/qod.json')
-        .then(response => response.json())
-        .then(responseJson => {
-          this.setState({
-            dataSource: responseJson.contents.quotes[0],
-          });
-        })
-        .catch(error => {
-          log(error);
-        });
-    } catch (error) {
-      log(error);
-    }
-  }
+  useEffect(() => {
+    fetch('https://quotes.rest/qod.json')
+      .then(response => response.json())
+      .then(responseJson => {
+        setDataSource(responseJson.contents.quotes[0]);
+      })
+      .catch(error => {
+        log(error);
+      });
+  });
 
-  render() {
-    const { dataSource } = this.state;
-    if (dataSource.quote === 'undefined') {
-      return false;
-    }
-
-    return (
-      <Quote
-        backgroundImage="https://source.unsplash.com/random"
-        quote={dataSource.quote}
-      />
-    );
-  }
+  return (
+    <Quote
+      backgroundImage={`https://source.unsplash.com/random/?${
+        theme.dark ? 'black' : 'white'
+      }`}
+      quote={dataSource.quote}
+    />
+  );
 }
+
+export default QuoteContainer;

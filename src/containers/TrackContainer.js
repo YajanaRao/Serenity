@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
+
 import { loadTrackPlayer, playTrack } from '../actions/playerState';
 import Track from '../components/Track';
 
@@ -34,10 +35,12 @@ class TrackContainer extends React.Component {
   }
 
   play = () => {
-    const { track } = this.props;
+    const { track, loadTrackPlayer } = this.props;
     const { isActive } = this.state;
     if (!isActive) {
-      this.props.loadTrackPlayer(track);
+      requestAnimationFrame(() => {
+        loadTrackPlayer(track);
+      });
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -68,14 +68,12 @@ class AlbumSongs extends Component {
 
     return (
       <Screen>
-        <View style={styles.scrollViewContent}>
-          <SongListContainer
-            data={files}
-            fetchData={this.fetchData}
-            title={album.name || album.album}
-            cover={album.cover}
-          />
-        </View>
+        <SongListContainer
+          data={files}
+          fetchData={this.fetchData}
+          title={album.name || album.album}
+          cover={album.cover}
+        />
       </Screen>
     );
   }
@@ -90,9 +88,3 @@ export default connect(
   null,
   { addToQueue },
 )(AlbumSongs);
-
-const styles = StyleSheet.create({
-  scrollViewContent: {
-    marginTop: 10,
-  },
-});

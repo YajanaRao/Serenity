@@ -69,14 +69,12 @@ class ArtistSongs extends Component {
 
     return (
       <Screen>
-        <View style={styles.scrollViewContent}>
-          <SongListContainer
-            data={files}
-            fetchData={this.fetchData}
-            title={artist.name || artist.artist}
-            cover={artist.cover}
-          />
-        </View>
+        <SongListContainer
+          data={files}
+          fetchData={this.fetchData}
+          title={artist.name || artist.artist}
+          cover={artist.cover}
+        />
       </Screen>
     );
   }
@@ -91,9 +89,3 @@ export default connect(
   null,
   { addToQueue },
 )(ArtistSongs);
-
-const styles = StyleSheet.create({
-  scrollViewContent: {
-    marginTop: 10,
-  },
-});
