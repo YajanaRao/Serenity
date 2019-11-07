@@ -26,7 +26,7 @@ export const setUpTrackPlayer = () => dispatch => {
   try {
     subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
-      log(`from event listener${event}`);
+      log(`from event listener: ${event}`);
       if (event === 'skip_to_next') {
         dispatch(skipToNext());
       } else if (event === 'skip_to_previous') {
@@ -49,15 +49,10 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
   try {
     const url = track.url ? track.url : track.path;
     if (url) {
-      RNAudio.load(url).then(() => {
-        if (playOnLoad) {
-          RNAudio.play();
-        }
-      });
+      RNAudio.load(url, playOnLoad);
       dispatch({
         type: 'LOAD',
         track,
-        status: playOnLoad ? 'playing' : 'paused',
       });
     } else {
       log(track);
@@ -75,7 +70,7 @@ export const playTrack = () => dispatch => {
       status: 'playing',
     });
   } catch (error) {
-    log('something went wrong', error);
+    log(`playTrack: ${error}`);
   }
 };
 
@@ -133,15 +128,7 @@ export const skipToNext = () => (dispatch, getState) => {
     }
 
     if (track) {
-      const url = track.url ? track.url : track.path;
-      RNAudio.load(url).then(() => {
-        RNAudio.play();
-      });
-      dispatch({
-        type: 'LOAD',
-        track,
-        status: 'playing',
-      });
+      dispatch(loadTrackPlayer(track));
     } else {
       RNAudio.pause();
       dispatch({
@@ -160,16 +147,8 @@ export const skipToPrevious = () => dispatch => {
     if (history.length) {
       const track = head(history);
       // addSong(QUEUE_ID, track);
-      const url = track.url ? track.url : track.path;
-      if (url) {
-        RNAudio.load(url).then(() => {
-          RNAudio.play();
-        });
-        dispatch({
-          type: 'LOAD',
-          track,
-          status: 'playing',
-        });
+      if (track) {
+        dispatch(loadTrackPlayer(track));
       }
     } else {
       RNAudio.pause();

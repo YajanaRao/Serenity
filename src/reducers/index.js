@@ -82,7 +82,6 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         active: action.track,
-        status: action.status,
       };
 
     case 'COMPLETED':

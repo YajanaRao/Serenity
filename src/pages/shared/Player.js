@@ -99,6 +99,7 @@ class Player extends React.Component {
               <FAB
                 icon={status === 'playing' ? 'pause' : 'play'}
                 onPress={this.togglePlayback}
+                loading={status === 'loading'}
               />
               <IconButton icon="skip-next" size={40} onPress={skipToNext} />
               {repeat === 'repeat-all' ? (
