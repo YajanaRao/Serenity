@@ -33,7 +33,6 @@ const INITIAL_STORE = {
   songs: [],
   artists: [],
   albums: [],
-  files: [],
 };
 
 // FIXME: Javascript implementation
@@ -63,12 +62,6 @@ export const mediaStoreReducer = (state = INITIAL_STORE, action) => {
       return {
         ...state,
         albums: action.payload,
-      };
-
-    case 'OFFLINE_FILES':
-      return {
-        ...state,
-        files: action.payload,
       };
     default:
       return state;

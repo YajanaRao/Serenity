@@ -2,6 +2,7 @@ import RNAudio from 'react-native-audio';
 import { DeviceEventEmitter } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
+import sample from 'lodash/sample';
 
 import {
   addSong,
@@ -25,7 +26,7 @@ export const setUpTrackPlayer = () => dispatch => {
   try {
     subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
-      log('from event listener', event);
+      log(`from event listener${event}`);
       if (event === 'skip_to_next') {
         dispatch(skipToNext());
       } else if (event === 'skip_to_previous') {
@@ -116,11 +117,17 @@ export const skipToNext = () => (dispatch, getState) => {
   try {
     const queue = deserializeSongs(getQueuedSongs());
     let track = null;
-    if (getState().config.repeat === 'repeat-one') {
+    const { config } = getState();
+    if (config.repeat === 'repeat-one') {
       dispatch(playTrack());
     } else if (queue.length) {
       const playedTrack = getState().playerState.active;
       track = head(queue);
+      addSong(HISTORY_ID, playedTrack);
+      removeSong(QUEUE_ID, track);
+    } else if (config.radio) {
+      const playedTrack = getState().playerState.active;
+      track = sample(getState().mediaStore.songs);
       addSong(HISTORY_ID, playedTrack);
       removeSong(QUEUE_ID, track);
     }
@@ -143,7 +150,7 @@ export const skipToNext = () => (dispatch, getState) => {
       });
     }
   } catch (error) {
-    log('skipToNext: ', error);
+    log(`skipToNext: ${error}`);
   }
 };
 
