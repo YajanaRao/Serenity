@@ -2,19 +2,25 @@ import RNAndroidAudioStore from 'react-native-get-music-files';
 import map from 'lodash/map';
 import log from '../utils/logging';
 
+function formatter(media) {
+  return map(media, item => {
+    const song = {};
+    song.url = item.path;
+    song.id = item.path;
+    song.title = item.title;
+    song.album = item.album;
+    song.artist = item.artist;
+    return song;
+  });
+}
+
 export const updateQuery = query => dispatch => {
   if (query) {
     RNAndroidAudioStore.search({ searchParam: query })
       .then(media => {
-        map(media, item => {
-          item.url = item.path;
-          item.id = item.path;
-          delete item.path;
-          return item;
-        });
         dispatch({
           type: 'UPDATE_QUERY',
-          payload: media,
+          payload: formatter(media),
           // query: query
         });
       })
@@ -108,5 +114,14 @@ export const findArtistSongs = async artist => {
       });
     })
     .catch(er => log(er));
+  return songs;
+};
+
+export const filterSongsByGenre = async genre => {
+  const songs = await RNAndroidAudioStore.getSongsByGenres({ genre })
+    .then(media => {
+      return formatter(media);
+    })
+    .catch(error => log(error));
   return songs;
 };

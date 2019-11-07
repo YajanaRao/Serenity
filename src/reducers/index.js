@@ -10,6 +10,7 @@ const INITIAL_CONFIG = {
   themeType: 'dark',
   repeat: 'repeat-all',
   setup: false,
+  radio: false,
 };
 
 const INITIAL_STATE = {
@@ -153,13 +154,18 @@ export const configReducer = (state = INITIAL_CONFIG, action) => {
         ...state,
         repeat: action.repeat,
       };
-    default:
-      return state;
     case 'DEFAULT_SETUP':
       return {
         ...state,
         setup: action.payload,
       };
+    case 'RADIO_MODE':
+      return {
+        ...state,
+        radio: action.payload,
+      };
+    default:
+      return state;
   }
 };
 

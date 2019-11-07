@@ -140,7 +140,7 @@ class Artist extends Component {
                 <FlatList
                   data={data}
                   keyExtractor={(item, index) => index.toString()}
-                  numColumns={3}
+                  numColumns={2}
                   renderItem={({ item }) => (
                     <ArtistComponent
                       item={item}

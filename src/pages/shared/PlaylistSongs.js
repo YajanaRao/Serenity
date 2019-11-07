@@ -295,9 +295,8 @@ class Collection extends Component {
                 {isEmpty(songs) ? (
                   <View style={{ flex: 1, margin: 16 }}>
                     <Title style={{ textAlign: 'center' }}>
-                      Let's find some songs for your playlist
+                      Add some songs to playlist
                     </Title>
-                    <Button>Find songs</Button>
                   </View>
                 ) : (
                   <View style={styles.buttonContainer}>

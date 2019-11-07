@@ -91,7 +91,7 @@ const mapStateToProps = state => ({
 });
 
 Song.propTypes = {
-  songs: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
+  // songs: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired,
   getOfflineSongs: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
   shufflePlay: PropTypes.func.isRequired,
