@@ -281,40 +281,37 @@ class Collection extends Component {
             </Dialog.Actions>
           </Dialog>
         </Portal>
-        <View style={styles.scrollViewContent}>
-          <FlatList
-            ListHeaderComponent={() => (
-              <View>
-                <View style={styles.coverContainer}>
-                  <DefaultImage style={styles.artCover} />
-                </View>
-                <View style={styles.titleContainer}>
-                  <Title>{name}</Title>
-                  <Subheading>{`by ${owner}`}</Subheading>
-                </View>
-                {isEmpty(songs) ? (
-                  <View style={{ flex: 1, margin: 16 }}>
-                    <Title style={{ textAlign: 'center' }}>
-                      Add some songs to playlist
-                    </Title>
-                  </View>
-                ) : (
-                  <View style={styles.buttonContainer}>
-                    <Button mode="contained" onPress={this.addToQueue}>
-                      Play All
-                    </Button>
-                  </View>
-                )}
+        <FlatList
+          ListHeaderComponent={() => (
+            <View style={{ margin: 12 }}>
+              <View style={styles.coverContainer}>
+                <DefaultImage style={styles.artCover} />
               </View>
-            )}
-            data={songs}
-            renderItem={({ item }) => <TrackContainer track={item} />}
-            ItemSeparatorComponent={() => <Divider inset />}
-            keyExtractor={(item, index) => index.toString()}
-            ListFooterComponent={() => <View style={{ height: 100 }} />}
-          />
-          <View style={{ height: 100 }} />
-        </View>
+              <View style={styles.titleContainer}>
+                <Title>{name}</Title>
+                <Subheading>{`by ${owner}`}</Subheading>
+              </View>
+              {isEmpty(songs) ? (
+                <View style={{ flex: 1, margin: 16 }}>
+                  <Title style={{ textAlign: 'center' }}>
+                    Add some songs to playlist
+                  </Title>
+                </View>
+              ) : (
+                <View style={styles.buttonContainer}>
+                  <Button mode="contained" onPress={this.addToQueue}>
+                    Play All
+                  </Button>
+                </View>
+              )}
+            </View>
+          )}
+          data={songs}
+          renderItem={({ item }) => <TrackContainer track={item} />}
+          ItemSeparatorComponent={() => <Divider inset />}
+          keyExtractor={(item, index) => index.toString()}
+          ListFooterComponent={() => <View style={{ height: 100 }} />}
+        />
       </Screen>
     );
   }
@@ -328,9 +325,6 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  scrollViewContent: {
-    marginTop: 10,
   },
   coverContainer: {
     justifyContent: 'center',

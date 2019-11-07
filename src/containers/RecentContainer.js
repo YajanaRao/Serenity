@@ -60,6 +60,7 @@ class RecentContainer extends PureComponent {
     const playlist = {
       id: 'user-playlist--000001',
       name: 'Recent songs',
+      owner: 'Serenity',
       songs: history,
     };
     navigation.navigate('Playlist', {
