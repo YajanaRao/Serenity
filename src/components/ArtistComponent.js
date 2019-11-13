@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Avatar, Badge, Caption } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native';
+import { Avatar, Badge, List } from 'react-native-paper';
+import { View } from 'react-native';
 
 function ArtistComponent({ item, addArtist }) {
   const [selected, selectArtist] = useState(false);
@@ -11,32 +11,29 @@ function ArtistComponent({ item, addArtist }) {
   };
 
   return (
-    <TouchableOpacity
-      style={{
-        margin: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1,
-      }}
+    <List.Item
+      title={item.artist}
+      left={props => (
+        <View>
+          <Badge
+            style={{
+              right: 2,
+              top: -2,
+              position: 'absolute',
+              zIndex: 10,
+            }}
+            size={24}
+            visible={selected}
+          />
+          <Avatar.Image
+            source={{ uri: item.artwork }}
+            // size={80}
+            style={{ margin: 0 }}
+          />
+        </View>
+      )}
       onPress={selectArtits}
-    >
-      <Badge
-        style={{
-          right: 2,
-          top: -2,
-          position: 'absolute',
-          zIndex: 10,
-        }}
-        size={24}
-        visible={selected}
-      />
-      <Avatar.Image
-        source={{ uri: item.artwork }}
-        // size={80}
-        style={{ margin: 0 }}
-      />
-      <Caption>{item.artist}</Caption>
-    </TouchableOpacity>
+    />
   );
 }
 

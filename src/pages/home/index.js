@@ -1,6 +1,4 @@
 import { createStackNavigator } from 'react-navigation-stack';
-
-import SongScreen from '../shared/Songs';
 import MainScreen from './Main';
 import SettingScreen from './Settings';
 import PlaylistScreen from '../shared/PlaylistSongs';
@@ -8,7 +6,6 @@ import PlaylistScreen from '../shared/PlaylistSongs';
 export default createStackNavigator(
   {
     Home: { screen: MainScreen },
-    Songs: { screen: SongScreen },
     Settings: { screen: SettingScreen },
     Playlist: { screen: PlaylistScreen },
   },

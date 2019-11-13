@@ -12,6 +12,7 @@ import {
   clearAllSongs,
   addAlbum,
   removeAlbum,
+  unshiftSong,
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
 import log from '../utils/logging';
@@ -45,11 +46,13 @@ export const setUpTrackPlayer = () => dispatch => {
   }
 };
 
-export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
+export const loadTrack = (track, playOnLoad = true) => dispatch => {
   try {
     const url = track.url ? track.url : track.path;
     if (url) {
-      RNAudio.load(url, playOnLoad);
+      RNAudio.load(url).then(() => {
+        if (playOnLoad) RNAudio.play();
+      });
       dispatch({
         type: 'LOAD',
         track,
@@ -58,19 +61,19 @@ export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
       log(track);
     }
   } catch (error) {
-    log('loadTrackPlayer: ', error);
+    log('loadTrack: ', error);
   }
 };
 
-export const playTrack = () => dispatch => {
+export const playNext = track => (dispatch, getState) => {
   try {
-    RNAudio.play();
-    dispatch({
-      type: 'STATUS',
-      status: 'playing',
-    });
+    unshiftSong(QUEUE_ID, track);
+    if (isEmpty(getState().playerState.active)) {
+      const queue = getQueuedSongs();
+      dispatch(loadTrack(head(queue)));
+    }
   } catch (error) {
-    log(`playTrack: ${error}`);
+    log(error);
   }
 };
 
@@ -96,13 +99,16 @@ export const shufflePlay = songs => dispatch => {
   }
 };
 
-export const pauseTrack = () => dispatch => {
+export const startRadio = () => (dispatch, getState) => {
   try {
-    RNAudio.pause();
-    dispatch({
-      type: 'STATUS',
-      status: 'paused',
-    });
+    const track = sample(getState().mediaStore.songs);
+    if (track) {
+      dispatch(loadTrack(track));
+      dispatch({
+        type: 'RADIO_MODE',
+        payload: true,
+      });
+    }
   } catch (error) {
     log(error);
   }
@@ -124,16 +130,15 @@ export const skipToNext = () => (dispatch, getState) => {
       const playedTrack = getState().playerState.active;
       track = sample(getState().mediaStore.songs);
       addSong(HISTORY_ID, playedTrack);
-      removeSong(QUEUE_ID, track);
     }
 
     if (track) {
-      dispatch(loadTrackPlayer(track));
+      dispatch(loadTrack(track));
     } else {
       RNAudio.pause();
       dispatch({
-        type: 'STATUS',
-        status: 'paused',
+        type: 'NOTIFY',
+        status: 'Playing next song in the queue',
       });
     }
   } catch (error) {
@@ -148,13 +153,13 @@ export const skipToPrevious = () => dispatch => {
       const track = head(history);
       // addSong(QUEUE_ID, track);
       if (track) {
-        dispatch(loadTrackPlayer(track));
+        dispatch(loadTrack(track));
       }
     } else {
       RNAudio.pause();
       dispatch({
-        type: 'STATUS',
-        status: 'paused',
+        type: 'NOTIFY',
+        status: 'Playing prevoius song',
       });
     }
   } catch (error) {
@@ -163,7 +168,7 @@ export const skipToPrevious = () => dispatch => {
 };
 
 export const destroyTrackPlayer = () => dispatch => {
-  // RNAudio.destroy();
+  RNAudio.destroy();
   subscription.remove();
   dispatch({
     type: 'NOTIFY',
@@ -173,21 +178,11 @@ export const destroyTrackPlayer = () => dispatch => {
 
 // NOTE: Queue management
 
-export const getQueue = () => dispatch => {
-  dispatch({
-    type: 'QUEUE',
-  });
-};
-
 export const addToQueue = song => (dispatch, getState) => {
   addSong(QUEUE_ID, song);
-  const queue = getQueuedSongs();
   if (isEmpty(getState().playerState.active)) {
-    dispatch({
-      type: 'LOAD',
-      status: 'paused',
-      track: head(queue),
-    });
+    const queue = getQueuedSongs();
+    dispatch(loadTrack(head(queue)));
   }
 };
 
@@ -246,4 +241,20 @@ export const clearHistory = () => dispatch => {
     type: 'NOTIFY',
     payload: 'Cleared history',
   });
+};
+
+export const playTrack = () => {
+  try {
+    RNAudio.play();
+  } catch (error) {
+    log(`playTrack: ${error}`);
+  }
+};
+
+export const pauseTrack = () => {
+  try {
+    RNAudio.pause();
+  } catch (error) {
+    log(error);
+  }
 };

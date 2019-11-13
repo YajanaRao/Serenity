@@ -7,6 +7,7 @@ import PlaylistScreen from './Playlist';
 import PlaylistSongs from '../shared/PlaylistSongs';
 import AlbumSongs from '../shared/AlbumSongs';
 import ArtistSongs from '../shared/ArtistSongs';
+import TopTabBar from '../../components/TopTabBar';
 
 const PlaylistStack = createStackNavigator({
   Playlist: PlaylistScreen,
@@ -20,11 +21,16 @@ const AlbumStack = createStackNavigator({
   Album: AlbumScreen,
 });
 
-const TabNavigator = createMaterialTopTabNavigator({
-  Playlist: { screen: PlaylistStack },
-  Artist: { screen: ArtistStack },
-  Album: { screen: AlbumStack },
-});
+const TabNavigator = createMaterialTopTabNavigator(
+  {
+    Playlist: { screen: PlaylistStack },
+    Artist: { screen: ArtistStack },
+    Album: { screen: AlbumStack },
+  },
+  {
+    tabBarComponent: TopTabBar,
+  },
+);
 
 export default createStackNavigator(
   {

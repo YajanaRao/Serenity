@@ -4,7 +4,7 @@ import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import PropTypes from 'prop-types';
 
-import { loadTrackPlayer, playTrack } from '../actions/playerState';
+import { loadTrack } from '../actions/playerState';
 import Track from '../components/Track';
 
 /*
@@ -35,11 +35,11 @@ class TrackContainer extends React.Component {
   }
 
   play = () => {
-    const { track, loadTrackPlayer } = this.props;
+    const { track, loadTrack } = this.props;
     const { isActive } = this.state;
     if (!isActive) {
       requestAnimationFrame(() => {
-        loadTrackPlayer(track);
+        loadTrack(track);
       });
     }
   };
@@ -63,5 +63,5 @@ TrackContainer.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { loadTrackPlayer, playTrack },
+  { loadTrack },
 )(TrackContainer);

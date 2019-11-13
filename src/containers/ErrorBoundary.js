@@ -4,7 +4,12 @@ import { Surface, Title, Paragraph, Divider } from 'react-native-paper';
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { error: null, errorInfo: null };
+    this.state = { error: null, errorInfo: null, hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { error: error, hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
@@ -12,14 +17,15 @@ class ErrorBoundary extends React.Component {
     this.setState({
       error: error,
       errorInfo: errorInfo,
+      hasError: true,
     });
     // You can also log error messages to an error reporting service here
   }
 
   render() {
-    const { error, errorInfo } = this.state;
+    const { error, errorInfo, hasError } = this.state;
     const { children } = this.props;
-    if (errorInfo) {
+    if (hasError) {
       // Error path
       return (
         <Surface>

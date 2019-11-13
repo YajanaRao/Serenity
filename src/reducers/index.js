@@ -111,7 +111,6 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
         }),
         result: `Removed ${action.payload.title} from favorites`,
       };
-
     default:
       return state;
   }

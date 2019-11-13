@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { List, Portal, Dialog, TextInput, Button } from 'react-native-paper';
 import { FlatList } from 'react-navigation';
-import values from 'lodash/values';
+import { View } from 'react-native';
 
-import { getAllPlaylists, createPlaylist } from '../../actions/realmAction';
+import {
+  createPlaylist,
+  getUserPlaylists,
+  getFavoriteSongs,
+} from '../../actions/realmAction';
+import { deserializePlaylists } from '../../utils/database';
 import Screen from '../../components/Screen';
 
 class Playlist extends Component {
   constructor(props) {
     super(props);
-    this.realmPlaylists = getAllPlaylists();
-    const playlists = values(this.realmPlaylists);
+    this.realmPlaylists = getUserPlaylists();
+    const playlists = deserializePlaylists(this.realmPlaylists);
     this.state = {
       visible: false,
       playlistName: null,
@@ -26,7 +31,7 @@ class Playlist extends Component {
         changes.deletions.length > 0
       ) {
         this.setState({
-          playlists: values(playlists),
+          playlists: deserializePlaylists(playlists),
         });
       }
     });
@@ -38,6 +43,19 @@ class Playlist extends Component {
 
   navigateToCollection = playlist => {
     const { navigation } = this.props;
+    navigation.navigate('Songs', {
+      playlist,
+    });
+  };
+
+  navigateToFavorites = () => {
+    const { navigation } = this.props;
+    const playlist = {
+      id: 'user-playlist--000002',
+      name: 'Favorites',
+      owner: 'Serenity',
+      songs: getFavoriteSongs(),
+    };
     navigation.navigate('Songs', {
       playlist,
     });
@@ -87,11 +105,19 @@ class Playlist extends Component {
         </Portal>
         <FlatList
           ListHeaderComponent={() => (
-            <List.Item
-              title="Create Playlist"
-              left={props => <List.Icon {...props} icon="plus" />}
-              onPress={this.showDialog}
-            />
+            <View>
+              <List.Item
+                title="Create Playlist"
+                left={() => <List.Icon icon="plus" />}
+                onPress={this.showDialog}
+              />
+              <List.Item
+                title="Favorites"
+                description="by Serenity"
+                left={() => <List.Icon icon="heart" />}
+                onPress={() => this.navigateToFavorites()}
+              />
+            </View>
           )}
           data={playlists}
           keyExtractor={(item, index) => index.toString()}

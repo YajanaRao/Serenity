@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SwipeList from '../components/SwipeList';
+import SongList from '../components/SongList';
 import { addToQueue, addToPlaylist } from '../actions/playerState';
 
-class SwipeListContainer extends React.PureComponent {
+class SongListContainer extends React.PureComponent {
   render() {
     const {
       data,
@@ -15,7 +15,7 @@ class SwipeListContainer extends React.PureComponent {
       fetchData,
     } = this.props;
     return (
-      <SwipeList
+      <SongList
         data={data}
         title={title}
         cover={cover}
@@ -27,11 +27,11 @@ class SwipeListContainer extends React.PureComponent {
   }
 }
 
-SwipeListContainer.propTypes = {
+SongListContainer.propTypes = {
   data: PropTypes.array,
 };
 
 export default connect(
   null,
   { addToQueue, addToPlaylist },
-)(SwipeListContainer);
+)(SongListContainer);

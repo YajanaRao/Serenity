@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const DefaultImage = ({ style }) => {
   return (
     <LinearGradient colors={['#11998e', '#38ef7d']} style={style}>
-      <Icon name="music" color="#ffffff" size={style.height} />
+      <Icon name="music" color="#ffffff" size={style.height || 100} />
     </LinearGradient>
   );
 };

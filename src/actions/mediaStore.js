@@ -92,11 +92,7 @@ export const findAlbumSongs = async album => {
     album,
   })
     .then(media => {
-      return map(media, item => {
-        item.url = item.path;
-        delete item.path;
-        return item;
-      });
+      return formatter(media);
     })
     .catch(er => log(er));
   return songs;
@@ -107,11 +103,7 @@ export const findArtistSongs = async artist => {
     artist,
   })
     .then(media => {
-      return map(media, item => {
-        item.url = item.path;
-        delete item.path;
-        return item;
-      });
+      return formatter(media);
     })
     .catch(er => log(er));
   return songs;
