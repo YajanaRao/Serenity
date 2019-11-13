@@ -41,6 +41,10 @@ export const setUpTrackPlayer = () => dispatch => {
         });
       }
     });
+    dispatch({
+      type: 'STATUS',
+      status: 'paused',
+    });
   } catch (error) {
     log(error);
   }
@@ -171,8 +175,8 @@ export const destroyTrackPlayer = () => dispatch => {
   RNAudio.destroy();
   subscription.remove();
   dispatch({
-    type: 'NOTIFY',
-    payload: null,
+    type: 'STATUS',
+    payload: 'paused',
   });
 };
 

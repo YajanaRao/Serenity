@@ -22,6 +22,7 @@ import {
   shufflePlay,
   loadTrack,
   playNext,
+  addSongToFavorite,
 } from '../../actions/playerState';
 import Blank from '../../components/Blank';
 import Screen from '../../components/Screen';
@@ -59,7 +60,7 @@ class Song extends React.Component {
 
   renderInner = () => {
     const { song } = this.state;
-    const { addToQueue, loadTrack, playNext } = this.props;
+    const { addToQueue, loadTrack, playNext, addSongToFavorite } = this.props;
     return (
       <View style={styles.panel}>
         <View style={{ flex: 1 }}>
@@ -101,8 +102,19 @@ class Song extends React.Component {
             }}
           >
             <List.Item
-              title="Add to playing queue"
+              title="Add to queue"
               left={props => <List.Icon {...props} icon="playlist-music" />}
+            />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              addSongToFavorite(song);
+              this.closeBottomSheet();
+            }}
+          >
+            <List.Item
+              title="Add to playing queue"
+              left={props => <List.Icon {...props} icon="heart" />}
             />
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={this.addToQueue}>
@@ -234,7 +246,14 @@ Song.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { addToQueue, getOfflineSongs, shufflePlay, loadTrack, playNext },
+  {
+    addToQueue,
+    getOfflineSongs,
+    shufflePlay,
+    loadTrack,
+    playNext,
+    addSongToFavorite,
+  },
 )(Song);
 
 const styles = StyleSheet.create({

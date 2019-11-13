@@ -99,13 +99,13 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Development Process
 
-    `git clone https://github.com/YajanaRao/Serenity.git`
+`git clone https://github.com/YajanaRao/Serenity.git`
 
-    `cd Serenity`
+`cd Serenity`
 
-    `yarn install` or `npm install`
+`yarn install` or `npm install`
 
-    `react-native run-android` or `yarn android` or `npm android`
+`react-native run-android` or `yarn android` or `npm android`
 
 ## License
 

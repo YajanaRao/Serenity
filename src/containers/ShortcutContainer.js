@@ -59,14 +59,14 @@ class ShortCutContainer extends PureComponent {
           style={{ justifyContent: 'center', alignItems: 'center' }}
           onPress={this.navigateToFavorite}
         >
-          <Avatar.Icon icon="heart" />
+          <Avatar.Icon icon="heart-outline" color="#c70d3a" />
           <Caption>Favorite</Caption>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ justifyContent: 'center', alignItems: 'center' }}
           onPress={this.startRadio}
         >
-          <Avatar.Icon icon="radio" />
+          <Avatar.Icon icon="radio" color="#1f6650" />
           <Caption>Radio</Caption>
         </TouchableOpacity>
       </View>
