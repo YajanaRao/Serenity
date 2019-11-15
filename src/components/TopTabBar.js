@@ -24,7 +24,7 @@ const TopTabBar = ({
 
   const { routes, index: activeRouteIndex } = navigation.state;
   return (
-    <Surface style={[styles.container]}>
+    <Surface style={[styles.container, { backgroundColor: colors.surface }]}>
       {routes.map((route, routeIndex) => {
         const isRouteActive = routeIndex === activeRouteIndex;
         const tintColor = isRouteActive ? colors.primary : colors.text;
@@ -75,7 +75,7 @@ TopTabBar.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    elevation: 4,
+    elevation: 12,
     height: 50,
   },
   tabButton: {
