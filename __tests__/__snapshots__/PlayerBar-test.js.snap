@@ -54,12 +54,18 @@ exports[`Blank component renders correctly 1`] = `
         }
       }
       style={
-        Object {
-          "backgroundColor": "#d7d1c9",
-          "borderRadius": 4,
-          "height": 50,
-          "width": 50,
-        }
+        Array [
+          Object {
+            "backgroundColor": "#d7d1c9",
+            "borderRadius": 4,
+            "height": 50,
+            "width": 50,
+          },
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+          },
+        ]
       }
     >
       <Text
