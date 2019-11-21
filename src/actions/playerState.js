@@ -141,8 +141,8 @@ export const skipToNext = () => (dispatch, getState) => {
     } else {
       MediaPlayer.pause();
       dispatch({
-        type: 'NOTIFY',
-        status: 'Playing next song in the queue',
+        type: 'STATUS',
+        status: 'paused',
       });
     }
   } catch (error) {
