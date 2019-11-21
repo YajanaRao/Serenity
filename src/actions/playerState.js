@@ -1,4 +1,4 @@
-import RNAudio from 'react-native-audio';
+import MediaPlayer from 'react-native-media-player';
 import { DeviceEventEmitter } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
@@ -54,8 +54,8 @@ export const loadTrack = (track, playOnLoad = true) => dispatch => {
   try {
     const url = track.url ? track.url : track.path;
     if (url) {
-      RNAudio.load(url).then(() => {
-        if (playOnLoad) RNAudio.play();
+      MediaPlayer.load(url).then(() => {
+        if (playOnLoad) MediaPlayer.play();
       });
       dispatch({
         type: 'LOAD',
@@ -139,7 +139,7 @@ export const skipToNext = () => (dispatch, getState) => {
     if (track) {
       dispatch(loadTrack(track));
     } else {
-      RNAudio.pause();
+      MediaPlayer.pause();
       dispatch({
         type: 'NOTIFY',
         status: 'Playing next song in the queue',
@@ -160,7 +160,7 @@ export const skipToPrevious = () => dispatch => {
         dispatch(loadTrack(track));
       }
     } else {
-      RNAudio.pause();
+      MediaPlayer.pause();
       dispatch({
         type: 'NOTIFY',
         status: 'Playing prevoius song',
@@ -172,7 +172,7 @@ export const skipToPrevious = () => dispatch => {
 };
 
 export const destroyTrackPlayer = () => dispatch => {
-  RNAudio.destroy();
+  MediaPlayer.destroy();
   subscription.remove();
   dispatch({
     type: 'STATUS',
@@ -198,7 +198,7 @@ export const removeFromQueue = song => dispatch => {
 };
 
 export const clearQueue = () => dispatch => {
-  RNAudio.pause();
+  MediaPlayer.pause();
   clearAllSongs(QUEUE_ID);
   dispatch({
     type: 'LOAD',
@@ -249,7 +249,7 @@ export const clearHistory = () => dispatch => {
 
 export const playTrack = () => {
   try {
-    RNAudio.play();
+    MediaPlayer.play();
   } catch (error) {
     log(`playTrack: ${error}`);
   }
@@ -257,7 +257,7 @@ export const playTrack = () => {
 
 export const pauseTrack = () => {
   try {
-    RNAudio.pause();
+    MediaPlayer.pause();
   } catch (error) {
     log(error);
   }
