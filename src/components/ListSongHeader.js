@@ -35,7 +35,7 @@ export default ListSongHeader;
 
 const styles = StyleSheet.create({
   topMargin: {
-    marginTop: 10,
+    marginTop: 12,
   },
   coverContainer: {
     justifyContent: 'center',

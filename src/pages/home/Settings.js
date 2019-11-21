@@ -11,11 +11,10 @@ import {
 import { connect } from 'react-redux';
 
 import Screen from '../../components/Screen';
-import { updateTheme } from '../../actions';
+import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
 
 class Settings extends React.PureComponent {
-  
   toggleTheme = dark => {
     const { updateTheme } = this.props;
     let theme = 'default';
@@ -23,6 +22,11 @@ class Settings extends React.PureComponent {
       theme = 'dark';
     }
     updateTheme(theme);
+  };
+
+  toggleRadioMode = () => {
+    const { radio, changeRadioMode } = this.props;
+    changeRadioMode(!radio);
   };
 
   clearHistory = () => {
@@ -46,10 +50,10 @@ class Settings extends React.PureComponent {
     headerTitle: 'Settings',
   };
 
-
   render() {
     const {
       theme: { dark },
+      radio,
     } = this.props;
     return (
       <Screen>
@@ -60,6 +64,14 @@ class Settings extends React.PureComponent {
                 <Text>Dark Theme</Text>
                 <View pointerEvents="none">
                   <Switch value={dark} />
+                </View>
+              </View>
+            </TouchableRipple>
+            <TouchableRipple onPress={this.toggleRadioMode}>
+              <View style={styles.preference}>
+                <Text>Radio Mode</Text>
+                <View pointerEvents="none">
+                  <Switch value={radio} />
                 </View>
               </View>
             </TouchableRipple>
@@ -83,11 +95,16 @@ class Settings extends React.PureComponent {
 Settings.propTypes = {
   clearHistory: PropTypes.func.isRequired,
   updateTheme: PropTypes.func.isRequired,
+  changeRadioMode: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  radio: state.config.radio,
+});
+
 export default connect(
-  null,
-  { updateTheme, clearHistory },
+  mapStateToProps,
+  { updateTheme, clearHistory, changeRadioMode },
 )(withTheme(Settings));
 
 const styles = StyleSheet.create({

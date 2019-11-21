@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native-paper';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import ArtistComponent from '../../components/ArtistComponent';
 import { addArtist, getArtists } from '../../actions/realmAction';
@@ -33,21 +34,6 @@ class Artist extends Component {
 
   componentDidMount() {
     try {
-      fetch(
-        'https://dl.dropboxusercontent.com/s/ju7jj3uttzw1vow/artist.json?dl=0',
-      )
-        .then(response => response.json())
-        .then(responseJson => {
-          this.setState({
-            data: responseJson,
-          });
-        })
-        .catch(error => {
-          log(error);
-          this.setState({
-            visible: false,
-          });
-        });
       this.realmArtists.addListener((artists, changes) => {
         if (
           changes.insertions.length > 0 ||
@@ -91,8 +77,9 @@ class Artist extends Component {
     const {
       theme: { colors },
       navigation: { navigate },
+      data,
     } = this.props;
-    const { visible, firstQuery, artists, data } = this.state;
+    const { visible, firstQuery, artists } = this.state;
     return (
       <Screen>
         <FlatList
@@ -140,7 +127,7 @@ class Artist extends Component {
                 <FlatList
                   data={data}
                   keyExtractor={(item, index) => index.toString()}
-                  numColumns={3}
+                  // numColumns={2}
                   renderItem={({ item }) => (
                     <ArtistComponent
                       item={item}
@@ -164,7 +151,12 @@ class Artist extends Component {
     );
   }
 }
-export default withTheme(Artist);
+
+const mapStateToProps = state => ({
+  data: state.mediaStore.artists,
+});
+
+export default connect(mapStateToProps)(withTheme(Artist));
 
 Artist.propTypes = {
   theme: PropTypes.object.isRequired,

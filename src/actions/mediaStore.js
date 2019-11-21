@@ -1,41 +1,39 @@
 import RNAndroidAudioStore from 'react-native-get-music-files';
 import map from 'lodash/map';
-import isEmpty from 'lodash/isEmpty';
 import log from '../utils/logging';
 
-export const updateQuery = query => {
-  return async dispatch => {
-    if (query) {
-      const media = await RNAndroidAudioStore.search({ searchParam: query })
-        .then(songs => {
-          return map(songs, item => {
-            item.url = item.path;
-            delete item.path;
-            return item;
-          });
-        })
-        .catch(error => {
-          log(error);
-        });
+function formatter(media) {
+  return map(media, item => {
+    const song = {};
+    song.url = item.path;
+    song.id = item.path;
+    song.title = item.title;
+    song.album = item.album;
+    song.artist = item.artist;
+    return song;
+  });
+}
 
-      if (isEmpty(media)) {
+export const updateQuery = query => dispatch => {
+  if (query) {
+    RNAndroidAudioStore.search({ searchParam: query })
+      .then(media => {
         dispatch({
           type: 'UPDATE_QUERY',
-          payload: [],
+          payload: formatter(media),
+          // query: query
         });
-      } else {
-        dispatch({
-          type: 'UPDATE_QUERY',
-          payload: media,
-        });
-      }
-    } else {
-      dispatch({
-        type: 'UPDATE_QUERY',
-        payload: false,
+      })
+      .catch(error => {
+        log(error);
       });
-    }
-  };
+  } else {
+    dispatch({
+      type: 'UPDATE_QUERY',
+      payload: false,
+      // query: query
+    });
+  }
 };
 
 export const getOfflineSongs = () => dispatch => {
@@ -94,11 +92,7 @@ export const findAlbumSongs = async album => {
     album,
   })
     .then(media => {
-      return map(media, item => {
-        item.url = item.path;
-        delete item.path;
-        return item;
-      });
+      return formatter(media);
     })
     .catch(er => log(er));
   return songs;
@@ -109,12 +103,17 @@ export const findArtistSongs = async artist => {
     artist,
   })
     .then(media => {
-      return map(media, item => {
-        item.url = item.path;
-        delete item.path;
-        return item;
-      });
+      return formatter(media);
     })
     .catch(er => log(er));
+  return songs;
+};
+
+export const filterSongsByGenre = async genre => {
+  const songs = await RNAndroidAudioStore.getSongsByGenres({ genre })
+    .then(media => {
+      return formatter(media);
+    })
+    .catch(error => log(error));
   return songs;
 };

@@ -10,6 +10,7 @@ const INITIAL_CONFIG = {
   themeType: 'dark',
   repeat: 'repeat-all',
   setup: false,
+  radio: false,
 };
 
 const INITIAL_STATE = {
@@ -32,7 +33,6 @@ const INITIAL_STORE = {
   songs: [],
   artists: [],
   albums: [],
-  files: [],
 };
 
 // FIXME: Javascript implementation
@@ -63,12 +63,6 @@ export const mediaStoreReducer = (state = INITIAL_STORE, action) => {
         ...state,
         albums: action.payload,
       };
-
-    case 'OFFLINE_FILES':
-      return {
-        ...state,
-        files: action.payload,
-      };
     default:
       return state;
   }
@@ -88,7 +82,6 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         active: action.track,
-        status: action.status,
       };
 
     case 'COMPLETED':
@@ -118,7 +111,6 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
         }),
         result: `Removed ${action.payload.title} from favorites`,
       };
-
     default:
       return state;
   }
@@ -153,13 +145,18 @@ export const configReducer = (state = INITIAL_CONFIG, action) => {
         ...state,
         repeat: action.repeat,
       };
-    default:
-      return state;
     case 'DEFAULT_SETUP':
       return {
         ...state,
         setup: action.payload,
       };
+    case 'RADIO_MODE':
+      return {
+        ...state,
+        radio: action.payload,
+      };
+    default:
+      return state;
   }
 };
 

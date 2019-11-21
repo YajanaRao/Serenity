@@ -1,19 +1,20 @@
 import React from 'react';
-import { withTheme, List } from 'react-native-paper';
-import { StyleSheet, FlatList } from 'react-native';
-import { getAllPlaylists } from '../actions/realmAction';
+import { List } from 'react-native-paper';
+import { FlatList } from 'react-native';
+import { getUserPlaylists } from '../actions/realmAction';
 
-const PlaylistComponent = props => {
+const PlaylistComponent = ({ song, addToPlaylist }) => {
+  const data = getUserPlaylists();
   return (
     <FlatList
-      data={getAllPlaylists()}
+      data={data}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => (
         <List.Item
           title={item.name}
           description={`by ${item.owner}`}
           left={props => <List.Icon {...props} icon="playlist-music" />}
-          onPress={() => props.addToPlaylist(item.id, props.song)}
+          onPress={() => addToPlaylist(item.id, song)}
         />
       )}
     />

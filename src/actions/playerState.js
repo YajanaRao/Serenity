@@ -1,7 +1,8 @@
-import RNAudio from 'react-native-audio';
+import MediaPlayer from 'react-native-media-player';
 import { DeviceEventEmitter } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
+import sample from 'lodash/sample';
 
 import {
   addSong,
@@ -11,6 +12,7 @@ import {
   clearAllSongs,
   addAlbum,
   removeAlbum,
+  unshiftSong,
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
 import log from '../utils/logging';
@@ -25,7 +27,7 @@ export const setUpTrackPlayer = () => dispatch => {
   try {
     subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
-      log('from event listener', event);
+      log(`from event listener: ${event}`);
       if (event === 'skip_to_next') {
         dispatch(skipToNext());
       } else if (event === 'skip_to_previous') {
@@ -39,42 +41,43 @@ export const setUpTrackPlayer = () => dispatch => {
         });
       }
     });
+    dispatch({
+      type: 'STATUS',
+      status: 'paused',
+    });
   } catch (error) {
     log(error);
   }
 };
 
-export const loadTrackPlayer = (track, playOnLoad = true) => dispatch => {
+export const loadTrack = (track, playOnLoad = true) => dispatch => {
   try {
     const url = track.url ? track.url : track.path;
     if (url) {
-      RNAudio.load(url).then(() => {
-        if (playOnLoad) {
-          RNAudio.play();
-        }
+      MediaPlayer.load(url).then(() => {
+        if (playOnLoad) MediaPlayer.play();
       });
       dispatch({
         type: 'LOAD',
         track,
-        status: playOnLoad ? 'playing' : 'paused',
       });
     } else {
       log(track);
     }
   } catch (error) {
-    log('loadTrackPlayer: ', error);
+    log('loadTrack: ', error);
   }
 };
 
-export const playTrack = () => dispatch => {
+export const playNext = track => (dispatch, getState) => {
   try {
-    RNAudio.play();
-    dispatch({
-      type: 'STATUS',
-      status: 'playing',
-    });
+    unshiftSong(QUEUE_ID, track);
+    if (isEmpty(getState().playerState.active)) {
+      const queue = getQueuedSongs();
+      dispatch(loadTrack(head(queue)));
+    }
   } catch (error) {
-    log('something went wrong', error);
+    log(error);
   }
 };
 
@@ -100,13 +103,16 @@ export const shufflePlay = songs => dispatch => {
   }
 };
 
-export const pauseTrack = () => dispatch => {
+export const startRadio = () => (dispatch, getState) => {
   try {
-    RNAudio.pause();
-    dispatch({
-      type: 'STATUS',
-      status: 'paused',
-    });
+    const track = sample(getState().mediaStore.songs);
+    if (track) {
+      dispatch(loadTrack(track));
+      dispatch({
+        type: 'RADIO_MODE',
+        payload: true,
+      });
+    }
   } catch (error) {
     log(error);
   }
@@ -116,34 +122,31 @@ export const skipToNext = () => (dispatch, getState) => {
   try {
     const queue = deserializeSongs(getQueuedSongs());
     let track = null;
-    if (getState().config.repeat === 'repeat-one') {
+    const { config } = getState();
+    if (config.repeat === 'repeat-one') {
       dispatch(playTrack());
     } else if (queue.length) {
       const playedTrack = getState().playerState.active;
       track = head(queue);
       addSong(HISTORY_ID, playedTrack);
       removeSong(QUEUE_ID, track);
+    } else if (config.radio) {
+      const playedTrack = getState().playerState.active;
+      track = sample(getState().mediaStore.songs);
+      addSong(HISTORY_ID, playedTrack);
     }
 
     if (track) {
-      const url = track.url ? track.url : track.path;
-      RNAudio.load(url).then(() => {
-        RNAudio.play();
-      });
-      dispatch({
-        type: 'LOAD',
-        track,
-        status: 'playing',
-      });
+      dispatch(loadTrack(track));
     } else {
-      RNAudio.pause();
+      MediaPlayer.pause();
       dispatch({
         type: 'STATUS',
         status: 'paused',
       });
     }
   } catch (error) {
-    log('skipToNext: ', error);
+    log(`skipToNext: ${error}`);
   }
 };
 
@@ -153,22 +156,14 @@ export const skipToPrevious = () => dispatch => {
     if (history.length) {
       const track = head(history);
       // addSong(QUEUE_ID, track);
-      const url = track.url ? track.url : track.path;
-      if (url) {
-        RNAudio.load(url).then(() => {
-          RNAudio.play();
-        });
-        dispatch({
-          type: 'LOAD',
-          track,
-          status: 'playing',
-        });
+      if (track) {
+        dispatch(loadTrack(track));
       }
     } else {
-      RNAudio.pause();
+      MediaPlayer.pause();
       dispatch({
-        type: 'STATUS',
-        status: 'paused',
+        type: 'NOTIFY',
+        status: 'Playing prevoius song',
       });
     }
   } catch (error) {
@@ -177,31 +172,21 @@ export const skipToPrevious = () => dispatch => {
 };
 
 export const destroyTrackPlayer = () => dispatch => {
-  // RNAudio.destroy();
+  MediaPlayer.destroy();
   subscription.remove();
   dispatch({
-    type: 'NOTIFY',
-    payload: null,
+    type: 'STATUS',
+    payload: 'paused',
   });
 };
 
 // NOTE: Queue management
 
-export const getQueue = () => dispatch => {
-  dispatch({
-    type: 'QUEUE',
-  });
-};
-
 export const addToQueue = song => (dispatch, getState) => {
   addSong(QUEUE_ID, song);
-  const queue = getQueuedSongs();
   if (isEmpty(getState().playerState.active)) {
-    dispatch({
-      type: 'LOAD',
-      status: 'paused',
-      track: head(queue),
-    });
+    const queue = getQueuedSongs();
+    dispatch(loadTrack(head(queue)));
   }
 };
 
@@ -213,7 +198,7 @@ export const removeFromQueue = song => dispatch => {
 };
 
 export const clearQueue = () => dispatch => {
-  RNAudio.pause();
+  MediaPlayer.pause();
   clearAllSongs(QUEUE_ID);
   dispatch({
     type: 'LOAD',
@@ -260,4 +245,20 @@ export const clearHistory = () => dispatch => {
     type: 'NOTIFY',
     payload: 'Cleared history',
   });
+};
+
+export const playTrack = () => {
+  try {
+    MediaPlayer.play();
+  } catch (error) {
+    log(`playTrack: ${error}`);
+  }
+};
+
+export const pauseTrack = () => {
+  try {
+    MediaPlayer.pause();
+  } catch (error) {
+    log(error);
+  }
 };

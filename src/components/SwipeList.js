@@ -1,128 +1,53 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import {
-  Surface,
-  IconButton,
-  Divider,
-  Portal,
-  Dialog,
-  Title,
-} from 'react-native-paper';
-import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import React, { useState } from 'react';
+import { Surface, IconButton, Divider } from 'react-native-paper';
+import { View, StyleSheet, RefreshControl } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import isEmpty from 'lodash/isEmpty';
 
 import TrackContainer from '../containers/TrackContainer';
-import PlaylistComponent from './PlaylistComponent';
 import ListSongHeader from './ListSongHeader';
 
-class SwipeList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: false,
-      song: null,
-      refreshing: false,
-    };
-  }
-
-  addToPlaylist = (id, song) => {
-    const { addToPlaylist } = this.props;
-    addToPlaylist(id, song);
-    this.hideModal();
-  };
-
-  addSongsToQueue = () => {
-    const { data, addToQueue } = this.props;
-    addToQueue(data);
-  };
-
-  showModal = song => {
-    this.setState({
-      visible: true,
-      song,
-    });
-  };
-
-  hideModal = () => {
-    this.setState({
-      visible: false,
-      song: null,
-    });
-  };
-
-  refreshData = async () => {
-    const { fetchData } = this.props;
-    this.setState({
-      refreshing: true,
-    });
+function SwipeList({ title, cover, addToQueue, data, showModal, fetchData }) {
+  const [refreshing, setRefreshing] = useState(false);
+  async function refreshData() {
+    setRefreshing(true);
     await fetchData();
-    this.setState({
-      refreshing: false,
-    });
-  };
-
-  render() {
-    const { data, title, cover, addToQueue } = this.props;
-    const { song, visible, refreshing } = this.state;
-    return (
-      <View>
-        <Portal>
-          <Dialog visible={visible} onDismiss={this.hideModal}>
-            <Dialog.ScrollArea>
-              <ScrollView
-                contentContainerStyle={{
-                  marginHorizontal: 16,
-                  marginVertical: 16,
-                }}
-              >
-                <Title style={{ textAlign: 'center' }}>Add to Playlist</Title>
-                <PlaylistComponent
-                  song={song}
-                  addToPlaylist={this.addToPlaylist}
-                />
-              </ScrollView>
-            </Dialog.ScrollArea>
-          </Dialog>
-        </Portal>
-        <SwipeListView
-          data={data}
-          ListHeaderComponent={() => (
-            <ListSongHeader
-              title={title}
-              cover={cover}
-              isEmpty={isEmpty(data)}
-              addSongsToQueue={this.addSongsToQueue}
-            />
-          )}
-          ListFooterComponent={() => <View style={{ height: 100 }} />}
-          ItemSeparatorComponent={() => <Divider inset />}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <TrackContainer track={item} />}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={this.refreshData}
-            />
-          }
-          renderHiddenItem={({ item }) => (
-            <Surface style={styles.rowBack}>
-              <IconButton
-                icon="playlist-play"
-                onPress={() => addToQueue(item)}
-              />
-              <IconButton
-                icon="playlist-plus"
-                onPress={() => this.showModal(item)}
-              />
-            </Surface>
-          )}
-          leftOpenValue={75}
-          rightOpenValue={-75}
-        />
-      </View>
-    );
+    setRefreshing(false);
   }
+
+  return (
+    <SwipeListView
+      data={data}
+      ListHeaderComponent={() => (
+        <ListSongHeader
+          title={title}
+          cover={cover}
+          isEmpty={isEmpty(data)}
+          addSongsToQueue={() => addToQueue(data)}
+        />
+      )}
+      ListFooterComponent={() => <View style={{ height: 100 }} />}
+      ItemSeparatorComponent={() => <Divider inset />}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item }) => <TrackContainer track={item} />}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={refreshData}
+          colors={['#12c2e9', '#c471ed', '#f64f59']}
+        />
+      }
+      renderHiddenItem={({ item }) => (
+        <Surface style={styles.rowBack}>
+          <IconButton icon="playlist-play" onPress={() => addToQueue(item)} />
+          <IconButton icon="playlist-plus" onPress={() => showModal(item)} />
+        </Surface>
+      )}
+      leftOpenValue={75}
+      rightOpenValue={-75}
+    />
+  );
 }
 
 export default SwipeList;

@@ -30,7 +30,7 @@ import DefaultImage from '../../components/DefaultImage';
 
 class Player extends React.Component {
   togglePlayback = () => {
-    const { pauseTrack, playTrack, status } = this.props;
+    const { status } = this.props;
     if (status === 'playing') {
       requestAnimationFrame(() => {
         pauseTrack();
@@ -99,6 +99,7 @@ class Player extends React.Component {
               <FAB
                 icon={status === 'playing' ? 'pause' : 'play'}
                 onPress={this.togglePlayback}
+                loading={status === 'loading'}
               />
               <IconButton icon="skip-next" size={40} onPress={skipToNext} />
               {repeat === 'repeat-all' ? (
@@ -139,8 +140,6 @@ Player.propTypes = {
     artist: PropTypes.string,
   }).isRequired,
   repeat: PropTypes.string.isRequired,
-  pauseTrack: PropTypes.func.isRequired,
-  playTrack: PropTypes.func.isRequired,
   skipToNext: PropTypes.func.isRequired,
   skipToPrevious: PropTypes.func.isRequired,
 };
@@ -154,8 +153,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    playTrack,
-    pauseTrack,
     skipToNext,
     skipToPrevious,
     repeatSongs,

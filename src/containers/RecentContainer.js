@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation';
 
 import { deserializeSongs } from '../utils/database';
 import TrackScrollView from '../components/TrackScrollView';
-import { loadTrackPlayer, playTrack } from '../actions/playerState';
+import { loadTrack, playTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 
 // FIXME: Testing the application
@@ -47,9 +47,9 @@ class RecentContainer extends PureComponent {
   }
 
   play = track => {
-    const { loadTrackPlayer, playTrack } = this.props;
+    const { loadTrack, playTrack } = this.props;
     if (!isEmpty(track)) {
-      loadTrackPlayer(track);
+      loadTrack(track);
       playTrack();
     }
   };
@@ -60,6 +60,7 @@ class RecentContainer extends PureComponent {
     const playlist = {
       id: 'user-playlist--000001',
       name: 'Recent songs',
+      owner: 'Serenity',
       songs: history,
     };
     navigation.navigate('Playlist', {
@@ -94,7 +95,7 @@ class RecentContainer extends PureComponent {
 export default connect(
   null,
   {
-    loadTrackPlayer,
+    loadTrack,
     playTrack,
   },
 )(withNavigation(RecentContainer));

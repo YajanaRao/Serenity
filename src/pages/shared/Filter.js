@@ -3,6 +3,7 @@ import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addToQueue } from '../../actions/playerState';
+import { filterSongsByGenre } from '../../actions/mediaStore';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
 
@@ -25,7 +26,7 @@ class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
+      songs: [],
     };
   }
 
@@ -37,14 +38,18 @@ class Filter extends Component {
 
   addSongsToQueue = () => {
     const { addToQueue } = this.props;
-    const { files } = this.state;
-    addToQueue(files);
+    const { songs } = this.state;
+    addToQueue(songs);
   };
 
-  fetchData = () => {
-    // const { navigation } = this.props;
-    // const { params } = navigation.state;
-    // const collection = params.artist || params.album;
+  fetchData = async () => {
+    const { navigation } = this.props;
+    const { params } = navigation.state;
+    const genre = params.genre.title;
+    const songs = await filterSongsByGenre(genre);
+    this.setState({
+      songs,
+    });
     // if (params.artist) {
     //   findArtistSongs(collection.artist);
     // } else if (params.album) {
@@ -54,7 +59,7 @@ class Filter extends Component {
 
   render() {
     const { navigation } = this.props;
-    const { files } = this.state;
+    const { songs } = this.state;
 
     const {
       params: { genre },
@@ -63,7 +68,7 @@ class Filter extends Component {
     return (
       <Screen>
         <SongListContainer
-          data={files}
+          data={songs}
           fetchData={this.fetchData}
           title={genre.title}
           cover={genre.image}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTheme } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
-import { ProgressBar } from 'react-native-audio';
+import { ProgressBar } from 'react-native-media-player';
 
 const Progress = () => {
   return (
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     flex: 1,
-    width: '100%'
+    width: '100%',
   },
   info: {
     margin: 4,
   },
   bar: {
     height: 30,
-    width: '100%'
-  }
+    width: '100%',
+  },
 });

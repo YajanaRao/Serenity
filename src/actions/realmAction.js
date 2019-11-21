@@ -1,5 +1,3 @@
-import values from 'lodash/values';
-
 import realm from '../database';
 
 import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
@@ -77,6 +75,12 @@ export const getAllPlaylists = () => {
   return realm.objects(PLAYLIST_SCHEMA_NAME);
 };
 
+export const getUserPlaylists = () => {
+  const playlists = realm.objects(PLAYLIST_SCHEMA_NAME);
+  const userPlaylists = playlists.filtered('owner = "You"');
+  return userPlaylists;
+};
+
 export const getQueuedSongs = () => {
   try {
     const queue = realm.objectForPrimaryKey(
@@ -109,6 +113,22 @@ export const getPlayedSongs = () => {
   }
 };
 
+export const getFavoriteSongs = () => {
+  try {
+    const favorites = realm.objectForPrimaryKey(
+      PLAYLIST_SCHEMA_NAME,
+      'user-playlist--000002',
+    );
+    if (favorites !== undefined) {
+      return favorites.songs;
+    }
+    return [];
+  } catch (error) {
+    log('getPlayedSongs: ', error);
+    return [];
+  }
+};
+
 export const createPlaylist = playlistName => {
   realm.write(() => {
     realm.create(PLAYLIST_SCHEMA_NAME, {
@@ -129,6 +149,28 @@ export const removeSong = (id, song) => {
     });
   } catch (error) {
     log('removeSong: ', error);
+  }
+};
+
+export const unshiftSong = (id, song) => {
+  try {
+    realm.write(() => {
+      const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
+      const url = song.url || song.path;
+      console.log(url, song);
+      if (url) {
+        playlist.songs.unshift({
+          id: generateSongId(),
+          title: song.title,
+          artwork: song.artwork,
+          artist: song.artist,
+          album: song.album,
+          url,
+        });
+      }
+    });
+  } catch (error) {
+    log(error);
   }
 };
 

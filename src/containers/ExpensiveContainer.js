@@ -4,9 +4,6 @@ import { View } from 'react-native';
 import ErrorBoundary from './ErrorBoundary';
 
 let QuoteContainer = null;
-let PopularContainer = null;
-let Top20Container = null;
-let ArtistContainer = null;
 
 class ExpensiveContainer extends PureComponent {
   constructor(props) {
@@ -20,9 +17,6 @@ class ExpensiveContainer extends PureComponent {
     const { load } = this.props;
     if (load) {
       QuoteContainer = require('./QuoteContainer').default;
-      PopularContainer = require('./PopularContainer').default;
-      Top20Container = require('./Top20Container').default;
-      ArtistContainer = require('./ArtistContainer').default;
       this.setState({ isLoaded: true });
     }
   }
@@ -45,9 +39,6 @@ class ExpensiveContainer extends PureComponent {
     return (
       <ErrorBoundary>
         <QuoteContainer />
-        <PopularContainer />
-        <Top20Container />
-        <ArtistContainer />
       </ErrorBoundary>
     );
   }

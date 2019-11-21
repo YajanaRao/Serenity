@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
   playTrack,
   pauseTrack,
-  loadTrackPlayer,
+  loadTrack,
   destroyTrackPlayer,
   setUpTrackPlayer,
 } from '../actions/playerState';
@@ -14,10 +14,10 @@ import PlayerBar from '../components/PlayerBar';
 
 class PlayerBarContainer extends Component {
   componentDidMount() {
-    const { active, setUpTrackPlayer, loadTrackPlayer } = this.props;
+    const { active, setUpTrackPlayer, loadTrack } = this.props;
     setUpTrackPlayer();
     if (!isEmpty(active)) {
-      loadTrackPlayer(active, false);
+      loadTrack(active, false);
     }
   }
 
@@ -27,7 +27,7 @@ class PlayerBarContainer extends Component {
   }
 
   togglePlayback = () => {
-    const { status, pauseTrack, playTrack } = this.props;
+    const { status } = this.props;
     if (status === 'playing') {
       pauseTrack();
     } else {
@@ -64,9 +64,7 @@ const mapStateToProps = state => ({
 PlayerBarContainer.propTypes = {
   active: PropTypes.object.isRequired,
   status: PropTypes.string.isRequired,
-  playTrack: PropTypes.func.isRequired,
-  pauseTrack: PropTypes.func.isRequired,
-  loadTrackPlayer: PropTypes.func.isRequired,
+  loadTrack: PropTypes.func.isRequired,
   destroyTrackPlayer: PropTypes.func.isRequired,
   setUpTrackPlayer: PropTypes.func.isRequired,
 };
@@ -74,9 +72,7 @@ PlayerBarContainer.propTypes = {
 export default connect(
   mapStateToProps,
   {
-    playTrack,
-    pauseTrack,
-    loadTrackPlayer,
+    loadTrack,
     destroyTrackPlayer,
     setUpTrackPlayer,
   },

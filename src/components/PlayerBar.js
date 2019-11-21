@@ -1,7 +1,13 @@
 import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Surface, Subheading, Caption, IconButton } from 'react-native-paper';
+import {
+  Surface,
+  Subheading,
+  Caption,
+  IconButton,
+  ActivityIndicator,
+} from 'react-native-paper';
 import PropTypes from 'prop-types';
 
 import DefaultImage from './DefaultImage';
@@ -29,13 +35,17 @@ const PlayerBar = ({ active, status, togglePlayback, navigateToPlayer }) => {
           </Caption>
         </View>
         <View style={styles.iconContainer}>
-          <IconButton
-            icon={status === 'playing' ? 'pause' : 'play'}
-            animated
-            size={34}
-            onPress={togglePlayback}
-            style={{ margin: 0, padding: 0 }}
-          />
+          {status === 'loading' ? (
+            <ActivityIndicator animating={status === 'loading'} />
+          ) : (
+            <IconButton
+              icon={status === 'playing' ? 'pause' : 'play'}
+              animated
+              size={34}
+              onPress={togglePlayback}
+              style={{ margin: 0, padding: 0 }}
+            />
+          )}
         </View>
       </Surface>
     </TouchableOpacity>

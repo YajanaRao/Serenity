@@ -19,14 +19,6 @@ class NetNotify extends PureComponent {
     });
   }
 
-  checkNetInfo = () => {
-    NetInfo.fetch().then(state => {
-      this.setState({
-        isConnected: state.isConnected,
-      });
-    });
-  };
-
   componentWillUnmount() {
     this.unsubscribe();
   }
@@ -37,12 +29,23 @@ class NetNotify extends PureComponent {
     });
   };
 
+  checkNetInfo = () => {
+    NetInfo.fetch().then(state => {
+      this.setState({
+        isConnected: state.isConnected,
+      });
+    });
+  };
+
   render() {
-    const { navigate } = this.props.navigation;
+    const {
+      navigation: { navigate },
+    } = this.props;
+    const { isConnected } = this.state;
 
     return (
       <Banner
-        visible={!this.state.isConnected}
+        visible={!isConnected}
         actions={[
           {
             label: 'Retry',
