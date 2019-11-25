@@ -182,8 +182,15 @@ export const destroyTrackPlayer = () => dispatch => {
 
 // NOTE: Queue management
 
-export const addToQueue = song => (dispatch, getState) => {
-  addSong(QUEUE_ID, song);
+export const addToQueue = songs => (dispatch, getState) => {
+  if (Array.isArray(songs)) {
+    songs.forEach(song => {
+      addSong(QUEUE_ID, song);
+    });
+  } else {
+    addSong(QUEUE_ID, songs);
+  }
+
   if (isEmpty(getState().playerState.active)) {
     const queue = getQueuedSongs();
     dispatch(loadTrack(head(queue)));

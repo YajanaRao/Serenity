@@ -11,6 +11,8 @@ export const userSongIdPrefix = 'user-song--';
 export const artistIdPrefix = 'artist--';
 export const albumIdPrefix = 'album--';
 
+export const favoritesPlaylist = 'user-playlist--000002';
+
 const generateId = () => {
   const playlists = realm.objects(PLAYLIST_SCHEMA_NAME).sorted('id', true);
   let max = 1;
@@ -117,7 +119,7 @@ export const getFavoriteSongs = () => {
   try {
     const favorites = realm.objectForPrimaryKey(
       PLAYLIST_SCHEMA_NAME,
-      'user-playlist--000002',
+      favoritesPlaylist,
     );
     if (favorites !== undefined) {
       return favorites.songs;
@@ -174,38 +176,24 @@ export const unshiftSong = (id, song) => {
   }
 };
 
-export const addSong = (id, songs) => {
+export const addSong = (id, song) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
-      if (Array.isArray(songs)) {
-        songs.forEach(song => {
-          const url = song.url ? song.url : song.path;
-          if (url !== undefined) {
-            playlist.songs.push({
-              id: generateSongId(),
-              title: song.title,
-              artwork: song.artwork,
-              artist: song.artist,
-              album: song.album,
-              url,
-            });
-          }
-        });
-      } else {
-        const url = songs.url ? songs.url : songs.path;
+      const url = song.url ? song.url : song.path;
+      if (url !== undefined) {
         playlist.songs.push({
           id: generateSongId(),
-          title: songs.title,
-          artwork: songs.artwork,
-          artist: songs.artist,
-          album: songs.album,
+          title: song.title,
+          artwork: song.artwork,
+          artist: song.artist,
+          album: song.album,
           url,
         });
       }
     });
   } catch (error) {
-    log('addSong: ', error, songs);
+    log('addSong: ', error, song);
   }
 };
 
@@ -218,6 +206,14 @@ export const clearAllSongs = id => {
   } catch (error) {
     log('clearAllSongs: ', error);
   }
+};
+
+export const isSongPresent = id => {
+  const songs = realm.objectForPrimaryKey(
+    PLAYLIST_SCHEMA_NAME,
+    favoritesPlaylist,
+  );
+  return songs.map();
 };
 
 export const deletePlaylist = id => {
@@ -274,10 +270,7 @@ export const removeArtist = id => {
 
 export const isArtistPresent = id => {
   const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id.toString());
-  if (artist) {
-    return true;
-  }
-  return false;
+  return artist;
 };
 
 export const addAlbum = album => {

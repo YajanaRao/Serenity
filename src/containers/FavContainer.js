@@ -10,6 +10,7 @@ import {
 import {
   isAlbumPresent,
   isArtistPresent,
+  isSongPresent,
   addArtist,
   removeArtist,
 } from '../actions/realmAction';
@@ -34,6 +35,12 @@ class FavContainer extends PureComponent {
       }
     } else if (type === 'artist') {
       if (isArtistPresent(item.id)) {
+        this.setState({
+          liked: true,
+        });
+      }
+    } else {
+      if (isSongPresent(item.id)) {
         this.setState({
           liked: true,
         });

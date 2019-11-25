@@ -116,7 +116,7 @@ class RootScreen extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (!isEqual(props.result, state.result)) {
+    if (!isEqual(props.result, state.result) && !isEmpty(props.result)) {
       return {
         result: props.result,
         visible: true,
@@ -199,26 +199,22 @@ class RootScreen extends React.Component {
 
     return (
       <Screen>
-        {!isEmpty(result) ? (
-          <Snackbar
-            style={{ marginBottom: 120, zIndex: 10 }}
-            visible={visible}
-            onDismiss={() => this.setState({ visible: false })}
-            // duration={1000}
-            action={{
-              label: 'Dismiss',
-              onPress: () => {
-                this.setState({
-                  visible: false,
-                });
-              },
-            }}
-          >
-            {result}
-          </Snackbar>
-        ) : (
-          false
-        )}
+        <Snackbar
+          style={{ marginBottom: 120, zIndex: 10 }}
+          visible={visible}
+          onDismiss={() => this.setState({ visible: false })}
+          // duration={1000}
+          action={{
+            label: 'Dismiss',
+            onPress: () => {
+              this.setState({
+                visible: false,
+              });
+            },
+          }}
+        >
+          {result}
+        </Snackbar>
         {/* <StatusBar backgroundColor={theme.colors.primary} barStyle="light-content" /> */}
         <Navigator screenProps={{ theme }} />
       </Screen>
