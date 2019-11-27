@@ -254,13 +254,17 @@ interface ArtistProps {
 }
 
 export const addArtist = (artist: ArtistProps) => {
-  realm.write(() => {
-    realm.create(ARTIST_SCHEMA_NAME, {
-      id: artist.id.toString(),
-      name: artist.artist,
-      cover: artist.artwork,
+  try {
+    realm.write(() => {
+      realm.create(ARTIST_SCHEMA_NAME, {
+        id: artist.id,
+        name: artist.artist,
+        cover: artist.artwork,
+      });
     });
-  });
+  } catch (error) {
+    log('artist with same id is already present');
+  }
 };
 
 export const removeArtist = (id: string) => {

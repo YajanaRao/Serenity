@@ -25,7 +25,6 @@ class Artist extends Component {
     this.realmArtists = getArtists();
     const artists = deserializeArtists(this.realmArtists);
     this.state = {
-      data: [],
       visible: false,
       addArtists: [],
       artists,
@@ -61,7 +60,7 @@ class Artist extends Component {
 
   addArtists = () => {
     const { addArtists } = this.state;
-    addArtist(addArtists);
+    addArtists.forEach(artist => addArtist(artist));
     this.hideDialog();
   };
 
