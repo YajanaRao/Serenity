@@ -25,10 +25,8 @@ import { deletePlaylist, renamePlaylist } from '../../actions/realmAction';
 import TrackContainer from '../../containers/TrackContainer';
 import DefaultImage from '../../components/DefaultImage';
 import Screen from '../../components/Screen';
+import EmptyPlaylist from '../../components/EmptyPlaylist';
 import log, { logEvent } from '../../utils/logging';
-
-// fix on click issue
-// {"accent": "#03dac6", "backdrop": "rgba(0, 0, 0, 0.5)", "background": "#121212", "disabled": "rgba(255, 255, 255, 0.38)", "error": "#CF6679", "notification": "#ff80ab", "onBackground": "#FFFFFF", "onSurface": "#FFFFFF", "placeholder": "rgba(255, 255, 255, 0.54)", "primary": "#BB86FC", "surface": "#121212", "text": "#ffffff"}
 
 class Collection extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -249,37 +247,33 @@ class Collection extends Component {
             </Dialog.Actions>
           </Dialog>
         </Portal>
-        <FlatList
-          ListHeaderComponent={() => (
-            <View style={{ margin: 12 }}>
-              <View style={styles.coverContainer}>
-                <DefaultImage style={styles.artCover} />
-              </View>
-              <View style={styles.titleContainer}>
-                <Title>{name}</Title>
-                <Subheading>{`by ${owner}`}</Subheading>
-              </View>
-              {isEmpty(songs) ? (
-                <View style={{ flex: 1, margin: 16 }}>
-                  <Title style={{ textAlign: 'center' }}>
-                    Add some songs to playlist
-                  </Title>
+        {isEmpty(songs) ? (
+          <EmptyPlaylist />
+        ) : (
+          <FlatList
+            ListHeaderComponent={() => (
+              <View style={{ margin: 12 }}>
+                <View style={styles.coverContainer}>
+                  <DefaultImage style={styles.artCover} />
                 </View>
-              ) : (
+                <View style={styles.titleContainer}>
+                  <Title>{name}</Title>
+                  <Subheading>{`by ${owner}`}</Subheading>
+                </View>
                 <View style={styles.buttonContainer}>
                   <Button mode="contained" onPress={this.addToQueue}>
                     Play All
                   </Button>
                 </View>
-              )}
-            </View>
-          )}
-          data={songs}
-          renderItem={({ item }) => <TrackContainer track={item} />}
-          ItemSeparatorComponent={() => <Divider inset />}
-          keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={() => <View style={{ height: 100 }} />}
-        />
+              </View>
+            )}
+            data={songs}
+            renderItem={({ item }) => <TrackContainer track={item} />}
+            ItemSeparatorComponent={() => <Divider inset />}
+            keyExtractor={(item, index) => index.toString()}
+            ListFooterComponent={() => <View style={{ height: 100 }} />}
+          />
+        )}
       </Screen>
     );
   }

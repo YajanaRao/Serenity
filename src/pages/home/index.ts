@@ -1,4 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack';
+import { useTheme } from 'react-native-paper';
 import MainScreen from './Main';
 import SettingScreen from './Settings';
 import PlaylistScreen from '../shared/PlaylistSongs';
@@ -11,7 +12,6 @@ export default createStackNavigator(
   },
   {
     initialRouteName: 'Home',
-    /* The header config from HomeScreen is now here */
     defaultNavigationOptions: ({ screenProps }) => {
       const { colors } = screenProps.theme;
       return {

@@ -2,13 +2,11 @@ import * as React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import { PermissionsAndroid, StatusBar } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
 import { withTheme, IconButton, Snackbar } from 'react-native-paper';
 
 import isEqual from 'lodash/isEqual';
-import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
-import Crashes, { UserConfirmation } from 'appcenter-crashes';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -93,21 +91,17 @@ const RootStack = createStackNavigator(
 
 const Navigator = createAppContainer(RootStack);
 
-class RootScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTitle: 'Home',
-      headerRight: (
-        <IconButton
-          icon="settings"
-          color="black"
-          onPress={() => navigation.navigate('Settings')}
-        />
-      ),
-    };
-  };
+export interface Props {
+  result: string;
+  theme: any;
+}
 
-  constructor(props) {
+interface State {
+  result: string;
+  visible: boolean;
+}
+class RootScreen extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       visible: false,
@@ -115,8 +109,8 @@ class RootScreen extends React.Component {
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (!isEqual(props.result, state.result)) {
+  static getDerivedStateFromProps(props: Props, state: State) {
+    if (!isEqual(props.result, state.result) && props.result != null) {
       return {
         result: props.result,
         visible: true,
@@ -130,7 +124,6 @@ class RootScreen extends React.Component {
   componentDidMount() {
     requestAnimationFrame(() => {
       this.requestPermission();
-      this.checkForCrash();
     });
   }
 
@@ -163,63 +156,28 @@ class RootScreen extends React.Component {
     }
   };
 
-  checkForCrash = async () => {
-    await Crashes.setEnabled(true);
-    const didCrash = await Crashes.hasCrashedInLastSession();
-    if (didCrash) {
-      try {
-        // const crashReport = await Crashes.lastSessionCrashReport();
-        Crashes.setListener({
-          shouldProcess(report) {
-            return true; // return true if the crash report should be processed, otherwise false.
-          },
-
-          onSendingSucceeded(report) {
-            // called when crash report sent successfully.
-            log(report);
-          },
-          onSendingFailed(report) {
-            // called when crash report could not be sent.
-            log(report);
-          },
-
-          // Other callbacks must also be defined at the same time if used.
-          // Default values are used if a method with return parameter is not defined.
-        });
-        Crashes.notifyUserConfirmation(UserConfirmation.SEND);
-      } catch (error) {
-        log(error);
-      }
-    }
-  };
-
   render() {
     const { theme } = this.props;
     const { result, visible } = this.state;
 
     return (
       <Screen>
-        {!isEmpty(result) ? (
-          <Snackbar
-            style={{ marginBottom: 120, zIndex: 10 }}
-            visible={visible}
-            onDismiss={() => this.setState({ visible: false })}
-            // duration={1000}
-            action={{
-              label: 'Dismiss',
-              onPress: () => {
-                this.setState({
-                  visible: false,
-                });
-              },
-            }}
-          >
-            {result}
-          </Snackbar>
-        ) : (
-          false
-        )}
-        {/* <StatusBar backgroundColor={theme.colors.primary} barStyle="light-content" /> */}
+        <Snackbar
+          style={{ marginBottom: 120, zIndex: 10 }}
+          visible={visible}
+          onDismiss={() => this.setState({ visible: false })}
+          // duration={1000}
+          action={{
+            label: 'Dismiss',
+            onPress: () => {
+              this.setState({
+                visible: false,
+              });
+            },
+          }}
+        >
+          {result}
+        </Snackbar>
         <Navigator screenProps={{ theme }} />
       </Screen>
     );

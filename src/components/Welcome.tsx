@@ -1,5 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
+
+// @ts-ignore
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Welcome = () => (

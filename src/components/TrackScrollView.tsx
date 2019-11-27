@@ -2,12 +2,22 @@ import React from 'react';
 import { Paragraph } from 'react-native-paper';
 import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import PropTypes from 'prop-types';
 
 import DefaultImage from './DefaultImage';
 
+interface TrackProps {
+  artwork: string;
+  title: string;
+  artist: string;
+}
+
+interface TrackScrollViewProps {
+  data: TrackProps[];
+  play(): void;
+}
+
 // FIXME: Testing the application
-const TrackScrollView = ({ data, play }) => {
+const TrackScrollView = ({ data, play }: TrackScrollViewProps) => {
   return (
     <FlatList
       horizontal
@@ -35,10 +45,6 @@ const TrackScrollView = ({ data, play }) => {
 };
 
 export default TrackScrollView;
-
-TrackScrollView.propTypes = {
-  play: PropTypes.func.isRequired,
-};
 
 const styles = StyleSheet.create({
   photo: {
