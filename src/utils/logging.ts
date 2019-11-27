@@ -1,15 +1,15 @@
 /* global __DEV__ */
 import Analytics from 'appcenter-analytics';
 
-export default function log(string) {
+export default function log(message: string) {
   if (__DEV__) {
-    console.log(string);
+    console.log(message);
   } else {
-    Analytics.trackEvent('error', string);
+    Analytics.trackEvent('error', message);
   }
 }
 
-export function logEvent(event, message) {
+export function logEvent(event: any, message: any) {
   if (__DEV__) {
     console.log(event, message);
   } else {

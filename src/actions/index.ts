@@ -1,6 +1,6 @@
 import { defaultDBSetup } from './realmAction';
 
-export const updateTheme = theme => dispatch => {
+export const updateTheme = (theme: string) => (dispatch: any) => {
   if (theme === 'dark') {
     dispatch({
       type: 'UPDATE_THEME',
@@ -14,7 +14,7 @@ export const updateTheme = theme => dispatch => {
   }
 };
 
-export const defaultSetup = () => dispatch => {
+export const defaultSetup = () => (dispatch: any) => {
   defaultDBSetup();
   dispatch({
     type: 'DEFAULT_SETUP',
@@ -22,7 +22,7 @@ export const defaultSetup = () => dispatch => {
   });
 };
 
-export const changeRadioMode = radio => dispatch => {
+export const changeRadioMode = (radio: boolean) => (dispatch: any) => {
   dispatch({
     type: 'RADIO_MODE',
     payload: radio,

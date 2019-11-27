@@ -94,7 +94,7 @@ export const getQueuedSongs = () => {
     }
     return [];
   } catch (error) {
-    log('getQueuedSongs: ', error);
+    log('getQueuedSongs: ' + error);
     return [];
   }
 };
@@ -110,7 +110,7 @@ export const getPlayedSongs = () => {
     }
     return [];
   } catch (error) {
-    log('getPlayedSongs: ', error);
+    log('getPlayedSongs: ' + error);
     return [];
   }
 };
@@ -126,12 +126,12 @@ export const getFavoriteSongs = () => {
     }
     return [];
   } catch (error) {
-    log('getPlayedSongs: ', error);
+    log('getPlayedSongs: ' + error);
     return [];
   }
 };
 
-export const createPlaylist = playlistName => {
+export const createPlaylist = (playlistName: string) => {
   realm.write(() => {
     realm.create(PLAYLIST_SCHEMA_NAME, {
       id: generateId(),
@@ -142,7 +142,17 @@ export const createPlaylist = playlistName => {
   return true;
 };
 
-export const removeSong = (id, song) => {
+interface SongProps {
+  id: string;
+  url?: string;
+  path?: string;
+  title: string;
+  artwork: string;
+  artist?: string;
+  album?: string;
+}
+
+export const removeSong = (id: string, song: SongProps) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
@@ -150,11 +160,11 @@ export const removeSong = (id, song) => {
       realm.delete(item);
     });
   } catch (error) {
-    log('removeSong: ', error);
+    log('removeSong: ' + error);
   }
 };
 
-export const unshiftSong = (id, song) => {
+export const unshiftSong = (id: string, song: SongProps) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
@@ -176,7 +186,7 @@ export const unshiftSong = (id, song) => {
   }
 };
 
-export const addSong = (id, song) => {
+export const addSong = (id: string, song: SongProps) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
@@ -193,22 +203,22 @@ export const addSong = (id, song) => {
       }
     });
   } catch (error) {
-    log('addSong: ', error, song);
+    log('addSong: ' + error);
   }
 };
 
-export const clearAllSongs = id => {
+export const clearAllSongs = (id: string) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
       realm.delete(playlist.songs);
     });
   } catch (error) {
-    log('clearAllSongs: ', error);
+    log('clearAllSongs: ' + error);
   }
 };
 
-export const isSongPresent = id => {
+export const isSongPresent = (id: string) => {
   const songs = realm.objectForPrimaryKey(
     PLAYLIST_SCHEMA_NAME,
     favoritesPlaylist,
@@ -216,14 +226,14 @@ export const isSongPresent = id => {
   return songs.map();
 };
 
-export const deletePlaylist = id => {
+export const deletePlaylist = (id: string) => {
   realm.write(() => {
     const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
     realm.delete(playlist);
   });
 };
 
-export const renamePlaylist = (id, playlistName) => {
+export const renamePlaylist = (id: string, playlistName: string) => {
   realm.write(() => {
     realm.create(
       PLAYLIST_SCHEMA_NAME,
@@ -236,27 +246,24 @@ export const renamePlaylist = (id, playlistName) => {
   });
 };
 
-export const addArtist = artists => {
+interface ArtistProps {
+  id: string;
+  name: string;
+  artwork?: string;
+  artist?: string;
+}
+
+export const addArtist = (artist: ArtistProps) => {
   realm.write(() => {
-    if (Array.isArray(artists)) {
-      artists.forEach(artist => {
-        realm.create(ARTIST_SCHEMA_NAME, {
-          id: artist.id.toString(),
-          name: artist.artist,
-          cover: artist.artwork,
-        });
-      });
-    } else {
-      realm.create(ARTIST_SCHEMA_NAME, {
-        id: artists.id.toString(),
-        name: artists.artist,
-        cover: artists.artwork,
-      });
-    }
+    realm.create(ARTIST_SCHEMA_NAME, {
+      id: artist.id.toString(),
+      name: artist.artist,
+      cover: artist.artwork,
+    });
   });
 };
 
-export const removeArtist = id => {
+export const removeArtist = (id: string) => {
   realm.write(() => {
     const artistObject = realm.objectForPrimaryKey(
       ARTIST_SCHEMA_NAME,
@@ -268,12 +275,20 @@ export const removeArtist = id => {
   });
 };
 
-export const isArtistPresent = id => {
+export const isArtistPresent = (id: string) => {
   const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id.toString());
   return artist;
 };
 
-export const addAlbum = album => {
+interface AlbumProps {
+  id: string;
+  album: string;
+  artwork?: string;
+  cover?: string;
+  artist?: string;
+}
+
+export const addAlbum = (album: AlbumProps) => {
   realm.write(() => {
     realm.create(ALBUM_SCHEMA_NAME, {
       id: album.id.toString(),
@@ -284,7 +299,7 @@ export const addAlbum = album => {
   });
 };
 
-export const removeAlbum = id => {
+export const removeAlbum = (id: string) => {
   realm.write(() => {
     const albumObject = realm.objectForPrimaryKey(
       ALBUM_SCHEMA_NAME,
@@ -294,7 +309,7 @@ export const removeAlbum = id => {
   });
 };
 
-export const isAlbumPresent = id => {
+export const isAlbumPresent = (id: string) => {
   const album = realm.objectForPrimaryKey(ALBUM_SCHEMA_NAME, id.toString());
   if (album) {
     return true;
@@ -306,7 +321,7 @@ export const getArtists = () => {
   try {
     return realm.objects(ARTIST_SCHEMA_NAME);
   } catch (error) {
-    log('getArtists: ', error);
+    log('getArtists: ' + error);
     return [];
   }
 };
@@ -315,7 +330,7 @@ export const getAlbums = () => {
   try {
     return realm.objects(ALBUM_SCHEMA_NAME);
   } catch (error) {
-    log('getAlbums: ', error);
+    log('getAlbums: ' + error);
     return [];
   }
 };

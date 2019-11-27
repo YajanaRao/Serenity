@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { withTheme } from 'react-native-paper';
+import { withTheme, Theme } from 'react-native-paper';
 
-const Screen = ({ theme, children }) => {
+interface ScreenProps {
+  theme: Theme;
+  children: ReactNode;
+}
+
+const Screen = ({ theme, children }: ScreenProps) => {
   const { colors } = theme;
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>

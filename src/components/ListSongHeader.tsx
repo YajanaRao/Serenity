@@ -5,8 +5,18 @@ import FastImage from 'react-native-fast-image';
 
 import DefaultImage from './DefaultImage';
 
-const ListSongHeader = ({ title, cover, isEmpty, addSongsToQueue }) => (
-  <View style={styles.topMargin}>
+interface ListSongHeaderProps {
+  title: string;
+  cover: string;
+  addSongsToQueue(): void;
+}
+
+const ListSongHeader = ({
+  title,
+  cover,
+  addSongsToQueue,
+}: ListSongHeaderProps) => (
+  <View style={styles.container}>
     <View style={styles.coverContainer}>
       {cover ? (
         <FastImage source={{ uri: cover }} style={styles.artCover} />
@@ -17,25 +27,20 @@ const ListSongHeader = ({ title, cover, isEmpty, addSongsToQueue }) => (
     <View style={styles.titleContainer}>
       <Title>{title}</Title>
     </View>
-    {isEmpty ? (
-      <View style={styles.fillContainer}>
-        <Title>No songs</Title>
-      </View>
-    ) : (
-      <View style={styles.buttonContainer}>
-        <Button mode="contained" onPress={addSongsToQueue}>
-          Play All
-        </Button>
-      </View>
-    )}
+    <View style={styles.buttonContainer}>
+      <Button mode="contained" onPress={addSongsToQueue}>
+        Play All
+      </Button>
+    </View>
   </View>
 );
 
 export default ListSongHeader;
 
 const styles = StyleSheet.create({
-  topMargin: {
+  container: {
     marginTop: 12,
+    flex: 1,
   },
   coverContainer: {
     justifyContent: 'center',

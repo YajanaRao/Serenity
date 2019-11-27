@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import isEmpty from 'lodash/isEmpty';
 
 import TrackContainer from '../containers/TrackContainer';
 import ListSongHeader from './ListSongHeader';
@@ -23,7 +22,6 @@ function SwipeList({ title, cover, addToQueue, data, showModal, fetchData }) {
         <ListSongHeader
           title={title}
           cover={cover}
-          isEmpty={isEmpty(data)}
           addSongsToQueue={() => addToQueue(data)}
         />
       )}
