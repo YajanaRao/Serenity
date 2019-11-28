@@ -39,12 +39,10 @@ class FavContainer extends PureComponent {
           liked: true,
         });
       }
-    } else {
-      if (isSongPresent(item.id)) {
-        this.setState({
-          liked: true,
-        });
-      }
+    } else if (isSongPresent(item.id)) {
+      this.setState({
+        liked: true,
+      });
     }
   }
 
@@ -122,5 +120,9 @@ FavContainer.defaultProps = {
 
 export default connect(
   null,
-  { addSongToFavorite, addAlbumToFavorite, removeAlbumFromFavorite },
+  {
+    addSongToFavorite,
+    addAlbumToFavorite,
+    removeAlbumFromFavorite,
+  },
 )(FavContainer);

@@ -1,8 +1,7 @@
 import React, { useState, SetStateAction } from 'react';
-import { Portal, Dialog, Title } from 'react-native-paper';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 
-import PlaylistComponent from './PlaylistComponent';
+import PlaylistDailog from './PlaylistDailog';
 import SwipeList from './SwipeList';
 import EmptyPlaylist from './EmptyPlaylist';
 import Container from './Container';
@@ -31,7 +30,7 @@ function SongList({
   fetchData,
 }: SongListProps) {
   const [visible, setVisibility] = useState(false);
-  const [song, setSong] = useState(null);
+  const [song, setSong] = useState();
 
   function showModal(track: SetStateAction<null>) {
     setVisibility(true);
@@ -40,11 +39,10 @@ function SongList({
 
   function hideModal() {
     setVisibility(false);
-    setSong(null);
   }
 
-  function addSongToPlaylist(id: string, track: TrackProps) {
-    addToPlaylist(id, track);
+  function addSongToPlaylist(id: string) {
+    addToPlaylist(id, song);
     hideModal();
   }
 
@@ -52,24 +50,11 @@ function SongList({
     <Container>
       {data.length ? (
         <View>
-          <Portal>
-            <Dialog visible={visible} onDismiss={hideModal}>
-              <Dialog.ScrollArea>
-                <ScrollView
-                  contentContainerStyle={{
-                    marginHorizontal: 16,
-                    marginVertical: 16,
-                  }}
-                >
-                  <Title style={{ textAlign: 'center' }}>Add to Playlist</Title>
-                  <PlaylistComponent
-                    song={song}
-                    addToPlaylist={addSongToPlaylist}
-                  />
-                </ScrollView>
-              </Dialog.ScrollArea>
-            </Dialog>
-          </Portal>
+          <PlaylistDailog
+            visible={visible}
+            hideModal={hideModal}
+            addToPlaylist={addSongToPlaylist}
+          />
           <SwipeList
             data={data}
             title={title}

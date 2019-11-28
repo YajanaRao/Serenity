@@ -27,6 +27,10 @@ import DefaultImage from '../../components/DefaultImage';
 import Screen from '../../components/Screen';
 import EmptyPlaylist from '../../components/EmptyPlaylist';
 import log, { logEvent } from '../../utils/logging';
+import RenamePlaylistDailog from '../../components/RenamePlaylistDailog';
+
+const RENAME_DIALOG = 'RENAME';
+const PLAYLIST_DIALOG = 'PLAYLIST';
 
 class Collection extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -47,7 +51,7 @@ class Collection extends Component {
     this.bs = React.createRef();
     this.sheetOpenValue = new Animated.Value(1);
     this.state = {
-      visible: false,
+      visible: '',
       playlist: props.navigation.getParam('playlist'),
     };
   }
@@ -94,34 +98,32 @@ class Collection extends Component {
     this.bs.current.snapTo(1);
   };
 
-  rename = () => {
+  rename = playlistName => {
     const {
       playlist: { id },
-      playlistName,
     } = this.state;
     const { navigation } = this.props;
     renamePlaylist(id, playlistName);
-    this.hideDialog();
     navigation.goBack();
-  };
-
-  onChangeText = playlistName => {
-    this.setState({
-      playlistName,
-    });
   };
 
   hideDialog = () => {
     this.setState({
-      visible: false,
+      visible: '',
     });
   };
 
-  showDailog = () => {
+  showRenameDailog = () => {
     this.setState({
-      visible: true,
+      visible: RENAME_DIALOG,
     });
     this.bs.current.snapTo(1);
+  };
+
+  showPlaylistDailog = () => {
+    this.setState({
+      visible: PLAYLIST_DIALOG,
+    });
   };
 
   openBottomSheet = () => {
@@ -137,12 +139,7 @@ class Collection extends Component {
     return (
       <View style={styles.panel}>
         <LinearGradient
-          colors={[
-            'transparent',
-            colors.background,
-            colors.surface,
-            colors.surface,
-          ]}
+          colors={['transparent', colors.surface, colors.surface]}
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <TouchableWithoutFeedback
@@ -185,7 +182,7 @@ class Collection extends Component {
                   left={props => <List.Icon {...props} icon="close" />}
                 />
               </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={this.showDailog}>
+              <TouchableWithoutFeedback onPress={this.showRenameDailog}>
                 <List.Item
                   title="Rename Playlist"
                   left={props => <List.Icon {...props} icon="playlist-edit" />}
@@ -199,7 +196,7 @@ class Collection extends Component {
   };
 
   render() {
-    const { playlist, visible, playlistName } = this.state;
+    const { playlist, visible } = this.state;
     const { name, owner, songs } = playlist;
 
     return (
@@ -230,23 +227,13 @@ class Collection extends Component {
             callbackNode={this.sheetOpenValue}
           />
         </Portal>
-        <Portal>
-          <Dialog visible={visible} onDismiss={this.hideDialog}>
-            <Dialog.Title>Renaming</Dialog.Title>
-            <Dialog.Content>
-              <TextInput
-                mode="outlined"
-                label="Playlist Name"
-                value={playlistName}
-                onChangeText={this.onChangeText}
-              />
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={this.hideDialog}>Cancel</Button>
-              <Button onPress={this.rename}>Rename</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
+        <RenamePlaylistDailog
+          visible={visible === RENAME_DIALOG}
+          hideDialog={this.hideDialog}
+          playlistName={name}
+          rename={this.rename}
+        />
+
         {isEmpty(songs) ? (
           <EmptyPlaylist />
         ) : (

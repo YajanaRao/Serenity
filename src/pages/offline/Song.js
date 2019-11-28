@@ -23,9 +23,11 @@ import {
   loadTrack,
   playNext,
   addSongToFavorite,
+  addToPlaylist,
 } from '../../actions/playerState';
 import Blank from '../../components/Blank';
 import Screen from '../../components/Screen';
+import PlaylistDailog from '../../components/PlaylistDailog';
 
 class Song extends React.Component {
   constructor(props) {
@@ -33,6 +35,7 @@ class Song extends React.Component {
     this.bs = React.createRef();
     this.sheetOpenValue = new Animated.Value(1);
     this.state = {
+      visible: false,
       songs: [],
       refreshing: false,
       song: {},
@@ -113,11 +116,11 @@ class Song extends React.Component {
             }}
           >
             <List.Item
-              title="Add to playing queue"
+              title="Add to Favorite"
               left={props => <List.Icon {...props} icon="heart" />}
             />
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.addToQueue}>
+          <TouchableWithoutFeedback onPress={this.showDailog}>
             <List.Item
               title="Add to Playlist"
               left={props => <List.Icon {...props} icon="playlist-plus" />}
@@ -150,8 +153,24 @@ class Song extends React.Component {
     this.bs.current.snapTo(1);
   };
 
+  showDailog = () => {
+    this.bs.current.snapTo(1);
+    this.setState({ visible: true });
+  };
+
+  hideDialog = () => {
+    this.setState({ visible: false, song: {} });
+  };
+
+  addSongToPlaylist = id => {
+    const { song } = this.state;
+    const { addToPlaylist } = this.props;
+    addToPlaylist(id, song);
+    this.hideDialog();
+  };
+
   render() {
-    const { songs, refreshing } = this.state;
+    const { songs, refreshing, visible } = this.state;
     const { addToQueue, shufflePlay, loadTrack } = this.props;
     if (!isEmpty(songs) && isArray(songs)) {
       return (
@@ -182,6 +201,11 @@ class Song extends React.Component {
               callbackNode={this.sheetOpenValue}
             />
           </Portal>
+          <PlaylistDailog
+            visible={visible}
+            hideModal={this.hideDialog}
+            addToPlaylist={this.addSongToPlaylist}
+          />
           <FlatList
             data={songs}
             ListHeaderComponent={() => (
@@ -253,6 +277,7 @@ export default connect(
     loadTrack,
     playNext,
     addSongToFavorite,
+    addToPlaylist,
   },
 )(Song);
 

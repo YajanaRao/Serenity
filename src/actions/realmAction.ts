@@ -1,5 +1,5 @@
 import realm from '../database';
-import includes from 'lodash/includes';
+import find from 'lodash/find';
 
 import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
 import { SONG_SCHEMA_NAME } from '../database/schema/SongSchema';
@@ -230,12 +230,11 @@ export const clearAllSongs = (id: string) => {
 };
 
 export const isSongPresent = (id: string) => {
-  const songs = realm.objectForPrimaryKey(
+  const playlist = realm.objectForPrimaryKey(
     PLAYLIST_SCHEMA_NAME,
     favoritesPlaylist,
   );
-  // return songs.(song => );
-  return includes(songs, id);
+  return find(playlist.songs, { id });
 };
 
 export const deletePlaylist = (id: string) => {
