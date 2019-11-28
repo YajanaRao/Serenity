@@ -14,8 +14,15 @@ interface DefaultImageProps {
 
 const DefaultImage = ({ style }: DefaultImageProps) => {
   return (
-    <LinearGradient colors={['#11998e', '#38ef7d']} style={style}>
-      <Icon name="music" color="#ffffff" size={style.height || 100} />
+    <LinearGradient
+      colors={['#C9D6FF', '#E2E2E2']}
+      style={[style, { justifyContent: 'center', alignItems: 'center' }]}
+    >
+      <Icon
+        name="music"
+        color="#ffffff"
+        size={style.height < 200 ? style.height - 10 : 100}
+      />
     </LinearGradient>
   );
 };

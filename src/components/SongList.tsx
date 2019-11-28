@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { useState, SetStateAction } from 'react';
 import { Portal, Dialog, Title } from 'react-native-paper';
 import { View, ScrollView } from 'react-native';
-import isEmpty from 'lodash/isEmpty';
 
 import PlaylistComponent from './PlaylistComponent';
 import SwipeList from './SwipeList';
@@ -52,9 +50,7 @@ function SongList({
 
   return (
     <Container>
-      {isEmpty(data) ? (
-        <EmptyPlaylist />
-      ) : (
+      {data.length ? (
         <View>
           <Portal>
             <Dialog visible={visible} onDismiss={hideModal}>
@@ -83,6 +79,8 @@ function SongList({
             showModal={showModal}
           />
         </View>
+      ) : (
+        <EmptyPlaylist />
       )}
     </Container>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import {
   Subheading,
   FAB,
@@ -12,7 +12,6 @@ import isString from 'lodash/isString';
 import isUndefined from 'lodash/isUndefined';
 import { connect } from 'react-redux';
 import FastImage from 'react-native-fast-image';
-import PropTypes from 'prop-types';
 
 import QueueContainer from '../../containers/QueueContainer';
 import FavContainer from '../../containers/FavContainer';
@@ -28,7 +27,22 @@ import {
 } from '../../actions/playerState';
 import DefaultImage from '../../components/DefaultImage';
 
-class Player extends React.Component {
+interface TrackProps {
+  artwork: string;
+  title: string;
+  album?: string;
+  artist?: string;
+}
+
+interface PlayerProps {
+  status: string;
+  active: TrackProps;
+  repeat: string;
+  skipToNext(): void;
+  skipToPrevious(): void;
+}
+
+class Player extends React.Component<PlayerProps> {
   togglePlayback = () => {
     const { status } = this.props;
     if (status === 'playing') {
@@ -63,62 +77,61 @@ class Player extends React.Component {
       return (
         <Screen>
           <ScrollView>
-            <View style={styles.container}>
-              <IconButton icon="close" onPress={this.close} />
-              {/* <IconButton
+            <View style={styles.playerContainer}>
+              <View style={styles.container}>
+                <IconButton icon="close" onPress={this.close} />
+                {/* <IconButton
                             icon="more-vert"
                             onPress={() => this.props.navigation.goBack()}
                         /> */}
-            </View>
-            <View style={styles.centerContainer}>
-              {isString(active.artwork) ? (
-                <FastImage
-                  source={{ uri: active.artwork }}
-                  style={[styles.artCover]}
-                />
-              ) : (
-                <DefaultImage style={styles.artCover} />
-              )}
-            </View>
-            <View style={styles.centerContainer}>
-              <Title numberOfLines={1}>{active.title}</Title>
-              <Subheading numberOfLines={1}>
-                {active.artist ? active.artist : active.album}
-              </Subheading>
-            </View>
-            <View style={styles.centerContainer}>
-              <ProgressBar />
-            </View>
-            <View style={styles.playerToolbox}>
-              <FavContainer type="song" item={active} />
-              <IconButton
-                icon="skip-previous"
-                size={40}
-                onPress={skipToPrevious}
-              />
-              <FAB
-                icon={status === 'playing' ? 'pause' : 'play'}
-                onPress={this.togglePlayback}
-                loading={status === 'loading'}
-              />
-              <IconButton icon="skip-next" size={40} onPress={skipToNext} />
-              {repeat === 'repeat-all' ? (
+              </View>
+              <View style={styles.centerContainer}>
+                {isString(active.artwork) ? (
+                  <FastImage
+                    source={{ uri: active.artwork }}
+                    style={[styles.artCover]}
+                  />
+                ) : (
+                  <DefaultImage style={styles.artCover} />
+                )}
+              </View>
+              <View style={styles.centerContainer}>
+                <Title numberOfLines={1}>{active.title}</Title>
+                <Subheading numberOfLines={1}>
+                  {active.artist ? active.artist : active.album}
+                </Subheading>
+              </View>
+              <View style={styles.centerContainer}>
+                <ProgressBar />
+              </View>
+              <View style={styles.playerToolbox}>
+                <FavContainer type="song" item={active} />
                 <IconButton
-                  icon="repeat"
-                  // size={20}
-                  onPress={this.updateRepeatType}
+                  icon="skip-previous"
+                  size={40}
+                  onPress={skipToPrevious}
                 />
-              ) : (
-                <IconButton
-                  icon="repeat-once"
-                  // size={20}
-                  onPress={this.updateRepeatType}
+                <FAB
+                  icon={status === 'playing' ? 'pause' : 'play'}
+                  onPress={this.togglePlayback}
+                  loading={status === 'loading'}
                 />
-              )}
+                <IconButton icon="skip-next" size={40} onPress={skipToNext} />
+                {repeat === 'repeat-all' ? (
+                  <IconButton
+                    icon="repeat"
+                    // size={20}
+                    onPress={this.updateRepeatType}
+                  />
+                ) : (
+                  <IconButton
+                    icon="repeat-once"
+                    // size={20}
+                    onPress={this.updateRepeatType}
+                  />
+                )}
+              </View>
             </View>
-            {/* <View style={styles.rowContainer}>
-              <Lyric style={{ width: 60 }} track={this.props.active} />
-            </View> */}
             <Divider />
 
             <QueueContainer close={this.close} />
@@ -130,19 +143,6 @@ class Player extends React.Component {
     return <ActivityIndicator />;
   }
 }
-
-Player.propTypes = {
-  status: PropTypes.string.isRequired,
-  active: PropTypes.shape({
-    artwork: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    album: PropTypes.string,
-    artist: PropTypes.string,
-  }).isRequired,
-  repeat: PropTypes.string.isRequired,
-  skipToNext: PropTypes.func.isRequired,
-  skipToPrevious: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = state => ({
   active: state.playerState.active,
@@ -178,7 +178,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  artCover: { width: 250, height: 250, borderRadius: 12, elevation: 4 },
+  playerContainer: {
+    height: Dimensions.get('window').height - 50,
+    justifyContent: 'space-between',
+  },
+  artCover: {
+    width: Dimensions.get('window').width - 50,
+    height: Dimensions.get('window').width - 50,
+    maxHeight: 300,
+    maxWidth: 300,
+    borderRadius: 12,
+    elevation: 4,
+  },
   rowBack: {
     alignItems: 'center',
     // backgroundColor: '#DDD',

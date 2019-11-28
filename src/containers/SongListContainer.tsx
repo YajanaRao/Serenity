@@ -1,10 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import SongList from '../components/SongList';
 import { addToQueue, addToPlaylist } from '../actions/playerState';
 
-class SongListContainer extends React.PureComponent {
+interface TrackProps {
+  artwork: string;
+  title: string;
+  artist: string;
+}
+
+interface SongListContainerProps {
+  data: TrackProps[];
+  title: string;
+  cover: string;
+  addToPlaylist(): void;
+  addToQueue(): void;
+  fetchData(): void;
+}
+
+class SongListContainer extends React.PureComponent<SongListContainerProps> {
   render() {
     const {
       data,
@@ -26,10 +40,6 @@ class SongListContainer extends React.PureComponent {
     );
   }
 }
-
-SongListContainer.propTypes = {
-  data: PropTypes.array,
-};
 
 export default connect(
   null,

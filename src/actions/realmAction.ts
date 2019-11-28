@@ -80,9 +80,18 @@ export const getAllPlaylists = () => {
 
 export const getUserPlaylists = () => {
   const playlists = realm.objects(PLAYLIST_SCHEMA_NAME);
-  console.log(playlists);
   const userPlaylists = playlists.filtered('owner = "You"');
   return userPlaylists;
+};
+
+export const getPlaylist = (id: string) => {
+  try {
+    const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
+    return playlist;
+  } catch (error) {
+    log('getQueuedSongs: ' + error);
+    return [];
+  }
 };
 
 export const getQueuedSongs = () => {
