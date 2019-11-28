@@ -1,12 +1,16 @@
 import RNAndroidAudioStore from 'react-native-get-music-files';
 import map from 'lodash/map';
+import groupBy from 'lodash/groupBy';
+import values from 'lodash/values';
+import orderBy from 'lodash/orderBy';
+
 import log from '../utils/logging';
 
 function formatter(media) {
   return map(media, item => {
     const song = {};
     song.url = item.path;
-    song.id = item.path;
+    song.id = item.id;
     song.title = item.title;
     song.album = item.album;
     song.artist = item.artist;
@@ -116,4 +120,13 @@ export const filterSongsByGenre = async genre => {
     })
     .catch(error => log(error));
   return songs;
+};
+
+export const mostPlayedSongs = array => {
+  return orderBy(
+    values(groupBy(array, 'id')).map(group => ({
+      ...group[0],
+      count: group.length,
+    })),
+  );
 };

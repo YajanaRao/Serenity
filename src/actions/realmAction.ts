@@ -1,4 +1,5 @@
 import realm from '../database';
+import includes from 'lodash/includes';
 
 import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
 import { SONG_SCHEMA_NAME } from '../database/schema/SongSchema';
@@ -79,6 +80,7 @@ export const getAllPlaylists = () => {
 
 export const getUserPlaylists = () => {
   const playlists = realm.objects(PLAYLIST_SCHEMA_NAME);
+  console.log(playlists);
   const userPlaylists = playlists.filtered('owner = "You"');
   return userPlaylists;
 };
@@ -193,7 +195,7 @@ export const addSong = (id: string, song: SongProps) => {
       const url = song.url ? song.url : song.path;
       if (url !== undefined) {
         playlist.songs.push({
-          id: generateSongId(),
+          id: song.id,
           title: song.title,
           artwork: song.artwork,
           artist: song.artist,
@@ -223,7 +225,8 @@ export const isSongPresent = (id: string) => {
     PLAYLIST_SCHEMA_NAME,
     favoritesPlaylist,
   );
-  return songs.map();
+  // return songs.(song => );
+  return includes(songs, id);
 };
 
 export const deletePlaylist = (id: string) => {
@@ -280,7 +283,7 @@ export const removeArtist = (id: string) => {
 };
 
 export const isArtistPresent = (id: string) => {
-  const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id.toString());
+  const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id);
   return artist;
 };
 
@@ -314,7 +317,7 @@ export const removeAlbum = (id: string) => {
 };
 
 export const isAlbumPresent = (id: string) => {
-  const album = realm.objectForPrimaryKey(ALBUM_SCHEMA_NAME, id.toString());
+  const album = realm.objectForPrimaryKey(ALBUM_SCHEMA_NAME, id);
   if (album) {
     return true;
   }

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import { getPlayedSongs, getFavoriteSongs } from '../actions/realmAction';
 import { startRadio } from '../actions/playerState';
+import { mostPlayedSongs } from '../actions/mediaStore';
 
 class ShortCutContainer extends PureComponent {
   navigateToHistory = () => {
@@ -28,6 +29,20 @@ class ShortCutContainer extends PureComponent {
       name: 'Liked Songs',
       owner: 'Serenity',
       songs: getFavoriteSongs(),
+    };
+    navigation.navigate('Playlist', {
+      playlist,
+    });
+  };
+
+  navigateToMostPlayed = () => {
+    const { navigation } = this.props;
+
+    const playlist = {
+      id: 'user-playlist--000002',
+      name: 'Liked Songs',
+      owner: 'Serenity',
+      songs: mostPlayedSongs(getFavoriteSongs()),
     };
     navigation.navigate('Playlist', {
       playlist,
@@ -69,6 +84,17 @@ class ShortCutContainer extends PureComponent {
             style={{ backgroundColor: '#ffbbcc' }}
           />
           <Caption>Favorite</Caption>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ justifyContent: 'center', alignItems: 'center' }}
+          onPress={this.navigateToFavorite}
+        >
+          <Avatar.Icon
+            icon="trending-up"
+            color="#2a1a5e"
+            style={{ backgroundColor: '#ac8daf' }}
+          />
+          <Caption>Most Played</Caption>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ justifyContent: 'center', alignItems: 'center' }}

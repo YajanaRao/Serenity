@@ -17,7 +17,7 @@ export default function RootNavigator() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (setup) {
+    if (!setup) {
       dispatch(defaultSetup());
     }
   }, []);
