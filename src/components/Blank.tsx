@@ -1,10 +1,15 @@
 import React from 'react';
-import { Button, withTheme } from 'react-native-paper';
+import { Button, withTheme, Theme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 import Tree from './Tree';
 
-const Blank = ({ theme, text, fetchData }) => {
+interface Props {
+  theme: Theme;
+  text: string;
+  fetchData(): void;
+}
+
+const Blank = ({ theme, text, fetchData }: Props) => {
   const { colors } = theme;
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -19,10 +24,6 @@ const Blank = ({ theme, text, fetchData }) => {
 };
 
 export default withTheme(Blank);
-
-Blank.propTypes = {
-  theme: PropTypes.object.isRequired,
-};
 
 const styles = StyleSheet.create({
   container: {

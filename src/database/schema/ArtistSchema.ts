@@ -5,7 +5,7 @@ const ArtistSchema = {
   primaryKey: 'id',
   properties: {
     id: 'string',
-    name: {type: 'string', indexed: true},
+    name: { type: 'string', indexed: true },
     cover: 'string?',
   },
 };

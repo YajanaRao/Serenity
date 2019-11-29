@@ -2,9 +2,21 @@ import React from 'react';
 import { Title, Paragraph } from 'react-native-paper';
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import PropTypes from 'prop-types';
 
-const AlbumScrollView = ({ data, title, navigateToSongs }) => (
+interface TrackProps {
+  artwork: string;
+  title: string;
+  artist: string;
+  album: string;
+}
+
+interface Props {
+  data: TrackProps[];
+  title: string;
+  navigateToSongs(item: TrackProps): void;
+}
+
+const AlbumScrollView = ({ data, title, navigateToSongs }: Props) => (
   <View style={{ flex: 1 }}>
     {data ? <Title style={styles.title}>{title}</Title> : false}
     <FlatList
@@ -24,11 +36,6 @@ const AlbumScrollView = ({ data, title, navigateToSongs }) => (
     />
   </View>
 );
-
-AlbumScrollView.propTypes = {
-  data: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
-};
 
 export default AlbumScrollView;
 

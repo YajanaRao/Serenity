@@ -2,7 +2,17 @@ import React, { useState } from 'react';
 import { Avatar, Badge, List } from 'react-native-paper';
 import { View } from 'react-native';
 
-function ArtistComponent({ item, addArtist }) {
+interface ArtistProps {
+  artist: string;
+  artwork: string;
+}
+
+interface Props {
+  item: ArtistProps;
+  addArtist(item: ArtistProps): void;
+}
+
+function ArtistComponent({ item, addArtist }: Props) {
   const [selected, selectArtist] = useState(false);
 
   const selectArtits = () => {
@@ -13,7 +23,7 @@ function ArtistComponent({ item, addArtist }) {
   return (
     <List.Item
       title={item.artist}
-      left={props => (
+      left={() => (
         <View>
           <Badge
             style={{

@@ -1,17 +1,21 @@
 import React from 'react';
-import { withTheme, List } from 'react-native-paper';
+import { withTheme, List, Theme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 
-/*
-    TODO: 
-    - may not be required for all render 
-    - Adding duration would enhance the user experience
-    - Testing has to be done
-*/
+interface TrackProps {
+  title: string;
+  album?: string;
+  artist?: string;
+}
 
-// FIXME: Testing the application
-const Track = ({ theme: { colors }, track, active, play }) => (
+interface Props {
+  theme: Theme;
+  track: TrackProps;
+  active: boolean;
+  play(): void;
+}
+
+const Track = ({ theme: { colors }, track, active, play }: Props) => (
   <View style={[styles.surface, { backgroundColor: colors.background }]}>
     <List.Item
       title={track.title}
@@ -28,11 +32,6 @@ const Track = ({ theme: { colors }, track, active, play }) => (
     />
   </View>
 );
-
-Track.propTypes = {
-  track: PropTypes.object.isRequired,
-  active: PropTypes.bool.isRequired,
-};
 
 export default withTheme(Track);
 

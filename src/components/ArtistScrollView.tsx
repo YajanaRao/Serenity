@@ -2,9 +2,21 @@ import React from 'react';
 import { Paragraph, Title } from 'react-native-paper';
 import { StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import PropTypes from 'prop-types';
 
-const ArtistScrollView = ({ data, title, navigateToSongs }) => {
+interface TrackProps {
+  artwork: string;
+  title: string;
+  artist: string;
+  album: string;
+}
+
+interface Props {
+  data: TrackProps[];
+  title: string;
+  navigateToSongs(): void;
+}
+
+const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
   return (
     <View>
       {data ? <Title style={styles.title}>{title}</Title> : false}
@@ -25,11 +37,6 @@ const ArtistScrollView = ({ data, title, navigateToSongs }) => {
       />
     </View>
   );
-};
-
-ArtistScrollView.propTypes = {
-  data: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
 };
 
 export default ArtistScrollView;

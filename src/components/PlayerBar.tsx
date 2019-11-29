@@ -8,11 +8,28 @@ import {
   IconButton,
   ActivityIndicator,
 } from 'react-native-paper';
-import PropTypes from 'prop-types';
-
 import DefaultImage from './DefaultImage';
 
-const PlayerBar = ({ active, status, togglePlayback, navigateToPlayer }) => {
+interface TrackProps {
+  artwork: string;
+  title: string;
+  artist?: string;
+  album?: string;
+}
+
+interface Props {
+  active: TrackProps;
+  status: string;
+  togglePlayback(): void;
+  navigateToPlayer(): void;
+}
+
+const PlayerBar = ({
+  active,
+  status,
+  togglePlayback,
+  navigateToPlayer,
+}: Props) => {
   const { artwork, artist, album, title } = active;
   return (
     <TouchableOpacity
@@ -50,13 +67,6 @@ const PlayerBar = ({ active, status, togglePlayback, navigateToPlayer }) => {
       </Surface>
     </TouchableOpacity>
   );
-};
-
-PlayerBar.propTypes = {
-  status: PropTypes.string.isRequired,
-  navigateToPlayer: PropTypes.func.isRequired,
-  togglePlayback: PropTypes.func.isRequired,
-  active: PropTypes.object.isRequired,
 };
 
 export default PlayerBar;

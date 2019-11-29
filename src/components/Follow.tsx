@@ -1,8 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ViewProps } from 'react-native';
 import { Chip } from 'react-native-paper';
 
-const Follow = ({ style, liked, addToFavorite, removeFromFavorite }) => {
+interface Props {
+  style: ViewProps;
+  liked: boolean;
+  addToFavorite(): void;
+  removeFromFavorite(): void;
+}
+
+const Follow = ({ style, liked, addToFavorite, removeFromFavorite }: Props) => {
   return (
     <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
       {liked ? (
