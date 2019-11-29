@@ -67,7 +67,7 @@ class Player extends React.Component<PlayerProps> {
 
   close = () => {
     const { navigation } = this.props;
-    React.useMemo(() => () => navigation.goBack(), [navigation]);
+    navigation.goBack();
   };
 
   render() {
