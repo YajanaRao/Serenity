@@ -35,7 +35,7 @@ function PlayerBarContainer({ navigation }) {
   }
 
   function navigateToPlayer() {
-    navigation.navigate('Player');
+    React.useMemo(() => () => navigation.navigate('Player'), [navigation]);
   }
 
   if (!isEmpty(active)) {
