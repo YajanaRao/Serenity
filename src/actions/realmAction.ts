@@ -25,13 +25,10 @@ const generateId = () => {
 };
 
 const generateSongId = () => {
-  const songs = realm.objects(SONG_SCHEMA_NAME).sorted('id', true);
-  let max = 1;
-  if (songs.length > 0) {
-    max = parseInt(songs[0].id.split(userSongIdPrefix)[1], 10) + 1;
-  }
-  // The user can create a max of 100000 playlists :)
-  return `${userSongIdPrefix}${max.toString().padStart(6, '0')}`;
+  let r = Math.random()
+    .toString(36)
+    .substring(7);
+  return `${userSongIdPrefix}${r}`;
 };
 
 const generateArtistId = () => {

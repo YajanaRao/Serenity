@@ -3,10 +3,8 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { PermissionsAndroid } from 'react-native';
-import { withTheme, IconButton, Snackbar } from 'react-native-paper';
-
+import { withTheme, IconButton } from 'react-native-paper';
 import isEqual from 'lodash/isEqual';
-import { connect } from 'react-redux';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -17,6 +15,7 @@ import BottomTabBar from '../components/BottomTabBar';
 import Screen from '../components/Screen';
 
 import log from '../utils/logging';
+import NotificationContainer from '../containers/NotificationContainer';
 
 const BottomNavigator = createBottomTabNavigator(
   {
@@ -92,33 +91,10 @@ const RootStack = createStackNavigator(
 const Navigator = createAppContainer(RootStack);
 
 export interface Props {
-  result: string;
   theme: any;
 }
 
-interface State {
-  result: string;
-  visible: boolean;
-}
-class RootScreen extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      visible: false,
-      result: '',
-    };
-  }
-
-  static getDerivedStateFromProps(props: Props, state: State) {
-    if (!isEqual(props.result, state.result) && props.result != null) {
-      return {
-        result: props.result,
-        visible: true,
-      };
-    }
-    return null;
-  }
-
+class RootScreen extends React.Component<Props> {
   // FIXME: Need to enhance start up time
 
   componentDidMount() {
@@ -158,34 +134,14 @@ class RootScreen extends React.Component<Props, State> {
 
   render() {
     const { theme } = this.props;
-    const { result, visible } = this.state;
 
     return (
       <Screen>
-        <Snackbar
-          style={{ marginBottom: 120, zIndex: 10 }}
-          visible={visible}
-          onDismiss={() => this.setState({ visible: false })}
-          // duration={1000}
-          action={{
-            label: 'Dismiss',
-            onPress: () => {
-              this.setState({
-                visible: false,
-              });
-            },
-          }}
-        >
-          {result}
-        </Snackbar>
+        <NotificationContainer />
         <Navigator screenProps={{ theme }} />
       </Screen>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  result: state.query.message,
-});
-
-export default connect(mapStateToProps)(withTheme(RootScreen));
+export default withTheme(RootScreen);
