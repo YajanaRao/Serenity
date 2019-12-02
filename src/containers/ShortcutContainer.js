@@ -10,7 +10,7 @@ import { mostPlayedSongs } from '../actions/mediaStore';
 
 class ShortCutContainer extends PureComponent {
   mostPlayed = () => {
-    mostPlayedSongs(getFavoriteSongs());
+    return mostPlayedSongs(getPlayedSongs());
   };
 
   navigateToHistory = () => {
@@ -32,10 +32,10 @@ class ShortCutContainer extends PureComponent {
       id: 'user-playlist--000002',
       name: 'Liked Songs',
       owner: 'Serenity',
-      fetchSongs: getFavoriteSongs,
     };
     navigation.navigate('Playlist', {
       playlist,
+      fetchSongs: getFavoriteSongs,
     });
   };
 
@@ -44,7 +44,7 @@ class ShortCutContainer extends PureComponent {
 
     const playlist = {
       id: 'user-playlist--000002',
-      name: 'Liked Songs',
+      name: 'Most Played Songs',
       owner: 'Serenity',
     };
     navigation.navigate('Playlist', {
@@ -91,7 +91,7 @@ class ShortCutContainer extends PureComponent {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ justifyContent: 'center', alignItems: 'center' }}
-          onPress={this.navigateToFavorite}
+          onPress={this.navigateToMostPlayed}
         >
           <Avatar.Icon
             icon="trending-up"
