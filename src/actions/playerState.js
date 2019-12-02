@@ -124,6 +124,8 @@ export const skipToNext = () => (dispatch, getState) => {
     let track = null;
     const { config } = getState();
     if (config.repeat === 'repeat-one') {
+      const playedTrack = getState().playerState.active;
+      addSong(HISTORY_ID, playedTrack);
       dispatch(playTrack());
     } else if (queue.length) {
       const playedTrack = getState().playerState.active;

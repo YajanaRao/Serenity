@@ -83,7 +83,7 @@ class Playlist extends Component {
 
   onRefresh = () => {
     this.setState({ refreshing: true });
-    this.realmPlaylists = getUserPlaylists();
+    this.realmPlaylists = getAllPlaylists();
     const playlists = deserializePlaylists(this.realmPlaylists);
     this.setState({
       playlists,

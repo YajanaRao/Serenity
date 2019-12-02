@@ -123,19 +123,17 @@ class Artist extends Component {
             </Dialog.Content>
             <Dialog.ScrollArea>
               {data.length ? (
-                <View>
-                  <FlatList
-                    data={data}
-                    keyExtractor={(item, index) => index.toString()}
-                    // numColumns={2}
-                    renderItem={({ item }) => (
-                      <ArtistComponent
-                        item={item}
-                        addArtist={this.addArtistsToArray}
-                      />
-                    )}
-                  />
-                </View>
+                <FlatList
+                  data={data}
+                  keyExtractor={(item, index) => index.toString()}
+                  // numColumns={2}
+                  renderItem={({ item }) => (
+                    <ArtistComponent
+                      item={item}
+                      addArtist={this.addArtistsToArray}
+                    />
+                  )}
+                />
               ) : (
                 <View style={{ margin: 16 }}>
                   <ActivityIndicator size="large" />

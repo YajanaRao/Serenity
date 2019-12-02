@@ -124,7 +124,7 @@ export const filterSongsByGenre = async genre => {
 
 export const mostPlayedSongs = array => {
   return orderBy(
-    values(groupBy(array, 'id')).map(group => ({
+    values(groupBy(array, 'title')).map(group => ({
       ...group[0],
       count: group.length,
     })),
