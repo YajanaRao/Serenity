@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { List, Portal, Dialog, TextInput, Button } from 'react-native-paper';
 import { FlatList } from 'react-navigation';
-import { View } from 'react-native';
+import { View, RefreshControl } from 'react-native';
 
 import {
   createPlaylist,
-  getUserPlaylists,
+  getAllPlaylists,
   getFavoriteSongs,
+  getPlaylistSongs,
 } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
 import Screen from '../../components/Screen';
@@ -14,12 +15,13 @@ import Screen from '../../components/Screen';
 class Playlist extends Component {
   constructor(props) {
     super(props);
-    this.realmPlaylists = getUserPlaylists();
+    this.realmPlaylists = getAllPlaylists();
     const playlists = deserializePlaylists(this.realmPlaylists);
     this.state = {
       visible: false,
       playlistName: null,
       playlists,
+      refreshing: false,
     };
   }
 
@@ -45,6 +47,7 @@ class Playlist extends Component {
     const { navigation } = this.props;
     navigation.navigate('Songs', {
       playlist,
+      fetchSongs: () => getPlaylistSongs(playlist.id),
     });
   };
 
@@ -54,7 +57,7 @@ class Playlist extends Component {
       id: 'user-playlist--000002',
       name: 'Favorites',
       owner: 'Serenity',
-      songs: getFavoriteSongs(),
+      fetchSongs: getFavoriteSongs(),
     };
     navigation.navigate('Songs', {
       playlist,
@@ -78,12 +81,22 @@ class Playlist extends Component {
     this.setState({ playlistName: text });
   };
 
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.realmPlaylists = getUserPlaylists();
+    const playlists = deserializePlaylists(this.realmPlaylists);
+    this.setState({
+      playlists,
+      refreshing: false,
+    });
+  };
+
   static navigationOptions = {
     header: null,
   };
 
   render() {
-    const { visible, playlistName, playlists } = this.state;
+    const { visible, playlistName, playlists, refreshing } = this.state;
     return (
       <Screen>
         <Portal>
@@ -111,12 +124,6 @@ class Playlist extends Component {
                 left={() => <List.Icon icon="plus" />}
                 onPress={this.showDialog}
               />
-              <List.Item
-                title="Favorites"
-                description="by Serenity"
-                left={() => <List.Icon icon="heart" />}
-                onPress={() => this.navigateToFavorites()}
-              />
             </View>
           )}
           data={playlists}
@@ -129,6 +136,12 @@ class Playlist extends Component {
               onPress={() => this.navigateToCollection(item)}
             />
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
         />
       </Screen>
     );

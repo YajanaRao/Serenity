@@ -215,7 +215,7 @@ export const clearQueue = () => dispatch => {
 };
 
 export const addSongToFavorite = song => dispatch => {
-  addSong(FAVOURITE_ID, song);
+  addSong(FAVOURITE_ID, song, true);
   dispatch({
     type: 'NOTIFY',
     payload: `Added song ${song.title}to favorites`,

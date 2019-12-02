@@ -9,16 +9,20 @@ import { startRadio } from '../actions/playerState';
 import { mostPlayedSongs } from '../actions/mediaStore';
 
 class ShortCutContainer extends PureComponent {
+  mostPlayed = () => {
+    mostPlayedSongs(getFavoriteSongs());
+  };
+
   navigateToHistory = () => {
     const { navigation } = this.props;
     const playlist = {
       id: 'user-playlist--000001',
       name: 'Recently Played Songs',
       owner: 'Serenity',
-      songs: getPlayedSongs(),
     };
     navigation.navigate('Playlist', {
       playlist,
+      fetchSongs: getPlayedSongs,
     });
   };
 
@@ -28,7 +32,7 @@ class ShortCutContainer extends PureComponent {
       id: 'user-playlist--000002',
       name: 'Liked Songs',
       owner: 'Serenity',
-      songs: getFavoriteSongs(),
+      fetchSongs: getFavoriteSongs,
     };
     navigation.navigate('Playlist', {
       playlist,
@@ -42,10 +46,10 @@ class ShortCutContainer extends PureComponent {
       id: 'user-playlist--000002',
       name: 'Liked Songs',
       owner: 'Serenity',
-      songs: mostPlayedSongs(getFavoriteSongs()),
     };
     navigation.navigate('Playlist', {
       playlist,
+      fetchSongs: this.mostPlayed,
     });
   };
 

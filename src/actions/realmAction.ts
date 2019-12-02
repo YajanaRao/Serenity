@@ -94,6 +94,19 @@ export const getPlaylist = (id: string) => {
   }
 };
 
+export const getPlaylistSongs = (id: string) => {
+  try {
+    const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
+    if (playlist !== undefined) {
+      return playlist.songs;
+    }
+    return [];
+  } catch (error) {
+    log('getPlaylistSongs: ' + error);
+    return [];
+  }
+};
+
 export const getQueuedSongs = () => {
   try {
     const queue = realm.objectForPrimaryKey(
@@ -197,14 +210,18 @@ export const unshiftSong = (id: string, song: SongProps) => {
   }
 };
 
-export const addSong = (id: string, song: SongProps) => {
+export const addSong = (
+  id: string,
+  song: SongProps,
+  unique: boolean = false,
+) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
       const url = song.url ? song.url : song.path;
-      if (url !== undefined) {
+      if (url !== undefined && playlist !== undefined) {
         playlist.songs.push({
-          id: song.id,
+          id: unique ? song.id : generateSongId(),
           title: song.title,
           artwork: song.artwork,
           artist: song.artist,

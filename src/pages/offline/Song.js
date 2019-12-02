@@ -27,7 +27,7 @@ import {
 } from '../../actions/playerState';
 import Blank from '../../components/Blank';
 import Screen from '../../components/Screen';
-import PlaylistDailog from '../../components/PlaylistDailog';
+import PlaylistDialog from '../../components/PlaylistDialog';
 
 class Song extends React.Component {
   constructor(props) {
@@ -201,7 +201,7 @@ class Song extends React.Component {
               callbackNode={this.sheetOpenValue}
             />
           </Portal>
-          <PlaylistDailog
+          <PlaylistDialog
             visible={visible}
             hideModal={this.hideDialog}
             addToPlaylist={this.addSongToPlaylist}

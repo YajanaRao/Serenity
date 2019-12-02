@@ -7,12 +7,17 @@ import {
   Divider,
   Surface,
   List,
-  Dialog,
   Portal,
-  TextInput,
   Subheading,
 } from 'react-native-paper';
-import { StyleSheet, View, Dimensions, FlatList, Alert } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  FlatList,
+  Alert,
+  RefreshControl,
+} from 'react-native';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import values from 'lodash/values';
@@ -50,9 +55,14 @@ class Collection extends Component {
     super(props);
     this.bs = React.createRef();
     this.sheetOpenValue = new Animated.Value(1);
+    const playlist = props.navigation.getParam('playlist');
+    const fetchSongs = props.navigation.getParam('fetchSongs');
     this.state = {
       visible: '',
-      playlist: props.navigation.getParam('playlist'),
+      name: playlist.name,
+      owner: playlist.owner,
+      songs: fetchSongs(),
+      refreshing: false,
     };
   }
 
@@ -134,8 +144,7 @@ class Collection extends Component {
     const {
       theme: { colors },
     } = this.props;
-    const { playlist } = this.state;
-    const { name, owner } = playlist;
+    const { name, owner } = this.state;
     return (
       <View style={styles.panel}>
         <LinearGradient
@@ -195,9 +204,19 @@ class Collection extends Component {
     );
   };
 
+  onRefresh = () => {
+    const { navigation } = this.props;
+    const { params } = navigation.state;
+    this.setState({ refreshing: true });
+    const songs = params.fetchSongs();
+    this.setState({
+      songs,
+      refreshing: false,
+    });
+  };
+
   render() {
-    const { playlist, visible } = this.state;
-    const { name, owner, songs } = playlist;
+    const { visible, refreshing, name, owner, songs } = this.state;
 
     return (
       <Screen>
@@ -259,6 +278,12 @@ class Collection extends Component {
             ItemSeparatorComponent={() => <Divider inset />}
             keyExtractor={(item, index) => index.toString()}
             ListFooterComponent={() => <View style={{ height: 100 }} />}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={this.onRefresh}
+              />
+            }
           />
         )}
       </Screen>

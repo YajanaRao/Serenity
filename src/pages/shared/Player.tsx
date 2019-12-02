@@ -40,6 +40,8 @@ interface PlayerProps {
   repeat: string;
   skipToNext(): void;
   skipToPrevious(): void;
+  repeatSongs(type: string): void;
+  navigation: any;
 }
 
 class Player extends React.Component<PlayerProps> {

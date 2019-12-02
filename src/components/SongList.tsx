@@ -1,7 +1,7 @@
 import React, { useState, SetStateAction } from 'react';
 import { View } from 'react-native';
 
-import PlaylistDailog from './PlaylistDailog';
+import PlaylistDailog from './PlaylistDialog';
 import SwipeList from './SwipeList';
 import EmptyPlaylist from './EmptyPlaylist';
 import Container from './Container';
