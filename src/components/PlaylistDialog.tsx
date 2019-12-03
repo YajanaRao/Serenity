@@ -1,6 +1,6 @@
 import React from 'react';
-import { List, Dialog, Portal, Title } from 'react-native-paper';
-import { FlatList, View } from 'react-native';
+import { List, Dialog, Portal } from 'react-native-paper';
+import { FlatList } from 'react-native';
 import { getUserPlaylists } from '../actions/realmAction';
 
 interface Props {

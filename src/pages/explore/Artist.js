@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
-import {
-  withTheme,
-  Avatar,
-  List,
-  Dialog,
-  Portal,
-  Button,
-  Searchbar,
-  ActivityIndicator,
-} from 'react-native-paper';
+import { FlatList } from 'react-native';
+import { withTheme, Avatar, List } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ArtistComponent from '../../components/ArtistComponent';
+import FollowArtistDialog from '../../containers/FollowArtistDialog';
 import { addArtist, getArtists } from '../../actions/realmAction';
 import { deserializeArtists } from '../../utils/database';
 import log from '../../utils/logging';
@@ -53,7 +44,7 @@ class Artist extends Component {
     this.realmArtists.removeAllListeners();
   }
 
-  addArtistsToArray = artist => {
+  selectArtists = artist => {
     const { addArtists } = this.state;
     addArtists.push(artist);
   };
@@ -109,43 +100,12 @@ class Artist extends Component {
             />
           )}
         />
-        <Portal>
-          <Dialog visible={visible} onDismiss={this.hideDialog}>
-            <Dialog.Title>Choose more artists you like.</Dialog.Title>
-            <Dialog.Content>
-              <Searchbar
-                placeholder="Search"
-                onChangeText={query => {
-                  this.setState({ firstQuery: query });
-                }}
-                value={firstQuery}
-              />
-            </Dialog.Content>
-            <Dialog.ScrollArea>
-              {data.length ? (
-                <FlatList
-                  data={data}
-                  keyExtractor={(item, index) => index.toString()}
-                  // numColumns={2}
-                  renderItem={({ item }) => (
-                    <ArtistComponent
-                      item={item}
-                      addArtist={this.addArtistsToArray}
-                    />
-                  )}
-                />
-              ) : (
-                <View style={{ margin: 16 }}>
-                  <ActivityIndicator size="large" />
-                </View>
-              )}
-            </Dialog.ScrollArea>
-            <Dialog.Actions>
-              <Button onPress={this.hideDialog}>Cancel</Button>
-              <Button onPress={this.addArtists}>Ok</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
+        <FollowArtistDialog
+          visible={visible}
+          hideDialog={this.hideDialog}
+          addArtists={this.addArtists}
+          selectArtists={this.selectArtists}
+        />
       </Screen>
     );
   }
