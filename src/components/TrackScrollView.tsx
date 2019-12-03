@@ -13,7 +13,7 @@ interface TrackProps {
 
 interface TrackScrollViewProps {
   data: TrackProps[];
-  play(): void;
+  play(track: TrackProps): void;
 }
 
 // FIXME: Testing the application

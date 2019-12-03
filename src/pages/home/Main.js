@@ -4,6 +4,7 @@ import { ScrollView } from 'react-navigation';
 
 import NetNotify from '../../components/NetNotify';
 import RecentContainer from '../../containers/RecentContainer';
+import MostPlayedContainer from '../../containers/MostPlayedContainer';
 import OnlineContainer from '../../containers/OnlineContainer';
 import Screen from '../../components/Screen';
 import ShortCutContainer from '../../containers/ShortcutContainer';
@@ -29,6 +30,7 @@ class MainScreen extends React.PureComponent {
           <ShortCutContainer />
           <OnlineContainer />
           <RecentContainer />
+          <MostPlayedContainer />
         </ScrollView>
       </Screen>
     );

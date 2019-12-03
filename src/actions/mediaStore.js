@@ -9,11 +9,12 @@ import log from '../utils/logging';
 function formatter(media) {
   return map(media, item => {
     const song = {};
-    song.url = item.path;
+    song.path = item.path;
     song.id = item.id;
     song.title = item.title;
     song.album = item.album;
     song.artist = item.artist;
+    song.cover = item.cover;
     return song;
   });
 }
