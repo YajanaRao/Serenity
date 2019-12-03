@@ -5,12 +5,7 @@ import isUndefined from 'lodash/isUndefined';
 
 import { loadTrack } from '../actions/playerState';
 import Track from '../components/Track';
-
-interface TrackProps {
-  id: string;
-  title: string;
-  artwork: string;
-}
+import { TrackProps } from '../types';
 
 interface Props {
   track: TrackProps;
@@ -18,10 +13,10 @@ interface Props {
 
 function TrackContainer({ track }: Props) {
   const [isActive, setActive] = useState(false);
-  const active = useSelector((state: any) => state.playerState.active);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const active = useSelector((state: any) => state.playerState.active);
     if (!isUndefined(active) && track.id) {
       if (isEqual(active.id, track.id)) {
         setActive(true);

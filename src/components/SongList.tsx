@@ -6,11 +6,7 @@ import SwipeList from './SwipeList';
 import EmptyPlaylist from './EmptyPlaylist';
 import Container from './Container';
 
-interface TrackProps {
-  artwork: string;
-  title: string;
-  artist: string;
-}
+import { TrackProps } from '../types';
 
 interface SongListProps {
   data: TrackProps[];

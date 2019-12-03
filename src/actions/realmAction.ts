@@ -5,6 +5,7 @@ import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
 import { SONG_SCHEMA_NAME } from '../database/schema/SongSchema';
 import { ARTIST_SCHEMA_NAME } from '../database/schema/ArtistSchema';
 import { ALBUM_SCHEMA_NAME } from '../database/schema/AlbumSchema';
+import { TrackProps, ArtistProps, AlbumProps } from '../types';
 import log from '../utils/logging';
 
 export const userPlaylistIdPrefix = 'user-playlist--';
@@ -163,17 +164,7 @@ export const createPlaylist = (playlistName: string) => {
   return true;
 };
 
-interface SongProps {
-  id: string;
-  url?: string;
-  path?: string;
-  title: string;
-  cover: string;
-  artist?: string;
-  album?: string;
-}
-
-export const removeSong = (id: string, song: SongProps) => {
+export const removeSong = (id: string, song: TrackProps) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
@@ -185,20 +176,18 @@ export const removeSong = (id: string, song: SongProps) => {
   }
 };
 
-export const unshiftSong = (id: string, song: SongProps) => {
+export const unshiftSong = (id: string, song: TrackProps) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
-      const url = song.url || song.path;
-      console.log(url, song);
-      if (url) {
+      if (playlist) {
         playlist.songs.unshift({
           id: generateSongId(),
           title: song.title,
           cover: song.cover,
           artist: song.artist,
           album: song.album,
-          url,
+          path: song.path,
         });
       }
     });
@@ -209,21 +198,20 @@ export const unshiftSong = (id: string, song: SongProps) => {
 
 export const addSong = (
   id: string,
-  song: SongProps,
+  song: TrackProps,
   unique: boolean = false,
 ) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
-      const url = song.url ? song.url : song.path;
-      if (url !== undefined && playlist !== undefined) {
+      if (playlist !== undefined) {
         playlist.songs.push({
           id: unique ? song.id : generateSongId(),
           title: song.title,
           cover: song.cover,
           artist: song.artist,
           album: song.album,
-          url,
+          path: song.path,
         });
       }
     });
@@ -236,7 +224,9 @@ export const clearAllSongs = (id: string) => {
   try {
     realm.write(() => {
       const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
-      realm.delete(playlist.songs);
+      if (playlist) {
+        realm.delete(playlist.songs);
+      }
     });
   } catch (error) {
     log('clearAllSongs: ' + error);
@@ -271,13 +261,6 @@ export const renamePlaylist = (id: string, playlistName: string) => {
   });
 };
 
-interface ArtistProps {
-  id: string;
-  name: string;
-  cover?: string;
-  artist?: string;
-}
-
 export const addArtist = (artist: ArtistProps) => {
   try {
     realm.write(() => {
@@ -310,20 +293,12 @@ export const isArtistPresent = (id: string) => {
   return artist ? true : false;
 };
 
-interface AlbumProps {
-  id: string;
-  album: string;
-  cover?: string;
-  cover?: string;
-  artist?: string;
-}
-
 export const addAlbum = (album: AlbumProps) => {
   realm.write(() => {
     realm.create(ALBUM_SCHEMA_NAME, {
       id: album.id.toString(),
       name: album.album,
-      cover: album.cover || album.cover,
+      cover: album.cover,
       artist: album.artist,
     });
   });

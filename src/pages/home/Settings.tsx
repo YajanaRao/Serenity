@@ -7,6 +7,7 @@ import {
   Drawer,
   TouchableRipple,
   withTheme,
+  Theme,
 } from 'react-native-paper';
 import { connect } from 'react-redux';
 
@@ -14,8 +15,16 @@ import Screen from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
 
-class Settings extends React.PureComponent {
-  toggleTheme = dark => {
+interface Props {
+  updateTheme(theme: string): void;
+  radio: boolean;
+  changeRadioMode(radio: boolean): void;
+  clearHistory(): void;
+  theme: Theme;
+}
+
+class Settings extends React.PureComponent<Props> {
+  toggleTheme = (dark: string) => {
     const { updateTheme } = this.props;
     let theme = 'default';
     if (dark) {
@@ -92,20 +101,15 @@ class Settings extends React.PureComponent {
   }
 }
 
-Settings.propTypes = {
-  clearHistory: PropTypes.func.isRequired,
-  updateTheme: PropTypes.func.isRequired,
-  changeRadioMode: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = state => ({
   radio: state.config.radio,
 });
 
-export default connect(
-  mapStateToProps,
-  { updateTheme, clearHistory, changeRadioMode },
-)(withTheme(Settings));
+export default connect(mapStateToProps, {
+  updateTheme,
+  clearHistory,
+  changeRadioMode,
+})(withTheme(Settings));
 
 const styles = StyleSheet.create({
   preference: {

@@ -40,7 +40,7 @@
     "react-navigation-tabs": "^2.4.0",
     "react-redux": "^7.1.3",
     "realm": "^3.1.0",
-    "reanimated-bottom-sheet": "^1.0.0-alpha.14",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.18",
     "redux": "^4.0.0-0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",

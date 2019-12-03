@@ -69,6 +69,18 @@ export const loadTrack = (track, playOnLoad = true) => dispatch => {
   }
 };
 
+export const playNext = track => (dispatch, getState) => {
+  try {
+    unshiftSong(QUEUE_ID, track);
+    if (isEmpty(getState().playerState.active)) {
+      const queue = getQueuedSongs();
+      dispatch(loadTrack(head(queue)));
+    }
+  } catch (error) {
+    log(error);
+  }
+};
+
 export const repeatSongs = type => dispatch => {
   try {
     dispatch({

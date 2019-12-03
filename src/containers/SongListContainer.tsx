@@ -2,12 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SongList from '../components/SongList';
 import { addToQueue, addToPlaylist } from '../actions/playerState';
-
-interface TrackProps {
-  artwork: string;
-  title: string;
-  artist: string;
-}
+import { TrackProps } from '../types';
 
 interface SongListContainerProps {
   data: TrackProps[];
@@ -41,7 +36,4 @@ class SongListContainer extends React.PureComponent<SongListContainerProps> {
   }
 }
 
-export default connect(
-  null,
-  { addToQueue, addToPlaylist },
-)(SongListContainer);
+export default connect(null, { addToQueue, addToPlaylist })(SongListContainer);
