@@ -15,20 +15,27 @@ import { useSelector } from 'react-redux';
 
 interface ArtistProps {
   artist: string;
+  artwork: string;
+}
+
+interface ItemProps {
+  item: ArtistProps;
 }
 
 export interface Props {
   visible: boolean;
   hideDialog(): void;
-  selectArtists(): void;
+  selectArtist(): void;
   addArtists(): void;
+  removeArtist(): void;
 }
 
 function FollowArtistDialog({
   visible,
   hideDialog,
-  selectArtists,
+  selectArtist,
   addArtists,
+  removeArtist,
 }: Props) {
   const artists = useSelector((state: any) => state.mediaStore.artists);
   const [query, setQuery] = useState('');
@@ -63,8 +70,12 @@ function FollowArtistDialog({
               data={filtered}
               keyExtractor={(item, index) => index.toString()}
               // numColumns={2}
-              renderItem={({ item }) => (
-                <ArtistComponent item={item} addArtist={selectArtists} />
+              renderItem={({ item }: ItemProps) => (
+                <ArtistComponent
+                  item={item}
+                  addArtist={selectArtist}
+                  removeArtist={removeArtist}
+                />
               )}
             />
           ) : (

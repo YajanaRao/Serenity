@@ -17,23 +17,28 @@ import {
 import Fav from '../components/Fav';
 import Follow from '../components/Follow';
 
+interface ItemProps {
+  id: string;
+}
+
 interface Props {
   type: string;
   style?: ViewProps;
+  item?: ItemProps;
 }
 
-function FavContainer({ type = 'song', style }: Props) {
+function FavContainer({ type = 'song', style, item }: Props) {
   const [liked, setLiked] = useState(false);
   const active = useSelector((state: any) => state.playerState.active);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (type === 'album') {
-      if (isAlbumPresent(active.id)) {
+    if (type === 'album' && item) {
+      if (isAlbumPresent(item.id)) {
         setLiked(true);
       }
-    } else if (type === 'artist') {
-      if (isArtistPresent(active.id)) {
+    } else if (type === 'artist' && item) {
+      if (isArtistPresent(item.id)) {
         setLiked(true);
       }
     } else if (isSongPresent(active.id)) {

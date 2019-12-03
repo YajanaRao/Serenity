@@ -3,6 +3,7 @@ import { FlatList } from 'react-native';
 import { withTheme, Avatar, List } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import remove from 'lodash/remove';
 
 import FollowArtistDialog from '../../containers/FollowArtistDialog';
 import { addArtist, getArtists } from '../../actions/realmAction';
@@ -15,6 +16,7 @@ class Artist extends Component {
     super(props);
     this.realmArtists = getArtists();
     const artists = deserializeArtists(this.realmArtists);
+    console.log(artists);
     this.state = {
       visible: false,
       addArtists: [],
@@ -44,9 +46,19 @@ class Artist extends Component {
     this.realmArtists.removeAllListeners();
   }
 
-  selectArtists = artist => {
+  selectArtist = artist => {
     const { addArtists } = this.state;
     addArtists.push(artist);
+  };
+
+  removeArtist = artist => {
+    const { addArtists } = this.state;
+    const artists = remove(addArtists, function(item) {
+      return item.id === artist.id;
+    });
+    this.setState({
+      addArtists: artists,
+    });
   };
 
   addArtists = () => {
@@ -67,9 +79,8 @@ class Artist extends Component {
     const {
       theme: { colors },
       navigation: { navigate },
-      data,
     } = this.props;
-    const { visible, firstQuery, artists } = this.state;
+    const { visible, artists } = this.state;
     return (
       <Screen>
         <FlatList
@@ -104,7 +115,8 @@ class Artist extends Component {
           visible={visible}
           hideDialog={this.hideDialog}
           addArtists={this.addArtists}
-          selectArtists={this.selectArtists}
+          selectArtist={this.selectArtist}
+          removeArtist={this.removeArtist}
         />
       </Screen>
     );

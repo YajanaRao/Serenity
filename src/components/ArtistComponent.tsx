@@ -10,14 +10,20 @@ interface ArtistProps {
 interface Props {
   item: ArtistProps;
   addArtist(item: ArtistProps): void;
+  removeArtist(item: ArtistProps): void;
 }
 
-function ArtistComponent({ item, addArtist }: Props) {
+function ArtistComponent({ item, addArtist, removeArtist }: Props) {
   const [selected, selectArtist] = useState(false);
 
   const selectArtits = () => {
-    selectArtist(true);
-    addArtist(item);
+    if (selected) {
+      removeArtist(item);
+      selectArtist(false);
+    } else {
+      selectArtist(true);
+      addArtist(item);
+    }
   };
 
   return (

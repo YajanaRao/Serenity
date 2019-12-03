@@ -306,7 +306,8 @@ export const removeArtist = (id: string) => {
 
 export const isArtistPresent = (id: string) => {
   const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id);
-  return artist;
+  console.log(artist, id);
+  return artist ? true : false;
 };
 
 interface AlbumProps {
