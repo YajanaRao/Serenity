@@ -11,7 +11,7 @@ import {
 import DefaultImage from './DefaultImage';
 
 interface TrackProps {
-  artwork: string;
+  cover: string;
   title: string;
   artist?: string;
   album?: string;
@@ -30,7 +30,7 @@ const PlayerBar = ({
   togglePlayback,
   navigateToPlayer,
 }: Props) => {
-  const { artwork, artist, album, title } = active;
+  const { cover, artist, album, title } = active;
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -38,8 +38,8 @@ const PlayerBar = ({
       onPress={navigateToPlayer}
     >
       <Surface style={styles.playBar}>
-        {artwork ? (
-          <FastImage source={{ uri: artwork }} style={styles.artwork} />
+        {cover ? (
+          <FastImage source={{ uri: cover }} style={styles.artwork} />
         ) : (
           <DefaultImage style={styles.artwork} />
         )}

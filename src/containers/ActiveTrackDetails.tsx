@@ -7,15 +7,11 @@ import DefaultImage from '../components/DefaultImage';
 
 function ActiveTrackDetails() {
   const active = useSelector((state: any) => state.playerState.active);
-
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.centerContainer}>
-        {active.artwork ? (
-          <FastImage
-            source={{ uri: active.artwork }}
-            style={[styles.artCover]}
-          />
+        {active.cover ? (
+          <FastImage source={{ uri: active.cover }} style={[styles.artCover]} />
         ) : (
           <DefaultImage style={styles.artCover} />
         )}

@@ -168,7 +168,7 @@ interface SongProps {
   url?: string;
   path?: string;
   title: string;
-  artwork: string;
+  cover: string;
   artist?: string;
   album?: string;
 }
@@ -195,7 +195,7 @@ export const unshiftSong = (id: string, song: SongProps) => {
         playlist.songs.unshift({
           id: generateSongId(),
           title: song.title,
-          artwork: song.artwork,
+          cover: song.cover,
           artist: song.artist,
           album: song.album,
           url,
@@ -220,7 +220,7 @@ export const addSong = (
         playlist.songs.push({
           id: unique ? song.id : generateSongId(),
           title: song.title,
-          artwork: song.artwork,
+          cover: song.cover,
           artist: song.artist,
           album: song.album,
           url,
@@ -274,7 +274,7 @@ export const renamePlaylist = (id: string, playlistName: string) => {
 interface ArtistProps {
   id: string;
   name: string;
-  artwork?: string;
+  cover?: string;
   artist?: string;
 }
 
@@ -284,7 +284,7 @@ export const addArtist = (artist: ArtistProps) => {
       realm.create(ARTIST_SCHEMA_NAME, {
         id: artist.id,
         name: artist.artist,
-        cover: artist.artwork,
+        cover: artist.cover,
       });
     });
   } catch (error) {
@@ -313,7 +313,7 @@ export const isArtistPresent = (id: string) => {
 interface AlbumProps {
   id: string;
   album: string;
-  artwork?: string;
+  cover?: string;
   cover?: string;
   artist?: string;
 }
@@ -323,7 +323,7 @@ export const addAlbum = (album: AlbumProps) => {
     realm.create(ALBUM_SCHEMA_NAME, {
       id: album.id.toString(),
       name: album.album,
-      cover: album.artwork || album.cover,
+      cover: album.cover || album.cover,
       artist: album.artist,
     });
   });
