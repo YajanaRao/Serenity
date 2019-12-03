@@ -71,10 +71,9 @@ class Collection extends Component {
     navigation.setParams({ openMenu: this.openBottomSheet });
   }
 
-  addToQueue = () => {
+  addSongToQueue = () => {
     const { addToQueue } = this.props;
-    const { playlist } = this.state;
-    const { songs } = playlist;
+    const { songs } = this.state;
     addToQueue(values(songs));
   };
 
@@ -166,7 +165,7 @@ class Collection extends Component {
           </TouchableWithoutFeedback>
         </LinearGradient>
         <Surface style={{ backgroundColor: colors.surface }}>
-          <TouchableWithoutFeedback onPress={this.addToQueue}>
+          <TouchableWithoutFeedback onPress={this.addSongToQueue}>
             <List.Item
               title="Play All"
               left={props => (
@@ -267,7 +266,7 @@ class Collection extends Component {
                   <Subheading>{`by ${owner}`}</Subheading>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <Button mode="contained" onPress={this.addToQueue}>
+                  <Button mode="contained" onPress={this.addSongToQueue}>
                     Play All
                   </Button>
                 </View>

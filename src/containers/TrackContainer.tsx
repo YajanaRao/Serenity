@@ -40,4 +40,4 @@ function TrackContainer({ track }: Props) {
   return <Track track={track} play={play} active={isActive} />;
 }
 
-export default TrackContainer;
+export default React.memo(TrackContainer);

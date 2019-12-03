@@ -17,7 +17,7 @@ function QuoteContainer() {
       .catch(error => {
         log(error);
       });
-  });
+  }, []);
 
   return (
     <Quote
