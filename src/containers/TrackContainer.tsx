@@ -14,9 +14,9 @@ interface Props {
 function TrackContainer({ track }: Props) {
   const [isActive, setActive] = useState(false);
   const dispatch = useDispatch();
+  const active = useSelector((state: any) => state.playerState.active);
 
   useEffect(() => {
-    const active = useSelector((state: any) => state.playerState.active);
     if (!isUndefined(active) && track.id) {
       if (isEqual(active.id, track.id)) {
         setActive(true);

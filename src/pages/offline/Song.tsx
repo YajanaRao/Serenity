@@ -1,9 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { Divider, Button, Surface, List, IconButton } from 'react-native-paper';
+import React, { useState } from 'react';
+import { Divider, Button, List, IconButton } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, RefreshControl, StyleSheet } from 'react-native';
+import {
+  View,
+  RefreshControl,
+  StyleSheet,
+  GestureResponderEvent,
+} from 'react-native';
 import { FlatList } from 'react-navigation';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import { getOfflineSongs } from '../../actions/mediaStore';
 import {
@@ -18,32 +22,21 @@ import Blank from '../../components/Blank';
 import Screen from '../../components/Screen';
 import PlaylistDialog from '../../components/PlaylistDialog';
 import { TrackProps } from '../../types';
-import BottomSheetView from '../../components/BotttomSheetView';
+import TrackMenu from '../../components/TrackMenu';
 
 interface ItemProps {
   item: TrackProps;
 }
 
 function Song() {
-  const [visible, setVisible] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [song, setSong] = useState();
+  const [cord, setCord] = useState({ x: 0, y: 0 });
 
   const dispatch = useDispatch();
 
   const songs = useSelector((state: any) => state.mediaStore.songs);
-
-  const openBottomSheet = (song: TrackProps) => {
-    console.log('-----open bottom sheet -------');
-    setSong(song);
-    setOpen(true);
-  };
-
-  function closeBottomSheet() {
-    setSong({});
-    setOpen(false);
-  }
 
   function fetchData() {
     setRefreshing(true);
@@ -51,95 +44,67 @@ function Song() {
     setRefreshing(false);
   }
 
-  function showDailog() {
-    setOpen(false);
-    setVisible(true);
+  function showDialog() {
+    setVisible('DIALOG');
   }
 
   function addSongToFav() {
     dispatch(addSongToFavorite(song));
-    closeBottomSheet();
   }
 
   function addSongToPlaylist(id: string) {
     dispatch(addToPlaylist(id, song));
-    setVisible(false);
+    setVisible('');
   }
 
   function addSongToQueue() {
     dispatch(addToQueue(song));
-    closeBottomSheet();
   }
 
   function addSongToPlayNext() {
-    console.log(song);
     dispatch(playNext(song));
-    closeBottomSheet();
   }
 
   function playSong() {
     dispatch(loadTrack(song));
-    closeBottomSheet();
+  }
+
+  function play(song: TrackProps) {
+    dispatch(loadTrack(song));
+  }
+
+  function openMenu(event: GestureResponderEvent, song: TrackProps) {
+    const { nativeEvent } = event;
+    const contextualMenuCoord = {
+      x: nativeEvent.pageX,
+      y: nativeEvent.pageY,
+    };
+    setCord(contextualMenuCoord);
+    setVisible('MENU');
+    setSong(song);
+  }
+
+  function closeMenu() {
+    setVisible('');
   }
 
   if (songs.length) {
     return (
       <Screen>
-        <BottomSheetView
-          open={open}
-          loadTrack={() => dispatch(loadTrack(song))}
-          playNext={() => dispatch(playNext(song))}
-          addToFavorite={() => dispatch(addSongToFavorite(song))}
-          addToQueue={() => dispatch(addToQueue(song))}
-          addToPlaylist={showDailog}
-          setClosed={closeBottomSheet}
-        >
-          <View style={{ flex: 1 }}>
-            <TouchableWithoutFeedback
-              onPress={closeBottomSheet}
-              style={{ height: '100%', width: '100%' }}
-            />
-          </View>
-
-          <Surface>
-            <TouchableWithoutFeedback onPress={playSong}>
-              <List.Item
-                title="Play"
-                left={props => (
-                  <List.Icon {...props} icon="play-circle-outline" />
-                )}
-              />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={addSongToPlayNext}>
-              <List.Item
-                title="Play next"
-                left={props => <List.Icon {...props} icon="playlist-play" />}
-              />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={addSongToQueue}>
-              <List.Item
-                title="Add to queue"
-                left={props => <List.Icon {...props} icon="playlist-music" />}
-              />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={addSongToFav}>
-              <List.Item
-                title="Add to playing queue"
-                left={props => <List.Icon {...props} icon="heart" />}
-              />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={showDailog}>
-              <List.Item
-                title="Add to Playlist"
-                left={props => <List.Icon {...props} icon="playlist-plus" />}
-              />
-            </TouchableWithoutFeedback>
-          </Surface>
-        </BottomSheetView>
         <PlaylistDialog
-          visible={visible}
-          hideModal={() => setVisible(false)}
+          visible={visible === 'DIALOG'}
+          hideModal={() => setVisible('')}
           addToPlaylist={addSongToPlaylist}
+        />
+        <TrackMenu
+          visible={visible === 'MENU'}
+          playSong={playSong}
+          addSongToFav={addSongToFav}
+          addSongToPlayNext={addSongToPlayNext}
+          addSongToQueue={addSongToQueue}
+          showDialog={showDialog}
+          closeMenu={closeMenu}
+          contextualMenuCoord={cord}
         />
         <FlatList
           data={songs}
@@ -169,12 +134,12 @@ function Song() {
                 <IconButton
                   {...props}
                   icon="dots-vertical"
-                  onPress={() => {
-                    openBottomSheet(item);
-                  }}
+                  onPress={(event: GestureResponderEvent) =>
+                    openMenu(event, item)
+                  }
                 />
               )}
-              onPress={() => dispatch(loadTrack(item))}
+              onPress={() => play(item)}
             />
           )}
           ItemSeparatorComponent={() => <Divider inset />}
