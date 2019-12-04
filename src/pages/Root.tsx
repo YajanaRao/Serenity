@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { PermissionsAndroid } from 'react-native';
 import { withTheme, IconButton } from 'react-native-paper';
-import isEqual from 'lodash/isEqual';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';

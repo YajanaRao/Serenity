@@ -9,7 +9,7 @@ const SongSchema = {
     artwork: 'string?',
     artist: 'string?',
     album: 'string?',
-    url: 'string',
+    path: 'string',
   },
 };
 

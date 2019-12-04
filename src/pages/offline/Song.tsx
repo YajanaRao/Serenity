@@ -1,17 +1,8 @@
 import React, { useRef, useState } from 'react';
-import {
-  Divider,
-  Button,
-  Portal,
-  Surface,
-  List,
-  IconButton,
-} from 'react-native-paper';
+import { Divider, Button, Surface, List, IconButton } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, RefreshControl, StyleSheet } from 'react-native';
 import { FlatList } from 'react-navigation';
-import BottomSheet from 'reanimated-bottom-sheet';
-import Animated from 'react-native-reanimated';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import { getOfflineSongs } from '../../actions/mediaStore';
@@ -27,25 +18,32 @@ import Blank from '../../components/Blank';
 import Screen from '../../components/Screen';
 import PlaylistDialog from '../../components/PlaylistDialog';
 import { TrackProps } from '../../types';
+import BottomSheetView from '../../components/BotttomSheetView';
 
 interface ItemProps {
   item: TrackProps;
 }
 
 function Song() {
-  const bs = useRef();
   const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [song, setSong] = useState();
-  const sheetOpenValue = new Animated.Value(1);
+
   const dispatch = useDispatch();
 
   const songs = useSelector((state: any) => state.mediaStore.songs);
 
   const openBottomSheet = (song: TrackProps) => {
-    bs.current.snapTo(0);
-    // setSong(song);
+    console.log('-----open bottom sheet -------');
+    setSong(song);
+    setOpen(true);
   };
+
+  function closeBottomSheet() {
+    setSong({});
+    setOpen(false);
+  }
 
   function fetchData() {
     setRefreshing(true);
@@ -53,14 +51,14 @@ function Song() {
     setRefreshing(false);
   }
 
-  function closeBottomSheet() {
-    setSong({});
-    bs.current.snapTo(1);
+  function showDailog() {
+    setOpen(false);
+    setVisible(true);
   }
 
-  function showDailog() {
-    bs.current.snapTo(1);
-    setVisible(true);
+  function addSongToFav() {
+    dispatch(addSongToFavorite(song));
+    closeBottomSheet();
   }
 
   function addSongToPlaylist(id: string) {
@@ -68,103 +66,76 @@ function Song() {
     setVisible(false);
   }
 
-  function renderInner() {
-    return (
-      <View style={styles.panel}>
-        <View style={{ flex: 1 }}>
-          <TouchableWithoutFeedback
-            onPress={closeBottomSheet}
-            style={{ height: '100%', width: '100%' }}
-          />
-        </View>
+  function addSongToQueue() {
+    dispatch(addToQueue(song));
+    closeBottomSheet();
+  }
 
-        <Surface>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              loadTrack(song);
-              closeBottomSheet();
-            }}
-          >
-            <List.Item
-              title="Play"
-              left={props => (
-                <List.Icon {...props} icon="play-circle-outline" />
-              )}
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              playNext(song);
-              closeBottomSheet();
-            }}
-          >
-            <List.Item
-              title="Play next"
-              left={props => <List.Icon {...props} icon="playlist-play" />}
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              addToQueue(song);
-              closeBottomSheet();
-            }}
-          >
-            <List.Item
-              title="Add to queue"
-              left={props => <List.Icon {...props} icon="playlist-music" />}
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              addSongToFavorite(song);
-              closeBottomSheet();
-            }}
-          >
-            <List.Item
-              title="Add to Favorite"
-              left={props => <List.Icon {...props} icon="heart" />}
-            />
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={showDailog}>
-            <List.Item
-              title="Add to Playlist"
-              left={props => <List.Icon {...props} icon="playlist-plus" />}
-            />
-          </TouchableWithoutFeedback>
-        </Surface>
-      </View>
-    );
+  function addSongToPlayNext() {
+    console.log(song);
+    dispatch(playNext(song));
+    closeBottomSheet();
+  }
+
+  function playSong() {
+    dispatch(loadTrack(song));
+    closeBottomSheet();
   }
 
   if (songs.length) {
     return (
       <Screen>
-        <Portal>
-          <Animated.View
-            style={[
-              {
-                flex: 1,
-                backgroundColor: 'rgba(0,0,0, .7)',
-                ...StyleSheet.absoluteFillObject,
-              },
-              {
-                opacity: Animated.cond(
-                  Animated.greaterOrEq(sheetOpenValue, 0.95),
-                  0,
-                  1,
-                ),
-              },
-            ]}
-            pointerEvents="none"
-          />
-          <BottomSheet
-            ref={bs}
-            snapPoints={['100%', 0]}
-            renderContent={renderInner}
-            initialSnap={1}
-            callbackNode={sheetOpenValue}
-          />
-        </Portal>
+        <BottomSheetView
+          open={open}
+          loadTrack={() => dispatch(loadTrack(song))}
+          playNext={() => dispatch(playNext(song))}
+          addToFavorite={() => dispatch(addSongToFavorite(song))}
+          addToQueue={() => dispatch(addToQueue(song))}
+          addToPlaylist={showDailog}
+          setClosed={closeBottomSheet}
+        >
+          <View style={{ flex: 1 }}>
+            <TouchableWithoutFeedback
+              onPress={closeBottomSheet}
+              style={{ height: '100%', width: '100%' }}
+            />
+          </View>
+
+          <Surface>
+            <TouchableWithoutFeedback onPress={playSong}>
+              <List.Item
+                title="Play"
+                left={props => (
+                  <List.Icon {...props} icon="play-circle-outline" />
+                )}
+              />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={addSongToPlayNext}>
+              <List.Item
+                title="Play next"
+                left={props => <List.Icon {...props} icon="playlist-play" />}
+              />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={addSongToQueue}>
+              <List.Item
+                title="Add to queue"
+                left={props => <List.Icon {...props} icon="playlist-music" />}
+              />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={addSongToFav}>
+              <List.Item
+                title="Add to playing queue"
+                left={props => <List.Icon {...props} icon="heart" />}
+              />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={showDailog}>
+              <List.Item
+                title="Add to Playlist"
+                left={props => <List.Icon {...props} icon="playlist-plus" />}
+              />
+            </TouchableWithoutFeedback>
+          </Surface>
+        </BottomSheetView>
         <PlaylistDialog
           visible={visible}
           hideModal={() => setVisible(false)}

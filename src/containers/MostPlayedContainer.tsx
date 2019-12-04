@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation';
 
 import { deserializeSongs } from '../utils/database';
 import TrackScrollView from '../components/TrackScrollView';
-import { loadTrack, playTrack } from '../actions/playerState';
+import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 
 interface TrackProps {
@@ -31,7 +31,9 @@ function MostPlayedContainer({ navigation }) {
         setHistory(song);
       }
     }
-    realmSongs.addListener(listener);
+    if (realmSongs !== undefined) {
+      realmSongs.addListener(listener);
+    }
     return () => {
       realmSongs.removeListener(listener);
     };
