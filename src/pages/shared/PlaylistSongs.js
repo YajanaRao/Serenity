@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  IconButton,
   withTheme,
   Title,
   Button,
@@ -38,27 +37,15 @@ const RENAME_DIALOG = 'RENAME';
 const PLAYLIST_DIALOG = 'PLAYLIST';
 
 class Collection extends Component {
-  static navigationOptions = ({ navigation }) => {
-    // header: null
-    return {
-      headerTitle: navigation.getParam('playlist').name,
-      headerRight: (
-        <IconButton
-          icon="dots-vertical"
-          onPress={navigation.getParam('openMenu')}
-        />
-      ),
-    };
-  };
-
   constructor(props) {
     super(props);
     this.bs = React.createRef();
     this.sheetOpenValue = new Animated.Value(1);
-    const playlist = props.navigation.getParam('playlist');
-    const fetchSongs = props.navigation.getParam('fetchSongs');
+    const { playlist } = props.route.params;
+    const { fetchSongs } = props.route.params;
     this.state = {
       visible: '',
+      id: playlist.id,
       name: playlist.name,
       owner: playlist.owner,
       songs: fetchSongs(),
@@ -78,9 +65,7 @@ class Collection extends Component {
   };
 
   deletePlaylist = () => {
-    const {
-      playlist: { id, name },
-    } = this.state;
+    const { id, name } = this.state;
     const { navigation } = this.props;
 
     if (id) {
@@ -108,9 +93,7 @@ class Collection extends Component {
   };
 
   rename = playlistName => {
-    const {
-      playlist: { id },
-    } = this.state;
+    const { id } = this.state;
     const { navigation } = this.props;
     renamePlaylist(id, playlistName);
     navigation.goBack();
@@ -204,10 +187,9 @@ class Collection extends Component {
   };
 
   onRefresh = () => {
-    const { navigation } = this.props;
-    const { params } = navigation.state;
+    const { route } = this.props;
     this.setState({ refreshing: true });
-    const songs = params.fetchSongs();
+    const songs = route.params.fetchSongs();
     this.setState({
       songs,
       refreshing: false,
@@ -290,10 +272,7 @@ class Collection extends Component {
   }
 }
 
-export default connect(
-  null,
-  { addToQueue },
-)(withTheme(Collection));
+export default connect(null, { addToQueue })(withTheme(Collection));
 
 const styles = StyleSheet.create({
   container: {

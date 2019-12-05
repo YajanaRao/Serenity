@@ -8,8 +8,9 @@ import {
   TouchableRipple,
   withTheme,
   Theme,
+  useTheme,
 } from 'react-native-paper';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import Screen from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
@@ -23,28 +24,29 @@ interface Props {
   theme: Theme;
 }
 
-class Settings extends React.PureComponent<Props> {
-  toggleTheme = (dark: string) => {
-    const { updateTheme } = this.props;
+function Settings() {
+  const dispatch = useDispatch();
+  const radio = useSelector((state: any) => state.config.radio);
+  const theme = useTheme();
+  const { dark } = theme;
+  function toggleTheme(dark: string) {
     let theme = 'default';
     if (dark) {
       theme = 'dark';
     }
-    updateTheme(theme);
-  };
+    dispatch(updateTheme(theme));
+  }
 
-  toggleRadioMode = () => {
-    const { radio, changeRadioMode } = this.props;
-    changeRadioMode(!radio);
-  };
+  function toggleRadioMode() {
+    dispatch(changeRadioMode(!radio));
+  }
 
-  clearHistory = () => {
-    const { clearHistory } = this.props;
+  function clearHistory() {
     Alert.alert(
       'Clear History',
       'Do you want to clear your history ?',
       [
-        { text: 'Yes', onPress: () => clearHistory() },
+        { text: 'Yes', onPress: () => dispatch(clearHistory()) },
         {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
@@ -53,63 +55,45 @@ class Settings extends React.PureComponent<Props> {
       ],
       { cancelable: false },
     );
-  };
-
-  static navigationOptions = {
-    headerTitle: 'Settings',
-  };
-
-  render() {
-    const {
-      theme: { dark },
-      radio,
-    } = this.props;
-    return (
-      <Screen>
-        <ScrollView>
-          <Drawer.Section title="Preferences">
-            <TouchableRipple onPress={() => this.toggleTheme(dark)}>
-              <View style={styles.preference}>
-                <Text>Dark Theme</Text>
-                <View pointerEvents="none">
-                  <Switch value={dark} />
-                </View>
-              </View>
-            </TouchableRipple>
-            <TouchableRipple onPress={this.toggleRadioMode}>
-              <View style={styles.preference}>
-                <Text>Radio Mode</Text>
-                <View pointerEvents="none">
-                  <Switch value={radio} />
-                </View>
-              </View>
-            </TouchableRipple>
-          </Drawer.Section>
-          <Drawer.Section title="Data">
-            <TouchableRipple onPress={this.clearHistory}>
-              <View style={styles.preference}>
-                <Text>Clear history</Text>
-                {/* <View pointerEvents="none">
-                  <Switch value={dark} />
-                </View> */}
-              </View>
-            </TouchableRipple>
-          </Drawer.Section>
-        </ScrollView>
-      </Screen>
-    );
   }
+
+  return (
+    <Screen>
+      <ScrollView>
+        <Drawer.Section title="Preferences">
+          <TouchableRipple onPress={() => toggleTheme(dark)}>
+            <View style={styles.preference}>
+              <Text>Dark Theme</Text>
+              <View pointerEvents="none">
+                <Switch value={dark} />
+              </View>
+            </View>
+          </TouchableRipple>
+          <TouchableRipple onPress={toggleRadioMode}>
+            <View style={styles.preference}>
+              <Text>Radio Mode</Text>
+              <View pointerEvents="none">
+                <Switch value={radio} />
+              </View>
+            </View>
+          </TouchableRipple>
+        </Drawer.Section>
+        <Drawer.Section title="Data">
+          <TouchableRipple onPress={clearHistory}>
+            <View style={styles.preference}>
+              <Text>Clear history</Text>
+              {/* <View pointerEvents="none">
+                <Switch value={dark} />
+              </View> */}
+            </View>
+          </TouchableRipple>
+        </Drawer.Section>
+      </ScrollView>
+    </Screen>
+  );
 }
 
-const mapStateToProps = state => ({
-  radio: state.config.radio,
-});
-
-export default connect(mapStateToProps, {
-  updateTheme,
-  clearHistory,
-  changeRadioMode,
-})(withTheme(Settings));
+export default Settings;
 
 const styles = StyleSheet.create({
   preference: {

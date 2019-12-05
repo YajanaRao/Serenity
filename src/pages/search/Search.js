@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { Subheading, Title, Divider } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
-import { FlatList } from 'react-navigation';
 import Genre from '../../data/genre.json';
-import Header from '../../components/Header';
 import Screen from '../../components/Screen';
 import TrackContainer from '../../containers/TrackContainer';
 
 class Search extends Component {
-  static navigationOptions = () => {
-    return {
-      header: <Header />,
-    };
-  };
-
   constructor(props) {
     super(props);
     this.state = {

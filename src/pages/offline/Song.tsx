@@ -6,8 +6,8 @@ import {
   RefreshControl,
   StyleSheet,
   GestureResponderEvent,
+  FlatList,
 } from 'react-native';
-import { FlatList } from 'react-navigation';
 
 import { getOfflineSongs } from '../../actions/mediaStore';
 import {

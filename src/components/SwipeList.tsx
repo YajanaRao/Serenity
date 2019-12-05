@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import React, { useState } from 'react';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { View, StyleSheet, RefreshControl } from 'react-native';
@@ -6,8 +6,29 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 
 import TrackContainer from '../containers/TrackContainer';
 import ListSongHeader from './ListSongHeader';
+import { TrackProps } from '../types';
 
-function SwipeList({ title, cover, addToQueue, data, showModal, fetchData }) {
+interface ItemProps {
+  item: TrackProps;
+}
+
+interface Props {
+  title: string;
+  cover: string;
+  addToQueue(songs: TrackProps[] | TrackProps): void;
+  data: TrackProps[];
+  showModal(song: TrackProps): void;
+  fetchData(): void;
+}
+
+function SwipeList({
+  title,
+  cover,
+  addToQueue,
+  data,
+  showModal,
+  fetchData,
+}: Props) {
   const [refreshing, setRefreshing] = useState(false);
   async function refreshData() {
     setRefreshing(true);
@@ -28,7 +49,7 @@ function SwipeList({ title, cover, addToQueue, data, showModal, fetchData }) {
       ListFooterComponent={() => <View style={{ height: 100 }} />}
       ItemSeparatorComponent={() => <Divider inset />}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => <TrackContainer track={item} />}
+      renderItem={({ item }: ItemProps) => <TrackContainer track={item} />}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -49,10 +70,6 @@ function SwipeList({ title, cover, addToQueue, data, showModal, fetchData }) {
 }
 
 export default SwipeList;
-
-SwipeList.propTypes = {
-  data: PropTypes.array,
-};
 
 const styles = StyleSheet.create({
   rowBack: {

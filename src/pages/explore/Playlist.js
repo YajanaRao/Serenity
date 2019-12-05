@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { List, Portal, Dialog, TextInput, Button } from 'react-native-paper';
-import { FlatList } from 'react-navigation';
-import { View, RefreshControl } from 'react-native';
+import { View, RefreshControl, FlatList } from 'react-native';
 
 import {
   createPlaylist,

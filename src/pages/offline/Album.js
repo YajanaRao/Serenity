@@ -1,8 +1,7 @@
-import { FlatList } from 'react-navigation';
 import * as React from 'react';
 import { Divider, List } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { StyleSheet, RefreshControl } from 'react-native';
+import { StyleSheet, RefreshControl, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { isEqual, isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
@@ -109,10 +108,7 @@ Album.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  { getOfflineAlbums },
-)(Album);
+export default connect(mapStateToProps, { getOfflineAlbums })(Album);
 
 const styles = StyleSheet.create({
   icons: {

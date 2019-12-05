@@ -3,19 +3,20 @@ import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Title, Button } from 'react-native-paper';
-import { withNavigation } from 'react-navigation';
 
 import { deserializeSongs } from '../utils/database';
 import TrackScrollView from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
+import { useNavigation } from '@react-navigation/core';
 
 interface TrackProps {
   title: string;
 }
 
-function RecentContainer({ navigation }) {
+function RecentContainer() {
   const realmSongs = getPlayedSongs();
+  const navigation = useNavigation();
   const [history, setHistory] = useState(() => {
     return deserializeSongs(realmSongs);
   });
@@ -78,4 +79,4 @@ function RecentContainer({ navigation }) {
   return false;
 }
 
-export default withNavigation(RecentContainer);
+export default RecentContainer;

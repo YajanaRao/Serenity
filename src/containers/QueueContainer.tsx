@@ -1,54 +1,54 @@
-import React, { Component } from 'react';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import { Surface, Title, IconButton, Divider } from 'react-native-paper';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { View, StyleSheet, Alert } from 'react-native';
 
-import { clearQueue, removeFromQueue } from '../actions/playerState';
-import { getQueuedSongs } from '../actions/realmAction';
 import { deserializeSongs } from '../utils/database';
-import TrackContainer from './TrackContainer';
+import { getQueuedSongs } from '../actions/realmAction';
+import { clearQueue, removeFromQueue } from '../actions/playerState';
 import FavContainer from './FavContainer';
+import TrackContainer from './TrackContainer';
+import { TrackProps } from '../types';
 
-class QueueContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.realmSongs = getQueuedSongs();
-    const queue = deserializeSongs(this.realmSongs);
-    this.state = {
-      queue,
+interface Props {
+  close(): void;
+}
+
+interface ItemProps {
+  item: TrackProps;
+}
+
+function QueueContainer({ close }: Props) {
+  const realmSongs = getQueuedSongs();
+  const dispatch = useDispatch();
+  const active = useSelector((state: any) => state.playerState.active);
+
+  const [queue, setQueue] = useState(() => {
+    return deserializeSongs(realmSongs);
+  });
+
+  useEffect(() => {
+    function listener(songs: any, changes: any) {
+      if (
+        changes.insertions.length > 0 ||
+        changes.modifications.length > 0 ||
+        changes.deletions.length > 0
+      ) {
+        const song = deserializeSongs(songs);
+        setQueue(song);
+      }
+    }
+    if (realmSongs !== undefined) {
+      realmSongs.addListener(listener);
+    }
+    return () => {
+      realmSongs.removeListener(listener);
     };
-  }
+  }, []);
 
-  componentDidMount() {
-    const { queue } = this.state;
-    if (queue.length) {
-      this.realmSongs.addListener((songs, changes) => {
-        if (
-          changes.insertions.length > 0 ||
-          changes.modifications.length > 0 ||
-          changes.deletions.length > 0
-        ) {
-          const song = deserializeSongs(songs);
-          this.setState({
-            queue: song,
-          });
-        }
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    const { queue } = this.state;
-    if (queue.length) {
-      this.realmSongs.removeAllListeners();
-    }
-  }
-
-  clearPlaylist = () => {
-    const { close, clearQueue } = this.props;
+  function clearPlaylist() {
     Alert.alert(
       'Clear Queue',
       'Clear queue would stop current playing song',
@@ -57,7 +57,7 @@ class QueueContainer extends Component {
           text: 'Yes',
           onPress: () => {
             close();
-            clearQueue();
+            dispatch(clearQueue());
           },
         },
         {
@@ -68,13 +68,10 @@ class QueueContainer extends Component {
       ],
       { cancelable: false },
     );
-  };
+  }
 
-  render() {
-    const { queue } = this.state;
-    const { active, removeFromQueue } = this.props;
-
-    return !isEmpty(queue) ? (
+  if (!isEmpty(queue)) {
+    return (
       <SwipeListView
         data={queue}
         ListHeaderComponent={() => (
@@ -83,11 +80,11 @@ class QueueContainer extends Component {
             <IconButton
               icon="delete"
               // size={40}
-              onPress={this.clearPlaylist}
+              onPress={clearPlaylist}
             />
           </View>
         )}
-        renderItem={({ item }) => <TrackContainer track={item} />}
+        renderItem={({ item }: ItemProps) => <TrackContainer track={item} />}
         ItemSeparatorComponent={() => <Divider inset />}
         keyExtractor={(item, index) => index.toString()}
         renderHiddenItem={({ item }) => (
@@ -95,7 +92,7 @@ class QueueContainer extends Component {
             <IconButton
               icon="delete"
               color="#dd1818"
-              onPress={() => removeFromQueue(item)}
+              onPress={() => dispatch(removeFromQueue(item))}
             />
             <FavContainer track={active} type="song" />
           </Surface>
@@ -106,24 +103,12 @@ class QueueContainer extends Component {
         closeOnRowOpen
         useNativeDriver
       />
-    ) : (
-      false
     );
   }
+  return false;
 }
 
-QueueContainer.propTypes = {
-  clearQueue: PropTypes.func.isRequired,
-  removeFromQueue: PropTypes.func.isRequired,
-};
-
-export default connect(
-  null,
-  {
-    clearQueue,
-    removeFromQueue,
-  },
-)(QueueContainer);
+export default QueueContainer;
 
 const styles = StyleSheet.create({
   rowContainer: {

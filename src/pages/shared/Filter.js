@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { IconButton } from 'react-native-paper';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addToQueue } from '../../actions/playerState';
@@ -8,21 +7,6 @@ import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
 
 class Filter extends Component {
-  static navigationOptions = ({ navigation }) => {
-    const {
-      params: { genre },
-    } = navigation.state;
-    return {
-      headerTitle: genre.title,
-      headerRight: (
-        <IconButton
-          icon="play-circle-outline"
-          onPress={navigation.getParam('addToQueue')}
-        />
-      ),
-    };
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -43,9 +27,8 @@ class Filter extends Component {
   };
 
   fetchData = async () => {
-    const { navigation } = this.props;
-    const { params } = navigation.state;
-    const genre = params.genre.title;
+    const { route } = this.props;
+    const genre = route.params.genre.title;
     const songs = await filterSongsByGenre(genre);
     this.setState({
       songs,
@@ -58,12 +41,10 @@ class Filter extends Component {
   };
 
   render() {
-    const { navigation } = this.props;
+    const { route } = this.props;
     const { songs } = this.state;
 
-    const {
-      params: { genre },
-    } = navigation.state;
+    const { genre } = route.params;
 
     return (
       <Screen>
@@ -87,7 +68,4 @@ Filter.propTypes = {
   addToQueue: PropTypes.func.isRequired,
 };
 
-export default connect(
-  mapStateToProps,
-  { addToQueue },
-)(Filter);
+export default connect(mapStateToProps, { addToQueue })(Filter);

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { createStackNavigator } from 'react-navigation-stack';
+// import { createAppContainer } from "react-navigation";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PermissionsAndroid } from 'react-native';
-import { withTheme, IconButton } from 'react-native-paper';
+import { withTheme, IconButton, Theme, useTheme } from 'react-native-paper';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
@@ -16,81 +16,142 @@ import Screen from '../components/Screen';
 import log from '../utils/logging';
 import NotificationContainer from '../containers/NotificationContainer';
 
-const BottomNavigator = createBottomTabNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <IconButton
-            icon="home"
-            color={tintColor}
-            style={{ margin: 0, padding: 0 }}
-          />
-        ),
-      },
-    },
-    Search: {
-      screen: SearchScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <IconButton
-            icon="magnify"
-            color={tintColor}
-            style={{ margin: 0, padding: 0 }}
-          />
-        ),
-      },
-    },
-    Explore: {
-      screen: ExploreScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <IconButton
-            icon="compass"
-            color={tintColor}
-            style={{ margin: 0, padding: 0 }}
-          />
-        ),
-      },
-    },
-    Offline: {
-      screen: OfflineScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <IconButton
-            icon="library-music"
-            color={tintColor}
-            style={{ margin: 0, padding: 0 }}
-          />
-        ),
-      },
-    },
-  },
-  {
-    tabBarComponent: BottomTabBar,
-  },
-);
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const RootStack = createStackNavigator(
-  {
-    Main: {
-      screen: BottomNavigator,
-    },
-    Player: {
-      screen: PlayerScreen,
-    },
-  },
-  {
-    mode: 'modal',
-    headerMode: 'none',
-  },
-);
+function BottomNavigator() {
+  const theme = useTheme();
+  const { colors } = theme;
+  return (
+    <Tab.Navigator tabBar={BottomTabBar}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="home"
+              color={focused ? colors.primary : colors.text}
+              style={{ margin: 0, padding: 0 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="magnify"
+              color={focused ? colors.primary : colors.text}
+              style={{ margin: 0, padding: 0 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={ExploreScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="compass"
+              color={focused ? colors.primary : colors.text}
+              style={{ margin: 0, padding: 0 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Offline"
+        component={OfflineScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <IconButton
+              icon="library-music"
+              color={focused ? colors.primary : colors.text}
+              style={{ margin: 0, padding: 0 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
-const Navigator = createAppContainer(RootStack);
+// const BottomNavigator = createBottomTabNavigator(
+//   {
+//     Home: {
+//       screen: HomeScreen,
+//       navigationOptions: {
+//         tabBarIcon: ({ tintColor }) => (
+//           <IconButton
+//             icon="home"
+//             color={tintColor}
+//             style={{ margin: 0, padding: 0 }}
+//           />
+//         ),
+//       },
+//     },
+//     Search: {
+//       screen: SearchScreen,
+//       navigationOptions: {
+//         tabBarIcon: ({ tintColor }) => (
+//           <IconButton
+//             icon="magnify"
+//             color={tintColor}
+//             style={{ margin: 0, padding: 0 }}
+//           />
+//         ),
+//       },
+//     },
+//     Explore: {
+//       screen: ExploreScreen,
+//       navigationOptions: {
+//         tabBarIcon: ({ tintColor }) => (
+//           <IconButton
+//             icon="compass"
+//             color={tintColor}
+//             style={{ margin: 0, padding: 0 }}
+//           />
+//         ),
+//       },
+//     },
+//     Offline: {
+//       screen: OfflineScreen,
+//       navigationOptions: {
+//         tabBarIcon: ({ tintColor }) => (
+//           <IconButton
+//             icon=""
+//             color={tintColor}
+//             style={{ margin: 0, padding: 0 }}
+//           />
+//         ),
+//       },
+//     },
+//   },
+//   {
+//     tabBarComponent: BottomTabBar,
+//   },
+// );
+
+function RootStack() {
+  return (
+    <Stack.Navigator
+      mode="modal"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Main" component={BottomNavigator} />
+      <Stack.Screen name="Player" component={PlayerScreen} />
+    </Stack.Navigator>
+  );
+}
 
 export interface Props {
-  theme: any;
+  theme: Theme;
 }
 
 class RootScreen extends React.Component<Props> {
@@ -137,7 +198,7 @@ class RootScreen extends React.Component<Props> {
     return (
       <Screen>
         <NotificationContainer />
-        <Navigator screenProps={{ theme }} />
+        <RootStack />
       </Screen>
     );
   }

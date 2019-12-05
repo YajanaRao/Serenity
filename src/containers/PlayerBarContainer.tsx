@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { withNavigation } from 'react-navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
+import { useNavigation } from '@react-navigation/core';
+
 import {
   playTrack,
   pauseTrack,
@@ -11,7 +12,8 @@ import {
 } from '../actions/playerState';
 import PlayerBar from '../components/PlayerBar';
 
-function PlayerBarContainer({ navigation }) {
+function PlayerBarContainer() {
+  const navigation = useNavigation();
   const active = useSelector((state: any) => state.playerState.active);
   const status = useSelector((state: any) => state.playerState.status);
   const dispatch = useDispatch();
@@ -52,4 +54,4 @@ function PlayerBarContainer({ navigation }) {
   return false;
 }
 
-export default withNavigation(PlayerBarContainer);
+export default PlayerBarContainer;

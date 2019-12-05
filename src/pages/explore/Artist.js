@@ -16,7 +16,6 @@ class Artist extends Component {
     super(props);
     this.realmArtists = getArtists();
     const artists = deserializeArtists(this.realmArtists);
-    console.log(artists);
     this.state = {
       visible: false,
       addArtists: [],
@@ -70,10 +69,6 @@ class Artist extends Component {
   showDialog = () => this.setState({ visible: true });
 
   hideDialog = () => this.setState({ visible: false });
-
-  static navigationOptions = {
-    header: null,
-  };
 
   render() {
     const {
