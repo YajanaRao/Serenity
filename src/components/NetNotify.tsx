@@ -1,7 +1,6 @@
 import React from 'react';
 import { Banner, IconButton } from 'react-native-paper';
-import NetInfo from '@react-native-community/netinfo';
-import { useNetInfo } from '@react-native-community/netinfo';
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/core';
 
 function NetNotify() {

@@ -42,6 +42,8 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
      />
 </p>
 
+[Download app](https://appdistribution.firebase.dev/i/Dv8WUupp)
+
 ## What is this?
 
 Serenity is a world class music player which focuses on giving wonderful experience to the user.
