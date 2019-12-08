@@ -90,10 +90,6 @@ class Playlist extends Component {
     });
   };
 
-  static navigationOptions = {
-    header: null,
-  };
-
   render() {
     const { visible, playlistName, playlists, refreshing } = this.state;
     return (

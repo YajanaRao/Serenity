@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { addToQueue } from '../../actions/playerState';
-import { findAlbumSongs } from '../../actions/mediaStore';
+import { filterSongsByGenre } from '../../actions/mediaStore';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
-import { TrackProps } from '../../types';
+import { NavigationScreenProps } from '../../types';
 
-function AlbumSongs({ route, navigation }) {
-  const { album } = route.params;
-  const [songs, setSongs] = useState();
+function Filter({ navigation, route }: NavigationScreenProps) {
+  const [songs, setSongs] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,27 +15,28 @@ function AlbumSongs({ route, navigation }) {
     navigation.setParams({ addToQueue: addSongsToQueue });
   }, []);
 
-  function fetchData() {
-    const songsPromise = findAlbumSongs(album.name || album.album);
-    songsPromise.then((tracks: TrackProps) => {
-      setSongs(tracks);
-    });
-  }
-
   function addSongsToQueue() {
     dispatch(addToQueue(songs));
   }
+
+  async function fetchData() {
+    const genre = route.params.genre.title;
+    const songs = await filterSongsByGenre(genre);
+    setSongs(songs);
+  }
+
+  const { genre } = route.params;
 
   return (
     <Screen>
       <SongListContainer
         data={songs}
         fetchData={fetchData}
-        title={album.name || album.album}
-        cover={album.cover}
+        title={genre.title}
+        cover={genre.image}
       />
     </Screen>
   );
 }
 
-export default AlbumSongs;
+export default Filter;

@@ -9,9 +9,12 @@ export interface TrackProps {
 
 export interface AlbumProps {
   id: string;
-  album: string;
+  name?: string;
+  album?: string;
+  author?: string;
   cover?: string;
   artist?: string;
+  numberOfSongs?: number;
 }
 
 export interface ArtistProps {
@@ -19,4 +22,9 @@ export interface ArtistProps {
   name: string;
   cover?: string;
   artist?: string;
+}
+
+export interface NavigationScreenProps {
+  navigation?: any;
+  route?: any;
 }

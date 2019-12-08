@@ -294,14 +294,19 @@ export const isArtistPresent = (id: string) => {
 };
 
 export const addAlbum = (album: AlbumProps) => {
-  realm.write(() => {
-    realm.create(ALBUM_SCHEMA_NAME, {
-      id: album.id.toString(),
-      name: album.album,
-      cover: album.cover,
-      artist: album.artist,
+  try {
+    console.log(album);
+    realm.write(() => {
+      realm.create(ALBUM_SCHEMA_NAME, {
+        id: album.id.toString(),
+        name: album.album,
+        cover: album.cover,
+        artist: album.artist,
+      });
     });
-  });
+  } catch (error) {
+    log(error + ' ' + album.toString());
+  }
 };
 
 export const removeAlbum = (id: string) => {

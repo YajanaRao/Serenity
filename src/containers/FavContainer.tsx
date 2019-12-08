@@ -16,15 +16,12 @@ import {
 } from '../actions/realmAction';
 import Fav from '../components/Fav';
 import Follow from '../components/Follow';
-
-interface ItemProps {
-  id: string;
-}
+import { AlbumProps } from '../types';
 
 interface Props {
   type: string;
   style?: ViewProps;
-  item?: ItemProps;
+  item?: AlbumProps;
 }
 
 function FavContainer({ type = 'song', style, item }: Props) {
@@ -60,7 +57,7 @@ function FavContainer({ type = 'song', style, item }: Props) {
     if (type === 'song') {
       dispatch(addSongToFavorite(active));
     } else if (type === 'album') {
-      dispatch(addAlbumToFavorite(active));
+      dispatch(addAlbumToFavorite(item));
     }
 
     setLiked(true);

@@ -30,7 +30,7 @@ function QueueContainer({ close }: Props) {
   });
 
   useEffect(() => {
-    function listener(songs: any, changes: any) {
+    function listener(songs: TrackProps, changes: any) {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||
@@ -46,7 +46,7 @@ function QueueContainer({ close }: Props) {
     return () => {
       realmSongs.removeListener(listener);
     };
-  }, []);
+  }, [realmSongs]);
 
   function clearPlaylist() {
     Alert.alert(

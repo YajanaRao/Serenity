@@ -1,5 +1,6 @@
 import React, { useState, SetStateAction } from 'react';
 import { View } from 'react-native';
+import isEmpty from 'lodash/isEmpty';
 
 import PlaylistDailog from './PlaylistDialog';
 import SwipeList from './SwipeList';
@@ -44,7 +45,7 @@ function SongList({
 
   return (
     <Container>
-      {data.length ? (
+      {!isEmpty(data) ? (
         <View>
           <PlaylistDailog
             visible={visible}

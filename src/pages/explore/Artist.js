@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { withTheme, Avatar, List } from 'react-native-paper';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import remove from 'lodash/remove';
 
@@ -123,8 +122,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(withTheme(Artist));
-
-Artist.propTypes = {
-  theme: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
-};

@@ -16,8 +16,11 @@ import {
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
 import log from '../utils/logging';
+import { TrackProps, AlbumProps } from '../types';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-let subscription = null;
+let subscription: any = null;
 
 const QUEUE_ID = 'user-playlist--000003';
 const HISTORY_ID = 'user-playlist--000001';
@@ -50,9 +53,9 @@ export const setUpTrackPlayer = () => dispatch => {
   }
 };
 
-export const loadTrack = (track, playOnLoad = true) => dispatch => {
+export const loadTrack = (track: TrackProps, playOnLoad = true) => dispatch => {
   try {
-    const url = track.url ? track.url : track.path;
+    const url = track.path;
     if (url) {
       MediaPlayer.load(url).then(() => {
         if (playOnLoad) MediaPlayer.play();
@@ -62,14 +65,17 @@ export const loadTrack = (track, playOnLoad = true) => dispatch => {
         track,
       });
     } else {
-      log(track);
+      log('unable to load track');
     }
   } catch (error) {
-    log('loadTrack: ', error);
+    log('loadTrack: ' + error);
   }
 };
 
-export const playNext = track => (dispatch, getState) => {
+export const playNext = (track: TrackProps) => (
+  dispatch: ThunkDispatch<undefined, undefined, AnyAction>,
+  getState,
+) => {
   try {
     unshiftSong(QUEUE_ID, track);
     if (isEmpty(getState().playerState.active)) {
@@ -81,7 +87,7 @@ export const playNext = track => (dispatch, getState) => {
   }
 };
 
-export const repeatSongs = type => dispatch => {
+export const repeatSongs = (type: string) => dispatch => {
   try {
     dispatch({
       type: 'REPEAT',
@@ -92,7 +98,7 @@ export const repeatSongs = type => dispatch => {
   }
 };
 
-export const shufflePlay = songs => dispatch => {
+export const shufflePlay = (songs: TrackProps[]) => dispatch => {
   try {
     dispatch({
       type: 'SHUFFLE_PLAY',
@@ -184,7 +190,10 @@ export const destroyTrackPlayer = () => dispatch => {
 
 // NOTE: Queue management
 
-export const addToQueue = songs => (dispatch, getState) => {
+export const addToQueue = (songs: TrackProps[] | TrackProps) => (
+  dispatch,
+  getState,
+) => {
   if (Array.isArray(songs)) {
     songs.forEach(song => {
       addSong(QUEUE_ID, song);
@@ -199,7 +208,7 @@ export const addToQueue = songs => (dispatch, getState) => {
   }
 };
 
-export const removeFromQueue = song => dispatch => {
+export const removeFromQueue = (song: TrackProps) => dispatch => {
   dispatch({
     type: 'REMOVE_QUEUE',
     payload: song,
@@ -216,7 +225,7 @@ export const clearQueue = () => dispatch => {
   });
 };
 
-export const addSongToFavorite = song => dispatch => {
+export const addSongToFavorite = (song: TrackProps) => dispatch => {
   addSong(FAVOURITE_ID, song, true);
   dispatch({
     type: 'NOTIFY',
@@ -224,7 +233,8 @@ export const addSongToFavorite = song => dispatch => {
   });
 };
 
-export const addAlbumToFavorite = album => dispatch => {
+export const addAlbumToFavorite = (album: AlbumProps) => dispatch => {
+  console.log(album);
   addAlbum(album);
   dispatch({
     type: 'NOTIFY',
@@ -232,7 +242,7 @@ export const addAlbumToFavorite = album => dispatch => {
   });
 };
 
-export const removeAlbumFromFavorite = album => dispatch => {
+export const removeAlbumFromFavorite = (album: AlbumProps) => dispatch => {
   removeAlbum(album.id);
   dispatch({
     type: 'NOTIFY',
@@ -240,7 +250,7 @@ export const removeAlbumFromFavorite = album => dispatch => {
   });
 };
 
-export const addToPlaylist = (id, song) => dispatch => {
+export const addToPlaylist = (id: string, song: TrackProps) => dispatch => {
   addSong(id, song);
   dispatch({
     type: 'NOTIFY',
