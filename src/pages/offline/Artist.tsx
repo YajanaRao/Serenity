@@ -50,8 +50,6 @@ function Artist({ navigation }: any) {
                 <Avatar.Text
                   {...props}
                   style={{ backgroundColor: generate(item.artist) }}
-                  // icon="person"
-                  // size={44}
                   label={item.artist.charAt(0)}
                 />
               )}

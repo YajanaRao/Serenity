@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar, Badge, List } from 'react-native-paper';
 import { View } from 'react-native';
-
-interface ArtistProps {
-  artist: string;
-  artwork: string;
-}
+import { ArtistProps } from '../types';
 
 interface Props {
   item: ArtistProps;

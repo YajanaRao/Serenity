@@ -12,11 +12,7 @@ import includes from 'lodash/includes';
 
 import ArtistComponent from '../components/ArtistComponent';
 import { useSelector } from 'react-redux';
-
-interface ArtistProps {
-  artist: string;
-  artwork: string;
-}
+import { ArtistProps } from '../types';
 
 interface ItemProps {
   item: ArtistProps;
