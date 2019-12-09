@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { addToQueue } from '../../actions/playerState';
 import { findAlbumSongs } from '../../actions/mediaStore';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
 import { TrackProps } from '../../types';
 
-function AlbumSongs({ route, navigation }) {
+function AlbumSongs({ route }) {
   const { album } = route.params;
   const [songs, setSongs] = useState();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData();
-    navigation.setParams({ addToQueue: addSongsToQueue });
   }, []);
 
   function fetchData() {
-    const songsPromise = findAlbumSongs(album.name || album.album);
-    songsPromise.then((tracks: TrackProps) => {
+    findAlbumSongs(album.name || album.album).then((tracks: TrackProps) => {
       setSongs(tracks);
     });
-  }
-
-  function addSongsToQueue() {
-    dispatch(addToQueue(songs));
   }
 
   return (

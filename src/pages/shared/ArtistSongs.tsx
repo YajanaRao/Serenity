@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addToQueue } from '../../actions/playerState';
 import { findArtistSongs } from '../../actions/mediaStore';
 import SongListContainer from '../../containers/SongListContainer';
 import Screen from '../../components/Screen';
 
-function ArtistSongs({ route, navigation }) {
+function ArtistSongs({ route }) {
   const { artist } = route.params;
   const [songs, setSongs] = useState([]);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData();
-    navigation.setParams({ addToQueue: addSongsToQueue });
   }, []);
 
   function fetchData() {
@@ -20,10 +16,6 @@ function ArtistSongs({ route, navigation }) {
     songsPromise.then(tracks => {
       setSongs(tracks);
     });
-  }
-
-  function addSongsToQueue() {
-    dispatch(addToQueue(songs));
   }
 
   return (

@@ -3,6 +3,7 @@ import { Divider, List, Avatar } from 'react-native-paper';
 import { RefreshControl, FlatList } from 'react-native';
 import { isEmpty } from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
+import generate from 'string-to-color';
 import { getOfflineArtists } from '../../actions/mediaStore';
 import Blank from '../../components/Blank';
 import Screen from '../../components/Screen';
@@ -48,7 +49,7 @@ function Artist({ navigation }: any) {
               left={props => (
                 <Avatar.Text
                   {...props}
-                  // style={{backgroundColor: colors.surface}}
+                  style={{ backgroundColor: generate(item.artist) }}
                   // icon="person"
                   // size={44}
                   label={item.artist.charAt(0)}

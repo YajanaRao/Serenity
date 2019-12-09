@@ -88,6 +88,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Planned features
 
+- Real time lyrics
 - Creating a backup on Google Drive and sync audio from it 🎶
 - Support for web (React Native Web) and Windows desktop (React Native Windows)
 - Searching for and playing music from YouTube (including integration with playlists), bandcamp (including albums), and soundcloud
@@ -95,7 +96,6 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Downloading from YouTube
 - Searching for albums (powered by last.fm and musicbrainz), album view, automatic song lookup based on artist and track name (in progress, can be dodgy sometimes)
 - Newest releases with reviews - tracks and albums
-- Real time lyrics
 - Browsing by popularity
 - Country-specific top lists
 - Listening suggestions (similar artists, albums, tracks)

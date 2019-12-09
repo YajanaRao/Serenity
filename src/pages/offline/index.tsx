@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, IconButton } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from 'react-native';
@@ -10,6 +10,7 @@ import SongScreen from './Song';
 import AlbumSongs from '../shared/AlbumSongs';
 import ArtistSongs from '../shared/ArtistSongs';
 import FavContainer from '../../containers/FavContainer';
+import AddToQueueIcon from '../../containers/AddToQueueIcon';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -59,13 +60,13 @@ export default function RootStack() {
         component={ArtistSongs}
         options={({ route }) => {
           const { artist } = route.params;
-          const { addToQueue } = route.params;
+          const title = artist.artist || artist.name;
           return {
-            headerTitle: artist.artist || artist.name,
+            headerTitle: title,
             headerRight: () => (
               <View style={{ flexDirection: 'row' }}>
                 <FavContainer item={artist} type="artist" />
-                <IconButton icon="play-circle-outline" onPress={addToQueue} />
+                <AddToQueueIcon type="artist" title={title} />
               </View>
             ),
           };
@@ -76,16 +77,13 @@ export default function RootStack() {
         component={AlbumSongs}
         options={({ route }) => {
           const { album } = route.params;
-          const { addToQueue } = route.params;
+          const title = album.name || album.album;
           return {
-            headerTitle: album.name || album.album,
+            headerTitle: title,
             headerRight: () => (
               <View style={{ flexDirection: 'row' }}>
                 <FavContainer item={album} type="album" />
-                <IconButton
-                  icon="play-circle-outline"
-                  onPress={() => addToQueue()}
-                />
+                <AddToQueueIcon type="album" title={title} />
               </View>
             ),
           };

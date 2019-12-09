@@ -5,9 +5,10 @@ import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 
 import log from '../utils/logging';
+import { TrackProps, ArtistProps } from '../types';
 
-function formatter(media) {
-  return map(media, item => {
+function formatter(media: TrackProps[]) {
+  return map(media, (item: TrackProps) => {
     const song = {};
     song.path = item.path;
     song.id = item.id;
@@ -19,7 +20,7 @@ function formatter(media) {
   });
 }
 
-export const updateQuery = query => dispatch => {
+export const updateQuery = (query: string) => dispatch => {
   if (query) {
     RNAndroidAudioStore.search({ searchParam: query })
       .then(media => {
@@ -92,7 +93,7 @@ export const getOfflineAlbums = () => dispatch => {
     });
 };
 
-export const findAlbumSongs = async album => {
+export const findAlbumSongs = async (album: string) => {
   const songs = await RNAndroidAudioStore.getSongs({
     album,
   })
@@ -103,7 +104,7 @@ export const findAlbumSongs = async album => {
   return songs;
 };
 
-export const findArtistSongs = async artist => {
+export const findArtistSongs = async (artist: string) => {
   const songs = await RNAndroidAudioStore.getSongs({
     artist,
   })
@@ -123,7 +124,7 @@ export const filterSongsByGenre = async genre => {
   return songs;
 };
 
-export const mostPlayedSongs = array => {
+export const mostPlayedSongs = (array: []) => {
   return orderBy(
     values(groupBy(array, 'title')).map(group => ({
       ...group[0],

@@ -11,6 +11,7 @@ import PlaylistSongs from '../shared/PlaylistSongs';
 import AlbumSongs from '../shared/AlbumSongs';
 import ArtistSongs from '../shared/ArtistSongs';
 import FavContainer from '../../containers/FavContainer';
+import AddToQueueIcon from '../../containers/AddToQueueIcon';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -60,13 +61,13 @@ export default function RootStack() {
         component={ArtistSongs}
         options={({ route }) => {
           const { artist } = route.params;
-          const { addToQueue } = route.params;
+          const title = artist.artist || artist.name;
           return {
-            headerTitle: artist.artist || artist.name,
+            headerTitle: title,
             headerRight: () => (
               <View style={{ flexDirection: 'row' }}>
                 <FavContainer item={artist} type="artist" />
-                <IconButton icon="play-circle-outline" onPress={addToQueue} />
+                <AddToQueueIcon type="artist" title={title} />
               </View>
             ),
           };
@@ -77,16 +78,13 @@ export default function RootStack() {
         component={AlbumSongs}
         options={({ route }) => {
           const { album } = route.params;
-          const { addToQueue } = route.params;
+          const title = album.name || album.album;
           return {
-            headerTitle: album.name || album.album,
+            headerTitle: title,
             headerRight: () => (
               <View style={{ flexDirection: 'row' }}>
                 <FavContainer item={album} type="album" />
-                <IconButton
-                  icon="play-circle-outline"
-                  onPress={() => addToQueue()}
-                />
+                <AddToQueueIcon type="album" title={title} />
               </View>
             ),
           };
@@ -109,31 +107,3 @@ export default function RootStack() {
     </Stack.Navigator>
   );
 }
-
-// export default createStackNavigator(
-//   {
-//     Tabs: {
-//       screen: TabNavigator,
-//       navigationOptions: {
-//         header: null,
-//       },
-//     },
-//     Songs: PlaylistSongs,
-//     AlbumSongs,
-//     ArtistSongs,
-//   },
-//   {
-//     defaultNavigationOptions: ({ screenProps }) => {
-//       const { colors } = screenProps.theme;
-//       return {
-//         headerStyle: {
-//           backgroundColor: colors.surface,
-//         },
-//         headerTintColor: colors.text,
-//         headerTitleStyle: {
-//           color: colors.text,
-//         },
-//       };
-//     },
-//   },
-// );

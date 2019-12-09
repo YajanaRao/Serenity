@@ -205,6 +205,11 @@ export const addToQueue = (songs: TrackProps[] | TrackProps) => (
   if (isEmpty(getState().playerState.active)) {
     const queue = getQueuedSongs();
     dispatch(loadTrack(head(queue)));
+  } else {
+    dispatch({
+      type: 'NOTIFY',
+      payload: `Added ${songs.length} songs to queue`,
+    });
   }
 };
 

@@ -25,9 +25,9 @@ interface ItemProps {
 export interface Props {
   visible: boolean;
   hideDialog(): void;
-  selectArtist(): void;
+  selectArtist(artist: ArtistProps): void;
   addArtists(): void;
-  removeArtist(): void;
+  removeArtist(artist: ArtistProps): void;
 }
 
 function FollowArtistDialog({
@@ -45,7 +45,6 @@ function FollowArtistDialog({
     let data = filter(artists, function(artist: ArtistProps) {
       return includes(artist.artist.toLowerCase(), query.toLowerCase());
     });
-    console.log(data);
     setFiltered(data);
   }, [query]);
 
@@ -73,8 +72,8 @@ function FollowArtistDialog({
               renderItem={({ item }: ItemProps) => (
                 <ArtistComponent
                   item={item}
-                  addArtist={selectArtist}
-                  removeArtist={removeArtist}
+                  addArtist={() => selectArtist(item)}
+                  removeArtist={() => removeArtist(item)}
                 />
               )}
             />

@@ -51,7 +51,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "string-to-color": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
