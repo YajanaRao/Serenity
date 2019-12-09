@@ -9,7 +9,7 @@ interface Props {
   removeArtist(item: ArtistProps): void;
 }
 
-function ArtistComponent({ item, addArtist, removeArtist }: Props) {
+export function ArtistComponent({ item, addArtist, removeArtist }: Props) {
   const [selected, selectArtist] = useState(false);
 
   const selectArtits = () => {
@@ -38,7 +38,7 @@ function ArtistComponent({ item, addArtist, removeArtist }: Props) {
             visible={selected}
           />
           <Avatar.Image
-            source={{ uri: item.artwork }}
+            source={{ uri: item.cover }}
             // size={80}
             style={{ margin: 0 }}
           />
@@ -48,5 +48,3 @@ function ArtistComponent({ item, addArtist, removeArtist }: Props) {
     />
   );
 }
-
-export default ArtistComponent;

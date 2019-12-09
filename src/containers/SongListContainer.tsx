@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import SongList from '../components/SongList';
+import { useDispatch } from 'react-redux';
+import { SongList } from '../components/SongList';
 import { addToQueue, addToPlaylist } from '../actions/playerState';
 import { TrackProps } from '../types';
 
@@ -8,32 +8,32 @@ interface SongListContainerProps {
   data: TrackProps[];
   title: string;
   cover: string;
-  addToPlaylist(): void;
-  addToQueue(): void;
   fetchData(): void;
 }
 
-class SongListContainer extends React.PureComponent<SongListContainerProps> {
-  render() {
-    const {
-      data,
-      title,
-      cover,
-      addToPlaylist,
-      addToQueue,
-      fetchData,
-    } = this.props;
-    return (
-      <SongList
-        data={data}
-        title={title}
-        cover={cover}
-        fetchData={fetchData}
-        addToPlaylist={addToPlaylist}
-        addToQueue={addToQueue}
-      />
-    );
-  }
-}
+export function SongListContainer({
+  data,
+  title,
+  cover,
+  fetchData,
+}: SongListContainerProps) {
+  const dispatch = useDispatch();
 
-export default connect(null, { addToQueue, addToPlaylist })(SongListContainer);
+  function addSongsToPlaylist(id: string, song: TrackProps) {
+    dispatch(addToPlaylist(id, song));
+  }
+
+  function addSongsToQueue(songs: TrackProps[] | TrackProps) {
+    dispatch(addToQueue(songs));
+  }
+  return (
+    <SongList
+      data={data}
+      title={title}
+      cover={cover}
+      fetchData={fetchData}
+      addToPlaylist={addSongsToPlaylist}
+      addToQueue={addSongsToQueue}
+    />
+  );
+}

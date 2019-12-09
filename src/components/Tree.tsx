@@ -1,5 +1,5 @@
 import React from 'react';
-import { Subheading, Theme, useTheme } from 'react-native-paper';
+import { Subheading, useTheme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
@@ -7,7 +7,7 @@ interface TreeProps {
   message: string;
 }
 
-const Tree = ({ message }: TreeProps) => {
+export const Tree = ({ message }: TreeProps) => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -20,8 +20,6 @@ const Tree = ({ message }: TreeProps) => {
     </View>
   );
 };
-
-export default Tree;
 
 const styles = StyleSheet.create({
   icons: {

@@ -10,7 +10,7 @@ import { View, FlatList, Dimensions } from 'react-native';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 
-import ArtistComponent from '../components/ArtistComponent';
+import { ArtistComponent } from '../components/ArtistComponent';
 import { useSelector } from 'react-redux';
 import { ArtistProps } from '../types';
 

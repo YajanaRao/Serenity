@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Caption, TouchableRipple, Surface, Divider } from 'react-native-paper';
-import PlayerBarContainer from '../containers/PlayerBarContainer';
+import { PlayerBarContainer } from '../containers/PlayerBarContainer';
 import { NavigationState } from '@react-navigation/core';
 
 interface BottomTabBarProps {
@@ -13,7 +13,7 @@ interface BottomTabBarProps {
   state: NavigationState;
 }
 
-function BottomTabBar({
+export function BottomTabBar({
   renderIcon,
   getLabelText,
   onTabPress,
@@ -80,5 +80,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default BottomTabBar;

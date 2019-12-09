@@ -8,8 +8,8 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { deserializeSongs } from '../utils/database';
 import { getQueuedSongs } from '../actions/realmAction';
 import { clearQueue, removeFromQueue } from '../actions/playerState';
-import FavContainer from './FavContainer';
-import TrackContainer from './TrackContainer';
+import { FavContainer } from './FavContainer';
+import { TrackContainer } from './TrackContainer';
 import { TrackProps } from '../types';
 
 interface Props {

@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { updateQuery } from '../actions/mediaStore';
 
-function Header() {
+export function Header() {
   const [query, setQuery] = useState('');
   const dispatch = useDispatch();
 
@@ -28,5 +28,3 @@ function Header() {
     </View>
   );
 }
-
-export default Header;

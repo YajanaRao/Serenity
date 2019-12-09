@@ -26,12 +26,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { addToQueue } from '../../actions/playerState';
 import { deletePlaylist, renamePlaylist } from '../../actions/realmAction';
-import TrackContainer from '../../containers/TrackContainer';
-import DefaultImage from '../../components/DefaultImage';
-import Screen from '../../components/Screen';
-import EmptyPlaylist from '../../components/EmptyPlaylist';
+import { TrackContainer } from '../../containers/TrackContainer';
+import { DefaultImage } from '../../components/DefaultImage';
+import { Screen } from '../../components/Screen';
+import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import log, { logEvent } from '../../utils/logging';
-import RenamePlaylistDailog from '../../components/RenamePlaylistDailog';
+import { RenamePlaylistDailog } from '../../components/RenamePlaylistDailog';
 
 const RENAME_DIALOG = 'RENAME';
 const PLAYLIST_DIALOG = 'PLAYLIST';

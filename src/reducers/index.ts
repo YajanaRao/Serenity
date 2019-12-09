@@ -207,9 +207,13 @@ const dashboardReducer = (state = DASHBOARD_STATE, action) => {
   }
 };
 
-export default combineReducers({
+const RootReducer = combineReducers({
   query: queryReducer,
   config: configReducer,
   playerState: playerStateReducer,
   mediaStore: mediaStoreReducer,
 });
+
+export default RootReducer;
+
+export type RootReducerType = ReturnType<typeof RootReducer>;

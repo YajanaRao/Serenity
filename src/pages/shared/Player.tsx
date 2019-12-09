@@ -3,12 +3,12 @@ import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { IconButton, Divider } from 'react-native-paper';
 
 import QueueContainer from '../../containers/QueueContainer';
-import FavContainer from '../../containers/FavContainer';
+import { FavContainer } from '../../containers/FavContainer';
 import RepeatContainer from '../../containers/RepeatContainer';
 import PlayerController from '../../containers/PlayerController';
-import ProgressBar from '../../components/ProgressBar';
-import Screen from '../../components/Screen';
-import ActiveTrackDetails from '../../containers/ActiveTrackDetails';
+import { Progress } from '../../components/ProgressBar';
+import { Screen } from '../../components/Screen';
+import { ActiveTrackDetails } from '../../containers/ActiveTrackDetails';
 
 interface PlayerProps {
   navigation: any;
@@ -34,7 +34,7 @@ class Player extends React.PureComponent<PlayerProps> {
             </View>
             <ActiveTrackDetails />
             <View style={styles.centerContainer}>
-              <ProgressBar />
+              <Progress />
             </View>
             <View style={styles.playerToolbox}>
               <FavContainer type="song" />

@@ -1,8 +1,7 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Avatar, Caption } from 'react-native-paper';
-import { withNavigation } from 'react-navigation';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/core';
 
 import { getPlayedSongs, getFavoriteSongs } from '../actions/realmAction';

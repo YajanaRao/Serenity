@@ -9,7 +9,12 @@ interface FavProps {
   removeFromFavorite(): void;
 }
 
-const Fav = ({ style, liked, addToFavorite, removeFromFavorite }: FavProps) => (
+export const Fav = ({
+  style,
+  liked,
+  addToFavorite,
+  removeFromFavorite,
+}: FavProps) => (
   <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
     {liked ? (
       <IconButton
@@ -23,5 +28,3 @@ const Fav = ({ style, liked, addToFavorite, removeFromFavorite }: FavProps) => (
     )}
   </View>
 );
-
-export default Fav;

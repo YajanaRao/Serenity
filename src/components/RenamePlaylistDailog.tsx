@@ -8,7 +8,7 @@ interface Props {
   rename(name: string): void;
 }
 
-function RenamePlaylistDailog({
+export function RenamePlaylistDailog({
   visible,
   hideDialog,
   playlistName,
@@ -43,5 +43,3 @@ function RenamePlaylistDailog({
     </Portal>
   );
 }
-
-export default RenamePlaylistDailog;

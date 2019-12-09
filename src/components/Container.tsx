@@ -6,11 +6,9 @@ interface ContainerProps {
   children: ReactNode;
 }
 
-const Container = ({ style, children }: ContainerProps) => {
+export const Container = ({ style, children }: ContainerProps) => {
   return <View style={[styles.container, style]}>{children}</View>;
 };
-
-export default Container;
 
 const styles = StyleSheet.create({
   container: {

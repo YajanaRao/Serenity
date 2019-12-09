@@ -1,13 +1,13 @@
 import React, { ReactNode } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { withTheme, Theme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 
 interface ScreenProps {
-  theme: Theme;
   children: ReactNode;
 }
 
-const Screen = ({ theme, children }: ScreenProps) => {
+export const Screen = ({ children }: ScreenProps) => {
+  const theme = useTheme();
   const { colors } = theme;
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -15,8 +15,6 @@ const Screen = ({ theme, children }: ScreenProps) => {
     </View>
   );
 };
-
-export default withTheme(Screen);
 
 const styles = StyleSheet.create({
   container: {

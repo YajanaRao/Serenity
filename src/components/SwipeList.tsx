@@ -1,11 +1,10 @@
-import PropTypes, { string } from 'prop-types';
 import React, { useState } from 'react';
 import { Surface, IconButton, Divider } from 'react-native-paper';
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
-import TrackContainer from '../containers/TrackContainer';
-import ListSongHeader from './ListSongHeader';
+import { TrackContainer } from '../containers/TrackContainer';
+import { ListSongHeader } from './ListSongHeader';
 import { TrackProps } from '../types';
 
 interface ItemProps {
@@ -21,7 +20,7 @@ interface Props {
   fetchData(): void;
 }
 
-function SwipeList({
+export function SwipeList({
   title,
   cover,
   addToQueue,
@@ -68,8 +67,6 @@ function SwipeList({
     />
   );
 }
-
-export default SwipeList;
 
 const styles = StyleSheet.create({
   rowBack: {

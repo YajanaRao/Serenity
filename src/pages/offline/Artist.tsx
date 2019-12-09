@@ -5,8 +5,8 @@ import { isEmpty } from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import generate from 'string-to-color';
 import { getOfflineArtists } from '../../actions/mediaStore';
-import Blank from '../../components/Blank';
-import Screen from '../../components/Screen';
+import { Blank } from '../../components/Blank';
+import { Screen } from '../../components/Screen';
 
 interface ArtistProps {
   artist: string;

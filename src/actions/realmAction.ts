@@ -26,7 +26,7 @@ const generateId = () => {
 };
 
 const generateSongId = () => {
-  let r = Math.random()
+  const r = Math.random()
     .toString(36)
     .substring(7);
   return `${userSongIdPrefix}${r}`;
@@ -87,7 +87,7 @@ export const getPlaylist = (id: string) => {
     const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
     return playlist;
   } catch (error) {
-    log('getQueuedSongs: ' + error);
+    log(`getQueuedSongs:  ${error}`);
     return [];
   }
 };
@@ -100,7 +100,7 @@ export const getPlaylistSongs = (id: string) => {
     }
     return [];
   } catch (error) {
-    log('getPlaylistSongs: ' + error);
+    log(`getPlaylistSongs: ${error}`);
     return [];
   }
 };
@@ -116,7 +116,7 @@ export const getQueuedSongs = () => {
     }
     return [];
   } catch (error) {
-    log('getQueuedSongs: ' + error);
+    log(`getQueuedSongs: ${error}`);
     return [];
   }
 };
@@ -132,7 +132,7 @@ export const getPlayedSongs = () => {
     }
     return [];
   } catch (error) {
-    log('getPlayedSongs: ' + error);
+    log(`getPlayedSongs: ${error}`);
     return [];
   }
 };
@@ -148,7 +148,7 @@ export const getFavoriteSongs = () => {
     }
     return [];
   } catch (error) {
-    log('getPlayedSongs: ' + error);
+    log(`getPlayedSongs: ${error}`);
     return [];
   }
 };
@@ -172,7 +172,7 @@ export const removeSong = (id: string, song: TrackProps) => {
       realm.delete(item);
     });
   } catch (error) {
-    log('removeSong: ' + error);
+    log(`removeSong: ${error}`);
   }
 };
 
@@ -216,7 +216,7 @@ export const addSong = (
       }
     });
   } catch (error) {
-    log('addSong: ' + error);
+    log(`addSong: ${error}`);
   }
 };
 
@@ -229,7 +229,7 @@ export const clearAllSongs = (id: string) => {
       }
     });
   } catch (error) {
-    log('clearAllSongs: ' + error);
+    log(`clearAllSongs: ${error}`);
   }
 };
 
@@ -305,7 +305,7 @@ export const addAlbum = (album: AlbumProps) => {
       });
     });
   } catch (error) {
-    log(error + ' ' + album.toString());
+    log(`${error} ${album.toString()}`);
   }
 };
 
@@ -331,7 +331,7 @@ export const getArtists = () => {
   try {
     return realm.objects(ARTIST_SCHEMA_NAME);
   } catch (error) {
-    log('getArtists: ' + error);
+    log(`getArtists: ${error}`);
     return [];
   }
 };
@@ -340,7 +340,7 @@ export const getAlbums = () => {
   try {
     return realm.objects(ALBUM_SCHEMA_NAME);
   } catch (error) {
-    log('getAlbums: ' + error);
+    log(`getAlbums: ${error}`);
     return [];
   }
 };

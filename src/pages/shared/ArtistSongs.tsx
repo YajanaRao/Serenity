@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { findArtistSongs } from '../../actions/mediaStore';
-import SongListContainer from '../../containers/SongListContainer';
-import Screen from '../../components/Screen';
+import { SongListContainer } from '../../containers/SongListContainer';
+import { Screen } from '../../components/Screen';
 
 function ArtistSongs({ route }) {
   const { artist } = route.params;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { findAlbumSongs } from '../../actions/mediaStore';
-import SongListContainer from '../../containers/SongListContainer';
-import Screen from '../../components/Screen';
+import { SongListContainer } from '../../containers/SongListContainer';
+import { Screen } from '../../components/Screen';
 import { TrackProps } from '../../types';
 
 function AlbumSongs({ route }) {

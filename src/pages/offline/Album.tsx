@@ -5,9 +5,9 @@ import { StyleSheet, RefreshControl, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { isEmpty } from 'lodash';
 import { getOfflineAlbums } from '../../actions/mediaStore';
-import Blank from '../../components/Blank';
-import Screen from '../../components/Screen';
-import DefaultImage from '../../components/DefaultImage';
+import { Blank } from '../../components/Blank';
+import { Screen } from '../../components/Screen';
+import { DefaultImage } from '../../components/DefaultImage';
 import { AlbumProps } from '../../types';
 
 function Album({ navigation }) {

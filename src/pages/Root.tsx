@@ -2,7 +2,7 @@ import * as React from 'react';
 // import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PermissionsAndroid } from 'react-native';
-import { withTheme, IconButton, Theme, useTheme } from 'react-native-paper';
+import { IconButton, Theme, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import OfflineScreen from './offline';
@@ -10,8 +10,8 @@ import SearchScreen from './search';
 import HomeScreen from './home';
 import ExploreScreen from './explore';
 import PlayerScreen from './shared/Player';
-import BottomTabBar from '../components/BottomTabBar';
-import Screen from '../components/Screen';
+import { BottomTabBar } from '../components/BottomTabBar';
+import { Screen } from '../components/Screen';
 
 import log from '../utils/logging';
 import NotificationContainer from '../containers/NotificationContainer';
@@ -80,62 +80,6 @@ function BottomNavigator() {
   );
 }
 
-// const BottomNavigator = createBottomTabNavigator(
-//   {
-//     Home: {
-//       screen: HomeScreen,
-//       navigationOptions: {
-//         tabBarIcon: ({ tintColor }) => (
-//           <IconButton
-//             icon="home"
-//             color={tintColor}
-//             style={{ margin: 0, padding: 0 }}
-//           />
-//         ),
-//       },
-//     },
-//     Search: {
-//       screen: SearchScreen,
-//       navigationOptions: {
-//         tabBarIcon: ({ tintColor }) => (
-//           <IconButton
-//             icon="magnify"
-//             color={tintColor}
-//             style={{ margin: 0, padding: 0 }}
-//           />
-//         ),
-//       },
-//     },
-//     Explore: {
-//       screen: ExploreScreen,
-//       navigationOptions: {
-//         tabBarIcon: ({ tintColor }) => (
-//           <IconButton
-//             icon="compass"
-//             color={tintColor}
-//             style={{ margin: 0, padding: 0 }}
-//           />
-//         ),
-//       },
-//     },
-//     Offline: {
-//       screen: OfflineScreen,
-//       navigationOptions: {
-//         tabBarIcon: ({ tintColor }) => (
-//           <IconButton
-//             icon=""
-//             color={tintColor}
-//             style={{ margin: 0, padding: 0 }}
-//           />
-//         ),
-//       },
-//     },
-//   },
-//   {
-//     tabBarComponent: BottomTabBar,
-//   },
-// );
-
 function RootStack() {
   return (
     <Stack.Navigator
@@ -150,11 +94,7 @@ function RootStack() {
   );
 }
 
-export interface Props {
-  theme: Theme;
-}
-
-class RootScreen extends React.Component<Props> {
+class RootScreen extends React.Component {
   // FIXME: Need to enhance start up time
 
   componentDidMount() {
@@ -193,8 +133,6 @@ class RootScreen extends React.Component<Props> {
   };
 
   render() {
-    const { theme } = this.props;
-
     return (
       <Screen>
         <NotificationContainer />
@@ -204,4 +142,4 @@ class RootScreen extends React.Component<Props> {
   }
 }
 
-export default withTheme(RootScreen);
+export default RootScreen;

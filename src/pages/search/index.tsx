@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Filter from '../shared/Filter';
 import Search from './Search';
-import Header from '../../components/Header';
+import { Header } from '../../components/Header';
 
 const Stack = createStackNavigator();
 

@@ -10,9 +10,9 @@ import {
   destroyTrackPlayer,
   setUpTrackPlayer,
 } from '../actions/playerState';
-import PlayerBar from '../components/PlayerBar';
+import { PlayerBar } from '../components/PlayerBar';
 
-function PlayerBarContainer() {
+export function PlayerBarContainer() {
   const navigation = useNavigation();
   const active = useSelector((state: any) => state.playerState.active);
   const status = useSelector((state: any) => state.playerState.status);
@@ -53,5 +53,3 @@ function PlayerBarContainer() {
   }
   return false;
 }
-
-export default PlayerBarContainer;

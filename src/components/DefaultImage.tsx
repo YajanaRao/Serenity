@@ -12,7 +12,7 @@ interface DefaultImageProps {
   style: StyleProps;
 }
 
-const DefaultImage = ({ style }: DefaultImageProps) => {
+export const DefaultImage = ({ style }: DefaultImageProps) => {
   return (
     <LinearGradient
       colors={['#C9D6FF', '#E2E2E2']}
@@ -26,5 +26,3 @@ const DefaultImage = ({ style }: DefaultImageProps) => {
     </LinearGradient>
   );
 };
-
-export default DefaultImage;

@@ -10,8 +10,8 @@ import PlaylistScreen from './Playlist';
 import PlaylistSongs from '../shared/PlaylistSongs';
 import AlbumSongs from '../shared/AlbumSongs';
 import ArtistSongs from '../shared/ArtistSongs';
-import FavContainer from '../../containers/FavContainer';
-import AddToQueueIcon from '../../containers/AddToQueueIcon';
+import { FavContainer } from '../../containers/FavContainer';
+import { AddToQueueIcon } from '../../containers/AddToQueueIcon';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();

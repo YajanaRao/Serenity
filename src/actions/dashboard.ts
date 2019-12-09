@@ -80,7 +80,7 @@ export const fetchNapsterTopArtists = () => dispatch => {
     });
 };
 
-export const fetchJioSavanData = type => dispatch => {
+export const fetchJioSavanData = (type: string) => dispatch => {
   try {
     fetch('https://www.jiosaavn.com/api.php?__call=content.getHomepageData')
       .then(response => response.json())

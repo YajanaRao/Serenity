@@ -3,7 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { Title, Button } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 
-import DefaultImage from './DefaultImage';
+import { DefaultImage } from './DefaultImage';
+import { Container } from './Container';
 
 interface ListSongHeaderProps {
   title: string;
@@ -11,12 +12,12 @@ interface ListSongHeaderProps {
   addSongsToQueue(): void;
 }
 
-const ListSongHeader = ({
+export const ListSongHeader = ({
   title,
   cover,
   addSongsToQueue,
 }: ListSongHeaderProps) => (
-  <View style={styles.container}>
+  <Container>
     <View style={styles.coverContainer}>
       {cover ? (
         <FastImage source={{ uri: cover }} style={styles.artCover} />
@@ -32,20 +33,15 @@ const ListSongHeader = ({
         Play All
       </Button>
     </View>
-  </View>
+  </Container>
 );
 
-export default ListSongHeader;
-
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 12,
-    flex: 1,
-  },
   coverContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 4,
+    margin: 8,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -57,7 +53,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
+    margin: 8,
   },
   fillContainer: {
     flex: 1,

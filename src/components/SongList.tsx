@@ -2,10 +2,10 @@ import React, { useState, SetStateAction } from 'react';
 import { View } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 
-import PlaylistDailog from './PlaylistDialog';
-import SwipeList from './SwipeList';
-import EmptyPlaylist from './EmptyPlaylist';
-import Container from './Container';
+import { PlaylistDialog } from './PlaylistDialog';
+import { SwipeList } from './SwipeList';
+import { EmptyPlaylist } from './EmptyPlaylist';
+import { Container } from './Container';
 
 import { TrackProps } from '../types';
 
@@ -13,12 +13,12 @@ interface SongListProps {
   data: TrackProps[];
   title: string;
   cover: string;
-  addToQueue(): void;
+  addToQueue(songs: TrackProps | TrackProps[]): void;
   addToPlaylist(id: string, track: TrackProps): void;
   fetchData(): void;
 }
 
-function SongList({
+export function SongList({
   data,
   title,
   cover,
@@ -47,7 +47,7 @@ function SongList({
     <Container>
       {!isEmpty(data) ? (
         <View>
-          <PlaylistDailog
+          <PlaylistDialog
             visible={visible}
             hideModal={hideModal}
             addToPlaylist={addSongToPlaylist}
@@ -67,5 +67,3 @@ function SongList({
     </Container>
   );
 }
-
-export default SongList;

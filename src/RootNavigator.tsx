@@ -10,9 +10,12 @@ import { useDispatch } from 'react-redux';
 
 import RootScreen from './pages/Root';
 import { defaultSetup } from './actions';
+import { RootReducerType } from './reducers';
 
 export default function RootNavigator() {
-  const themeType = useSelector((state: any) => state.config.themeType);
+  const themeType = useSelector(
+    (state: RootReducerType) => state.config.themeType,
+  );
   const setup = useSelector((state: any) => state.config.setup);
   const dispatch = useDispatch();
 
@@ -20,7 +23,7 @@ export default function RootNavigator() {
     if (!setup) {
       dispatch(defaultSetup());
     }
-  }, []);
+  }, [setup]);
 
   return (
     <PaperProvider theme={themeType === 'dark' ? DarkTheme : DefaultTheme}>

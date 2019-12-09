@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import RepeatIcon from '../components/RepeatIcon';
+import { RepeatIcon } from '../components/RepeatIcon';
 import { repeatSongs } from '../actions/playerState';
 
 function RepeatContainer() {

@@ -4,14 +4,14 @@ import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 
 import { loadTrack } from '../actions/playerState';
-import Track from '../components/Track';
+import { Track } from '../components/Track';
 import { TrackProps } from '../types';
 
 interface Props {
   track: TrackProps;
 }
 
-function TrackContainer({ track }: Props) {
+export function TrackContainer({ track }: Props) {
   const [isActive, setActive] = useState(false);
   const dispatch = useDispatch();
   const active = useSelector((state: any) => state.playerState.active);
@@ -34,5 +34,3 @@ function TrackContainer({ track }: Props) {
 
   return <Track track={track} play={play} active={isActive} />;
 }
-
-export default React.memo(TrackContainer);

@@ -6,7 +6,7 @@ interface Props {
   updateRepeatType(): void;
 }
 
-function RepeatIcon({ repeat, updateRepeatType }: Props) {
+export function RepeatIcon({ repeat, updateRepeatType }: Props) {
   if (repeat === 'repeat-all') {
     return (
       <IconButton
@@ -24,5 +24,3 @@ function RepeatIcon({ repeat, updateRepeatType }: Props) {
     />
   );
 }
-
-export default RepeatIcon;

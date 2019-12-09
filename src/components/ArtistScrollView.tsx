@@ -16,7 +16,7 @@ interface Props {
   navigateToSongs(): void;
 }
 
-const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
+export const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
   return (
     <View>
       {data ? <Title style={styles.title}>{title}</Title> : false}
@@ -38,8 +38,6 @@ const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
     </View>
   );
 };
-
-export default ArtistScrollView;
 
 const styles = StyleSheet.create({
   title: {

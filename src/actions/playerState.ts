@@ -1,5 +1,5 @@
 import MediaPlayer from 'react-native-media-player';
-import { DeviceEventEmitter } from 'react-native';
+import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 import sample from 'lodash/sample';
@@ -20,7 +20,7 @@ import { TrackProps, AlbumProps } from '../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
-let subscription: any = null;
+let subscription: EmitterSubscription;
 
 const QUEUE_ID = 'user-playlist--000003';
 const HISTORY_ID = 'user-playlist--000001';
@@ -68,7 +68,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => dispatch => {
       log('unable to load track');
     }
   } catch (error) {
-    log('loadTrack: ' + error);
+    log(`loadTrack: ${error}`);
   }
 };
 
@@ -239,7 +239,6 @@ export const addSongToFavorite = (song: TrackProps) => dispatch => {
 };
 
 export const addAlbumToFavorite = (album: AlbumProps) => dispatch => {
-  console.log(album);
   addAlbum(album);
   dispatch({
     type: 'NOTIFY',

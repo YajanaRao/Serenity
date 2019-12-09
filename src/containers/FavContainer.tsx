@@ -14,8 +14,8 @@ import {
   addArtist,
   removeArtist,
 } from '../actions/realmAction';
-import Fav from '../components/Fav';
-import Follow from '../components/Follow';
+import { Fav } from '../components/Fav';
+import { Follow } from '../components/Follow';
 import { AlbumProps } from '../types';
 
 interface Props {
@@ -24,7 +24,7 @@ interface Props {
   item?: AlbumProps;
 }
 
-function FavContainer({ type = 'song', style, item }: Props) {
+export function FavContainer({ type = 'song', style, item }: Props) {
   const [liked, setLiked] = useState(false);
   const active = useSelector((state: any) => state.playerState.active);
   const dispatch = useDispatch();
@@ -89,5 +89,3 @@ function FavContainer({ type = 'song', style, item }: Props) {
     />
   );
 }
-
-export default FavContainer;

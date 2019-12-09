@@ -1,9 +1,9 @@
 import React from 'react';
 import { Title, Subheading } from 'react-native-paper';
 import { View } from 'react-native';
-import ThemedIcon from './ThemedIcon';
+import { ThemedIcon } from './ThemedIcon';
 
-const EmptyFavoriteAlbums = () => {
+export const EmptyFavoriteAlbums = () => {
   return (
     <View
       style={{
@@ -21,5 +21,3 @@ const EmptyFavoriteAlbums = () => {
     </View>
   );
 };
-
-export default EmptyFavoriteAlbums;

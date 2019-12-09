@@ -1,9 +1,9 @@
 import React from 'react';
 import { Subheading } from 'react-native-paper';
 import { View } from 'react-native';
-import ThemedIcon from './ThemedIcon';
+import { ThemedIcon } from './ThemedIcon';
 
-const EmptyPlaylist = () => {
+export const EmptyPlaylist = () => {
   return (
     <View
       style={{
@@ -18,5 +18,3 @@ const EmptyPlaylist = () => {
     </View>
   );
 };
-
-export default EmptyPlaylist;

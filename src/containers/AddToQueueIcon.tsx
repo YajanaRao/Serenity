@@ -11,7 +11,7 @@ interface Props {
   title: string;
 }
 
-function AddToQueueIcon({ type, title }: Props) {
+export function AddToQueueIcon({ type, title }: Props) {
   const dispatch = useDispatch();
 
   function addSongsToQueue() {
@@ -28,5 +28,3 @@ function AddToQueueIcon({ type, title }: Props) {
 
   return <IconButton icon="play-circle-outline" onPress={addSongsToQueue} />;
 }
-
-export default React.memo(AddToQueueIcon);

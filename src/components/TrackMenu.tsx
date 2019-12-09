@@ -13,7 +13,7 @@ interface MenuProps {
   closeMenu(): void;
 }
 
-function TrackMenu({
+export function TrackMenu({
   visible,
   playSong,
   addSongToPlayNext,
@@ -83,5 +83,3 @@ function TrackMenu({
     </View>
   );
 }
-
-export default TrackMenu;

@@ -9,7 +9,17 @@ interface Props {
   addToPlaylist(id: string): void;
 }
 
-const PlaylistDailog = ({ visible, hideModal, addToPlaylist }: Props) => {
+interface PlaylistProps {
+  id: string;
+  name: string;
+  owner: string;
+}
+
+export const PlaylistDialog = ({
+  visible,
+  hideModal,
+  addToPlaylist,
+}: Props) => {
   const data = getUserPlaylists();
   return (
     <Portal>
@@ -19,16 +29,10 @@ const PlaylistDailog = ({ visible, hideModal, addToPlaylist }: Props) => {
         </Dialog.Title>
 
         <Dialog.ScrollArea>
-          {/* <View
-            style={{
-              marginHorizontal: 16,
-              paddingVertical: 16
-            }}
-          > */}
           <FlatList
             data={data}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
+            renderItem={({ item }: { item: PlaylistProps }) => (
               <List.Item
                 title={item.name}
                 description={`by ${item.owner}`}
@@ -43,5 +47,3 @@ const PlaylistDailog = ({ visible, hideModal, addToPlaylist }: Props) => {
     </Portal>
   );
 };
-
-export default PlaylistDailog;

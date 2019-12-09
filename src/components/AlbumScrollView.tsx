@@ -1,7 +1,8 @@
 import React from 'react';
 import { Title, Paragraph } from 'react-native-paper';
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { Container } from './Container';
 
 interface TrackProps {
   artwork: string;
@@ -16,8 +17,8 @@ interface Props {
   navigateToSongs(item: TrackProps): void;
 }
 
-const AlbumScrollView = ({ data, title, navigateToSongs }: Props) => (
-  <View style={{ flex: 1 }}>
+export const AlbumScrollView = ({ data, title, navigateToSongs }: Props) => (
+  <Container>
     {data ? <Title style={styles.title}>{title}</Title> : false}
     <FlatList
       horizontal
@@ -34,10 +35,8 @@ const AlbumScrollView = ({ data, title, navigateToSongs }: Props) => (
         </TouchableOpacity>
       )}
     />
-  </View>
+  </Container>
 );
-
-export default AlbumScrollView;
 
 const styles = StyleSheet.create({
   title: {

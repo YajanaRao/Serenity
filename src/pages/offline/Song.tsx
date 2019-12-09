@@ -18,11 +18,11 @@ import {
   addSongToFavorite,
   addToPlaylist,
 } from '../../actions/playerState';
-import Blank from '../../components/Blank';
-import Screen from '../../components/Screen';
-import PlaylistDialog from '../../components/PlaylistDialog';
+import { Blank } from '../../components/Blank';
+import { Screen } from '../../components/Screen';
+import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { TrackProps } from '../../types';
-import TrackMenu from '../../components/TrackMenu';
+import { TrackMenu } from '../../components/TrackMenu';
 
 interface ItemProps {
   item: TrackProps;

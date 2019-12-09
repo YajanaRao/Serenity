@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToQueue } from '../../actions/playerState';
 import { filterSongsByGenre } from '../../actions/mediaStore';
-import SongListContainer from '../../containers/SongListContainer';
-import Screen from '../../components/Screen';
+import { SongListContainer } from '../../containers/SongListContainer';
+import { Screen } from '../../components/Screen';
 import { NavigationScreenProps } from '../../types';
 
 function Filter({ navigation, route }: NavigationScreenProps) {

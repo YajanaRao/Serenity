@@ -4,7 +4,7 @@ import { View } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Welcome = () => (
+export const Welcome = () => (
   <View
     style={{
       flex: 1,
@@ -16,5 +16,3 @@ const Welcome = () => (
     <Icon name="music" color="#ffffff" size={40} />
   </View>
 );
-
-export default Welcome;

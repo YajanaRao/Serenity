@@ -1,5 +1,5 @@
 import React from 'react';
-import { withTheme, List, Theme } from 'react-native-paper';
+import { List, useTheme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 
 interface TrackProps {
@@ -9,31 +9,32 @@ interface TrackProps {
 }
 
 interface Props {
-  theme: Theme;
   track: TrackProps;
   active: boolean;
   play(): void;
 }
 
-const Track = ({ theme: { colors }, track, active, play }: Props) => (
-  <View style={[styles.surface, { backgroundColor: colors.background }]}>
-    <List.Item
-      title={track.title}
-      description={track.artist ? track.artist : track.album}
-      right={props =>
-        active ? (
-          <List.Icon {...props} icon="poll" color={colors.accent} />
-        ) : (
-          // <List.Icon {...props} icon="more-vert" onPress={() => bs.current.snapTo(1)}/>
-          false
-        )
-      }
-      onPress={() => play()}
-    />
-  </View>
-);
-
-export default withTheme(Track);
+export const Track = React.memo(({ track, active, play }: Props) => {
+  const theme = useTheme();
+  const { colors } = theme;
+  return (
+    <View style={[styles.surface, { backgroundColor: colors.background }]}>
+      <List.Item
+        title={track.title}
+        description={track.artist ? track.artist : track.album}
+        right={props =>
+          active ? (
+            <List.Icon {...props} icon="poll" color={colors.accent} />
+          ) : (
+            // <List.Icon {...props} icon="more-vert" onPress={() => bs.current.snapTo(1)}/>
+            false
+          )
+        }
+        onPress={() => play()}
+      />
+    </View>
+  );
+});
 
 const styles = StyleSheet.create({
   surface: {

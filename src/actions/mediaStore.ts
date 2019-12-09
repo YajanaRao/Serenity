@@ -5,11 +5,11 @@ import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 
 import log from '../utils/logging';
-import { TrackProps, ArtistProps } from '../types';
+import { TrackProps } from '../types';
 
 function formatter(media: TrackProps[]) {
   return map(media, (item: TrackProps) => {
-    const song = {};
+    const song: any = {};
     song.path = item.path;
     song.id = item.id;
     song.title = item.title;

@@ -3,10 +3,13 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import { Subheading, Title } from 'react-native-paper';
-import DefaultImage from '../components/DefaultImage';
+import { DefaultImage } from '../components/DefaultImage';
+import { RootReducerType } from '../reducers';
 
-function ActiveTrackDetails() {
-  const active = useSelector((state: any) => state.playerState.active);
+export function ActiveTrackDetails() {
+  const active = useSelector(
+    (state: RootReducerType) => state.playerState.active,
+  );
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.centerContainer}>
@@ -25,8 +28,6 @@ function ActiveTrackDetails() {
     </View>
   );
 }
-
-export default ActiveTrackDetails;
 
 const styles = StyleSheet.create({
   centerContainer: {

@@ -9,7 +9,12 @@ interface Props {
   removeFromFavorite(): void;
 }
 
-const Follow = ({ style, liked, addToFavorite, removeFromFavorite }: Props) => {
+export const Follow = ({
+  style,
+  liked,
+  addToFavorite,
+  removeFromFavorite,
+}: Props) => {
   return (
     <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
       {liked ? (
@@ -24,5 +29,3 @@ const Follow = ({ style, liked, addToFavorite, removeFromFavorite }: Props) => {
     </View>
   );
 };
-
-export default Follow;

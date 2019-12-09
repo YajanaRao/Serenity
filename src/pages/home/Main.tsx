@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { ScrollView } from 'react-native';
 
-import NetNotify from '../../components/NetNotify';
+import { NetNotify } from '../../components/NetNotify';
 import RecentContainer from '../../containers/RecentContainer';
 import MostPlayedContainer from '../../containers/MostPlayedContainer';
 import OnlineContainer from '../../containers/OnlineContainer';
-import Screen from '../../components/Screen';
+import { Screen } from '../../components/Screen';
 import ShortCutContainer from '../../containers/ShortcutContainer';
 
 function MainScreen() {

@@ -6,7 +6,7 @@ import { useScreens } from 'react-native-screens';
 
 import RootNavigator from './RootNavigator';
 import configureStore from './store';
-import Welcome from './components/Welcome';
+import { Welcome } from './components/Welcome';
 
 useScreens();
 

@@ -8,14 +8,8 @@ import {
   IconButton,
   ActivityIndicator,
 } from 'react-native-paper';
-import DefaultImage from './DefaultImage';
-
-interface TrackProps {
-  cover: string;
-  title: string;
-  artist?: string;
-  album?: string;
-}
+import { DefaultImage } from './DefaultImage';
+import { TrackProps } from '../types';
 
 interface Props {
   active: TrackProps;
@@ -24,7 +18,7 @@ interface Props {
   navigateToPlayer(): void;
 }
 
-const PlayerBar = ({
+export const PlayerBar = ({
   active,
   status,
   togglePlayback,
@@ -68,8 +62,6 @@ const PlayerBar = ({
     </TouchableOpacity>
   );
 };
-
-export default PlayerBar;
 
 const styles = StyleSheet.create({
   playBar: {

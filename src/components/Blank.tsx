@@ -1,15 +1,15 @@
 import React from 'react';
-import { Button, withTheme, Theme } from 'react-native-paper';
+import { Button, useTheme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
-import Tree from './Tree';
+import { Tree } from './Tree';
 
 interface Props {
-  theme: Theme;
   text: string;
   fetchData(): void;
 }
 
-const Blank = ({ theme, text, fetchData }: Props) => {
+export const Blank = ({ text, fetchData }: Props) => {
+  const theme = useTheme();
   const { colors } = theme;
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -22,8 +22,6 @@ const Blank = ({ theme, text, fetchData }: Props) => {
     </View>
   );
 };
-
-export default withTheme(Blank);
 
 const styles = StyleSheet.create({
   container: {

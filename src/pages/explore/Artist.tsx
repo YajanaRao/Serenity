@@ -6,7 +6,7 @@ import remove from 'lodash/remove';
 import FollowArtistDialog from '../../containers/FollowArtistDialog';
 import { addArtist, getArtists } from '../../actions/realmAction';
 import { deserializeArtists } from '../../utils/database';
-import Screen from '../../components/Screen';
+import { Screen } from '../../components/Screen';
 import { ArtistProps } from '../../types';
 
 function Artist({ navigation }) {

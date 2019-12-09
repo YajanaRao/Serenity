@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { Subheading, Title, Divider } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
-import { connect, useSelector } from 'react-redux';
-import { isEqual } from 'lodash';
+import { useSelector } from 'react-redux';
 import Genre from '../../data/genre.json';
-import Screen from '../../components/Screen';
-import TrackContainer from '../../containers/TrackContainer';
+import { Screen } from '../../components/Screen';
+import { TrackContainer } from '../../containers/TrackContainer';
 import { TrackProps } from '../../types.js';
 
 interface GenreProps {
