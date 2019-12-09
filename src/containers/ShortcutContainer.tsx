@@ -52,7 +52,7 @@ function ShortCutContainer() {
     });
   }
 
-  function startRadio() {
+  function startSongs() {
     dispatch(startRadio());
   }
 
@@ -99,7 +99,7 @@ function ShortCutContainer() {
       </TouchableOpacity>
       <TouchableOpacity
         style={{ justifyContent: 'center', alignItems: 'center' }}
-        onPress={startRadio}
+        onPress={startSongs}
       >
         <Avatar.Icon
           icon="radio"
