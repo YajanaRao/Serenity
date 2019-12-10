@@ -8,52 +8,61 @@ import { getPlayedSongs, getFavoriteSongs } from '../actions/realmAction';
 import { startRadio } from '../actions/playerState';
 import { mostPlayedSongs } from '../actions/mediaStore';
 
-function ShortCutContainer() {
+export const ShortCutContainer = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   function mostPlayed() {
     return mostPlayedSongs(getPlayedSongs());
   }
 
-  function navigateToHistory() {
-    const playlist = {
-      id: 'user-playlist--000001',
-      name: 'Recently Played Songs',
-      owner: 'Serenity',
-    };
-    navigation.navigate('Playlist', {
-      playlist,
-      fetchSongs: getPlayedSongs,
-    });
-  }
+  const navigateToHistory = React.useMemo(
+    () => () => {
+      const playlist = {
+        id: 'user-playlist--000001',
+        name: 'Recently Played Songs',
+        owner: 'Serenity',
+      };
+      navigation.navigate('Playlist', {
+        playlist,
+        fetchSongs: getPlayedSongs,
+      });
+    },
+    [navigation],
+  );
 
-  function navigateToFavorite() {
-    const playlist = {
-      id: 'user-playlist--000002',
-      name: 'Liked Songs',
-      owner: 'Serenity',
-    };
-    navigation.navigate('Playlist', {
-      playlist,
-      fetchSongs: getFavoriteSongs,
-    });
-  }
+  const navigateToFavorite = React.useMemo(
+    () => () => {
+      const playlist = {
+        id: 'user-playlist--000002',
+        name: 'Liked Songs',
+        owner: 'Serenity',
+      };
+      navigation.navigate('Playlist', {
+        playlist,
+        fetchSongs: getFavoriteSongs,
+      });
+    },
+    [navigation],
+  );
 
-  function navigateToMostPlayed() {
-    const playlist = {
-      id: 'user-playlist--000002',
-      name: 'Most Played Songs',
-      owner: 'Serenity',
-    };
-    navigation.navigate('Playlist', {
-      playlist,
-      fetchSongs: mostPlayed,
-    });
-  }
+  const navigateToMostPlayed = React.useMemo(
+    () => () => {
+      const playlist = {
+        id: 'user-playlist--000002',
+        name: 'Most Played Songs',
+        owner: 'Serenity',
+      };
+      navigation.navigate('Playlist', {
+        playlist,
+        fetchSongs: mostPlayed,
+      });
+    },
+    [navigation],
+  );
 
-  function startSongs() {
+  const startSongs = () => {
     dispatch(startRadio());
-  }
+  };
 
   return (
     <View
@@ -109,6 +118,4 @@ function ShortCutContainer() {
       </TouchableOpacity>
     </View>
   );
-}
-
-export default ShortCutContainer;
+};

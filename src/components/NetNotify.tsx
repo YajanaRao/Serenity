@@ -3,7 +3,7 @@ import { Banner, IconButton } from 'react-native-paper';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/core';
 
-export function NetNotify() {
+export const NetNotify = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
 
@@ -23,4 +23,4 @@ export function NetNotify() {
       Your network is unavailable. Check your data or wifi connection.
     </Banner>
   );
-}
+};

@@ -18,30 +18,30 @@ interface SongListProps {
   fetchData(): void;
 }
 
-export function SongList({
+export const SongList = ({
   data,
   title,
   cover,
   addToQueue,
   addToPlaylist,
   fetchData,
-}: SongListProps) {
+}: SongListProps) => {
   const [visible, setVisibility] = useState(false);
   const [song, setSong] = useState();
 
-  function showModal(track: SetStateAction<null>) {
+  const showModal = (track: TrackProps) => {
     setVisibility(true);
     setSong(track);
-  }
+  };
 
-  function hideModal() {
+  const hideModal = () => {
     setVisibility(false);
-  }
+  };
 
-  function addSongToPlaylist(id: string) {
+  const addSongToPlaylist = (id: string) => {
     addToPlaylist(id, song);
     hideModal();
-  }
+  };
 
   return (
     <Container>
@@ -66,4 +66,4 @@ export function SongList({
       )}
     </Container>
   );
-}
+};

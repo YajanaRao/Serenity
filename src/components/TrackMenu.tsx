@@ -13,7 +13,7 @@ interface MenuProps {
   closeMenu(): void;
 }
 
-export function TrackMenu({
+export const TrackMenu = ({
   visible,
   playSong,
   addSongToPlayNext,
@@ -22,30 +22,30 @@ export function TrackMenu({
   showDialog,
   contextualMenuCoord,
   closeMenu,
-}: MenuProps) {
-  function play() {
+}: MenuProps) => {
+  const play = () => {
     playSong();
     closeMenu();
-  }
+  };
 
-  function playNext() {
+  const playNext = () => {
     addSongToPlayNext();
     closeMenu();
-  }
+  };
 
-  function addToQueue() {
+  const addToQueue = () => {
     addSongToQueue();
     closeMenu();
-  }
+  };
 
-  function addToFav() {
+  const addToFav = () => {
     addSongToFav();
     closeMenu();
-  }
+  };
 
-  function addToPlaylist() {
+  const addToPlaylist = () => {
     showDialog();
-  }
+  };
 
   return (
     <View>
@@ -82,4 +82,4 @@ export function TrackMenu({
       </Menu>
     </View>
   );
-}
+};

@@ -13,14 +13,14 @@ interface BottomTabBarProps {
   state: NavigationState;
 }
 
-export function BottomTabBar({
+export const BottomTabBar = ({
   renderIcon,
   getLabelText,
   onTabPress,
   onTabLongPress,
   getAccessibilityLabel,
   state,
-}: BottomTabBarProps) {
+}: BottomTabBarProps) => {
   const { routes, index } = state;
   return (
     <Surface style={{ elevation: 4 }}>
@@ -65,7 +65,7 @@ export function BottomTabBar({
       </Surface>
     </Surface>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

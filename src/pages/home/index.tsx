@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme, IconButton } from 'react-native-paper';
-import MainScreen from './Main';
-import SettingScreen from './Settings';
+import { MainScreen } from './Main';
+import { SettingScreen } from './Settings';
 import PlaylistScreen from '../shared/PlaylistSongs';
 
 const Stack = createStackNavigator();
 
-export default function RootStack() {
+export const HomeStack = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -60,4 +60,4 @@ export default function RootStack() {
       />
     </Stack.Navigator>
   );
-}
+};

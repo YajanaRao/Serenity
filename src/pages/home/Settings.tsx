@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
@@ -6,42 +5,33 @@ import {
   Switch,
   Drawer,
   TouchableRipple,
-  withTheme,
-  Theme,
   useTheme,
 } from 'react-native-paper';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Screen from '../../components/Screen';
+import { Screen } from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
 
-interface Props {
-  updateTheme(theme: string): void;
-  radio: boolean;
-  changeRadioMode(radio: boolean): void;
-  clearHistory(): void;
-  theme: Theme;
-}
-
-function Settings() {
+export const SettingScreen = () => {
   const dispatch = useDispatch();
   const radio = useSelector((state: any) => state.config.radio);
   const theme = useTheme();
   const { dark } = theme;
-  function toggleTheme(dark: string) {
+
+  const toggleTheme = (dark: boolean) => {
     let theme = 'default';
     if (dark) {
       theme = 'dark';
     }
     dispatch(updateTheme(theme));
-  }
+  };
 
-  function toggleRadioMode() {
+  const toggleRadioMode = () => {
     dispatch(changeRadioMode(!radio));
-  }
+  };
 
-  function clearHistory() {
+  function clearData() {
     Alert.alert(
       'Clear History',
       'Do you want to clear your history ?',
@@ -79,7 +69,7 @@ function Settings() {
           </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
-          <TouchableRipple onPress={clearHistory}>
+          <TouchableRipple onPress={clearData}>
             <View style={styles.preference}>
               <Text>Clear history</Text>
               {/* <View pointerEvents="none">
@@ -91,9 +81,7 @@ function Settings() {
       </ScrollView>
     </Screen>
   );
-}
-
-export default Settings;
+};
 
 const styles = StyleSheet.create({
   preference: {

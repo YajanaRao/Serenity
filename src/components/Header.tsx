@@ -4,14 +4,14 @@ import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { updateQuery } from '../actions/mediaStore';
 
-export function Header() {
+export const Header = () => {
   const [query, setQuery] = useState('');
   const dispatch = useDispatch();
 
-  function handleChange(text: string) {
+  const handleChange = (text: string) => {
     setQuery(text);
     dispatch(updateQuery(text));
-  }
+  };
 
   const theme = useTheme();
   const { colors } = theme;
@@ -27,4 +27,4 @@ export function Header() {
       />
     </View>
   );
-}
+};

@@ -8,11 +8,11 @@ import {
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import RootScreen from './pages/Root';
+import { RootScreen } from './pages/Root';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
 
-export default function RootNavigator() {
+export const RootNavigator = () => {
   const themeType = useSelector(
     (state: RootReducerType) => state.config.themeType,
   );
@@ -30,4 +30,4 @@ export default function RootNavigator() {
       <RootScreen />
     </PaperProvider>
   );
-}
+};

@@ -20,20 +20,20 @@ interface Props {
   fetchData(): void;
 }
 
-export function SwipeList({
+export const SwipeList = ({
   title,
   cover,
   addToQueue,
   data,
   showModal,
   fetchData,
-}: Props) {
+}: Props) => {
   const [refreshing, setRefreshing] = useState(false);
-  async function refreshData() {
+  const refreshData = async () => {
     setRefreshing(true);
     await fetchData();
     setRefreshing(false);
-  }
+  };
 
   return (
     <SwipeListView
@@ -66,7 +66,7 @@ export function SwipeList({
       rightOpenValue={-75}
     />
   );
-}
+};
 
 const styles = StyleSheet.create({
   rowBack: {

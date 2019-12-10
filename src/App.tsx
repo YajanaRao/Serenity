@@ -4,7 +4,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { NavigationNativeContainer } from '@react-navigation/native';
 import { useScreens } from 'react-native-screens';
 
-import RootNavigator from './RootNavigator';
+import { RootNavigator } from './RootNavigator';
 import configureStore from './store';
 import { Welcome } from './components/Welcome';
 

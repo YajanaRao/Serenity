@@ -7,7 +7,7 @@ interface Props {
   quote: string;
 }
 
-const Quote = ({ backgroundImage, quote }: Props) => {
+export const Quote = ({ backgroundImage, quote }: Props) => {
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground
@@ -21,5 +21,3 @@ const Quote = ({ backgroundImage, quote }: Props) => {
     </View>
   );
 };
-
-export default Quote;

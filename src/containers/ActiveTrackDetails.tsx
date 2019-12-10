@@ -6,7 +6,7 @@ import { Subheading, Title } from 'react-native-paper';
 import { DefaultImage } from '../components/DefaultImage';
 import { RootReducerType } from '../reducers';
 
-export function ActiveTrackDetails() {
+export const ActiveTrackDetails = () => {
   const active = useSelector(
     (state: RootReducerType) => state.playerState.active,
   );
@@ -27,7 +27,7 @@ export function ActiveTrackDetails() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   centerContainer: {

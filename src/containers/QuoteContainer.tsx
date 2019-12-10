@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from 'react-native-paper';
 
-import Quote from '../components/Quote';
+import { Quote } from '../components/Quote';
 import log from '../utils/logging';
 
 function QuoteContainer() {

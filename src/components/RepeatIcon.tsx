@@ -6,21 +6,9 @@ interface Props {
   updateRepeatType(): void;
 }
 
-export function RepeatIcon({ repeat, updateRepeatType }: Props) {
+export const RepeatIcon = ({ repeat, updateRepeatType }: Props) => {
   if (repeat === 'repeat-all') {
-    return (
-      <IconButton
-        icon="repeat"
-        // size={20}
-        onPress={updateRepeatType}
-      />
-    );
+    return <IconButton icon="repeat" onPress={updateRepeatType} />;
   }
-  return (
-    <IconButton
-      icon="repeat-once"
-      // size={20}
-      onPress={updateRepeatType}
-    />
-  );
-}
+  return <IconButton icon="repeat-once" onPress={updateRepeatType} />;
+};

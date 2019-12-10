@@ -24,7 +24,7 @@ interface Props {
   item?: AlbumProps;
 }
 
-export function FavContainer({ type = 'song', style, item }: Props) {
+export const FavContainer = ({ type = 'song', style, item }: Props) => {
   const [liked, setLiked] = useState(false);
   const active = useSelector((state: any) => state.playerState.active);
   const dispatch = useDispatch();
@@ -43,17 +43,17 @@ export function FavContainer({ type = 'song', style, item }: Props) {
     }
   }, []);
 
-  function addArtistToFavorite() {
+  const addArtistToFavorite = () => {
     addArtist(active);
     setLiked(true);
-  }
+  };
 
-  function removeArtistFromFav() {
+  const removeArtistFromFav = () => {
     removeArtist(active.id);
     setLiked(false);
-  }
+  };
 
-  function addToFavorite() {
+  const addToFavorite = () => {
     if (type === 'song') {
       dispatch(addSongToFavorite(active));
     } else if (type === 'album') {
@@ -61,14 +61,14 @@ export function FavContainer({ type = 'song', style, item }: Props) {
     }
 
     setLiked(true);
-  }
+  };
 
-  function removeFromFavorite() {
+  const removeFromFavorite = () => {
     if (type === 'album') {
       dispatch(removeAlbumFromFavorite(active));
     }
     setLiked(false);
-  }
+  };
 
   if (type === 'artist') {
     return (
@@ -88,4 +88,4 @@ export function FavContainer({ type = 'song', style, item }: Props) {
       removeFromFavorite={removeFromFavorite}
     />
   );
-}
+};

@@ -11,7 +11,7 @@ interface Props {
   title: string;
 }
 
-export function AddToQueueIcon({ type, title }: Props) {
+export const AddToQueueIcon = ({ type, title }: Props) => {
   const dispatch = useDispatch();
 
   function addSongsToQueue() {
@@ -27,4 +27,4 @@ export function AddToQueueIcon({ type, title }: Props) {
   }
 
   return <IconButton icon="play-circle-outline" onPress={addSongsToQueue} />;
-}
+};

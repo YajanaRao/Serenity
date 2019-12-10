@@ -1,13 +1,13 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 // import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PermissionsAndroid } from 'react-native';
-import { IconButton, Theme, useTheme } from 'react-native-paper';
+import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import OfflineScreen from './offline';
 import SearchScreen from './search';
-import HomeScreen from './home';
+import { HomeStack } from './home';
 import ExploreScreen from './explore';
 import PlayerScreen from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
@@ -19,14 +19,14 @@ import NotificationContainer from '../containers/NotificationContainer';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function BottomNavigator() {
+const BottomNavigator = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
     <Tab.Navigator tabBar={BottomTabBar}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
@@ -78,9 +78,9 @@ function BottomNavigator() {
       />
     </Tab.Navigator>
   );
-}
+};
 
-function RootStack() {
+const RootStack = () => {
   return (
     <Stack.Navigator
       mode="modal"
@@ -92,18 +92,16 @@ function RootStack() {
       <Stack.Screen name="Player" component={PlayerScreen} />
     </Stack.Navigator>
   );
-}
+};
 
-class RootScreen extends React.Component {
-  // FIXME: Need to enhance start up time
-
-  componentDidMount() {
+export const RootScreen = () => {
+  useEffect(() => {
     requestAnimationFrame(() => {
-      this.requestPermission();
+      requestPermission();
     });
-  }
+  }, []);
 
-  requestPermission = () => {
+  const requestPermission = () => {
     try {
       PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
@@ -118,13 +116,9 @@ class RootScreen extends React.Component {
         },
       ).then(granted => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          this.setState({
-            result: 'Able to access offline songs',
-          });
+          log('Access given');
         } else {
-          this.setState({
-            result: 'Permission to access offline files denied',
-          });
+          log('No access given');
         }
       });
     } catch (err) {
@@ -132,14 +126,10 @@ class RootScreen extends React.Component {
     }
   };
 
-  render() {
-    return (
-      <Screen>
-        <NotificationContainer />
-        <RootStack />
-      </Screen>
-    );
-  }
-}
-
-export default RootScreen;
+  return (
+    <Screen>
+      <NotificationContainer />
+      <RootStack />
+    </Screen>
+  );
+};

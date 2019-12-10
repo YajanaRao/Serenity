@@ -9,7 +9,7 @@ interface Props {
   removeArtist(item: ArtistProps): void;
 }
 
-export function ArtistComponent({ item, addArtist, removeArtist }: Props) {
+export const ArtistComponent = ({ item, addArtist, removeArtist }: Props) => {
   const [selected, selectArtist] = useState(false);
 
   const selectArtits = () => {
@@ -47,4 +47,4 @@ export function ArtistComponent({ item, addArtist, removeArtist }: Props) {
       onPress={selectArtits}
     />
   );
-}
+};

@@ -8,21 +8,22 @@ interface Props {
   rename(name: string): void;
 }
 
-export function RenamePlaylistDailog({
+export const RenamePlaylistDailog = ({
   visible,
   hideDialog,
   playlistName,
   rename,
-}: Props) {
+}: Props) => {
   const [name, setName] = useState(playlistName);
-  function onChangeText(playlistName: string) {
-    setName(playlistName);
-  }
 
-  function submit() {
+  const onChangeText = (editedName: string) => {
+    setName(editedName);
+  };
+
+  const submit = () => {
     hideDialog();
     rename(name);
-  }
+  };
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={hideDialog}>
@@ -42,4 +43,4 @@ export function RenamePlaylistDailog({
       </Dialog>
     </Portal>
   );
-}
+};

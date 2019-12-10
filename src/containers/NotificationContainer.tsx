@@ -3,6 +3,7 @@ import { Snackbar } from 'react-native-paper';
 
 import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
+import { RootReducerType } from '../reducers';
 
 export interface Props {
   result: string;
@@ -55,7 +56,7 @@ class NotificationContainer extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootReducerType) => ({
   result: state.query.message,
 });
 
