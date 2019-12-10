@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { View } from 'react-native';
 
 import AlbumScreen from './Album';
-import ArtistScreen from './Artist';
+import { ArtistScreen } from './Artist';
 import PlaylistScreen from './Playlist';
 import PlaylistSongs from '../shared/PlaylistSongs';
 import AlbumSongs from '../shared/AlbumSongs';

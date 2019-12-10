@@ -9,7 +9,7 @@ import { deserializeArtists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
 import { ArtistProps } from '../../types';
 
-function Artist({ navigation }) {
+export const ArtistScreen = ({ navigation }) => {
   const realmArtists = getArtists();
 
   const [favArtists, setFavArtists] = useState([]);
@@ -19,7 +19,7 @@ function Artist({ navigation }) {
   });
 
   useEffect(() => {
-    function listener(artists: ArtistProps, changes: any) {
+    const listener = (artists: ArtistProps, changes: any) => {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||
@@ -28,7 +28,7 @@ function Artist({ navigation }) {
         const artist = deserializeArtists(artists);
         setArtists(artist);
       }
-    }
+    };
     if (realmArtists !== undefined) {
       realmArtists.addListener(listener);
     }
@@ -37,30 +37,30 @@ function Artist({ navigation }) {
     };
   }, [realmArtists]);
 
-  function selectArtist(artist: ArtistProps) {
+  const selectArtist = (artist: ArtistProps) => {
     favArtists.push(artist);
     setFavArtists(favArtists);
-  }
+  };
 
-  function removeArtist(artist: ArtistProps) {
+  const removeArtist = (artist: ArtistProps) => {
     const artists = remove(favArtists, function(item: ArtistProps) {
       return item.id === artist.id;
     });
     setFavArtists(artists);
-  }
+  };
 
-  function addArtists() {
+  const addArtists = () => {
     favArtists.forEach((artist: ArtistProps) => addArtist(artist));
     hideDialog();
-  }
+  };
 
-  function showDialog() {
+  const showDialog = () => {
     setVisible(true);
-  }
+  };
 
-  function hideDialog() {
+  const hideDialog = () => {
     setVisible(false);
-  }
+  };
 
   return (
     <Screen>
@@ -101,6 +101,4 @@ function Artist({ navigation }) {
       />
     </Screen>
   );
-}
-
-export default Artist;
+};
