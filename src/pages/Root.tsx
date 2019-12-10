@@ -104,11 +104,12 @@ export const RootScreen = () => {
   const requestPermission = () => {
     try {
       PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE &&
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
         {
           title: 'Serenity App READ_EXTERNAL_STORAGE Permission',
           message:
-            'Serenity App needs access to your READ_EXTERNAL_STORAGE ' +
+            'Serenity App needs access to your EXTERNAL_STORAGE ' +
             'so you can take play offline songs.',
           buttonNeutral: 'Ask Me Later',
           buttonNegative: 'Cancel',
