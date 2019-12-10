@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Title,
-  Button,
-  Divider,
-  Surface,
-  Subheading,
-} from 'react-native-paper';
+import { Title, Button, Divider, Subheading } from 'react-native-paper';
 import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
 import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';

@@ -14,19 +14,22 @@ import {
 } from 'react-native-paper';
 import { StyleSheet, View, Dimensions, Alert } from 'react-native';
 
+import { addToQueue } from '../actions/playerState';
 import { DefaultImage } from '../components/DefaultImage';
 import { deletePlaylist, renamePlaylist } from '../actions/realmAction';
 import log, { logEvent } from '../utils/logging';
 import { RenamePlaylistDailog } from '../components/RenamePlaylistDailog';
+import { useDispatch } from 'react-redux';
 
 const RENAME_DIALOG = 'RENAME';
 
-export const PlaylistOptions = ({ playlist, navigation }) => {
+export const PlaylistOptions = ({ route, navigation }) => {
   const bs = useRef();
   const theme = useTheme();
   const sheetOpenValue = new Animated.Value(1);
   const [visible, setVisible] = useState('');
-
+  const dispatch = useDispatch();
+  const { playlist } = route.params;
   const { colors } = theme;
 
   const deleteAlert = () => {
@@ -81,6 +84,8 @@ export const PlaylistOptions = ({ playlist, navigation }) => {
   };
 
   const addSongToQueue = () => {
+    const { fetchSongs } = route.params;
+    const songs = fetchSongs();
     dispatch(addToQueue(values(songs)));
   };
 

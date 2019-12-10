@@ -99,7 +99,7 @@ export default function RootStack() {
           return {
             headerTitle: playlist.name,
             headerRight: () => (
-              <PlaylistOptions playlist={playlist} navigation={navigation} />
+              <PlaylistOptions route={route} navigation={navigation} />
             ),
           };
         }}
