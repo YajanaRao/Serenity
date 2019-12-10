@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme, IconButton } from 'react-native-paper';
 import { MainScreen } from './Main';
 import { SettingScreen } from './Settings';
-import PlaylistScreen from '../shared/PlaylistSongs';
+import { PlaylistSongs } from '../shared/PlaylistSongs';
 
 const Stack = createStackNavigator();
 
@@ -43,7 +43,7 @@ export const HomeStack = () => {
       />
       <Stack.Screen
         name="Playlist"
-        component={PlaylistScreen}
+        component={PlaylistSongs}
         options={({ route }) => {
           const { playlist } = route.params;
           const { addToQueue } = route.params;

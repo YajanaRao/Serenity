@@ -6,7 +6,7 @@ import { SongListContainer } from '../../containers/SongListContainer';
 import { Screen } from '../../components/Screen';
 import { NavigationScreenProps } from '../../types';
 
-function Filter({ navigation, route }: NavigationScreenProps) {
+const Filter = ({ navigation, route }: NavigationScreenProps) => {
   const [songs, setSongs] = useState([]);
   const dispatch = useDispatch();
 
@@ -15,15 +15,15 @@ function Filter({ navigation, route }: NavigationScreenProps) {
     navigation.setParams({ addToQueue: addSongsToQueue });
   }, []);
 
-  function addSongsToQueue() {
+  const addSongsToQueue = () => {
     dispatch(addToQueue(songs));
-  }
+  };
 
-  async function fetchData() {
+  const fetchData = async () => {
     const genre = route.params.genre.title;
     const songs = await filterSongsByGenre(genre);
     setSongs(songs);
-  }
+  };
 
   const { genre } = route.params;
 
@@ -37,6 +37,6 @@ function Filter({ navigation, route }: NavigationScreenProps) {
       />
     </Screen>
   );
-}
+};
 
 export default Filter;

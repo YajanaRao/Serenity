@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { PermissionsAndroid } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -13,7 +12,6 @@ import PlayerScreen from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { Screen } from '../components/Screen';
 
-import log from '../utils/logging';
 import NotificationContainer from '../containers/NotificationContainer';
 
 const Tab = createBottomTabNavigator();
@@ -95,38 +93,6 @@ const RootStack = () => {
 };
 
 export const RootScreen = () => {
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      requestPermission();
-    });
-  }, []);
-
-  const requestPermission = () => {
-    try {
-      PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE &&
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'Serenity App READ_EXTERNAL_STORAGE Permission',
-          message:
-            'Serenity App needs access to your EXTERNAL_STORAGE ' +
-            'so you can take play offline songs.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      ).then(granted => {
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          log('Access given');
-        } else {
-          log('No access given');
-        }
-      });
-    } catch (err) {
-      log(err);
-    }
-  };
-
   return (
     <Screen>
       <NotificationContainer />

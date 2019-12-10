@@ -38,15 +38,16 @@ export const ArtistScreen = ({ navigation }) => {
   }, [realmArtists]);
 
   const selectArtist = (artist: ArtistProps) => {
-    favArtists.push(artist);
-    setFavArtists(favArtists);
+    const uArtists = favArtists;
+    uArtists.push(artist);
+    setFavArtists(uArtists);
   };
 
   const removeArtist = (artist: ArtistProps) => {
-    const artists = remove(favArtists, function(item: ArtistProps) {
+    const uArtists = remove(favArtists, function(item: ArtistProps) {
       return item.id === artist.id;
     });
-    setFavArtists(artists);
+    setFavArtists(uArtists);
   };
 
   const addArtists = () => {

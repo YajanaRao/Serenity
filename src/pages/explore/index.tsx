@@ -7,11 +7,12 @@ import { View } from 'react-native';
 import AlbumScreen from './Album';
 import { ArtistScreen } from './Artist';
 import PlaylistScreen from './Playlist';
-import PlaylistSongs from '../shared/PlaylistSongs';
+import { PlaylistSongs } from '../shared/PlaylistSongs';
 import AlbumSongs from '../shared/AlbumSongs';
 import ArtistSongs from '../shared/ArtistSongs';
 import { FavContainer } from '../../containers/FavContainer';
 import { AddToQueueIcon } from '../../containers/AddToQueueIcon';
+import { PlaylistOptions } from '../../containers/PlaylistOptions';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -93,13 +94,12 @@ export default function RootStack() {
       <Stack.Screen
         name="Songs"
         component={PlaylistSongs}
-        options={({ route }) => {
+        options={({ route, navigation }) => {
           const { playlist } = route.params;
-          const { openMenu } = route.params;
           return {
             headerTitle: playlist.name,
             headerRight: () => (
-              <IconButton icon="dots-vertical" onPress={openMenu} />
+              <PlaylistOptions playlist={playlist} navigation={navigation} />
             ),
           };
         }}

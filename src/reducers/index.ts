@@ -47,7 +47,6 @@ export const mediaStoreReducer = (state = INITIAL_STORE, action) => {
       };
 
     case 'OFFLINE_SONGS':
-      console.log(action.payload);
       return {
         ...state,
         songs: action.payload,

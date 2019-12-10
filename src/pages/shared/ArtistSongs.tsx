@@ -3,7 +3,7 @@ import { findArtistSongs } from '../../actions/mediaStore';
 import { SongListContainer } from '../../containers/SongListContainer';
 import { Screen } from '../../components/Screen';
 
-function ArtistSongs({ route }) {
+const ArtistSongs = ({ route }) => {
   const { artist } = route.params;
   const [songs, setSongs] = useState([]);
 
@@ -28,6 +28,6 @@ function ArtistSongs({ route }) {
       />
     </Screen>
   );
-}
+};
 
 export default ArtistSongs;

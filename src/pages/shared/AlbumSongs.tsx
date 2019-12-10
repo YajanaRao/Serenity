@@ -5,7 +5,7 @@ import { SongListContainer } from '../../containers/SongListContainer';
 import { Screen } from '../../components/Screen';
 import { TrackProps } from '../../types';
 
-function AlbumSongs({ route }) {
+const AlbumSongs = ({ route }) => {
   const { album } = route.params;
   const [songs, setSongs] = useState();
 
@@ -13,11 +13,11 @@ function AlbumSongs({ route }) {
     fetchData();
   }, []);
 
-  function fetchData() {
+  const fetchData = () => {
     findAlbumSongs(album.name || album.album).then((tracks: TrackProps) => {
       setSongs(tracks);
     });
-  }
+  };
 
   return (
     <Screen>
@@ -29,6 +29,6 @@ function AlbumSongs({ route }) {
       />
     </Screen>
   );
-}
+};
 
 export default AlbumSongs;

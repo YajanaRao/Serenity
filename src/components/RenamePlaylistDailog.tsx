@@ -21,7 +21,6 @@ export const RenamePlaylistDailog = ({
   };
 
   const submit = () => {
-    hideDialog();
     rename(name);
   };
   return (

@@ -14,43 +14,40 @@ interface PlayerProps {
   navigation: any;
 }
 
-class Player extends React.PureComponent<PlayerProps> {
-  close = () => {
-    const { navigation } = this.props;
+const Player = ({ navigation }) => {
+  const close = () => {
     navigation.goBack();
   };
 
-  render() {
-    return (
-      <Screen>
-        <ScrollView>
-          <View style={styles.playerContainer}>
-            <View style={styles.container}>
-              <IconButton icon="close" onPress={this.close} />
-              {/* <IconButton
-                          icon="more-vert"
-                          onPress={() => this.props.navigation.goBack()}
-                      /> */}
-            </View>
-            <ActiveTrackDetails />
-            <View style={styles.centerContainer}>
-              <Progress />
-            </View>
-            <View style={styles.playerToolbox}>
-              <FavContainer type="song" />
-              <PlayerController />
-              <RepeatContainer />
-            </View>
+  return (
+    <Screen>
+      <ScrollView>
+        <View style={styles.playerContainer}>
+          <View style={styles.container}>
+            <IconButton icon="close" onPress={close} />
+            {/* <IconButton
+                        icon="more-vert"
+                        onPress={() => this.props.navigation.goBack()}
+                    /> */}
           </View>
-          <Divider />
+          <ActiveTrackDetails />
+          <View style={styles.centerContainer}>
+            <Progress />
+          </View>
+          <View style={styles.playerToolbox}>
+            <FavContainer type="song" />
+            <PlayerController />
+            <RepeatContainer />
+          </View>
+        </View>
+        <Divider />
 
-          <QueueContainer close={this.close} />
-          <View style={{ height: 100 }} />
-        </ScrollView>
-      </Screen>
-    );
-  }
-}
+        <QueueContainer close={close} />
+        <View style={{ height: 100 }} />
+      </ScrollView>
+    </Screen>
+  );
+};
 
 export default Player;
 

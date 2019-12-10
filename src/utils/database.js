@@ -12,7 +12,7 @@ export const deserializeSongs = realmObject => {
       url: item.url ? item.url : item.path,
     }));
   } catch (error) {
-    log('deserializeSongs: ', error);
+    log(`deserializeSongs: ${error}`);
     return [];
   }
 };

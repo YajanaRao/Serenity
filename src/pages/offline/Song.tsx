@@ -38,7 +38,6 @@ export const SongScreen = () => {
   const dispatch = useDispatch();
 
   const songs = useSelector((state: RootReducerType) => state.mediaStore.songs);
-  console.log(songs);
 
   const fetchData = () => {
     setRefreshing(true);

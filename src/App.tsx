@@ -12,23 +12,18 @@ useScreens();
 
 const { store, persistor } = configureStore();
 
-class App extends React.Component {
-  renderActivityIndicator = () => <Welcome />;
+const App = () => {
+  const renderActivityIndicator = () => <Welcome />;
 
-  render() {
-    return (
-      <NavigationNativeContainer>
-        <Provider store={store}>
-          <PersistGate
-            loading={this.renderActivityIndicator()}
-            persistor={persistor}
-          >
-            <RootNavigator />
-          </PersistGate>
-        </Provider>
-      </NavigationNativeContainer>
-    );
-  }
-}
+  return (
+    <NavigationNativeContainer>
+      <Provider store={store}>
+        <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
+          <RootNavigator />
+        </PersistGate>
+      </Provider>
+    </NavigationNativeContainer>
+  );
+};
 
 export default App;

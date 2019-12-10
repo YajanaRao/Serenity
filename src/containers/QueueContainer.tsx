@@ -11,6 +11,7 @@ import { clearQueue, removeFromQueue } from '../actions/playerState';
 import { FavContainer } from './FavContainer';
 import { TrackContainer } from './TrackContainer';
 import { TrackProps } from '../types';
+import { RootReducerType } from '../reducers';
 
 interface Props {
   close(): void;
@@ -23,7 +24,9 @@ interface ItemProps {
 export const QueueContainer = ({ close }: Props) => {
   const realmSongs = getQueuedSongs();
   const dispatch = useDispatch();
-  const active = useSelector((state: any) => state.playerState.active);
+  const active: TrackProps = useSelector(
+    (state: RootReducerType) => state.playerState.active,
+  );
 
   const [queue, setQueue] = useState(() => {
     return deserializeSongs(realmSongs);
