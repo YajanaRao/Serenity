@@ -7,6 +7,7 @@ import Genre from '../../data/genre.json';
 import { Screen } from '../../components/Screen';
 import { TrackContainer } from '../../containers/TrackContainer';
 import { TrackProps } from '../../types.js';
+import { RootReducerType } from '../../reducers/index.js';
 
 interface GenreProps {
   item: {
@@ -16,7 +17,9 @@ interface GenreProps {
 }
 
 function Search({ navigation }) {
-  const searchResult = useSelector((state: any) => state.query.searchResult);
+  const searchResult = useSelector(
+    (state: RootReducerType) => state.query.searchResult,
+  );
 
   return (
     <Screen>

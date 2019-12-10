@@ -2,7 +2,6 @@ import realm from '../database';
 import find from 'lodash/find';
 
 import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
-import { SONG_SCHEMA_NAME } from '../database/schema/SongSchema';
 import { ARTIST_SCHEMA_NAME } from '../database/schema/ArtistSchema';
 import { ALBUM_SCHEMA_NAME } from '../database/schema/AlbumSchema';
 import { TrackProps, ArtistProps, AlbumProps } from '../types';
@@ -30,24 +29,6 @@ const generateSongId = () => {
     .toString(36)
     .substring(7);
   return `${userSongIdPrefix}${r}`;
-};
-
-const generateArtistId = () => {
-  const artists = realm.objects(ARTIST_SCHEMA_NAME).sorted('id', true);
-  let max = 1;
-  if (artists.length > 0) {
-    max = parseInt(artists[0].id.split(artistIdPrefix)[1], 10) + 1;
-  }
-  return `${artistIdPrefix}${max.toString().padStart(6, '0')}`;
-};
-
-const generateAlbumId = () => {
-  const albums = realm.objects(ALBUM_SCHEMA_NAME).sorted('id', true);
-  let max = 1;
-  if (albums.length > 0) {
-    max = parseInt(albums[0].id.split(albumIdPrefix)[1], 10) + 1;
-  }
-  return `${albumIdPrefix}${max.toString().padStart(6, '0')}`;
 };
 
 export const defaultDBSetup = () => {
@@ -289,7 +270,6 @@ export const removeArtist = (id: string) => {
 
 export const isArtistPresent = (id: string) => {
   const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id);
-  console.log(artist, id);
   return artist ? true : false;
 };
 

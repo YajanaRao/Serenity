@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import QuoteContainer from './QuoteContainer';
+import { QuoteContainer } from './QuoteContainer';
 
 class OnlineContainer extends PureComponent {
   constructor(props) {
