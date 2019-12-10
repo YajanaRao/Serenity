@@ -4,7 +4,7 @@ import { useTheme } from 'react-native-paper';
 import { Quote } from '../components/Quote';
 import log from '../utils/logging';
 
-function QuoteContainer() {
+export const QuoteContainer = () => {
   const [dataSource, setDataSource] = useState({});
   const theme = useTheme();
 
@@ -27,6 +27,4 @@ function QuoteContainer() {
       quote={dataSource.quote}
     />
   );
-}
-
-export default QuoteContainer;
+};

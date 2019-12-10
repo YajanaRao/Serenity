@@ -10,19 +10,19 @@ import {
   pauseTrack,
 } from '../actions/playerState';
 
-function PlayerController() {
+export const PlayerController = () => {
   const dispatch = useDispatch();
   const status = useSelector((state: any) => state.playerState.status);
 
-  function previous() {
+  const previous = () => {
     dispatch(skipToPrevious);
-  }
+  };
 
-  function next() {
+  const next = () => {
     dispatch(skipToNext);
-  }
+  };
 
-  function togglePlayback() {
+  const togglePlayback = () => {
     if (status === 'playing') {
       requestAnimationFrame(() => {
         pauseTrack();
@@ -32,7 +32,7 @@ function PlayerController() {
         playTrack();
       });
     }
-  }
+  };
   return (
     <View style={styles.playerToolbox}>
       <IconButton icon="skip-previous" size={40} onPress={previous} />
@@ -44,9 +44,7 @@ function PlayerController() {
       <IconButton icon="skip-next" size={40} onPress={next} />
     </View>
   );
-}
-
-export default PlayerController;
+};
 
 const styles = StyleSheet.create({
   playerToolbox: {

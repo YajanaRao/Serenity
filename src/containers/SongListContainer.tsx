@@ -11,12 +11,12 @@ interface SongListContainerProps {
   fetchData(): void;
 }
 
-export function SongListContainer({
+export const SongListContainer = ({
   data,
   title,
   cover,
   fetchData,
-}: SongListContainerProps) {
+}: SongListContainerProps) => {
   const dispatch = useDispatch();
 
   function addSongsToPlaylist(id: string, song: TrackProps) {
@@ -36,4 +36,4 @@ export function SongListContainer({
       addToQueue={addSongsToQueue}
     />
   );
-}
+};

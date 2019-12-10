@@ -26,13 +26,13 @@ export interface Props {
   removeArtist(artist: ArtistProps): void;
 }
 
-function FollowArtistDialog({
+export const FollowArtistDialog = ({
   visible,
   hideDialog,
   selectArtist,
   addArtists,
   removeArtist,
-}: Props) {
+}: Props) => {
   const artists = useSelector((state: any) => state.mediaStore.artists);
   const [query, setQuery] = useState('');
   const [filtered, setFiltered] = useState(artists);
@@ -86,6 +86,4 @@ function FollowArtistDialog({
       </Dialog>
     </Portal>
   );
-}
-
-export default FollowArtistDialog;
+};

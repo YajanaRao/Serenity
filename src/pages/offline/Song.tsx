@@ -23,12 +23,13 @@ import { Screen } from '../../components/Screen';
 import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { TrackProps } from '../../types';
 import { TrackMenu } from '../../components/TrackMenu';
+import { RootReducerType } from '../../reducers';
 
 interface ItemProps {
   item: TrackProps;
 }
 
-function Song() {
+export const SongScreen = () => {
   const [visible, setVisible] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [song, setSong] = useState();
@@ -36,44 +37,44 @@ function Song() {
 
   const dispatch = useDispatch();
 
-  const songs = useSelector((state: any) => state.mediaStore.songs);
+  const songs = useSelector((state: RootReducerType) => state.mediaStore.songs);
 
-  function fetchData() {
+  const fetchData = () => {
     setRefreshing(true);
     dispatch(getOfflineSongs());
     setRefreshing(false);
-  }
+  };
 
-  function showDialog() {
+  const showDialog = () => {
     setVisible('DIALOG');
-  }
+  };
 
-  function addSongToFav() {
+  const addSongToFav = () => {
     dispatch(addSongToFavorite(song));
-  }
+  };
 
-  function addSongToPlaylist(id: string) {
+  const addSongToPlaylist = (id: string) => {
     dispatch(addToPlaylist(id, song));
     setVisible('');
-  }
+  };
 
-  function addSongToQueue() {
+  const addSongToQueue = () => {
     dispatch(addToQueue(song));
-  }
+  };
 
-  function addSongToPlayNext() {
+  const addSongToPlayNext = () => {
     dispatch(playNext(song));
-  }
+  };
 
-  function playSong() {
+  const playSong = () => {
     dispatch(loadTrack(song));
-  }
+  };
 
-  function play(song: TrackProps) {
+  const play = (song: TrackProps) => {
     dispatch(loadTrack(song));
-  }
+  };
 
-  function openMenu(event: GestureResponderEvent, song: TrackProps) {
+  const openMenu = (event: GestureResponderEvent, song: TrackProps) => {
     const { nativeEvent } = event;
     const contextualMenuCoord = {
       x: nativeEvent.pageX,
@@ -82,11 +83,11 @@ function Song() {
     setCord(contextualMenuCoord);
     setVisible('MENU');
     setSong(song);
-  }
+  };
 
-  function closeMenu() {
+  const closeMenu = () => {
     setVisible('');
-  }
+  };
 
   if (songs.length) {
     return (
@@ -152,9 +153,7 @@ function Song() {
     );
   }
   return <Blank text="No offline songs found.." fetchData={fetchData} />;
-}
-
-export default Song;
+};
 
 const styles = StyleSheet.create({
   container: {

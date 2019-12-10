@@ -9,12 +9,9 @@ import { deserializeSongs } from '../utils/database';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
+import { TrackProps } from '../types';
 
-interface TrackProps {
-  title: string;
-}
-
-function MostPlayedContainer() {
+export const MostPlayedContainer = () => {
   const navigation = useNavigation();
   const realmSongs = getPlayedSongs();
   const [history, setHistory] = useState(() => {
@@ -40,23 +37,26 @@ function MostPlayedContainer() {
     };
   }, []);
 
-  function play(track: TrackProps) {
+  const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
       dispatch(loadTrack(track));
     }
-  }
+  };
 
-  function navigateToSongs() {
-    const playlist = {
-      id: 'user-playlist--000001',
-      name: 'Recent songs',
-      owner: 'Serenity',
-      songs: history,
-    };
-    navigation.navigate('Playlist', {
-      playlist,
-    });
-  }
+  const navigateToSongs = React.useMemo(
+    () => () => {
+      const playlist = {
+        id: 'user-playlist--000001',
+        name: 'Recent songs',
+        owner: 'Serenity',
+        songs: history,
+      };
+      navigation.navigate('Playlist', {
+        playlist,
+      });
+    },
+    [navigation],
+  );
 
   if (history.length) {
     return (
@@ -77,6 +77,4 @@ function MostPlayedContainer() {
     );
   }
   return false;
-}
-
-export default MostPlayedContainer;
+};

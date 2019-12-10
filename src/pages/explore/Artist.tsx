@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 import { Avatar, List } from 'react-native-paper';
 import remove from 'lodash/remove';
 
-import FollowArtistDialog from '../../containers/FollowArtistDialog';
+import { FollowArtistDialog } from '../../containers/FollowArtistDialog';
 import { addArtist, getArtists } from '../../actions/realmAction';
 import { deserializeArtists } from '../../utils/database';
 import { Screen } from '../../components/Screen';

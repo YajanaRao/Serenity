@@ -6,15 +6,18 @@ import isUndefined from 'lodash/isUndefined';
 import { loadTrack } from '../actions/playerState';
 import { Track } from '../components/Track';
 import { TrackProps } from '../types';
+import { RootReducerType } from '../reducers';
 
 interface Props {
   track: TrackProps;
 }
 
-export function TrackContainer({ track }: Props) {
+export const TrackContainer = ({ track }: Props) => {
   const [isActive, setActive] = useState(false);
   const dispatch = useDispatch();
-  const active = useSelector((state: any) => state.playerState.active);
+  const active = useSelector(
+    (state: RootReducerType) => state.playerState.active,
+  );
 
   useEffect(() => {
     if (!isUndefined(active) && track.id) {
@@ -24,13 +27,13 @@ export function TrackContainer({ track }: Props) {
     }
   }, []);
 
-  function play() {
+  const play = () => {
     if (!isActive) {
       requestAnimationFrame(() => {
         dispatch(loadTrack(track));
       });
     }
-  }
+  };
 
   return <Track track={track} play={play} active={isActive} />;
-}
+};

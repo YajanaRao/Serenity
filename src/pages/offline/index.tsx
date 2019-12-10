@@ -6,7 +6,7 @@ import { View } from 'react-native';
 
 import AlbumScreen from './Album';
 import ArtistScreen from './Artist';
-import SongScreen from './Song';
+import { SongScreen } from './Song';
 import AlbumSongs from '../shared/AlbumSongs';
 import ArtistSongs from '../shared/ArtistSongs';
 import { FavContainer } from '../../containers/FavContainer';

@@ -9,12 +9,9 @@ import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 import { useNavigation } from '@react-navigation/core';
+import { TrackProps } from '../types';
 
-interface TrackProps {
-  title: string;
-}
-
-function RecentContainer() {
+export const RecentContainer = () => {
   const realmSongs = getPlayedSongs();
   const navigation = useNavigation();
   const [history, setHistory] = useState(() => {
@@ -22,7 +19,7 @@ function RecentContainer() {
   });
   const dispatch = useDispatch();
   useEffect(() => {
-    function listener(songs: any, changes: any) {
+    function listener(songs: TrackProps, changes: any) {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||
@@ -40,13 +37,13 @@ function RecentContainer() {
     };
   }, []);
 
-  function play(track: TrackProps) {
+  const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
       dispatch(loadTrack(track));
     }
-  }
+  };
 
-  function navigateToSongs() {
+  const navigateToSongs = () => {
     const playlist = {
       id: 'user-playlist--000001',
       name: 'Recent songs',
@@ -56,7 +53,7 @@ function RecentContainer() {
       playlist,
       fetchSongs: () => history,
     });
-  }
+  };
 
   if (history.length) {
     return (
@@ -77,6 +74,4 @@ function RecentContainer() {
     );
   }
   return false;
-}
-
-export default RecentContainer;
+};

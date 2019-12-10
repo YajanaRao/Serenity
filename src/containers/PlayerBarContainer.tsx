@@ -12,7 +12,7 @@ import {
 } from '../actions/playerState';
 import { PlayerBar } from '../components/PlayerBar';
 
-export function PlayerBarContainer() {
+export const PlayerBarContainer = () => {
   const navigation = useNavigation();
   const active = useSelector((state: any) => state.playerState.active);
   const status = useSelector((state: any) => state.playerState.status);
@@ -28,13 +28,13 @@ export function PlayerBarContainer() {
     };
   }, []);
 
-  function togglePlayback() {
+  const togglePlayback = () => {
     if (status === 'playing') {
       pauseTrack();
     } else {
       playTrack();
     }
-  }
+  };
 
   const navigateToPlayer = React.useMemo(
     () => () => navigation.navigate('Player'),
@@ -52,4 +52,4 @@ export function PlayerBarContainer() {
     );
   }
   return false;
-}
+};

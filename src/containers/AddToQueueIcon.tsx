@@ -14,7 +14,7 @@ interface Props {
 export const AddToQueueIcon = ({ type, title }: Props) => {
   const dispatch = useDispatch();
 
-  function addSongsToQueue() {
+  const addSongsToQueue = () => {
     if (type === 'album') {
       findAlbumSongs(title).then((tracks: TrackProps) => {
         dispatch(addToQueue(tracks));
@@ -24,7 +24,7 @@ export const AddToQueueIcon = ({ type, title }: Props) => {
         dispatch(addToQueue(tracks));
       });
     }
-  }
+  };
 
   return <IconButton icon="play-circle-outline" onPress={addSongsToQueue} />;
 };

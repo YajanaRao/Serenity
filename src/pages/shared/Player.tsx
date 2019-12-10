@@ -2,10 +2,10 @@ import React from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { IconButton, Divider } from 'react-native-paper';
 
-import QueueContainer from '../../containers/QueueContainer';
+import { QueueContainer } from '../../containers/QueueContainer';
 import { FavContainer } from '../../containers/FavContainer';
-import RepeatContainer from '../../containers/RepeatContainer';
-import PlayerController from '../../containers/PlayerController';
+import { RepeatContainer } from '../../containers/RepeatContainer';
+import { PlayerController } from '../../containers/PlayerController';
 import { Progress } from '../../components/ProgressBar';
 import { Screen } from '../../components/Screen';
 import { ActiveTrackDetails } from '../../containers/ActiveTrackDetails';

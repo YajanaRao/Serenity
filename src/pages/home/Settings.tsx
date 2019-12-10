@@ -19,9 +19,9 @@ export const SettingScreen = () => {
   const theme = useTheme();
   const { dark } = theme;
 
-  const toggleTheme = (dark: boolean) => {
+  const toggleTheme = (isDark: boolean) => {
     let theme = 'default';
-    if (dark) {
+    if (isDark) {
       theme = 'dark';
     }
     dispatch(updateTheme(theme));
@@ -31,7 +31,7 @@ export const SettingScreen = () => {
     dispatch(changeRadioMode(!radio));
   };
 
-  function clearData() {
+  const clearData = () => {
     Alert.alert(
       'Clear History',
       'Do you want to clear your history ?',
@@ -45,7 +45,7 @@ export const SettingScreen = () => {
       ],
       { cancelable: false },
     );
-  }
+  };
 
   return (
     <Screen>

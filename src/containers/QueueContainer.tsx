@@ -20,7 +20,7 @@ interface ItemProps {
   item: TrackProps;
 }
 
-function QueueContainer({ close }: Props) {
+export const QueueContainer = ({ close }: Props) => {
   const realmSongs = getQueuedSongs();
   const dispatch = useDispatch();
   const active = useSelector((state: any) => state.playerState.active);
@@ -48,7 +48,7 @@ function QueueContainer({ close }: Props) {
     };
   }, [realmSongs]);
 
-  function clearPlaylist() {
+  const clearPlaylist = () => {
     Alert.alert(
       'Clear Queue',
       'Clear queue would stop current playing song',
@@ -68,7 +68,7 @@ function QueueContainer({ close }: Props) {
       ],
       { cancelable: false },
     );
-  }
+  };
 
   if (!isEmpty(queue)) {
     return (
@@ -106,9 +106,7 @@ function QueueContainer({ close }: Props) {
     );
   }
   return false;
-}
-
-export default QueueContainer;
+};
 
 const styles = StyleSheet.create({
   rowContainer: {
