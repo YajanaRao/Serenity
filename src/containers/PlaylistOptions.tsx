@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    // elevation: 12,
     zIndex: 1000,
   },
 });

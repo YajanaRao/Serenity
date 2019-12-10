@@ -55,7 +55,7 @@ export const MostPlayedContainer = () => {
         playlist,
       });
     },
-    [navigation],
+    [navigation, history],
   );
 
   if (history.length) {

@@ -42,7 +42,7 @@ export const FollowArtistDialog = ({
       return includes(artist.artist.toLowerCase(), query.toLowerCase());
     });
     setFiltered(data);
-  }, [query]);
+  }, [query, artists]);
 
   return (
     <Portal>
