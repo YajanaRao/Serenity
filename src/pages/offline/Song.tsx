@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Divider, Button, List, IconButton } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -37,10 +37,13 @@ export const SongScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [song, setSong] = useState();
   const [cord, setCord] = useState({ x: 0, y: 0 });
-
   const dispatch = useDispatch();
 
   const songs = useSelector((state: RootReducerType) => state.mediaStore.songs);
+
+  useEffect(() => {
+    dispatch(getOfflineSongs());
+  }, [dispatch]);
 
   const fetchData = () => {
     setRefreshing(true);

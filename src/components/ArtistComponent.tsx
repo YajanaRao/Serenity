@@ -37,11 +37,7 @@ export const ArtistComponent = ({ item, addArtist, removeArtist }: Props) => {
             size={24}
             visible={selected}
           />
-          <Avatar.Image
-            source={{ uri: item.cover }}
-            // size={80}
-            style={{ margin: 0 }}
-          />
+          <Avatar.Image source={{ uri: item.cover }} style={{ margin: 0 }} />
         </View>
       )}
       onPress={selectArtits}

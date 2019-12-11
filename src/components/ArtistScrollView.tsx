@@ -19,7 +19,7 @@ interface Props {
 export const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
   return (
     <View>
-      {data ? <Title style={styles.title}>{title}</Title> : false}
+      <Title style={styles.title}>{title}</Title>
       <FlatList
         horizontal
         data={data}

@@ -19,7 +19,7 @@ interface Props {
 
 export const AlbumScrollView = ({ data, title, navigateToSongs }: Props) => (
   <Container>
-    {data ? <Title style={styles.title}>{title}</Title> : false}
+    <Title style={styles.title}>{title}</Title>
     <FlatList
       horizontal
       data={data}

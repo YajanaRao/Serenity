@@ -47,7 +47,6 @@ export const BottomTabBar = ({
             >
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 {renderIcon({ route, focused: isRouteActive })}
-
                 <Caption
                   style={{
                     textAlign: 'center',

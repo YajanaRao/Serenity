@@ -1,10 +1,7 @@
-import React, { useState, SetStateAction } from 'react';
-import { View } from 'react-native';
-import isEmpty from 'lodash/isEmpty';
+import React, { useState } from 'react';
 
 import { PlaylistDialog } from './PlaylistDialog';
 import { SwipeList } from './SwipeList';
-import { EmptyPlaylist } from './EmptyPlaylist';
 import { Container } from './Container';
 
 import { TrackProps } from '../types';
@@ -45,25 +42,19 @@ export const SongList = ({
 
   return (
     <Container>
-      {!isEmpty(data) ? (
-        <View>
-          <PlaylistDialog
-            visible={visible}
-            hideModal={hideModal}
-            addToPlaylist={addSongToPlaylist}
-          />
-          <SwipeList
-            data={data}
-            title={title}
-            cover={cover}
-            addToQueue={addToQueue}
-            fetchData={fetchData}
-            showModal={showModal}
-          />
-        </View>
-      ) : (
-        <EmptyPlaylist />
-      )}
+      <PlaylistDialog
+        visible={visible}
+        hideModal={hideModal}
+        addToPlaylist={addSongToPlaylist}
+      />
+      <SwipeList
+        data={data}
+        title={title}
+        cover={cover}
+        addToQueue={addToQueue}
+        fetchData={fetchData}
+        showModal={showModal}
+      />
     </Container>
   );
 };

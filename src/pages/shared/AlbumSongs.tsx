@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from 'react';
-
+import isEmpty from 'lodash/isEmpty';
 import { findAlbumSongs } from '../../actions/mediaStore';
 import { SongListContainer } from '../../containers/SongListContainer';
 import { Screen } from '../../components/Screen';
-import { TrackProps } from '../../types';
+import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
 const AlbumSongs = ({ route }) => {
   const { album } = route.params;
-  const [songs, setSongs] = useState();
+  const [data, setSongs] = useState({
+    isFetching: true,
+    songs: [],
+  });
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = () => {
-    findAlbumSongs(album.name || album.album).then((tracks: TrackProps) => {
-      setSongs(tracks);
+    findAlbumSongs(album.name || album.album).then(songs => {
+      setSongs({
+        isFetching: false,
+        songs,
+      });
     });
   };
 
+  const { songs, isFetching } = data;
+  if (!isFetching && isEmpty(songs)) {
+    return <EmptyPlaylist />;
+  }
   return (
     <Screen>
       <SongListContainer

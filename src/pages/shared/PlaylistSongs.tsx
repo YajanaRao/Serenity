@@ -14,10 +14,12 @@ import { TrackProps } from '../../types';
 
 export const PlaylistSongs = ({ route }) => {
   const { playlist } = route.params;
-  const [refreshing, setRefreshing] = useState(false);
-  const [songs, setSongs] = useState(() => {
-    const { fetchSongs } = route.params;
-    return fetchSongs();
+  const { fetchSongs } = route.params;
+
+  // const [refreshing, setRefreshing] = useState(false);
+  const [data, setSongs] = useState({
+    songs: fetchSongs(),
+    refreshing: false,
   });
   const dispatch = useDispatch();
 
@@ -27,12 +29,14 @@ export const PlaylistSongs = ({ route }) => {
 
   const onRefresh = () => {
     const { fetchSongs } = route.params;
-    setRefreshing(true);
-    const update = fetchSongs();
-    setSongs(update);
-    setRefreshing(false);
+    const songs = fetchSongs();
+    setSongs({
+      songs,
+      refreshing: false,
+    });
   };
 
+  const { refreshing, songs } = data;
   return (
     <Screen>
       {isEmpty(songs) ? (
