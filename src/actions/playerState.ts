@@ -39,14 +39,14 @@ export const setUpTrackPlayer = () => dispatch => {
         dispatch(skipToNext());
       } else {
         dispatch({
-          type: 'STATUS',
           status: event,
+          type: 'STATUS',
         });
       }
     });
     dispatch({
-      type: 'STATUS',
       status: 'paused',
+      type: 'STATUS',
     });
   } catch (error) {
     log(error);
@@ -61,8 +61,8 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => dispatch => {
         if (playOnLoad) MediaPlayer.play();
       });
       dispatch({
-        type: 'LOAD',
         track,
+        type: 'LOAD',
       });
     } else {
       log('unable to load track');
@@ -90,8 +90,8 @@ export const playNext = (track: TrackProps) => (
 export const repeatSongs = (type: string) => dispatch => {
   try {
     dispatch({
-      type: 'REPEAT',
       repeat: type,
+      type: 'REPEAT',
     });
   } catch (error) {
     log(error);
@@ -101,8 +101,8 @@ export const repeatSongs = (type: string) => dispatch => {
 export const shufflePlay = (songs: TrackProps[]) => dispatch => {
   try {
     dispatch({
-      type: 'SHUFFLE_PLAY',
       songs,
+      type: 'SHUFFLE_PLAY',
     });
   } catch (error) {
     log(error);
@@ -115,8 +115,8 @@ export const startRadio = () => (dispatch, getState) => {
     if (track) {
       dispatch(loadTrack(track));
       dispatch({
-        type: 'RADIO_MODE',
         payload: true,
+        type: 'RADIO_MODE',
       });
     }
   } catch (error) {
@@ -149,8 +149,8 @@ export const skipToNext = () => (dispatch, getState) => {
     } else {
       MediaPlayer.pause();
       dispatch({
-        type: 'STATUS',
         status: 'paused',
+        type: 'STATUS',
       });
     }
   } catch (error) {
@@ -170,8 +170,8 @@ export const skipToPrevious = () => dispatch => {
     } else {
       MediaPlayer.pause();
       dispatch({
-        type: 'NOTIFY',
         status: 'Playing prevoius song',
+        type: 'NOTIFY',
       });
     }
   } catch (error) {

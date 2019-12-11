@@ -13,7 +13,7 @@ import { Screen } from '../../components/Screen';
 import { PlaylistProps, NavigationScreenProps } from '../../types';
 import { Collection } from 'realm';
 
-function Playlist({ navigation }: { navigation: NavigationScreenProps }) {
+const Playlist = ({ navigation }: { navigation: NavigationScreenProps }) => {
   const realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -41,19 +41,7 @@ function Playlist({ navigation }: { navigation: NavigationScreenProps }) {
 
   const navigateToCollection = (playlist: PlaylistProps) => {
     navigation.navigate('Songs', {
-      playlist,
       fetchSongs: () => getPlaylistSongs(playlist.id),
-    });
-  };
-
-  const navigateToFavorites = () => {
-    const playlist = {
-      id: 'user-playlist--000002',
-      name: 'Favorites',
-      owner: 'Serenity',
-      fetchSongs: getFavoriteSongs(),
-    };
-    navigation.navigate('Songs', {
       playlist,
     });
   };
@@ -127,6 +115,6 @@ function Playlist({ navigation }: { navigation: NavigationScreenProps }) {
       />
     </Screen>
   );
-}
+};
 
 export default Playlist;
