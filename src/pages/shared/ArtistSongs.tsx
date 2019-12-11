@@ -17,14 +17,14 @@ const ArtistSongs = ({ route }) => {
     fetchData();
   }, []);
 
-  function fetchData() {
+  const fetchData = () => {
     findArtistSongs(artist.name || artist.artist).then(songs => {
       setSongs({
         isFetching: false,
         songs,
       });
     });
-  }
+  };
 
   const { isFetching, songs } = data;
 

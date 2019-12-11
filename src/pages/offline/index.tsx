@@ -15,7 +15,7 @@ import { AddToQueueIcon } from '../../containers/AddToQueueIcon';
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-function TabNavigator() {
+const TabNavigator = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -36,7 +36,7 @@ function TabNavigator() {
       <Tab.Screen name="Album" component={AlbumScreen} />
     </Tab.Navigator>
   );
-}
+};
 
 export default function RootStack() {
   const theme = useTheme();

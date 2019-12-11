@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme, IconButton } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from 'react-native';
@@ -17,7 +17,7 @@ import { PlaylistOptions } from '../../containers/PlaylistOptions';
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-function TabNavigator() {
+const TabNavigator = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -38,9 +38,9 @@ function TabNavigator() {
       <Tab.Screen name="Album" component={AlbumScreen} />
     </Tab.Navigator>
   );
-}
+};
 
-export default function RootStack() {
+export const ExploreStack = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -106,4 +106,4 @@ export default function RootStack() {
       />
     </Stack.Navigator>
   );
-}
+};

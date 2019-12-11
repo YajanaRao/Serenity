@@ -2,6 +2,7 @@ import React from 'react';
 import { Subheading } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import { ThemedIcon } from './ThemedIcon';
+import { Screen } from './Screen';
 
 const CONTAINER: ViewStyle = {
   flex: 1,
@@ -12,9 +13,11 @@ const CONTAINER: ViewStyle = {
 
 export const EmptyPlaylist = () => {
   return (
-    <View style={CONTAINER}>
-      <ThemedIcon name="disc-alert" size={80} />
-      <Subheading style={{ textAlign: 'center' }}>Empty playlists</Subheading>
-    </View>
+    <Screen>
+      <View style={CONTAINER}>
+        <ThemedIcon name="disc-alert" size={80} />
+        <Subheading style={{ textAlign: 'center' }}>Empty playlists</Subheading>
+      </View>
+    </Screen>
   );
 };

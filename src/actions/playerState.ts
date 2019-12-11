@@ -55,7 +55,7 @@ export const setUpTrackPlayer = () => dispatch => {
 
 export const loadTrack = (track: TrackProps, playOnLoad = true) => dispatch => {
   try {
-    const path = track.path;
+    const { path } = track;
     if (path) {
       MediaPlayer.load(path).then(() => {
         if (playOnLoad) MediaPlayer.play();
@@ -183,8 +183,8 @@ export const destroyTrackPlayer = () => dispatch => {
   MediaPlayer.destroy();
   subscription.remove();
   dispatch({
-    type: 'STATUS',
     payload: 'paused',
+    type: 'STATUS',
   });
 };
 
@@ -207,16 +207,16 @@ export const addToQueue = (songs: TrackProps[] | TrackProps) => (
     dispatch(loadTrack(head(queue)));
   } else {
     dispatch({
-      type: 'NOTIFY',
       payload: `Added ${songs.length} songs to queue`,
+      type: 'NOTIFY',
     });
   }
 };
 
 export const removeFromQueue = (song: TrackProps) => dispatch => {
   dispatch({
-    type: 'REMOVE_QUEUE',
     payload: song,
+    type: 'REMOVE_QUEUE',
   });
 };
 
@@ -224,49 +224,49 @@ export const clearQueue = () => dispatch => {
   MediaPlayer.pause();
   clearAllSongs(QUEUE_ID);
   dispatch({
-    type: 'LOAD',
-    track: {},
     status: 'init',
+    track: {},
+    type: 'LOAD',
   });
 };
 
 export const addSongToFavorite = (song: TrackProps) => dispatch => {
   addSong(FAVOURITE_ID, song, true);
   dispatch({
-    type: 'NOTIFY',
     payload: `Added song ${song.title}to favorites`,
+    type: 'NOTIFY',
   });
 };
 
 export const addAlbumToFavorite = (album: AlbumProps) => dispatch => {
   addAlbum(album);
   dispatch({
-    type: 'NOTIFY',
     payload: `Added album ${album.album} to favorite`,
+    type: 'NOTIFY',
   });
 };
 
 export const removeAlbumFromFavorite = (album: AlbumProps) => dispatch => {
   removeAlbum(album.id);
   dispatch({
-    type: 'NOTIFY',
     payload: `Album removed from favorites`,
+    type: 'NOTIFY',
   });
 };
 
 export const addToPlaylist = (id: string, song: TrackProps) => dispatch => {
   addSong(id, song);
   dispatch({
-    type: 'NOTIFY',
     payload: 'Added to the playlist',
+    type: 'NOTIFY',
   });
 };
 
 export const clearHistory = () => dispatch => {
   clearAllSongs(HISTORY_ID);
   dispatch({
-    type: 'NOTIFY',
     payload: 'Cleared history',
+    type: 'NOTIFY',
   });
 };
 

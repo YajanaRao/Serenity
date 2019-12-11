@@ -5,9 +5,9 @@ import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import OfflineScreen from './offline';
-import SearchScreen from './search';
+import { SearchStack } from './search';
 import { HomeStack } from './home';
-import ExploreScreen from './explore';
+import { ExploreStack } from './explore';
 import PlayerScreen from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { Screen } from '../components/Screen';
@@ -37,7 +37,7 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="Search"
-        component={SearchScreen}
+        component={SearchStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
@@ -50,7 +50,7 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="Explore"
-        component={ExploreScreen}
+        component={ExploreStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton

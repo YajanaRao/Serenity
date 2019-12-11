@@ -13,7 +13,7 @@ import { DefaultImage } from '../../components/DefaultImage';
 import { AlbumProps } from '../../types';
 import { RootReducerType } from '../../reducers';
 
-function Album({ navigation }) {
+const Album = ({ navigation }) => {
   const ref = useRef();
   const albums = useSelector(
     (state: RootReducerType) => state.mediaStore.albums,
@@ -26,11 +26,11 @@ function Album({ navigation }) {
     dispatch(getOfflineAlbums());
   }, []);
 
-  function fetchData() {
+  const fetchData = () => {
     setRefreshing(true);
     getOfflineAlbums();
     setRefreshing(false);
-  }
+  };
 
   if (!isEmpty(albums)) {
     return (
@@ -70,7 +70,7 @@ function Album({ navigation }) {
     );
   }
   return <Blank text="No offline songs found.." fetchData={fetchData} />;
-}
+};
 
 export default Album;
 

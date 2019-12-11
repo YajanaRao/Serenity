@@ -8,7 +8,7 @@ import { Header } from '../../components/Header';
 
 const Stack = createStackNavigator();
 
-export default function RootStack() {
+export const SearchStack = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -46,4 +46,4 @@ export default function RootStack() {
       />
     </Stack.Navigator>
   );
-}
+};

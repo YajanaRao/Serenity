@@ -17,7 +17,7 @@ interface GenreProps {
   };
 }
 
-function Search({ navigation }) {
+const Search = ({ navigation }) => {
   const ref = useRef();
   useScrollToTop(ref);
   const searchResult = useSelector(
@@ -74,7 +74,7 @@ function Search({ navigation }) {
       )}
     </Screen>
   );
-}
+};
 
 export default Search;
 
