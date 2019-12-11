@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
+
 import { addToQueue } from '../../actions/playerState';
 import { filterSongsByGenre } from '../../actions/mediaStore';
 import { SongListContainer } from '../../containers/SongListContainer';
 import { Screen } from '../../components/Screen';
 import { NavigationScreenProps } from '../../types';
+import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
 const Filter = ({ navigation, route }: NavigationScreenProps) => {
   const [songs, setSongs] = useState([]);
@@ -26,6 +29,10 @@ const Filter = ({ navigation, route }: NavigationScreenProps) => {
   };
 
   const { genre } = route.params;
+
+  if (isEmpty(songs)) {
+    return <EmptyPlaylist />;
+  }
 
   return (
     <Screen>
