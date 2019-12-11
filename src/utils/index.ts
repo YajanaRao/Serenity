@@ -1,4 +1,4 @@
-const fetchLyrics = (artistName, songName) => {
+const fetchLyrics = (artistName: string, songName: string) => {
   const uri = `https://azlyrics.com/lyrics/${artistName}/${songName}.html`;
   fetch(uri)
     .then(response => {

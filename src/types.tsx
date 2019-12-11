@@ -28,3 +28,9 @@ export interface NavigationScreenProps {
   navigation?: any;
   route?: any;
 }
+
+export interface PlaylistProps {
+  id: string;
+  name: string;
+  owner: string;
+}
