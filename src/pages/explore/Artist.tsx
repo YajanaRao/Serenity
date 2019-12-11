@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FlatList } from 'react-native';
 import { Avatar, List } from 'react-native-paper';
 import remove from 'lodash/remove';
+import { useScrollToTop } from '@react-navigation/native';
 
 import { FollowArtistDialog } from '../../containers/FollowArtistDialog';
 import { addArtist, getArtists } from '../../actions/realmAction';
@@ -10,6 +11,8 @@ import { Screen } from '../../components/Screen';
 import { ArtistProps } from '../../types';
 
 export const ArtistScreen = ({ navigation }) => {
+  const ref = useRef();
+  useScrollToTop(ref);
   const realmArtists = getArtists();
 
   const [favArtists, setFavArtists] = useState([]);
@@ -66,6 +69,7 @@ export const ArtistScreen = ({ navigation }) => {
   return (
     <Screen>
       <FlatList
+        ref={ref}
         ListHeaderComponent={() => (
           <List.Item
             title="Add artist"

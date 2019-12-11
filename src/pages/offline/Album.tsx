@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Divider, List } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, RefreshControl, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { isEmpty } from 'lodash';
+import { useScrollToTop } from '@react-navigation/native';
+
 import { getOfflineAlbums } from '../../actions/mediaStore';
 import { Blank } from '../../components/Blank';
 import { Screen } from '../../components/Screen';
 import { DefaultImage } from '../../components/DefaultImage';
 import { AlbumProps } from '../../types';
+import { RootReducerType } from '../../reducers';
 
 function Album({ navigation }) {
-  const albums = useSelector((state: any) => state.mediaStore.albums);
+  const ref = useRef();
+  const albums = useSelector(
+    (state: RootReducerType) => state.mediaStore.albums,
+  );
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
+  useScrollToTop(ref);
 
   useEffect(() => {
     dispatch(getOfflineAlbums());
@@ -29,6 +36,7 @@ function Album({ navigation }) {
     return (
       <Screen>
         <FlatList
+          ref={ref}
           data={albums}
           ItemSeparatorComponent={() => <Divider inset />}
           refreshControl={

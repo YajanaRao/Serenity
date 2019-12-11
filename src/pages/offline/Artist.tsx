@@ -17,7 +17,7 @@ interface ItemProps {
   item: ArtistProps;
 }
 
-function Artist({ navigation }: any) {
+function Artist({ navigation }) {
   const artists = useSelector((state: any) => state.mediaStore.artists);
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);

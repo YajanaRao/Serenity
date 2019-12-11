@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Divider, Button, List, IconButton } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -24,12 +24,15 @@ import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { TrackProps } from '../../types';
 import { TrackMenu } from '../../components/TrackMenu';
 import { RootReducerType } from '../../reducers';
+import { useScrollToTop } from '@react-navigation/native';
 
 interface ItemProps {
   item: TrackProps;
 }
 
 export const SongScreen = () => {
+  const ref = useRef();
+  useScrollToTop(ref);
   const [visible, setVisible] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [song, setSong] = useState();
@@ -108,6 +111,7 @@ export const SongScreen = () => {
           contextualMenuCoord={cord}
         />
         <FlatList
+          ref={ref}
           data={songs}
           ListHeaderComponent={() => (
             <View style={styles.container}>

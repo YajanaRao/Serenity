@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { Subheading, Title, Divider } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
@@ -8,6 +8,7 @@ import { Screen } from '../../components/Screen';
 import { TrackContainer } from '../../containers/TrackContainer';
 import { TrackProps } from '../../types.js';
 import { RootReducerType } from '../../reducers/index.js';
+import { useScrollToTop } from '@react-navigation/native';
 
 interface GenreProps {
   item: {
@@ -17,6 +18,8 @@ interface GenreProps {
 }
 
 function Search({ navigation }) {
+  const ref = useRef();
+  useScrollToTop(ref);
   const searchResult = useSelector(
     (state: RootReducerType) => state.query.searchResult,
   );
@@ -35,6 +38,7 @@ function Search({ navigation }) {
         />
       ) : (
         <FlatList
+          ref={ref}
           key="Genre"
           data={Genre}
           keyExtractor={(item, index) => index.toString()}
