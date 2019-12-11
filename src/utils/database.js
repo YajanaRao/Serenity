@@ -6,10 +6,10 @@ export const deserializeSongs = realmObject => {
     return values(realmObject).map(item => ({
       id: item.id,
       title: item.title,
-      artwork: item.artwork,
+      cover: item.cover,
       artist: item.artist,
       album: item.album,
-      url: item.url ? item.url : item.path,
+      path: item.path,
     }));
   } catch (error) {
     log(`deserializeSongs: ${error}`);

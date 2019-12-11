@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   centerContainer: {
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
@@ -78,6 +79,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    margin: 12,
+    margin: 16,
   },
 });

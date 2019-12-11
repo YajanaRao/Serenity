@@ -275,7 +275,6 @@ export const isArtistPresent = (id: string) => {
 
 export const addAlbum = (album: AlbumProps) => {
   try {
-    console.log(album);
     realm.write(() => {
       realm.create(ALBUM_SCHEMA_NAME, {
         id: album.id.toString(),

@@ -4,12 +4,7 @@ import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import { DefaultImage } from './DefaultImage';
-
-interface TrackProps {
-  artwork: string;
-  title: string;
-  artist: string;
-}
+import { TrackProps } from '../types';
 
 interface TrackScrollViewProps {
   data: TrackProps[];
@@ -26,10 +21,10 @@ export const TrackScrollView = ({ data, play }: TrackScrollViewProps) => {
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => (
         <TouchableOpacity style={styles.item} onPress={() => play(item)}>
-          {item.artwork ? (
+          {item.cover ? (
             <FastImage
               source={{
-                uri: item.artwork,
+                uri: item.cover,
               }}
               style={styles.photo}
             />

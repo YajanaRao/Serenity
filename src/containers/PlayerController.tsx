@@ -9,17 +9,20 @@ import {
   skipToPrevious,
   pauseTrack,
 } from '../actions/playerState';
+import { RootReducerType } from '../reducers';
 
 export const PlayerController = () => {
   const dispatch = useDispatch();
-  const status = useSelector((state: any) => state.playerState.status);
+  const status = useSelector(
+    (state: RootReducerType) => state.playerState.status,
+  );
 
   const previous = () => {
-    dispatch(skipToPrevious);
+    dispatch(skipToPrevious());
   };
 
   const next = () => {
-    dispatch(skipToNext);
+    dispatch(skipToNext());
   };
 
   const togglePlayback = () => {

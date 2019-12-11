@@ -55,9 +55,9 @@ export const setUpTrackPlayer = () => dispatch => {
 
 export const loadTrack = (track: TrackProps, playOnLoad = true) => dispatch => {
   try {
-    const url = track.path;
-    if (url) {
-      MediaPlayer.load(url).then(() => {
+    const path = track.path;
+    if (path) {
+      MediaPlayer.load(path).then(() => {
         if (playOnLoad) MediaPlayer.play();
       });
       dispatch({
