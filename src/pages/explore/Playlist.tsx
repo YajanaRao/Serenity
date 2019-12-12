@@ -17,7 +17,7 @@ export const PlaylistScreen = ({
 }: {
   navigation: NavigationScreenProps;
 }) => {
-  const realmPlaylists = getAllPlaylists();
+  let realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
@@ -67,8 +67,8 @@ export const PlaylistScreen = ({
 
   const onRefresh = () => {
     setRefreshing(true);
-    const updatePlaylists = getAllPlaylists();
-    const updatedList = deserializePlaylists(updatePlaylists);
+    realmPlaylists = getAllPlaylists();
+    const updatedList = deserializePlaylists(realmPlaylists);
     setPlaylists(updatedList);
     setRefreshing(false);
   };

@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { RootScreen } from './pages/Root';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
-import log from './utils/logging';
+import { log } from './utils/logging';
 
 export const RootNavigator = () => {
   const themeType = useSelector(

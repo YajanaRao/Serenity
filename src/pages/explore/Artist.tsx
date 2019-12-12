@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { Avatar, List } from 'react-native-paper';
 import remove from 'lodash/remove';
 import { useScrollToTop } from '@react-navigation/native';
+import generate from 'string-to-color';
 
 import { FollowArtistDialog } from '../../containers/FollowArtistDialog';
 import { addArtist, getArtists } from '../../actions/realmAction';
@@ -12,11 +13,12 @@ import { ArtistProps } from '../../types';
 
 export const ArtistScreen = ({ navigation }) => {
   const ref = useRef();
+  let followArtists: ArtistProps[] = [];
   useScrollToTop(ref);
-  const realmArtists = getArtists();
+  let realmArtists = getArtists();
 
-  const [favArtists, setFavArtists] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [artists, setArtists] = useState(() => {
     return deserializeArtists(realmArtists);
   });
@@ -41,29 +43,36 @@ export const ArtistScreen = ({ navigation }) => {
   }, [realmArtists]);
 
   const selectArtist = (artist: ArtistProps) => {
-    const uArtists = favArtists;
-    uArtists.push(artist);
-    setFavArtists(uArtists);
+    followArtists.push(artist);
   };
 
   const removeArtist = (artist: ArtistProps) => {
-    const uArtists = remove(favArtists, function(item: ArtistProps) {
+    remove(followArtists, (item: ArtistProps) => {
       return item.id === artist.id;
     });
-    setFavArtists(uArtists);
   };
 
   const addArtists = () => {
-    favArtists.forEach((artist: ArtistProps) => addArtist(artist));
+    followArtists.forEach((artist: ArtistProps) => addArtist(artist));
     hideDialog();
   };
 
   const showDialog = () => {
+    followArtists = [];
     setVisible(true);
   };
 
   const hideDialog = () => {
+    followArtists = [];
     setVisible(false);
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    realmArtists = getArtists();
+    const updatedList = deserializeArtists(realmArtists);
+    setArtists(updatedList);
+    setRefreshing(false);
   };
 
   return (
@@ -88,7 +97,12 @@ export const ArtistScreen = ({ navigation }) => {
         renderItem={({ item }: { item: ArtistProps }) => (
           <List.Item
             title={item.name}
-            left={() => <Avatar.Image source={{ uri: item.cover }} />}
+            left={() => (
+              <Avatar.Text
+                style={{ backgroundColor: generate(item.name) }}
+                label={item.name.charAt(0)}
+              />
+            )}
             onPress={() => {
               navigation.navigate('ArtistSongs', {
                 artist: item,
@@ -96,6 +110,9 @@ export const ArtistScreen = ({ navigation }) => {
             }}
           />
         )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
       <FollowArtistDialog
         visible={visible}

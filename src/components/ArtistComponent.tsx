@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Avatar, Badge, List } from 'react-native-paper';
 import { View } from 'react-native';
+import generate from 'string-to-color';
 import { ArtistProps } from '../types';
 
 interface Props {
@@ -37,7 +38,10 @@ export const ArtistComponent = ({ item, addArtist, removeArtist }: Props) => {
             size={24}
             visible={selected}
           />
-          <Avatar.Image source={{ uri: item.cover }} style={{ margin: 0 }} />
+          <Avatar.Text
+            style={{ backgroundColor: generate(item.name), margin: 0 }}
+            label={item.artist.charAt(0)}
+          />
         </View>
       )}
       onPress={selectArtits}

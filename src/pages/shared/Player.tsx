@@ -8,7 +8,9 @@ import { RepeatContainer } from '../../containers/RepeatContainer';
 import { PlayerController } from '../../containers/PlayerController';
 import { Progress } from '../../components/ProgressBar';
 import { Screen } from '../../components/Screen';
-import { ActiveTrackDetails } from '../../containers/ActiveTrackDetails';
+import { ActiveTrackDetails } from '../../components/ActiveTrackDetails';
+import { RootReducerType } from '../../reducers';
+import { useSelector } from 'react-redux';
 
 interface PlayerProps {
   navigation: any;
@@ -18,6 +20,10 @@ export const PlayerScreen = ({ navigation }) => {
   const close = () => {
     navigation.goBack();
   };
+
+  const active = useSelector(
+    (state: RootReducerType) => state.playerState.active,
+  );
 
   return (
     <Screen>
@@ -30,12 +36,12 @@ export const PlayerScreen = ({ navigation }) => {
                         onPress={() => this.props.navigation.goBack()}
                     /> */}
           </View>
-          <ActiveTrackDetails />
+          <ActiveTrackDetails track={active} />
           <View style={styles.centerContainer}>
             <Progress />
           </View>
           <View style={styles.playerToolbox}>
-            <FavContainer type="song" />
+            <FavContainer item={active} type="song" />
             <PlayerController />
             <RepeatContainer />
           </View>

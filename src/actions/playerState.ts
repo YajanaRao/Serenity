@@ -15,7 +15,7 @@ import {
   unshiftSong,
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
-import log from '../utils/logging';
+import { log } from '../utils/logging';
 import { TrackProps, AlbumProps } from '../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
@@ -196,10 +196,10 @@ export const addToQueue = (songs: TrackProps[] | TrackProps) => (
 ) => {
   if (Array.isArray(songs)) {
     songs.forEach(song => {
-      addSong(QUEUE_ID, song);
+      addSong(QUEUE_ID, song, true);
     });
   } else {
-    addSong(QUEUE_ID, songs);
+    addSong(QUEUE_ID, songs, true);
   }
 
   if (isEmpty(getState().playerState.active)) {
@@ -231,6 +231,7 @@ export const clearQueue = () => dispatch => {
 };
 
 export const addSongToFavorite = (song: TrackProps) => dispatch => {
+  console.log(song);
   addSong(FAVOURITE_ID, song, true);
   dispatch({
     payload: `Added song ${song.title}to favorites`,

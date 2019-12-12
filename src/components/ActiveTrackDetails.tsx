@@ -1,28 +1,28 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import { Subheading, Title } from 'react-native-paper';
-import { DefaultImage } from '../components/DefaultImage';
-import { RootReducerType } from '../reducers';
+import { DefaultImage } from './DefaultImage';
+import { TrackProps } from '../types';
 
-export const ActiveTrackDetails = () => {
-  const active = useSelector(
-    (state: RootReducerType) => state.playerState.active,
-  );
+interface Props {
+  track: TrackProps;
+}
+
+export const ActiveTrackDetails = ({ track }: Props) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.centerContainer}>
-        {active.cover ? (
-          <FastImage source={{ uri: active.cover }} style={[styles.artCover]} />
+        {track.cover ? (
+          <FastImage source={{ uri: track.cover }} style={[styles.artCover]} />
         ) : (
           <DefaultImage style={styles.artCover} />
         )}
       </View>
       <View style={styles.centerContainer}>
-        <Title numberOfLines={1}>{active.title}</Title>
+        <Title numberOfLines={1}>{track.title}</Title>
         <Subheading numberOfLines={1}>
-          {active.artist ? active.artist : active.album}
+          {track.artist ? track.artist : track.album}
         </Subheading>
       </View>
     </View>

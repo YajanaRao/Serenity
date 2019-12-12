@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ViewProps } from 'react-native';
 
 import {
@@ -16,17 +16,16 @@ import {
 } from '../actions/realmAction';
 import { Fav } from '../components/Fav';
 import { Follow } from '../components/Follow';
-import { AlbumProps } from '../types';
+import { AlbumProps, ArtistProps, TrackProps } from '../types';
 
 interface Props {
   type: string;
   style?: ViewProps;
-  item?: AlbumProps;
+  item: AlbumProps | ArtistProps | TrackProps;
 }
 
 export const FavContainer = ({ type = 'song', style, item }: Props) => {
   const [liked, setLiked] = useState(false);
-  const active = useSelector((state: any) => state.playerState.active);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,24 +37,24 @@ export const FavContainer = ({ type = 'song', style, item }: Props) => {
       if (isArtistPresent(item.id)) {
         setLiked(true);
       }
-    } else if (isSongPresent(active.id)) {
+    } else if (isSongPresent(item.id)) {
       setLiked(true);
     }
   }, []);
 
   const addArtistToFavorite = () => {
-    addArtist(active);
+    addArtist(item);
     setLiked(true);
   };
 
   const removeArtistFromFav = () => {
-    removeArtist(active.id);
+    removeArtist(item.id);
     setLiked(false);
   };
 
   const addToFavorite = () => {
     if (type === 'song') {
-      dispatch(addSongToFavorite(active));
+      dispatch(addSongToFavorite(item));
     } else if (type === 'album') {
       dispatch(addAlbumToFavorite(item));
     }
@@ -65,7 +64,7 @@ export const FavContainer = ({ type = 'song', style, item }: Props) => {
 
   const removeFromFavorite = () => {
     if (type === 'album') {
-      dispatch(removeAlbumFromFavorite(active));
+      dispatch(removeAlbumFromFavorite(item));
     }
     setLiked(false);
   };

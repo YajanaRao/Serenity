@@ -4,7 +4,7 @@ import groupBy from 'lodash/groupBy';
 import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 
-import log from '../utils/logging';
+import { log } from '../utils/logging';
 import { TrackProps } from '../types';
 
 function formatter(media: TrackProps[]) {
