@@ -2,8 +2,8 @@ import React from 'react';
 import { useTheme, IconButton } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Filter from '../shared/Filter';
-import Search from './Search';
+import { FilterScreen } from '../shared/Filter';
+import { SearchScreen } from './Search';
 import { Header } from '../../components/Header';
 
 const Stack = createStackNavigator();
@@ -22,14 +22,14 @@ export const SearchStack = () => {
     >
       <Stack.Screen
         name="Search"
-        component={Search}
+        component={SearchScreen}
         options={{
           header: () => <Header />,
         }}
       />
       <Stack.Screen
         name="Filter"
-        component={Filter}
+        component={FilterScreen}
         options={({ route }) => {
           const { genre } = route.params;
           const { addToQueue } = route.params;

@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import OfflineScreen from './offline';
+import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import { HomeStack } from './home';
 import { ExploreStack } from './explore';
-import PlayerScreen from './shared/Player';
+import { PlayerScreen } from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { Screen } from '../components/Screen';
 
@@ -63,7 +63,7 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="Offline"
-        component={OfflineScreen}
+        component={OfflineStack}
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton

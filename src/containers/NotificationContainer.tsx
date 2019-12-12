@@ -17,8 +17,8 @@ class NotificationContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      visible: false,
       result: '',
+      visible: false,
     };
   }
 

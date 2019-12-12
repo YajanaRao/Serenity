@@ -9,7 +9,7 @@ import { Screen } from '../../components/Screen';
 import { NavigationScreenProps } from '../../types';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
-const Filter = ({ navigation, route }: NavigationScreenProps) => {
+export const FilterScreen = ({ navigation, route }: NavigationScreenProps) => {
   const [songs, setSongs] = useState([]);
   const dispatch = useDispatch();
 
@@ -45,5 +45,3 @@ const Filter = ({ navigation, route }: NavigationScreenProps) => {
     </Screen>
   );
 };
-
-export default Filter;

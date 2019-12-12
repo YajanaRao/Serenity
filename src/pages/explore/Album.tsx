@@ -9,7 +9,7 @@ import { getAlbums } from '../../actions/realmAction';
 import { deserializeAlbums } from '../../utils/database';
 import { AlbumProps } from '../../types';
 
-const Album = ({ navigation }) => {
+export const AlbumScreen = ({ navigation }) => {
   const realmAlbums = getAlbums();
 
   const [albums, setAlbums] = useState(() => {
@@ -66,5 +66,3 @@ const Album = ({ navigation }) => {
     </Screen>
   );
 };
-
-export default Album;

@@ -5,7 +5,7 @@ import { SongListContainer } from '../../containers/SongListContainer';
 import { Screen } from '../../components/Screen';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
-const AlbumSongs = ({ route }) => {
+export const AlbumSongs = ({ route }) => {
   const { album } = route.params;
   const [data, setSongs] = useState({
     isFetching: true,
@@ -40,5 +40,3 @@ const AlbumSongs = ({ route }) => {
     </Screen>
   );
 };
-
-export default AlbumSongs;

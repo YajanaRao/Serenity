@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Paragraph, Dialog, Portal } from 'react-native-paper';
 
 interface AlertProps {

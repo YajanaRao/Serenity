@@ -5,7 +5,6 @@ import { View, RefreshControl, FlatList } from 'react-native';
 import {
   createPlaylist,
   getAllPlaylists,
-  getFavoriteSongs,
   getPlaylistSongs,
 } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
@@ -13,7 +12,11 @@ import { Screen } from '../../components/Screen';
 import { PlaylistProps, NavigationScreenProps } from '../../types';
 import { Collection } from 'realm';
 
-const Playlist = ({ navigation }: { navigation: NavigationScreenProps }) => {
+export const PlaylistScreen = ({
+  navigation,
+}: {
+  navigation: NavigationScreenProps;
+}) => {
   const realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -116,5 +119,3 @@ const Playlist = ({ navigation }: { navigation: NavigationScreenProps }) => {
     </Screen>
   );
 };
-
-export default Playlist;

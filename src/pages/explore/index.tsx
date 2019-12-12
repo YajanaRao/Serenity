@@ -4,12 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from 'react-native';
 
-import AlbumScreen from './Album';
+import { AlbumScreen } from './Album';
 import { ArtistScreen } from './Artist';
-import PlaylistScreen from './Playlist';
+import { PlaylistScreen } from './Playlist';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
-import AlbumSongs from '../shared/AlbumSongs';
-import ArtistSongs from '../shared/ArtistSongs';
+import { AlbumSongs } from '../shared/AlbumSongs';
+import { ArtistSongs } from '../shared/ArtistSongs';
 import { FavContainer } from '../../containers/FavContainer';
 import { AddToQueueIcon } from '../../containers/AddToQueueIcon';
 import { PlaylistOptions } from '../../containers/PlaylistOptions';

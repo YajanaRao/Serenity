@@ -14,7 +14,7 @@ interface PlayerProps {
   navigation: any;
 }
 
-const Player = ({ navigation }) => {
+export const PlayerScreen = ({ navigation }) => {
   const close = () => {
     navigation.goBack();
   };
@@ -48,8 +48,6 @@ const Player = ({ navigation }) => {
     </Screen>
   );
 };
-
-export default Player;
 
 const styles = StyleSheet.create({
   container: {

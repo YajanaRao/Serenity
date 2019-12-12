@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from 'react-native-paper';
 
 import { Quote } from '../components/Quote';
-import log from '../utils/logging';
+import { log } from '../utils/logging';
 
 export const QuoteContainer = () => {
   const [dataSource, setDataSource] = useState({});

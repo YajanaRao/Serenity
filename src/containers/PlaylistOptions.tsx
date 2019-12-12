@@ -17,7 +17,7 @@ import { StyleSheet, View, Dimensions, Alert } from 'react-native';
 import { addToQueue } from '../actions/playerState';
 import { DefaultImage } from '../components/DefaultImage';
 import { deletePlaylist, renamePlaylist } from '../actions/realmAction';
-import log, { logEvent } from '../utils/logging';
+import { log, logEvent } from '../utils/logging';
 import { RenamePlaylistDailog } from '../components/RenamePlaylistDailog';
 import { useDispatch } from 'react-redux';
 

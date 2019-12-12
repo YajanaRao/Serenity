@@ -4,11 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from 'react-native';
 
-import AlbumScreen from './Album';
-import ArtistScreen from './Artist';
+import { AlbumScreen } from './Album';
+import { ArtistScreen } from './Artist';
 import { SongScreen } from './Song';
-import AlbumSongs from '../shared/AlbumSongs';
-import ArtistSongs from '../shared/ArtistSongs';
+import { AlbumSongs } from '../shared/AlbumSongs';
+import { ArtistSongs } from '../shared/ArtistSongs';
 import { FavContainer } from '../../containers/FavContainer';
 import { AddToQueueIcon } from '../../containers/AddToQueueIcon';
 
@@ -38,7 +38,7 @@ const TabNavigator = () => {
   );
 };
 
-export default function RootStack() {
+export const OfflineStack = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -91,4 +91,4 @@ export default function RootStack() {
       />
     </Stack.Navigator>
   );
-}
+};

@@ -17,7 +17,7 @@ interface ItemProps {
   item: ArtistProps;
 }
 
-const Artist = ({ navigation }) => {
+export const ArtistScreen = ({ navigation }) => {
   const artists = useSelector((state: any) => state.mediaStore.artists);
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
@@ -66,5 +66,3 @@ const Artist = ({ navigation }) => {
   }
   return <Blank text="No offline Artists found.." fetchData={fetchData} />;
 };
-
-export default Artist;
