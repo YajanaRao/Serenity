@@ -11,6 +11,7 @@
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <p float="left">
+
      <img src="https://dl.dropboxusercontent.com/s/wxw2in2ikslg7f9/Screenshot_2019-10-23-23-33-42-998_com.serenity.png?dl=0"
           alt="homepage"
           height="320"
@@ -40,6 +41,7 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
          width="160"
          style="float: left; margin-right: 10px;"
      />
+
 </p>
 
 [Download app](https://appdistribution.firebase.dev/i/Dv8WUupp)
@@ -61,6 +63,7 @@ Serenity is a world class music player which focuses on giving wonderful experie
   > I think music in itself is healing. It’s an explosive expression of humanity. It’s something we are all touched by. No matter what culture we’re from, everyone loves music.
 
 - In the words of Albert Schweitzer
+
   > There are two means of refuge from the miseries of life: music and cats.
 
 ### Artificial Intelligence
@@ -71,6 +74,7 @@ Serenity is a world class music player which focuses on giving wonderful experie
 
 - > Beauty ain't always a little, cute colored flower. Beauty is anything where people be like, 'Damn.'
 - In the words of Yajana
+
   > When I admire the wonders of an Application or the beauty of the UI, my soul expands in the worship of the creator
 
 ## Pre-alpha release
@@ -103,13 +107,17 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Development Process
 
-    `git clone https://github.com/YajanaRao/Serenity.git`
+`git clone https://github.com/YajanaRao/Serenity.git`
 
-    `cd Serenity`
+`cd Serenity`
 
-    `yarn install` or `npm install`
+`yarn install` or `npm install`
 
-    `react-native run-android` or `yarn android` or `npm android`
+`react-native run-android` or `yarn android` or `npm android`
+
+## Our Community
+
+You can join [Telegram group](https://t.me/serenityapp)
 
 ## License
 
