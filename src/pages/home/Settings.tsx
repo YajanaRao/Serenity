@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import {
   Text,
   Switch,
@@ -12,9 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Screen } from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
+import { AlertDialog } from '../../components/AlertDialog';
 
 export const SettingScreen = () => {
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
   const radio = useSelector((state: any) => state.config.radio);
   const theme = useTheme();
   const { dark } = theme;
@@ -31,24 +33,24 @@ export const SettingScreen = () => {
     dispatch(changeRadioMode(!radio));
   };
 
+  const showAlert = () => {
+    setVisible(true);
+  };
+
   const clearData = () => {
-    Alert.alert(
-      'Clear History',
-      'Do you want to clear your history ?',
-      [
-        { text: 'Yes', onPress: () => dispatch(clearHistory()) },
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    );
+    dispatch(clearHistory());
+    setVisible(false);
   };
 
   return (
     <Screen>
+      <AlertDialog
+        visible={visible}
+        title="Clear History"
+        message="Do you want to clear your history ?"
+        action={clearData}
+        hideDialog={() => setVisible(false)}
+      />
       <ScrollView>
         <Drawer.Section title="Preferences">
           <TouchableRipple onPress={() => toggleTheme(dark)}>
@@ -69,7 +71,7 @@ export const SettingScreen = () => {
           </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
-          <TouchableRipple onPress={clearData}>
+          <TouchableRipple onPress={showAlert}>
             <View style={styles.preference}>
               <Text>Clear history</Text>
               {/* <View pointerEvents="none">

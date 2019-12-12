@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Surface, Title, IconButton, Divider } from 'react-native-paper';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { deserializeSongs } from '../utils/database';
 import { getQueuedSongs } from '../actions/realmAction';
@@ -11,6 +11,7 @@ import { clearQueue, removeFromQueue } from '../actions/playerState';
 import { FavContainer } from './FavContainer';
 import { TrackContainer } from './TrackContainer';
 import { TrackProps } from '../types';
+import { AlertDialog } from '../components/AlertDialog';
 
 interface Props {
   close(): void;
@@ -24,6 +25,7 @@ export const QueueContainer = ({ close }: Props) => {
   const realmSongs = getQueuedSongs();
   const dispatch = useDispatch();
 
+  const [visible, setVisible] = useState(false);
   const [queue, setQueue] = useState(() => {
     return deserializeSongs(realmSongs);
   });
@@ -47,61 +49,57 @@ export const QueueContainer = ({ close }: Props) => {
     };
   }, [realmSongs]);
 
-  const clearPlaylist = () => {
-    Alert.alert(
-      'Clear Queue',
-      'Clear queue would stop current playing song',
-      [
-        {
-          onPress: () => {
-            close();
-            dispatch(clearQueue());
-          },
-          text: 'Yes',
-        },
-        {
-          onPress: () => console.log('Cancel Pressed'),
-          text: 'Cancel',
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    );
+  const openAlert = () => {
+    setVisible(true);
+  };
+
+  const clearQueueSongs = () => {
+    dispatch(clearQueue());
+    close();
   };
 
   if (!isEmpty(queue)) {
     return (
-      <SwipeListView
-        data={queue}
-        ListHeaderComponent={() => (
-          <View style={styles.rowContainer}>
-            <Title style={{ padding: 10 }}>Queue</Title>
-            <IconButton
-              icon="delete"
-              // size={40}
-              onPress={clearPlaylist}
-            />
-          </View>
-        )}
-        renderItem={({ item }: ItemProps) => <TrackContainer track={item} />}
-        ItemSeparatorComponent={() => <Divider inset />}
-        keyExtractor={(item, index) => index.toString()}
-        renderHiddenItem={({ item }) => (
-          <Surface style={styles.rowBack}>
-            <IconButton
-              icon="delete"
-              color="#dd1818"
-              onPress={() => dispatch(removeFromQueue(item))}
-            />
-            <FavContainer type="song" item={item} />
-          </Surface>
-        )}
-        leftOpenValue={75}
-        rightOpenValue={-75}
-        closeOnRowPress
-        closeOnRowOpen
-        useNativeDriver
-      />
+      <View>
+        <AlertDialog
+          visible={visible}
+          hideDialog={() => setVisible(false)}
+          action={clearQueueSongs}
+          title="Clear Queue"
+          message="Clear queue would stop current playing song"
+        />
+        <SwipeListView
+          data={queue}
+          ListHeaderComponent={() => (
+            <View style={styles.rowContainer}>
+              <Title style={{ padding: 10 }}>Queue</Title>
+              <IconButton
+                icon="delete"
+                // size={40}
+                onPress={openAlert}
+              />
+            </View>
+          )}
+          renderItem={({ item }: ItemProps) => <TrackContainer track={item} />}
+          ItemSeparatorComponent={() => <Divider inset />}
+          keyExtractor={(item, index) => index.toString()}
+          renderHiddenItem={({ item }) => (
+            <Surface style={styles.rowBack}>
+              <IconButton
+                icon="delete"
+                color="#dd1818"
+                onPress={() => dispatch(removeFromQueue(item))}
+              />
+              <FavContainer type="song" item={item} />
+            </Surface>
+          )}
+          leftOpenValue={75}
+          rightOpenValue={-75}
+          closeOnRowPress
+          closeOnRowOpen
+          useNativeDriver
+        />
+      </View>
     );
   }
   return false;
