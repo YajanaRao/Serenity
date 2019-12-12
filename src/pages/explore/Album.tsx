@@ -17,7 +17,7 @@ export const AlbumScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
-    function listener(albums: AlbumProps, changes: any) {
+    const listener = (albums: AlbumProps, changes: any) => {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||
@@ -26,7 +26,7 @@ export const AlbumScreen = ({ navigation }) => {
         const album = deserializeAlbums(albums);
         setAlbums(album);
       }
-    }
+    };
     if (realmAlbums !== undefined) {
       realmAlbums.addListener(listener);
     }

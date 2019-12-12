@@ -11,9 +11,9 @@ import { mostPlayedSongs } from '../actions/mediaStore';
 export const ShortCutContainer = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  function mostPlayed() {
+  const mostPlayed = () => {
     return mostPlayedSongs(getPlayedSongs());
-  }
+  };
 
   const navigateToHistory = React.useMemo(
     () => () => {

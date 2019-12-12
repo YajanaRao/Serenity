@@ -1,16 +1,17 @@
 import { combineReducers } from 'redux';
 import { concat, remove, union } from 'lodash';
+import { TrackProps } from '../types';
 
 const INITIAL_QUERY = {
-  searchResult: false,
   message: null,
+  searchResult: false,
 };
 
 const INITIAL_CONFIG = {
-  themeType: 'dark',
+  radio: false,
   repeat: 'repeat-all',
   setup: false,
-  radio: false,
+  themeType: 'dark',
 };
 
 const INITIAL_STATE = {
@@ -19,20 +20,20 @@ const INITIAL_STATE = {
 };
 
 const DASHBOARD_STATE = {
-  topAlbums: [],
-  topTracks: [],
-  topArtists: [],
   charts: [],
   genres: [],
-  newAlbums: [],
-  topKannada: [],
   hot100: [],
+  newAlbums: [],
+  topAlbums: [],
+  topArtists: [],
+  topKannada: [],
+  topTracks: [],
 };
 
 const INITIAL_STORE = {
-  songs: [],
-  artists: [],
   albums: [],
+  artists: [],
+  songs: [],
 };
 
 // FIXME: Javascript implementation
@@ -42,8 +43,8 @@ export const mediaStoreReducer = (state = INITIAL_STORE, action) => {
     case 'DOWNLOAD':
       return {
         ...state,
-        songs: concat(action.payload, state.songs),
         result: `${action.payload.title} downloaded successfully`,
+        songs: concat(action.payload, state.songs),
       };
 
     case 'OFFLINE_SONGS':
@@ -106,7 +107,7 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
     case 'REMOVE_FROM_FAVORITE':
       return {
         ...state,
-        favorite: remove(state.favorite, function(n) {
+        favorite: remove(state.favorite, (n: TrackProps) => {
           return n.id !== action.payload.id;
         }),
         result: `Removed ${action.payload.title} from favorites`,
@@ -160,60 +161,11 @@ export const configReducer = (state = INITIAL_CONFIG, action) => {
   }
 };
 
-const dashboardReducer = (state = DASHBOARD_STATE, action) => {
-  switch (action.type) {
-    case 'TOP_ALBUMS':
-      return {
-        ...state,
-        topAlbums: action.payload,
-      };
-    case 'TOP_TRACKS':
-      return {
-        ...state,
-        topTracks: action.payload,
-      };
-    case 'TOP_ARTISTS':
-      return {
-        ...state,
-        topArtists: action.payload,
-      };
-    case 'JIO_SAVAN_CHARTS':
-      return {
-        ...state,
-        charts: action.payload,
-      };
-    case 'JIO_SAVAN_GENRES':
-      return {
-        ...state,
-        genres: action.payload,
-      };
-    case 'JIO_SAVAN_NEW_ALBUMS':
-      return {
-        ...state,
-        newAlbums: action.payload,
-      };
-    case 'TOP_KANNADA':
-      return {
-        ...state,
-        topKannada: action.payload,
-      };
-    case 'HOT_100':
-      return {
-        ...state,
-        hot100: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-const RootReducer = combineReducers({
-  query: queryReducer,
+export const RootReducer = combineReducers({
   config: configReducer,
-  playerState: playerStateReducer,
   mediaStore: mediaStoreReducer,
+  playerState: playerStateReducer,
+  query: queryReducer,
 });
-
-export default RootReducer;
 
 export type RootReducerType = ReturnType<typeof RootReducer>;

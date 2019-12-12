@@ -30,18 +30,18 @@ export const ActiveTrackDetails = () => {
 };
 
 const styles = StyleSheet.create({
-  centerContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
   artCover: {
-    width: Dimensions.get('window').width - 50,
+    borderRadius: 12,
+    elevation: 4,
     height: Dimensions.get('window').width - 50,
     maxHeight: 300,
     maxWidth: 300,
-    borderRadius: 12,
-    elevation: 4,
+    width: Dimensions.get('window').width - 50,
+  },
+  centerContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
 });

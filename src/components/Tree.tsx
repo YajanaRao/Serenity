@@ -22,14 +22,14 @@ export const Tree = ({ message }: TreeProps) => {
 };
 
 const styles = StyleSheet.create({
-  icons: {
-    width: 209,
-    height: 220,
-    borderRadius: 4,
-  },
   container: {
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 16,
+  },
+  icons: {
+    borderRadius: 4,
+    height: 220,
+    width: 209,
   },
 });

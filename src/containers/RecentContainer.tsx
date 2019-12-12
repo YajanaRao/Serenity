@@ -19,7 +19,7 @@ export const RecentContainer = () => {
   });
   const dispatch = useDispatch();
   useEffect(() => {
-    function listener(songs: TrackProps, changes: any) {
+    const listener = (songs: TrackProps, changes: any) => {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||
@@ -28,14 +28,14 @@ export const RecentContainer = () => {
         const song = deserializeSongs(songs);
         setHistory(song);
       }
-    }
+    };
     if (realmSongs !== undefined) {
       realmSongs.addListener(listener);
     }
     return () => {
       realmSongs.removeListener(listener);
     };
-  }, []);
+  }, [realmSongs]);
 
   const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
@@ -50,8 +50,8 @@ export const RecentContainer = () => {
       owner: 'Serenity',
     };
     navigation.navigate('Playlist', {
-      playlist,
       fetchSongs: () => history,
+      playlist,
     });
   };
 
