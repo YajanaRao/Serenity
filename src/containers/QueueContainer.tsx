@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Surface, Title, IconButton, Divider } from 'react-native-paper';
@@ -11,7 +11,6 @@ import { clearQueue, removeFromQueue } from '../actions/playerState';
 import { FavContainer } from './FavContainer';
 import { TrackContainer } from './TrackContainer';
 import { TrackProps } from '../types';
-import { RootReducerType } from '../reducers';
 
 interface Props {
   close(): void;
@@ -24,16 +23,13 @@ interface ItemProps {
 export const QueueContainer = ({ close }: Props) => {
   const realmSongs = getQueuedSongs();
   const dispatch = useDispatch();
-  const active: TrackProps = useSelector(
-    (state: RootReducerType) => state.playerState.active,
-  );
 
   const [queue, setQueue] = useState(() => {
     return deserializeSongs(realmSongs);
   });
 
   useEffect(() => {
-    function listener(songs: TrackProps, changes: any) {
+    const listener = (songs: TrackProps, changes: any) => {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||
@@ -42,7 +38,7 @@ export const QueueContainer = ({ close }: Props) => {
         const song = deserializeSongs(songs);
         setQueue(song);
       }
-    }
+    };
     if (realmSongs !== undefined) {
       realmSongs.addListener(listener);
     }
@@ -57,15 +53,15 @@ export const QueueContainer = ({ close }: Props) => {
       'Clear queue would stop current playing song',
       [
         {
-          text: 'Yes',
           onPress: () => {
             close();
             dispatch(clearQueue());
           },
+          text: 'Yes',
         },
         {
-          text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
+          text: 'Cancel',
           style: 'cancel',
         },
       ],
@@ -97,7 +93,7 @@ export const QueueContainer = ({ close }: Props) => {
               color="#dd1818"
               onPress={() => dispatch(removeFromQueue(item))}
             />
-            <FavContainer track={active} type="song" />
+            <FavContainer type="song" item={item} />
           </Surface>
         )}
         leftOpenValue={75}
