@@ -12,35 +12,34 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <p float="left">
 
-     <img src="https://dl.dropboxusercontent.com/s/wxw2in2ikslg7f9/Screenshot_2019-10-23-23-33-42-998_com.serenity.png?dl=0"
-          alt="homepage"
-          height="320"
-          width="160"
-          style="float: left; margin-right: 10px;" />
-     <img src="https://dl.dropboxusercontent.com/s/1eq9fpi57i9uedq/Screenshot_2019-10-23-23-33-48-532_com.serenity.png?dl=0"
-         alt="searchpage"
-         height="320"
-         width="160"
-         style="float: left; margin-right: 10px;"
-     />
-     <img src="https://dl.dropboxusercontent.com/s/dbjbqfuabinty3m/Screenshot_2019-10-23-23-34-17-429_com.serenity.png?dl=0"
-         alt="albumpage"
-         height="320"
-         width="160"
-         style="float: left; margin-right: 10px;"
-     />
-     <img src="https://dl.dropboxusercontent.com/s/mcw8uasljo52274/Screenshot_2019-10-23-23-35-41-341_com.serenity.png?dl=0"
-         alt="albumpage"
-         height="320"
-         width="160"
-         style="float: left; margin-right: 10px;"
-     />
-     <img src="https://dl.dropboxusercontent.com/s/nzkbnzh635cvv4q/Screenshot_2019-10-23-23-33-52-889_com.serenity.png?dl=0"
-         alt="playlistpage"
-         height="320"
-         width="160"
-         style="float: left; margin-right: 10px;"
-     />
+<img src="https://dl.dropboxusercontent.com/s/wxw2in2ikslg7f9/Screenshot_2019-10-23-23-33-42-998_com.serenity.png?dl=0"
+    alt="homepage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
+<img src="https://dl.dropboxusercontent.com/s/1eq9fpi57i9uedq/Screenshot_2019-10-23-23-33-48-532_com.serenity.png?dl=0"
+    alt="searchpage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;"/>
+<img src="https://dl.dropboxusercontent.com/s/dbjbqfuabinty3m/Screenshot_2019-10-23-23-34-17-429_com.serenity.png?dl=0"
+    alt="albumpage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;"
+/>
+<img src="https://dl.dropboxusercontent.com/s/mcw8uasljo52274/Screenshot_2019-10-23-23-35-41-341_com.serenity.png?dl=0"
+    alt="albumpage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;"
+/>
+<img src="https://dl.dropboxusercontent.com/s/nzkbnzh635cvv4q/Screenshot_2019-10-23-23-33-52-889_com.serenity.png?dl=0"
+    alt="playlistpage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;"
+/>
 
 </p>
 

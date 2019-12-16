@@ -10,12 +10,13 @@ import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 import { TrackProps } from '../types';
+import { mostPlayedSongs } from '../actions/mediaStore';
 
 export const MostPlayedContainer = () => {
   const navigation = useNavigation();
   const realmSongs = getPlayedSongs();
   const [history, setHistory] = useState(() => {
-    return deserializeSongs(realmSongs);
+    return mostPlayedSongs(realmSongs);
   });
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,7 +26,7 @@ export const MostPlayedContainer = () => {
         changes.modifications.length > 0 ||
         changes.deletions.length > 0
       ) {
-        const song = deserializeSongs(songs);
+        const song = mostPlayedSongs(songs);
         setHistory(song);
       }
     }
@@ -47,11 +48,11 @@ export const MostPlayedContainer = () => {
     () => () => {
       const playlist = {
         id: 'user-playlist--000001',
-        name: 'Recent songs',
+        name: 'Most Played Songs',
         owner: 'Serenity',
-        songs: history,
       };
       navigation.navigate('Playlist', {
+        fetchSongs: () => mostPlayedSongs(realmSongs),
         playlist,
       });
     },

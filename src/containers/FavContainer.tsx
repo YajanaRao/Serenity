@@ -40,7 +40,7 @@ export const FavContainer = ({ type = 'song', style, item }: Props) => {
     } else if (isSongPresent(item.id)) {
       setLiked(true);
     }
-  }, []);
+  }, [type, item]);
 
   const addArtistToFavorite = () => {
     addArtist(item);

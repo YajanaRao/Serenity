@@ -7,9 +7,9 @@ import orderBy from 'lodash/orderBy';
 import { log } from '../utils/logging';
 import { TrackProps } from '../types';
 
-function formatter(media: TrackProps[]) {
+const formatter = (media: TrackProps[]) => {
   return map(media, (item: TrackProps) => {
-    const song: any = {};
+    let song: TrackProps;
     song.path = item.path;
     song.id = item.id;
     song.title = item.title;
@@ -18,7 +18,7 @@ function formatter(media: TrackProps[]) {
     song.cover = item.cover;
     return song;
   });
-}
+};
 
 export const updateQuery = (query: string) => dispatch => {
   if (query) {

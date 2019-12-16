@@ -38,7 +38,7 @@ export const FollowArtistDialog = ({
   const [filtered, setFiltered] = useState(artists);
 
   useEffect(() => {
-    let data = filter(artists, function(artist: ArtistProps) {
+    const data = filter(artists, (artist: ArtistProps) => {
       return includes(artist.artist.toLowerCase(), query.toLowerCase());
     });
     setFiltered(data);

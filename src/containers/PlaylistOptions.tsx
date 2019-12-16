@@ -12,16 +12,18 @@ import {
   useTheme,
   IconButton,
 } from 'react-native-paper';
-import { StyleSheet, View, Dimensions, Alert } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 
 import { addToQueue } from '../actions/playerState';
 import { DefaultImage } from '../components/DefaultImage';
 import { deletePlaylist, renamePlaylist } from '../actions/realmAction';
-import { log, logEvent } from '../utils/logging';
+import { logEvent } from '../utils/logging';
 import { RenamePlaylistDailog } from '../components/RenamePlaylistDailog';
 import { useDispatch } from 'react-redux';
+import { AlertDialog } from '../components/AlertDialog';
 
 const RENAME_DIALOG = 'RENAME';
+const DELETE_DAILOG = 'DELETE';
 
 export const PlaylistOptions = ({ route, navigation }) => {
   const bs = useRef();
@@ -33,30 +35,13 @@ export const PlaylistOptions = ({ route, navigation }) => {
   const { colors } = theme;
 
   const deleteAlert = () => {
-    const { id, name } = playlist;
     closeBottomSheet();
+    setVisible(DELETE_DAILOG);
+  };
 
-    if (id) {
-      Alert.alert(
-        'Delete playlist',
-        `Are you sure you want to delete ${name}`,
-        [
-          {
-            text: 'NO',
-            onPress: () => log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {
-            text: 'YES',
-            onPress: () => {
-              deletePlaylist(id);
-              navigation.goBack();
-            },
-          },
-        ],
-        { cancelable: false },
-      );
-    }
+  const deleteAction = () => {
+    deletePlaylist(playlist.id);
+    navigation.goBack();
   };
 
   const rename = (playlistName: string) => {
@@ -183,6 +168,13 @@ export const PlaylistOptions = ({ route, navigation }) => {
         hideDialog={hideDialog}
         playlistName={playlist.name}
         rename={rename}
+      />
+      <AlertDialog
+        visible={visible === DELETE_DAILOG}
+        title="Delete playlist"
+        message={`Are you sure you want to delete ${playlist.name}`}
+        action={deleteAction}
+        hideDialog={hideDialog}
       />
       <IconButton icon="dots-vertical" onPress={openBottomSheet} />
     </View>

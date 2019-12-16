@@ -231,7 +231,6 @@ export const clearQueue = () => dispatch => {
 };
 
 export const addSongToFavorite = (song: TrackProps) => dispatch => {
-  console.log(song);
   addSong(FAVOURITE_ID, song, true);
   dispatch({
     payload: `Added song ${song.title}to favorites`,
