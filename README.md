@@ -124,4 +124,4 @@ This program is free software: you can redistribute it and/or modify it under th
 
 ### Support
 
-Let me know if you are interested
+<a href="https://www.patreon.com/bePatron?u=28198536" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
