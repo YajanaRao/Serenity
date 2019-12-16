@@ -1,6 +1,10 @@
 import { defaultDBSetup } from './realmAction';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-export const updateTheme = (theme: string) => (dispatch: any) => {
+export const updateTheme = (theme: string) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   if (theme === 'dark') {
     dispatch({
       type: 'UPDATE_THEME',
@@ -14,7 +18,9 @@ export const updateTheme = (theme: string) => (dispatch: any) => {
   }
 };
 
-export const defaultSetup = () => (dispatch: any) => {
+export const defaultSetup = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   defaultDBSetup();
   dispatch({
     type: 'DEFAULT_SETUP',
@@ -22,7 +28,9 @@ export const defaultSetup = () => (dispatch: any) => {
   });
 };
 
-export const changeRadioMode = (radio: boolean) => (dispatch: any) => {
+export const changeRadioMode = (radio: boolean) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   dispatch({
     type: 'RADIO_MODE',
     payload: radio,

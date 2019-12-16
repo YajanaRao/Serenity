@@ -6,6 +6,8 @@ import orderBy from 'lodash/orderBy';
 
 import { log } from '../utils/logging';
 import { TrackProps } from '../types';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 const formatter = (media: TrackProps[]) => {
   return map(media, (item: TrackProps) => {
@@ -20,7 +22,9 @@ const formatter = (media: TrackProps[]) => {
   });
 };
 
-export const updateQuery = (query: string) => dispatch => {
+export const updateQuery = (query: string) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   if (query) {
     RNAndroidAudioStore.search({ searchParam: query })
       .then(media => {
@@ -42,7 +46,9 @@ export const updateQuery = (query: string) => dispatch => {
   }
 };
 
-export const getOfflineSongs = () => dispatch => {
+export const getOfflineSongs = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   RNAndroidAudioStore.getAll({})
     .then(media => {
       dispatch({
@@ -59,7 +65,9 @@ export const getOfflineSongs = () => dispatch => {
     });
 };
 
-export const getOfflineArtists = () => dispatch => {
+export const getOfflineArtists = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   RNAndroidAudioStore.getArtists({})
     .then(media => {
       dispatch({
@@ -76,7 +84,9 @@ export const getOfflineArtists = () => dispatch => {
     });
 };
 
-export const getOfflineAlbums = () => dispatch => {
+export const getOfflineAlbums = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   RNAndroidAudioStore.getAlbums({})
     .then(media => {
       dispatch({

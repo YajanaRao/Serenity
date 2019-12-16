@@ -26,7 +26,9 @@ const QUEUE_ID = 'user-playlist--000003';
 const HISTORY_ID = 'user-playlist--000001';
 const FAVOURITE_ID = 'user-playlist--000002';
 
-export const setUpTrackPlayer = () => dispatch => {
+export const setUpTrackPlayer = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   try {
     subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
@@ -53,7 +55,9 @@ export const setUpTrackPlayer = () => dispatch => {
   }
 };
 
-export const loadTrack = (track: TrackProps, playOnLoad = true) => dispatch => {
+export const loadTrack = (track: TrackProps, playOnLoad = true) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   try {
     const { path } = track;
     if (path) {
@@ -87,7 +91,9 @@ export const playNext = (track: TrackProps) => (
   }
 };
 
-export const repeatSongs = (type: string) => dispatch => {
+export const repeatSongs = (type: string) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   try {
     dispatch({
       repeat: type,
@@ -98,7 +104,9 @@ export const repeatSongs = (type: string) => dispatch => {
   }
 };
 
-export const shufflePlay = (songs: TrackProps[]) => dispatch => {
+export const shufflePlay = (songs: TrackProps[]) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   try {
     dispatch({
       songs,
@@ -109,7 +117,10 @@ export const shufflePlay = (songs: TrackProps[]) => dispatch => {
   }
 };
 
-export const startRadio = () => (dispatch, getState) => {
+export const startRadio = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  getState,
+) => {
   try {
     const track = sample(getState().mediaStore.songs);
     if (track) {
@@ -124,7 +135,10 @@ export const startRadio = () => (dispatch, getState) => {
   }
 };
 
-export const skipToNext = () => (dispatch, getState) => {
+export const skipToNext = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  getState,
+) => {
   try {
     const queue = deserializeSongs(getQueuedSongs());
     let track = null;
@@ -158,7 +172,9 @@ export const skipToNext = () => (dispatch, getState) => {
   }
 };
 
-export const skipToPrevious = () => dispatch => {
+export const skipToPrevious = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   try {
     const history = getPlayedSongs();
     if (history.length) {
@@ -179,7 +195,9 @@ export const skipToPrevious = () => dispatch => {
   }
 };
 
-export const destroyTrackPlayer = () => dispatch => {
+export const destroyTrackPlayer = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   MediaPlayer.destroy();
   subscription.remove();
   dispatch({
@@ -191,7 +209,7 @@ export const destroyTrackPlayer = () => dispatch => {
 // NOTE: Queue management
 
 export const addToQueue = (songs: TrackProps[] | TrackProps) => (
-  dispatch,
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
   getState,
 ) => {
   if (Array.isArray(songs)) {
@@ -213,14 +231,18 @@ export const addToQueue = (songs: TrackProps[] | TrackProps) => (
   }
 };
 
-export const removeFromQueue = (song: TrackProps) => dispatch => {
+export const removeFromQueue = (song: TrackProps) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   dispatch({
     payload: song,
     type: 'REMOVE_QUEUE',
   });
 };
 
-export const clearQueue = () => dispatch => {
+export const clearQueue = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   MediaPlayer.pause();
   clearAllSongs(QUEUE_ID);
   dispatch({
@@ -230,7 +252,9 @@ export const clearQueue = () => dispatch => {
   });
 };
 
-export const addSongToFavorite = (song: TrackProps) => dispatch => {
+export const addSongToFavorite = (song: TrackProps) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   addSong(FAVOURITE_ID, song, true);
   dispatch({
     payload: `Added song ${song.title}to favorites`,
@@ -238,7 +262,9 @@ export const addSongToFavorite = (song: TrackProps) => dispatch => {
   });
 };
 
-export const addAlbumToFavorite = (album: AlbumProps) => dispatch => {
+export const addAlbumToFavorite = (album: AlbumProps) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   addAlbum(album);
   dispatch({
     payload: `Added album ${album.album} to favorite`,
@@ -246,7 +272,9 @@ export const addAlbumToFavorite = (album: AlbumProps) => dispatch => {
   });
 };
 
-export const removeAlbumFromFavorite = (album: AlbumProps) => dispatch => {
+export const removeAlbumFromFavorite = (album: AlbumProps) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   removeAlbum(album.id);
   dispatch({
     payload: `Album removed from favorites`,
@@ -254,7 +282,9 @@ export const removeAlbumFromFavorite = (album: AlbumProps) => dispatch => {
   });
 };
 
-export const addToPlaylist = (id: string, song: TrackProps) => dispatch => {
+export const addToPlaylist = (id: string, song: TrackProps) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   addSong(id, song);
   dispatch({
     payload: 'Added to the playlist',
@@ -262,7 +292,9 @@ export const addToPlaylist = (id: string, song: TrackProps) => dispatch => {
   });
 };
 
-export const clearHistory = () => dispatch => {
+export const clearHistory = () => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
   clearAllSongs(HISTORY_ID);
   dispatch({
     payload: 'Cleared history',

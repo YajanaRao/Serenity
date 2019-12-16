@@ -1,13 +1,33 @@
 import { combineReducers } from 'redux';
-import { concat, remove, union } from 'lodash';
-import { TrackProps } from '../types';
+import { ArtistProps, TrackProps, AlbumProps } from '../types';
 
+interface MediaActions {
+  type: string;
+  payload: TrackProps[] | ArtistProps[] | AlbumProps[];
+}
+
+interface PlayerActions {
+  type: string;
+  status: string;
+  track: TrackProps;
+}
+
+interface ConfigActions {
+  type: string;
+  payload?: boolean | string;
+  repeat?: string;
+}
+
+interface QueryActions {
+  type: string;
+  payload: boolean | string;
+}
 const INITIAL_QUERY = {
-  message: null,
+  message: '',
   searchResult: false,
 };
 
-const INITIAL_CONFIG = {
+export const INITIAL_CONFIG = {
   radio: false,
   repeat: 'repeat-all',
   setup: false,
@@ -19,17 +39,6 @@ const INITIAL_STATE = {
   status: 'init',
 };
 
-const DASHBOARD_STATE = {
-  charts: [],
-  genres: [],
-  hot100: [],
-  newAlbums: [],
-  topAlbums: [],
-  topArtists: [],
-  topKannada: [],
-  topTracks: [],
-};
-
 const INITIAL_STORE = {
   albums: [],
   artists: [],
@@ -38,15 +47,11 @@ const INITIAL_STORE = {
 
 // FIXME: Javascript implementation
 
-export const mediaStoreReducer = (state = INITIAL_STORE, action) => {
+export const mediaStoreReducer = (
+  state = INITIAL_STORE,
+  action: MediaActions,
+) => {
   switch (action.type) {
-    case 'DOWNLOAD':
-      return {
-        ...state,
-        result: `${action.payload.title} downloaded successfully`,
-        songs: concat(action.payload, state.songs),
-      };
-
     case 'OFFLINE_SONGS':
       return {
         ...state,
@@ -69,10 +74,10 @@ export const mediaStoreReducer = (state = INITIAL_STORE, action) => {
   }
 };
 
-// TODO:
-// Normalize queue
-
-export const playerStateReducer = (state = INITIAL_STATE, action) => {
+export const playerStateReducer = (
+  state = INITIAL_STATE,
+  action: PlayerActions,
+) => {
   switch (action.type) {
     case 'STATUS':
       return {
@@ -90,34 +95,12 @@ export const playerStateReducer = (state = INITIAL_STATE, action) => {
         ...state,
         status: 'paused',
       };
-
-    case 'SHUFFLE_PLAY':
-      // let queue = shuffle(action.songs);
-      return {
-        ...state,
-        // queue: queue,
-        // active: head(queue)
-      };
-    case 'ADD_TO_FAVORITE':
-      return {
-        ...state,
-        favorite: union(state.favorite, [action.payload]),
-        result: `Added ${action.payload.title} to favorites`,
-      };
-    case 'REMOVE_FROM_FAVORITE':
-      return {
-        ...state,
-        favorite: remove(state.favorite, (n: TrackProps) => {
-          return n.id !== action.payload.id;
-        }),
-        result: `Removed ${action.payload.title} from favorites`,
-      };
     default:
       return state;
   }
 };
 
-export const queryReducer = (state = INITIAL_QUERY, action) => {
+export const queryReducer = (state = INITIAL_QUERY, action: QueryActions) => {
   switch (action.type) {
     case 'UPDATE_QUERY':
       return {
@@ -134,7 +117,10 @@ export const queryReducer = (state = INITIAL_QUERY, action) => {
   }
 };
 
-export const configReducer = (state = INITIAL_CONFIG, action) => {
+export const configReducer = (
+  state = INITIAL_CONFIG,
+  action: ConfigActions,
+) => {
   switch (action.type) {
     case 'UPDATE_THEME':
       return {
@@ -161,7 +147,7 @@ export const configReducer = (state = INITIAL_CONFIG, action) => {
   }
 };
 
-export const RootReducer = combineReducers({
+export const RootReducer = combineReducers<any>({
   config: configReducer,
   mediaStore: mediaStoreReducer,
   playerState: playerStateReducer,

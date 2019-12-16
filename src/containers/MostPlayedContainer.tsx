@@ -5,7 +5,6 @@ import isEmpty from 'lodash/isEmpty';
 import { Title, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 
-import { deserializeSongs } from '../utils/database';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';

@@ -91,6 +91,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Planned features
 
+- Multiple language support
 - Real time lyrics
 - Creating a backup on Google Drive and sync audio from it 🎶
 - Support for web (React Native Web) and Windows desktop (React Native Windows)
@@ -125,3 +126,5 @@ This program is free software: you can redistribute it and/or modify it under th
 ### Support
 
 <a href="https://www.patreon.com/bePatron?u=28198536" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+
+[Support via Paypal](https://paypal.me/YajanaRao?locale.x=en_GB)

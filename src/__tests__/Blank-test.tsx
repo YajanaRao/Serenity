@@ -1,7 +1,7 @@
 import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Blank from '../src/components/Blank';
+import { Blank } from '../components/Blank';
 
 // Note: test renderer must be required after react-native.
 

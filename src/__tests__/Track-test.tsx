@@ -5,7 +5,7 @@
 import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Track from '../src/components/Track';
+import { Track } from '../components/Track';
 
 // Note: test renderer must be required after react-native.
 

@@ -33,62 +33,39 @@ exports[`Blank component renders correctly 1`] = `
       }
     }
   >
-    <BVLinearGradient
-      colors={
-        Array [
-          4279343502,
-          4281921405,
-        ]
-      }
-      endPoint={
-        Object {
-          "x": 0.5,
-          "y": 1,
-        }
-      }
-      locations={null}
-      startPoint={
-        Object {
-          "x": 0.5,
-          "y": 0,
-        }
-      }
+    <View
       style={
         Array [
+          Object {
+            "overflow": "hidden",
+          },
           Object {
             "backgroundColor": "#d7d1c9",
             "borderRadius": 4,
             "height": 50,
             "width": 50,
           },
-          Object {
-            "alignItems": "center",
-            "justifyContent": "center",
-          },
         ]
       }
     >
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-            Object {
-              "color": "#ffffff",
-              "fontSize": 50,
-            },
-            undefined,
-            Object {
-              "fontFamily": "Material Design Icons",
-              "fontStyle": "normal",
-              "fontWeight": "normal",
-            },
-            Object {},
-          ]
+      <FastImageView
+        resizeMode="cover"
+        source={
+          Object {
+            "uri": "image",
+          }
         }
-      >
-        
-      </Text>
-    </BVLinearGradient>
+        style={
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      />
+    </View>
     <View
       style={
         Object {
