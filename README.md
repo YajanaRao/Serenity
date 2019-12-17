@@ -38,7 +38,10 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
     style="float: left; margin-right: 10px;"/>
 </p>
 
+## Download
+
 [Become a Tester](https://appdistribution.firebase.dev/i/Dv8WUupp)
+
 [Download the App](https://github.com/YajanaRao/Serenity/releases)
 
 ## What is this?
