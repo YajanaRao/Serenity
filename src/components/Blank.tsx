@@ -25,9 +25,9 @@ export const Blank = ({ text, fetchData }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
   },
   padding: {
     margin: 4,

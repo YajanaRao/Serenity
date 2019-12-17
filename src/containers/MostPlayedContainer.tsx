@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { View } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Title, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
@@ -11,6 +11,13 @@ import { getPlayedSongs } from '../actions/realmAction';
 import { TrackProps } from '../types';
 import { mostPlayedSongs } from '../actions/mediaStore';
 
+const CONTINER: ViewStyle = {
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginHorizontal: 16,
+};
+
 export const MostPlayedContainer = () => {
   const navigation = useNavigation();
   const realmSongs = getPlayedSongs();
@@ -19,7 +26,7 @@ export const MostPlayedContainer = () => {
   });
   const dispatch = useDispatch();
   useEffect(() => {
-    function listener(songs: any, changes: any) {
+    const listener = (songs: any, changes: any) => {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||
@@ -28,14 +35,14 @@ export const MostPlayedContainer = () => {
         const song = mostPlayedSongs(songs);
         setHistory(song);
       }
-    }
+    };
     if (realmSongs !== undefined) {
       realmSongs.addListener(listener);
     }
     return () => {
       realmSongs.removeListener(listener);
     };
-  }, []);
+  }, [realmSongs]);
 
   const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
@@ -55,20 +62,13 @@ export const MostPlayedContainer = () => {
         playlist,
       });
     },
-    [navigation, history],
+    [navigation, realmSongs],
   );
 
   if (history.length) {
     return (
       <View>
-        <View
-          style={{
-            marginHorizontal: 16,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
+        <View style={CONTINER}>
           <Title>Most Played songs</Title>
           <Button onPress={navigateToSongs}>More</Button>
         </View>
