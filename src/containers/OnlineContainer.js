@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import ExpensiveContainer from './ExpensiveContainer';
+import { QuoteContainer } from './QuoteContainer';
 
 class OnlineContainer extends PureComponent {
   constructor(props) {
@@ -39,7 +39,7 @@ class OnlineContainer extends PureComponent {
   render() {
     const { isConnected } = this.state;
     if (isConnected) {
-      return <ExpensiveContainer load={isConnected} />;
+      return <QuoteContainer load={isConnected} />;
     }
     return false;
   }
