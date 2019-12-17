@@ -22,11 +22,11 @@ export const SettingScreen = () => {
   const { dark } = theme;
 
   const toggleTheme = (isDark: boolean) => {
-    let theme = 'default';
+    let themeType = 'default';
     if (isDark) {
-      theme = 'dark';
+      themeType = 'dark';
     }
-    dispatch(updateTheme(theme));
+    dispatch(updateTheme(themeType));
   };
 
   const toggleRadioMode = () => {

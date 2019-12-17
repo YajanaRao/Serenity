@@ -12,10 +12,6 @@ import { ActiveTrackDetails } from '../../components/ActiveTrackDetails';
 import { RootReducerType } from '../../reducers';
 import { useSelector } from 'react-redux';
 
-interface PlayerProps {
-  navigation: any;
-}
-
 export const PlayerScreen = ({ navigation }) => {
   const close = () => {
     navigation.goBack();
