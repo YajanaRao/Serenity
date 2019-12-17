@@ -79,7 +79,12 @@ export const PlaylistOptions = ({ route, navigation }) => {
     return (
       <View style={styles.panel}>
         <LinearGradient
-          colors={['transparent', colors.surface, colors.surface]}
+          colors={[
+            'transparent',
+            colors.surface,
+            colors.surface,
+            colors.surface,
+          ]}
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <TouchableWithoutFeedback
