@@ -225,7 +225,7 @@ export const addToQueue = (songs: TrackProps[] | TrackProps) => (
     dispatch(loadTrack(head(queue)));
   } else {
     dispatch({
-      payload: `Added ${songs.length} songs to queue`,
+      payload: `Added ${songs.length || songs.title} songs to queue`,
       type: 'NOTIFY',
     });
   }
