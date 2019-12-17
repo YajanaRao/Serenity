@@ -58,6 +58,10 @@ export const QueueContainer = ({ close }: Props) => {
     close();
   };
 
+  const removeSongFromQueue = (song: TrackProps) => {
+    dispatch(removeFromQueue(song));
+  };
+
   if (!isEmpty(queue)) {
     return (
       <View>
@@ -88,7 +92,7 @@ export const QueueContainer = ({ close }: Props) => {
               <IconButton
                 icon="delete"
                 color="#dd1818"
-                onPress={() => dispatch(removeFromQueue(item))}
+                onPress={() => removeSongFromQueue(item)}
               />
               <FavContainer type="song" item={item} />
             </Surface>

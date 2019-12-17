@@ -1,27 +1,27 @@
 export interface TrackProps {
-  id: string;
-  cover: string;
-  title: string;
   artist?: string;
-  path: string;
   album?: string;
+  cover: string;
+  id: string;
+  path: string;
+  title: string;
 }
 
 export interface AlbumProps {
-  id: string;
-  name?: string;
   album?: string;
+  artist?: string;
   author?: string;
   cover?: string;
-  artist?: string;
+  id: string;
+  name?: string;
   numberOfSongs?: number;
 }
 
 export interface ArtistProps {
+  artist?: string;
+  cover?: string;
   id: string;
   name: string;
-  cover?: string;
-  artist?: string;
 }
 
 export interface NavigationScreenProps {

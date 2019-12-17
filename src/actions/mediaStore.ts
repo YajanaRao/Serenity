@@ -9,19 +9,6 @@ import { TrackProps } from '../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
-const formatter = (media: TrackProps[]) => {
-  return map(media, (item: TrackProps) => {
-    let song: TrackProps;
-    song.path = item.path;
-    song.id = item.id;
-    song.title = item.title;
-    song.album = item.album;
-    song.artist = item.artist;
-    song.cover = item.cover;
-    return song;
-  });
-};
-
 export const updateQuery = (query: string) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
@@ -30,7 +17,7 @@ export const updateQuery = (query: string) => (
       .then(media => {
         dispatch({
           type: 'UPDATE_QUERY',
-          payload: formatter(media),
+          payload: media,
           // query: query
         });
       })
@@ -108,7 +95,7 @@ export const findAlbumSongs = async (album: string) => {
     album,
   })
     .then(media => {
-      return formatter(media);
+      return media;
     })
     .catch(er => log(er));
   return songs;
@@ -119,7 +106,7 @@ export const findArtistSongs = async (artist: string) => {
     artist,
   })
     .then(media => {
-      return formatter(media);
+      return media;
     })
     .catch(er => log(er));
   return songs;
@@ -128,7 +115,7 @@ export const findArtistSongs = async (artist: string) => {
 export const filterSongsByGenre = async genre => {
   const songs = await RNAndroidAudioStore.getSongsByGenres({ genre })
     .then(media => {
-      return formatter(media);
+      return media;
     })
     .catch(error => log(error));
   return songs;

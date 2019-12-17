@@ -234,6 +234,7 @@ export const addToQueue = (songs: TrackProps[] | TrackProps) => (
 export const removeFromQueue = (song: TrackProps) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
+  removeSong(QUEUE_ID, song);
   dispatch({
     payload: song,
     type: 'REMOVE_QUEUE',
