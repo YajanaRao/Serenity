@@ -9,8 +9,8 @@ describe('reducers/index.js', () => {
       };
 
       const givenAction = {
-        type: 'OFFLINE_SONGS',
         payload: ['offline_songs'],
+        type: 'OFFLINE_SONGS',
       };
 
       const actualState = mediaStoreReducer(givenState, givenAction);
@@ -26,8 +26,8 @@ describe('reducers/index.js', () => {
       };
 
       const givenAction = {
-        type: 'OFFLINE_ARTISTS',
         payload: ['offline_artists'],
+        type: 'OFFLINE_ARTISTS',
       };
 
       const actualState = mediaStoreReducer(givenState, givenAction);
@@ -60,8 +60,8 @@ describe('reducers/index.js', () => {
       };
 
       const givenAction = {
-        type: 'OFFLINE_FILES',
         payload: ['offline_files'],
+        type: 'OFFLINE_FILES',
       };
 
       const actualState = mediaStoreReducer(givenState, givenAction);

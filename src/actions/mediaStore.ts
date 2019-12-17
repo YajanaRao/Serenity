@@ -1,11 +1,9 @@
 import RNAndroidAudioStore from 'react-native-get-music-files';
-import map from 'lodash/map';
 import groupBy from 'lodash/groupBy';
 import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 
 import { log } from '../utils/logging';
-import { TrackProps } from '../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 

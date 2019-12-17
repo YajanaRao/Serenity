@@ -2,25 +2,25 @@ import { combineReducers } from 'redux';
 import { ArtistProps, TrackProps, AlbumProps } from '../types';
 
 interface MediaActions {
-  type: string;
   payload: TrackProps[] | ArtistProps[] | AlbumProps[];
+  type: string;
 }
 
 interface PlayerActions {
-  type: string;
   status: string;
   track: TrackProps;
+  type: string;
 }
 
 interface ConfigActions {
-  type: string;
   payload?: boolean | string;
   repeat?: string;
+  type: string;
 }
 
 interface QueryActions {
-  type: string;
   payload: boolean | string;
+  type: string;
 }
 const INITIAL_QUERY = {
   message: '',

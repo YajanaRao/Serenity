@@ -5,27 +5,27 @@ describe('reducers/index.js', () => {
   describe('playerStateReducer', () => {
     it('should handle LOAD action', () => {
       const givenState = {
-        status: 'paused',
         active: 'track_1',
+        status: 'paused',
       };
 
       const givenAction = {
-        type: 'LOAD',
         status: 'playing',
+        type: 'LOAD',
       };
 
       const actualState = playerStateReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        status: 'playing',
         active: 'track_2',
+        status: 'playing',
       });
     });
 
     it('should handle COMPLETED action', () => {
       const givenState = {
-        status: 'init',
         active: 'track',
+        status: 'init',
       };
 
       const givenAction = {
@@ -35,8 +35,8 @@ describe('reducers/index.js', () => {
       const actualState = playerStateReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        status: 'paused',
         active: 'track',
+        status: 'paused',
       });
     });
   });

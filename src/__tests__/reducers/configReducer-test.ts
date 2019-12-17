@@ -7,8 +7,8 @@ describe('reducers/index.js', () => {
       const givenState = {};
 
       const givenAction = {
-        type: 'UPDATE_THEME',
         payload: 'themeType',
+        type: 'UPDATE_THEME',
       };
 
       const actualState = configReducer(givenState, givenAction);
@@ -22,8 +22,8 @@ describe('reducers/index.js', () => {
       const givenState = {};
 
       const givenAction = {
-        type: 'REPEAT',
         repeat: 'repeat',
+        type: 'REPEAT',
       };
 
       const actualState = configReducer(givenState, givenAction);

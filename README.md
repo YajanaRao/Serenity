@@ -3,6 +3,7 @@
 ## A React Native Music Player for Android
 
 ![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 [![React Native Version](https://img.shields.io/github/package-json/dependency-version/YajanaRao/serenity/react-native?color=%2361dafb)](https://github.com/react-native-community/releases/blob/master/CHANGELOG.md)
@@ -17,29 +18,28 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
+
 <img src="https://dl.dropboxusercontent.com/s/1eq9fpi57i9uedq/Screenshot_2019-10-23-23-33-48-532_com.serenity.png?dl=0"
     alt="searchpage"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;"/>
+
 <img src="https://dl.dropboxusercontent.com/s/dbjbqfuabinty3m/Screenshot_2019-10-23-23-34-17-429_com.serenity.png?dl=0"
     alt="albumpage"
     height="320"
     width="160"
-    style="float: left; margin-right: 10px;"
-/>
+    style="float: left; margin-right: 10px;"/>
 <img src="https://dl.dropboxusercontent.com/s/mcw8uasljo52274/Screenshot_2019-10-23-23-35-41-341_com.serenity.png?dl=0"
     alt="albumpage"
     height="320"
     width="160"
-    style="float: left; margin-right: 10px;"
-/>
+    style="float: left; margin-right: 10px;"/>
 <img src="https://dl.dropboxusercontent.com/s/nzkbnzh635cvv4q/Screenshot_2019-10-23-23-33-52-889_com.serenity.png?dl=0"
     alt="playlistpage"
     height="320"
     width="160"
-    style="float: left; margin-right: 10px;"
-/>
+    style="float: left; margin-right: 10px;"/>
 
 </p>
 

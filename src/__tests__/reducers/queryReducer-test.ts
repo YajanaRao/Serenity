@@ -10,15 +10,15 @@ describe('reducers/index.js', () => {
       };
 
       const givenAction = {
-        type: 'UPDATE_QUERY',
         payload: 'search_result',
+        type: 'UPDATE_QUERY',
       };
 
       const actualState = queryReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        searchResult: 'search_result',
         message: '',
+        searchResult: 'search_result',
       });
     });
   });
