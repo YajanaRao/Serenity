@@ -19,13 +19,13 @@ export const SongListContainer = ({
 }: SongListContainerProps) => {
   const dispatch = useDispatch();
 
-  function addSongsToPlaylist(id: string, song: TrackProps) {
+  const addSongsToPlaylist = (id: string, song: TrackProps) => {
     dispatch(addToPlaylist(id, song));
-  }
+  };
 
-  function addSongsToQueue(songs: TrackProps[] | TrackProps) {
+  const addSongsToQueue = (songs: TrackProps[] | TrackProps) => {
     dispatch(addToQueue(songs));
-  }
+  };
   return (
     <SongList
       data={data}

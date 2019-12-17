@@ -4,10 +4,10 @@ const AlbumSchema = {
   name: ALBUM_SCHEMA_NAME,
   primaryKey: 'id',
   properties: {
+    artist: 'string?',
+    cover: 'string?',
     id: 'string',
     name: { type: 'string', indexed: true },
-    cover: 'string?',
-    artist: 'string?',
   },
 };
 

@@ -26,7 +26,7 @@ export const MostPlayedContainer = () => {
   });
   const dispatch = useDispatch();
   useEffect(() => {
-    const listener = (songs: any, changes: any) => {
+    const listener = (songs: [], changes: any) => {
       if (
         changes.insertions.length > 0 ||
         changes.modifications.length > 0 ||

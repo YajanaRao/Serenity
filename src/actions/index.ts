@@ -7,13 +7,13 @@ export const updateTheme = (theme: string) => (
 ) => {
   if (theme === 'dark') {
     dispatch({
-      type: 'UPDATE_THEME',
       payload: 'default',
+      type: 'UPDATE_THEME',
     });
   } else {
     dispatch({
-      type: 'UPDATE_THEME',
       payload: 'dark',
+      type: 'UPDATE_THEME',
     });
   }
 };
@@ -23,8 +23,8 @@ export const defaultSetup = () => (
 ) => {
   defaultDBSetup();
   dispatch({
-    type: 'DEFAULT_SETUP',
     payload: true,
+    type: 'DEFAULT_SETUP',
   });
 };
 
@@ -32,8 +32,8 @@ export const changeRadioMode = (radio: boolean) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   dispatch({
-    type: 'RADIO_MODE',
     payload: radio,
+    type: 'RADIO_MODE',
   });
 };
 
