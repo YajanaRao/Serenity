@@ -7,8 +7,8 @@ interface MediaActions {
 }
 
 interface PlayerActions {
-  status: string;
-  track: TrackProps;
+  status?: string;
+  track?: TrackProps;
   type: string;
 }
 

@@ -1,73 +1,86 @@
 import expect from 'expect';
 import { mediaStoreReducer } from '../../reducers';
+import { TrackProps, ArtistProps, AlbumProps } from '../../types';
 
+const track: TrackProps = {
+  artist: 'me',
+  cover: 'url',
+  id: '123',
+  path: 'file',
+  title: 'hi',
+};
+
+const artist: ArtistProps = {
+  id: '123',
+  name: 'artist',
+};
+
+const album: AlbumProps = {
+  id: '123',
+  name: 'album',
+};
 describe('reducers/index.js', () => {
   describe('mediaStoreReducer', () => {
     it('should handle OFFLINE_SONGS action', () => {
       const givenState = {
-        songs: ['some_songs'],
+        albums: [],
+        artists: [],
+        songs: [],
       };
 
       const givenAction = {
-        payload: ['offline_songs'],
+        payload: [track],
         type: 'OFFLINE_SONGS',
       };
 
       const actualState = mediaStoreReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        songs: ['offline_songs'],
+        albums: [],
+        artists: [],
+        songs: [track],
       });
     });
 
     it('should handle OFFLINE_ARTISTS action', () => {
       const givenState = {
-        artists: ['some_artists'],
+        albums: [],
+        artists: [],
+        songs: [],
       };
 
       const givenAction = {
-        payload: ['offline_artists'],
+        payload: [artist],
         type: 'OFFLINE_ARTISTS',
       };
 
       const actualState = mediaStoreReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        artists: ['offline_artists'],
+        albums: [],
+        artists: [artist],
+        songs: [],
       });
     });
 
     it('should handle OFFLINE_ALBUMS action', () => {
       const givenState = {
-        albums: ['some_albums'],
+        albums: [],
+        artists: [],
+        songs: [],
       };
 
       const givenAction = {
+        payload: [album],
         type: 'OFFLINE_ALBUMS',
-        payload: ['offline_albums'],
       };
 
       const actualState = mediaStoreReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        albums: ['offline_albums'],
-      });
-    });
-
-    it('should handle OFFLINE_FILES action', () => {
-      const givenState = {
-        files: ['some_files'],
-      };
-
-      const givenAction = {
-        payload: ['offline_files'],
-        type: 'OFFLINE_FILES',
-      };
-
-      const actualState = mediaStoreReducer(givenState, givenAction);
-
-      expect(actualState).toEqual({
-        files: ['offline_files'],
+        albums: [album],
+        artists: [],
+        songs: [],
       });
     });
   });

@@ -1,41 +1,51 @@
 import expect from 'expect';
 import { playerStateReducer } from '../../reducers';
+import { TrackProps } from '../../types';
+
+const track: TrackProps = {
+  artist: 'me',
+  cover: 'url',
+  id: '123',
+  path: 'file',
+  title: 'hi',
+};
 
 describe('reducers/index.js', () => {
   describe('playerStateReducer', () => {
     it('should handle LOAD action', () => {
       const givenState = {
-        active: 'track_1',
-        status: 'paused',
+        active: {},
+        status: 'init',
       };
 
       const givenAction = {
-        status: 'playing',
+        track: track,
         type: 'LOAD',
       };
 
       const actualState = playerStateReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        active: 'track_2',
-        status: 'playing',
+        active: track,
+        status: 'init',
       });
     });
 
     it('should handle COMPLETED action', () => {
       const givenState = {
-        active: 'track',
-        status: 'init',
+        active: track,
+        status: 'playing',
       };
 
       const givenAction = {
+        status: 'paused',
         type: 'COMPLETED',
       };
 
       const actualState = playerStateReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        active: 'track',
+        active: track,
         status: 'paused',
       });
     });

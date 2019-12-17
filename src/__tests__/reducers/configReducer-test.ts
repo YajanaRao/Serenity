@@ -4,22 +4,35 @@ import { configReducer } from '../../reducers';
 describe('reducers/index.js', () => {
   describe('configReducer', () => {
     it('should handle UPDATE_THEME action', () => {
-      const givenState = {};
+      const givenState = {
+        radio: false,
+        repeat: 'repeat-all',
+        setup: false,
+        themeType: 'dark',
+      };
 
       const givenAction = {
-        payload: 'themeType',
+        payload: 'white',
         type: 'UPDATE_THEME',
       };
 
       const actualState = configReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
-        themeType: 'themeType',
+        radio: false,
+        repeat: 'repeat-all',
+        setup: false,
+        themeType: 'white',
       });
     });
 
     it('should handle REPEAT action', () => {
-      const givenState = {};
+      const givenState = {
+        radio: false,
+        repeat: 'repeat-all',
+        setup: false,
+        themeType: 'dark',
+      };
 
       const givenAction = {
         repeat: 'repeat',
@@ -29,7 +42,10 @@ describe('reducers/index.js', () => {
       const actualState = configReducer(givenState, givenAction);
 
       expect(actualState).toEqual({
+        radio: false,
         repeat: 'repeat',
+        setup: false,
+        themeType: 'dark',
       });
     });
   });
