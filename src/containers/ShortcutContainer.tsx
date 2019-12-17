@@ -79,7 +79,7 @@ export const ShortCutContainer = () => {
         <Avatar.Icon
           icon="history"
           color="#46b3e6"
-          style={{ backgroundColor: 'lightblue' }}
+          style={{ backgroundColor: '#46b3e650' }}
         />
         <Caption>History</Caption>
       </TouchableOpacity>
@@ -90,7 +90,7 @@ export const ShortCutContainer = () => {
         <Avatar.Icon
           icon="heart-outline"
           color="#c70d3a"
-          style={{ backgroundColor: '#ffbbcc' }}
+          style={{ backgroundColor: '#c70d3a50' }}
         />
         <Caption>Favorite</Caption>
       </TouchableOpacity>
@@ -100,8 +100,8 @@ export const ShortCutContainer = () => {
       >
         <Avatar.Icon
           icon="trending-up"
-          color="#2a1a5e"
-          style={{ backgroundColor: '#ac8daf' }}
+          color="#4a47a3"
+          style={{ backgroundColor: '#4a47a350' }}
         />
         <Caption>Most Played</Caption>
       </TouchableOpacity>
@@ -111,8 +111,8 @@ export const ShortCutContainer = () => {
       >
         <Avatar.Icon
           icon="radio"
-          color="#1f6650"
-          style={{ backgroundColor: '#c0ffb3' }}
+          color="#0c9463"
+          style={{ backgroundColor: '#0c946350' }}
         />
         <Caption>Radio</Caption>
       </TouchableOpacity>
