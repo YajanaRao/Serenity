@@ -11,7 +11,7 @@
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <p float="left">
-<img src="https://dl.dropboxusercontent.com/s/wxw2in2ikslg7f9/Screenshot_2019-10-23-23-33-42-998_com.serenity.png?dl=0"
+<img src="https://dl.dropboxusercontent.com/s/s7h85t3qwkcct93/home.jpg?dl=0"
     alt="homepage"
     height="320"
     width="160"
