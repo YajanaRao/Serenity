@@ -40,16 +40,16 @@ export const TrackScrollView = ({ data, play }: TrackScrollViewProps) => {
 };
 
 const styles = StyleSheet.create({
-  photo: {
+  item: {
+    alignItems: 'center',
+    marginBottom: 4,
+    marginLeft: 12,
     width: 120,
-    height: 120,
+  },
+  photo: {
     borderRadius: 12,
     elevation: 4,
-  },
-  item: {
-    marginLeft: 12,
-    marginBottom: 4,
-    alignItems: 'center',
+    height: 120,
     width: 120,
   },
 });

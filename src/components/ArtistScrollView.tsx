@@ -2,18 +2,12 @@ import React from 'react';
 import { Paragraph, Title } from 'react-native-paper';
 import { StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
-
-interface TrackProps {
-  artwork: string;
-  title: string;
-  artist: string;
-  album: string;
-}
+import { TrackProps } from '../types';
 
 interface Props {
   data: TrackProps[];
   title: string;
-  navigateToSongs(): void;
+  navigateToSongs(songs: TrackProps): void;
 }
 
 export const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
@@ -30,7 +24,7 @@ export const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
             style={styles.item}
             onPress={() => navigateToSongs(item)}
           >
-            <FastImage source={{ uri: item.artwork }} style={styles.artist} />
+            <FastImage source={{ uri: item.cover }} style={styles.artist} />
             <Paragraph numberOfLines={1}>{item.album}</Paragraph>
           </TouchableOpacity>
         )}
@@ -40,19 +34,19 @@ export const ArtistScrollView = ({ data, title, navigateToSongs }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  artist: {
+    borderRadius: 60,
+    elevation: 1,
+    height: 120,
+    width: 120,
+  },
+  item: {
+    alignItems: 'center',
+    marginBottom: 4,
+    marginLeft: 12,
+  },
   title: {
     paddingTop: 10,
     textAlign: 'center',
-  },
-  item: {
-    marginLeft: 12,
-    marginBottom: 4,
-    alignItems: 'center',
-  },
-  artist: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    elevation: 1,
   },
 });

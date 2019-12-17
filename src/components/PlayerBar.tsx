@@ -64,29 +64,29 @@ export const PlayerBar = ({
 };
 
 const styles = StyleSheet.create({
-  playBar: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    padding: 8,
-    elevation: 0,
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 4,
+  artwork: {
+    backgroundColor: '#d7d1c9',
+    borderRadius: 4,
+    height: 50,
+    width: 50,
   },
   iconContainer: {
-    justifyContent: 'flex-end',
     alignItems: 'center',
+    justifyContent: 'flex-end',
     width: 50,
   },
-  artwork: {
-    width: 50,
-    height: 50,
-    borderRadius: 4,
-    backgroundColor: '#d7d1c9',
+  playBar: {
+    alignItems: 'center',
+    elevation: 0,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 8,
+  },
+  textContainer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    marginHorizontal: 4,
   },
 });
