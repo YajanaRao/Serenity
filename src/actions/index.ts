@@ -1,92 +1,46 @@
-import { defaultDBSetup } from './realmAction';
+import React from 'react';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER } from './actionTypes';
+import { Integrations } from './integrations';
 
-export const updateTheme = (theme: string) => (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
-) => {
-  if (theme === 'dark') {
-    dispatch({
-      payload: 'default',
-      type: 'UPDATE_THEME',
-    });
-  } else {
-    dispatch({
-      payload: 'dark',
-      type: 'UPDATE_THEME',
+let plugins: any[] = [];
+export const __init__ = () => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+  console.log(Integrations);
+  if (Integrations.length) {
+    Integrations.forEach(intergration => {
+      plugins[intergration.name] = import(
+        `./integrations/${intergration.name}`
+      );
+      import(`./integrations/${intergration.name}`).then(obj => {
+        let plugin = obj.default;
+        let handler = new plugin();
+        handler.getData().then(data => console.log(data));
+      });
+      // console.log("added", intergration.name);
+      // plugins[intergration.name]();
     });
   }
+  // plugins.forEach(plugin => {
+  //   console.log("int plugin");
+  //   let handler = new plugin();
+  //   console.log("handler",handler);
+  //   handler.getData();
+  // })
 };
 
-export const defaultSetup = () => (
+export const addTodo = (text: string) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  defaultDBSetup();
-  dispatch({
-    payload: true,
-    type: 'DEFAULT_SETUP',
-  });
+  dispatch({ type: ADD_TODO, text });
 };
-
-export const changeRadioMode = (radio: boolean) => (
+export const toggleTodo = (index: number) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch({
-    payload: radio,
-    type: 'RADIO_MODE',
-  });
+  dispatch({ type: TOGGLE_TODO, index });
 };
-
-// const _downloadFileProgress = (data) => {
-//   const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
-//   const text = `Progress ${percentage}%`;
-//   if (percentage == 100) {
-//   }
-// }
-
-// export const downloadMedia = (item) => dispatch => {
-//   try {
-//     if(item){
-//       RNFS.downloadFile({
-//         fromUrl: item.url,
-//         toFile: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
-//         progress: (data) => _downloadFileProgress(data),
-//       }).promise.then(() => {
-//         dispatch({
-//           type: 'DOWNLOAD',
-//           payload: [{
-//             title: item.title,
-//             url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
-//             artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
-//             artist: "Serenity"
-//           }]
-//         })
-//       })
-//     }
-//   } catch (error) {
-//   }
-// }
-
-// RNFS.readdir(RNFS.DocumentDirectoryPath).then(files => {
-//   let response = []
-//   _.forEach(files, function (value) {
-//     if (_.endsWith(value, 'mp3')){
-//       RNFS.exists(RNFS.DocumentDirectoryPath + '/' + value).then(() => {
-//         response.push({
-//           id: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
-//           title: value.split('.')[0],
-//           url: `file:/${RNFS.DocumentDirectoryPath}/${value}`,
-//           artwork: "https://raw.githubusercontent.com/YajanaRao/Serenity/master/assets/icons/app-icon.png",
-//           artist: "Serenity"
-//         })
-//       })
-//     }
-//   });
-//   dispatch({
-//     type: 'OFFLINE',
-//     payload: response
-//   })
-// })
-// .catch (err => {
-// });
-// }
+export const setVisibilityFilter = (filter: string) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  dispatch({ type: SET_VISIBILITY_FILTER, filter });
+};

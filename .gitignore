@@ -72,3 +72,6 @@ buck-out/
 # firebase
 */google-services.json
 android/app/google-services.json
+
+# Windows
+# windows

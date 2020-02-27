@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { AsyncStorage } from 'react-native';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+// import { AsyncStorage } from 'react-native';
 import { persistStore, persistReducer } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -8,7 +9,7 @@ import { RootReducer } from '../reducers';
 
 const persistConfig = {
   key: 'root',
-  storage: AsyncStorage,
+  storage: storage,
   blacklist: ['query'],
 };
 
