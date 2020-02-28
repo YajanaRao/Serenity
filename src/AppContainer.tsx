@@ -1,34 +1,52 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, FlatList, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Song from './components/Song';
-import { __init__ } from './actions';
+import ErrorBoundary from './components/ErrorBoundary';
+import { bootstrap } from './actions/integrations';
+import { ThemeProvider, theme } from 'simple-component-kit';
 
 interface AppContainerProps {}
 
 const AppContainer = (props: AppContainerProps) => {
   const dispatch = useDispatch();
-  dispatch(__init__());
+
   const songs = useSelector((state: any) => state.library.songs);
-  console.log(songs);
+  const plugins = useSelector((state: any) => state.integrations.plugins);
+
+  useEffect(() => {
+    // dispatch(bootstrap([Plugins.LastFM]));
+    return () => {};
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={songs}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }: { item: any }) => (
-          <Song
-            title={item.title}
-            album={item.album}
-            artist={item.artist}
-            image={item.image}
-            genre={item.genre}
-            onClick={() => console.log('clicked')}
-            played={item.played}
+    <ThemeProvider theme={theme}>
+      <ErrorBoundary>
+        <View style={styles.container}>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={plugins}
+            renderItem={({ item }: { item: any }) => <Text>{item.name}</Text>}
           />
-        )}
-      />
-    </View>
+          <FlatList
+            horizontal
+            data={songs}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }: { item: any }) => (
+              <Song
+                title={item.title}
+                album={item.album}
+                artist={item.artist}
+                image={item.image}
+                genre={item.genre}
+                onClick={() => console.log('clicked')}
+                played={item.played}
+              />
+            )}
+          />
+        </View>
+      </ErrorBoundary>
+    </ThemeProvider>
   );
 };
 

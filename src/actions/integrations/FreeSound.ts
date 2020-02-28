@@ -1,15 +1,18 @@
 import Integration from './Integration';
+import { Song } from '../actionTypes';
 
 export default class FreeSound extends Integration {
   constructor(private accessKey) {
     super();
   }
 
-  format = (data: [], id, title, image) => {
-    let song = {};
+  format = (data: [], id, title, image, artist) => {
+    let song: any = {};
     song['id'] = data[id];
     song['title'] = data[title];
-    song['image'] = data[image];
+    song['image'] = data[image]['spectral_bw_m'];
+    song['artist'] = data[artist];
+    song['album'] = '';
     return song;
   };
 
@@ -21,12 +24,24 @@ export default class FreeSound extends Integration {
         .then(response => response.json())
         .then(async response => {
           let data = response.results;
-          let request = await fetch(
-            `https://freesound.org/apiv2/sounds/${data[0].id}/?token=gKpUyvuPdDWvF10h9uzPLc9KFTZumKeYbvB87XDu`,
-          );
-          data = await request.json();
-          data = this.format(data, 'id', 'name', 'images');
-          return data;
+          let results: Song[] = [];
+          for (const child of data) {
+            if (child.id) {
+              let request = await fetch(
+                `https://freesound.org/apiv2/sounds/${child.id}/?token=gKpUyvuPdDWvF10h9uzPLc9KFTZumKeYbvB87XDu`,
+              );
+              let node = await request.json();
+              let song: Song = this.format(
+                node,
+                'id',
+                'name',
+                'images',
+                'username',
+              );
+              results.push(song);
+            }
+          }
+          return results;
         })
         .then(data => resovle(data))
         .catch(error => reject(error));

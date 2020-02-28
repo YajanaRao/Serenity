@@ -35,3 +35,15 @@ Simple Component Kit
             Be a king? Think not, why be a king when you can be a God?"
         }
     ]
+
+## Plugin Architecture
+
+Instead of cloning modules into node_modules having a custom directory for modules would make it easiar to modify
+
+## References
+
+Lerna
+https://github.com/lerna/lerna
+
+Yarn Workspaces
+https://classic.yarnpkg.com/en/docs/workspaces/

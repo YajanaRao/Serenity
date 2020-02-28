@@ -1,39 +1,29 @@
-import React from 'react';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER } from './actionTypes';
-import { Integrations } from './integrations';
+import {
+  ADD_SONG,
+  TOGGLE_TODO,
+  SET_VISIBILITY_FILTER,
+  Song,
+  Plugin,
+  ADD_PLUGIN,
+} from './actionTypes';
 
-let plugins: any[] = [];
-export const __init__ = () => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-  console.log(Integrations);
-  if (Integrations.length) {
-    Integrations.forEach(intergration => {
-      plugins[intergration.name] = import(
-        `./integrations/${intergration.name}`
-      );
-      import(`./integrations/${intergration.name}`).then(obj => {
-        let plugin = obj.default;
-        let handler = new plugin();
-        handler.getData().then(data => console.log(data));
-      });
-      // console.log("added", intergration.name);
-      // plugins[intergration.name]();
-    });
-  }
-  // plugins.forEach(plugin => {
-  //   console.log("int plugin");
-  //   let handler = new plugin();
-  //   console.log("handler",handler);
-  //   handler.getData();
-  // })
-};
-
-export const addTodo = (text: string) => (
+export const addPlugin = (plugin: Plugin) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  dispatch({ type: ADD_TODO, text });
+  plugin.loaded = false;
+  dispatch({ type: ADD_PLUGIN, plugin });
 };
+
+export const addSong = (song: Song) => (
+  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+) => {
+  dispatch({ type: ADD_SONG, song });
+};
+
+// export cons
+
 export const toggleTodo = (index: number) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
