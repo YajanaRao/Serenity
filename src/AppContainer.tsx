@@ -53,5 +53,8 @@ const AppContainer = (props: AppContainerProps) => {
 export default AppContainer;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    // height: 500,
+    flex: 1
+  },
 });

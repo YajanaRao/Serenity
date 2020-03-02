@@ -21,7 +21,7 @@ const Song = ({
   genre,
   image,
 }: SongProps) => (
-  <TouchableOpacity onPress={onClick}>
+  <TouchableOpacity onPress={onClick} style={{ width: 200, height: 250 }}>
     <Card>
       <View>
         <Image source={{ uri: image }} style={{ width: 150, height: 150 }} />

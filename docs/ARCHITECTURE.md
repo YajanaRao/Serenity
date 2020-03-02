@@ -39,6 +39,7 @@ Simple Component Kit
 ## Plugin Architecture
 
 Instead of cloning modules into node_modules having a custom directory for modules would make it easiar to modify
+By Having PubSub architecture for plugins communication could get easiar
 
 ## References
 
