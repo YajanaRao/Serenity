@@ -67,7 +67,7 @@ const BottomNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon="library-music"
+              icon="download"
               color={focused ? colors.primary : colors.text}
               style={{ margin: 0, padding: 0 }}
             />

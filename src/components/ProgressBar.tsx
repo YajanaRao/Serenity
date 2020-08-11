@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { ProgressBar } from 'react-native-media-player';
+import { ProgressBar } from 'react-track-player';
 
 export const Progress = () => {
   return (

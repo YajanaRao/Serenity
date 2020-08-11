@@ -41,15 +41,15 @@ export const PlayerBarContainer = () => {
     [navigation],
   );
 
-  if (!isEmpty(active)) {
-    return (
-      <PlayerBar
-        active={active}
-        status={status}
-        togglePlayback={togglePlayback}
-        navigateToPlayer={navigateToPlayer}
-      />
-    );
+  if (isEmpty(active)) {
+    return null;
   }
-  return false;
+  return (
+    <PlayerBar
+      active={active}
+      status={status}
+      togglePlayback={togglePlayback}
+      navigateToPlayer={navigateToPlayer}
+    />
+  );
 };

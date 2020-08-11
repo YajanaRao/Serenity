@@ -5,48 +5,73 @@ import { PlayerBarContainer } from '../containers/PlayerBarContainer';
 import { NavigationState } from '@react-navigation/core';
 
 interface BottomTabBarProps {
-  renderIcon(route: NavigationState, focused: boolean): void;
-  getLabelText(route: NavigationState): void;
-  onTabPress(route: NavigationState): void;
-  onTabLongPress(route: NavigationState): void;
-  getAccessibilityLabel(route: NavigationState): void;
+  navigation: any;
+  descriptors: any;
   state: NavigationState;
 }
 
 export const BottomTabBar = ({
-  renderIcon,
-  getLabelText,
-  onTabPress,
-  onTabLongPress,
-  getAccessibilityLabel,
   state,
+  descriptors,
+  navigation,
 }: BottomTabBarProps) => {
+  const focusedOptions = descriptors[state.routes[state.index].key].options;
+  if (focusedOptions.tabBarVisible === false) {
+    return null;
+  }
   const { routes, index } = state;
+  // const theme = useTheme()
+  // const { colors } = theme;
   return (
     <Surface style={{ elevation: 4 }}>
       <PlayerBarContainer />
       <Divider />
       <Surface style={[styles.container]}>
-        {routes.map((route: NavigationState, routeIndex: number) => {
-          const isRouteActive = routeIndex === index;
-          // const color = isRouteActive ? "green" : "red";
+        {routes.map((route: any, index: number) => {
+          const { options } = descriptors[route.key];
+          const label =
+            options.tabBarLabel !== undefined
+              ? options.tabBarLabel
+              : options.title !== undefined
+              ? options.title
+              : route.name;
+
+          const isFocused = state.index === index;
+          const onPress = () => {
+            console.log('on press');
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            });
+
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
+
+          const onLongPress = () => {
+            navigation.emit({
+              type: 'tabLongPress',
+              target: route.key,
+            });
+          };
+
           return (
             <TouchableRipple
               key={route.key}
               style={styles.tabButton}
               // rippleColor={colors.primary}
               // underlayColor={colors.primary}
-              borderless
-              onPress={() => {
-                onTabPress({ route });
-              }}
-              onLongPress={() => {
-                onTabLongPress({ route });
-              }}
-              accessibilityLabel={getAccessibilityLabel({ route })}
+              accessibilityRole="button"
+              accessibilityStates={isFocused ? ['selected'] : []}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarTestID}
+              onPress={onPress}
+              onLongPress={onLongPress}
             >
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                {renderIcon({ route, focused: isRouteActive })}
+                {options.tabBarIcon({ isFocused })}
                 <Caption
                   style={{
                     textAlign: 'center',
@@ -55,7 +80,7 @@ export const BottomTabBar = ({
                     padding: 0,
                   }}
                 >
-                  {getLabelText({ route })}
+                  {label}
                 </Caption>
               </View>
             </TouchableRipple>

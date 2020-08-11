@@ -1,4 +1,4 @@
-import MediaPlayer from 'react-native-media-player';
+import { TrackPlayer } from 'react-track-player';
 import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
@@ -61,8 +61,8 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
   try {
     const { path } = track;
     if (path) {
-      MediaPlayer.load(path).then(() => {
-        if (playOnLoad) MediaPlayer.play();
+      TrackPlayer.load(path).then(() => {
+        if (playOnLoad) TrackPlayer.play();
       });
       dispatch({
         track,
@@ -161,7 +161,7 @@ export const skipToNext = () => (
     if (track) {
       dispatch(loadTrack(track));
     } else {
-      MediaPlayer.pause();
+      TrackPlayer.pause();
       dispatch({
         status: 'paused',
         type: 'STATUS',
@@ -184,7 +184,7 @@ export const skipToPrevious = () => (
         dispatch(loadTrack(track));
       }
     } else {
-      MediaPlayer.pause();
+      TrackPlayer.pause();
       dispatch({
         status: 'Playing prevoius song',
         type: 'NOTIFY',
@@ -198,7 +198,7 @@ export const skipToPrevious = () => (
 export const destroyTrackPlayer = () => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  MediaPlayer.destroy();
+  TrackPlayer.destroy();
   subscription.remove();
   dispatch({
     payload: 'paused',
@@ -244,7 +244,7 @@ export const removeFromQueue = (song: TrackProps) => (
 export const clearQueue = () => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
-  MediaPlayer.pause();
+  TrackPlayer.pause();
   clearAllSongs(QUEUE_ID);
   dispatch({
     status: 'init',
@@ -305,7 +305,7 @@ export const clearHistory = () => (
 
 export const playTrack = () => {
   try {
-    MediaPlayer.play();
+    TrackPlayer.play();
   } catch (error) {
     log(`playTrack: ${error}`);
   }
@@ -313,7 +313,7 @@ export const playTrack = () => {
 
 export const pauseTrack = () => {
   try {
-    MediaPlayer.pause();
+    TrackPlayer.pause();
   } catch (error) {
     log(error);
   }

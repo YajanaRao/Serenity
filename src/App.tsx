@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { NavigationNativeContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { useScreens } from 'react-native-screens';
 
 import { RootNavigator } from './RootNavigator';
@@ -16,13 +16,13 @@ const App = () => {
   const renderActivityIndicator = () => <Welcome />;
 
   return (
-    <NavigationNativeContainer>
+    <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
           <RootNavigator />
         </PersistGate>
       </Provider>
-    </NavigationNativeContainer>
+    </NavigationContainer>
   );
 };
 
