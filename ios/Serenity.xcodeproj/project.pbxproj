@@ -8,18 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SerenityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SerenityTests.m */; };
+		0365DC4AAE464FC89DA63528 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43DE3503B5864864B7ACB2F1 /* AntDesign.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1EF4000D07E347D3A676DA34 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 873E191245254A15A9802C8F /* SimpleLineIcons.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* SerenityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SerenityTests.m */; };
-		350AB4A00BAFD4D99C09E484 /* libPods-Serenity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331B6BB0C826FED5AD26B76B /* libPods-Serenity.a */; };
-		834D70F2C64AF4A71AFB8536 /* libPods-SerenityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBCC53EBF278472CC890AA8 /* libPods-SerenityTests.a */; };
+		30DABEC376A74FC8B6751FC4 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D60B4369264F4DA2A02E6DE9 /* FontAwesome5_Regular.ttf */; };
+		4ACAE6019DCD4AD1B4DD06C2 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 126AE7555B2C40E6B2181784 /* Foundation.ttf */; };
+		4D7CA604ADDC48A8B41C300C /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F48C06FAEB04C4CAB1485F5 /* Entypo.ttf */; };
+		503C800BEDF2493086B652EE /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41320EC8996C42AEAE806E2B /* Zocial.ttf */; };
+		679BE222D5028EF43B67E2A0 /* libPods-Serenity-SerenityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9627BED53967445AE1B0A6F /* libPods-Serenity-SerenityTests.a */; };
+		6F14B26A5F444D178247987D /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4325731BA1204B5186EEC86C /* FontAwesome5_Brands.ttf */; };
+		741CCB13B4F94EA28461895E /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B70B86DC45F4704ABCDA523 /* Fontisto.ttf */; };
+		84B27C0564D64992BFA1C5F8 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAAA0D4FBF894E70882E2122 /* Ionicons.ttf */; };
 		8739625C16E2FD1D46235BB0 /* libPods-Serenity-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 926635867AC7C716988E74B7 /* libPods-Serenity-tvOS.a */; };
+		A607E3EC55094F9EA6446166 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5D74B183D814257A1803777 /* FontAwesome5_Solid.ttf */; };
+		A9A6230E90D3442E826B646D /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66F28CBA54DA4A2FA4C9E12D /* MaterialCommunityIcons.ttf */; };
+		BA650926E5846D8617461BEE /* libPods-Serenity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 331B6BB0C826FED5AD26B76B /* libPods-Serenity.a */; };
+		C296C273ACD44972BA8F6AF5 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20183742779D4A09AEE77C91 /* EvilIcons.ttf */; };
+		D58EB887981E4D8A8F8205B9 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64BC4E40C7404EF087CA9AAF /* FontAwesome.ttf */; };
+		DC1CB17747714EF5B47F1BC3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 209C02383F964B9E9246D2F4 /* MaterialIcons.ttf */; };
 		DFAA9F352EB0A474F9B7E7BC /* libPods-Serenity-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36F44C1629CD68C02C9D93C5 /* libPods-Serenity-tvOSTests.a */; };
+		EC2B6435BC7641E794A6F588 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 939BD2C0757644CEAFD6B6B7 /* Feather.ttf */; };
+		F5E65AFB6DD5432EA111F9D7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D38CF73B694167B331C226 /* Octicons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,11 +56,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0035CCECB5F82B426AED2DBA /* Pods-Serenity-SerenityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity-SerenityTests.release.xcconfig"; path = "Target Support Files/Pods-Serenity-SerenityTests/Pods-Serenity-SerenityTests.release.xcconfig"; sourceTree = "<group>"; };
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* SerenityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SerenityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SerenityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SerenityTests.m; sourceTree = "<group>"; };
 		122D7FCBA41B06097098B6E8 /* Pods-SerenityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerenityTests.release.xcconfig"; path = "Target Support Files/Pods-SerenityTests/Pods-SerenityTests.release.xcconfig"; sourceTree = "<group>"; };
+		126AE7555B2C40E6B2181784 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Serenity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Serenity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Serenity/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Serenity/AppDelegate.m; sourceTree = "<group>"; };
@@ -52,20 +70,36 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Serenity/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Serenity/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Serenity/main.m; sourceTree = "<group>"; };
+		1B70B86DC45F4704ABCDA523 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		1F48C06FAEB04C4CAB1485F5 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		20183742779D4A09AEE77C91 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		209C02383F964B9E9246D2F4 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Serenity-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Serenity-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Serenity-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Serenity-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		331B6BB0C826FED5AD26B76B /* libPods-Serenity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serenity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F44C1629CD68C02C9D93C5 /* libPods-Serenity-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serenity-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41320EC8996C42AEAE806E2B /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		4325731BA1204B5186EEC86C /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		43DE3503B5864864B7ACB2F1 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		4A11BCB73B83CA31B86AC219 /* Pods-Serenity-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Serenity-tvOS/Pods-Serenity-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		57D38CF73B694167B331C226 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		64BC4E40C7404EF087CA9AAF /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		66F28CBA54DA4A2FA4C9E12D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		873E191245254A15A9802C8F /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		926635867AC7C716988E74B7 /* libPods-Serenity-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serenity-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		939BD2C0757644CEAFD6B6B7 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		95E8535BAE22D33276B4ED85 /* Pods-Serenity-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Serenity-tvOSTests/Pods-Serenity-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		9727A8039B4F3FA83F5C1EEB /* Pods-Serenity-SerenityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity-SerenityTests.debug.xcconfig"; path = "Target Support Files/Pods-Serenity-SerenityTests/Pods-Serenity-SerenityTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B9627BED53967445AE1B0A6F /* libPods-Serenity-SerenityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Serenity-SerenityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAAA0D4FBF894E70882E2122 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		D5470F1B70CA99A0F1EF1EAD /* Pods-Serenity-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Serenity-tvOS/Pods-Serenity-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		D60B4369264F4DA2A02E6DE9 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		DEAC5F1FB6C25D794F6F4108 /* Pods-SerenityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerenityTests.debug.xcconfig"; path = "Target Support Files/Pods-SerenityTests/Pods-SerenityTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E5D74B183D814257A1803777 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F3C7B82C3F921801E595A9AD /* Pods-Serenity-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Serenity-tvOSTests/Pods-Serenity-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F78BB3E26D5377FC091969E5 /* Pods-Serenity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity.debug.xcconfig"; path = "Target Support Files/Pods-Serenity/Pods-Serenity.debug.xcconfig"; sourceTree = "<group>"; };
-		FEBCC53EBF278472CC890AA8 /* libPods-SerenityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SerenityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDF532341ADF17A45F71E22 /* Pods-Serenity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Serenity.release.xcconfig"; path = "Target Support Files/Pods-Serenity/Pods-Serenity.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				834D70F2C64AF4A71AFB8536 /* libPods-SerenityTests.a in Frameworks */,
+				679BE222D5028EF43B67E2A0 /* libPods-Serenity-SerenityTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				350AB4A00BAFD4D99C09E484 /* libPods-Serenity.a in Frameworks */,
+				BA650926E5846D8617461BEE /* libPods-Serenity.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +178,7 @@
 				331B6BB0C826FED5AD26B76B /* libPods-Serenity.a */,
 				926635867AC7C716988E74B7 /* libPods-Serenity-tvOS.a */,
 				36F44C1629CD68C02C9D93C5 /* libPods-Serenity-tvOSTests.a */,
-				FEBCC53EBF278472CC890AA8 /* libPods-SerenityTests.a */,
+				B9627BED53967445AE1B0A6F /* libPods-Serenity-SerenityTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,6 +199,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D5EFDA756F55E356A98B7ECB /* Pods */,
+				C3D609B6A4674299889C4056 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -182,6 +217,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C3D609B6A4674299889C4056 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				43DE3503B5864864B7ACB2F1 /* AntDesign.ttf */,
+				1F48C06FAEB04C4CAB1485F5 /* Entypo.ttf */,
+				20183742779D4A09AEE77C91 /* EvilIcons.ttf */,
+				939BD2C0757644CEAFD6B6B7 /* Feather.ttf */,
+				64BC4E40C7404EF087CA9AAF /* FontAwesome.ttf */,
+				4325731BA1204B5186EEC86C /* FontAwesome5_Brands.ttf */,
+				D60B4369264F4DA2A02E6DE9 /* FontAwesome5_Regular.ttf */,
+				E5D74B183D814257A1803777 /* FontAwesome5_Solid.ttf */,
+				1B70B86DC45F4704ABCDA523 /* Fontisto.ttf */,
+				126AE7555B2C40E6B2181784 /* Foundation.ttf */,
+				CAAA0D4FBF894E70882E2122 /* Ionicons.ttf */,
+				66F28CBA54DA4A2FA4C9E12D /* MaterialCommunityIcons.ttf */,
+				209C02383F964B9E9246D2F4 /* MaterialIcons.ttf */,
+				57D38CF73B694167B331C226 /* Octicons.ttf */,
+				873E191245254A15A9802C8F /* SimpleLineIcons.ttf */,
+				41320EC8996C42AEAE806E2B /* Zocial.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		D5EFDA756F55E356A98B7ECB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,8 +251,9 @@
 				95E8535BAE22D33276B4ED85 /* Pods-Serenity-tvOSTests.release.xcconfig */,
 				DEAC5F1FB6C25D794F6F4108 /* Pods-SerenityTests.debug.xcconfig */,
 				122D7FCBA41B06097098B6E8 /* Pods-SerenityTests.release.xcconfig */,
+				9727A8039B4F3FA83F5C1EEB /* Pods-Serenity-SerenityTests.debug.xcconfig */,
+				0035CCECB5F82B426AED2DBA /* Pods-Serenity-SerenityTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -209,6 +268,7 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				E77819171F538476230FF21A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -230,6 +290,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				CB4A93D1B1AE0D0772E35805 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -285,7 +346,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -308,6 +369,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +400,22 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				0365DC4AAE464FC89DA63528 /* AntDesign.ttf in Resources */,
+				4D7CA604ADDC48A8B41C300C /* Entypo.ttf in Resources */,
+				C296C273ACD44972BA8F6AF5 /* EvilIcons.ttf in Resources */,
+				EC2B6435BC7641E794A6F588 /* Feather.ttf in Resources */,
+				D58EB887981E4D8A8F8205B9 /* FontAwesome.ttf in Resources */,
+				6F14B26A5F444D178247987D /* FontAwesome5_Brands.ttf in Resources */,
+				30DABEC376A74FC8B6751FC4 /* FontAwesome5_Regular.ttf in Resources */,
+				A607E3EC55094F9EA6446166 /* FontAwesome5_Solid.ttf in Resources */,
+				741CCB13B4F94EA28461895E /* Fontisto.ttf in Resources */,
+				4ACAE6019DCD4AD1B4DD06C2 /* Foundation.ttf in Resources */,
+				84B27C0564D64992BFA1C5F8 /* Ionicons.ttf in Resources */,
+				A9A6230E90D3442E826B646D /* MaterialCommunityIcons.ttf in Resources */,
+				DC1CB17747714EF5B47F1BC3 /* MaterialIcons.ttf in Resources */,
+				F5E65AFB6DD5432EA111F9D7 /* Octicons.ttf in Resources */,
+				1EF4000D07E347D3A676DA34 /* SimpleLineIcons.ttf in Resources */,
+				503C800BEDF2493086B652EE /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,7 +524,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SerenityTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Serenity-SerenityTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -473,6 +551,106 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB4A93D1B1AE0D0772E35805 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Serenity/Pods-Serenity-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Serenity/Pods-Serenity-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E77819171F538476230FF21A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Serenity-SerenityTests/Pods-Serenity-SerenityTests-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Serenity-SerenityTests/Pods-Serenity-SerenityTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -580,7 +758,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DEAC5F1FB6C25D794F6F4108 /* Pods-SerenityTests.debug.xcconfig */;
+			baseConfigurationReference = 9727A8039B4F3FA83F5C1EEB /* Pods-Serenity-SerenityTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -603,7 +781,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 122D7FCBA41B06097098B6E8 /* Pods-SerenityTests.release.xcconfig */;
+			baseConfigurationReference = 0035CCECB5F82B426AED2DBA /* Pods-Serenity-SerenityTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -635,7 +813,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Serenity;
 				PRODUCT_NAME = Serenity;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -654,7 +832,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Serenity;
 				PRODUCT_NAME = Serenity;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
