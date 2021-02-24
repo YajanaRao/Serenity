@@ -44,6 +44,10 @@ jobs:
       - name: Install packages
         run: yarn
 
+      - name: Decode google-services.json
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+          run: echo $FIREBASE_SECRET > android/app/google-services.json
 
       # Build android app
       - name: Build Android Release
