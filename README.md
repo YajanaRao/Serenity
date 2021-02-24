@@ -112,6 +112,8 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 `yarn install` or `npm install`
 
+We need to have google-service.json file in android and IOS directory before running the application on the device
+
 `react-native run-android` or `yarn android` or `npm android`
 
 ## Our Community
