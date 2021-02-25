@@ -77,7 +77,7 @@ export const ShortCutContainer = () => {
         onPress={navigateToHistory}
       >
         <Avatar.Icon
-          icon="history"
+          icon="stats-chart-outline"
           color="#46b3e6"
           style={{ backgroundColor: '#46b3e650' }}
         />

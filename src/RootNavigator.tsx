@@ -6,6 +6,8 @@ import {
 } from 'react-native-paper';
 import { PermissionsAndroid } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import { RootScreen } from './pages/Root';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
@@ -52,7 +54,12 @@ export const RootNavigator = () => {
   }, [setup, dispatch]);
 
   return (
-    <PaperProvider theme={themeType === 'dark' ? DarkTheme : DefaultTheme}>
+    <PaperProvider
+      settings={{
+        icon: props => <Icon {...props} />,
+      }}
+      theme={themeType === 'dark' ? DarkTheme : DefaultTheme}
+    >
       <RootScreen />
     </PaperProvider>
   );

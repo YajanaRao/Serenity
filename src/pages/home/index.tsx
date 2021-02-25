@@ -27,7 +27,7 @@ export const HomeStack = () => {
             headerTitle: 'Home',
             headerRight: () => (
               <IconButton
-                icon="cog"
+                icon="settings-outline"
                 onPress={() => navigation.navigate('Settings')}
               />
             ),

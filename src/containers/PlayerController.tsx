@@ -38,13 +38,13 @@ export const PlayerController = () => {
   };
   return (
     <View style={styles.playerToolbox}>
-      <IconButton icon="skip-previous" size={40} onPress={previous} />
+      <IconButton icon="play-skip-back" size={40} onPress={previous} />
       <FAB
         icon={status === 'playing' ? 'pause' : 'play'}
         onPress={togglePlayback}
         loading={status === 'loading'}
       />
-      <IconButton icon="skip-next" size={40} onPress={next} />
+      <IconButton icon="play-skip-forward" size={40} onPress={next} />
     </View>
   );
 };

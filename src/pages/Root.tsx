@@ -3,9 +3,8 @@ import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import RNBootSplash from 'react-native-bootsplash';
-import { Keyboard } from 'react-native';
+
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import { HomeStack } from './home';
@@ -29,7 +28,7 @@ const BottomNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon="home"
+              icon={focused ? 'home' : 'home-outline'}
               color={focused ? colors.primary : colors.text}
               style={{ margin: 0, padding: 0 }}
             />
@@ -42,7 +41,7 @@ const BottomNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon="magnify"
+              icon={focused ? 'search' : 'search-outline'}
               color={focused ? colors.primary : colors.text}
               style={{ margin: 0, padding: 0 }}
             />
@@ -55,7 +54,7 @@ const BottomNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon="compass"
+              icon={focused ? 'compass' : 'compass-outline'}
               color={focused ? colors.primary : colors.text}
               style={{ margin: 0, padding: 0 }}
             />
@@ -68,7 +67,7 @@ const BottomNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon="download"
+              icon={focused ? 'download' : 'download-outline'}
               color={focused ? colors.primary : colors.text}
               style={{ margin: 0, padding: 0 }}
             />
@@ -95,7 +94,6 @@ const RootStack = () => {
 
 export const RootScreen = () => {
   useEffect(() => {
-    Keyboard.dismiss();
     RNBootSplash.hide();
   }, []);
 

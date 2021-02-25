@@ -6,6 +6,7 @@ import {
   Drawer,
   TouchableRipple,
   useTheme,
+  List,
 } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -71,14 +72,11 @@ export const SettingScreen = () => {
           </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
-          <TouchableRipple onPress={showAlert}>
-            <View style={styles.preference}>
-              <Text>Clear history</Text>
-              {/* <View pointerEvents="none">
-                <Switch value={dark} />
-              </View> */}
-            </View>
-          </TouchableRipple>
+          <Drawer.Item
+            onPress={showAlert}
+            label="Clear history"
+            icon="trash-can"
+          />
         </Drawer.Section>
       </ScrollView>
     </Screen>

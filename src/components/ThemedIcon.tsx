@@ -9,7 +9,7 @@ export interface ThemedIconProps {
   size: number;
 }
 
-export const ThemedIcon = ({ name, size }: ThemedIconProps) => {
+export const ThemedIcon = ({ name, size = 24 }: ThemedIconProps) => {
   const theme = useTheme();
   const { colors } = theme;
   return <Icon name={name} color={colors.text} size={size} />;

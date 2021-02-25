@@ -22,7 +22,7 @@ export const Header = () => {
         placeholder="Artists, songs or podcasts"
         onChangeText={handleChange}
         value={query}
-        icon="magnify"
+        icon="search"
         style={{ margin: 10 }}
       />
     </View>

@@ -70,7 +70,7 @@ export const BottomTabBar = ({
               onLongPress={onLongPress}
             >
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                {options.tabBarIcon({ isFocused })}
+                {options.tabBarIcon({ focused: isFocused })}
                 <Caption
                   style={{
                     textAlign: 'center',

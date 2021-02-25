@@ -15,7 +15,7 @@ export const EmptyPlaylist = () => {
   return (
     <Screen>
       <View style={CONTAINER}>
-        <ThemedIcon name="disc-alert" size={80} />
+        <ThemedIcon name="alert" size={80} />
         <Subheading style={{ textAlign: 'center' }}>Empty playlists</Subheading>
       </View>
     </Screen>
