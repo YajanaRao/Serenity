@@ -11,6 +11,8 @@ export const RepeatContainer = () => {
   const updateRepeatType = () => {
     if (repeat === 'repeat-all') {
       dispatch(repeatSongs('repeat-one'));
+    } else if (repeat === 'repeat-one') {
+      dispatch(repeatSongs('repeat-off'));
     } else {
       dispatch(repeatSongs('repeat-all'));
     }

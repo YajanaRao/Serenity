@@ -4,6 +4,8 @@ import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 import sample from 'lodash/sample';
 
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 import {
   addSong,
   removeSong,
@@ -17,8 +19,6 @@ import {
 import { deserializeSongs } from '../utils/database';
 import { log } from '../utils/logging';
 import { TrackProps, AlbumProps } from '../types';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 
 let subscription: EmitterSubscription;
 
@@ -147,12 +147,12 @@ export const skipToNext = () => (
       const playedTrack = getState().playerState.active;
       addSong(HISTORY_ID, playedTrack);
       dispatch(playTrack());
-    } else if (queue.length) {
+    } else if (config.repeat === 'repeat-all' && queue.length) {
       const playedTrack = getState().playerState.active;
       track = head(queue);
       addSong(HISTORY_ID, playedTrack);
       removeSong(QUEUE_ID, track);
-    } else if (config.radio) {
+    } else if (config.radio && config.repeat !== 'repeat-off') {
       const playedTrack = getState().playerState.active;
       track = sample(getState().mediaStore.songs);
       addSong(HISTORY_ID, playedTrack);

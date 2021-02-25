@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Caption, TouchableRipple, Surface, Divider } from 'react-native-paper';
-import { PlayerBarContainer } from '../containers/PlayerBarContainer';
 import { NavigationState } from '@react-navigation/core';
+import { PlayerBarContainer } from '../containers/PlayerBarContainer';
 
 interface BottomTabBarProps {
   navigation: any;
@@ -38,7 +38,6 @@ export const BottomTabBar = ({
 
           const isFocused = state.index === index;
           const onPress = () => {
-            console.log('on press');
             const event = navigation.emit({
               type: 'tabPress',
               target: route.key,

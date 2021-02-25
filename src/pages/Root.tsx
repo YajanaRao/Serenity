@@ -5,6 +5,7 @@ import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import RNBootSplash from 'react-native-bootsplash';
+import { Keyboard } from 'react-native';
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import { HomeStack } from './home';
@@ -94,8 +95,10 @@ const RootStack = () => {
 
 export const RootScreen = () => {
   useEffect(() => {
+    Keyboard.dismiss();
     RNBootSplash.hide();
   }, []);
+
   return (
     <Screen>
       <NotificationContainer />

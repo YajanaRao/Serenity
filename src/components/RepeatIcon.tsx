@@ -7,8 +7,14 @@ interface Props {
 }
 
 export const RepeatIcon = ({ repeat, updateRepeatType }: Props) => {
-  if (repeat === 'repeat-all') {
-    return <IconButton icon="repeat" onPress={updateRepeatType} />;
+  switch (repeat) {
+    case 'repeat-all':
+      return <IconButton icon="repeat" onPress={updateRepeatType} />;
+    case 'repeat-one':
+      return <IconButton icon="repeat-once" onPress={updateRepeatType} />;
+    case 'repeat-off':
+      return <IconButton icon="repeat-off" onPress={updateRepeatType} />;
+    default:
+      return null;
   }
-  return <IconButton icon="repeat-once" onPress={updateRepeatType} />;
 };
