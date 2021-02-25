@@ -2,18 +2,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { NavigationContainer } from '@react-navigation/native';
-import { useScreens } from 'react-native-screens';
 
+import { ActivityIndicator } from 'react-native-paper';
 import { RootNavigator } from './RootNavigator';
 import configureStore from './store';
-import { Welcome } from './components/Welcome';
-
-useScreens();
 
 const { store, persistor } = configureStore();
 
 const App = () => {
-  const renderActivityIndicator = () => <Welcome />;
+  const renderActivityIndicator = () => <ActivityIndicator />;
 
   return (
     <NavigationContainer>

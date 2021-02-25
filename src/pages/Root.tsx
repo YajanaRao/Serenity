@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import RNBootSplash from 'react-native-bootsplash';
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import { HomeStack } from './home';
@@ -11,7 +12,6 @@ import { ExploreStack } from './explore';
 import { PlayerScreen } from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
 import { Screen } from '../components/Screen';
-
 import NotificationContainer from '../containers/NotificationContainer';
 
 const Tab = createBottomTabNavigator();
@@ -93,6 +93,9 @@ const RootStack = () => {
 };
 
 export const RootScreen = () => {
+  useEffect(() => {
+    RNBootSplash.hide();
+  }, []);
   return (
     <Screen>
       <NotificationContainer />

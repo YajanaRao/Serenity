@@ -12,17 +12,28 @@
       android:allowBackup="false"
       android:hardwareAccelerated="true"
       android:largeHeap="true"
+
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="stateVisible">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        android:windowSoftInputMode="stateVisible"
+        android:exported="true"
+        android:launchMode="singleTask"
+        >
+        
       </activity>
+       <activity
+      android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
+      android:theme="@style/BootTheme"
+      android:launchMode="singleTask">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 
