@@ -4,11 +4,11 @@ import { View } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Title, Button } from 'react-native-paper';
 
+import { useNavigation } from '@react-navigation/core';
 import { deserializeSongs } from '../utils/database';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
-import { useNavigation } from '@react-navigation/core';
 import { TrackProps } from '../types';
 
 export const RecentContainer = () => {
@@ -33,7 +33,9 @@ export const RecentContainer = () => {
       realmSongs.addListener(listener);
     }
     return () => {
-      realmSongs.removeListener(listener);
+      if (realmSongs !== undefined) {
+        realmSongs.removeListener(listener);
+      }
     };
   }, [realmSongs]);
 

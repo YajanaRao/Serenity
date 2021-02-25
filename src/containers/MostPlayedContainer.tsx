@@ -40,7 +40,9 @@ export const MostPlayedContainer = () => {
       realmSongs.addListener(listener);
     }
     return () => {
-      realmSongs.removeListener(listener);
+      if (realmSongs !== undefined) {
+        realmSongs.removeListener(listener);
+      }
     };
   }, [realmSongs]);
 

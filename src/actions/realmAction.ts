@@ -1,5 +1,5 @@
-import realm from '../database';
 import find from 'lodash/find';
+import realm from '../database';
 
 import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
 import { ARTIST_SCHEMA_NAME } from '../database/schema/ArtistSchema';
@@ -79,10 +79,10 @@ export const getPlaylistSongs = (id: string) => {
     if (playlist !== undefined) {
       return playlist.songs;
     }
-    return [];
+    return undefined;
   } catch (error) {
     log(`getPlaylistSongs: ${error}`);
-    return [];
+    return undefined;
   }
 };
 
@@ -95,10 +95,10 @@ export const getQueuedSongs = () => {
     if (queue !== undefined) {
       return queue.songs;
     }
-    return [];
+    return undefined;
   } catch (error) {
     log(`getQueuedSongs: ${error}`);
-    return [];
+    return undefined;
   }
 };
 
@@ -111,10 +111,10 @@ export const getPlayedSongs = () => {
     if (history !== undefined) {
       return history.songs;
     }
-    return [];
+    return undefined;
   } catch (error) {
     log(`getPlayedSongs: ${error}`);
-    return [];
+    return undefined;
   }
 };
 
@@ -127,10 +127,10 @@ export const getFavoriteSongs = () => {
     if (favorites !== undefined) {
       return favorites.songs;
     }
-    return [];
+    return undefined;
   } catch (error) {
     log(`getPlayedSongs: ${error}`);
-    return [];
+    return undefined;
   }
 };
 
@@ -270,7 +270,7 @@ export const removeArtist = (id: string) => {
 
 export const isArtistPresent = (id: string) => {
   const artist = realm.objectForPrimaryKey(ARTIST_SCHEMA_NAME, id);
-  return artist ? true : false;
+  return !!artist;
 };
 
 export const addAlbum = (album: AlbumProps) => {
