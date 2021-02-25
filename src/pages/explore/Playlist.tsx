@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { List, Portal, Dialog, TextInput, Button } from 'react-native-paper';
 import { View, RefreshControl, FlatList } from 'react-native';
 
+import { Collection } from 'realm';
 import {
   createPlaylist,
   getAllPlaylists,
@@ -10,7 +11,6 @@ import {
 import { deserializePlaylists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
 import { PlaylistProps, NavigationScreenProps } from '../../types';
-import { Collection } from 'realm';
 
 export const PlaylistScreen = ({
   navigation,
@@ -97,7 +97,7 @@ export const PlaylistScreen = ({
           <View>
             <List.Item
               title="Create Playlist"
-              left={() => <List.Icon icon="plus" />}
+              left={() => <List.Icon icon="add" />}
               onPress={showDialog}
             />
           </View>
@@ -108,7 +108,7 @@ export const PlaylistScreen = ({
           <List.Item
             title={item.name}
             description={`by ${item.owner}`}
-            left={props => <List.Icon {...props} icon="playlist-music" />}
+            left={props => <List.Icon {...props} icon="folder-open" />}
             onPress={() => navigateToCollection(item)}
           />
         )}

@@ -9,6 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 
+import { useScrollToTop } from '@react-navigation/native';
 import { getOfflineSongs } from '../../actions/mediaStore';
 import {
   addToQueue,
@@ -24,7 +25,6 @@ import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { TrackProps } from '../../types';
 import { TrackMenu } from '../../components/TrackMenu';
 import { RootReducerType } from '../../reducers';
-import { useScrollToTop } from '@react-navigation/native';
 
 interface ItemProps {
   item: TrackProps;
@@ -141,7 +141,7 @@ export const SongScreen = () => {
               right={props => (
                 <IconButton
                   {...props}
-                  icon="dots-vertical"
+                  icon="ellipsis-vertical-outline"
                   onPress={(event: GestureResponderEvent) =>
                     openMenu(event, item)
                   }

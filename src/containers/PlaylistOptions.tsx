@@ -14,12 +14,12 @@ import {
 } from 'react-native-paper';
 import { StyleSheet, View, Dimensions } from 'react-native';
 
+import { useDispatch } from 'react-redux';
 import { addToQueue } from '../actions/playerState';
 import { DefaultImage } from '../components/DefaultImage';
 import { deletePlaylist, renamePlaylist } from '../actions/realmAction';
 import { logEvent } from '../utils/logging';
 import { RenamePlaylistDailog } from '../components/RenamePlaylistDailog';
-import { useDispatch } from 'react-redux';
 import { AlertDialog } from '../components/AlertDialog';
 
 const RENAME_DIALOG = 'RENAME';
@@ -181,7 +181,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
         action={deleteAction}
         hideDialog={hideDialog}
       />
-      <IconButton icon="dots-vertical" onPress={openBottomSheet} />
+      <IconButton icon="ellipsis-vertical-outline" onPress={openBottomSheet} />
     </View>
   );
 };
