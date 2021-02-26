@@ -1,7 +1,7 @@
 import React from 'react';
-import { Subheading } from 'react-native-paper';
+import { Headline } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
-import { ThemedIcon } from './ThemedIcon';
+import LottieView from 'lottie-react-native';
 import { Screen } from './Screen';
 
 const CONTAINER: ViewStyle = {
@@ -15,8 +15,22 @@ export const EmptyPlaylist = () => {
   return (
     <Screen>
       <View style={CONTAINER}>
-        <ThemedIcon name="alert" size={80} />
-        <Subheading style={{ textAlign: 'center' }}>Empty playlists</Subheading>
+        {/* <ThemedIcon name="alert" size={80} /> */}
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 150,
+            width: '100%',
+          }}
+        >
+          <LottieView
+            source={require('../assets/EmptyPlaylist.json')}
+            autoPlay
+            loop
+          />
+        </View>
+        <Headline style={{ textAlign: 'center' }}>Empty playlists</Headline>
       </View>
     </Screen>
   );

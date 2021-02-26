@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Subheading, Title } from 'react-native-paper';
-import { DefaultImage } from './DefaultImage';
 import { TrackProps } from '../types';
+import ActiveTrackImage from './ActiveTrackImage';
 
 interface Props {
   track: TrackProps;
@@ -16,7 +16,7 @@ export const ActiveTrackDetails = ({ track }: Props) => {
         {track.cover ? (
           <FastImage source={{ uri: track.cover }} style={[styles.artCover]} />
         ) : (
-          <DefaultImage style={styles.artCover} />
+          <ActiveTrackImage style={styles.artCover} />
         )}
       </View>
       <View style={styles.centerContainer}>

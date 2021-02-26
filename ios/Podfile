@@ -9,6 +9,8 @@ target 'Serenity' do
   
 	use_react_native!(:path => config["reactNativePath"])
   
+ pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
 	target 'SerenityTests' do
 	  inherit! :complete
 	  # Pods for testing

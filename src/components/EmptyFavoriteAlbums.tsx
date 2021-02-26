@@ -1,7 +1,7 @@
 import React from 'react';
 import { Title, Subheading } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
-import { ThemedIcon } from './ThemedIcon';
+import LottieView from 'lottie-react-native';
 
 const CONTAINER: ViewStyle = {
   alignItems: 'center',
@@ -13,7 +13,16 @@ const CONTAINER: ViewStyle = {
 export const EmptyFavoriteAlbums = () => {
   return (
     <View style={CONTAINER}>
-      <ThemedIcon name="heart-outline" size={80} />
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 150,
+          width: '100%',
+        }}
+      >
+        <LottieView source={require('../assets/Favorite.json')} autoPlay loop />
+      </View>
       <Title>No favorites yet.</Title>
       <Subheading style={{ textAlign: 'center' }}>
         Songs, albums, artists and playlists you&apos;ve liked will live here

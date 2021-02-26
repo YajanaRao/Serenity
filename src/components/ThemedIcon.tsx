@@ -7,7 +7,7 @@ import { useTheme } from 'react-native-paper';
 export interface ThemedIconProps {
   name: string;
   size: number;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export const ThemedIcon = ({ name, size = 24, onPress }: ThemedIconProps) => {

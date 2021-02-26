@@ -31,6 +31,8 @@
     "appcenter-analytics": "^4.0.2",
     "appcenter-crashes": "^4.0.2",
     "lodash": "4.17.13",
+    "lottie-ios": "3.1.8",
+    "lottie-react-native": "^3.5.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-bootsplash": "^3.1.5",
