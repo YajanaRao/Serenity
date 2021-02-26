@@ -31,7 +31,7 @@
     "appcenter-analytics": "^4.0.2",
     "appcenter-crashes": "^4.0.2",
     "lodash": "4.17.13",
-    "react": "16.9.0",
+    "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-bootsplash": "^3.1.5",
     "react-native-fast-image": "^7.0.0",
@@ -60,7 +60,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
-    "@react-native-community/eslint-config": "^0.0.5",
+    "@react-native-community/eslint-config": "^1.1.0",
     "@types/jest": "^24.0.23",
     "@types/react": "^16.9.13",
     "@types/react-native": "^0.60.23",
