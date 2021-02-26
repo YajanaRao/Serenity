@@ -7,7 +7,7 @@ import RNBootSplash from 'react-native-bootsplash';
 
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
-import { HomeStack } from './home';
+import HomeStack from './home';
 import { ExploreStack } from './explore';
 import { PlayerScreen } from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';

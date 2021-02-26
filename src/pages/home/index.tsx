@@ -4,10 +4,11 @@ import { useTheme, IconButton } from 'react-native-paper';
 import { MainScreen } from './Main';
 import { SettingScreen } from './Settings';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
+import { getGreetingTime } from '../../utils/greeting';
 
 const Stack = createStackNavigator();
 
-export const HomeStack = () => {
+const HomeStack = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -24,7 +25,7 @@ export const HomeStack = () => {
         component={MainScreen}
         options={({ navigation }) => {
           return {
-            headerTitle: 'Home',
+            headerTitle: getGreetingTime(),
             headerRight: () => (
               <IconButton
                 icon="settings-outline"
@@ -61,3 +62,5 @@ export const HomeStack = () => {
     </Stack.Navigator>
   );
 };
+
+export default HomeStack;
