@@ -7,7 +7,7 @@ interface TreeProps {
   message: string;
 }
 
-export const Tree = ({ message }: TreeProps) => {
+const Tree = ({ message }: TreeProps) => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -26,6 +26,8 @@ export const Tree = ({ message }: TreeProps) => {
     </View>
   );
 };
+
+export default Tree;
 
 const styles = StyleSheet.create({
   container: {

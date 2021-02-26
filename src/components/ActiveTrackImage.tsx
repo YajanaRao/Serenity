@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
+import { useSelector } from 'react-redux';
 
 interface StyleProps {
   height: number;
@@ -11,12 +12,23 @@ interface ActiveTrackImageProps {
 }
 
 const ActiveTrackImage = ({ style }: ActiveTrackImageProps) => {
+  const animatedRef = useRef(null);
+  const status = useSelector((state: any) => state.playerState.status);
+
+  useEffect(() => {
+    if (status === 'playing') {
+      animatedRef.current.play();
+    } else {
+      animatedRef.current.pause();
+    }
+  }, [status]);
+
   return (
     <LinearGradient
-      colors={['#C9D6FF', '#E2E2E2']}
+      colors={['#8360c3', '#2ebf91']}
       style={[style, { justifyContent: 'center', alignItems: 'center' }]}
     >
-      <LottieView source={require('../assets/Player.json')} autoPlay loop />
+      <LottieView ref={animatedRef} source={require('../assets/Player.json')} />
     </LinearGradient>
   );
 };

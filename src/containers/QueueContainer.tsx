@@ -106,7 +106,7 @@ export const QueueContainer = ({ close }: Props) => {
       </View>
     );
   }
-  return false;
+  return null;
 };
 
 const styles = StyleSheet.create({
