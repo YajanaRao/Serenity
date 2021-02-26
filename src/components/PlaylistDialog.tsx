@@ -36,7 +36,7 @@ export const PlaylistDialog = ({
               <List.Item
                 title={item.name}
                 description={`by ${item.owner}`}
-                left={props => <List.Icon {...props} icon="playlist-music" />}
+                left={props => <List.Icon {...props} icon="folder-open" />}
                 onPress={() => addToPlaylist(item.id)}
               />
             )}

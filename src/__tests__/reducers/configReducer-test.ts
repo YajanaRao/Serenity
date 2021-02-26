@@ -22,7 +22,7 @@ describe('reducers/index.js', () => {
         radio: false,
         repeat: 'repeat-all',
         setup: false,
-        themeType: 'white',
+        themeType: 'light',
       });
     });
 

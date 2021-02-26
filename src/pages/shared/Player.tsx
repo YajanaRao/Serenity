@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { IconButton, Divider } from 'react-native-paper';
 
+import { useSelector } from 'react-redux';
 import { QueueContainer } from '../../containers/QueueContainer';
 import { FavContainer } from '../../containers/FavContainer';
 import { RepeatContainer } from '../../containers/RepeatContainer';
@@ -10,7 +11,6 @@ import { Progress } from '../../components/ProgressBar';
 import { Screen } from '../../components/Screen';
 import { ActiveTrackDetails } from '../../components/ActiveTrackDetails';
 import { RootReducerType } from '../../reducers';
-import { useSelector } from 'react-redux';
 
 export const PlayerScreen = ({ navigation }) => {
   const close = () => {
@@ -27,10 +27,6 @@ export const PlayerScreen = ({ navigation }) => {
         <View style={styles.playerContainer}>
           <View style={styles.container}>
             <IconButton icon="close" onPress={close} />
-            {/* <IconButton
-                        icon="more-vert"
-                        onPress={() => this.props.navigation.goBack()}
-                    /> */}
           </View>
           <ActiveTrackDetails track={active} />
           <View style={styles.centerContainer}>

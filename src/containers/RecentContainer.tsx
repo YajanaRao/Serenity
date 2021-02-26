@@ -69,7 +69,11 @@ export const RecentContainer = () => {
           }}
         >
           <Title>Recently Played songs</Title>
-          <Button onPress={navigateToSongs}>More</Button>
+          {history.length > 3 ? (
+            <Button onPress={navigateToSongs}>More</Button>
+          ) : (
+            false
+          )}
         </View>
         <TrackScrollView data={history} play={play} />
       </View>

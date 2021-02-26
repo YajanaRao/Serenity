@@ -15,7 +15,9 @@ export const Fav = ({
   addToFavorite,
   removeFromFavorite,
 }: FavProps) => (
-  <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
+  <View
+    style={[style, { justifyContent: 'center', alignItems: 'center', flex: 1 }]}
+  >
     {liked ? (
       <IconButton
         animated

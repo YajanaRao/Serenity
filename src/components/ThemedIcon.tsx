@@ -7,10 +7,11 @@ import { useTheme } from 'react-native-paper';
 export interface ThemedIconProps {
   name: string;
   size: number;
+  onPress: () => void;
 }
 
-export const ThemedIcon = ({ name, size = 24 }: ThemedIconProps) => {
+export const ThemedIcon = ({ name, size = 24, onPress }: ThemedIconProps) => {
   const theme = useTheme();
   const { colors } = theme;
-  return <Icon name={name} color={colors.text} size={size} />;
+  return <Icon name={name} color={colors.text} size={size} onPress={onPress} />;
 };

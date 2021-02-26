@@ -72,11 +72,7 @@ export const SettingScreen = () => {
           </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
-          <Drawer.Item
-            onPress={showAlert}
-            label="Clear history"
-            icon="trash-can"
-          />
+          <Drawer.Item onPress={showAlert} label="Clear history" icon="trash" />
         </Drawer.Section>
       </ScrollView>
     </Screen>

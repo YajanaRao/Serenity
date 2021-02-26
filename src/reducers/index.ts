@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { Appearance } from 'react-native';
 import { ArtistProps, TrackProps, AlbumProps } from '../types';
 
 interface MediaActions {
@@ -31,7 +32,7 @@ export const INITIAL_CONFIG = {
   radio: false,
   repeat: 'repeat-all',
   setup: false,
-  themeType: 'dark',
+  themeType: Appearance.getColorScheme(),
 };
 
 const INITIAL_STATE = {

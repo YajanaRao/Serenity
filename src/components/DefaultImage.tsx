@@ -2,7 +2,7 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
 // @ts-ignore
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface StyleProps {
   height: number;
@@ -19,7 +19,7 @@ export const DefaultImage = ({ style }: DefaultImageProps) => {
       style={[style, { justifyContent: 'center', alignItems: 'center' }]}
     >
       <Icon
-        name="music"
+        name="musical-notes-outline"
         color="#ffffff"
         size={style.height < 200 ? style.height - 10 : 100}
       />

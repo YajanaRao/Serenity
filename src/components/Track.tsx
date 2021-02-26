@@ -24,7 +24,7 @@ export const Track = React.memo(({ track, active, play }: Props) => {
         description={track.artist ? track.artist : track.album}
         right={props =>
           active ? (
-            <List.Icon {...props} icon="poll" color={colors.accent} />
+            <List.Icon {...props} icon="stats-chart" color={colors.accent} />
           ) : (
             // <List.Icon {...props} icon="more-vert" onPress={() => bs.current.snapTo(1)}/>
             false

@@ -11,7 +11,7 @@ export const RepeatIcon = ({ repeat, updateRepeatType }: Props) => {
     case 'repeat-all':
       return <ThemedIcon name="repeat" onPress={updateRepeatType} />;
     case 'repeat-one':
-      return <ThemedIcon name="repeat-one" onPress={updateRepeatType} />;
+      return <ThemedIcon name="repeat-once" onPress={updateRepeatType} />;
     case 'repeat-off':
       return <ThemedIcon name="repeat-off" onPress={updateRepeatType} />;
     default:

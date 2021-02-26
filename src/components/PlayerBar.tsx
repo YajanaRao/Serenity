@@ -38,10 +38,16 @@ export const PlayerBar = ({
           <DefaultImage style={styles.artwork} />
         )}
         <View style={styles.textContainer}>
-          <Subheading numberOfLines={1} style={{ margin: 0 }}>
+          <Subheading
+            numberOfLines={1}
+            style={{ marginVertical: 0, includeFontPadding: false }}
+          >
             {title}
           </Subheading>
-          <Caption numberOfLines={1} style={{ margin: 0 }}>
+          <Caption
+            numberOfLines={1}
+            style={{ marginVertical: 0, includeFontPadding: false }}
+          >
             {artist || album}
           </Caption>
         </View>
@@ -84,9 +90,9 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   textContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 4,
+    marginHorizontal: 12,
   },
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { IconButton, FAB } from 'react-native-paper';
+import { IconButton, FAB, useTheme } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -13,6 +13,7 @@ import { RootReducerType } from '../reducers';
 
 export const PlayerController = () => {
   const dispatch = useDispatch();
+  const { colors } = useTheme();
   const status = useSelector(
     (state: RootReducerType) => state.playerState.status,
   );
@@ -43,6 +44,7 @@ export const PlayerController = () => {
         icon={status === 'playing' ? 'pause' : 'play'}
         onPress={togglePlayback}
         loading={status === 'loading'}
+        style={{ backgroundColor: colors.onSurface }}
       />
       <IconButton icon="play-skip-forward" size={40} onPress={next} />
     </View>
@@ -54,5 +56,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    flex: 2,
   },
 });

@@ -3,6 +3,7 @@ import {
   Provider as PaperProvider,
   DarkTheme,
   DefaultTheme,
+  configureFonts,
 } from 'react-native-paper';
 import { PermissionsAndroid } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +13,63 @@ import { RootScreen } from './pages/Root';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
 import { log } from './utils/logging';
+
+const fontConfig = {
+  web: {
+    regular: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '400' as '400',
+    },
+    medium: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '500' as '500',
+    },
+    light: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '300' as '300',
+    },
+    thin: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '100' as '100',
+    },
+  },
+  ios: {
+    regular: {
+      fontFamily: 'System',
+      fontWeight: '400' as '400',
+    },
+    medium: {
+      fontFamily: 'System',
+      fontWeight: '500' as '500',
+    },
+    light: {
+      fontFamily: 'System',
+      fontWeight: '300' as '300',
+    },
+    thin: {
+      fontFamily: 'System',
+      fontWeight: '100' as '100',
+    },
+  },
+  android: {
+    regular: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '400' as '400',
+    },
+    medium: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '500' as '500',
+    },
+    light: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '300' as '300',
+    },
+    thin: {
+      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontWeight: '100' as '100',
+    },
+  },
+};
 
 export const RootNavigator = () => {
   const themeType = useSelector(
@@ -53,12 +111,35 @@ export const RootNavigator = () => {
     }
   }, [setup, dispatch]);
 
+  let theme = DefaultTheme;
+
+  if (themeType === 'dark') {
+    theme = {
+      ...DarkTheme,
+      fonts: configureFonts(fontConfig),
+      roundness: 2,
+      colors: {
+        ...DarkTheme.colors,
+        primary: '#1DB954',
+      },
+    };
+  } else {
+    theme = {
+      ...DefaultTheme,
+      fonts: configureFonts(fontConfig),
+      roundness: 2,
+      colors: {
+        ...DefaultTheme.colors,
+        primary: '#1DB954',
+      },
+    };
+  }
   return (
     <PaperProvider
       settings={{
         icon: props => <Icon {...props} />,
       }}
-      theme={themeType === 'dark' ? DarkTheme : DefaultTheme}
+      theme={theme}
     >
       <RootScreen />
     </PaperProvider>

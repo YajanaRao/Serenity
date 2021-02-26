@@ -78,7 +78,7 @@ export const QueueContainer = ({ close }: Props) => {
             <View style={styles.rowContainer}>
               <Title style={{ padding: 10 }}>Queue</Title>
               <IconButton
-                icon="delete"
+                icon="trash-outline"
                 // size={40}
                 onPress={openAlert}
               />
@@ -90,7 +90,7 @@ export const QueueContainer = ({ close }: Props) => {
           renderHiddenItem={({ item }) => (
             <Surface style={styles.rowBack}>
               <IconButton
-                icon="delete"
+                icon="trash-outline"
                 color="#dd1818"
                 onPress={() => removeSongFromQueue(item)}
               />

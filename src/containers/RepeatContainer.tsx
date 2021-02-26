@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { View } from 'react-native';
 import { RepeatIcon } from '../components/RepeatIcon';
 import { repeatSongs } from '../actions/playerState';
 import { RootReducerType } from '../reducers';
@@ -18,5 +19,9 @@ export const RepeatContainer = () => {
     }
   };
 
-  return <RepeatIcon repeat={repeat} updateRepeatType={updateRepeatType} />;
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+      <RepeatIcon repeat={repeat} updateRepeatType={updateRepeatType} />
+    </View>
+  );
 };
