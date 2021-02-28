@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, useTheme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
-import { Tree } from './Tree';
+import Tree from './Tree';
 
 interface Props {
   text: string;

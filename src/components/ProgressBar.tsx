@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     flex: 1,
+    height: 50,
     width: '100%',
   },
   bar: {
