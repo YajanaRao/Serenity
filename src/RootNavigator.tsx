@@ -4,6 +4,7 @@ import {
   DarkTheme,
   DefaultTheme,
   configureFonts,
+  overlay,
 } from 'react-native-paper';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -123,6 +124,7 @@ export const RootNavigator = () => {
       colors: {
         ...DarkTheme.colors,
         primary: '#1DB954',
+        surface: overlay(4, DarkTheme.colors.surface),
       },
     };
   } else {
