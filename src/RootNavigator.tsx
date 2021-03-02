@@ -5,7 +5,7 @@ import {
   DefaultTheme,
   configureFonts,
 } from 'react-native-paper';
-import { PermissionsAndroid } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -107,7 +107,9 @@ export const RootNavigator = () => {
   useEffect(() => {
     if (!setup) {
       dispatch(defaultSetup());
-      requestPermission();
+      if (Platform.OS === 'android') {
+        requestPermission();
+      }
     }
   }, [setup, dispatch]);
 
