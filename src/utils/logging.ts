@@ -1,11 +1,14 @@
 /* global __DEV__ */
 import Analytics from 'appcenter-analytics';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 export const log = (message: any) => {
   if (__DEV__) {
     console.log(message);
   } else {
     Analytics.trackEvent('error', message);
+    crashlytics().log(message);
+    crashlytics().recordError(message);
   }
 };
 

@@ -4,6 +4,7 @@
   "private": false,
   "scripts": {
     "android": "react-native run-android",
+    "clean": "cd android && ./gradlew clean && cd ..",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -21,6 +22,8 @@
     "@react-native-community/masked-view": "^0.1.5",
     "@react-native-community/netinfo": "^4.4.0",
     "@react-native-community/toolbar-android": "^0.1.0-rc.2",
+    "@react-native-firebase/app": "^10.8.1",
+    "@react-native-firebase/crashlytics": "^10.8.1",
     "@react-navigation/bottom-tabs": "^5.1.0",
     "@react-navigation/core": "^5.2.0",
     "@react-navigation/material-top-tabs": "^5.1.0",
