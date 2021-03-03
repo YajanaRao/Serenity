@@ -59,7 +59,7 @@ jobs:
           name: app-release.apk
           path: android/app/build/outputs/apk/release/app-release.apk
 
-      - name: upload artifact to Firebase App Distribution
+      - name: upload artifact to Beta App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
         if: ${{ !github.event.pull_request }}
         with:
@@ -67,3 +67,13 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: beta
           file: android/app/build/outputs/apk/release/app-release.apk
+          
+      - name: upload artifact to Dev App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+        if: ${{ github.event.pull_request }}
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: dev
+          file: android/app/build/outputs/apk/release/app-release.apk
+
