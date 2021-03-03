@@ -62,7 +62,7 @@ export const RecentContainer = () => {
       <View>
         <View
           style={{
-            marginHorizontal: 16,
+            marginLeft: 16,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -70,14 +70,14 @@ export const RecentContainer = () => {
         >
           <Title>Recently Played songs</Title>
           {history.length > 3 ? (
-            <Button onPress={navigateToSongs}>More</Button>
-          ) : (
-            false
-          )}
+            <Button onPress={navigateToSongs} uppercase={false}>
+              More
+            </Button>
+          ) : null}
         </View>
         <TrackScrollView data={history} play={play} />
       </View>
     );
   }
-  return false;
+  return null;
 };

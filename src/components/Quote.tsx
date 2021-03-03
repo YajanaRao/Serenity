@@ -12,6 +12,7 @@ export const Quote = ({ backgroundImage, quote }: Props) => {
     <View style={{ flex: 1 }}>
       <ImageBackground
         source={{ uri: backgroundImage }}
+        imageStyle={{ opacity: 0.4 }}
         style={{ padding: 20, minHeight: 200 }}
         blurRadius={1}
         // imageStyle={{borderRadius: 4}}
