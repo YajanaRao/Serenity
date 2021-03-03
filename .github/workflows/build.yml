@@ -55,6 +55,7 @@ jobs:
           yarn && cd android && ./gradlew assembleRelease
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
+        if: ${{ !github.event.pull_request }}
         with:
           name: app-release.apk
           path: android/app/build/outputs/apk/release/app-release.apk
