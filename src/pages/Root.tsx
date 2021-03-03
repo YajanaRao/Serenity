@@ -5,13 +5,13 @@ import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
 
+import { Platform, StatusBar, SafeAreaView, View } from 'react-native';
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import HomeStack from './home';
 import { ExploreStack } from './explore';
 import { PlayerScreen } from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
-import { Screen } from '../components/Screen';
 import NotificationContainer from '../containers/NotificationContainer';
 
 const Tab = createBottomTabNavigator();
@@ -21,7 +21,14 @@ const BottomNavigator = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (
-    <Tab.Navigator tabBar={BottomTabBar}>
+    <Tab.Navigator
+      tabBar={props => (
+        <BottomTabBar {...props} backgroundColor={colors.surface} />
+      )}
+      tabBarOptions={{
+        style: { backgroundColor: colors.surface },
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeStack}
@@ -93,14 +100,16 @@ const RootStack = () => {
 };
 
 export const RootScreen = () => {
+  const theme = useTheme();
+  const { colors } = theme;
   useEffect(() => {
     RNBootSplash.hide();
   }, []);
 
   return (
-    <Screen>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.surface }}>
       <NotificationContainer />
       <RootStack />
-    </Screen>
+    </SafeAreaView>
   );
 };

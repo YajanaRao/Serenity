@@ -4,8 +4,9 @@ import {
   DarkTheme,
   DefaultTheme,
   configureFonts,
+  overlay,
 } from 'react-native-paper';
-import { PermissionsAndroid } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -107,7 +108,9 @@ export const RootNavigator = () => {
   useEffect(() => {
     if (!setup) {
       dispatch(defaultSetup());
-      requestPermission();
+      if (Platform.OS === 'android') {
+        requestPermission();
+      }
     }
   }, [setup, dispatch]);
 
@@ -121,6 +124,7 @@ export const RootNavigator = () => {
       colors: {
         ...DarkTheme.colors,
         primary: '#1DB954',
+        surface: overlay(4, DarkTheme.colors.surface),
       },
     };
   } else {

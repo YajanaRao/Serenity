@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet, SafeAreaView } from 'react-native';
 import { useTheme } from 'react-native-paper';
+// import SafeAreaView from 'react-native-safe-area-view';
 
 interface ScreenProps {
   children: ReactNode;
@@ -8,11 +9,17 @@ interface ScreenProps {
 
 export const Screen = ({ children }: ScreenProps) => {
   const theme = useTheme();
-  const { colors } = theme;
+  const { colors, dark } = theme;
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
+      <StatusBar
+        barStyle={dark ? 'light-content' : 'dark-content'}
+        backgroundColor={colors.surface}
+      />
       {children}
-    </View>
+    </SafeAreaView>
   );
 };
 

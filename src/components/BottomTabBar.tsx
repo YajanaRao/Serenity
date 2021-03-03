@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Caption, TouchableRipple, Surface, Divider } from 'react-native-paper';
+import { Caption, TouchableRipple, Divider } from 'react-native-paper';
 import { NavigationState } from '@react-navigation/core';
 import { PlayerBarContainer } from '../containers/PlayerBarContainer';
 
@@ -8,25 +8,25 @@ interface BottomTabBarProps {
   navigation: any;
   descriptors: any;
   state: NavigationState;
+  backgroundColor: string;
 }
 
 export const BottomTabBar = ({
   state,
   descriptors,
   navigation,
+  backgroundColor,
 }: BottomTabBarProps) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
   }
   const { routes, index } = state;
-  // const theme = useTheme()
-  // const { colors } = theme;
   return (
-    <Surface style={{ elevation: 4 }}>
+    <View style={{ elevation: 4, backgroundColor }}>
       <PlayerBarContainer />
       <Divider />
-      <Surface style={[styles.container]}>
+      <View style={[styles.container]}>
         {routes.map((route: any, index: number) => {
           const { options } = descriptors[route.key];
           const label =
@@ -85,8 +85,8 @@ export const BottomTabBar = ({
             </TouchableRipple>
           );
         })}
-      </Surface>
-    </Surface>
+      </View>
+    </View>
   );
 };
 
