@@ -14,6 +14,7 @@ import { RootScreen } from './pages/Root';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
 import { log } from './utils/logging';
+import { NavigationContainer } from '@react-navigation/native';
 
 const fontConfig = {
   web: {
@@ -139,13 +140,15 @@ export const RootNavigator = () => {
     };
   }
   return (
-    <PaperProvider
-      settings={{
-        icon: props => <Icon {...props} />,
-      }}
-      theme={theme}
-    >
-      <RootScreen />
-    </PaperProvider>
+    <NavigationContainer theme={DarkTheme}>
+      <PaperProvider
+        settings={{
+          icon: props => <Icon {...props} />,
+        }}
+        theme={theme}
+      >
+        <RootScreen />
+      </PaperProvider>
+    </NavigationContainer>
   );
 };

@@ -24,8 +24,8 @@ export const FilterScreen = ({ navigation, route }: NavigationScreenProps) => {
 
   const fetchData = async () => {
     const genre = route.params.genre.title;
-    const songs = await filterSongsByGenre(genre);
-    setSongs(songs);
+    const data = await filterSongsByGenre(genre);
+    setSongs(data);
   };
 
   const { genre } = route.params;

@@ -48,6 +48,7 @@ export const OfflineStack = () => {
           backgroundColor: colors.surface,
         },
         headerTintColor: colors.text,
+        safeAreaInsets: { top: 0, bottom: 0 },
       }}
     >
       <Stack.Screen
