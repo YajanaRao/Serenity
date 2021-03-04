@@ -24,7 +24,7 @@ export const ShortCutContainer = () => {
       };
       navigation.navigate('Playlist', {
         playlist,
-        fetchSongs: getPlayedSongs,
+        songs: getPlayedSongs(),
       });
     },
     [navigation],
@@ -39,7 +39,7 @@ export const ShortCutContainer = () => {
       };
       navigation.navigate('Playlist', {
         playlist,
-        fetchSongs: getFavoriteSongs,
+        songs: getFavoriteSongs(),
       });
     },
     [navigation],
@@ -54,7 +54,7 @@ export const ShortCutContainer = () => {
       };
       navigation.navigate('Playlist', {
         playlist,
-        fetchSongs: mostPlayed,
+        songs: mostPlayed(),
       });
     },
     [navigation],

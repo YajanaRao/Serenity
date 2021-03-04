@@ -52,7 +52,7 @@ export const RecentContainer = () => {
       owner: 'Serenity',
     };
     navigation.navigate('Playlist', {
-      fetchSongs: () => history,
+      songs: history,
       playlist,
     });
   };

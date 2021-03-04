@@ -60,7 +60,7 @@ export const MostPlayedContainer = () => {
         owner: 'Serenity',
       };
       navigation.navigate('Playlist', {
-        fetchSongs: () => mostPlayedSongs(realmSongs),
+        songs: mostPlayedSongs(realmSongs),
         playlist,
       });
     },
