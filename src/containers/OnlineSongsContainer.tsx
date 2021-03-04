@@ -1,9 +1,8 @@
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/core';
-import { Button, Title } from 'react-native-paper';
+import { Title } from 'react-native-paper';
 import * as data from '../assets/Media.json';
 import { TrackScrollView } from '../components/TrackScrollView';
 
@@ -36,7 +35,7 @@ const OnlineSongsContainer = () => {
             alignItems: 'center',
           }}
         >
-          <Title>Recently Played songs</Title>
+          <Title>Online Songs</Title>
         </View>
         <TrackScrollView data={media} play={navigateToPlaylist} />
       </View>
