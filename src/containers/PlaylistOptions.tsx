@@ -69,8 +69,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
   };
 
   const addSongToQueue = () => {
-    const { fetchSongs } = route.params;
-    const songs = fetchSongs();
+    const { songs } = route.params;
     dispatch(addToQueue(values(songs)));
   };
 

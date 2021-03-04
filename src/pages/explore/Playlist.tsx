@@ -44,7 +44,7 @@ export const PlaylistScreen = ({
 
   const navigateToCollection = (playlist: PlaylistProps) => {
     navigation.navigate('Songs', {
-      fetchSongs: () => getPlaylistSongs(playlist.id),
+      songs: getPlaylistSongs(playlist.id),
       playlist,
     });
   };

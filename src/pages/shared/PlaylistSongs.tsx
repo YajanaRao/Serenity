@@ -4,6 +4,7 @@ import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
 import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import values from 'lodash/values';
+import FastImage from 'react-native-fast-image';
 import { addToQueue } from '../../actions/playerState';
 import { TrackContainer } from '../../containers/TrackContainer';
 import { DefaultImage } from '../../components/DefaultImage';
@@ -13,14 +14,9 @@ import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import { TrackProps } from '../../types';
 
 export const PlaylistSongs = ({ route }) => {
-  const { playlist } = route.params;
-  const { fetchSongs } = route.params;
+  const { playlist, songs } = route.params;
+  const [refreshing, setRefreshing] = useState(false);
 
-  // const [refreshing, setRefreshing] = useState(false);
-  const [data, setSongs] = useState({
-    songs: fetchSongs(),
-    refreshing: false,
-  });
   const dispatch = useDispatch();
 
   const addSongToQueue = () => {
@@ -28,15 +24,9 @@ export const PlaylistSongs = ({ route }) => {
   };
 
   const onRefresh = () => {
-    const { fetchSongs } = route.params;
-    const songs = fetchSongs();
-    setSongs({
-      songs,
-      refreshing: false,
-    });
+    setRefreshing(false);
   };
 
-  const { refreshing, songs } = data;
   return (
     <Screen>
       {isEmpty(songs) ? (
@@ -46,7 +36,14 @@ export const PlaylistSongs = ({ route }) => {
           ListHeaderComponent={() => (
             <View style={{ margin: 12 }}>
               <View style={styles.coverContainer}>
-                <DefaultImage style={styles.artCover} />
+                {playlist.cover ? (
+                  <FastImage
+                    source={{ uri: playlist.cover }}
+                    style={styles.artCover}
+                  />
+                ) : (
+                  <DefaultImage style={styles.artCover} />
+                )}
               </View>
               <View style={styles.titleContainer}>
                 <Title>{playlist.name}</Title>

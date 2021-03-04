@@ -15,7 +15,6 @@ export const EmptyPlaylist = () => {
   return (
     <Screen>
       <View style={CONTAINER}>
-        {/* <ThemedIcon name="alert" size={80} /> */}
         <View
           style={{
             alignItems: 'center',

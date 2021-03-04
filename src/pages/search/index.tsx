@@ -13,18 +13,22 @@ export const SearchStack = () => {
   const { colors } = theme;
   return (
     <Stack.Navigator
+      headerMode="screen"
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.surface,
         },
         headerTintColor: colors.text,
+        safeAreaInsets: { top: 0, bottom: 0 },
       }}
     >
       <Stack.Screen
         name="Search"
         component={SearchScreen}
         options={{
-          header: () => <Header />,
+          header: () => {
+            return <Header />;
+          },
         }}
       />
       <Stack.Screen

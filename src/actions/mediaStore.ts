@@ -2,10 +2,10 @@ import RNAndroidAudioStore from 'react-native-get-music-files';
 import groupBy from 'lodash/groupBy';
 import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
-
-import { log } from '../utils/logging';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+
+import { log } from '../utils/logging';
 
 export const updateQuery = (query: string) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,

@@ -15,7 +15,7 @@ const CONTINER: ViewStyle = {
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  marginHorizontal: 16,
+  marginLeft: 16,
 };
 
 export const MostPlayedContainer = () => {
@@ -60,7 +60,7 @@ export const MostPlayedContainer = () => {
         owner: 'Serenity',
       };
       navigation.navigate('Playlist', {
-        fetchSongs: () => mostPlayedSongs(realmSongs),
+        songs: mostPlayedSongs(realmSongs),
         playlist,
       });
     },
@@ -73,14 +73,14 @@ export const MostPlayedContainer = () => {
         <View style={CONTINER}>
           <Title>Most Played songs</Title>
           {history.length > 3 ? (
-            <Button onPress={navigateToSongs}>More</Button>
-          ) : (
-            false
-          )}
+            <Button onPress={navigateToSongs} uppercase={false}>
+              More
+            </Button>
+          ) : null}
         </View>
         <TrackScrollView data={history} play={play} />
       </View>
     );
   }
-  return false;
+  return null;
 };
