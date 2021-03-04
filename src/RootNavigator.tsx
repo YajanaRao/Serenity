@@ -1,77 +1,15 @@
 import React, { useEffect } from 'react';
-import {
-  Provider as PaperProvider,
-  DarkTheme,
-  DefaultTheme,
-  configureFonts,
-  overlay,
-} from 'react-native-paper';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { NavigationContainer } from '@react-navigation/native';
 import { RootScreen } from './pages/Root';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
 import { log } from './utils/logging';
-import { NavigationContainer } from '@react-navigation/native';
-
-const fontConfig = {
-  web: {
-    regular: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '400' as '400',
-    },
-    medium: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '500' as '500',
-    },
-    light: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '300' as '300',
-    },
-    thin: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '100' as '100',
-    },
-  },
-  ios: {
-    regular: {
-      fontFamily: 'System',
-      fontWeight: '400' as '400',
-    },
-    medium: {
-      fontFamily: 'System',
-      fontWeight: '500' as '500',
-    },
-    light: {
-      fontFamily: 'System',
-      fontWeight: '300' as '300',
-    },
-    thin: {
-      fontFamily: 'System',
-      fontWeight: '100' as '100',
-    },
-  },
-  android: {
-    regular: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '400' as '400',
-    },
-    medium: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '500' as '500',
-    },
-    light: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '300' as '300',
-    },
-    thin: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
-      fontWeight: '100' as '100',
-    },
-  },
-};
+import { DarkTheme, DefaultTheme } from './utils/theme';
 
 export const RootNavigator = () => {
   const themeType = useSelector(
@@ -118,29 +56,11 @@ export const RootNavigator = () => {
   let theme = DefaultTheme;
 
   if (themeType === 'dark') {
-    theme = {
-      ...DarkTheme,
-      fonts: configureFonts(fontConfig),
-      roundness: 2,
-      colors: {
-        ...DarkTheme.colors,
-        primary: '#1DB954',
-        surface: overlay(4, DarkTheme.colors.surface),
-      },
-    };
-  } else {
-    theme = {
-      ...DefaultTheme,
-      fonts: configureFonts(fontConfig),
-      roundness: 2,
-      colors: {
-        ...DefaultTheme.colors,
-        primary: '#1DB954',
-      },
-    };
+    theme = DarkTheme;
   }
+
   return (
-    <NavigationContainer theme={DarkTheme}>
+    <NavigationContainer theme={theme}>
       <PaperProvider
         settings={{
           icon: props => <Icon {...props} />,
