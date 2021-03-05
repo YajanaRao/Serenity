@@ -5,7 +5,7 @@ import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
 
-import { Platform, StatusBar, SafeAreaView, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import HomeStack from './home';
@@ -13,6 +13,7 @@ import { ExploreStack } from './explore';
 import { PlayerScreen } from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
+import AuthScreen from './Auth/Auth';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -99,6 +100,19 @@ const RootStack = () => {
   );
 };
 
+const AuthStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Auth"
+    >
+      <Stack.Screen name="App" component={RootStack} />
+      <Stack.Screen name="Auth" component={AuthScreen} />
+    </Stack.Navigator>
+  );
+};
 export const RootScreen = () => {
   const theme = useTheme();
   const { colors } = theme;
@@ -109,7 +123,7 @@ export const RootScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.surface }}>
       <NotificationContainer />
-      <RootStack />
+      <AuthStack />
     </SafeAreaView>
   );
 };

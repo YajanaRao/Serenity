@@ -1,13 +1,24 @@
 import React, { ReactNode } from 'react';
 import { StatusBar, StyleSheet, SafeAreaView } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import {
+  useTheme,
+  Dialog,
+  ActivityIndicator,
+  Portal,
+} from 'react-native-paper';
 // import SafeAreaView from 'react-native-safe-area-view';
 
 interface ScreenProps {
   children: ReactNode;
+  isLoading?: boolean;
+  onDismiss?: () => void;
 }
 
-export const Screen = ({ children }: ScreenProps) => {
+export const Screen = ({
+  children,
+  isLoading = false,
+  onDismiss,
+}: ScreenProps) => {
   const theme = useTheme();
   const { colors, dark } = theme;
   return (
@@ -18,6 +29,13 @@ export const Screen = ({ children }: ScreenProps) => {
         barStyle={dark ? 'light-content' : 'dark-content'}
         backgroundColor={colors.surface}
       />
+      <Portal>
+        <Dialog visible={isLoading} onDismiss={onDismiss}>
+          <Dialog.Content style={{ backgroundColor: colors.surface }}>
+            <ActivityIndicator />
+          </Dialog.Content>
+        </Dialog>
+      </Portal>
       {children}
     </SafeAreaView>
   );

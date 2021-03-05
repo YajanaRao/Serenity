@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { Appearance } from 'react-native';
 import { ArtistProps, TrackProps, AlbumProps } from '../types';
+import { skipLogin } from '../actions/userState';
 
 interface MediaActions {
   payload: TrackProps[] | ArtistProps[] | AlbumProps[];
@@ -38,6 +39,11 @@ export const INITIAL_CONFIG = {
 const INITIAL_STATE = {
   active: {},
   status: 'init',
+};
+
+const INITIAL_USER = {
+  user: {},
+  skipLoginState: false,
 };
 
 const INITIAL_STORE = {
@@ -118,6 +124,30 @@ export const queryReducer = (state = INITIAL_QUERY, action: QueryActions) => {
   }
 };
 
+export const userReducer = (state = INITIAL_USER, action: QueryActions) => {
+  switch (action.type) {
+    case 'SET_USER':
+      return {
+        ...state,
+        user: action.payload,
+        skipLoginState: false,
+      };
+    case 'SKIP_LOGIN':
+      return {
+        ...state,
+        skipLoginState: action.payload,
+      };
+    case 'REMOVE_USER':
+      return {
+        ...state,
+        user: {},
+        skipLoginState: false,
+      };
+    default:
+      return state;
+  }
+};
+
 export const configReducer = (
   state = INITIAL_CONFIG,
   action: ConfigActions,
@@ -153,6 +183,7 @@ export const RootReducer = combineReducers<any>({
   mediaStore: mediaStoreReducer,
   playerState: playerStateReducer,
   query: queryReducer,
+  user: userReducer,
 });
 
 export type RootReducerType = ReturnType<typeof RootReducer>;

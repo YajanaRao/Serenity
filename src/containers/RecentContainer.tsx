@@ -10,6 +10,7 @@ import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 import { TrackProps } from '../types';
+import realm from '../database';
 
 export const RecentContainer = () => {
   const realmSongs = getPlayedSongs();
@@ -29,14 +30,11 @@ export const RecentContainer = () => {
         setHistory(song);
       }
     };
-    if (realmSongs !== undefined) {
+    if (realmSongs !== undefined && !realm.isInTransaction) {
       realmSongs.addListener(listener);
+      return () => realmSongs.removeListener(listener);
     }
-    return () => {
-      if (realmSongs !== undefined) {
-        realmSongs.removeListener(listener);
-      }
-    };
+    return null;
   }, [realmSongs]);
 
   const play = (track: TrackProps) => {
