@@ -15,7 +15,6 @@ import YoutubeSongsContainer from '../../containers/YoutubeSongsContainer';
 export const MainScreen = () => {
   const ref = useRef();
   const { skipLoginState } = useSelector(state => state.user);
-  console.log('skip login', skipLoginState);
   useScrollToTop(ref);
   return (
     <Screen>

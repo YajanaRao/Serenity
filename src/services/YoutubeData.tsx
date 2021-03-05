@@ -43,7 +43,6 @@ const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet
 
 export async function getYoutubeMusic() {
   const accessToken = await AsyncStorage.getItem('@token');
-  console.log('token: ', accessToken);
   return fetch(searchUrl, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
