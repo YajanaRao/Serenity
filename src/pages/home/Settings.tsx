@@ -8,6 +8,7 @@ import {
   useTheme,
   List,
   Avatar,
+  ActivityIndicator,
 } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -18,6 +19,7 @@ import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
 import { AlertDialog } from '../../components/AlertDialog';
 import { removeUserInfo } from '../../actions/userState';
+import { log } from '../../utils/logging';
 
 export const SettingScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -54,8 +56,10 @@ export const SettingScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('@token');
       dispatch(removeUserInfo());
       setLoading(false);
+      navigation.navigate('App');
     } catch (error) {
-      console.error(error);
+      log(error);
+      navigation.navigate('App');
     }
   };
 
@@ -73,7 +77,7 @@ export const SettingScreen = ({ navigation }) => {
   };
 
   return (
-    <Screen isLoading={loading}>
+    <Screen>
       <AlertDialog
         visible={visible}
         title="Clear History"
@@ -121,11 +125,17 @@ export const SettingScreen = ({ navigation }) => {
             icon="trash-outline"
           />
           {skipLoginState || !user ? (
-            <Drawer.Item onPress={signIn} label="Login" icon="log-in-outline" />
+            <Drawer.Item
+              onPress={signIn}
+              active
+              label="Login"
+              icon="log-in-outline"
+            />
           ) : (
             <Drawer.Item
               onPress={signOut}
               label="Logout"
+              active={loading}
               icon="log-out-outline"
             />
           )}

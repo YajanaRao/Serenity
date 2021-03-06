@@ -49,6 +49,11 @@ jobs:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
         run: echo $FIREBASE_SECRET > android/app/google-services.json
 
+      - name: Decode env file
+        env:
+          ENV_SECRET: ${{ secrets.ENV_SECRET }}
+        run: echo $ENV_SECRET > .env
+
       # Build android app
       - name: Build Android Release
         run: |

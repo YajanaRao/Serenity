@@ -11,6 +11,7 @@ import { Screen } from '../../components/Screen';
 import { ShortCutContainer } from '../../containers/ShortcutContainer';
 import OnlineSongsContainer from '../../containers/OnlineSongsContainer';
 import YoutubeSongsContainer from '../../containers/YoutubeSongsContainer';
+import { JioSaavnContainer } from '../../containers/JioSaavnContainer';
 
 export const MainScreen = () => {
   const ref = useRef();
@@ -26,6 +27,7 @@ export const MainScreen = () => {
         <MostPlayedContainer />
         <OnlineSongsContainer />
         {!skipLoginState && <YoutubeSongsContainer />}
+        <JioSaavnContainer />
       </ScrollView>
     </Screen>
   );

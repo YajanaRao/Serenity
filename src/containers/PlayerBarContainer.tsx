@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { isEmpty } from 'lodash';
+import { matches } from 'lodash';
 import { useNavigation } from '@react-navigation/core';
 
 import {
@@ -20,7 +20,7 @@ export const PlayerBarContainer = () => {
 
   useEffect(() => {
     dispatch(setUpTrackPlayer());
-    if (!isEmpty(active)) {
+    if (active !== {}) {
       dispatch(loadTrack(active, false));
     }
     return () => {
@@ -41,7 +41,7 @@ export const PlayerBarContainer = () => {
     [navigation],
   );
 
-  if (isEmpty(active)) {
+  if (active === {}) {
     return null;
   }
   return (

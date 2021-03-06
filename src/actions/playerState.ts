@@ -6,6 +6,7 @@ import sample from 'lodash/sample';
 
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import ytdl from 'react-native-ytdl';
 import {
   addSong,
   removeSong,
@@ -59,8 +60,18 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   try {
-    const { path } = track;
+    const { path, type } = track;
     if (path) {
+      if (type === 'Youtube') {
+        ytdl(path, { filter: format => format.container === 'mp4' }).then(
+          urls => {
+            const { url } = urls[0];
+            TrackPlayer.load(url).then(() => {
+              if (playOnLoad) TrackPlayer.play();
+            });
+          },
+        );
+      }
       TrackPlayer.load(path).then(() => {
         if (playOnLoad) TrackPlayer.play();
       });

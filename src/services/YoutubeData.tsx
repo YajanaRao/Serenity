@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Config from 'react-native-config';
 
 export function parsePlaylistItem(data: any) {
   const items = [];
@@ -19,29 +20,47 @@ export function parsePlaylistItem(data: any) {
   return items;
 }
 
-export function parsePlaylist(data) {
-  const items = [];
-  data.items.map(item => {
-    const song = {
-      nid: item.id,
-      cover: item.snippet.thumbnails.default.url,
-      title: item.snippet.title,
-      path: `https://www.youtube.com/watch?v=${item.id.videoId}`,
-      artist: item.id.videoId,
-      type: 'Youtube',
-    };
-    items.push(song);
-  });
+export async function parsePlaylists(data: any) {
+  console.log('data: ', data);
+  if ('error' in data) {
+    return [];
+  }
+  const items = await Promise.all(
+    data.items.map(async item => {
+      const children = await getPlaylistSongs(item.id.playlistId);
+      console.log('children: ', children);
+      const playlist = {
+        id: item.id,
+        cover: item.snippet.thumbnails.default.url,
+        title: item.snippet.title,
+        artist: item.snippet.channelTitle,
+        children,
+      };
+      return playlist;
+    }),
+  );
+
   return items;
 }
 
-const apiKey = 'AIzaSyAec--go0k_paTfh0zbcgXoZtV-Df2Vuys';
-const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=music&key=${apiKey}`;
-// const playlistItemUrl = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=${playlistId}&key=${apiKey}`
+export async function getPlaylistSongs(playlistId: string) {
+  const playlistItemUrl = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=${playlistId}&key=${Config.YOUTUBE_API_KEY}`;
+  const accessToken = await AsyncStorage.getItem('@token');
+  return fetch(playlistItemUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then(response => response.json())
+    .then(data => {
+      return parsePlaylistItem(data);
+    });
+}
 
 // const playlistUrl = `https://youtube.googleapis.com/youtube/v3/playlists?part=id&id=${playlistId}&key=${apiKey}`
 
-export async function getYoutubeMusic() {
+export async function getYoutubeMusic(query: string) {
+  const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=playlist&q=${query}&key=${Config.YOUTUBE_API_KEY}`;
   const accessToken = await AsyncStorage.getItem('@token');
   return fetch(searchUrl, {
     headers: {
@@ -49,7 +68,5 @@ export async function getYoutubeMusic() {
     },
   })
     .then(response => response.json())
-    .then(data => {
-      return parsePlaylist(data);
-    });
+    .then(data => parsePlaylists(data));
 }

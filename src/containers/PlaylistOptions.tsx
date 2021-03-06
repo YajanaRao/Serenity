@@ -129,7 +129,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
               <TouchableWithoutFeedback onPress={showRenameDailog}>
                 <List.Item
                   title="Rename Playlist"
-                  left={props => <List.Icon {...props} icon="playlist-edit" />}
+                  left={props => <List.Icon {...props} icon="create-outline" />}
                 />
               </TouchableWithoutFeedback>
             </View>

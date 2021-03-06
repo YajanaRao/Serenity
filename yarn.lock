@@ -7196,6 +7196,11 @@ react-native-bootsplash@^3.1.5:
     fs-extra "^9.1.0"
     jimp "^0.16.1"
 
+react-native-config@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.4.2.tgz#cc39f22ed72c5cb06af1adf0ba70ef01593900b4"
+  integrity sha512-iTvCvThvFTH7SdiBcsxYtpLy86zglsh51ZBqFPPZ75tdrQMdlRnDNnb86kNjQf03KT0qs1nCMLRejfPMIim8iA==
+
 react-native-fast-image@^7.0.0:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-7.0.2.tgz#e06b21f42f4a9786eaa86f3db35d919070fb8403"

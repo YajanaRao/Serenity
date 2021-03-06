@@ -29,9 +29,9 @@ export const TrackContainer = ({ track }: Props) => {
 
   const play = () => {
     if (!isActive) {
-      requestAnimationFrame(() => {
-        dispatch(loadTrack(track));
-      });
+      // requestAnimationFrame(() => {
+      dispatch(loadTrack(track));
+      // });
     }
   };
 
