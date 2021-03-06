@@ -39,6 +39,8 @@ export const FavContainer = ({ type = 'song', style, item }: Props) => {
       }
     } else if (isSongPresent(item.id)) {
       setLiked(true);
+    } else {
+      setLiked(false);
     }
   }, [type, item]);
 

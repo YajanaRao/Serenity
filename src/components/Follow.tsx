@@ -22,7 +22,7 @@ export const Follow = ({
           Following
         </Chip>
       ) : (
-        <Chip icon="plus" mode="outlined" onPress={addToFavorite}>
+        <Chip icon="add" mode="outlined" onPress={addToFavorite}>
           Follow
         </Chip>
       )}
