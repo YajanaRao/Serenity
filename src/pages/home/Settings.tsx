@@ -20,6 +20,7 @@ import { clearHistory } from '../../actions/playerState';
 import { AlertDialog } from '../../components/AlertDialog';
 import { removeUserInfo } from '../../actions/userState';
 import { log } from '../../utils/logging';
+import { LoadingDialog } from '../../components/LoadingDialog';
 
 export const SettingScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -56,10 +57,10 @@ export const SettingScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('@token');
       dispatch(removeUserInfo());
       setLoading(false);
-      navigation.navigate('App');
+      navigation.navigate('Auth');
     } catch (error) {
       log(error);
-      navigation.navigate('App');
+      navigation.navigate('Auth');
     }
   };
 
@@ -85,6 +86,7 @@ export const SettingScreen = ({ navigation }) => {
         action={clearData}
         hideDialog={() => setVisible(false)}
       />
+      <LoadingDialog visible={loading} title="Logging you out" />
       <ScrollView>
         {user !== {} ||
           (user !== null && (
@@ -125,17 +127,11 @@ export const SettingScreen = ({ navigation }) => {
             icon="trash-outline"
           />
           {skipLoginState || !user ? (
-            <Drawer.Item
-              onPress={signIn}
-              active
-              label="Login"
-              icon="log-in-outline"
-            />
+            <Drawer.Item onPress={signIn} label="Login" icon="log-in-outline" />
           ) : (
             <Drawer.Item
               onPress={signOut}
               label="Logout"
-              active={loading}
               icon="log-out-outline"
             />
           )}
