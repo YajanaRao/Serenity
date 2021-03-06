@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { matches } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useNavigation } from '@react-navigation/core';
 
 import {
@@ -41,7 +41,7 @@ export const PlayerBarContainer = () => {
     [navigation],
   );
 
-  if (active === {}) {
+  if (Object.keys(active).length === 0 && active.constructor === Object) {
     return null;
   }
   return (
