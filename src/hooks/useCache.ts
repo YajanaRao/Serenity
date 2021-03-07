@@ -21,11 +21,14 @@ export function useCache(key: string, query: () => Promise<any>) {
       let response = [];
       if (!cache) {
         response = await queryData();
+        if (!response) return [];
       } else {
         const sessionData = JSON.parse(cache);
         const now = new Date();
         if (
-          new Date(sessionData.timestamp).toDateString() !== now.toDateString()
+          new Date(sessionData.timestamp).toDateString() !==
+            now.toDateString() ||
+          !sessionData.data
         ) {
           log(
             `local cache time ${new Date(

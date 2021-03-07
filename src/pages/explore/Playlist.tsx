@@ -7,7 +7,7 @@ import {
   Button,
   useTheme,
 } from 'react-native-paper';
-import { View, RefreshControl, FlatList } from 'react-native';
+import { RefreshControl, SectionList } from 'react-native';
 
 import { Collection } from 'realm';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -19,13 +19,18 @@ import {
 import { deserializePlaylists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
 import { PlaylistProps } from '../../types';
+import { getYoutubePlaylist } from '../../services/Youtube';
+import { useCache } from '../../hooks/useCache';
 
 export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   const { colors } = useTheme();
-  let realmPlaylists = getAllPlaylists();
+  const realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
+  const youtubePlaylists = useCache('youtube_playlists', () =>
+    getYoutubePlaylist(),
+  );
   const [playlists, setPlaylists] = useState(() => {
     return deserializePlaylists(realmPlaylists);
   });
@@ -48,10 +53,17 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   }, [realmPlaylists]);
 
   const navigateToCollection = (playlist: PlaylistProps) => {
-    navigation.navigate('Songs', {
-      songs: getPlaylistSongs(playlist.id),
-      playlist,
-    });
+    if (playlist.type === 'Youtube') {
+      navigation.navigate('Songs', {
+        songs: playlist.songs,
+        playlist,
+      });
+    } else {
+      navigation.navigate('Songs', {
+        songs: getPlaylistSongs(playlist.id),
+        playlist,
+      });
+    }
   };
 
   const showDialog = () => setVisible(true);
@@ -97,7 +109,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
           </Dialog.Actions>
         </Dialog>
       </Portal>
-      <FlatList
+      <SectionList
         ListHeaderComponent={() => (
           <List.Item
             title="Create Playlist"
@@ -108,7 +120,10 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
             onPress={showDialog}
           />
         )}
-        data={playlists}
+        sections={[
+          { title: 'Local Playlists', data: playlists },
+          { title: 'Youtube Playlists', data: youtubePlaylists },
+        ]}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: { item: PlaylistProps }) => (
           <List.Item
@@ -121,6 +136,9 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        renderSectionHeader={({ section: { title } }) => (
+          <List.Subheader>{title}</List.Subheader>
+        )}
       />
     </Screen>
   );

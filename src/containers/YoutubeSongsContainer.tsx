@@ -4,7 +4,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { TrackScrollView } from '../components/TrackScrollView';
-import { getYoutubeMusic } from '../services/YoutubeData';
+import { getYoutubeMusic } from '../services/Youtube';
 import { useCache } from '../hooks/useCache';
 
 const YoutubeSongsContainer = () => {
