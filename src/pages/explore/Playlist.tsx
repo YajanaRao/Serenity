@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { List, Portal, Dialog, TextInput, Button } from 'react-native-paper';
+import {
+  List,
+  Portal,
+  Dialog,
+  TextInput,
+  Button,
+  useTheme,
+} from 'react-native-paper';
 import { View, RefreshControl, FlatList } from 'react-native';
 
 import { Collection } from 'realm';
+import { StackScreenProps } from '@react-navigation/stack';
 import {
   createPlaylist,
   getAllPlaylists,
@@ -10,13 +18,10 @@ import {
 } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
-import { PlaylistProps, NavigationScreenProps } from '../../types';
+import { PlaylistProps } from '../../types';
 
-export const PlaylistScreen = ({
-  navigation,
-}: {
-  navigation: NavigationScreenProps;
-}) => {
+export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
+  const { colors } = useTheme();
   let realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -94,13 +99,14 @@ export const PlaylistScreen = ({
       </Portal>
       <FlatList
         ListHeaderComponent={() => (
-          <View>
-            <List.Item
-              title="Create Playlist"
-              left={() => <List.Icon icon="add" />}
-              onPress={showDialog}
-            />
-          </View>
+          <List.Item
+            title="Create Playlist"
+            titleStyle={{ color: colors.primary }}
+            left={props => (
+              <List.Icon {...props} icon="add" color={colors.primary} />
+            )}
+            onPress={showDialog}
+          />
         )}
         data={playlists}
         keyExtractor={(item, index) => index.toString()}

@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Config from 'react-native-config';
+import { log } from '../utils/logging';
 
 export function parsePlaylistItem(data: any) {
   const items = [];
@@ -21,14 +22,12 @@ export function parsePlaylistItem(data: any) {
 }
 
 export async function parsePlaylists(data: any) {
-  console.log('data: ', data);
   if ('error' in data) {
     return [];
   }
   const items = await Promise.all(
     data.items.map(async item => {
       const children = await getPlaylistSongs(item.id.playlistId);
-      console.log('children: ', children);
       const playlist = {
         id: item.id,
         cover: item.snippet.thumbnails.default.url,
@@ -60,6 +59,7 @@ export async function getPlaylistSongs(playlistId: string) {
 // const playlistUrl = `https://youtube.googleapis.com/youtube/v3/playlists?part=id&id=${playlistId}&key=${apiKey}`
 
 export async function getYoutubeMusic(query: string) {
+  log('fetching youtube videos');
   const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=playlist&q=${query}&key=${Config.YOUTUBE_API_KEY}`;
   const accessToken = await AsyncStorage.getItem('@token');
   return fetch(searchUrl, {

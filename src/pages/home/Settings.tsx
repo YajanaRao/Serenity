@@ -8,12 +8,12 @@ import {
   useTheme,
   List,
   Avatar,
-  ActivityIndicator,
 } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StackScreenProps } from '@react-navigation/stack';
 import { Screen } from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
@@ -22,7 +22,7 @@ import { removeUserInfo } from '../../actions/userState';
 import { log } from '../../utils/logging';
 import { LoadingDialog } from '../../components/LoadingDialog';
 
-export const SettingScreen = ({ navigation }) => {
+export const SettingScreen = ({ navigation }: StackScreenProps) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { skipLoginState, user } = useSelector(state => state.user);

@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
   Title,
-  Surface,
   List,
   Portal,
   Subheading,
@@ -77,64 +75,90 @@ export const PlaylistOptions = ({ route, navigation }) => {
     const { name, owner } = playlist;
     return (
       <View style={styles.panel}>
-        <LinearGradient
-          colors={[
-            'transparent',
-            colors.surface,
-            colors.surface,
-            colors.surface,
-          ]}
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        <View
+          style={{
+            backgroundColor: colors.surface,
+            borderTopEndRadius: 12,
+            borderTopStartRadius: 12,
+          }}
         >
-          <TouchableWithoutFeedback
-            onPress={closeBottomSheet}
+          <View
             style={{
-              flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
-              width: Dimensions.get('window').width,
+              borderTopEndRadius: 12,
+              borderTopStartRadius: 12,
             }}
           >
-            <DefaultImage style={styles.artCover} />
-            <Title>{name}</Title>
-            <Subheading>{`by ${owner}`}</Subheading>
-          </TouchableWithoutFeedback>
-        </LinearGradient>
-        <Surface style={{ backgroundColor: colors.surface }}>
-          <TouchableWithoutFeedback onPress={addSongToQueue}>
-            <List.Item
-              title="Play All"
-              left={props => (
-                <List.Icon {...props} icon="play-circle-outline" />
-              )}
-            />
-          </TouchableWithoutFeedback>
-          {owner !== 'You' ? (
-            <TouchableWithoutFeedback
-              onPress={() => logEvent('playlist', 'playlist liked')}
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'flex-end',
+                width: '100%',
+                height: 50,
+                backgroundColor: colors.surface,
+                marginBottom: 16,
+                elevation: 2,
+                borderTopEndRadius: 12,
+                borderTopStartRadius: 12,
+              }}
             >
-              <List.Item
-                title="like"
-                left={props => <List.Icon {...props} icon="heart" />}
-              />
-            </TouchableWithoutFeedback>
-          ) : (
-            <View>
-              <TouchableWithoutFeedback onPress={deleteAlert}>
-                <List.Item
-                  title="Delete Playlist"
-                  left={props => <List.Icon {...props} icon="close" />}
-                />
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={showRenameDailog}>
-                <List.Item
-                  title="Rename Playlist"
-                  left={props => <List.Icon {...props} icon="create-outline" />}
-                />
+              <TouchableWithoutFeedback onPress={closeBottomSheet}>
+                <IconButton icon="close" />
               </TouchableWithoutFeedback>
             </View>
-          )}
-        </Surface>
+            <TouchableWithoutFeedback
+              onPress={closeBottomSheet}
+              style={{
+                // flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: Dimensions.get('window').width,
+              }}
+            >
+              <DefaultImage style={styles.artCover} />
+              <Title>{name}</Title>
+              <Subheading>{`by ${owner}`}</Subheading>
+            </TouchableWithoutFeedback>
+          </View>
+          <View style={{ backgroundColor: colors.surface }}>
+            <TouchableWithoutFeedback onPress={addSongToQueue}>
+              <List.Item
+                title="Play All"
+                left={props => (
+                  <List.Icon {...props} icon="play-circle-outline" />
+                )}
+              />
+            </TouchableWithoutFeedback>
+            {owner !== 'You' ? (
+              <TouchableWithoutFeedback
+                onPress={() => logEvent('playlist', 'playlist liked')}
+              >
+                <List.Item
+                  title="like"
+                  left={props => <List.Icon {...props} icon="heart" />}
+                />
+              </TouchableWithoutFeedback>
+            ) : (
+              <View>
+                <TouchableWithoutFeedback onPress={deleteAlert}>
+                  <List.Item
+                    title="Delete Playlist"
+                    left={props => <List.Icon {...props} icon="close" />}
+                  />
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={showRenameDailog}>
+                  <List.Item
+                    title="Rename Playlist"
+                    left={props => (
+                      <List.Icon {...props} icon="create-outline" />
+                    )}
+                  />
+                </TouchableWithoutFeedback>
+              </View>
+            )}
+          </View>
+        </View>
       </View>
     );
   };
@@ -189,6 +213,7 @@ const styles = StyleSheet.create({
   artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12 },
   panel: {
     height: '100%',
+    justifyContent: 'flex-end',
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

@@ -5,11 +5,11 @@ import { Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { getYoutubeMusic } from '../services/YoutubeData';
+import { useCache } from '../hooks/useCache';
 
 const YoutubeSongsContainer = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
-  const [playlist, setPlaylist] = useState([]);
 
   const navigateToPlaylist = (playlist: any) => {
     const playlistMetadata = {
@@ -24,11 +24,8 @@ const YoutubeSongsContainer = () => {
     });
   };
 
-  useEffect(() => {
-    getYoutubeMusic('songs').then(data => setPlaylist(data));
-  }, []);
+  const playlist = useCache('youtube_music', () => getYoutubeMusic('songs'));
 
-  console.log('playlist: ', playlist);
   if (netInfo.isConnected && playlist.length) {
     return (
       <View>
@@ -38,6 +35,7 @@ const YoutubeSongsContainer = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            marginBottom: 4,
           }}
         >
           <Title>Youtube Songs</Title>

@@ -33,6 +33,7 @@ const OnlineSongsContainer = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            marginBottom: 4,
           }}
         >
           <Title>Online Songs</Title>

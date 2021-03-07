@@ -64,9 +64,10 @@ export const RecentContainer = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            marginBottom: 4,
           }}
         >
-          <Title>Recently Played songs</Title>
+          <Title>Recently Played</Title>
           {history.length > 3 ? (
             <Button onPress={navigateToSongs} uppercase={false}>
               More
