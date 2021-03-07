@@ -6,6 +6,7 @@ import sample from 'lodash/sample';
 
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import ytdl from 'react-native-ytdl';
 import {
   addSong,
   removeSong,
@@ -32,7 +33,7 @@ export const setUpTrackPlayer = () => (
   try {
     subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
-      log(`from event listener: ${event}`);
+      // log.debug('from event listener', event);
       if (event === 'skip_to_next') {
         dispatch(skipToNext());
       } else if (event === 'skip_to_previous') {
@@ -51,7 +52,7 @@ export const setUpTrackPlayer = () => (
       type: 'STATUS',
     });
   } catch (error) {
-    log(error);
+    log.error('setUpTrackPlayer', error);
   }
 };
 
@@ -59,8 +60,18 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   try {
-    const { path } = track;
+    const { path, type } = track;
     if (path) {
+      if (type === 'Youtube') {
+        ytdl(path, { filter: format => format.container === 'mp4' })
+          .then(urls => {
+            const { url } = urls[0];
+            TrackPlayer.load(url).then(() => {
+              if (playOnLoad) TrackPlayer.play();
+            });
+          })
+          .catch(error => log.error('loadTrack', error));
+      }
       TrackPlayer.load(path).then(() => {
         if (playOnLoad) TrackPlayer.play();
       });
@@ -69,10 +80,10 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
         type: 'LOAD',
       });
     } else {
-      log('unable to load track');
+      log.debug('loadTrack', 'unable to load track');
     }
   } catch (error) {
-    log(`loadTrack: ${error}`);
+    log.debug(`loadTrack`, error);
   }
 };
 
@@ -87,7 +98,7 @@ export const playNext = (track: TrackProps) => (
       dispatch(loadTrack(head(queue)));
     }
   } catch (error) {
-    log(error);
+    log.error('playNext', error);
   }
 };
 
@@ -100,7 +111,7 @@ export const repeatSongs = (type: string) => (
       type: 'REPEAT',
     });
   } catch (error) {
-    log(error);
+    log.error('repeatSongs', error);
   }
 };
 
@@ -113,7 +124,7 @@ export const shufflePlay = (songs: TrackProps[]) => (
       type: 'SHUFFLE_PLAY',
     });
   } catch (error) {
-    log(error);
+    log.error('shufflePlay', error);
   }
 };
 
@@ -131,7 +142,7 @@ export const startRadio = () => (
       });
     }
   } catch (error) {
-    log(error);
+    log.error('startRadio', error);
   }
 };
 
@@ -168,7 +179,7 @@ export const skipToNext = () => (
       });
     }
   } catch (error) {
-    log(`skipToNext: ${error}`);
+    log.error(`skipToNext`, error);
   }
 };
 
@@ -191,7 +202,7 @@ export const skipToPrevious = () => (
       });
     }
   } catch (error) {
-    log(error);
+    log.error('skipToPrevious', error);
   }
 };
 
@@ -307,7 +318,7 @@ export const playTrack = () => {
   try {
     TrackPlayer.play();
   } catch (error) {
-    log(`playTrack: ${error}`);
+    log.error(`playTrack`, error);
   }
 };
 
@@ -315,6 +326,6 @@ export const pauseTrack = () => {
   try {
     TrackPlayer.pause();
   } catch (error) {
-    log(error);
+    log.error('pauseTrack', error);
   }
 };

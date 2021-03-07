@@ -87,16 +87,17 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Loading saved playlists
 - Song queue, which can be exported as a playlist
 - Radio mode (automatically queue similar tracks)
+- Searching for and playing music from YouTube (including integration with playlists)
 
 ## Planned features
 
+- Searching for related songs in YouTube
+- Downloading from YouTube
 - Multiple language support
 - Real time lyrics
 - Creating a backup on Google Drive and sync audio from it 🎶
 - Support for web (React Native Web) and Windows desktop (React Native Windows)
-- Searching for and playing music from YouTube (including integration with playlists), bandcamp (including albums), and soundcloud
-- Searching for related songs in YouTube
-- Downloading from YouTube
+- Searching for and playing music from bandcamp (including albums), and soundcloud
 - Searching for albums (powered by last.fm and musicbrainz), album view, automatic song lookup based on artist and track name (in progress, can be dodgy sometimes)
 - Newest releases with reviews - tracks and albums
 - Browsing by popularity
@@ -118,7 +119,7 @@ We need to have google-service.json file in android and IOS directory before run
 
 ## Our Community
 
-You can join [Telegram group](https://t.me/serenityapp)
+You can join [Telegram group](https://t.me/serenityapp) or [Discord Channel](https://discord.gg/vdqH9YqY)
 
 ## License
 

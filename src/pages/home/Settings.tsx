@@ -7,16 +7,26 @@ import {
   TouchableRipple,
   useTheme,
   List,
+  Avatar,
 } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StackScreenProps } from '@react-navigation/stack';
 import { Screen } from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
 import { AlertDialog } from '../../components/AlertDialog';
+import { removeUserInfo } from '../../actions/userState';
+import { log } from '../../utils/logging';
+import { LoadingDialog } from '../../components/LoadingDialog';
 
-export const SettingScreen = () => {
+export const SettingScreen = ({ navigation }: StackScreenProps) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const { skipLoginState, user } = useSelector(state => state.user);
+
   const [visible, setVisible] = useState(false);
   const radio = useSelector((state: any) => state.config.radio);
   const theme = useTheme();
@@ -38,6 +48,33 @@ export const SettingScreen = () => {
     setVisible(true);
   };
 
+  const signOut = async () => {
+    try {
+      setLoading(true);
+      GoogleSignin.configure();
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      await GoogleSignin.revokeAccess();
+      const { idToken } = await GoogleSignin.getTokens();
+      await GoogleSignin.clearCachedAccessToken(idToken);
+      await AsyncStorage.clear();
+      dispatch(removeUserInfo());
+      setLoading(false);
+      navigation.navigate('Auth');
+    } catch (error) {
+      log.error('signOut', error);
+      navigation.navigate('Auth');
+    }
+  };
+
+  const signIn = async () => {
+    try {
+      await AsyncStorage.removeItem('@token');
+      navigation.navigate('Auth');
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const clearData = () => {
     dispatch(clearHistory());
     setVisible(false);
@@ -52,7 +89,22 @@ export const SettingScreen = () => {
         action={clearData}
         hideDialog={() => setVisible(false)}
       />
+      <LoadingDialog visible={loading} title="Logging you out" />
       <ScrollView>
+        {user !== {} ||
+          (user !== null && (
+            <List.Item
+              title={user.user.name}
+              description={user.user.email}
+              left={props =>
+                user.user.photo ? (
+                  <Avatar.Image {...props} source={{ uri: user.user.photo }} />
+                ) : (
+                  <List.Icon {...props} icon="person-outline" />
+                )
+              }
+            />
+          ))}
         <Drawer.Section title="Preferences">
           <TouchableRipple onPress={() => toggleTheme(dark)}>
             <View style={styles.preference}>
@@ -72,7 +124,20 @@ export const SettingScreen = () => {
           </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
-          <Drawer.Item onPress={showAlert} label="Clear history" icon="trash" />
+          <Drawer.Item
+            onPress={showAlert}
+            label="Clear history"
+            icon="trash-outline"
+          />
+          {skipLoginState || !user ? (
+            <Drawer.Item onPress={signIn} label="Login" icon="log-in-outline" />
+          ) : (
+            <Drawer.Item
+              onPress={signOut}
+              label="Logout"
+              icon="log-out-outline"
+            />
+          )}
         </Drawer.Section>
       </ScrollView>
     </Screen>

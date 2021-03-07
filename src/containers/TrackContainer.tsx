@@ -21,17 +21,15 @@ export const TrackContainer = ({ track }: Props) => {
 
   useEffect(() => {
     if (!isUndefined(active) && track.id) {
-      if (isEqual(active.id, track.id)) {
-        setActive(true);
-      }
+      setActive(isEqual(active.id, track.id));
     }
-  }, []);
+  }, [active, track]);
 
   const play = () => {
     if (!isActive) {
-      requestAnimationFrame(() => {
-        dispatch(loadTrack(track));
-      });
+      // requestAnimationFrame(() => {
+      dispatch(loadTrack(track));
+      // });
     }
   };
 

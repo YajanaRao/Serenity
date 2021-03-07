@@ -20,7 +20,7 @@ export const PlayerBarContainer = () => {
 
   useEffect(() => {
     dispatch(setUpTrackPlayer());
-    if (!isEmpty(active)) {
+    if (active !== {}) {
       dispatch(loadTrack(active, false));
     }
     return () => {
@@ -41,7 +41,7 @@ export const PlayerBarContainer = () => {
     [navigation],
   );
 
-  if (isEmpty(active)) {
+  if (Object.keys(active).length === 0 && active.constructor === Object) {
     return null;
   }
   return (

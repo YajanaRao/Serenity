@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Searchbar, useTheme } from 'react-native-paper';
-import { View } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { updateQuery } from '../actions/mediaStore';
 
@@ -23,6 +23,7 @@ export const Header = () => {
         onChangeText={handleChange}
         value={query}
         icon="search"
+        onIconPress={() => Keyboard.dismiss()}
         style={{ margin: 10 }}
       />
     </View>

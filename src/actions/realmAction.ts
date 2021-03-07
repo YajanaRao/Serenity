@@ -68,7 +68,7 @@ export const getPlaylist = (id: string) => {
     const playlist = realm.objectForPrimaryKey(PLAYLIST_SCHEMA_NAME, id);
     return playlist;
   } catch (error) {
-    log(`getQueuedSongs:  ${error}`);
+    log.error(`getPlaylist`, error);
     return [];
   }
 };
@@ -81,7 +81,7 @@ export const getPlaylistSongs = (id: string) => {
     }
     return undefined;
   } catch (error) {
-    log(`getPlaylistSongs: ${error}`);
+    log.error(`getPlaylistSongs`, error);
     return undefined;
   }
 };
@@ -97,7 +97,7 @@ export const getQueuedSongs = () => {
     }
     return undefined;
   } catch (error) {
-    log(`getQueuedSongs: ${error}`);
+    log.error(`getQueuedSongs`, error);
     return undefined;
   }
 };
@@ -113,7 +113,7 @@ export const getPlayedSongs = () => {
     }
     return undefined;
   } catch (error) {
-    log(`getPlayedSongs: ${error}`);
+    log.error(`getPlayedSongs`, error);
     return undefined;
   }
 };
@@ -129,7 +129,7 @@ export const getFavoriteSongs = () => {
     }
     return undefined;
   } catch (error) {
-    log(`getPlayedSongs: ${error}`);
+    log.error(`getPlayedSongs`, error);
     return undefined;
   }
 };
@@ -153,7 +153,7 @@ export const removeSong = (id: string, song: TrackProps) => {
       realm.delete(item);
     });
   } catch (error) {
-    log(`removeSong: ${error}`);
+    log.error(`removeSong`, error);
   }
 };
 
@@ -173,7 +173,7 @@ export const unshiftSong = (id: string, song: TrackProps) => {
       }
     });
   } catch (error) {
-    log(error);
+    log.error('unshiftSong', error);
   }
 };
 
@@ -197,7 +197,7 @@ export const addSong = (
       }
     });
   } catch (error) {
-    log(`addSong: ${error}`);
+    log.error(`addSong`, error);
   }
 };
 
@@ -210,7 +210,7 @@ export const clearAllSongs = (id: string) => {
       }
     });
   } catch (error) {
-    log(`clearAllSongs: ${error}`);
+    log.error(`clearAllSongs`, error);
   }
 };
 
@@ -252,7 +252,7 @@ export const addArtist = (artist: ArtistProps) => {
       });
     });
   } catch (error) {
-    log('artist with same id is already present');
+    log.error('addArtist', 'artist with same id is already present');
   }
 };
 
@@ -284,7 +284,7 @@ export const addAlbum = (album: AlbumProps) => {
       });
     });
   } catch (error) {
-    log(`${error} ${album.toString()}`);
+    log.error(album.toString(), error);
   }
 };
 
@@ -310,7 +310,7 @@ export const getArtists = () => {
   try {
     return realm.objects(ARTIST_SCHEMA_NAME);
   } catch (error) {
-    log(`getArtists: ${error}`);
+    log.error(`getArtists`, error);
     return [];
   }
 };
@@ -319,7 +319,7 @@ export const getAlbums = () => {
   try {
     return realm.objects(ALBUM_SCHEMA_NAME);
   } catch (error) {
-    log(`getAlbums: ${error}`);
+    log.error(`getAlbums`, error);
     return [];
   }
 };

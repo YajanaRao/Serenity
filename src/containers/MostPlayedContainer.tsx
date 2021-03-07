@@ -16,6 +16,7 @@ const CONTINER: ViewStyle = {
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginLeft: 16,
+  marginBottom: 4,
 };
 
 export const MostPlayedContainer = () => {
@@ -71,7 +72,7 @@ export const MostPlayedContainer = () => {
     return (
       <View>
         <View style={CONTINER}>
-          <Title>Most Played songs</Title>
+          <Title>Most Played</Title>
           {history.length > 3 ? (
             <Button onPress={navigateToSongs} uppercase={false}>
               More

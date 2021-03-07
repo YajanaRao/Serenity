@@ -76,6 +76,7 @@ const DarkTheme = {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
     primary: '#1DB954',
+    accent: '#1DB954',
     surface: overlay(4, PaperDarkTheme.colors.surface),
   },
 };
@@ -89,6 +90,7 @@ const DefaultTheme = {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
     primary: '#1DB954',
+    accent: '#1DB954',
   },
 };
 

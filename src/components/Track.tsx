@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, useTheme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
+import ActiveTrackIcon from './ActiveTrackIcon';
 
 interface TrackProps {
   title: string;
@@ -24,9 +25,8 @@ export const Track = React.memo(({ track, active, play }: Props) => {
         description={track.artist ? track.artist : track.album}
         right={props =>
           active ? (
-            <List.Icon {...props} icon="stats-chart" color={colors.accent} />
+            <ActiveTrackIcon style={[{ height: 30, width: 30 }, props.style]} />
           ) : (
-            // <List.Icon {...props} icon="more-vert" onPress={() => bs.current.snapTo(1)}/>
             false
           )
         }

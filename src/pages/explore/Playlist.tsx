@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { List, Portal, Dialog, TextInput, Button } from 'react-native-paper';
-import { View, RefreshControl, FlatList } from 'react-native';
+import {
+  List,
+  Portal,
+  Dialog,
+  TextInput,
+  Button,
+  useTheme,
+} from 'react-native-paper';
+import { RefreshControl, SectionList, View } from 'react-native';
 
 import { Collection } from 'realm';
+import { StackScreenProps } from '@react-navigation/stack';
 import {
   createPlaylist,
   getAllPlaylists,
@@ -10,43 +18,37 @@ import {
 } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
-import { PlaylistProps, NavigationScreenProps } from '../../types';
+import { PlaylistProps } from '../../types';
+import { getYoutubePlaylist } from '../../services/Youtube';
+import { useCache } from '../../hooks/useCache';
 
-export const PlaylistScreen = ({
-  navigation,
-}: {
-  navigation: NavigationScreenProps;
-}) => {
+export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
+  const { colors } = useTheme();
   let realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
-  const [playlists, setPlaylists] = useState(() => {
+  const youtubePlaylists = useCache('youtube_playlists', () =>
+    getYoutubePlaylist(),
+  );
+
+  const [localPlaylists, setLocalPlaylists] = useState(() => {
     return deserializePlaylists(realmPlaylists);
   });
-
-  useEffect(() => {
-    const listner = (playlists: Collection<object>, changes: any) => {
-      if (
-        changes.insertions.length > 0 ||
-        changes.modifications.length > 0 ||
-        changes.deletions.length > 0
-      ) {
-        const update = deserializePlaylists(playlists);
-        setPlaylists(update);
-      }
-    };
-    realmPlaylists.addListener(listner);
-    return () => {
-      realmPlaylists.removeListener(listner);
-    };
-  }, [realmPlaylists]);
+  const [playlists, setPlaylists] = useState([]);
 
   const navigateToCollection = (playlist: PlaylistProps) => {
-    navigation.navigate('Songs', {
-      songs: getPlaylistSongs(playlist.id),
-      playlist,
-    });
+    if (playlist.type === 'Youtube') {
+      navigation.navigate('Songs', {
+        songs: playlist.songs,
+        playlist,
+      });
+    } else {
+      navigation.navigate('Songs', {
+        songs: getPlaylistSongs(playlist.id),
+        playlist,
+      });
+    }
   };
 
   const showDialog = () => setVisible(true);
@@ -69,9 +71,33 @@ export const PlaylistScreen = ({
     setRefreshing(true);
     realmPlaylists = getAllPlaylists();
     const updatedList = deserializePlaylists(realmPlaylists);
-    setPlaylists(updatedList);
+    setLocalPlaylists(updatedList);
     setRefreshing(false);
   };
+
+  useEffect(() => {
+    const listner = (playlists: Collection<object>, changes: any) => {
+      if (
+        changes.insertions.length > 0 ||
+        changes.modifications.length > 0 ||
+        changes.deletions.length > 0
+      ) {
+        const update = deserializePlaylists(playlists);
+        setLocalPlaylists(update);
+      }
+    };
+    realmPlaylists.addListener(listner);
+    return () => {
+      realmPlaylists.removeListener(listner);
+    };
+  }, [realmPlaylists]);
+
+  useEffect(() => {
+    setPlaylists([
+      { title: 'Local Playlists', data: localPlaylists },
+      { title: 'Youtube Playlists', data: youtubePlaylists || [] },
+    ]);
+  }, [localPlaylists, youtubePlaylists]);
 
   return (
     <Screen>
@@ -92,17 +118,19 @@ export const PlaylistScreen = ({
           </Dialog.Actions>
         </Dialog>
       </Portal>
-      <FlatList
+      <SectionList
         ListHeaderComponent={() => (
-          <View>
-            <List.Item
-              title="Create Playlist"
-              left={() => <List.Icon icon="add" />}
-              onPress={showDialog}
-            />
-          </View>
+          <List.Item
+            title="Create Playlist"
+            titleStyle={{ color: colors.primary }}
+            left={props => (
+              <List.Icon {...props} icon="add" color={colors.primary} />
+            )}
+            onPress={showDialog}
+          />
         )}
-        data={playlists}
+        ListFooterComponent={() => <View style={{ height: 100 }} />}
+        sections={playlists}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: { item: PlaylistProps }) => (
           <List.Item
@@ -115,6 +143,9 @@ export const PlaylistScreen = ({
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        renderSectionHeader={({ section: { title } }) => (
+          <List.Subheader>{title}</List.Subheader>
+        )}
       />
     </Screen>
   );

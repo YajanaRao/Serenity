@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   centerContainer: {
-    height: 50,
+    // height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,

@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { useNavigation } from '@react-navigation/core';
 import { Title } from 'react-native-paper';
-import * as data from '../assets/Media.json';
+import { useNavigation } from '@react-navigation/core';
 import { TrackScrollView } from '../components/TrackScrollView';
+import { getYoutubeMusic } from '../services/Youtube';
+import { useCache } from '../hooks/useCache';
 
-const OnlineSongsContainer = () => {
+const YoutubeSongsContainer = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
 
   const navigateToPlaylist = (playlist: any) => {
     const playlistMetadata = {
-      id: 'online-playlist--000002',
+      id: 'youtube-playlist--000002',
       name: playlist.title,
       owner: 'Serenity',
       cover: playlist.cover,
@@ -23,8 +24,9 @@ const OnlineSongsContainer = () => {
     });
   };
 
-  const { media } = data;
-  if (netInfo.isConnected) {
+  const playlist = useCache('youtube_music', () => getYoutubeMusic('songs'));
+
+  if (netInfo.isConnected && playlist.length) {
     return (
       <View>
         <View
@@ -36,9 +38,9 @@ const OnlineSongsContainer = () => {
             marginBottom: 4,
           }}
         >
-          <Title>Online Songs</Title>
+          <Title>Youtube Songs</Title>
         </View>
-        <TrackScrollView data={media} play={navigateToPlaylist} />
+        <TrackScrollView data={playlist} play={navigateToPlaylist} />
       </View>
     );
   }
@@ -46,4 +48,4 @@ const OnlineSongsContainer = () => {
   return null;
 };
 
-export default OnlineSongsContainer;
+export default YoutubeSongsContainer;

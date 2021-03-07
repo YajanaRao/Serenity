@@ -13,7 +13,7 @@ export const deserializeSongs = (realmObject: TrackProps[]) => {
       title: item.title,
     }));
   } catch (error) {
-    log(`deserializeSongs: ${error}`);
+    log.error(`deserializeSongs`, error);
     return [];
   }
 };
@@ -27,7 +27,7 @@ export const deserializeAlbums = (realmObject: AlbumProps[]) => {
       name: item.name,
     }));
   } catch (error) {
-    log(error);
+    log.error('deserializeAlbums', error);
     return [];
   }
 };

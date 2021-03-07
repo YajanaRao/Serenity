@@ -34,13 +34,13 @@ export const RootNavigator = () => {
         },
       ).then(granted => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          log('Access given');
+          log.debug('App mounted', 'Access given');
         } else {
-          log('No access given');
+          log.debug('App mounted', 'No access given');
         }
       });
     } catch (err) {
-      log(err);
+      log.error('App mounted', err);
     }
   };
 

@@ -15,7 +15,7 @@ export const QuoteContainer = () => {
         setDataSource(responseJson.contents.quotes[0]);
       })
       .catch(error => {
-        log(error);
+        log.error('QuoteContainer', error);
       });
   }, []);
 

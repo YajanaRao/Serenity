@@ -1,14 +1,13 @@
 import React, { useRef, useEffect } from 'react';
-import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { useSelector } from 'react-redux';
-import { ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 
-interface ActiveTrackImageProps {
+interface ActiveTrackIconProps {
   style: ViewStyle;
 }
 
-const ActiveTrackImage = ({ style }: ActiveTrackImageProps) => {
+const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
   const animatedRef = useRef(null);
   const status = useSelector((state: any) => state.playerState.status);
 
@@ -21,12 +20,9 @@ const ActiveTrackImage = ({ style }: ActiveTrackImageProps) => {
   }, [status]);
 
   return (
-    <LinearGradient
-      colors={['#8360c3', '#2ebf91']}
-      style={[style, { justifyContent: 'center', alignItems: 'center' }]}
-    >
+    <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
       <LottieView ref={animatedRef} source={require('../assets/Player.json')} />
-    </LinearGradient>
+    </View>
   );
 };
-export default ActiveTrackImage;
+export default ActiveTrackIcon;
