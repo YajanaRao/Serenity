@@ -16,9 +16,9 @@ import { useDispatch } from 'react-redux';
 import { addToQueue } from '../actions/playerState';
 import { DefaultImage } from '../components/DefaultImage';
 import { deletePlaylist, renamePlaylist } from '../actions/realmAction';
-import { logEvent } from '../utils/logging';
 import { RenamePlaylistDailog } from '../components/RenamePlaylistDailog';
 import { AlertDialog } from '../components/AlertDialog';
+import { log } from '../utils/logging';
 
 const RENAME_DIALOG = 'RENAME';
 const DELETE_DAILOG = 'DELETE';
@@ -132,7 +132,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
             </TouchableWithoutFeedback>
             {owner !== 'You' ? (
               <TouchableWithoutFeedback
-                onPress={() => logEvent('playlist', 'playlist liked')}
+                onPress={() => log.debug('playlist', 'playlist liked')}
               >
                 <List.Item
                   title="like"

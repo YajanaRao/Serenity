@@ -20,7 +20,7 @@ export const updateQuery = (query: string) => (
         });
       })
       .catch(error => {
-        log(error);
+        log.error('updateQuery', error);
       });
   } else {
     dispatch({
@@ -42,7 +42,7 @@ export const getOfflineSongs = () => (
       });
     })
     .catch(er => {
-      log(er);
+      log.error('getOfflineSongs', er);
       dispatch({
         type: 'OFFLINE_SONGS',
         payload: [],
@@ -61,7 +61,7 @@ export const getOfflineArtists = () => (
       });
     })
     .catch(er => {
-      log(er);
+      log.error('getOfflineArtists', er);
       dispatch({
         type: 'NOTIFY',
         payload: 'Something went wrong',
@@ -80,7 +80,7 @@ export const getOfflineAlbums = () => (
       });
     })
     .catch(er => {
-      log(er);
+      log.error('getOfflineAlbums', er);
       dispatch({
         type: 'NOTIFY',
         payload: 'Something went wrong',
@@ -95,7 +95,7 @@ export const findAlbumSongs = async (album: string) => {
     .then(media => {
       return media;
     })
-    .catch(er => log(er));
+    .catch(er => log.error('findAlbumSongs', er));
   return songs;
 };
 
@@ -106,7 +106,7 @@ export const findArtistSongs = async (artist: string) => {
     .then(media => {
       return media;
     })
-    .catch(er => log(er));
+    .catch(er => log.error('findArtistSongs', er));
   return songs;
 };
 
@@ -115,7 +115,7 @@ export const filterSongsByGenre = async genre => {
     .then(media => {
       return media;
     })
-    .catch(error => log(error));
+    .catch(error => log.error('filterSongsByGenre', error));
   return songs;
 };
 

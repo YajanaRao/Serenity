@@ -11,7 +11,7 @@ export const setUserInfo = (user: any) => (
       type: 'SET_USER',
     });
   } catch (error) {
-    log(error);
+    log.error('setUserInfo', error);
   }
 };
 
@@ -23,7 +23,7 @@ export const removeUserInfo = () => (
       type: 'REMOVE_USER',
     });
   } catch (error) {
-    log(error);
+    log.error('removeUserInfo', error);
   }
 };
 
@@ -33,6 +33,6 @@ export const skipLogin = (skip: boolean) => (
   try {
     dispatch({ type: 'SKIP_LOGIN', payload: skip });
   } catch (error) {
-    log(error);
+    log.error('skipLogin', error);
   }
 };

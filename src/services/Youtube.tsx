@@ -1,16 +1,17 @@
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Config from 'react-native-config';
+import { getAccessToken } from '../utils';
 import { log } from '../utils/logging';
 
 export function parsePlaylistItem(data: any) {
   const items = [];
   if ('error' in data) {
+    log.error('parsePlaylistItem', data);
     return false;
   }
   data.items.map(item => {
     const song = {
       nid: item.id,
-      cover: item.snippet.thumbnails.default.url,
+      cover: item.snippet.thumbnails.default?.url,
       title: item.snippet.title,
       path: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
       artist: item.snippet.channelTitle,
@@ -23,6 +24,7 @@ export function parsePlaylistItem(data: any) {
 
 export async function parsePlaylists(data: any) {
   if ('error' in data) {
+    log.error('parsePlaylists', data);
     return false;
   }
   const items = await Promise.all(
@@ -30,7 +32,7 @@ export async function parsePlaylists(data: any) {
       const children = await getPlaylistSongs(item.id.playlistId);
       const playlist = {
         id: item.id,
-        cover: item.snippet.thumbnails.default.url,
+        cover: item.snippet.thumbnails.default?.url,
         title: item.snippet.title,
         artist: item.snippet.channelTitle,
         children,
@@ -38,11 +40,11 @@ export async function parsePlaylists(data: any) {
       return playlist;
     }),
   );
-  console.log('end result: ', items);
   return items;
 }
 export async function parseUserPlaylists(data: any) {
   if ('error' in data) {
+    log.error('parseUserPlaylists', data);
     return false;
   }
   const items = await Promise.all(
@@ -50,7 +52,7 @@ export async function parseUserPlaylists(data: any) {
       const children = await getPlaylistSongs(item.id);
       const playlist = {
         id: item.id,
-        cover: item.snippet.thumbnails.default.url,
+        cover: item.snippet.thumbnails.default?.url,
         name: item.snippet.title,
         owner: item.snippet.channelTitle,
         songs: children,
@@ -59,13 +61,13 @@ export async function parseUserPlaylists(data: any) {
       return playlist;
     }),
   );
-  console.log('end result: ', items);
   return items;
 }
 
 export async function getPlaylistSongs(playlistId: string) {
   const playlistItemUrl = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=${playlistId}&key=${Config.YOUTUBE_API_KEY}`;
-  const { accessToken } = await GoogleSignin.getTokens();
+  const accessToken = await getAccessToken();
+  getAccessToken();
   return fetch(playlistItemUrl, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -80,43 +82,34 @@ export async function getPlaylistSongs(playlistId: string) {
 // const playlistUrl = `https://youtube.googleapis.com/youtube/v3/playlists?part=id&id=${playlistId}&key=${apiKey}`
 
 export async function getYoutubeMusic(query: string) {
-  log('fetching youtube videos');
+  log.debug('getYoutubeMusic', 'fetching youtube videos');
   const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=playlist&q=${query}&key=${Config.YOUTUBE_API_KEY}`;
-  const { accessToken } = await GoogleSignin.getTokens();
+  const accessToken = await getAccessToken();
   return fetch(searchUrl, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   })
     .then(response => response.json())
-    .then(data => parsePlaylists(data));
+    .then(data => parsePlaylists(data))
+    .catch(error => log.error('getYoutubeMusic', error));
 }
 
 export async function getYoutubePlaylist() {
   if (!Config.YOUTUBE_API_KEY) {
-    console.log('api key: ', Config);
+    log.error('config error', 'react-native-config key is null');
     return null;
   }
-  const channelUrl = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&mine=true&key=${Config.YOUTUBE_API_KEY}`;
   // const accessToken = await AsyncStorage.getItem('@token');
-  const { accessToken } = await GoogleSignin.getTokens();
-  return fetch(channelUrl, {
+  const accessToken = await getAccessToken();
+
+  const playlistUrl = `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=20&mine=true&key=${Config.YOUTUBE_API_KEY}`;
+  return fetch(playlistUrl, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   })
     .then(response => response.json())
-    .then(data => {
-      console.log('channel id: ', data.items[0].id);
-      const channelId = data.items[0].id;
-      const playlistUrl = `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&channelId=${channelId}&key=${Config.YOUTUBE_API_KEY}`;
-      console.log('playlist url: ', playlistUrl);
-      return fetch(playlistUrl, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then(response => response.json())
-        .then(data => parseUserPlaylists(data));
-    });
+    .then(data => parseUserPlaylists(data))
+    .catch(error => log.error('getYoutubePlaylist', error));
 }

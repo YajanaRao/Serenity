@@ -30,7 +30,8 @@ export function useCache(key: string, query: () => Promise<any>) {
             now.toDateString() ||
           !sessionData.data
         ) {
-          log(
+          log.debug(
+            'useCache',
             `local cache time ${new Date(
               sessionData.timestamp,
             ).toDateString()} and current time ${now.toDateString()}`,

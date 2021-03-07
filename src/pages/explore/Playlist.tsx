@@ -7,7 +7,7 @@ import {
   Button,
   useTheme,
 } from 'react-native-paper';
-import { RefreshControl, SectionList } from 'react-native';
+import { RefreshControl, SectionList, View } from 'react-native';
 
 import { Collection } from 'realm';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -24,33 +24,18 @@ import { useCache } from '../../hooks/useCache';
 
 export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   const { colors } = useTheme();
-  const realmPlaylists = getAllPlaylists();
+  let realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
   const youtubePlaylists = useCache('youtube_playlists', () =>
     getYoutubePlaylist(),
   );
-  const [playlists, setPlaylists] = useState(() => {
+
+  const [localPlaylists, setLocalPlaylists] = useState(() => {
     return deserializePlaylists(realmPlaylists);
   });
-
-  useEffect(() => {
-    const listner = (playlists: Collection<object>, changes: any) => {
-      if (
-        changes.insertions.length > 0 ||
-        changes.modifications.length > 0 ||
-        changes.deletions.length > 0
-      ) {
-        const update = deserializePlaylists(playlists);
-        setPlaylists(update);
-      }
-    };
-    realmPlaylists.addListener(listner);
-    return () => {
-      realmPlaylists.removeListener(listner);
-    };
-  }, [realmPlaylists]);
+  const [playlists, setPlaylists] = useState([]);
 
   const navigateToCollection = (playlist: PlaylistProps) => {
     if (playlist.type === 'Youtube') {
@@ -86,9 +71,33 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
     setRefreshing(true);
     realmPlaylists = getAllPlaylists();
     const updatedList = deserializePlaylists(realmPlaylists);
-    setPlaylists(updatedList);
+    setLocalPlaylists(updatedList);
     setRefreshing(false);
   };
+
+  useEffect(() => {
+    const listner = (playlists: Collection<object>, changes: any) => {
+      if (
+        changes.insertions.length > 0 ||
+        changes.modifications.length > 0 ||
+        changes.deletions.length > 0
+      ) {
+        const update = deserializePlaylists(playlists);
+        setLocalPlaylists(update);
+      }
+    };
+    realmPlaylists.addListener(listner);
+    return () => {
+      realmPlaylists.removeListener(listner);
+    };
+  }, [realmPlaylists]);
+
+  useEffect(() => {
+    setPlaylists([
+      { title: 'Local Playlists', data: localPlaylists },
+      { title: 'Youtube Playlists', data: youtubePlaylists || [] },
+    ]);
+  }, [localPlaylists, youtubePlaylists]);
 
   return (
     <Screen>
@@ -120,10 +129,8 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
             onPress={showDialog}
           />
         )}
-        sections={[
-          { title: 'Local Playlists', data: playlists },
-          { title: 'Youtube Playlists', data: youtubePlaylists },
-        ]}
+        ListFooterComponent={() => <View style={{ height: 100 }} />}
+        sections={playlists}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }: { item: PlaylistProps }) => (
           <List.Item

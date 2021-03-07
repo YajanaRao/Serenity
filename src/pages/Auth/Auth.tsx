@@ -6,17 +6,12 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  ActivityIndicator,
-  Button,
-  Caption,
-  Title,
-  Subheading,
-} from 'react-native-paper';
+import { ActivityIndicator, Button, Caption, Title } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import { Screen } from '../../components/Screen';
 import { setUserInfo, skipLogin } from '../../actions/userState';
+import { log } from '../../utils/logging';
 
 export interface AuthScreenProps {}
 
@@ -49,7 +44,7 @@ function AuthScreen({ navigation }: AuthScreenProps) {
       setisLoading(false);
       navigation.navigate('App');
     } catch (error) {
-      console.log('error: ', error);
+      log.error('error: ', error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {

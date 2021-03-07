@@ -54,12 +54,15 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
       GoogleSignin.configure();
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      await AsyncStorage.removeItem('@token');
+      await GoogleSignin.revokeAccess();
+      const { idToken } = await GoogleSignin.getTokens();
+      await GoogleSignin.clearCachedAccessToken(idToken);
+      await AsyncStorage.clear();
       dispatch(removeUserInfo());
       setLoading(false);
       navigation.navigate('Auth');
     } catch (error) {
-      log(error);
+      log.error('signOut', error);
       navigation.navigate('Auth');
     }
   };
