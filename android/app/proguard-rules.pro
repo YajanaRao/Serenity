@@ -28,3 +28,5 @@
 -keep class com.facebook.hermes.unicode.** { *; }
 
 -keep class io.realm.react.**
+
+-keep class com.serenity.BuildConfig { *; }

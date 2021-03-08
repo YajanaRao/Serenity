@@ -14,6 +14,7 @@ import { PlayerScreen } from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
 import AuthScreen from './Auth/Auth';
+import { WelcomeScreen } from './Welcome/Welcome';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -106,10 +107,11 @@ const AuthStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Auth"
+      initialRouteName="Welcome"
     >
       <Stack.Screen name="App" component={RootStack} />
       <Stack.Screen name="Auth" component={AuthScreen} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
     </Stack.Navigator>
   );
 };
@@ -117,7 +119,7 @@ export const RootScreen = () => {
   const theme = useTheme();
   const { colors } = theme;
   useEffect(() => {
-    RNBootSplash.hide();
+    RNBootSplash.hide({ fade: true });
   }, []);
 
   return (

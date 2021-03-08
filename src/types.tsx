@@ -5,6 +5,7 @@ export interface TrackProps {
   id: string;
   path: string;
   title: string;
+  type?: string;
 }
 
 export interface AlbumProps {

@@ -11,6 +11,7 @@ import { RefreshControl, SectionList, View } from 'react-native';
 
 import { Collection } from 'realm';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useSelector } from 'react-redux';
 import {
   createPlaylist,
   getAllPlaylists,
@@ -21,15 +22,17 @@ import { Screen } from '../../components/Screen';
 import { PlaylistProps } from '../../types';
 import { getYoutubePlaylist } from '../../services/Youtube';
 import { useCache } from '../../hooks/useCache';
+import { log } from '../../utils/logging';
 
 export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
+  const { skipLoginState } = useSelector(state => state.user);
   const { colors } = useTheme();
   let realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
   const youtubePlaylists = useCache('youtube_playlists', () =>
-    getYoutubePlaylist(),
+    skipLoginState ? [] : getYoutubePlaylist(),
   );
 
   const [localPlaylists, setLocalPlaylists] = useState(() => {
@@ -93,10 +96,16 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   }, [realmPlaylists]);
 
   useEffect(() => {
-    setPlaylists([
-      { title: 'Local Playlists', data: localPlaylists },
-      { title: 'Youtube Playlists', data: youtubePlaylists || [] },
-    ]);
+    const playlists = [];
+    playlists.push({ title: 'Local Playlists', data: localPlaylists });
+    if (!skipLoginState) {
+      log.debug('logged in adding youtube playlists');
+      playlists.push({
+        title: 'Youtube Playlists',
+        data: youtubePlaylists || [],
+      });
+    }
+    setPlaylists(playlists);
   }, [localPlaylists, youtubePlaylists]);
 
   return (

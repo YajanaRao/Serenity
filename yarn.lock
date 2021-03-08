@@ -7380,10 +7380,10 @@ react-test-renderer@16.9.0:
     react-is "^16.9.0"
     scheduler "^0.15.0"
 
-react-track-player@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/react-track-player/-/react-track-player-1.0.9.tgz#af23e12d5371b65410dd67238811902579c0b6f5"
-  integrity sha512-noxhycDbjnCJAqs4iAqL99APrnxzYmtST5KdjZfji+p8K6AakTmJN56BUvifN7AzfLMwdK34pWr2JSpVe/MbfQ==
+react-track-player@1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/react-track-player/-/react-track-player-1.0.11.tgz#8cae4d76b79a04955e435c9d15a5d9f89bcc950a"
+  integrity sha512-jWc0Yx7x+ugX4qQU1vY0O8rr+nXDyu+JCHdu0g3Xbz/O3SaovP6Fvyv3UVF0ofJ79XUP2PsJlUEasCu4qTON7A==
 
 react@16.13.1:
   version "16.13.1"
