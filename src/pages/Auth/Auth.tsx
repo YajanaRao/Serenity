@@ -17,17 +17,8 @@ export interface AuthScreenProps {}
 
 // 86193367343-bp459vm9mul6frp7luvfec3hulvg9b0i.apps.googleusercontent.com
 function AuthScreen({ navigation }: AuthScreenProps) {
-  const [isLoading, setisLoading] = useState(true);
-  const { skipLoginState } = useSelector(state => state.user);
+  const [isLoading, setisLoading] = useState(false);
   const dispatch = useDispatch();
-
-  const isSignedIn = async () => {
-    const isSignedIn = await GoogleSignin.isSignedIn();
-    if (isSignedIn || skipLoginState) {
-      navigation.navigate('App');
-    }
-    setisLoading(false);
-  };
 
   const signIn = async () => {
     try {
@@ -61,9 +52,6 @@ function AuthScreen({ navigation }: AuthScreenProps) {
     dispatch(skipLogin(true));
     navigation.navigate('App');
   }
-  useEffect(() => {
-    isSignedIn();
-  }, []);
 
   if (isLoading) {
     return (

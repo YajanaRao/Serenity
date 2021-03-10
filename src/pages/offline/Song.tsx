@@ -150,7 +150,7 @@ export const SongScreen = () => {
               onPress={() => play(item)}
             />
           )}
-          ItemSeparatorComponent={() => <Divider inset />}
+          // ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={fetchData} />

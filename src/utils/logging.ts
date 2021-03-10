@@ -1,9 +1,9 @@
 /* global __DEV__ */
 import crashlytics from '@react-native-firebase/crashlytics';
 import { Platform } from 'react-native';
+import Config from 'react-native-config';
 
-const WEBHOOK: string =
-  'https://discord.com/api/webhooks/818075047339098132/SVItUX2wgXOuQs1-KpEh3FF2WTp21NCGYyluXCOKMC9Aj2gChZb6sHblanpgi4Aq0SQ0';
+const WEBHOOK: string = Config.WEBHOOK_URL;
 
 export function sendMessage(content: any) {
   try {
@@ -59,7 +59,7 @@ export const log = {
           content: title.toString(),
           embeds: [
             {
-              title: arguments.callee.name,
+              title,
               fields: extras,
               description: text,
               color: 14177041,
@@ -85,7 +85,7 @@ export const log = {
           content: 'log message',
           embeds: [
             {
-              title: title,
+              title,
               description: message,
               color: 15258703,
             },

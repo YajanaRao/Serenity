@@ -1,11 +1,17 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { ProgressBar } from 'react-track-player';
 
 export const Progress = () => {
+  const { colors } = useTheme();
   return (
     <View style={styles.view}>
-      <ProgressBar style={styles.bar} />
+      <ProgressBar
+        style={styles.bar}
+        thumbTintColor={colors.primary}
+        trackTintColor={colors.primary}
+      />
     </View>
   );
 };

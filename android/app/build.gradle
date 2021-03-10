@@ -131,6 +131,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        resValue "string", "build_config_package", "com.serenity"
     }
     splits {
         abi {

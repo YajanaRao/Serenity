@@ -97,7 +97,7 @@ export async function getYoutubeMusic(query: string) {
 
 export async function getYoutubePlaylist() {
   if (!Config.YOUTUBE_API_KEY) {
-    log.error('config error', 'react-native-config key is null');
+    log.error('config error', `react-native-config is ${Config.toString()}`);
     return null;
   }
   // const accessToken = await AsyncStorage.getItem('@token');

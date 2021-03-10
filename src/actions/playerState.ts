@@ -33,7 +33,7 @@ export const setUpTrackPlayer = () => (
   try {
     subscription = DeviceEventEmitter.addListener('media', event => {
       // handle event
-      // log.debug('from event listener', event);
+      console.log('from event listener', event);
       if (event === 'skip_to_next') {
         dispatch(skipToNext());
       } else if (event === 'skip_to_previous') {
@@ -61,6 +61,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
 ) => {
   try {
     const { path, type } = track;
+    console.log(path, type);
     if (path) {
       if (type === 'Youtube') {
         ytdl(path, { filter: format => format.container === 'mp4' })
@@ -73,6 +74,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
           .catch(error => log.error('loadTrack', error));
       }
       TrackPlayer.load(path).then(() => {
+        console.log('track loaded will play now ', playOnLoad);
         if (playOnLoad) TrackPlayer.play();
       });
       dispatch({
