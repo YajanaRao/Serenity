@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Title, Subheading } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import LottieView from 'lottie-react-native';
+import { useFocusEffect } from '@react-navigation/core';
 
 const CONTAINER: ViewStyle = {
   alignItems: 'center',
@@ -11,6 +12,15 @@ const CONTAINER: ViewStyle = {
 };
 
 export const EmptyFavoriteAlbums = () => {
+  const animatedRef = useRef(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      animatedRef.current.play();
+
+      return () => animatedRef.current.pause();
+    }, []),
+  );
   return (
     <View style={CONTAINER}>
       <View
@@ -21,7 +31,11 @@ export const EmptyFavoriteAlbums = () => {
           width: '100%',
         }}
       >
-        <LottieView source={require('../assets/Favorite.json')} autoPlay loop />
+        <LottieView
+          ref={animatedRef}
+          source={require('../assets/Favorite.json')}
+          loop
+        />
       </View>
       <Title>No favorites yet.</Title>
       <Subheading style={{ textAlign: 'center' }}>

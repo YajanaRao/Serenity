@@ -1,15 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Divider, Button, List, IconButton } from 'react-native-paper';
+import {
+  Divider,
+  Button,
+  List,
+  IconButton,
+  useTheme,
+} from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   View,
   RefreshControl,
   StyleSheet,
   GestureResponderEvent,
-  FlatList,
+  Animated,
 } from 'react-native';
+import { useNavigation, useScrollToTop } from '@react-navigation/native';
+import {
+  useCollapsibleSubHeader,
+  CollapsibleSubHeaderAnimator,
+} from 'react-navigation-collapsible';
 
-import { useScrollToTop } from '@react-navigation/native';
 import { getOfflineSongs } from '../../actions/mediaStore';
 import {
   addToQueue,
@@ -31,15 +41,24 @@ interface ItemProps {
 }
 
 export const SongScreen = () => {
-  const ref = useRef();
+  const ref = useRef(null);
   useScrollToTop(ref);
   const [visible, setVisible] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [song, setSong] = useState();
   const [cord, setCord] = useState({ x: 0, y: 0 });
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const { colors } = useTheme();
 
   const songs = useSelector((state: RootReducerType) => state.mediaStore.songs);
+
+  const {
+    onScroll /* Event handler */,
+    containerPaddingTop /* number */,
+    scrollIndicatorInsetTop /* number */,
+    translateY,
+  } = useCollapsibleSubHeader();
 
   useEffect(() => {
     dispatch(getOfflineSongs());
@@ -113,27 +132,13 @@ export const SongScreen = () => {
           closeMenu={closeMenu}
           contextualMenuCoord={cord}
         />
-        <FlatList
+
+        <Animated.FlatList
+          onScroll={onScroll}
+          contentContainerStyle={{ paddingTop: containerPaddingTop }}
+          scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
           ref={ref}
           data={songs}
-          ListHeaderComponent={() => (
-            <View style={styles.container}>
-              <Button
-                icon="play"
-                mode="outlined"
-                onPress={() => dispatch(addToQueue(songs))}
-              >
-                Play All
-              </Button>
-              <Button
-                icon="shuffle"
-                mode="outlined"
-                onPress={() => dispatch(shufflePlay(songs))}
-              >
-                Shuffle
-              </Button>
-            </View>
-          )}
           renderItem={({ item }: ItemProps) => (
             <List.Item
               title={item.title}
@@ -156,6 +161,31 @@ export const SongScreen = () => {
             <RefreshControl refreshing={refreshing} onRefresh={fetchData} />
           }
         />
+
+        <CollapsibleSubHeaderAnimator translateY={translateY}>
+          <View style={[styles.header, { backgroundColor: colors.background }]}>
+            <Button
+              icon="play"
+              mode="outlined"
+              onPress={() => dispatch(addToQueue(songs))}
+            >
+              Play All
+            </Button>
+            <View style={{ flexDirection: 'row' }}>
+              <IconButton
+                icon="shuffle"
+                color={colors.primary}
+                onPress={() => dispatch(shufflePlay(songs))}
+              />
+              <IconButton
+                icon="search-outline"
+                color={colors.primary}
+                onPress={() => navigation.navigate('Find')}
+              />
+            </View>
+          </View>
+          <Divider />
+        </CollapsibleSubHeaderAnimator>
       </Screen>
     );
   }
@@ -163,18 +193,11 @@ export const SongScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'space-around',
+  header: {
+    justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 10,
     flexDirection: 'row',
-  },
-  panel: {
-    height: '100%',
-    paddingTop: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    // elevation: 12,
-    zIndex: 1000,
+    paddingVertical: 2,
+    marginHorizontal: 10,
   },
 });

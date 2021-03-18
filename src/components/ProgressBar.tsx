@@ -20,8 +20,9 @@ const styles = StyleSheet.create({
   view: {
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
-    height: 50,
+    height: 40,
     width: '100%',
   },
   bar: {

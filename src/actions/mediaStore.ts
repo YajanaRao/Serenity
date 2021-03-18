@@ -7,7 +7,7 @@ import { AnyAction } from 'redux';
 
 import { log } from '../utils/logging';
 
-export const updateQuery = (query: string) => (
+export const updateQuery = (query: string, category: string) => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   if (query) {

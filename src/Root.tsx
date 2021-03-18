@@ -5,13 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { RootScreen } from './pages/Root';
+import { RootNavigator } from './pages/RootNavigator';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
 import { log } from './utils/logging';
 import { DarkTheme, DefaultTheme } from './utils/theme';
 
-export const RootNavigator = () => {
+export const RootScreen = () => {
   const themeType = useSelector(
     (state: RootReducerType) => state.config.themeType,
   );
@@ -67,7 +67,7 @@ export const RootNavigator = () => {
         }}
         theme={theme}
       >
-        <RootScreen />
+        <RootNavigator />
       </PaperProvider>
     </NavigationContainer>
   );

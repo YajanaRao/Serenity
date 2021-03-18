@@ -71,7 +71,7 @@ const DarkTheme = {
   ...PaperDarkTheme,
   ...NavigationDarkTheme,
   fonts: configureFonts(fontConfig),
-  roundness: 2,
+  roundness: 4,
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
@@ -85,7 +85,7 @@ const DefaultTheme = {
   ...PaperDefaultTheme,
   ...NavigationDefaultTheme,
   fonts: configureFonts(fontConfig),
-  roundness: 2,
+  roundness: 4,
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,

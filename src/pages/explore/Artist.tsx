@@ -12,7 +12,7 @@ import { Screen } from '../../components/Screen';
 import { ArtistProps } from '../../types';
 
 export const ArtistScreen = ({ navigation }) => {
-  const ref = useRef();
+  const ref = useRef(null);
   let followArtists: ArtistProps[] = [];
   useScrollToTop(ref);
   let realmArtists = getArtists();

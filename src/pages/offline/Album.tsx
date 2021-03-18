@@ -14,7 +14,7 @@ import { AlbumProps } from '../../types';
 import { RootReducerType } from '../../reducers';
 
 export const AlbumScreen = ({ navigation }) => {
-  const ref = useRef();
+  const ref = useRef(null);
   const albums = useSelector(
     (state: RootReducerType) => state.mediaStore.albums,
   );

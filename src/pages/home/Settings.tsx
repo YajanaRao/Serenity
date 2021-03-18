@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
   Text,
   Switch,
@@ -14,6 +14,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackScreenProps } from '@react-navigation/stack';
+import Config from 'react-native-config';
 import { Screen } from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
@@ -75,6 +76,15 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
       console.error(error);
     }
   };
+
+  function addDiagnostics() {
+    Alert.alert('Diagnostics', JSON.stringify(Config), [
+      {
+        text: 'Okay',
+      },
+    ]);
+  }
+
   const clearData = () => {
     dispatch(clearHistory());
     setVisible(false);
@@ -124,6 +134,11 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
           </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
+          <Drawer.Item
+            onPress={addDiagnostics}
+            label="Diagnostics"
+            icon="bug-outline"
+          />
           <Drawer.Item
             onPress={showAlert}
             label="Clear history"
