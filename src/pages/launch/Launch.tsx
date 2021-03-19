@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useTheme } from 'react-native-paper';
 
-export interface WelcomeScreenProps extends StackScreenProps {}
+export interface LaunchScreenProps extends StackScreenProps {}
 
-function WelcomeScreen({ navigation }: WelcomeScreenProps) {
+function LaunchScreen({ navigation }: LaunchScreenProps) {
   const { colors } = useTheme();
   const { skipLoginState } = useSelector(state => state.user);
 
@@ -27,4 +27,4 @@ function WelcomeScreen({ navigation }: WelcomeScreenProps) {
   return <View style={{ flex: 1, backgroundColor: colors.background }} />;
 }
 
-export default WelcomeScreen;
+export default LaunchScreen;
