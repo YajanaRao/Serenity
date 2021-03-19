@@ -13,7 +13,7 @@ import IntroductionScreen from './intro/Introduction';
 import { ExploreStack } from './explore';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
-import WelcomeScreen from './launch/Launch';
+import LaunchScreen from './launch/Launch';
 import { PlayerStack } from './player';
 import { FindScreen } from './shared/Find';
 import { Header } from '../components/Header';
@@ -120,11 +120,11 @@ const AuthStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Welcome"
+      initialRouteName="Launch"
     >
       <NativeStack.Screen name="App" component={RootStack} />
       <NativeStack.Screen name="Intro" component={IntroductionScreen} />
-      <NativeStack.Screen name="Welcome" component={WelcomeScreen} />
+      <NativeStack.Screen name="Launch" component={LaunchScreen} />
     </NativeStack.Navigator>
   );
 };
