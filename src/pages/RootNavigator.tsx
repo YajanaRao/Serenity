@@ -9,10 +9,10 @@ import { SafeAreaView } from 'react-native';
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import HomeStack from './home';
+import IntroductionScreen from './intro/Introduction';
 import { ExploreStack } from './explore';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
-import AuthScreen from './auth/Auth';
 import { WelcomeScreen } from './welcome/Welcome';
 import { PlayerStack } from './player';
 import { FindScreen } from './shared/Find';
@@ -123,7 +123,7 @@ const AuthStack = () => {
       initialRouteName="Welcome"
     >
       <NativeStack.Screen name="App" component={RootStack} />
-      <NativeStack.Screen name="Auth" component={AuthScreen} />
+      <NativeStack.Screen name="Intro" component={IntroductionScreen} />
       <NativeStack.Screen name="Welcome" component={WelcomeScreen} />
     </NativeStack.Navigator>
   );

@@ -61,10 +61,10 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
       await AsyncStorage.clear();
       dispatch(removeUserInfo());
       setLoading(false);
-      navigation.navigate('Auth');
+      navigation.navigate('Intro');
     } catch (error) {
       log.error('signOut', error);
-      navigation.navigate('Auth');
+      navigation.navigate('Intro');
     }
   };
 

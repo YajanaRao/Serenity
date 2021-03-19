@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useTheme } from 'react-native-paper';
@@ -20,7 +20,7 @@ export function WelcomeScreen({ navigation }: WelcomeScreenProps) {
     if (authenticated || skipLoginState) {
       navigation.navigate('App');
     } else {
-      navigation.navigate('Auth');
+      navigation.navigate('Intro');
     }
   };
 
