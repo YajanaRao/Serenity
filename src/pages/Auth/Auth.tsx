@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import {
   GoogleSignin,
@@ -7,7 +7,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator, Button, Caption, Title } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import { Screen } from '../../components/Screen';
 import { setUserInfo, skipLogin } from '../../actions/userState';
