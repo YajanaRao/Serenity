@@ -13,7 +13,7 @@ import IntroductionScreen from './intro/Introduction';
 import { ExploreStack } from './explore';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
-import { WelcomeScreen } from './welcome/Welcome';
+import WelcomeScreen from './welcome/Welcome';
 import { PlayerStack } from './player';
 import { FindScreen } from './shared/Find';
 import { Header } from '../components/Header';

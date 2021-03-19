@@ -7,7 +7,7 @@ import { useTheme } from 'react-native-paper';
 
 export interface WelcomeScreenProps extends StackScreenProps {}
 
-export function WelcomeScreen({ navigation }: WelcomeScreenProps) {
+function WelcomeScreen({ navigation }: WelcomeScreenProps) {
   const { colors } = useTheme();
   const { skipLoginState } = useSelector(state => state.user);
 
@@ -26,3 +26,5 @@ export function WelcomeScreen({ navigation }: WelcomeScreenProps) {
 
   return <View style={{ flex: 1, backgroundColor: colors.background }} />;
 }
+
+export default WelcomeScreen;
