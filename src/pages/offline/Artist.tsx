@@ -49,6 +49,7 @@ export const ArtistScreen = ({ navigation }) => {
               left={props => (
                 <Avatar.Text
                   {...props}
+                  size={54}
                   style={{ backgroundColor: generate(item.artist) }}
                   label={item.artist.charAt(0)}
                 />

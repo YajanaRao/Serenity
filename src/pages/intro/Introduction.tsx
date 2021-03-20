@@ -10,7 +10,7 @@ import {
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
-import { Button, Text } from 'react-native-paper';
+import { Button, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { Screen } from '../../components/Screen';
 import { AskPermission } from './components/AskPermission';
@@ -171,6 +171,7 @@ const Item = ({
   });
 
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   function renderAction() {
     switch (type) {
@@ -193,11 +194,11 @@ const Item = ({
         return (
           <Button
             mode="contained"
-            icon="arrow-forward"
+            icon="home"
             color={color}
             onPress={() => navigation.navigate('App')}
           >
-            Start
+            Go to Home
           </Button>
         );
     }
@@ -235,6 +236,7 @@ const Item = ({
               styles.description,
               {
                 opacity,
+                color: colors.text,
               },
             ]}
           >
@@ -378,6 +380,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: 'flex-end',
+    justifyContent: 'center',
     // alignSelf: 'flex-end',
     flex: 1,
   },
