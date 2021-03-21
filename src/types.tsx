@@ -30,4 +30,5 @@ export interface PlaylistProps {
   name: string;
   owner: string;
   songs?: TrackProps;
+  cover?: string;
 }
