@@ -40,7 +40,7 @@ const data = [
     imageUri: require('../../../assets/youtube.png'),
     heading: 'Youtube Music',
     description:
-      'Serenity Needs Access to your YouTube library to list playlist you have created in YouTube',
+      'Serenity Needs Access to your YouTube library to list playlist you have created in YouTube. (Optional)',
     key: 'third',
     color: '#F50057',
     icon: 'logo-youtube',
@@ -178,7 +178,7 @@ const Item = ({
       case 'Grant Access':
         return <AskPermission color={color} next={next} />;
       case 'Youtube':
-        return <GoogleLogin next={next} />;
+        return <GoogleLogin next={next} color={color} />;
       case 'Welcome':
         return (
           <Button
