@@ -2,6 +2,8 @@ import Config from 'react-native-config';
 import { getAccessToken } from '../utils';
 import { log } from '../utils/logging';
 
+const youtubeEndpoint = `https://www.youtube.com`;
+
 export function parsePlaylistItem(data: any) {
   const items = [];
   if ('error' in data) {
@@ -79,7 +81,29 @@ export async function getPlaylistSongs(playlistId: string) {
     });
 }
 
-// const playlistUrl = `https://youtube.googleapis.com/youtube/v3/playlists?part=id&id=${playlistId}&key=${apiKey}`
+const VideoRender = data => {
+  if (data && (data.videoRenderer || data.playlistVideoRenderer)) {
+    let videoRenderer = null;
+    if (data.videoRenderer) {
+      videoRenderer = data.videoRenderer;
+    } else if (data.playlistVideoRenderer) {
+      videoRenderer = data.playlistVideoRenderer;
+    }
+
+    const id = videoRenderer.videoId;
+    const { thumbnail } = videoRenderer;
+    const thumbnailImage = thumbnail.thumbnails[0].url;
+    const title = videoRenderer.title.runs[0].text;
+    return {
+      id,
+      type: 'Youtube',
+      cover: thumbnailImage,
+      title,
+      path: `https://www.youtube.com/watch?v=${id}`,
+    };
+  }
+  return {};
+};
 
 export async function getYoutubeMusic(query: string) {
   log.debug('getYoutubeMusic', 'fetching youtube videos');
@@ -93,6 +117,49 @@ export async function getYoutubeMusic(query: string) {
     .then(response => response.json())
     .then(data => parsePlaylists(data))
     .catch(error => log.error('getYoutubeMusic', error));
+}
+
+export async function searchYoutubeMusic(query: string) {
+  log.debug('searchYoutubeMusic', 'fetching youtube videos');
+  const endpoint = `${youtubeEndpoint}/results?search_query=${query}`;
+  return (
+    fetch(endpoint)
+      .then(response => response.text())
+      .then(async page => {
+        const data = page
+          .split('var ytInitialData =')[1]
+          .split('</script>')[0]
+          .slice(0, -1);
+        const initdata = JSON.parse(data);
+        const {
+          sectionListRenderer,
+        } = initdata.contents.twoColumnSearchResultsRenderer.primaryContents;
+        const items = [];
+        await sectionListRenderer.contents.forEach(content => {
+          if (content.itemSectionRenderer) {
+            // const item = content.itemSectionRenderer.content;
+            content.itemSectionRenderer.contents.forEach(item => {
+              if (item.videoRenderer) {
+                const videoRender = item.videoRenderer;
+                // const playListRender = item.playlistRenderer;
+
+                if (videoRender && videoRender.videoId) {
+                  items.push(VideoRender(item));
+                }
+                // if (withPlaylist) {
+                // if (playListRender && playListRender.playlistId) {
+                //   items.push({ id: playListRender.playlistId, type: 'playlist', thumbnail: playListRender.thumbnails, title: playListRender.title.simpleText, length: playListRender.videoCount, videos: playListRender.videos, videoCount: playListRender.videoCount, isLive: false });
+                // }
+                // }
+              }
+            });
+          }
+        });
+        return items;
+      })
+      // .then(data => parsePlaylists(data))
+      .catch(error => log.error('getYoutubeMusic', error))
+  );
 }
 
 export async function getYoutubePlaylist() {

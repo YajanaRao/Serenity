@@ -6,27 +6,37 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 import { log } from '../utils/logging';
+import { searchYoutubeMusic } from '../services/Youtube';
 
-export const updateQuery = (query: string, category: string) => (
+export const updateQuery = (query: string, category: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   if (query) {
-    RNAndroidAudioStore.search({ searchParam: query })
-      .then(media => {
-        dispatch({
-          type: 'UPDATE_QUERY',
-          payload: media,
-          // query: query
-        });
-      })
-      .catch(error => {
-        log.error('updateQuery', error);
+    const media = [];
+    const offlineMedia = await RNAndroidAudioStore.search({
+      searchParam: query,
+    });
+    const youtubeSongs = await searchYoutubeMusic(query);
+    if (offlineMedia && offlineMedia.length) {
+      media.push({
+        title: 'Offline Songs',
+        data: offlineMedia,
       });
+    }
+    if (youtubeSongs && youtubeSongs.length) {
+      media.push({
+        title: 'Youtube Music',
+        data: youtubeSongs,
+      });
+    }
+    dispatch({
+      type: 'UPDATE_QUERY',
+      payload: media,
+    });
   } else {
     dispatch({
       type: 'UPDATE_QUERY',
       payload: false,
-      // query: query
     });
   }
 };

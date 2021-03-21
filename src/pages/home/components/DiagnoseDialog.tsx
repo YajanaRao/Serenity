@@ -29,6 +29,11 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
             )}
             style={{ margin: 0, padding: 0, height: 40 }}
           />
+          <List.Item
+            title="Dev Env health check"
+            right={() => <List.Icon icon={__DEV__ ? 'checkmark' : 'close'} />}
+            style={{ margin: 0, padding: 0, height: 40 }}
+          />
         </Dialog.Content>
         <Dialog.Actions>
           <Button

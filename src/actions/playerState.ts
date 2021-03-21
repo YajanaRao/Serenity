@@ -70,7 +70,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
               if (playOnLoad) TrackPlayer.play();
             });
           })
-          .catch(error => log.error('loadTrack', error));
+          .catch(error => log.error(`loadTrack ${path} from youtube`, error));
       }
       TrackPlayer.load(path).then(() => {
         if (playOnLoad) TrackPlayer.play();

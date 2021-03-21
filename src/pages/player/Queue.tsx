@@ -14,7 +14,7 @@ export function QueueScreen({ navigation }: QueueScreenProps) {
   const [visible, setVisible] = useState(false);
 
   const close = () => {
-    navigation.goBack();
+    navigation.navigate('Home');
   };
 
   const openAlert = () => {

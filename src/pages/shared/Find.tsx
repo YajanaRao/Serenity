@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, FlatList, View } from 'react-native';
+import { Text, View, SectionList } from 'react-native';
+import { List } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import { Screen } from '../../components/Screen';
 import { TrackContainer } from '../../containers/TrackContainer';
@@ -15,14 +16,16 @@ export function FindScreen({ navigation }: FindScreenProps) {
 
   return (
     <Screen>
-      {searchResult ? (
-        <FlatList
-          data={searchResult}
-          key={searchResult.length}
+      {searchResult && searchResult.length ? (
+        <SectionList
+          sections={searchResult}
           // ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }: { item: TrackProps }) => (
             <TrackContainer track={item} goBack={navigation.goBack} />
+          )}
+          renderSectionHeader={({ section: { title } }) => (
+            <List.Subheader>{title}</List.Subheader>
           )}
         />
       ) : (

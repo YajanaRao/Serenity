@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Title } from 'react-native-paper';
@@ -24,7 +24,9 @@ const YoutubeSongsContainer = () => {
     });
   };
 
-  const playlist = useCache('youtube_music', () => getYoutubeMusic('songs'));
+  const playlist = useCache('youtube_music', () =>
+    getYoutubeMusic('top 10 music '),
+  );
 
   if (netInfo.isConnected && playlist.length) {
     return (

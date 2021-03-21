@@ -6,15 +6,13 @@ import Config from 'react-native-config';
 const WEBHOOK: string = Config.WEBHOOK_URL;
 
 export function sendMessage(content: any) {
-  try {
-    fetch(WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(content),
-    }).then();
-  } catch (error) {
+  fetch(WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(content),
+  }).catch(error => {
     console.log('error', error);
-  }
+  });
 }
 
 export const log = {
