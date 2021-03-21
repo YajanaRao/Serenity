@@ -40,7 +40,7 @@ const data = [
     imageUri: require('../../../assets/youtube.png'),
     heading: 'Youtube Music',
     description:
-      'Serenity Needs Access to your Youtube library to list playlist',
+      'Serenity Needs Access to your YouTube library to list playlist you have created in YouTube',
     key: 'third',
     color: '#F50057',
     icon: 'logo-youtube',
