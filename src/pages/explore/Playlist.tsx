@@ -7,11 +7,12 @@ import {
   Button,
   useTheme,
 } from 'react-native-paper';
-import { RefreshControl, SectionList, View } from 'react-native';
+import { RefreshControl, SectionList, StyleSheet, View } from 'react-native';
 
 import { Collection } from 'realm';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 import {
   createPlaylist,
   getAllPlaylists,
@@ -23,6 +24,7 @@ import { PlaylistProps } from '../../types';
 import { getYoutubePlaylist } from '../../services/Youtube';
 import { useCache } from '../../hooks/useCache';
 import { log } from '../../utils/logging';
+import realm from '../../database';
 
 export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   const { skipLoginState } = useSelector(state => state.user);
@@ -89,20 +91,21 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
         setLocalPlaylists(update);
       }
     };
-    realmPlaylists.addListener(listner);
-    return () => {
-      realmPlaylists.removeListener(listner);
-    };
+
+    if (realmPlaylists !== undefined && !realm.isInTransaction) {
+      realmPlaylists.addListener(listner);
+      return () => realmPlaylists.removeListener(listner);
+    }
   }, [realmPlaylists]);
 
   useEffect(() => {
     const playlists = [];
     playlists.push({ title: 'Local Playlists', data: localPlaylists });
-    if (!skipLoginState) {
+    if (!skipLoginState && youtubePlaylists && youtubePlaylists.length) {
       log.debug('logged in adding youtube playlists');
       playlists.push({
         title: 'Youtube Playlists',
-        data: youtubePlaylists || [],
+        data: youtubePlaylists,
       });
     }
     setPlaylists(playlists);
@@ -145,7 +148,16 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
           <List.Item
             title={item.name}
             description={`by ${item.owner}`}
-            left={props => <List.Icon {...props} icon="folder-open" />}
+            left={props =>
+              item.cover ? (
+                <FastImage
+                  source={{ uri: item.cover }}
+                  style={styles.artwork}
+                />
+              ) : (
+                <List.Icon {...props} icon="folder-open" />
+              )
+            }
             onPress={() => navigateToCollection(item)}
           />
         )}
@@ -159,3 +171,12 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
     </Screen>
   );
 };
+
+const styles = StyleSheet.create({
+  artwork: {
+    backgroundColor: '#d7d1c9',
+    borderRadius: 4,
+    height: 50,
+    width: 50,
+  },
+});

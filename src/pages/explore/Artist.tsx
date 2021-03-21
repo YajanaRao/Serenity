@@ -12,7 +12,7 @@ import { Screen } from '../../components/Screen';
 import { ArtistProps } from '../../types';
 
 export const ArtistScreen = ({ navigation }) => {
-  const ref = useRef();
+  const ref = useRef(null);
   let followArtists: ArtistProps[] = [];
   useScrollToTop(ref);
   let realmArtists = getArtists();
@@ -84,7 +84,7 @@ export const ArtistScreen = ({ navigation }) => {
             title="Add artist"
             left={() => (
               <Avatar.Icon
-                // {...props}
+                size={54}
                 // style={{ backgroundColor: colors.surface }}
                 icon="add"
               />
@@ -99,6 +99,7 @@ export const ArtistScreen = ({ navigation }) => {
             title={item.name}
             left={() => (
               <Avatar.Text
+                size={54}
                 style={{ backgroundColor: generate(item.name) }}
                 label={item.name.charAt(0)}
               />

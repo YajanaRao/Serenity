@@ -11,27 +11,37 @@
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <p float="left">
-<img src="https://dl.dropboxusercontent.com/s/4zzny6wfjr6sts1/home.jpg?dl=0"
+<img src="https://dl.dropboxusercontent.com/s/mkg8orlpa8gw5u8/Screenshot_2021-03-21-21-02-02-675_com.serenity.jpg?dl=0"
     alt="homepage"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
-<img src="https://dl.dropboxusercontent.com/s/1eq9fpi57i9uedq/Screenshot_2019-10-23-23-33-48-532_com.serenity.png?dl=0"
+<img src="https://dl.dropboxusercontent.com/s/i2x2zhobftby11w/Screenshot_2021-03-21-21-02-05-598_com.serenity.jpg?dl=0"
     alt="searchpage"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/dbjbqfuabinty3m/Screenshot_2019-10-23-23-34-17-429_com.serenity.png?dl=0"
+<img src="https://dl.dropboxusercontent.com/s/viemu00pradw81y/Screenshot_2021-03-21-21-48-33-793_com.serenity.jpg?dl=0"
+    alt="searchresultpage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;"/>
+<img src="https://dl.dropboxusercontent.com/s/csxknh361lmc8ku/Screenshot_2021-03-21-21-36-34-283_com.serenity.jpg?dl=0"
     alt="albumpage"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/mcw8uasljo52274/Screenshot_2019-10-23-23-35-41-341_com.serenity.png?dl=0"
-    alt="albumpage"
+<img src="https://dl.dropboxusercontent.com/s/1shpv8mxvb13ids/Screenshot_2021-03-21-21-53-19-221_com.serenity.jpg?dl=0"
+    alt="artistpage"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/qozpoqeokb0ze2u/artist.jpg?dl=0"
+<img src="https://dl.dropboxusercontent.com/s/hria6a851iono98/Screenshot_2021-03-21-21-36-21-790_com.serenity.jpg?dl=0"
+    alt="playerpage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;"/>
+<img src="https://dl.dropboxusercontent.com/s/w0s74b06v8k831a/Screenshot_2021-03-21-21-02-09-621_com.serenity.jpg?dl=0"
     alt="playlistpage"
     height="320"
     width="160"
@@ -42,7 +52,7 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
 
 [Become a Tester](https://appdistribution.firebase.dev/i/Dv8WUupp)
 
-[Download the App](https://github.com/YajanaRao/Serenity/releases)
+[Download the App](https://install.appcenter.ms/users/Yajana/apps/Serenity)
 
 ## What is this?
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Caption, TouchableRipple, Divider } from 'react-native-paper';
+import { TouchableRipple, Divider, Text } from 'react-native-paper';
 import { NavigationState } from '@react-navigation/core';
 import { PlayerBarContainer } from '../containers/PlayerBarContainer';
 
@@ -71,16 +71,19 @@ export const BottomTabBar = ({
             >
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 {options.tabBarIcon({ focused: isFocused })}
-                <Caption
+                <Text
+                  includeFontPadding={false}
                   style={{
                     textAlign: 'center',
+                    textAlignVertical: 'center',
                     fontSize: 10,
-                    margin: 0,
+                    letterSpacing: 0.4,
+                    marginBottom: 4,
                     padding: 0,
                   }}
                 >
                   {label}
-                </Caption>
+                </Text>
               </View>
             </TouchableRipple>
           );

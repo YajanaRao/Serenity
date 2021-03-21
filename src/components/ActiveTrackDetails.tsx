@@ -11,7 +11,7 @@ interface Props {
 
 export const ActiveTrackDetails = ({ track }: Props) => {
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <View style={styles.centerContainer}>
         {track.cover ? (
           <FastImage source={{ uri: track.cover }} style={[styles.artCover]} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
   Text,
   Switch,
@@ -21,13 +21,14 @@ import { AlertDialog } from '../../components/AlertDialog';
 import { removeUserInfo } from '../../actions/userState';
 import { log } from '../../utils/logging';
 import { LoadingDialog } from '../../components/LoadingDialog';
+import { DiagnoseDialog } from './components/DiagnoseDialog';
 
 export const SettingScreen = ({ navigation }: StackScreenProps) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { skipLoginState, user } = useSelector(state => state.user);
 
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState('');
   const radio = useSelector((state: any) => state.config.radio);
   const theme = useTheme();
   const { dark } = theme;
@@ -45,7 +46,7 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
   };
 
   const showAlert = () => {
-    setVisible(true);
+    setVisible('ALERT');
   };
 
   const signOut = async () => {
@@ -60,10 +61,11 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
       await AsyncStorage.clear();
       dispatch(removeUserInfo());
       setLoading(false);
-      navigation.navigate('Auth');
+      navigation.navigate('Intro');
     } catch (error) {
       log.error('signOut', error);
-      navigation.navigate('Auth');
+      setLoading(false);
+      navigation.navigate('Intro');
     }
   };
 
@@ -75,19 +77,24 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
       console.error(error);
     }
   };
+
   const clearData = () => {
     dispatch(clearHistory());
-    setVisible(false);
+    setVisible('');
   };
 
   return (
     <Screen>
       <AlertDialog
-        visible={visible}
+        visible={visible === 'ALERT'}
         title="Clear History"
         message="Do you want to clear your history ?"
         action={clearData}
-        hideDialog={() => setVisible(false)}
+        hideDialog={() => setVisible('')}
+      />
+      <DiagnoseDialog
+        visible={visible === 'DIAGNOSE'}
+        hideDialog={() => setVisible('')}
       />
       <LoadingDialog visible={loading} title="Logging you out" />
       <ScrollView>
@@ -124,6 +131,11 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
           </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
+          <Drawer.Item
+            onPress={() => setVisible('DIAGNOSE')}
+            label="Diagnostics"
+            icon="bug-outline"
+          />
           <Drawer.Item
             onPress={showAlert}
             label="Clear history"

@@ -39,6 +39,7 @@ export const ArtistComponent = ({ item, addArtist, removeArtist }: Props) => {
             visible={selected}
           />
           <Avatar.Text
+            size={54}
             style={{ backgroundColor: generate(item.name), margin: 0 }}
             label={item.artist.charAt(0)}
           />

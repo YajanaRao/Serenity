@@ -15,7 +15,6 @@ export const Quote = ({ backgroundImage, quote }: Props) => {
         imageStyle={{ opacity: 0.4 }}
         style={{ padding: 20, minHeight: 200 }}
         blurRadius={1}
-        // imageStyle={{borderRadius: 4}}
       >
         <Title style={{ fontFamily: 'Feather' }}>{quote}</Title>
       </ImageBackground>

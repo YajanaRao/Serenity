@@ -24,15 +24,15 @@ export const AlertDialog = ({
           <Paragraph>{message}</Paragraph>
         </Dialog.Content>
         <Dialog.Actions>
+          <Button onPress={hideDialog} mode="outlined" style={{ width: 100 }}>
+            Cancel
+          </Button>
           <Button
             onPress={action}
-            mode="outlined"
+            mode="contained"
             style={{ width: 100, marginRight: 12 }}
           >
             Ok
-          </Button>
-          <Button onPress={hideDialog} mode="contained" style={{ width: 100 }}>
-            Cancel
           </Button>
         </Dialog.Actions>
       </Dialog>

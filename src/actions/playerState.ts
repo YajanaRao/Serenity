@@ -61,7 +61,6 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
 ) => {
   try {
     const { path, type } = track;
-    console.log(path, type);
     if (path) {
       if (type === 'Youtube') {
         ytdl(path, { filter: format => format.container === 'mp4' })
@@ -71,10 +70,9 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
               if (playOnLoad) TrackPlayer.play();
             });
           })
-          .catch(error => log.error('loadTrack', error));
+          .catch(error => log.error(`loadTrack ${path} from youtube`, error));
       }
       TrackPlayer.load(path).then(() => {
-        console.log('track loaded will play now ', playOnLoad);
         if (playOnLoad) TrackPlayer.play();
       });
       dispatch({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Dialog, Portal } from 'react-native-paper';
+import { List, Dialog, Portal, Button } from 'react-native-paper';
 import { FlatList } from 'react-native';
 import { getUserPlaylists } from '../actions/realmAction';
 
@@ -25,7 +25,7 @@ export const PlaylistDialog = ({
     <Portal>
       <Dialog visible={visible} onDismiss={hideModal}>
         <Dialog.Title style={{ textAlign: 'center' }}>
-          Add to Playlist
+          {data.length ? 'Add to Playlist' : 'No playlists found'}
         </Dialog.Title>
 
         <Dialog.ScrollArea>
@@ -41,8 +41,12 @@ export const PlaylistDialog = ({
               />
             )}
           />
-          {/* </View> */}
         </Dialog.ScrollArea>
+        <Dialog.Actions>
+          <Button mode="contained" onPress={() => hideModal()}>
+            Close
+          </Button>
+        </Dialog.Actions>
       </Dialog>
     </Portal>
   );

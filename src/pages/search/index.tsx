@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { FilterScreen } from '../shared/Filter';
 import { SearchScreen } from './Search';
-import { Header } from '../../components/Header';
 
 const Stack = createStackNavigator();
 
@@ -26,9 +25,7 @@ export const SearchStack = () => {
         name="Search"
         component={SearchScreen}
         options={{
-          header: () => {
-            return <Header />;
-          },
+          headerTitleStyle: { fontSize: 28, fontWeight: '800' },
         }}
       />
       <Stack.Screen

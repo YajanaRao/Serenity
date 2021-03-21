@@ -34,7 +34,6 @@ export const RecentContainer = () => {
       realmSongs.addListener(listener);
       return () => realmSongs.removeListener(listener);
     }
-    return null;
   }, [realmSongs]);
 
   const play = (track: TrackProps) => {

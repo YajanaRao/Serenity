@@ -5,27 +5,26 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import { Surface, Title, IconButton, Divider } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
 
+import { useNavigation } from '@react-navigation/core';
 import { deserializeSongs } from '../utils/database';
 import { getQueuedSongs } from '../actions/realmAction';
-import { clearQueue, removeFromQueue } from '../actions/playerState';
+import { removeFromQueue } from '../actions/playerState';
 import { FavContainer } from './FavContainer';
 import { TrackContainer } from './TrackContainer';
 import { TrackProps } from '../types';
-import { AlertDialog } from '../components/AlertDialog';
+import realm from '../database';
 
-interface Props {
-  close(): void;
-}
+interface Props {}
 
 interface ItemProps {
   item: TrackProps;
 }
 
-export const QueueContainer = ({ close }: Props) => {
+export const QueueContainer = ({}: Props) => {
   const realmSongs = getQueuedSongs();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-  const [visible, setVisible] = useState(false);
   const [queue, setQueue] = useState(() => {
     return deserializeSongs(realmSongs);
   });
@@ -41,22 +40,13 @@ export const QueueContainer = ({ close }: Props) => {
         setQueue(song);
       }
     };
-    if (realmSongs !== undefined) {
+    if (realmSongs !== undefined && !realm.isInTransaction) {
       realmSongs.addListener(listener);
+      return () => {
+        realmSongs.removeListener(listener);
+      };
     }
-    return () => {
-      realmSongs.removeListener(listener);
-    };
   }, [realmSongs]);
-
-  const openAlert = () => {
-    setVisible(true);
-  };
-
-  const clearQueueSongs = () => {
-    dispatch(clearQueue());
-    close();
-  };
 
   const removeSongFromQueue = (song: TrackProps) => {
     dispatch(removeFromQueue(song));
@@ -65,25 +55,8 @@ export const QueueContainer = ({ close }: Props) => {
   if (!isEmpty(queue)) {
     return (
       <View>
-        <AlertDialog
-          visible={visible}
-          hideDialog={() => setVisible(false)}
-          action={clearQueueSongs}
-          title="Clear Queue"
-          message="Clear queue would stop current playing song"
-        />
         <SwipeListView
           data={queue}
-          ListHeaderComponent={() => (
-            <View style={styles.rowContainer}>
-              <Title style={{ padding: 10 }}>Queue</Title>
-              <IconButton
-                icon="trash-outline"
-                // size={40}
-                onPress={openAlert}
-              />
-            </View>
-          )}
           renderItem={({ item }: ItemProps) => <TrackContainer track={item} />}
           ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
@@ -106,7 +79,11 @@ export const QueueContainer = ({ close }: Props) => {
       </View>
     );
   }
-  return null;
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+      <Title>No Songs in the queue</Title>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

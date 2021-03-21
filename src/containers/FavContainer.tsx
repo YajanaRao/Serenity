@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { ViewProps } from 'react-native';
+import { ViewStyle } from 'react-native';
 
 import {
   addSongToFavorite,
@@ -20,7 +20,7 @@ import { AlbumProps, ArtistProps, TrackProps } from '../types';
 
 interface Props {
   type: string;
-  style?: ViewProps;
+  style?: ViewStyle;
   item: AlbumProps | ArtistProps | TrackProps;
 }
 

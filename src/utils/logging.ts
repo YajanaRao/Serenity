@@ -6,15 +6,13 @@ import Config from 'react-native-config';
 const WEBHOOK: string = Config.WEBHOOK_URL;
 
 export function sendMessage(content: any) {
-  try {
-    fetch(WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(content),
-    }).then();
-  } catch (error) {
+  fetch(WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(content),
+  }).catch(error => {
     console.log('error', error);
-  }
+  });
 }
 
 export const log = {
@@ -36,7 +34,7 @@ export const log = {
           name: 'Platform',
           value: platform,
         });
-        if (platform == 'web') {
+        if (platform === 'web') {
           extras.push(
             {
               name: 'Browser',
@@ -47,7 +45,7 @@ export const log = {
               value: navigator.platform,
             },
           );
-        } else if (platform == 'android') {
+        } else if (platform === 'android') {
           extras.push({
             name: 'Android Version',
             value: Platform.Version,
@@ -82,7 +80,7 @@ export const log = {
         const content = {
           username: 'debug-logs',
           avatar_url: 'https://i.imgur.com/4M34hi2.png',
-          content: 'log message',
+          content: title,
           embeds: [
             {
               title,

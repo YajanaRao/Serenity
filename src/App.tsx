@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ActivityIndicator } from 'react-native-paper';
 import { View } from 'react-native';
 
-import { RootNavigator } from './RootNavigator';
+import { RootScreen } from './Root';
 import configureStore from './store';
 
 const { store, persistor } = configureStore();
@@ -21,7 +21,7 @@ const App = () => {
     <SafeAreaProvider>
       <Provider store={store}>
         <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
-          <RootNavigator />
+          <RootScreen />
         </PersistGate>
       </Provider>
     </SafeAreaProvider>

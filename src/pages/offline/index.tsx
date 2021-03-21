@@ -11,6 +11,7 @@ import { AlbumSongs } from '../shared/AlbumSongs';
 import { ArtistSongs } from '../shared/ArtistSongs';
 import { FavContainer } from '../../containers/FavContainer';
 import { AddToQueueIcon } from '../../containers/AddToQueueIcon';
+import { Header } from '../../components/Header';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();

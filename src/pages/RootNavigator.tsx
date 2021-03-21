@@ -1,23 +1,26 @@
 import React, { useEffect } from 'react';
-// import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
+import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
 import { SafeAreaView } from 'react-native';
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import HomeStack from './home';
+import IntroductionScreen from './intro/Introduction';
 import { ExploreStack } from './explore';
-import { PlayerScreen } from './shared/Player';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
-import AuthScreen from './Auth/Auth';
-import { WelcomeScreen } from './Welcome/Welcome';
+import LaunchScreen from './launch/Launch';
+import { PlayerStack } from './player';
+import { FindScreen } from './shared/Find';
+import { Header } from '../components/Header';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const NativeStack = createNativeStackNavigator();
 
 const BottomNavigator = () => {
   const theme = useTheme();
@@ -89,33 +92,43 @@ const BottomNavigator = () => {
 
 const RootStack = () => {
   return (
-    <Stack.Navigator
-      mode="modal"
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="Main" component={BottomNavigator} />
-      <Stack.Screen name="Player" component={PlayerScreen} />
+    <Stack.Navigator mode="modal">
+      <Stack.Screen
+        name="Main"
+        component={BottomNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Find"
+        component={FindScreen}
+        options={{
+          header: ({ navigation }) => <Header goBack={navigation.goBack} />,
+        }}
+      />
+      <Stack.Screen
+        name="Player"
+        component={PlayerStack}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator
+    <NativeStack.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Welcome"
+      initialRouteName="Launch"
     >
-      <Stack.Screen name="App" component={RootStack} />
-      <Stack.Screen name="Auth" component={AuthScreen} />
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
-    </Stack.Navigator>
+      <NativeStack.Screen name="App" component={RootStack} />
+      <NativeStack.Screen name="Intro" component={IntroductionScreen} />
+      <NativeStack.Screen name="Launch" component={LaunchScreen} />
+    </NativeStack.Navigator>
   );
 };
-export const RootScreen = () => {
+export const RootNavigator = () => {
   const theme = useTheme();
   const { colors } = theme;
   useEffect(() => {

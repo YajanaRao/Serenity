@@ -10,6 +10,7 @@ import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 import { TrackProps } from '../types';
 import { mostPlayedSongs } from '../actions/mediaStore';
+import realm from '../database';
 
 const CONTINER: ViewStyle = {
   alignItems: 'center',
@@ -37,14 +38,12 @@ export const MostPlayedContainer = () => {
         setHistory(song);
       }
     };
-    if (realmSongs !== undefined) {
+    if (realmSongs !== undefined && !realm.isInTransaction) {
       realmSongs.addListener(listener);
-    }
-    return () => {
-      if (realmSongs !== undefined) {
+      return () => {
         realmSongs.removeListener(listener);
-      }
-    };
+      };
+    }
   }, [realmSongs]);
 
   const play = (track: TrackProps) => {

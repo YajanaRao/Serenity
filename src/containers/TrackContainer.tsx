@@ -10,9 +10,10 @@ import { RootReducerType } from '../reducers';
 
 interface Props {
   track: TrackProps;
+  goBack?: () => void;
 }
 
-export const TrackContainer = ({ track }: Props) => {
+export const TrackContainer = ({ track, goBack }: Props) => {
   const [isActive, setActive] = useState(false);
   const dispatch = useDispatch();
   const active = useSelector(
@@ -30,6 +31,9 @@ export const TrackContainer = ({ track }: Props) => {
       // requestAnimationFrame(() => {
       dispatch(loadTrack(track));
       // });
+    }
+    if (goBack) {
+      goBack();
     }
   };
 
