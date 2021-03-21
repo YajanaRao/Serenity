@@ -52,7 +52,7 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
 
 [Become a Tester](https://appdistribution.firebase.dev/i/Dv8WUupp)
 
-[Download the App](https://github.com/YajanaRao/Serenity/releases)
+[Download the App](https://install.appcenter.ms/users/Yajana/apps/Serenity)
 
 ## What is this?
 
