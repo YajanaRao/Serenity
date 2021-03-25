@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import LottieView from 'lottie-react-native';
 import { useSelector } from 'react-redux';
 import { View, ViewStyle } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import Animations from '../assets/Animations';
 
 interface ActiveTrackIconProps {
@@ -10,6 +11,7 @@ interface ActiveTrackIconProps {
 
 const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
   const animatedRef = useRef(null);
+  const { colors } = useTheme();
   const status = useSelector((state: any) => state.playerState.status);
 
   useEffect(() => {
@@ -22,7 +24,16 @@ const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
 
   return (
     <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
-      <LottieView ref={animatedRef} source={Animations.playerAnimation} />
+      <LottieView
+        ref={animatedRef}
+        source={Animations.playerAnimation}
+        colorFilters={[
+          {
+            keypath: 'Shape',
+            color: colors.primary,
+          },
+        ]}
+      />
     </View>
   );
 };
