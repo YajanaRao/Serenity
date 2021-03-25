@@ -30,3 +30,5 @@
 -keep class io.realm.react.**
 
 -keep class com.serenity.BuildConfig { *; }
+
+-keep public class com.horcrux.svg.** {*;}
