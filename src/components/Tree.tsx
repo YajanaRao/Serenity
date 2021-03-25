@@ -1,15 +1,14 @@
 import React from 'react';
-import { Subheading, useTheme } from 'react-native-paper';
+import { Subheading } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
+import Animations from '../assets/Animations';
 
 interface TreeProps {
   message: string;
 }
 
 const Tree = ({ message }: TreeProps) => {
-  const theme = useTheme();
-  const { colors } = theme;
   return (
     <View style={styles.container}>
       <View
@@ -20,7 +19,7 @@ const Tree = ({ message }: TreeProps) => {
           width: '100%',
         }}
       >
-        <LottieView source={require('../assets/Tree.json')} autoPlay loop />
+        <LottieView source={Animations.treeAnimation} autoPlay loop />
       </View>
       <Subheading>{message}</Subheading>
     </View>

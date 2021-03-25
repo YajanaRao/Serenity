@@ -33,6 +33,7 @@ const HomeStack = () => {
         options={({ navigation }) => {
           return {
             headerTitle: getGreetingTime(),
+            headerTitleStyle: { fontFamily: 'Nunito-Bold' },
             headerRight: () => (
               <IconButton
                 icon="settings-outline"

@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import LottieView from 'lottie-react-native';
 import { useSelector } from 'react-redux';
 import { View, ViewStyle } from 'react-native';
+import Animations from '../assets/Animations';
 
 interface ActiveTrackIconProps {
   style: ViewStyle;
@@ -21,7 +22,7 @@ const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
 
   return (
     <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
-      <LottieView ref={animatedRef} source={require('../assets/Player.json')} />
+      <LottieView ref={animatedRef} source={Animations.playerAnimation} />
     </View>
   );
 };

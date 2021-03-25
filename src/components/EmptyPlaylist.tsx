@@ -3,6 +3,7 @@ import { Headline } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Screen } from './Screen';
+import Animations from '../assets/Animations';
 
 const CONTAINER: ViewStyle = {
   flex: 1,
@@ -24,7 +25,7 @@ export const EmptyPlaylist = () => {
           }}
         >
           <LottieView
-            source={require('../assets/EmptyPlaylist.json')}
+            source={Animations.emptyPlaylistAnimation}
             autoPlay
             loop
           />

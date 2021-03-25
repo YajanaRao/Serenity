@@ -146,7 +146,7 @@ export const SongScreen = () => {
               right={props => (
                 <IconButton
                   {...props}
-                  icon="ellipsis-vertical-outline"
+                  icon="more-vertical-outline"
                   onPress={(event: GestureResponderEvent) =>
                     openMenu(event, item)
                   }
@@ -173,7 +173,7 @@ export const SongScreen = () => {
             </Button>
             <View style={{ flexDirection: 'row' }}>
               <IconButton
-                icon="shuffle"
+                icon="shuffle-outline"
                 color={colors.primary}
                 onPress={() => dispatch(shufflePlay(songs))}
               />

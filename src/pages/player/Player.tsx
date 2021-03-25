@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { IconButton } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { Caption, IconButton } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
+import Icon from '../../components/Icon';
 import { FavContainer } from '../../containers/FavContainer';
 import { RepeatContainer } from '../../containers/RepeatContainer';
 import { PlayerController } from '../../containers/PlayerController';
@@ -12,6 +12,8 @@ import { ActiveTrackDetails } from '../../components/ActiveTrackDetails';
 import { RootReducerType } from '../../reducers';
 import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { addToPlaylist } from '../../actions/playerState';
+import { downloadMedia } from '../../actions/mediaStore';
+import { notify } from '../../actions';
 
 export const PlayerScreen = ({ navigation }) => {
   const [visible, setVisible] = useState('');
@@ -28,6 +30,16 @@ export const PlayerScreen = ({ navigation }) => {
   const active = useSelector(
     (state: RootReducerType) => state.playerState.active,
   );
+
+  function download() {
+    dispatch(
+      notify(
+        'Started download. You will be notified once the file is downloaded',
+      ),
+    );
+    dispatch(downloadMedia(active));
+    setVisible('');
+  }
 
   return (
     <Screen>
@@ -50,14 +62,36 @@ export const PlayerScreen = ({ navigation }) => {
           <RepeatContainer />
         </View>
         <View style={styles.extraMenuContainer}>
-          <IconButton
-            icon={props => <Icon name="menu-fold" {...props} />}
-            onPress={() => navigation.navigate('Queue')}
-          />
-          <IconButton
-            icon={props => <Icon name="addfolder" {...props} />}
-            onPress={() => setVisible('DIALOG')}
-          />
+          <View style={styles.extraIcon}>
+            <IconButton
+              style={{ padding: 0, margin: 0 }}
+              icon={props => <Icon name="menu-outline" {...props} />}
+              onPress={() => navigation.navigate('Queue')}
+            />
+            <Caption style={{ padding: 0, margin: 0 }}>Queue</Caption>
+          </View>
+          <View style={styles.extraIcon}>
+            <IconButton
+              style={{ padding: 0, margin: 0 }}
+              icon={props => <Icon name="download-outline" {...props} />}
+              onPress={download}
+            />
+            <Caption>Download</Caption>
+          </View>
+          <View style={styles.extraIcon}>
+            <IconButton
+              style={{ padding: 0, margin: 0 }}
+              icon={props => (
+                <Icon
+                  name="folder-add-outline"
+                  {...props}
+                  style={{ padding: 0, margin: 0 }}
+                />
+              )}
+              onPress={() => setVisible('DIALOG')}
+            />
+            <Caption>Playlist</Caption>
+          </View>
         </View>
       </View>
     </Screen>
@@ -90,5 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: 20,
+    marginVertical: 12,
   },
+  extraIcon: { justifyContent: 'center', alignItems: 'center' },
 });

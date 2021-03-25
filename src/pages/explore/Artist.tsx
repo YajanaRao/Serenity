@@ -86,7 +86,7 @@ export const ArtistScreen = ({ navigation }) => {
               <Avatar.Icon
                 size={54}
                 // style={{ backgroundColor: colors.surface }}
-                icon="add"
+                icon="plus"
               />
             )}
             onPress={showDialog}

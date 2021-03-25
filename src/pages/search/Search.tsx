@@ -99,6 +99,7 @@ export const SearchScreen = ({ navigation }) => {
         <Searchbar
           value=""
           placeholder="Artists, songs or podcasts"
+          icon="search-outline"
           onTouchStart={() => navigation.navigate('Find')}
           style={{ marginHorizontal: 10, marginVertical: 6 }}
         />

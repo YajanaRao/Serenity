@@ -136,7 +136,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
             title="Create Playlist"
             titleStyle={{ color: colors.primary }}
             left={props => (
-              <List.Icon {...props} icon="add" color={colors.primary} />
+              <List.Icon {...props} icon="plus" color={colors.primary} />
             )}
             onPress={showDialog}
           />
@@ -155,7 +155,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
                   style={styles.artwork}
                 />
               ) : (
-                <List.Icon {...props} icon="folder-open" />
+                <List.Icon {...props} icon="folder" />
               )
             }
             onPress={() => navigateToCollection(item)}

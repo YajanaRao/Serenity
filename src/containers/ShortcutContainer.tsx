@@ -77,7 +77,7 @@ export const ShortCutContainer = () => {
         onPress={navigateToHistory}
       >
         <Avatar.Icon
-          icon="stats-chart-outline"
+          icon="bar-chart-outline"
           color="#46b3e6"
           style={{ backgroundColor: '#46b3e650' }}
         />
@@ -99,7 +99,7 @@ export const ShortCutContainer = () => {
         onPress={navigateToMostPlayed}
       >
         <Avatar.Icon
-          icon="trending-up"
+          icon="trending-up-outline"
           color="#4a47a3"
           style={{ backgroundColor: '#4a47a350' }}
         />
@@ -110,7 +110,7 @@ export const ShortCutContainer = () => {
         onPress={startSongs}
       >
         <Avatar.Icon
-          icon="radio"
+          icon="radio-outline"
           color="#0c9463"
           style={{ backgroundColor: '#0c946350' }}
         />

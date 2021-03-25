@@ -4,6 +4,8 @@ import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import RNFS from 'react-native-fs';
+import ytdl from 'react-native-ytdl';
 
 import { log } from '../utils/logging';
 import { searchYoutubeMusic } from '../services/Youtube';
@@ -136,4 +138,53 @@ export const mostPlayedSongs = (array: []) => {
       count: group.length,
     })),
   );
+};
+
+const _downloadFileProgress = data => {
+  const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
+  const text = `Progress ${percentage}%`;
+  console.log('download file progress: ', text);
+  // if (percentage == 100) {
+  // }
+};
+
+export const downloadMedia = item => dispatch => {
+  try {
+    if (item) {
+      console.log(item);
+      ytdl(item.path, { filter: format => format.container === 'mp4' })
+        .then(urls => {
+          const { url } = urls[0];
+          RNFS.downloadFile({
+            fromUrl: url,
+            toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
+            progress: data => _downloadFileProgress(data),
+          }).promise.then(res => {
+            console.log(res, `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`);
+            // dispatch({
+            //   type: 'DOWNLOAD',
+            //   payload: [{
+            //     title: item.title,
+            //     url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
+            //     artwork: item.cover,
+            //     artist: "Serenity"
+            //   }]
+            // })
+            dispatch({
+              payload: `File ${item.title} downloaded successfully`,
+              type: 'NOTIFY',
+            });
+          });
+        })
+        .catch(error => {
+          log.error(`loadTrack ${path} from youtube`, error);
+          dispatch({
+            payload: `loadTrack ${path} from youtube failed`,
+            type: 'NOTIFY',
+          });
+        });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };

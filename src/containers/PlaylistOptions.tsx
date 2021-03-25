@@ -144,15 +144,15 @@ export const PlaylistOptions = ({ route, navigation }) => {
                 <TouchableWithoutFeedback onPress={deleteAlert}>
                   <List.Item
                     title="Delete Playlist"
-                    left={props => <List.Icon {...props} icon="close" />}
+                    left={props => (
+                      <List.Icon {...props} icon="trash-outline" />
+                    )}
                   />
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={showRenameDailog}>
                   <List.Item
                     title="Rename Playlist"
-                    left={props => (
-                      <List.Icon {...props} icon="create-outline" />
-                    )}
+                    left={props => <List.Icon {...props} icon="edit-outline" />}
                   />
                 </TouchableWithoutFeedback>
               </View>
@@ -204,7 +204,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
         action={deleteAction}
         hideDialog={hideDialog}
       />
-      <IconButton icon="ellipsis-vertical-outline" onPress={openBottomSheet} />
+      <IconButton icon="more-vertical-outline" onPress={openBottomSheet} />
     </View>
   );
 };

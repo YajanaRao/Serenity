@@ -191,7 +191,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-    implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
@@ -214,5 +213,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

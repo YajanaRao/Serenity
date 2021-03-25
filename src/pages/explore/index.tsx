@@ -31,6 +31,9 @@ const TabNavigator = () => {
         indicatorStyle: {
           backgroundColor: colors.primary,
         },
+        labelStyle: {
+          fontFamily: 'Nunito-Bold',
+        },
       }}
     >
       <Tab.Screen name="Playlist" component={PlaylistScreen} />

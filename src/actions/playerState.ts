@@ -70,7 +70,13 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
               if (playOnLoad) TrackPlayer.play();
             });
           })
-          .catch(error => log.error(`loadTrack ${path} from youtube`, error));
+          .catch(error => {
+            log.error(`loadTrack ${path} from youtube`, error);
+            dispatch({
+              payload: `loadTrack ${path} from youtube failed`,
+              type: 'NOTIFY',
+            });
+          });
       }
       TrackPlayer.load(path).then(() => {
         if (playOnLoad) TrackPlayer.play();
@@ -197,7 +203,7 @@ export const skipToPrevious = () => (
     } else {
       TrackPlayer.pause();
       dispatch({
-        status: 'Playing prevoius song',
+        payload: 'Playing prevoius song',
         type: 'NOTIFY',
       });
     }

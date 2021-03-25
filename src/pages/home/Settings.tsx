@@ -134,7 +134,7 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
           <Drawer.Item
             onPress={() => setVisible('DIAGNOSE')}
             label="Diagnostics"
-            icon="bug-outline"
+            icon="alert-circle-outline"
           />
           <Drawer.Item
             onPress={showAlert}

@@ -17,7 +17,7 @@ export const NetNotify = () => {
         },
       ]}
       image={({ size }: { size: number }) => (
-        <IconButton icon="cloud-off" size={size} />
+        <IconButton icon="wifi-off-outline" size={size} />
       )}
     >
       Your network is unavailable. Check your data or wifi connection.

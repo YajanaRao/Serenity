@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   artCover: {
     borderRadius: 12,
     elevation: 4,
-    height: Dimensions.get('window').width - 50,
+    height: Dimensions.get('window').width - 80,
     maxHeight: 300,
     maxWidth: 300,
     width: Dimensions.get('window').width - 50,

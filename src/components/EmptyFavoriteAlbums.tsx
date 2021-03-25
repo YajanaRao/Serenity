@@ -3,6 +3,7 @@ import { Title, Subheading } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/core';
+import Animations from '../assets/Animations';
 
 const CONTAINER: ViewStyle = {
   alignItems: 'center',
@@ -33,7 +34,7 @@ export const EmptyFavoriteAlbums = () => {
       >
         <LottieView
           ref={animatedRef}
-          source={require('../assets/Favorite.json')}
+          source={Animations.favoriteAnimation}
           loop
         />
       </View>
