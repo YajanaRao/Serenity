@@ -51,24 +51,15 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
   };
 
   useEffect(() => {
-    GoogleSignin.isSignedIn().then(authenticated =>
-      setIsAuthenticated(authenticated),
-    );
+    GoogleSignin.isSignedIn().then(authenticated => {
+      console.log(authenticated);
+      setIsAuthenticated(authenticated);
+    });
   }, []);
-
-  // function skipUserLogin() {
-  //   dispatch(skipLogin(true));
-  //   navigation.navigate('App');
-  // }
 
   if (isAuthenticated) {
     return (
-      <Button
-        mode="contained"
-        icon="checkmark-done-outline"
-        color={color}
-        onPress={next}
-      >
+      <Button mode="contained" icon="done-all" color={color} onPress={next}>
         Done
       </Button>
     );

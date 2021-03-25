@@ -62,7 +62,7 @@ const data = [
     description: 'Introduction is over Enjoy Serenity!',
     key: 'fourth',
     color: '#00BFA6',
-    icon: 'checkmark-done-outline',
+    icon: 'done-outline',
   },
 ];
 const { width, height } = Dimensions.get('window');
@@ -345,10 +345,10 @@ export default function IntroductionScreen() {
           </View>
         ))}
       </AnimatedPagerView>
-      <Image
+      {/* <Image
         style={styles.logo}
         source={require('../../../assets/logo_txt.png')}
-      />
+      /> */}
       <Pagination
         scrollOffsetAnimatedValue={scrollOffsetAnimatedValue}
         positionAnimatedValue={positionAnimatedValue}
@@ -390,6 +390,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 24,
     fontWeight: '800',
+    fontFamily: 'Nunito-Bold',
     letterSpacing: 2,
     marginBottom: 5,
     textAlign: 'right',
@@ -402,6 +403,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 16,
     lineHeight: 16 * 1.5,
+    fontFamily: 'Nunito-Light',
   },
   logo: {
     opacity: 0.9,
@@ -451,10 +453,11 @@ const styles = StyleSheet.create({
     height: TICKER_HEIGHT,
   },
   tickerText: {
-    fontSize: TICKER_HEIGHT,
+    fontSize: TICKER_HEIGHT - 4,
+    fontFamily: 'Nunito-Black',
     lineHeight: TICKER_HEIGHT,
     textTransform: 'uppercase',
-    fontWeight: '800',
+    // fontWeight: '800',
   },
 
   circleContainer: {

@@ -42,6 +42,9 @@ import SkipForwardOutlineIcon from '../assets/Icons/skip-forward-outline.svg';
 import TrashOutlineIcon from '../assets/Icons/trash-outline.svg';
 import TrendingUpOutlineIcon from '../assets/Icons/trending-up-outline.svg';
 import WifiOffOutlineIcon from '../assets/Icons/wifi-off-outline.svg';
+import ArrowForwardIcon from '../assets/Icons/arrow-forward.svg';
+import DoneAllIcon from '../assets/Icons/done-all.svg';
+import UnlockOutlineIcon from '../assets/Icons/unlock-outline.svg';
 import { log } from '../utils/logging';
 
 const ICONS = {
@@ -88,6 +91,9 @@ const ICONS = {
   'playlist-plus': PlaylistPlusIcon,
   'edit-outline': EditOutlineIcon,
   'download-outline': DownloadOutlineIcon,
+  'arrow-forward': ArrowForwardIcon,
+  'done-all': DoneAllIcon,
+  'unlock-outline': UnlockOutlineIcon,
 };
 
 export interface IconProps {

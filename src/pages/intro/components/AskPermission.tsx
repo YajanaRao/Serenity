@@ -47,12 +47,7 @@ export function AskPermission({ color, next }: AskPermissionProps) {
 
   if (given) {
     return (
-      <Button
-        mode="contained"
-        icon="checkmark-done-outline"
-        color={color}
-        onPress={next}
-      >
+      <Button mode="contained" icon="done-all" color={color} onPress={next}>
         Done
       </Button>
     );
@@ -61,7 +56,7 @@ export function AskPermission({ color, next }: AskPermissionProps) {
   return (
     <Button
       mode="contained"
-      icon="file-tray-full-outline"
+      icon="unlock-outline"
       color={color}
       onPress={requestPermission}
     >
