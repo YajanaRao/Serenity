@@ -45,6 +45,8 @@ import WifiOffOutlineIcon from '../assets/Icons/wifi-off-outline.svg';
 import ArrowForwardIcon from '../assets/Icons/arrow-forward.svg';
 import DoneAllIcon from '../assets/Icons/done-all.svg';
 import UnlockOutlineIcon from '../assets/Icons/unlock-outline.svg';
+import LogInOutlineIcon from '../assets/Icons/log-in-outline.svg';
+import PersonOutlineIcon from '../assets/Icons/person-outline.svg';
 import { log } from '../utils/logging';
 
 const ICONS = {
@@ -94,6 +96,8 @@ const ICONS = {
   'arrow-forward': ArrowForwardIcon,
   'done-all': DoneAllIcon,
   'unlock-outline': UnlockOutlineIcon,
+  'log-in-outline': LogInOutlineIcon,
+  'person-outline': PersonOutlineIcon,
 };
 
 export interface IconProps {
