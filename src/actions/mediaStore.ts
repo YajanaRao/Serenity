@@ -189,6 +189,6 @@ export const downloadMedia = item => dispatch => {
         });
     }
   } catch (error) {
-    console.log(error);
+    log.error(error);
   }
 };

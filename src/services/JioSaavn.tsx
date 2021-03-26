@@ -8,7 +8,6 @@ const songDetailsBaseUrl =
 
 function parseSongs(data) {
   const songs = [];
-  console.log('jio saavn: ', data);
   data.albums.data.map(item => {
     const song = {
       nid: item.id,
@@ -32,7 +31,6 @@ function format(string: string) {
 
 function formatSong(data) {
   // try {
-  console.log(data);
   let url = data.media_preview_url;
   url = url.replace('preview', 'aac');
   if (data['320kbps'] === true) {
@@ -61,7 +59,6 @@ function formatSong(data) {
   // data.album = format(data.album)
   // data.primary_artists = format(data.primary_artists)
   // data.image = data.image.replace("150x150", "500x500")
-  console.log('songs: ', song);
   return song;
 }
 
@@ -110,7 +107,6 @@ async function getSong(id: string) {
     // })
     const response = await fetch(songDetailsBaseUrl + id);
     const result = await response.json();
-    console.log('result: ', result);
     const songData = formatSong(result[id]);
     return songData;
   } catch (error) {
