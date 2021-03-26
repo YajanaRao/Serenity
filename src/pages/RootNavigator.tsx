@@ -108,8 +108,11 @@ const RootStack = () => {
       <Stack.Screen
         name="Find"
         component={FindScreen}
+        initialParams={{ type: 'all' }}
         options={{
-          header: ({ navigation }) => <Header goBack={navigation.goBack} />,
+          header: ({ navigation, route }) => (
+            <Header goBack={navigation.goBack} />
+          ),
         }}
       />
       <Stack.Screen

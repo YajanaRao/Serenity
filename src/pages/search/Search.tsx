@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
-import { StyleSheet, TouchableOpacity, FlatList, Animated } from 'react-native';
+import { StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import {
   Subheading,
   Title,
-  Divider,
   useTheme,
-  Button,
-  Searchbar,
+  Text,
+  IconButton,
+  TouchableRipple,
+  Surface,
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { useScrollToTop } from '@react-navigation/native';
@@ -24,7 +25,7 @@ interface GenreProps {
 
 export const SearchScreen = ({ navigation }) => {
   const ref = useRef(null);
-  const { colors } = useTheme();
+  const { colors, roundness } = useTheme();
   useScrollToTop(ref);
 
   const {
@@ -96,13 +97,21 @@ export const SearchScreen = ({ navigation }) => {
           width: '100%',
         }}
       >
-        <Searchbar
-          value=""
-          placeholder="Artists, songs or podcasts"
-          icon="search-outline"
-          onTouchStart={() => navigation.navigate('Find')}
-          style={{ marginHorizontal: 10, marginVertical: 6 }}
-        />
+        <TouchableRipple onPress={() => navigation.navigate('Find')}>
+          <Surface
+            style={[styles.searchBarContainer, { borderRadius: roundness }]}
+          >
+            <IconButton icon="search-outline" />
+            <Text
+              style={[
+                styles.searchBarPlaceholder,
+                { color: colors.placeholder },
+              ]}
+            >
+              Artists, songs or podcasts
+            </Text>
+          </Surface>
+        </TouchableRipple>
       </Animated.View>
     </Screen>
   );
@@ -112,6 +121,15 @@ const styles = StyleSheet.create({
   searchbar: {
     margin: 10,
   },
+  searchBarContainer: {
+    marginHorizontal: 10,
+    marginVertical: 6,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    elevation: 4,
+  },
+  searchBarPlaceholder: { fontSize: 18, paddingLeft: 8 },
   item: {
     // backgroundColor: Colors.lightBlueA100,
     borderRadius: 4,

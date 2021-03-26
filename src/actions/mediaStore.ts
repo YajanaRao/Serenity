@@ -15,21 +15,25 @@ export const updateQuery = (query: string, category: string) => async (
 ) => {
   if (query) {
     const media = [];
+
     const offlineMedia = await RNAndroidAudioStore.search({
       searchParam: query,
     });
-    const youtubeSongs = await searchYoutubeMusic(query);
     if (offlineMedia && offlineMedia.length) {
       media.push({
         title: 'Offline Songs',
         data: offlineMedia,
       });
     }
-    if (youtubeSongs && youtubeSongs.length) {
-      media.push({
-        title: 'Youtube Music',
-        data: youtubeSongs,
-      });
+
+    if (category !== 'offline') {
+      const youtubeSongs = await searchYoutubeMusic(query);
+      if (youtubeSongs && youtubeSongs.length) {
+        media.push({
+          title: 'Youtube Music',
+          data: youtubeSongs,
+        });
+      }
     }
     dispatch({
       type: 'UPDATE_QUERY',

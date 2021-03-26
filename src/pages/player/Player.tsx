@@ -70,14 +70,17 @@ export const PlayerScreen = ({ navigation }) => {
             />
             <Caption style={{ padding: 0, margin: 0 }}>Queue</Caption>
           </View>
-          <View style={styles.extraIcon}>
-            <IconButton
-              style={{ padding: 0, margin: 0 }}
-              icon={props => <Icon name="download-outline" {...props} />}
-              onPress={download}
-            />
-            <Caption>Download</Caption>
-          </View>
+          {active.type === 'youtube' ||
+            (active.type === 'online' && (
+              <View style={styles.extraIcon}>
+                <IconButton
+                  style={{ padding: 0, margin: 0 }}
+                  icon={props => <Icon name="download-outline" {...props} />}
+                  onPress={download}
+                />
+                <Caption>Download</Caption>
+              </View>
+            ))}
           <View style={styles.extraIcon}>
             <IconButton
               style={{ padding: 0, margin: 0 }}

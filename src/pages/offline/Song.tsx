@@ -180,7 +180,11 @@ export const SongScreen = () => {
               <IconButton
                 icon="search-outline"
                 color={colors.primary}
-                onPress={() => navigation.navigate('Find')}
+                onPress={() =>
+                  navigation.navigate('Find', {
+                    type: 'offline',
+                  })
+                }
               />
             </View>
           </View>

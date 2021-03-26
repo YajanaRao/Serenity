@@ -6,8 +6,9 @@ import {
 } from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from 'react-native-paper';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { setUserInfo } from '../../../actions/userState';
+import { setUserInfo, skipLogin } from '../../../actions/userState';
 import { log } from '../../../utils/logging';
 
 export interface GoogleLoginProps {
@@ -21,6 +22,11 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
 
+  function skip() {
+    dispatch(skipLogin(true));
+    next();
+  }
+
   const signIn = async () => {
     try {
       setisLoading(true);
@@ -30,7 +36,6 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       dispatch(setUserInfo(userInfo));
-
       const token = await GoogleSignin.getTokens();
       await AsyncStorage.setItem('@token', token.accessToken);
       setIsAuthenticated(true);
@@ -65,13 +70,29 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
     );
   }
   return (
-    <GoogleSigninButton
-      style={{ width: 192, height: 48 }}
-      size={GoogleSigninButton.Size.Wide}
-      color={GoogleSigninButton.Color.Dark}
-      onPress={signIn}
-      disabled={isLoading}
-    />
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      <GoogleSigninButton
+        style={{ width: 192, height: 48 }}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={signIn}
+        disabled={isLoading}
+      />
+      <Button
+        mode="contained"
+        icon="skip-forward-outline"
+        color={color}
+        onPress={skip}
+      >
+        Skip
+      </Button>
+    </View>
   );
 }
 

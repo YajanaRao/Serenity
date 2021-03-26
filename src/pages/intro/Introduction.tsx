@@ -173,6 +173,10 @@ const Item = ({
   const navigation = useNavigation();
   const { colors } = useTheme();
 
+  function launchApp() {
+    navigation.navigate('App');
+  }
+
   function renderAction() {
     switch (type) {
       case 'Grant Access':
@@ -196,7 +200,7 @@ const Item = ({
             mode="contained"
             icon="home"
             color={color}
-            onPress={() => navigation.navigate('App')}
+            onPress={launchApp}
           >
             Go to Home
           </Button>
@@ -226,6 +230,7 @@ const Item = ({
               styles.heading,
               {
                 opacity,
+                color: colors.text,
               },
             ]}
           >
@@ -385,7 +390,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heading: {
-    color: '#444',
+    // color: '#444',
     // color: "red",
     textTransform: 'uppercase',
     fontSize: 24,
@@ -396,7 +401,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   description: {
-    color: '#ccc',
     fontWeight: '600',
     textAlign: 'right',
     width: width * 0.75,

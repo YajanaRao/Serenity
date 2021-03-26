@@ -69,7 +69,6 @@ export async function parseUserPlaylists(data: any) {
 export async function getPlaylistSongs(playlistId: string) {
   const playlistItemUrl = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=${playlistId}&key=${Config.YOUTUBE_API_KEY}`;
   const accessToken = await getAccessToken();
-  getAccessToken();
   return fetch(playlistItemUrl, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -137,7 +136,6 @@ export async function searchYoutubeMusic(query: string) {
         const items = [];
         await sectionListRenderer.contents.forEach(content => {
           if (content.itemSectionRenderer) {
-            // const item = content.itemSectionRenderer.content;
             content.itemSectionRenderer.contents.forEach(item => {
               if (item.videoRenderer) {
                 const videoRender = item.videoRenderer;
@@ -146,11 +144,6 @@ export async function searchYoutubeMusic(query: string) {
                 if (videoRender && videoRender.videoId) {
                   items.push(VideoRender(item));
                 }
-                // if (withPlaylist) {
-                // if (playListRender && playListRender.playlistId) {
-                //   items.push({ id: playListRender.playlistId, type: 'playlist', thumbnail: playListRender.thumbnails, title: playListRender.title.simpleText, length: playListRender.videoCount, videos: playListRender.videos, videoCount: playListRender.videoCount, isLive: false });
-                // }
-                // }
               }
             });
           }

@@ -43,7 +43,7 @@ const INITIAL_STATE = {
 
 const INITIAL_USER = {
   user: {},
-  skipLoginState: false,
+  skipLoginState: true,
 };
 
 const INITIAL_STORE = {
