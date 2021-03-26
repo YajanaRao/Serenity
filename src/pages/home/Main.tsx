@@ -26,7 +26,7 @@ export const MainScreen = () => {
         <RecentContainer />
         <MostPlayedContainer />
         <OnlineSongsContainer />
-        {!skipLoginState && <YoutubeSongsContainer />}
+        <YoutubeSongsContainer />
         <JioSaavnContainer />
       </ScrollView>
     </Screen>

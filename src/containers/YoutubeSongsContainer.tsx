@@ -1,34 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Title } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/core';
+import { useDispatch } from 'react-redux';
 import { TrackScrollView } from '../components/TrackScrollView';
-import { getYoutubeMusic } from '../services/Youtube';
-import { useCache } from '../hooks/useCache';
+import { searchYoutubeMusic } from '../services/Youtube';
+import { loadTrack } from '../actions/playerState';
 
 const YoutubeSongsContainer = () => {
   const netInfo = useNetInfo();
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [playlists, setPlaylist] = useState([]);
 
-  const navigateToPlaylist = (playlist: any) => {
-    const playlistMetadata = {
-      id: 'youtube-playlist--000002',
-      name: playlist.title,
-      owner: 'Serenity',
-      cover: playlist.cover,
-    };
-    navigation.navigate('Playlist', {
-      playlist: playlistMetadata,
-      songs: playlist.children,
-    });
-  };
+  useEffect(() => {
+    searchYoutubeMusic('trending songs').then(data => setPlaylist(data));
+  }, []);
 
-  const playlist = useCache('youtube_music', () =>
-    getYoutubeMusic('top 10 music '),
-  );
+  function playAudio(song) {
+    dispatch(loadTrack(song));
+  }
 
-  if (netInfo.isConnected && playlist.length) {
+  if (netInfo.isConnected && playlists.length) {
     return (
       <View>
         <View
@@ -42,7 +34,7 @@ const YoutubeSongsContainer = () => {
         >
           <Title>Youtube Songs</Title>
         </View>
-        <TrackScrollView data={playlist} play={navigateToPlaylist} />
+        <TrackScrollView data={playlists} play={playAudio} />
       </View>
     );
   }
