@@ -27,8 +27,9 @@ export const Header = ({
   const { colors } = theme;
 
   return (
-    <View style={[{ backgroundColor: colors.background }, containerStyle]}>
+    <View style={[{ backgroundColor: colors.surface }, containerStyle]}>
       <Searchbar
+        style={{ borderRadius: 0 }}
         placeholder="Artists, songs or podcasts"
         onChangeText={handleChange}
         value={query}
