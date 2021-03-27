@@ -9,7 +9,7 @@ import { getJioSaavnMusic } from '../services/JioSaavn';
 
 export interface JioSaavnContainerProps {}
 
-export function JioSaavnContainer(props: JioSaavnContainerProps) {
+export function JioSaavnContainer({}: JioSaavnContainerProps) {
   const [songs, setSongs] = useState(null);
   const netInfo = useNetInfo();
   const dispatch = useDispatch();

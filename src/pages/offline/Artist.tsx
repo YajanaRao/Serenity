@@ -7,6 +7,8 @@ import generate from 'string-to-color';
 import { getOfflineArtists } from '../../actions/mediaStore';
 import { Blank } from '../../components/Blank';
 import { Screen } from '../../components/Screen';
+import { giveOfflineAccess } from '../../actions/userState';
+import { RootReducerType } from '../../reducers';
 
 interface ArtistProps {
   artist: string;
@@ -21,10 +23,15 @@ export const ArtistScreen = ({ navigation }) => {
   const artists = useSelector((state: any) => state.mediaStore.artists);
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
+  const { offlineAccessGiven } = useSelector(
+    (state: RootReducerType) => state.user,
+  );
 
   useEffect(() => {
-    dispatch(getOfflineArtists());
-  }, []);
+    if (offlineAccessGiven) {
+      dispatch(getOfflineArtists());
+    }
+  }, [offlineAccessGiven]);
 
   const fetchData = () => {
     setRefreshing(true);
@@ -63,6 +70,15 @@ export const ArtistScreen = ({ navigation }) => {
           )}
         />
       </Screen>
+    );
+  }
+  if (!offlineAccessGiven) {
+    return (
+      <Blank
+        text="External Storage Permission not given.."
+        fetchData={() => dispatch(giveOfflineAccess())}
+        buttonText="Allow"
+      />
     );
   }
   return <Blank text="No offline Artists found.." fetchData={fetchData} />;

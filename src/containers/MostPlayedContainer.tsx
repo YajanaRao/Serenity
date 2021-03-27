@@ -69,7 +69,6 @@ export const MostPlayedContainer = () => {
   );
 
   if (history.length) {
-    console.log(history);
     return (
       <View>
         <View style={CONTINER}>

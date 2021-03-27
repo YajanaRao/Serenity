@@ -12,19 +12,26 @@ import { Screen } from '../../components/Screen';
 import { DefaultImage } from '../../components/DefaultImage';
 import { AlbumProps } from '../../types';
 import { RootReducerType } from '../../reducers';
+import { giveOfflineAccess } from '../../actions/userState';
 
 export const AlbumScreen = ({ navigation }) => {
   const ref = useRef(null);
   const albums = useSelector(
     (state: RootReducerType) => state.mediaStore.albums,
   );
+  const { offlineAccessGiven } = useSelector(
+    (state: RootReducerType) => state.user,
+  );
+
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   useScrollToTop(ref);
 
   useEffect(() => {
-    dispatch(getOfflineAlbums());
-  }, []);
+    if (offlineAccessGiven) {
+      dispatch(getOfflineAlbums());
+    }
+  }, [offlineAccessGiven]);
 
   const fetchData = () => {
     setRefreshing(true);
@@ -69,6 +76,17 @@ export const AlbumScreen = ({ navigation }) => {
       </Screen>
     );
   }
+
+  if (!offlineAccessGiven) {
+    return (
+      <Blank
+        text="External Storage Permission not given.."
+        fetchData={() => dispatch(giveOfflineAccess())}
+        buttonText="Allow"
+      />
+    );
+  }
+
   return <Blank text="No offline songs found.." fetchData={fetchData} />;
 };
 

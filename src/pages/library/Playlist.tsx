@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   useTheme,
+  Chip,
 } from 'react-native-paper';
 import { RefreshControl, SectionList, StyleSheet, View } from 'react-native';
 
@@ -25,16 +26,17 @@ import { getYoutubePlaylist } from '../../services/Youtube';
 import { useCache } from '../../hooks/useCache';
 import { log } from '../../utils/logging';
 import realm from '../../database';
+import { Title } from '../../components/Title';
 
 export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
-  const { skipLoginState } = useSelector(state => state.user);
+  const { googleAccessGiven } = useSelector(state => state.user);
   const { colors } = useTheme();
   let realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
-  const youtubePlaylists = useCache('youtube_playlists', () =>
-    skipLoginState ? [] : getYoutubePlaylist(),
+  const [youtubePlaylists, { refresh }] = useCache('youtube_playlists', () =>
+    getYoutubePlaylist(),
   );
 
   const [localPlaylists, setLocalPlaylists] = useState(() => {
@@ -77,6 +79,9 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
     realmPlaylists = getAllPlaylists();
     const updatedList = deserializePlaylists(realmPlaylists);
     setLocalPlaylists(updatedList);
+    if (googleAccessGiven) {
+      refresh();
+    }
     setRefreshing(false);
   };
 
@@ -101,7 +106,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   useEffect(() => {
     const playlists = [];
     playlists.push({ title: 'Local Playlists', data: localPlaylists });
-    if (!skipLoginState && youtubePlaylists && youtubePlaylists.length) {
+    if (googleAccessGiven && youtubePlaylists && youtubePlaylists.length) {
       log.debug('logged in adding youtube playlists');
       playlists.push({
         title: 'Youtube Playlists',
@@ -110,6 +115,18 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
     }
     setPlaylists(playlists);
   }, [localPlaylists, youtubePlaylists]);
+
+  function refreshPlaylist(title: string) {
+    if (title === 'Local Playlists') {
+      setRefreshing(true);
+      realmPlaylists = getAllPlaylists();
+      const updatedList = deserializePlaylists(realmPlaylists);
+      setLocalPlaylists(updatedList);
+      setRefreshing(false);
+    } else if (title === 'Youtube Playlists') {
+      refresh();
+    }
+  }
 
   return (
     <Screen>
@@ -166,7 +183,16 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         renderSectionHeader={({ section: { title } }) => (
-          <List.Subheader>{title}</List.Subheader>
+          <View style={styles.sectionHeader}>
+            <Title>{title}</Title>
+            <Chip
+              icon="refresh-outline"
+              disabled={refreshing}
+              onPress={() => refreshPlaylist(title)}
+            >
+              Refresh
+            </Chip>
+          </View>
         )}
       />
     </Screen>
@@ -174,6 +200,12 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
 };
 
 const styles = StyleSheet.create({
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 8,
+  },
   artwork: {
     backgroundColor: '#d7d1c9',
     borderRadius: 4,

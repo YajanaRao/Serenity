@@ -91,18 +91,18 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Features
 
-- Play audio
-- Support for local files
+- Listen songs from local library
 - Browsing by genre
-- Loading saved playlists
-- Song queue, which can be exported as a playlist
+- Create playlists and play songs from saved playlists
+- Manage songs queue
 - Radio mode (automatically queue similar tracks)
-- Searching for and playing music from YouTube (including integration with playlists)
-- Downloading from YouTube
+- Searching for and playing music from YouTube (including integration with YouTube playlists)
+- Downloading audio from YouTube
 - Play and Download Songs from JioSaavn
 
 ## Planned features
 
+- Newest releases - tracks and albums
 - Play and download songs from Google Drive
 - Creating a backup on Google Drive and sync audio from it 🎶
 - Searching for related songs in YouTube

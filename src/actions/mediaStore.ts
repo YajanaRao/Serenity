@@ -184,9 +184,9 @@ export const downloadMedia = item => dispatch => {
             });
           })
           .catch(error => {
-            log.error(`loadTrack ${path} from youtube`, error);
+            log.error(`downloadMedia ${path} from youtube`, error);
             dispatch({
-              payload: `loadTrack ${path} from youtube failed`,
+              payload: `downloadMedia ${path} from youtube failed`,
               type: 'NOTIFY',
             });
           });

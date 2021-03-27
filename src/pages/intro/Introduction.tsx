@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   Dimensions,
   Animated,
   ImageRequireSource,
@@ -12,9 +11,11 @@ import PagerView, {
 } from 'react-native-pager-view';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
+import { useDispatch } from 'react-redux';
 import { Screen } from '../../components/Screen';
-import { AskPermission } from './components/AskPermission';
+import { LocalLibraryAccess } from './components/LocalLibraryAccess';
 import GoogleLogin from './components/GoogleLogin';
+import { appIntroduction } from '../../actions/userState';
 
 const data = [
   {
@@ -171,16 +172,18 @@ const Item = ({
   });
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { colors } = useTheme();
 
   function launchApp() {
+    dispatch(appIntroduction(true));
     navigation.navigate('App');
   }
 
   function renderAction() {
     switch (type) {
       case 'Grant Access':
-        return <AskPermission color={color} next={next} />;
+        return <LocalLibraryAccess color={color} next={next} />;
       case 'Youtube':
         return <GoogleLogin next={next} color={color} />;
       case 'Welcome':

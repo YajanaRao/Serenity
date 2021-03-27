@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { Title } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { searchYoutubeMusic } from '../services/Youtube';

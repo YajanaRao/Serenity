@@ -86,7 +86,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
         type: 'LOAD',
       });
     } else {
-      log.debug('loadTrack', `unable to load track: ${track}`);
+      log.debug('loadTrack', `unable to load track: ${track.title}`);
     }
   } catch (error) {
     log.debug(`loadTrack`, error);
