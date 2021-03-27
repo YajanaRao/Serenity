@@ -1,9 +1,9 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import { Title } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { loadTrack } from '../actions/playerState';
+import { Headline } from '../components/Headline';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { getJioSaavnMusic } from '../services/JioSaavn';
 
@@ -31,9 +31,10 @@ export function JioSaavnContainer(props: JioSaavnContainerProps) {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            marginBottom: 8,
           }}
         >
-          <Title>JioSaavn Songs</Title>
+          <Headline>JioSaavn Songs</Headline>
         </View>
         <TrackScrollView data={songs} play={playAudioFromJioSaavn} />
       </View>

@@ -23,8 +23,9 @@ function parseSongs(data) {
 }
 
 function format(string: string) {
-  return decodeURI(encodeURI(string))
+  return string
     .replace('&quot;', "'")
+    .replace(/&quot;/g, '"')
     .replace('&amp;', '&')
     .replace('&#039;', "'");
 }
@@ -45,7 +46,7 @@ function formatSong(data) {
   const image = data.image.replace('150x150', '500x500');
 
   const song = {
-    nid: data.id,
+    id: data.id,
     cover: format(image),
     title: format(data.song),
     path: url,
@@ -99,12 +100,6 @@ async function parseCollection(data) {
 
 async function getSong(id: string) {
   try {
-    // console.log("url: ", songDetailsBaseUrl + id)
-    // fetch(songDetailsBaseUrl + id).then(response => response.text()).then(response => {
-    //   console.log("response: ", response)
-    // }).catch(error => {
-    //   console.log(error);
-    // })
     const response = await fetch(songDetailsBaseUrl + id);
     const result = await response.json();
     const songData = formatSong(result[id]);

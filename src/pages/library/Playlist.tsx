@@ -153,6 +153,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
                 <FastImage
                   source={{ uri: item.cover }}
                   style={styles.artwork}
+                  resizeMode="contain"
                 />
               ) : (
                 <List.Icon {...props} icon="folder" />

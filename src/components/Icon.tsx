@@ -5,8 +5,8 @@ import BarChartOutlineIcon from '../assets/Icons/bar-chart-outline.svg';
 import CheckmarkIcon from '../assets/Icons/checkmark.svg';
 import CloseOutlineIcon from '../assets/Icons/close-outline.svg';
 import CloseIcon from '../assets/Icons/close.svg';
-import CompassOutlineIcon from '../assets/Icons/compass-outline.svg';
-import CompassIcon from '../assets/Icons/compass.svg';
+import BrowserOutlineIcon from '../assets/Icons/browser-outline.svg';
+import BrowserIcon from '../assets/Icons/browser.svg';
 import DownloadOutlineIcon from '../assets/Icons/download-outline.svg';
 import EditOutlineIcon from '../assets/Icons/edit-outline.svg';
 import FolderIcon from '../assets/Icons/folder.svg';
@@ -56,8 +56,8 @@ const ICONS = {
   home: HomeIcon,
   search: SearchIcon,
   'search-outline': SearchOutlineIcon,
-  compass: CompassIcon,
-  'compass-outline': CompassOutlineIcon,
+  browser: BrowserIcon,
+  'browser-outline': BrowserOutlineIcon,
   'settings-outline': SettingsOutlineIcon,
   'close-outline': CloseOutlineIcon,
   save: SaveIcon,

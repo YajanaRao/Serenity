@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { searchYoutubeMusic } from '../services/Youtube';
 import { loadTrack } from '../actions/playerState';
+import { Headline } from '../components/Headline';
 
 const YoutubeSongsContainer = () => {
   const netInfo = useNetInfo();
@@ -29,12 +30,17 @@ const YoutubeSongsContainer = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 4,
+            marginBottom: 8,
           }}
         >
-          <Title>Youtube Songs</Title>
+          <Headline>Youtube Songs</Headline>
         </View>
-        <TrackScrollView data={playlists} play={playAudio} />
+        <TrackScrollView
+          containerStyle={{ width: 180 }}
+          imageStyle={{ height: 101, width: 180 }}
+          data={playlists}
+          play={playAudio}
+        />
       </View>
     );
   }

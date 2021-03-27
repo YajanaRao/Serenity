@@ -1,12 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import {
-  useTheme,
-  IconButton,
-  Surface,
-  Appbar,
-  overlay,
-} from 'react-native-paper';
+import { useTheme, IconButton } from 'react-native-paper';
 import { MainScreen } from './Main';
 import { SettingScreen } from './Settings';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
@@ -33,7 +27,7 @@ const HomeStack = () => {
         options={({ navigation }) => {
           return {
             headerTitle: getGreetingTime(),
-            headerTitleStyle: { fontFamily: 'Nunito-Bold' },
+            headerTitleStyle: { fontFamily: 'Nunito-ExtraBold', fontSize: 24 },
             headerRight: () => (
               <IconButton
                 icon="settings-outline"

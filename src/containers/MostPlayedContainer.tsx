@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { View, ViewStyle } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
-import { Title, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 
 import { TrackScrollView } from '../components/TrackScrollView';
@@ -11,13 +11,14 @@ import { getPlayedSongs } from '../actions/realmAction';
 import { TrackProps } from '../types';
 import { mostPlayedSongs } from '../actions/mediaStore';
 import realm from '../database';
+import { Headline } from '../components/Headline';
 
 const CONTINER: ViewStyle = {
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginLeft: 16,
-  marginBottom: 4,
+  marginBottom: 8,
 };
 
 export const MostPlayedContainer = () => {
@@ -68,10 +69,11 @@ export const MostPlayedContainer = () => {
   );
 
   if (history.length) {
+    console.log(history);
     return (
       <View>
         <View style={CONTINER}>
-          <Title>Most Played</Title>
+          <Headline>Most Played</Headline>
           {history.length > 3 ? (
             <Button onPress={navigateToSongs} uppercase={false}>
               More

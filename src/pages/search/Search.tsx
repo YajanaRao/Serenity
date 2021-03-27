@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import {
   Subheading,
-  Title,
   useTheme,
   Text,
   IconButton,
@@ -15,6 +14,8 @@ import { useCollapsibleHeader } from 'react-navigation-collapsible';
 
 import Genre from '../../data/genre.json';
 import { Screen } from '../../components/Screen';
+import { Headline } from '../../components/Headline';
+import { Title } from '../../components/Title';
 
 interface GenreProps {
   item: {
@@ -59,7 +60,7 @@ export const SearchScreen = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         ListHeaderComponent={() => (
-          <Title style={styles.headline}>All Moods & Genres</Title>
+          <Headline style={styles.headline}>All Moods & Genres</Headline>
         )}
         renderItem={({ item }: GenreProps) => (
           <TouchableOpacity
@@ -79,9 +80,9 @@ export const SearchScreen = ({ navigation }) => {
               end={{ x: 1, y: 0 }}
               style={styles.item}
             >
-              <Subheading style={{ color: 'white' }} numberOfLines={1}>
+              <Title style={{ color: 'white' }} numberOfLines={1}>
                 {item.title}
-              </Subheading>
+              </Title>
             </LinearGradient>
           </TouchableOpacity>
         )}
@@ -142,5 +143,6 @@ const styles = StyleSheet.create({
   },
   headline: {
     textAlign: 'center',
+    marginVertical: 4,
   },
 });

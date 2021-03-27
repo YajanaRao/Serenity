@@ -2,9 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/core';
-import { Title } from 'react-native-paper';
 import * as data from '../assets/Media.json';
 import { TrackScrollView } from '../components/TrackScrollView';
+import { Headline } from '../components/Headline';
 
 const OnlineSongsContainer = () => {
   const netInfo = useNetInfo();
@@ -33,10 +33,10 @@ const OnlineSongsContainer = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 4,
+            marginBottom: 8,
           }}
         >
-          <Title>Online Songs</Title>
+          <Headline>Online Songs</Headline>
         </View>
         <TrackScrollView data={media} play={navigateToPlaylist} />
       </View>

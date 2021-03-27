@@ -32,7 +32,9 @@ const TabNavigator = () => {
           backgroundColor: colors.primary,
         },
         labelStyle: {
-          fontFamily: 'Nunito-Bold',
+          fontFamily: 'Nunito-ExtraBold',
+          fontSize: 16,
+          textTransform: 'none',
         },
       }}
     >
@@ -43,7 +45,7 @@ const TabNavigator = () => {
   );
 };
 
-export const ExploreStack = () => {
+export const LibraryStack = () => {
   const theme = useTheme();
   const { colors } = theme;
   return (

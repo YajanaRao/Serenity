@@ -25,7 +25,7 @@ export const SearchStack = () => {
         name="Search"
         component={SearchScreen}
         options={{
-          headerTitleStyle: { fontFamily: 'Nunito-Bold', fontSize: 28 },
+          headerTitleStyle: { fontFamily: 'Nunito-ExtraBold', fontSize: 28 },
         }}
       />
       <Stack.Screen

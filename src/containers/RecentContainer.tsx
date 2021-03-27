@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
-import { Title, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/core';
 import { deserializeSongs } from '../utils/database';
@@ -11,6 +11,7 @@ import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
 import { TrackProps } from '../types';
 import realm from '../database';
+import { Headline } from '../components/Headline';
 
 export const RecentContainer = () => {
   const realmSongs = getPlayedSongs();
@@ -63,10 +64,10 @@ export const RecentContainer = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 4,
+            marginBottom: 8,
           }}
         >
-          <Title>Recently Played</Title>
+          <Headline>Recently Played</Headline>
           {history.length > 3 ? (
             <Button onPress={navigateToSongs} uppercase={false}>
               More

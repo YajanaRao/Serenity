@@ -12,7 +12,7 @@ export function parsePlaylistItem(data: any) {
   }
   data.items.map(item => {
     const song = {
-      nid: item.id,
+      id: item.id,
       cover: item.snippet.thumbnails.default?.url,
       title: item.snippet.title,
       path: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,

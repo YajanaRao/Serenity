@@ -11,7 +11,7 @@ import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import HomeStack from './home';
 import IntroductionScreen from './intro/Introduction';
-import { ExploreStack } from './explore';
+import { LibraryStack } from './library';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
 import LaunchScreen from './launch/Launch';
@@ -68,12 +68,13 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Explore"
-        component={ExploreStack}
+        name="Library"
+        component={LibraryStack}
         options={{
+          tabBarLabel: 'Your library',
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon={focused ? 'compass' : 'compass-outline'}
+              icon={focused ? 'browser' : 'browser-outline'}
               color={focused ? activeTintColor : inactiveTintColor}
               style={{ margin: 0, padding: 0 }}
             />

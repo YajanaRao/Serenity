@@ -35,7 +35,9 @@ export const Track = React.memo(({ track, active, play }: Props) => {
         }
         right={props =>
           active ? (
-            <ActiveTrackIcon style={[{ height: 50, width: 30 }, props.style]} />
+            <ActiveTrackIcon
+              style={[{ height: 50, width: 30, marginLeft: 4 }, props.style]}
+            />
           ) : (
             false
           )

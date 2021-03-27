@@ -28,7 +28,9 @@ const TabNavigator = () => {
           backgroundColor: colors.surface,
         },
         labelStyle: {
-          fontFamily: 'Nunito-Bold',
+          fontFamily: 'Nunito-ExtraBold',
+          fontSize: 16,
+          textTransform: 'none',
         },
         indicatorStyle: {
           backgroundColor: colors.primary,

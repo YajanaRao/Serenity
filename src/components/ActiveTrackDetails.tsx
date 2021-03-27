@@ -14,7 +14,11 @@ export const ActiveTrackDetails = ({ track }: Props) => {
     <View>
       <View style={styles.centerContainer}>
         {track.cover ? (
-          <FastImage source={{ uri: track.cover }} style={[styles.artCover]} />
+          <FastImage
+            source={{ uri: track.cover }}
+            style={[styles.artCover]}
+            resizeMode="contain"
+          />
         ) : (
           <ActiveTrackImage style={styles.artCover} />
         )}
