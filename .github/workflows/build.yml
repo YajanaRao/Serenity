@@ -89,7 +89,7 @@ jobs:
 
       - name: Upload artifact to telegram channel
         uses: appleboy/telegram-action@master
-        if: ${{ github.event.pull_request }}
+        if: ${{ !github.event.pull_request }}
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
