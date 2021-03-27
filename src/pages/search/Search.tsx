@@ -1,13 +1,11 @@
 import React, { useRef } from 'react';
-import { StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import {
-  Subheading,
-  useTheme,
-  Text,
-  IconButton,
-  TouchableRipple,
-  Surface,
-} from 'react-native-paper';
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+  Pressable,
+} from 'react-native';
+import { useTheme, Text, IconButton, Surface } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
@@ -98,7 +96,7 @@ export const SearchScreen = ({ navigation }) => {
           width: '100%',
         }}
       >
-        <TouchableRipple onPress={() => navigation.navigate('Find')}>
+        <Pressable onPress={() => navigation.navigate('Find')}>
           <Surface
             style={[styles.searchBarContainer, { borderRadius: roundness }]}
           >
@@ -112,7 +110,7 @@ export const SearchScreen = ({ navigation }) => {
               Artists, songs or podcasts
             </Text>
           </Surface>
-        </TouchableRipple>
+        </Pressable>
       </Animated.View>
     </Screen>
   );

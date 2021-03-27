@@ -169,7 +169,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
               item.cover ? (
                 <FastImage
                   source={{ uri: item.cover }}
-                  style={styles.artwork}
+                  style={[styles.artwork, { backgroundColor: colors.surface }]}
                   resizeMode="contain"
                 />
               ) : (

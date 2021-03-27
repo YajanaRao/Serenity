@@ -47,29 +47,13 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
     );
   }
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
-    >
-      <GoogleSigninButton
-        style={{ width: 192, height: 48 }}
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={signIn}
-        disabled={isLoading}
-      />
-      <Button
-        mode="contained"
-        icon="skip-forward-outline"
-        color={color}
-        onPress={skip}
-      >
-        Skip
-      </Button>
-    </View>
+    <GoogleSigninButton
+      style={{ width: 192, height: 48 }}
+      size={GoogleSigninButton.Size.Wide}
+      color={GoogleSigninButton.Color.Dark}
+      onPress={signIn}
+      disabled={isLoading}
+    />
   );
 }
 

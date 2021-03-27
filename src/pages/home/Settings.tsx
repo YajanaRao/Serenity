@@ -143,13 +143,13 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
           {!googleAccessGiven || !user ? (
             <Drawer.Item
               onPress={signIn}
-              label="Google Sign In"
+              label="Sign In"
               icon="log-in-outline"
             />
           ) : (
             <Drawer.Item
               onPress={signOut}
-              label="Google Sign Out"
+              label="Sign Out"
               icon="log-out-outline"
             />
           )}
