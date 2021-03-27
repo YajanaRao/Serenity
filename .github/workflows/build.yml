@@ -95,4 +95,4 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
-          document: ${{ github.workspace }}android/app/build/outputs/apk/release/app-release.apk`
+          document: ${{ github.workspace }}/android/app/build/outputs/apk/release/app-release.apk`
