@@ -99,6 +99,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Radio mode (automatically queue similar tracks)
 - Searching for and playing music from YouTube (including integration with playlists)
 - Downloading from YouTube
+- Play and Download Songs from JioSaavn
 
 ## Planned features
 
