@@ -3,7 +3,7 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {
   Surface,
-  Subheading,
+  Text,
   Caption,
   IconButton,
   ActivityIndicator,
@@ -38,12 +38,17 @@ export const PlayerBar = ({
           <DefaultImage style={styles.artwork} />
         )}
         <View style={styles.textContainer}>
-          <Subheading
+          <Text
             numberOfLines={1}
-            style={{ marginVertical: 0, includeFontPadding: false }}
+            style={{
+              marginVertical: 0,
+              includeFontPadding: false,
+              fontFamily: 'Nunito-Bold',
+              fontSize: 14,
+            }}
           >
             {title}
-          </Subheading>
+          </Text>
           <Caption
             numberOfLines={1}
             style={{ marginVertical: 0, includeFontPadding: false }}

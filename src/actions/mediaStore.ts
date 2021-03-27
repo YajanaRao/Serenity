@@ -155,38 +155,55 @@ const _downloadFileProgress = data => {
 export const downloadMedia = item => dispatch => {
   try {
     if (item) {
-      console.log(item);
-      ytdl(item.path, { filter: format => format.container === 'mp4' })
-        .then(urls => {
-          const { url } = urls[0];
-          RNFS.downloadFile({
-            fromUrl: url,
-            toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
-            progress: data => _downloadFileProgress(data),
-          }).promise.then(res => {
-            console.log(res, `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`);
-            // dispatch({
-            //   type: 'DOWNLOAD',
-            //   payload: [{
-            //     title: item.title,
-            //     url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
-            //     artwork: item.cover,
-            //     artist: "Serenity"
-            //   }]
-            // })
+      if (item.type.toLowerCase() === 'youtube') {
+        ytdl(item.path, { filter: format => format.container === 'mp4' })
+          .then(urls => {
+            const { url } = urls[0];
+            RNFS.downloadFile({
+              fromUrl: url,
+              toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
+              progress: data => _downloadFileProgress(data),
+            }).promise.then(res => {
+              console.log(
+                res,
+                `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
+              );
+              // dispatch({
+              //   type: 'DOWNLOAD',
+              //   payload: [{
+              //     title: item.title,
+              //     url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
+              //     artwork: item.cover,
+              //     artist: "Serenity"
+              //   }]
+              // })
+              dispatch({
+                payload: `File ${item.title} downloaded successfully`,
+                type: 'NOTIFY',
+              });
+            });
+          })
+          .catch(error => {
+            log.error(`loadTrack ${path} from youtube`, error);
             dispatch({
-              payload: `File ${item.title} downloaded successfully`,
+              payload: `loadTrack ${path} from youtube failed`,
               type: 'NOTIFY',
             });
           });
-        })
-        .catch(error => {
-          log.error(`loadTrack ${path} from youtube`, error);
+      } else if (item.type.toLowerCase() === 'jiosaavn') {
+        RNFS.downloadFile({
+          fromUrl: item.path,
+          toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
+          progress: data => _downloadFileProgress(data),
+        }).promise.then(res => {
+          console.log(res, `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`);
+
           dispatch({
-            payload: `loadTrack ${path} from youtube failed`,
+            payload: `File ${item.title} downloaded successfully`,
             type: 'NOTIFY',
           });
         });
+      }
     }
   } catch (error) {
     log.error(error);

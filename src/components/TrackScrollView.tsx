@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paragraph } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import {
   StyleSheet,
   FlatList,
@@ -48,7 +48,9 @@ export const TrackScrollView = ({
             <DefaultImage style={styles.photo} />
           )}
 
-          <Paragraph numberOfLines={1}>{item.title}</Paragraph>
+          <Text numberOfLines={2} style={styles.title}>
+            {item.title}
+          </Text>
         </TouchableOpacity>
       )}
     />
@@ -61,6 +63,13 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     marginLeft: 12,
     width: 120,
+  },
+  title: {
+    fontSize: 12,
+    marginTop: 8,
+    padding: 0,
+    fontFamily: 'Nunito-Bold',
+    includeFontPadding: false,
   },
   photo: {
     borderRadius: 12,

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { useScrollToTop } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -13,9 +13,10 @@ import OnlineSongsContainer from '../../containers/OnlineSongsContainer';
 import YoutubeSongsContainer from '../../containers/YoutubeSongsContainer';
 import { JioSaavnContainer } from '../../containers/JioSaavnContainer';
 
+const Divider = () => <View style={{ marginVertical: 8 }} />;
+
 export const MainScreen = () => {
   const ref = useRef();
-  const { skipLoginState } = useSelector(state => state.user);
   useScrollToTop(ref);
   return (
     <Screen>
@@ -23,10 +24,15 @@ export const MainScreen = () => {
         <NetNotify />
         <ShortCutContainer />
         <OnlineContainer />
+        <Divider />
         <RecentContainer />
+        <Divider />
         <MostPlayedContainer />
+        <Divider />
         <OnlineSongsContainer />
+        <Divider />
         <YoutubeSongsContainer />
+        <Divider />
         <JioSaavnContainer />
       </ScrollView>
     </Screen>

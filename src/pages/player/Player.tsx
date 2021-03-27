@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Caption, IconButton } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
+import { includes } from 'lodash';
 import Icon from '../../components/Icon';
 import { FavContainer } from '../../containers/FavContainer';
 import { RepeatContainer } from '../../containers/RepeatContainer';
@@ -64,26 +65,30 @@ export const PlayerScreen = ({ navigation }) => {
         <View style={styles.extraMenuContainer}>
           <View style={styles.extraIcon}>
             <IconButton
+              size={20}
               style={{ padding: 0, margin: 0 }}
               icon={props => <Icon name="menu-outline" {...props} />}
               onPress={() => navigation.navigate('Queue')}
             />
             <Caption style={{ padding: 0, margin: 0 }}>Queue</Caption>
           </View>
-          {active.type === 'youtube' ||
-            active.type === 'online' ||
-              (active.type === 'JioSaavn' && (
-                <View style={styles.extraIcon}>
-                  <IconButton
-                    style={{ padding: 0, margin: 0 }}
-                    icon={props => <Icon name="download-outline" {...props} />}
-                    onPress={download}
-                  />
-                  <Caption>Download</Caption>
-                </View>
-              ))}
+          {includes(
+            ['youtube', 'online', 'jiosaavn'],
+            active.type?.toLowerCase(),
+          ) && (
+            <View style={styles.extraIcon}>
+              <IconButton
+                style={{ padding: 0, margin: 0 }}
+                size={20}
+                icon={props => <Icon name="download-outline" {...props} />}
+                onPress={download}
+              />
+              <Caption>Download</Caption>
+            </View>
+          )}
           <View style={styles.extraIcon}>
             <IconButton
+              size={20}
               style={{ padding: 0, margin: 0 }}
               icon={props => (
                 <Icon

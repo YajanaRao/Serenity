@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Subheading, Title } from 'react-native-paper';
+import { Subheading, Text, Title } from 'react-native-paper';
 import { TrackProps } from '../types';
 import ActiveTrackImage from './ActiveTrackImage';
 
@@ -24,7 +24,12 @@ export const ActiveTrackDetails = ({ track }: Props) => {
         )}
       </View>
       <View style={styles.centerContainer}>
-        <Title numberOfLines={1}>{track.title}</Title>
+        <Text
+          style={{ fontFamily: 'Nunito-Bold', fontSize: 20 }}
+          numberOfLines={1}
+        >
+          {track.title}
+        </Text>
         <Subheading numberOfLines={1}>
           {track.artist ? track.artist : track.album}
         </Subheading>
