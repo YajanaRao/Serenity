@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { Appearance } from 'react-native';
 import { ArtistProps, TrackProps, AlbumProps } from '../types';
-import { skipLogin } from '../actions/userState';
 
 interface MediaActions {
   payload: TrackProps[] | ArtistProps[] | AlbumProps[];
@@ -43,7 +42,9 @@ const INITIAL_STATE = {
 
 const INITIAL_USER = {
   user: {},
-  skipLoginState: false,
+  googleAccessGiven: false,
+  offlineAccessGiven: false,
+  introSlidesShown: false,
 };
 
 const INITIAL_STORE = {
@@ -126,22 +127,32 @@ export const queryReducer = (state = INITIAL_QUERY, action: QueryActions) => {
 
 export const userReducer = (state = INITIAL_USER, action: QueryActions) => {
   switch (action.type) {
+    case 'APP_INTRO':
+      return {
+        ...state,
+        introSlidesShown: action.payload,
+      };
     case 'SET_USER':
       return {
         ...state,
         user: action.payload,
-        skipLoginState: false,
+        googleAccessGiven: true,
       };
-    case 'SKIP_LOGIN':
+    case 'SET_GOOGLE_ACCESS':
       return {
         ...state,
-        skipLoginState: action.payload,
+        googleAccessGiven: action.payload,
+      };
+    case 'SET_OFFLINE_ACCESS':
+      return {
+        ...state,
+        offlineAccessGiven: action.payload,
       };
     case 'REMOVE_USER':
       return {
         ...state,
         user: {},
-        skipLoginState: false,
+        googleAccessGiven: false,
       };
     default:
       return state;

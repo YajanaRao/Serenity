@@ -20,7 +20,7 @@ export const PlayerBarContainer = () => {
 
   useEffect(() => {
     dispatch(setUpTrackPlayer());
-    if (active !== {}) {
+    if (active !== {} && !isEmpty(active)) {
       dispatch(loadTrack(active, false));
     }
     return () => {

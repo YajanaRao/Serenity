@@ -2,22 +2,20 @@ import React, { useEffect } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useTheme } from 'react-native-paper';
 
 export interface LaunchScreenProps extends StackScreenProps {}
 
 function LaunchScreen({ navigation }: LaunchScreenProps) {
   const { colors } = useTheme();
-  const { skipLoginState } = useSelector(state => state.user);
+  const { introSlidesShown } = useSelector(state => state.user);
 
   useEffect(() => {
     isSignedIn();
   }, []);
 
   const isSignedIn = async () => {
-    const authenticated = await GoogleSignin.isSignedIn();
-    if (authenticated || skipLoginState) {
+    if (introSlidesShown) {
       navigation.navigate('App');
     } else {
       navigation.navigate('Intro');

@@ -16,7 +16,7 @@ export const Quote = ({ backgroundImage, quote }: Props) => {
         style={{ padding: 20, minHeight: 200 }}
         blurRadius={1}
       >
-        <Title style={{ fontFamily: 'Feather' }}>{quote}</Title>
+        <Title style={{ fontFamily: 'Nunito-Italic' }}>{quote}</Title>
       </ImageBackground>
     </View>
   );

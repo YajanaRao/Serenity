@@ -4,13 +4,14 @@ import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import color from 'color';
 
 import { SafeAreaView } from 'react-native';
 import { OfflineStack } from './offline';
 import { SearchStack } from './search';
 import HomeStack from './home';
 import IntroductionScreen from './intro/Introduction';
-import { ExploreStack } from './explore';
+import { LibraryStack } from './library';
 import { BottomTabBar } from '../components/BottomTabBar';
 import NotificationContainer from '../containers/NotificationContainer';
 import LaunchScreen from './launch/Launch';
@@ -25,6 +26,12 @@ const NativeStack = createNativeStackNavigator();
 const BottomNavigator = () => {
   const theme = useTheme();
   const { colors } = theme;
+  const activeTintColor = colors.primary;
+  const inactiveTintColor = color(colors.text)
+    .alpha(0.5)
+    .rgb()
+    .string();
+
   return (
     <Tab.Navigator
       tabBar={props => (
@@ -41,7 +48,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({ focused }) => (
             <IconButton
               icon={focused ? 'home' : 'home-outline'}
-              color={focused ? colors.primary : colors.text}
+              color={focused ? activeTintColor : inactiveTintColor}
               style={{ margin: 0, padding: 0 }}
             />
           ),
@@ -54,20 +61,21 @@ const BottomNavigator = () => {
           tabBarIcon: ({ focused }) => (
             <IconButton
               icon={focused ? 'search' : 'search-outline'}
-              color={focused ? colors.primary : colors.text}
+              color={focused ? activeTintColor : inactiveTintColor}
               style={{ margin: 0, padding: 0 }}
             />
           ),
         }}
       />
       <Tab.Screen
-        name="Explore"
-        component={ExploreStack}
+        name="Library"
+        component={LibraryStack}
         options={{
+          tabBarLabel: 'Your library',
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon={focused ? 'compass' : 'compass-outline'}
-              color={focused ? colors.primary : colors.text}
+              icon={focused ? 'browser' : 'browser-outline'}
+              color={focused ? activeTintColor : inactiveTintColor}
               style={{ margin: 0, padding: 0 }}
             />
           ),
@@ -79,8 +87,8 @@ const BottomNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <IconButton
-              icon={focused ? 'download' : 'download-outline'}
-              color={focused ? colors.primary : colors.text}
+              icon={focused ? 'save' : 'save-outline'}
+              color={focused ? activeTintColor : inactiveTintColor}
               style={{ margin: 0, padding: 0 }}
             />
           ),
@@ -101,8 +109,11 @@ const RootStack = () => {
       <Stack.Screen
         name="Find"
         component={FindScreen}
+        initialParams={{ type: 'all' }}
         options={{
-          header: ({ navigation }) => <Header goBack={navigation.goBack} />,
+          header: ({ navigation, route }) => (
+            <Header goBack={navigation.goBack} />
+          ),
         }}
       />
       <Stack.Screen

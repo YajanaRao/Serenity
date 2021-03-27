@@ -1,34 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { Title } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/core';
+import { useDispatch } from 'react-redux';
 import { TrackScrollView } from '../components/TrackScrollView';
-import { getYoutubeMusic } from '../services/Youtube';
-import { useCache } from '../hooks/useCache';
+import { searchYoutubeMusic } from '../services/Youtube';
+import { loadTrack } from '../actions/playerState';
+import { Headline } from '../components/Headline';
 
 const YoutubeSongsContainer = () => {
   const netInfo = useNetInfo();
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [playlists, setPlaylist] = useState([]);
 
-  const navigateToPlaylist = (playlist: any) => {
-    const playlistMetadata = {
-      id: 'youtube-playlist--000002',
-      name: playlist.title,
-      owner: 'Serenity',
-      cover: playlist.cover,
-    };
-    navigation.navigate('Playlist', {
-      playlist: playlistMetadata,
-      songs: playlist.children,
-    });
-  };
+  useEffect(() => {
+    searchYoutubeMusic('trending songs').then(data => setPlaylist(data));
+  }, []);
 
-  const playlist = useCache('youtube_music', () =>
-    getYoutubeMusic('top 10 music '),
-  );
+  function playAudio(song) {
+    dispatch(loadTrack(song));
+  }
 
-  if (netInfo.isConnected && playlist.length) {
+  if (netInfo.isConnected && playlists.length) {
     return (
       <View>
         <View
@@ -37,12 +29,17 @@ const YoutubeSongsContainer = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 4,
+            marginBottom: 8,
           }}
         >
-          <Title>Youtube Songs</Title>
+          <Headline>Youtube Songs</Headline>
         </View>
-        <TrackScrollView data={playlist} play={navigateToPlaylist} />
+        <TrackScrollView
+          containerStyle={{ width: 180 }}
+          imageStyle={{ height: 101, width: 180 }}
+          data={playlists}
+          play={playAudio}
+        />
       </View>
     );
   }

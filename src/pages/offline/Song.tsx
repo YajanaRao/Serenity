@@ -35,6 +35,7 @@ import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { TrackProps } from '../../types';
 import { TrackMenu } from '../../components/TrackMenu';
 import { RootReducerType } from '../../reducers';
+import { giveOfflineAccess } from '../../actions/userState';
 
 interface ItemProps {
   item: TrackProps;
@@ -52,6 +53,9 @@ export const SongScreen = () => {
   const { colors } = useTheme();
 
   const songs = useSelector((state: RootReducerType) => state.mediaStore.songs);
+  const { offlineAccessGiven } = useSelector(
+    (state: RootReducerType) => state.user,
+  );
 
   const {
     onScroll /* Event handler */,
@@ -61,8 +65,10 @@ export const SongScreen = () => {
   } = useCollapsibleSubHeader();
 
   useEffect(() => {
-    dispatch(getOfflineSongs());
-  }, [dispatch]);
+    if (offlineAccessGiven) {
+      dispatch(getOfflineSongs());
+    }
+  }, [dispatch, offlineAccessGiven]);
 
   const fetchData = () => {
     setRefreshing(true);
@@ -146,7 +152,7 @@ export const SongScreen = () => {
               right={props => (
                 <IconButton
                   {...props}
-                  icon="ellipsis-vertical-outline"
+                  icon="more-vertical-outline"
                   onPress={(event: GestureResponderEvent) =>
                     openMenu(event, item)
                   }
@@ -173,20 +179,33 @@ export const SongScreen = () => {
             </Button>
             <View style={{ flexDirection: 'row' }}>
               <IconButton
-                icon="shuffle"
+                icon="shuffle-outline"
                 color={colors.primary}
                 onPress={() => dispatch(shufflePlay(songs))}
               />
               <IconButton
                 icon="search-outline"
                 color={colors.primary}
-                onPress={() => navigation.navigate('Find')}
+                onPress={() =>
+                  navigation.navigate('Find', {
+                    type: 'offline',
+                  })
+                }
               />
             </View>
           </View>
           <Divider />
         </CollapsibleSubHeaderAnimator>
       </Screen>
+    );
+  }
+  if (!offlineAccessGiven) {
+    return (
+      <Blank
+        text="External Storage Permission not given.."
+        fetchData={() => dispatch(giveOfflineAccess())}
+        buttonText="Allow"
+      />
     );
   }
   return <Blank text="No offline songs found.." fetchData={fetchData} />;

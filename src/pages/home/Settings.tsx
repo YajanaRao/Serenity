@@ -18,7 +18,7 @@ import { Screen } from '../../components/Screen';
 import { updateTheme, changeRadioMode } from '../../actions';
 import { clearHistory } from '../../actions/playerState';
 import { AlertDialog } from '../../components/AlertDialog';
-import { removeUserInfo } from '../../actions/userState';
+import { googleSignIn, removeUserInfo } from '../../actions/userState';
 import { log } from '../../utils/logging';
 import { LoadingDialog } from '../../components/LoadingDialog';
 import { DiagnoseDialog } from './components/DiagnoseDialog';
@@ -26,7 +26,7 @@ import { DiagnoseDialog } from './components/DiagnoseDialog';
 export const SettingScreen = ({ navigation }: StackScreenProps) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const { skipLoginState, user } = useSelector(state => state.user);
+  const { googleAccessGiven, user } = useSelector(state => state.user);
 
   const [visible, setVisible] = useState('');
   const radio = useSelector((state: any) => state.config.radio);
@@ -71,10 +71,9 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
 
   const signIn = async () => {
     try {
-      await AsyncStorage.removeItem('@token');
-      navigation.navigate('Auth');
+      dispatch(googleSignIn());
     } catch (error) {
-      console.error(error);
+      log.error('signIn', error);
     }
   };
 
@@ -134,19 +133,23 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
           <Drawer.Item
             onPress={() => setVisible('DIAGNOSE')}
             label="Diagnostics"
-            icon="bug-outline"
+            icon="alert-circle-outline"
           />
           <Drawer.Item
             onPress={showAlert}
             label="Clear history"
             icon="trash-outline"
           />
-          {skipLoginState || !user ? (
-            <Drawer.Item onPress={signIn} label="Login" icon="log-in-outline" />
+          {!googleAccessGiven || !user ? (
+            <Drawer.Item
+              onPress={signIn}
+              label="Sign In"
+              icon="log-in-outline"
+            />
           ) : (
             <Drawer.Item
               onPress={signOut}
-              label="Logout"
+              label="Sign Out"
               icon="log-out-outline"
             />
           )}

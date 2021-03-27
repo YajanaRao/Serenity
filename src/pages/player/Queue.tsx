@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { IconButton } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
+import { Chip, IconButton } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearQueue } from '../../actions/playerState';
 import { AlertDialog } from '../../components/AlertDialog';
 import { Screen } from '../../components/Screen';
+import { Title } from '../../components/Title';
+import { Track } from '../../components/Track';
 import { QueueContainer } from '../../containers/QueueContainer';
+import { RootReducerType } from '../../reducers';
 
 export interface QueueScreenProps {}
 
 export function QueueScreen({ navigation }: QueueScreenProps) {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const active = useSelector(
+    (state: RootReducerType) => state.playerState.active,
+  );
 
   const close = () => {
     navigation.navigate('Home');
@@ -29,7 +35,9 @@ export function QueueScreen({ navigation }: QueueScreenProps) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton icon="trash-outline" onPress={openAlert} />
+        <Chip icon="trash-outline" mode="outlined" onPress={openAlert}>
+          Clear Queue
+        </Chip>
       ),
     });
   }, [navigation]);
@@ -43,6 +51,9 @@ export function QueueScreen({ navigation }: QueueScreenProps) {
         title="Clear Queue"
         message="Clear queue would stop current playing song"
       />
+      <Title style={{ margin: 8 }}>Now Playing</Title>
+      <Track track={active} play={() => navigation.goBack()} active />
+      <Title style={{ margin: 8 }}>Next in Queue</Title>
       <QueueContainer />
       <View style={{ height: 100 }} />
     </Screen>

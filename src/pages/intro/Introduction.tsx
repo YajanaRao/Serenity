@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   Dimensions,
   Animated,
   ImageRequireSource,
@@ -12,9 +11,11 @@ import PagerView, {
 } from 'react-native-pager-view';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
+import { useDispatch } from 'react-redux';
 import { Screen } from '../../components/Screen';
-import { AskPermission } from './components/AskPermission';
+import { LocalLibraryAccess } from './components/LocalLibraryAccess';
 import GoogleLogin from './components/GoogleLogin';
+import { appIntroduction } from '../../actions/userState';
 
 const data = [
   {
@@ -62,7 +63,7 @@ const data = [
     description: 'Introduction is over Enjoy Serenity!',
     key: 'fourth',
     color: '#00BFA6',
-    icon: 'checkmark-done-outline',
+    icon: 'done-outline',
   },
 ];
 const { width, height } = Dimensions.get('window');
@@ -171,12 +172,18 @@ const Item = ({
   });
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { colors } = useTheme();
+
+  function launchApp() {
+    dispatch(appIntroduction(true));
+    navigation.navigate('App');
+  }
 
   function renderAction() {
     switch (type) {
       case 'Grant Access':
-        return <AskPermission color={color} next={next} />;
+        return <LocalLibraryAccess color={color} next={next} />;
       case 'Youtube':
         return <GoogleLogin next={next} color={color} />;
       case 'Welcome':
@@ -196,7 +203,7 @@ const Item = ({
             mode="contained"
             icon="home"
             color={color}
-            onPress={() => navigation.navigate('App')}
+            onPress={launchApp}
           >
             Go to Home
           </Button>
@@ -226,6 +233,7 @@ const Item = ({
               styles.heading,
               {
                 opacity,
+                color: colors.text,
               },
             ]}
           >
@@ -345,10 +353,10 @@ export default function IntroductionScreen() {
           </View>
         ))}
       </AnimatedPagerView>
-      <Image
+      {/* <Image
         style={styles.logo}
         source={require('../../../assets/logo_txt.png')}
-      />
+      /> */}
       <Pagination
         scrollOffsetAnimatedValue={scrollOffsetAnimatedValue}
         positionAnimatedValue={positionAnimatedValue}
@@ -385,23 +393,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heading: {
-    color: '#444',
+    // color: '#444',
     // color: "red",
     textTransform: 'uppercase',
     fontSize: 24,
     fontWeight: '800',
+    fontFamily: 'Nunito-Bold',
     letterSpacing: 2,
     marginBottom: 5,
     textAlign: 'right',
   },
   description: {
-    color: '#ccc',
     fontWeight: '600',
     textAlign: 'right',
     width: width * 0.75,
     marginRight: 10,
     fontSize: 16,
     lineHeight: 16 * 1.5,
+    fontFamily: 'Nunito-Light',
   },
   logo: {
     opacity: 0.9,
@@ -451,10 +460,11 @@ const styles = StyleSheet.create({
     height: TICKER_HEIGHT,
   },
   tickerText: {
-    fontSize: TICKER_HEIGHT,
+    fontSize: TICKER_HEIGHT - 4,
+    fontFamily: 'Nunito-Black',
     lineHeight: TICKER_HEIGHT,
     textTransform: 'uppercase',
-    fontWeight: '800',
+    // fontWeight: '800',
   },
 
   circleContainer: {

@@ -72,8 +72,8 @@ export const BottomTabBar = ({
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 {options.tabBarIcon({ focused: isFocused })}
                 <Text
-                  includeFontPadding={false}
                   style={{
+                    includeFontPadding: false,
                     textAlign: 'center',
                     textAlignVertical: 'center',
                     fontSize: 10,

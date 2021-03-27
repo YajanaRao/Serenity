@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Portal,
-  Dialog,
-  Button,
-  Searchbar,
-  ActivityIndicator,
-} from 'react-native-paper';
+import { Portal, Dialog, Button, Searchbar, Text } from 'react-native-paper';
 import { View, FlatList, Dimensions } from 'react-native';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 
-import { ArtistComponent } from '../components/ArtistComponent';
 import { useSelector } from 'react-redux';
+import { ArtistComponent } from '../components/ArtistComponent';
 import { ArtistProps } from '../types';
 
 interface ItemProps {
@@ -75,7 +69,7 @@ export const FollowArtistDialog = ({
             />
           ) : (
             <View style={{ margin: 16 }}>
-              <ActivityIndicator size="large" />
+              <Text>No Artists found in Local library</Text>
             </View>
           )}
         </Dialog.ScrollArea>

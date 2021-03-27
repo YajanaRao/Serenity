@@ -66,7 +66,9 @@ export const log = {
         };
         sendMessage(content);
       }
-      crashlytics().recordError(message);
+      if (message instanceof Error) {
+        crashlytics().recordError(message);
+      }
     } catch (error) {
       console.log(error);
     }

@@ -3,6 +3,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { useSelector } from 'react-redux';
 import { ViewStyle } from 'react-native';
+import Animations from '../assets/Animations';
 
 interface ActiveTrackImageProps {
   style: ViewStyle;
@@ -25,7 +26,7 @@ const ActiveTrackImage = ({ style }: ActiveTrackImageProps) => {
       colors={['#8360c3', '#2ebf91']}
       style={[style, { justifyContent: 'center', alignItems: 'center' }]}
     >
-      <LottieView ref={animatedRef} source={require('../assets/Player.json')} />
+      <LottieView ref={animatedRef} source={Animations.playerAnimation} />
     </LinearGradient>
   );
 };

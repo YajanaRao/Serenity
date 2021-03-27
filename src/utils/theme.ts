@@ -1,5 +1,4 @@
 import {
-  Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
   configureFonts,
@@ -49,19 +48,19 @@ const fontConfig = {
   },
   android: {
     regular: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontFamily: 'Nunito-Regular',
       fontWeight: '400' as '400',
     },
     medium: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontFamily: 'Nunito',
       fontWeight: '500' as '500',
     },
     light: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontFamily: 'Nunito-Light',
       fontWeight: '300' as '300',
     },
     thin: {
-      fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontFamily: 'Nunito-ExtraLight',
       fontWeight: '100' as '100',
     },
   },

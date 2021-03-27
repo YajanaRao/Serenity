@@ -1,19 +1,19 @@
 import React, { useRef } from 'react';
-import { StyleSheet, TouchableOpacity, FlatList, Animated } from 'react-native';
 import {
-  Subheading,
-  Title,
-  Divider,
-  useTheme,
-  Button,
-  Searchbar,
-} from 'react-native-paper';
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+  Pressable,
+} from 'react-native';
+import { useTheme, Text, IconButton, Surface } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 
 import Genre from '../../data/genre.json';
 import { Screen } from '../../components/Screen';
+import { Headline } from '../../components/Headline';
+import { Title } from '../../components/Title';
 
 interface GenreProps {
   item: {
@@ -24,7 +24,7 @@ interface GenreProps {
 
 export const SearchScreen = ({ navigation }) => {
   const ref = useRef(null);
-  const { colors } = useTheme();
+  const { colors, roundness } = useTheme();
   useScrollToTop(ref);
 
   const {
@@ -58,7 +58,7 @@ export const SearchScreen = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         ListHeaderComponent={() => (
-          <Title style={styles.headline}>All Moods & Genres</Title>
+          <Headline style={styles.headline}>All Moods & Genres</Headline>
         )}
         renderItem={({ item }: GenreProps) => (
           <TouchableOpacity
@@ -78,9 +78,9 @@ export const SearchScreen = ({ navigation }) => {
               end={{ x: 1, y: 0 }}
               style={styles.item}
             >
-              <Subheading style={{ color: 'white' }} numberOfLines={1}>
+              <Title style={{ color: 'white' }} numberOfLines={1}>
                 {item.title}
-              </Subheading>
+              </Title>
             </LinearGradient>
           </TouchableOpacity>
         )}
@@ -96,12 +96,21 @@ export const SearchScreen = ({ navigation }) => {
           width: '100%',
         }}
       >
-        <Searchbar
-          value=""
-          placeholder="Artists, songs or podcasts"
-          onTouchStart={() => navigation.navigate('Find')}
-          style={{ marginHorizontal: 10, marginVertical: 6 }}
-        />
+        <Pressable onPress={() => navigation.navigate('Find')}>
+          <Surface
+            style={[styles.searchBarContainer, { borderRadius: roundness }]}
+          >
+            <IconButton icon="search-outline" />
+            <Text
+              style={[
+                styles.searchBarPlaceholder,
+                { color: colors.placeholder },
+              ]}
+            >
+              Artists, songs or podcasts
+            </Text>
+          </Surface>
+        </Pressable>
       </Animated.View>
     </Screen>
   );
@@ -111,6 +120,15 @@ const styles = StyleSheet.create({
   searchbar: {
     margin: 10,
   },
+  searchBarContainer: {
+    marginHorizontal: 10,
+    marginVertical: 6,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    elevation: 4,
+  },
+  searchBarPlaceholder: { fontSize: 18, paddingLeft: 8 },
   item: {
     // backgroundColor: Colors.lightBlueA100,
     borderRadius: 4,
@@ -123,5 +141,6 @@ const styles = StyleSheet.create({
   },
   headline: {
     textAlign: 'center',
+    marginVertical: 4,
   },
 });

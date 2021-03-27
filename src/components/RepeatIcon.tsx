@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemedIcon } from './ThemedIcon';
+import { IconButton } from 'react-native-paper';
 
 interface Props {
   repeat: string;
@@ -7,14 +7,21 @@ interface Props {
 }
 
 export const RepeatIcon = ({ repeat, updateRepeatType }: Props) => {
+  let iconName = null;
   switch (repeat) {
     case 'repeat-all':
-      return <ThemedIcon name="repeat" onPress={updateRepeatType} />;
+      iconName = 'repeat';
+      break;
     case 'repeat-one':
-      return <ThemedIcon name="repeat-once" onPress={updateRepeatType} />;
+      iconName = 'repeat-once';
+      break;
     case 'repeat-off':
-      return <ThemedIcon name="repeat-off" onPress={updateRepeatType} />;
+      iconName = 'repeat-off';
+      break;
     default:
-      return null;
+      iconName = 'repeat';
+      break;
   }
+
+  return <IconButton animated icon={iconName} onPress={updateRepeatType} />;
 };

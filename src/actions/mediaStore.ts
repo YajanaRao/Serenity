@@ -4,6 +4,8 @@ import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import RNFS from 'react-native-fs';
+import ytdl from 'react-native-ytdl';
 
 import { log } from '../utils/logging';
 import { searchYoutubeMusic } from '../services/Youtube';
@@ -13,21 +15,25 @@ export const updateQuery = (query: string, category: string) => async (
 ) => {
   if (query) {
     const media = [];
+
     const offlineMedia = await RNAndroidAudioStore.search({
       searchParam: query,
     });
-    const youtubeSongs = await searchYoutubeMusic(query);
     if (offlineMedia && offlineMedia.length) {
       media.push({
         title: 'Offline Songs',
         data: offlineMedia,
       });
     }
-    if (youtubeSongs && youtubeSongs.length) {
-      media.push({
-        title: 'Youtube Music',
-        data: youtubeSongs,
-      });
+
+    if (category !== 'offline') {
+      const youtubeSongs = await searchYoutubeMusic(query);
+      if (youtubeSongs && youtubeSongs.length) {
+        media.push({
+          title: 'Youtube Music',
+          data: youtubeSongs,
+        });
+      }
     }
     dispatch({
       type: 'UPDATE_QUERY',
@@ -136,4 +142,70 @@ export const mostPlayedSongs = (array: []) => {
       count: group.length,
     })),
   );
+};
+
+const _downloadFileProgress = data => {
+  const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
+  const text = `Progress ${percentage}%`;
+  console.log('download file progress: ', text);
+  // if (percentage == 100) {
+  // }
+};
+
+export const downloadMedia = item => dispatch => {
+  try {
+    if (item) {
+      if (item.type.toLowerCase() === 'youtube') {
+        ytdl(item.path, { filter: format => format.container === 'mp4' })
+          .then(urls => {
+            const { url } = urls[0];
+            RNFS.downloadFile({
+              fromUrl: url,
+              toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
+              progress: data => _downloadFileProgress(data),
+            }).promise.then(res => {
+              console.log(
+                res,
+                `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
+              );
+              // dispatch({
+              //   type: 'DOWNLOAD',
+              //   payload: [{
+              //     title: item.title,
+              //     url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
+              //     artwork: item.cover,
+              //     artist: "Serenity"
+              //   }]
+              // })
+              dispatch({
+                payload: `File ${item.title} downloaded successfully`,
+                type: 'NOTIFY',
+              });
+            });
+          })
+          .catch(error => {
+            log.error(`downloadMedia ${path} from youtube`, error);
+            dispatch({
+              payload: `downloadMedia ${path} from youtube failed`,
+              type: 'NOTIFY',
+            });
+          });
+      } else if (item.type.toLowerCase() === 'jiosaavn') {
+        RNFS.downloadFile({
+          fromUrl: item.path,
+          toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
+          progress: data => _downloadFileProgress(data),
+        }).promise.then(res => {
+          console.log(res, `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`);
+
+          dispatch({
+            payload: `File ${item.title} downloaded successfully`,
+            type: 'NOTIFY',
+          });
+        });
+      }
+    }
+  } catch (error) {
+    log.error(error);
+  }
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Subheading, Title } from 'react-native-paper';
+import { Subheading, Text, Title } from 'react-native-paper';
 import { TrackProps } from '../types';
 import ActiveTrackImage from './ActiveTrackImage';
 
@@ -14,13 +14,22 @@ export const ActiveTrackDetails = ({ track }: Props) => {
     <View>
       <View style={styles.centerContainer}>
         {track.cover ? (
-          <FastImage source={{ uri: track.cover }} style={[styles.artCover]} />
+          <FastImage
+            source={{ uri: track.cover }}
+            style={[styles.artCover]}
+            resizeMode="contain"
+          />
         ) : (
           <ActiveTrackImage style={styles.artCover} />
         )}
       </View>
       <View style={styles.centerContainer}>
-        <Title numberOfLines={1}>{track.title}</Title>
+        <Text
+          style={{ fontFamily: 'Nunito-Bold', fontSize: 20 }}
+          numberOfLines={1}
+        >
+          {track.title}
+        </Text>
         <Subheading numberOfLines={1}>
           {track.artist ? track.artist : track.album}
         </Subheading>
@@ -33,7 +42,7 @@ const styles = StyleSheet.create({
   artCover: {
     borderRadius: 12,
     elevation: 4,
-    height: Dimensions.get('window').width - 50,
+    height: Dimensions.get('window').width - 80,
     maxHeight: 300,
     maxWidth: 300,
     width: Dimensions.get('window').width - 50,
