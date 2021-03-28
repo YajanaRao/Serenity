@@ -187,8 +187,8 @@ export const downloadMedia = (item: TrackProps) => async (
 ) => {
   try {
     if (item) {
-      const { googleAccessGiven } = getState().user;
-      if (!googleAccessGiven) {
+      const { offlineAccessGiven } = getState().user;
+      if (!offlineAccessGiven) {
         dispatch({
           payload: `Download songs by Granting Storage Permission`,
           type: 'NOTIFY',
