@@ -7,6 +7,7 @@ import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
 import ytdl from 'react-native-ytdl';
 
+import { includes } from 'lodash';
 import { log } from '../utils/logging';
 import { searchYoutubeMusic } from '../services/Youtube';
 import { addSong } from './realmAction';
@@ -170,15 +171,35 @@ function download(url: string, filePath: string) {
 }
 
 async function checkFolderPath(folderPath: string) {
-  const isPresent = await RNFS.exists(folderPath);
-  if (!isPresent) {
-    await RNFS.mkdir(folderPath);
+  try {
+    const isPresent = await RNFS.exists(folderPath);
+    if (!isPresent) {
+      await RNFS.mkdir(folderPath);
+    }
+  } catch (error) {
+    log.error('checkFolderPath', error);
   }
 }
 
-export const downloadMedia = (item: TrackProps) => async dispatch => {
+export const downloadMedia = (item: TrackProps) => async (
+  dispatch,
+  getState,
+) => {
   try {
     if (item) {
+      const { googleAccessGiven } = getState().user;
+      if (!googleAccessGiven) {
+        dispatch({
+          payload: `Download songs by Granting Storage Permission`,
+          type: 'NOTIFY',
+        });
+        return;
+      }
+      dispatch({
+        payload:
+          'Started download. You will be notified once the file is downloaded',
+        type: 'NOTIFY',
+      });
       const folderPath = `${RNFS.ExternalStorageDirectoryPath}/Music`;
       await checkFolderPath(folderPath);
       if (item.type.toLowerCase() === 'youtube') {
@@ -188,12 +209,12 @@ export const downloadMedia = (item: TrackProps) => async dispatch => {
         const { url } = urls[0];
         const filePath = `${folderPath}/${item.title}.mp3`;
         const response = await download(url, filePath);
-        console.log(response);
-      } else if (item.type.toLowerCase() === 'jiosaavn') {
+        log.debug('downloadMedia', response);
+      } else if (includes(['jiosaavn', 'online'], item.type.toLowerCase())) {
         const filePath = `${folderPath}/${item.title}.mp3`;
         const response = await download(item.path, filePath);
         item.path = filePath;
-        console.log(response);
+        log.debug('downloadMedia', response);
       }
       addSongToDownloads(item);
       dispatch({

@@ -16,12 +16,24 @@ const Tree = ({ message }: TreeProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           height: 150,
-          width: '100%',
+          width: 500,
         }}
       >
-        <LottieView source={Animations.treeAnimation} autoPlay loop />
+        <LottieView
+          source={Animations.treeAnimation}
+          autoPlay
+          loop
+          colorFilters={[
+            {
+              keypath: 'Shape',
+              color: 'red',
+            },
+          ]}
+        />
       </View>
-      <Subheading>{message}</Subheading>
+      <Subheading style={{ textAlign: 'center', fontFamily: 'Nunito-Bold' }}>
+        {message}
+      </Subheading>
     </View>
   );
 };
