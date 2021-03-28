@@ -35,8 +35,9 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
-  const [youtubePlaylists, { refresh }] = useCache('youtube_playlists', () =>
-    getYoutubePlaylist(),
+  const [youtubePlaylists, { refresh, get }] = useCache(
+    'youtube_playlists',
+    () => getYoutubePlaylist(),
   );
 
   const [localPlaylists, setLocalPlaylists] = useState(() => {
@@ -106,8 +107,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   useEffect(() => {
     const playlists = [];
     playlists.push({ title: 'Local Playlists', data: localPlaylists });
-    if (googleAccessGiven && youtubePlaylists && youtubePlaylists.length) {
-      log.debug('logged in adding youtube playlists');
+    if (youtubePlaylists && youtubePlaylists.length) {
       playlists.push({
         title: 'Youtube Playlists',
         data: youtubePlaylists,
@@ -115,6 +115,12 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
     }
     setPlaylists(playlists);
   }, [localPlaylists, youtubePlaylists]);
+
+  useEffect(() => {
+    if (googleAccessGiven) {
+      get();
+    }
+  }, [googleAccessGiven, get]);
 
   function refreshPlaylist(title: string) {
     if (title === 'Local Playlists') {
@@ -151,7 +157,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
         ListHeaderComponent={() => (
           <List.Item
             title="Create Playlist"
-            titleStyle={{ color: colors.primary }}
+            titleStyle={{ color: colors.primary, fontFamily: 'Nunito-Bold' }}
             left={props => (
               <List.Icon {...props} icon="plus" color={colors.primary} />
             )}
@@ -170,7 +176,7 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
                 <FastImage
                   source={{ uri: item.cover }}
                   style={[styles.artwork, { backgroundColor: colors.surface }]}
-                  resizeMode="contain"
+                  resizeMode="cover"
                 />
               ) : (
                 <List.Icon {...props} icon="folder" />
@@ -204,7 +210,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal: 8,
+    margin: 8,
   },
   artwork: {
     backgroundColor: '#d7d1c9',

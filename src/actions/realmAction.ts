@@ -50,6 +50,12 @@ export const defaultDBSetup = () => {
       name: 'Queue',
       owner: 'Serenity',
     });
+
+    realm.create(PLAYLIST_SCHEMA_NAME, {
+      id: `${userPlaylistIdPrefix}000004`,
+      name: 'Downloads',
+      owner: 'Serenity',
+    });
   });
 };
 
@@ -133,6 +139,22 @@ export const getFavoriteSongs = () => {
     return undefined;
   }
 };
+
+// export const getDownloadedSongs = () => {
+//   try {
+//     const downloads = realm.objectForPrimaryKey(
+//       PLAYLIST_SCHEMA_NAME,
+//       favoritesPlaylist,
+//     );
+//     if (downloads !== undefined) {
+//       return downloads.songs;
+//     }
+//     return undefined;
+//   } catch (error) {
+//     log.error(`getDownloadedSongs`, error);
+//     return undefined;
+//   }
+// };
 
 export const createPlaylist = (playlistName: string) => {
   realm.write(() => {

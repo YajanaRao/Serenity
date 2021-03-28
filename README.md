@@ -139,6 +139,8 @@ This program is free software: you can redistribute it and/or modify it under th
 
 ### Support
 
+<a href="https://www.buymeacoffee.com/YajanaRao" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+
 [Become a Patron!](https://www.patreon.com/bePatron?u=28198536)
 
 [Support via Paypal](https://paypal.me/YajanaRao?locale.x=en_GB)

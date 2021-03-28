@@ -1,13 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useReducer, useState } from 'react';
-import { log } from '../utils/logging';
+import { useState } from 'react';
 
 export function useCache(key: string, query: () => Promise<any>) {
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    get();
-  }, []);
 
   const get = () => {
     AsyncStorage.getItem(key).then(data => {
@@ -28,5 +23,5 @@ export function useCache(key: string, query: () => Promise<any>) {
     });
   };
 
-  return [data, { refresh }];
+  return [data, { refresh, get }];
 }
