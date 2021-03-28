@@ -7,6 +7,7 @@ import { loadTrack } from '../actions/playerState';
 import { Track } from '../components/Track';
 import { TrackProps } from '../types';
 import { RootReducerType } from '../reducers';
+import { downloadMedia } from '../actions/mediaStore';
 
 interface Props {
   track: TrackProps;
@@ -19,6 +20,10 @@ export const TrackContainer = ({ track, goBack }: Props) => {
   const active = useSelector(
     (state: RootReducerType) => state.playerState.active,
   );
+
+  const download = () => {
+    dispatch(downloadMedia(track));
+  };
 
   useEffect(() => {
     if (!isUndefined(active) && track.id) {
@@ -37,5 +42,7 @@ export const TrackContainer = ({ track, goBack }: Props) => {
     }
   };
 
-  return <Track track={track} play={play} active={isActive} />;
+  return (
+    <Track track={track} play={play} active={isActive} download={download} />
+  );
 };
