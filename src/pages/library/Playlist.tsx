@@ -14,17 +14,12 @@ import { Collection } from 'realm';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
-import {
-  createPlaylist,
-  getAllPlaylists,
-  getPlaylistSongs,
-} from '../../actions/realmAction';
+import { createPlaylist, getAllPlaylists } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
 import { PlaylistProps } from '../../types';
 import { getYoutubePlaylist } from '../../services/Youtube';
 import { useCache } from '../../hooks/useCache';
-import { log } from '../../utils/logging';
 import realm from '../../database';
 import { Title } from '../../components/Title';
 
@@ -52,8 +47,8 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
         playlist,
       });
     } else {
-      navigation.navigate('Songs', {
-        songs: getPlaylistSongs(playlist.id),
+      delete playlist.songs;
+      navigation.navigate('PlaylistSongs', {
         playlist,
       });
     }

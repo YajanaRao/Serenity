@@ -16,11 +16,12 @@ import { Screen } from '../../components/Screen';
 import { LocalLibraryAccess } from './components/LocalLibraryAccess';
 import GoogleLogin from './components/GoogleLogin';
 import { appIntroduction } from '../../actions/userState';
+import Images from '../../assets/Images';
 
 const data = [
   {
     type: 'Welcome',
-    imageUri: require('../../../assets/welcome.png'),
+    imageUri: Images.welcomeImage,
     heading: 'Getting Started',
     description: 'Modern music player focused on streaming from free sources.',
     key: 'first',
@@ -29,7 +30,7 @@ const data = [
   },
   {
     type: 'Grant Access',
-    imageUri: require('../../../assets/files.png'),
+    imageUri: Images.filesImage,
     heading: 'External Storage',
     description:
       'Serenity Needs Access to your External Storage to read your music',
@@ -38,7 +39,7 @@ const data = [
   },
   {
     type: 'Youtube',
-    imageUri: require('../../../assets/youtube.png'),
+    imageUri: Images.youtubeImage,
     heading: 'Youtube Music',
     description:
       'Serenity Needs Access to your YouTube library to list playlist you have created in YouTube. (Optional)',
@@ -58,7 +59,7 @@ const data = [
   // },
   {
     type: 'Ready',
-    imageUri: require('../../../assets/ready.png'),
+    imageUri: Images.readyImage,
     heading: "Let's Go",
     description: 'Introduction is over Enjoy Serenity!',
     key: 'fourth',

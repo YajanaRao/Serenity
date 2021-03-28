@@ -13,7 +13,7 @@ import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
 import { TrackProps } from '../../types';
 
-export const PlaylistSongs = ({ route }) => {
+export const SongsList = ({ route }) => {
   const { playlist, songs } = route.params;
   const [refreshing, setRefreshing] = useState(false);
 

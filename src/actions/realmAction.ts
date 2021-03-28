@@ -140,22 +140,6 @@ export const getFavoriteSongs = () => {
   }
 };
 
-// export const getDownloadedSongs = () => {
-//   try {
-//     const downloads = realm.objectForPrimaryKey(
-//       PLAYLIST_SCHEMA_NAME,
-//       favoritesPlaylist,
-//     );
-//     if (downloads !== undefined) {
-//       return downloads.songs;
-//     }
-//     return undefined;
-//   } catch (error) {
-//     log.error(`getDownloadedSongs`, error);
-//     return undefined;
-//   }
-// };
-
 export const createPlaylist = (playlistName: string) => {
   realm.write(() => {
     realm.create(PLAYLIST_SCHEMA_NAME, {

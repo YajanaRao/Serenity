@@ -209,12 +209,12 @@ export const downloadMedia = (item: TrackProps) => async (
         const { url } = urls[0];
         const filePath = `${folderPath}/${item.title}.mp3`;
         const response = await download(url, filePath);
-        log.debug('downloadMedia', response);
+        log.debug('downloadMedia', response.toString());
       } else if (includes(['jiosaavn', 'online'], item.type.toLowerCase())) {
         const filePath = `${folderPath}/${item.title}.mp3`;
         const response = await download(item.path, filePath);
         item.path = filePath;
-        log.debug('downloadMedia', response);
+        log.debug('downloadMedia', response.toString());
       }
       addSongToDownloads(item);
       dispatch({
