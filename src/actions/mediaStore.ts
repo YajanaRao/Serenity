@@ -6,6 +6,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
 import ytdl from 'react-native-ytdl';
+import { LogLevel, RNFFmpeg } from 'react-native-ffmpeg';
 
 import { includes } from 'lodash';
 import { log } from '../utils/logging';
@@ -203,15 +204,33 @@ export const downloadMedia = (item: TrackProps) => async (
       const folderPath = `${RNFS.ExternalStorageDirectoryPath}/Music`;
       await checkFolderPath(folderPath);
       if (item.type.toLowerCase() === 'youtube') {
-        const urls = await ytdl(item.path, {
-          filter: format => format.container === 'mp4',
-        });
+        const info = await ytdl.getInfo(item.id);
+        const audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
+        console.log(`Formats with only audio: ${audioFormats.length}`);
+        console.log(audioFormats);
+        const urls = await ytdl(item.path, { quality: 'highestaudio' });
         const { url } = urls[0];
-        const filePath = `${folderPath}/${item.title}.mp3`;
-        const response = await download(url, filePath);
-        log.debug('downloadMedia', response.toString());
+        let title = item.title.replace(/[^a-zA-Z ]/g, '');
+        if (title.length > 18) {
+          title = title.slice(0, 18);
+        }
+        title = title.trim();
+        const filePath = `${folderPath}/${title}.mp3`;
+        const tempPath = `${folderPath}/_${title}.mp3`;
+        const album = item.album || 'Single';
+        const result = await RNFFmpeg.execute(
+          `-y -i ${url} -vn  -ar 44100 -ac 2 -ab 320 -map 0:a  -c:v copy -metadata title="${item.title}" -metadata artist="${item.artist}" -metadata album="${album}" -f mp3 "${tempPath}"`,
+        );
+        log.debug(`FFmpeg process exited.`, result);
+        const response = await RNFFmpeg.execute(
+          `-y -i "${tempPath}" -i ${item.cover}  -map_metadata 0 -map 0 -map 1 -codec copy -id3v2_version 3 -metadata:s:v title="Album cover" -metadata:s:v comment="Cover (front)" "${filePath}"`,
+        );
+        log.debug(`FFmpeg process exited`, response);
+        // item.path = filePath;
+        // log.debug('downloadMedia', response.toString());
+        RNFS.unlink(tempPath);
       } else if (includes(['jiosaavn', 'online'], item.type.toLowerCase())) {
-        const filePath = `${folderPath}/${item.title}.mp3`;
+        const filePath = `${folderPath}/${item.title.trim()}.mp3`;
         const response = await download(item.path, filePath);
         item.path = filePath;
         log.debug('downloadMedia', response.toString());

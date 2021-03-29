@@ -164,7 +164,11 @@ export const SongScreen = () => {
           // ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={fetchData} />
+            <RefreshControl
+              progressViewOffset={32}
+              refreshing={refreshing}
+              onRefresh={fetchData}
+            />
           }
         />
 

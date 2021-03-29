@@ -13,14 +13,21 @@ const YoutubeSongsContainer = () => {
   const [playlists, setPlaylist] = useState([]);
 
   useEffect(() => {
-    searchYoutubeMusic('trending songs').then(data => setPlaylist(data));
-  }, []);
+    if (netInfo.isConnected) {
+      searchYoutubeMusic('trending songs').then(data => {
+        if (data) {
+          setPlaylist(data);
+        }
+      });
+    }
+  }, [netInfo]);
 
   function playAudio(song) {
     dispatch(loadTrack(song));
   }
 
   if (netInfo.isConnected && playlists.length) {
+    console.log(playlists.length);
     return (
       <View>
         <View

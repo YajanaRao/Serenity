@@ -61,6 +61,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
 ) => {
   try {
     const { path, type } = track;
+    log.debug('loadTrack', `unable to load track: ${track.path}`);
     if (path) {
       if (type === 'Youtube') {
         ytdl(path, { filter: format => format.container === 'mp4' })
@@ -86,7 +87,10 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
         type: 'LOAD',
       });
     } else {
-      log.debug('loadTrack', `unable to load track: ${track.title}`);
+      log.debug(
+        'loadTrack',
+        `path does not exist for track track: ${track.title} `,
+      );
     }
   } catch (error) {
     log.debug(`loadTrack`, error);

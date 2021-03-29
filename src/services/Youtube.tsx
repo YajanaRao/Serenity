@@ -1,3 +1,4 @@
+import getArtistTitle from 'get-artist-title';
 import Config from 'react-native-config';
 import { getAccessToken } from '../utils';
 import { log } from '../utils/logging';
@@ -93,12 +94,22 @@ const VideoRender = data => {
     const id = videoRenderer.videoId;
     const { thumbnail } = videoRenderer;
     const thumbnailImage = thumbnail.thumbnails[0].url;
-    const title = videoRenderer.title.runs[0].text;
+    const titleText = videoRenderer.title.runs[0].text;
+    // .replace('|', '').toString('ascii');
+    let artist = videoRenderer.description?.runs[0].text;
+    let title = titleText;
+    const response = getArtistTitle(titleText);
+    console.log(response);
+    if (response) {
+      [title, artist] = response;
+    }
+    // const description = videoRenderer.description?.runs[0].text;
     return {
       id,
       type: 'Youtube',
       cover: thumbnailImage,
       title,
+      artist,
       path: `https://www.youtube.com/watch?v=${id}`,
     };
   }
