@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Subheading } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
+import { useFocusEffect } from '@react-navigation/core';
 import Animations from '../assets/Animations';
 
 interface TreeProps {
@@ -9,6 +10,16 @@ interface TreeProps {
 }
 
 const Tree = ({ message }: TreeProps) => {
+  const animatedRef = useRef(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      animatedRef.current.play();
+
+      return () => animatedRef.current.pause();
+    }, []),
+  );
+
   return (
     <View style={styles.container}>
       <View
@@ -16,12 +27,18 @@ const Tree = ({ message }: TreeProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           height: 150,
-          width: '100%',
+          width: 500,
         }}
       >
-        <LottieView source={Animations.treeAnimation} autoPlay loop />
+        <LottieView
+          ref={animatedRef}
+          source={Animations.treeAnimation}
+          // loop
+        />
       </View>
-      <Subheading>{message}</Subheading>
+      <Subheading style={{ textAlign: 'center', fontFamily: 'Nunito-Bold' }}>
+        {message}
+      </Subheading>
     </View>
   );
 };

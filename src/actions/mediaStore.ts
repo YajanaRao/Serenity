@@ -7,8 +7,17 @@ import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
 import ytdl from 'react-native-ytdl';
 
+import { includes } from 'lodash';
 import { log } from '../utils/logging';
 import { searchYoutubeMusic } from '../services/Youtube';
+import { addSong } from './realmAction';
+import { TrackProps } from '../types';
+
+const DOWNLOADED_ID = 'user-playlist--000004';
+
+export const addSongToDownloads = (song: TrackProps) => {
+  addSong(DOWNLOADED_ID, song, true);
+};
 
 export const updateQuery = (query: string, category: string) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
@@ -152,60 +161,72 @@ const _downloadFileProgress = data => {
   // }
 };
 
-export const downloadMedia = item => dispatch => {
+function download(url: string, filePath: string) {
+  const { promise } = RNFS.downloadFile({
+    fromUrl: url,
+    toFile: filePath,
+    progress: data => _downloadFileProgress(data),
+  });
+  return promise;
+}
+
+async function checkFolderPath(folderPath: string) {
+  try {
+    const isPresent = await RNFS.exists(folderPath);
+    if (!isPresent) {
+      await RNFS.mkdir(folderPath);
+    }
+  } catch (error) {
+    log.error('checkFolderPath', error);
+  }
+}
+
+export const downloadMedia = (item: TrackProps) => async (
+  dispatch,
+  getState,
+) => {
   try {
     if (item) {
-      if (item.type.toLowerCase() === 'youtube') {
-        ytdl(item.path, { filter: format => format.container === 'mp4' })
-          .then(urls => {
-            const { url } = urls[0];
-            RNFS.downloadFile({
-              fromUrl: url,
-              toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
-              progress: data => _downloadFileProgress(data),
-            }).promise.then(res => {
-              console.log(
-                res,
-                `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
-              );
-              // dispatch({
-              //   type: 'DOWNLOAD',
-              //   payload: [{
-              //     title: item.title,
-              //     url: `${RNFS.DocumentDirectoryPath}/${item.title}.mp3`,
-              //     artwork: item.cover,
-              //     artist: "Serenity"
-              //   }]
-              // })
-              dispatch({
-                payload: `File ${item.title} downloaded successfully`,
-                type: 'NOTIFY',
-              });
-            });
-          })
-          .catch(error => {
-            log.error(`downloadMedia ${path} from youtube`, error);
-            dispatch({
-              payload: `downloadMedia ${path} from youtube failed`,
-              type: 'NOTIFY',
-            });
-          });
-      } else if (item.type.toLowerCase() === 'jiosaavn') {
-        RNFS.downloadFile({
-          fromUrl: item.path,
-          toFile: `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`,
-          progress: data => _downloadFileProgress(data),
-        }).promise.then(res => {
-          console.log(res, `${RNFS.DownloadDirectoryPath}/${item.title}.mp3`);
-
-          dispatch({
-            payload: `File ${item.title} downloaded successfully`,
-            type: 'NOTIFY',
-          });
+      const { offlineAccessGiven } = getState().user;
+      if (!offlineAccessGiven) {
+        dispatch({
+          payload: `Download songs by Granting Storage Permission`,
+          type: 'NOTIFY',
         });
+        return;
       }
+      dispatch({
+        payload:
+          'Started download. You will be notified once the file is downloaded',
+        type: 'NOTIFY',
+      });
+      const folderPath = `${RNFS.ExternalStorageDirectoryPath}/Music`;
+      await checkFolderPath(folderPath);
+      if (item.type.toLowerCase() === 'youtube') {
+        const urls = await ytdl(item.path, {
+          filter: format => format.container === 'mp4',
+        });
+        const { url } = urls[0];
+        const filePath = `${folderPath}/${item.title}.mp3`;
+        const response = await download(url, filePath);
+        log.debug('downloadMedia', response.toString());
+      } else if (includes(['jiosaavn', 'online'], item.type.toLowerCase())) {
+        const filePath = `${folderPath}/${item.title}.mp3`;
+        const response = await download(item.path, filePath);
+        item.path = filePath;
+        log.debug('downloadMedia', response.toString());
+      }
+      addSongToDownloads(item);
+      dispatch({
+        payload: `File ${item.title} downloaded successfully`,
+        type: 'NOTIFY',
+      });
     }
   } catch (error) {
     log.error(error);
+    dispatch({
+      payload: `downloadMedia ${item.path} from youtube failed`,
+      type: 'NOTIFY',
+    });
   }
 };

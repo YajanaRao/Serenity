@@ -67,6 +67,7 @@ export async function parseUserPlaylists(data: any) {
 }
 
 export async function getPlaylistSongs(playlistId: string) {
+  console.log('getting playlist songs');
   const playlistItemUrl = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=${playlistId}&key=${Config.YOUTUBE_API_KEY}`;
   const accessToken = await getAccessToken();
   return fetch(playlistItemUrl, {
@@ -151,11 +152,12 @@ export async function searchYoutubeMusic(query: string) {
         return items;
       })
       // .then(data => parsePlaylists(data))
-      .catch(error => log.error('getYoutubeMusic', error))
+      .catch(error => log.error('searchYoutubeMusic', error))
   );
 }
 
 export async function getYoutubePlaylist() {
+  console.log('getYoutubePlaylist');
   if (!Config.YOUTUBE_API_KEY) {
     log.error('config error', `react-native-config is ${Config.toString()}`);
     return null;

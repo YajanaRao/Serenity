@@ -75,9 +75,9 @@ export const ArtistScreen = ({ navigation }) => {
   if (!offlineAccessGiven) {
     return (
       <Blank
-        text="External Storage Permission not given.."
+        text="View your media by Granting Storage Permission"
         fetchData={() => dispatch(giveOfflineAccess())}
-        buttonText="Allow"
+        buttonText="Allow Access"
       />
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, useTheme } from 'react-native-paper';
+import { IconButton, List, useTheme } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ActiveTrackIcon from './ActiveTrackIcon';
@@ -10,15 +10,17 @@ interface TrackProps {
   album?: string;
   artist?: string;
   cover?: string;
+  type?: string;
 }
 
 interface Props {
   track: TrackProps;
   active: boolean;
   play(): void;
+  download(): void;
 }
 
-export const Track = React.memo(({ track, active, play }: Props) => {
+export const Track = React.memo(({ track, active, play, download }: Props) => {
   const theme = useTheme();
   const { colors } = theme;
   return (
@@ -39,7 +41,13 @@ export const Track = React.memo(({ track, active, play }: Props) => {
               style={[{ height: 50, width: 30, marginLeft: 4 }, props.style]}
             />
           ) : (
-            false
+            track.type === 'online' && (
+              <IconButton
+                icon="download-outline"
+                onPress={download}
+                {...props}
+              />
+            )
           )
         }
         onPress={() => play()}

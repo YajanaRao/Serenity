@@ -14,7 +14,6 @@ import { RootReducerType } from '../../reducers';
 import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { addToPlaylist } from '../../actions/playerState';
 import { downloadMedia } from '../../actions/mediaStore';
-import { notify } from '../../actions';
 
 export const PlayerScreen = ({ navigation }) => {
   const [visible, setVisible] = useState('');
@@ -33,11 +32,6 @@ export const PlayerScreen = ({ navigation }) => {
   );
 
   function download() {
-    dispatch(
-      notify(
-        'Started download. You will be notified once the file is downloaded',
-      ),
-    );
     dispatch(downloadMedia(active));
     setVisible('');
   }

@@ -87,7 +87,7 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
       <AlertDialog
         visible={visible === 'ALERT'}
         title="Clear History"
-        message="Do you want to clear your history ?"
+        message="Do you want to clear all your songs history ?"
         action={clearData}
         hideDialog={() => setVisible('')}
       />

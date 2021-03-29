@@ -50,6 +50,12 @@ export const defaultDBSetup = () => {
       name: 'Queue',
       owner: 'Serenity',
     });
+
+    realm.create(PLAYLIST_SCHEMA_NAME, {
+      id: `${userPlaylistIdPrefix}000004`,
+      name: 'Downloads',
+      owner: 'Serenity',
+    });
   });
 };
 

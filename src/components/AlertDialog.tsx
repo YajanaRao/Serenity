@@ -19,7 +19,9 @@ export const AlertDialog = ({
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={hideDialog}>
-        <Dialog.Title>{title}</Dialog.Title>
+        <Dialog.Title style={{ fontFamily: 'Nunito-Bold' }}>
+          {title}
+        </Dialog.Title>
         <Dialog.Content>
           <Paragraph>{message}</Paragraph>
         </Dialog.Content>
@@ -30,7 +32,7 @@ export const AlertDialog = ({
           <Button
             onPress={action}
             mode="contained"
-            style={{ width: 100, marginRight: 12 }}
+            style={{ width: 100, marginLeft: 12 }}
           >
             Ok
           </Button>
