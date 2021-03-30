@@ -1,4 +1,4 @@
-import RNAndroidAudioStore from 'react-native-get-music-files';
+import RNAndroidAudioStore from '@yajanarao/react-native-get-music-files';
 import groupBy from 'lodash/groupBy';
 import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
@@ -6,13 +6,14 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
 import ytdl from 'react-native-ytdl';
-import { LogLevel, RNFFmpeg } from 'react-native-ffmpeg';
+import { RNFFmpeg } from 'react-native-ffmpeg';
 
 import { includes } from 'lodash';
 import { log } from '../utils/logging';
 import { searchYoutubeMusic } from '../services/Youtube';
 import { addSong } from './realmAction';
 import { TrackProps } from '../types';
+import { clearFileMetadata } from '../services/FFmpeg';
 
 const DOWNLOADED_ID = 'user-playlist--000004';
 
@@ -62,6 +63,10 @@ export const getOfflineSongs = () => (
 ) => {
   RNAndroidAudioStore.getAll({})
     .then(media => {
+      console.log('offlineSongs: ', media);
+      if (media === 'Something get wrong with musicCursor') {
+        media = [];
+      }
       dispatch({
         type: 'OFFLINE_SONGS',
         payload: media,
@@ -204,10 +209,6 @@ export const downloadMedia = (item: TrackProps) => async (
       const folderPath = `${RNFS.ExternalStorageDirectoryPath}/Music`;
       await checkFolderPath(folderPath);
       if (item.type.toLowerCase() === 'youtube') {
-        const info = await ytdl.getInfo(item.id);
-        const audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
-        console.log(`Formats with only audio: ${audioFormats.length}`);
-        console.log(audioFormats);
         const urls = await ytdl(item.path, { quality: 'highestaudio' });
         const { url } = urls[0];
         let title = item.title.replace(/[^a-zA-Z ]/g, '');
@@ -215,20 +216,29 @@ export const downloadMedia = (item: TrackProps) => async (
           title = title.slice(0, 18);
         }
         title = title.trim();
-        const filePath = `${folderPath}/${title}.mp3`;
-        const tempPath = `${folderPath}/_${title}.mp3`;
-        const album = item.album || 'Single';
-        const result = await RNFFmpeg.execute(
-          `-y -i ${url} -vn  -ar 44100 -ac 2 -ab 320 -map 0:a  -c:v copy -metadata title="${item.title}" -metadata artist="${item.artist}" -metadata album="${album}" -f mp3 "${tempPath}"`,
-        );
-        log.debug(`FFmpeg process exited.`, result);
-        const response = await RNFFmpeg.execute(
-          `-y -i "${tempPath}" -i ${item.cover}  -map_metadata 0 -map 0 -map 1 -codec copy -id3v2_version 3 -metadata:s:v title="Album cover" -metadata:s:v comment="Cover (front)" "${filePath}"`,
-        );
-        log.debug(`FFmpeg process exited`, response);
+        const file = `${folderPath}/${title}`;
+        // const tempPath = `${folderPath}/_${title}`;
+        // const album = item.album || 'Single';
+        await download(url, file);
+        // const result = await RNFFmpeg.execute(
+        //   `-y -i ${tempPath}  -c:a libmp3lame -b:a 256k "${file}"`,
+        // );
+        // log.debug(`FFmpeg process exited.`, result);
+        // const response = await RNFFmpeg.execute(
+        //   `-y -i "${tempPath}" -i ${item.cover}  -map_metadata 0 -map 0 -map 1 -codec copy -id3v2_version 3 -metadata:s:v title="Album cover" -metadata:s:v comment="Cover (front)" "${filePath}"`,
+        // );
+        // log.debug(`FFmpeg process exited`, response);
         // item.path = filePath;
         // log.debug('downloadMedia', response.toString());
-        RNFS.unlink(tempPath);
+        const filePath = await clearFileMetadata(file);
+        console.log(filePath);
+        const result = await RNFFmpeg.execute(
+          `-y -i "${filePath}" -c:a libmp3lame -b:a 256k "${file}.mp3"`,
+        );
+        console.log(result);
+        RNFS.unlink(filePath);
+        RNFS.unlink(file);
+        // RNFS.unlink(filePath);
       } else if (includes(['jiosaavn', 'online'], item.type.toLowerCase())) {
         const filePath = `${folderPath}/${item.title.trim()}.mp3`;
         const response = await download(item.path, filePath);

@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        reactNativeFFmpegPackage = "full-lts"
+        reactNativeFFmpegPackage = "audio-lts"
         buildToolsVersion = "29.0.2"
         minSdkVersion = 21
         compileSdkVersion = 29

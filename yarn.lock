@@ -1741,6 +1741,11 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
+"@yajanarao/react-native-get-music-files@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@yajanarao/react-native-get-music-files/-/react-native-get-music-files-2.1.0.tgz#dc4cf689f197323cadffc9c920bf0581cae1b0e4"
+  integrity sha512-lrfT9RdJSy+YuDG4u7wPNvG43joXRls/Z7Czgoon0ezMi1gnLJBeG4Hy9HIHEn+BQw73p86d8D0FgpAGKAdCKQ==
+
 abab@^2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
