@@ -99,7 +99,6 @@ const VideoRender = data => {
     let artist = videoRenderer.description?.runs[0].text;
     let title = titleText;
     const response = getArtistTitle(titleText);
-    console.log(response);
     if (response) {
       [title, artist] = response;
     }

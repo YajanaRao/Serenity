@@ -27,7 +27,6 @@ const YoutubeSongsContainer = () => {
   }
 
   if (netInfo.isConnected && playlists.length) {
-    console.log(playlists.length);
     return (
       <View>
         <View

@@ -19,7 +19,7 @@ describe('reducers/index.js', () => {
       };
 
       const givenAction = {
-        track: track,
+        track,
         type: 'LOAD',
       };
 

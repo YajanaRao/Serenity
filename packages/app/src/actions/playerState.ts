@@ -67,9 +67,12 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
         ytdl(path, { filter: format => format.container === 'mp4' })
           .then(urls => {
             const { url } = urls[0];
-            TrackPlayer.load(url).then(() => {
-              if (playOnLoad) TrackPlayer.play();
-            });
+            console.log({ path: url, title: track.title });
+            TrackPlayer.load({ path: url, title: track.title })
+              .then(() => {
+                if (playOnLoad) TrackPlayer.play();
+              })
+              .catch(error => console.log('error', error));
           })
           .catch(error => {
             log.error(`loadTrack ${path} from youtube`, error);
@@ -78,10 +81,11 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
               type: 'NOTIFY',
             });
           });
+      } else {
+        TrackPlayer.load({ path }).then(() => {
+          if (playOnLoad) TrackPlayer.play();
+        });
       }
-      TrackPlayer.load(path).then(() => {
-        if (playOnLoad) TrackPlayer.play();
-      });
       dispatch({
         track,
         type: 'LOAD',
