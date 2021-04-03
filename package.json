@@ -20,8 +20,8 @@
     ]
   },
   "devDependencies": {
-    "@react-native-community/eslint-config": "^1.1.0",
-    "eslint": "^6.5.1",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-import": "^2.18.2",
