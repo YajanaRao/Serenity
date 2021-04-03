@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "cd packages/app && yarn android",
-    "start": "cd packages/app && yarn start",
+    "android": "yarn workspace app android",
+    "start": "yarn workspace app start",
+    "release": "yarn workspace app release",
     "test": "jest",
     "lint": "eslint *.js **/*.js"
   },

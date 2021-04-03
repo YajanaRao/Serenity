@@ -8,8 +8,8 @@ on:
   push:
     branches: [master]
     paths-ignore:
-      - 'README.md'
-      - 'docs/**'
+      - "README.md"
+      - "docs/**"
 
   pull_request:
     branches: [master]
@@ -47,23 +47,22 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
-        run: echo $FIREBASE_SECRET > android/app/google-services.json
+        run: echo $FIREBASE_SECRET > packages/app/android/app/google-services.json
 
       - name: Decode env file
         env:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
-        run: echo $ENV_SECRET > .env
+        run: echo $ENV_SECRET > packages/app/.env
 
       # Build android app
       - name: Build Android Release
-        run: |
-          yarn && cd android && ./gradlew assembleRelease
+        run: yarn release
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         if: ${{ !github.event.pull_request }}
         with:
           name: app-release.apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          path: packages/app/android/app/build/outputs/apk/release/app-release.apk
 
       - name: upload artifact to Beta App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
@@ -72,7 +71,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: beta
-          file: android/app/build/outputs/apk/release/app-release.apk
+          file: packages/app/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
@@ -83,7 +82,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: dev
-          file: android/app/build/outputs/apk/release/app-release.apk
+          file: packages/app/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
@@ -95,4 +94,4 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
-          document: ${{ github.workspace }}/android/app/build/outputs/apk/release/app-release.apk
+          document: ${{ github.workspace }}packages/app/android/app/build/outputs/apk/release/app-release.apk

@@ -20,13 +20,16 @@ export const PlayerBarContainer = () => {
 
   useEffect(() => {
     dispatch(setUpTrackPlayer());
-    if (active !== {} && !isEmpty(active)) {
-      dispatch(loadTrack(active, false));
-    }
     return () => {
       dispatch(destroyTrackPlayer());
     };
   }, []);
+
+  useEffect(() => {
+    if (active !== {} && !isEmpty(active)) {
+      dispatch(loadTrack(active, false));
+    }
+  }, [active]);
 
   const togglePlayback = () => {
     if (status === 'playing') {

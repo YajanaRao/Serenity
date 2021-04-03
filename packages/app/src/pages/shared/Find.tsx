@@ -18,6 +18,7 @@ export function FindScreen({ navigation }: FindScreenProps) {
     <Screen>
       {searchResult && searchResult.length ? (
         <SectionList
+          keyboardShouldPersistTaps="always"
           sections={searchResult}
           // ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}

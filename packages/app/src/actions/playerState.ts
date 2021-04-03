@@ -67,7 +67,6 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
         ytdl(path, { filter: format => format.container === 'mp4' })
           .then(urls => {
             const { url } = urls[0];
-            console.log({ path: url, title: track.title });
             TrackPlayer.load({ path: url, title: track.title })
               .then(() => {
                 if (playOnLoad) TrackPlayer.play();

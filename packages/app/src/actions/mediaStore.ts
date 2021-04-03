@@ -63,7 +63,6 @@ export const getOfflineSongs = () => (
 ) => {
   RNAndroidAudioStore.getAll({})
     .then(media => {
-      console.log('offlineSongs: ', media);
       if (media === 'Something get wrong with musicCursor') {
         media = [];
       }
