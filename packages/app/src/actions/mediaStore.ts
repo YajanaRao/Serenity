@@ -6,14 +6,12 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
 import ytdl from 'react-native-ytdl';
-import { RNFFmpeg } from 'react-native-ffmpeg';
 
 import { includes } from 'lodash';
 import { log } from '../utils/logging';
 import { searchYoutubeMusic } from '../services/Youtube';
 import { addSong } from './realmAction';
 import { TrackProps } from '../types';
-import { clearFileMetadata } from '../services/FFmpeg';
 
 const DOWNLOADED_ID = 'user-playlist--000004';
 
@@ -215,29 +213,9 @@ export const downloadMedia = (item: TrackProps) => async (
           title = title.slice(0, 18);
         }
         title = title.trim();
-        const file = `${folderPath}/${title}`;
-        // const tempPath = `${folderPath}/_${title}`;
-        // const album = item.album || 'Single';
-        await download(url, file);
-        // const result = await RNFFmpeg.execute(
-        //   `-y -i ${tempPath}  -c:a libmp3lame -b:a 256k "${file}"`,
-        // );
-        // log.debug(`FFmpeg process exited.`, result);
-        // const response = await RNFFmpeg.execute(
-        //   `-y -i "${tempPath}" -i ${item.cover}  -map_metadata 0 -map 0 -map 1 -codec copy -id3v2_version 3 -metadata:s:v title="Album cover" -metadata:s:v comment="Cover (front)" "${filePath}"`,
-        // );
-        // log.debug(`FFmpeg process exited`, response);
-        // item.path = filePath;
-        // log.debug('downloadMedia', response.toString());
-        const filePath = await clearFileMetadata(file);
-        console.log(filePath);
-        const result = await RNFFmpeg.execute(
-          `-y -i "${filePath}" -c:a libmp3lame -b:a 256k "${file}.mp3"`,
-        );
-        console.log(result);
-        RNFS.unlink(filePath);
-        RNFS.unlink(file);
-        // RNFS.unlink(filePath);
+        const filePath = `${folderPath}/${title}.mp3`;
+        item.path = filePath;
+        await download(url, filePath);
       } else if (includes(['jiosaavn', 'online'], item.type.toLowerCase())) {
         const filePath = `${folderPath}/${item.title.trim()}.mp3`;
         const response = await download(item.path, filePath);
