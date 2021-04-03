@@ -9323,11 +9323,6 @@ react-native-fast-image@^7.0.0:
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-7.0.2.tgz#e06b21f42f4a9786eaa86f3db35d919070fb8403"
   integrity sha512-MfuzJbC0RjYobR2gFCdqe1I7jvNOCfDkjQ7VGOHXniqjohhULMkcWNBE9Umovi9Dx93lJ6t5utcE2wf/09zvlg==
 
-react-native-ffmpeg@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/react-native-ffmpeg/-/react-native-ffmpeg-0.5.1.tgz#24e94f346961bad3b46b81b0c89f6182ab0a28d5"
-  integrity sha512-F9ewadFUqjiyOzUv/uAHK0LTxru4MiGvOSJAQRO+9OiYmcM4jmx2IyKOPRiMnk0BodAdZlmOdNMCUrReS+Ni/A==
-
 react-native-fs@^2.16.6:
   version "2.16.6"
   resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.16.6.tgz#2901789a43210a35a0ef0a098019bbef3af395fd"
@@ -9554,11 +9549,6 @@ react-test-renderer@16.9.0:
     prop-types "^15.6.2"
     react-is "^16.9.0"
     scheduler "^0.15.0"
-
-react-track-player@1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/react-track-player/-/react-track-player-1.0.11.tgz#8cae4d76b79a04955e435c9d15a5d9f89bcc950a"
-  integrity sha512-jWc0Yx7x+ugX4qQU1vY0O8rr+nXDyu+JCHdu0g3Xbz/O3SaovP6Fvyv3UVF0ofJ79XUP2PsJlUEasCu4qTON7A==
 
 react@16.13.1:
   version "16.13.1"
