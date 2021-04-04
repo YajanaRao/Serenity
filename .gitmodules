@@ -1,0 +1,6 @@
+[submodule "packages/react-native-get-music-files"]
+	path = packages/react-native-get-music-files
+	url = https://github.com/YajanaRao/react-native-get-music-files.git
+[submodule "packages/react-track-player"]
+	path = packages/react-track-player
+	url = https://github.com/YajanaRao/react-track-player.git
