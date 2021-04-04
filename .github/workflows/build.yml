@@ -26,6 +26,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: checkout submodule
+        run: |
+          git submodule init
+          git submodule update
+
       # set yarn cache directory
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
