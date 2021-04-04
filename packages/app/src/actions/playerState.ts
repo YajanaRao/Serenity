@@ -61,13 +61,18 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
 ) => {
   try {
     const { path, type } = track;
-    log.debug('loadTrack', `unable to load track: ${track.path}`);
+    log.debug('loadTrack', `load track: ${track.path}`);
     if (path) {
-      if (type === 'Youtube') {
+      if (type?.toLowerCase() === 'youtube') {
         ytdl(path, { filter: format => format.container === 'mp4' })
           .then(urls => {
             const { url } = urls[0];
-            TrackPlayer.load({ path: url, title: track.title })
+            TrackPlayer.load({
+              path: url,
+              title: track.title,
+              artist: track.artist,
+              cover: track.cover,
+            })
               .then(() => {
                 if (playOnLoad) TrackPlayer.play();
               })
@@ -81,7 +86,11 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
             });
           });
       } else {
-        TrackPlayer.load({ path }).then(() => {
+        TrackPlayer.load({
+          path,
+          title: track.title,
+          artist: track.artist,
+        }).then(() => {
           if (playOnLoad) TrackPlayer.play();
         });
       }
@@ -223,7 +232,9 @@ export const destroyTrackPlayer = () => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   TrackPlayer.destroy();
-  subscription.remove();
+  if (subscription !== undefined) {
+    subscription.remove();
+  }
   dispatch({
     payload: 'paused',
     type: 'STATUS',

@@ -1,5 +1,6 @@
 import React from 'react';
 import AlertCircleOutlineIcon from '../assets/Icons/alert-circle-outline.svg';
+import ArrowBackIcon from '../assets/Icons/arrow-back.svg';
 import ArrowBackOutlineIcon from '../assets/Icons/arrow-back-outline.svg';
 import BarChartOutlineIcon from '../assets/Icons/bar-chart-outline.svg';
 import CheckmarkIcon from '../assets/Icons/checkmark.svg';
@@ -50,6 +51,7 @@ import PersonOutlineIcon from '../assets/Icons/person-outline.svg';
 import { log } from '../utils/logging';
 
 const ICONS = {
+  'arrow-back': ArrowBackIcon,
   'skip-back-outline': SkipBackOutlineIcon,
   'skip-forward-outline': SkipForwardOutlineIcon,
   'home-outline': HomeOutlineIcon,

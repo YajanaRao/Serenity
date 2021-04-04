@@ -13,7 +13,7 @@ export const ActiveTrackDetails = ({ track }: Props) => {
   return (
     <View>
       <View style={styles.centerContainer}>
-        {track.cover ? (
+        {track?.cover ? (
           <FastImage
             source={{ uri: track.cover }}
             style={[styles.artCover]}

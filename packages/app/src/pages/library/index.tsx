@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from 'react-native-paper';
+import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from 'react-native';
@@ -57,6 +57,10 @@ export const LibraryStack = () => {
         },
         headerTintColor: colors.text,
         safeAreaInsets: { top: 0, bottom: 0 },
+        headerTitleAlign: 'center',
+        headerBackImage: () => (
+          <IconButton style={{ marginLeft: 0 }} icon="arrow-back" />
+        ),
       }}
     >
       <Stack.Screen
