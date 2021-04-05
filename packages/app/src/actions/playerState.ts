@@ -90,6 +90,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
           path,
           title: track.title,
           artist: track.artist,
+          cover: track.cover,
         }).then(() => {
           if (playOnLoad) TrackPlayer.play();
         });

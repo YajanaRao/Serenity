@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Caption, IconButton } from 'react-native-paper';
+import { View, StyleSheet, ImageBackground } from 'react-native';
+import { Caption, IconButton, useTheme } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { includes } from 'lodash';
+import Color from 'color';
 import Icon from '../../components/Icon';
 import { FavContainer } from '../../containers/FavContainer';
 import { RepeatContainer } from '../../containers/RepeatContainer';
@@ -14,8 +15,10 @@ import { RootReducerType } from '../../reducers';
 import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { addToPlaylist } from '../../actions/playerState';
 import { downloadMedia } from '../../actions/mediaStore';
+import LinearGradient from 'react-native-linear-gradient';
 
 export const PlayerScreen = ({ navigation }) => {
+  const { colors } = useTheme();
   const [visible, setVisible] = useState('');
   const dispatch = useDispatch();
   const close = () => {
@@ -38,65 +41,80 @@ export const PlayerScreen = ({ navigation }) => {
 
   return (
     <Screen>
-      <PlaylistDialog
-        visible={visible === 'DIALOG'}
-        hideModal={() => setVisible('')}
-        addToPlaylist={addSongToPlaylist}
-      />
-      <View style={styles.playerContainer}>
-        <View style={styles.container}>
-          <IconButton icon="close" onPress={close} />
-        </View>
-        <ActiveTrackDetails track={active} />
-        <View style={styles.centerContainer}>
-          <Progress />
-        </View>
-        <View style={styles.playerToolbox}>
-          <FavContainer item={active} type="song" style={{ flex: 1 }} />
-          <PlayerController />
-          <RepeatContainer />
-        </View>
-        <View style={styles.extraMenuContainer}>
-          <View style={styles.extraIcon}>
-            <IconButton
-              size={20}
-              style={{ padding: 0, margin: 0 }}
-              icon={props => <Icon name="menu-outline" {...props} />}
-              onPress={() => navigation.navigate('Queue')}
-            />
-            <Caption style={{ padding: 0, margin: 0 }}>Queue</Caption>
-          </View>
-          {includes(
-            ['youtube', 'online', 'jiosaavn'],
-            active.type?.toLowerCase(),
-          ) && (
-            <View style={styles.extraIcon}>
-              <IconButton
-                style={{ padding: 0, margin: 0 }}
-                size={20}
-                icon={props => <Icon name="download-outline" {...props} />}
-                onPress={download}
-              />
-              <Caption>Download</Caption>
+      <ImageBackground
+        source={
+          active.cover
+            ? { uri: active.cover }
+            : require('../../../assets/logo.png')
+        }
+        blurRadius={40}
+        style={[styles.imageBackground, { backgroundColor: colors.background }]}
+      >
+        <LinearGradient
+          colors={['transparent', colors.background]}
+          style={{ flex: 1 }}
+        >
+          <PlaylistDialog
+            visible={visible === 'DIALOG'}
+            hideModal={() => setVisible('')}
+            addToPlaylist={addSongToPlaylist}
+          />
+          <View style={styles.playerContainer}>
+            <View style={styles.container}>
+              <IconButton icon="close" onPress={close} />
             </View>
-          )}
-          <View style={styles.extraIcon}>
-            <IconButton
-              size={20}
-              style={{ padding: 0, margin: 0 }}
-              icon={props => (
-                <Icon
-                  name="folder-add-outline"
-                  {...props}
+            <ActiveTrackDetails track={active} />
+            <View style={styles.centerContainer}>
+              <Progress />
+            </View>
+            <View style={styles.playerToolbox}>
+              <FavContainer item={active} type="song" style={{ flex: 1 }} />
+              <PlayerController />
+              <RepeatContainer />
+            </View>
+            <View style={styles.extraMenuContainer}>
+              <View style={styles.extraIcon}>
+                <IconButton
+                  size={20}
                   style={{ padding: 0, margin: 0 }}
+                  icon={props => <Icon name="menu-outline" {...props} />}
+                  onPress={() => navigation.navigate('Queue')}
                 />
+                <Caption style={{ padding: 0, margin: 0 }}>Queue</Caption>
+              </View>
+              {includes(
+                ['youtube', 'online', 'jiosaavn'],
+                active.type?.toLowerCase(),
+              ) && (
+                <View style={styles.extraIcon}>
+                  <IconButton
+                    style={{ padding: 0, margin: 0 }}
+                    size={20}
+                    icon={props => <Icon name="download-outline" {...props} />}
+                    onPress={download}
+                  />
+                  <Caption>Download</Caption>
+                </View>
               )}
-              onPress={() => setVisible('DIALOG')}
-            />
-            <Caption>Playlist</Caption>
+              <View style={styles.extraIcon}>
+                <IconButton
+                  size={20}
+                  style={{ padding: 0, margin: 0 }}
+                  icon={props => (
+                    <Icon
+                      name="folder-add-outline"
+                      {...props}
+                      style={{ padding: 0, margin: 0 }}
+                    />
+                  )}
+                  onPress={() => setVisible('DIALOG')}
+                />
+                <Caption>Playlist</Caption>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
+        </LinearGradient>
+      </ImageBackground>
     </Screen>
   );
 };
@@ -106,6 +124,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  imageBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    resizeMode: 'cover',
   },
   centerContainer: {
     justifyContent: 'center',

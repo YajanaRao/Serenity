@@ -18,7 +18,6 @@ const HomeStack = () => {
           backgroundColor: colors.surface,
         },
         headerTintColor: colors.text,
-        headerTitleAlign: 'center',
         safeAreaInsets: { top: 0, bottom: 0 },
         headerBackImage: () => (
           <IconButton style={{ marginLeft: 0 }} icon="arrow-back" />
@@ -45,6 +44,7 @@ const HomeStack = () => {
         name="Settings"
         component={SettingScreen}
         options={{
+          headerTitleAlign: 'center',
           headerTitle: 'Settings',
         }}
       />

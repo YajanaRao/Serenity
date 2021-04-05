@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
+
 import Icon from './components/Icon';
 
 import { RootNavigator } from './pages/RootNavigator';
