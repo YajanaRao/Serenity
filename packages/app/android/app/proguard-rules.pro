@@ -32,3 +32,5 @@
 -keep class com.serenity.BuildConfig { *; }
 
 -keep public class com.horcrux.svg.** {*;}
+
+-keep class host.exp.exponent.BuildConfig { *; }
