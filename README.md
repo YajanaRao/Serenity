@@ -11,12 +11,12 @@
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <p float="left">
-<img src="https://dl.dropboxusercontent.com/s/mkg8orlpa8gw5u8/Screenshot_2021-03-21-21-02-02-675_com.serenity.jpg?dl=0"
+<img src="./screenshots/home.jpeg"
     alt="homepage"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
-<img src="https://dl.dropboxusercontent.com/s/i2x2zhobftby11w/Screenshot_2021-03-21-21-02-05-598_com.serenity.jpg?dl=0"
+<img src="./screenshots/search.jpeg"
     alt="searchpage"
     height="320"
     width="160"
@@ -26,7 +26,7 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
     height="320"
     width="160"
     style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/csxknh361lmc8ku/Screenshot_2021-03-21-21-36-34-283_com.serenity.jpg?dl=0"
+<img src="./screenshots/library.jpeg"
     alt="albumpage"
     height="320"
     width="160"
@@ -36,8 +36,13 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
     height="320"
     width="160"
     style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/hria6a851iono98/Screenshot_2021-03-21-21-36-21-790_com.serenity.jpg?dl=0"
-    alt="playerpage"
+<img src="./screenshots/player-dark.jpeg"
+    alt="playerpagedark"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;"/>
+<img src="./screenshots/player-white.jpeg"
+    alt="playerpagewhite"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;"/>

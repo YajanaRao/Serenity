@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Subheading, Text, Title } from 'react-native-paper';
+import { Subheading, Text } from 'react-native-paper';
 import { TrackProps } from '../types';
 import ActiveTrackImage from './ActiveTrackImage';
 
@@ -41,7 +41,7 @@ export const ActiveTrackDetails = ({ track }: Props) => {
 const styles = StyleSheet.create({
   artCover: {
     borderRadius: 12,
-    elevation: 4,
+    // elevation: 4,
     height: Dimensions.get('window').width - 80,
     maxHeight: 300,
     maxWidth: 300,

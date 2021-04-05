@@ -17,6 +17,7 @@ export const BottomTabBar = ({
   navigation,
   backgroundColor,
 }: BottomTabBarProps) => {
+  console.log();
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
@@ -63,7 +64,7 @@ export const BottomTabBar = ({
               // rippleColor={colors.primary}
               // underlayColor={colors.primary}
               accessibilityRole="button"
-              accessibilityStates={isFocused ? ['selected'] : []}
+              accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarTestID}
               onPress={onPress}
@@ -80,6 +81,7 @@ export const BottomTabBar = ({
                     letterSpacing: 0.4,
                     marginBottom: 4,
                     padding: 0,
+                    fontFamily: isFocused ? 'Nunito-Bold' : 'Nunito',
                   }}
                 >
                   {label}

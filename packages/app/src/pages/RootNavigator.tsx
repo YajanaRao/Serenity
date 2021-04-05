@@ -39,6 +39,8 @@ const BottomNavigator = () => {
       )}
       tabBarOptions={{
         style: { backgroundColor: colors.surface },
+        activeTintColor,
+        inactiveTintColor,
       }}
     >
       <Tab.Screen
