@@ -68,7 +68,6 @@ export async function parseUserPlaylists(data: any) {
 }
 
 export async function getPlaylistSongs(playlistId: string) {
-  console.log('getting playlist songs');
   const playlistItemUrl = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=${playlistId}&key=${Config.YOUTUBE_API_KEY}`;
   const accessToken = await getAccessToken();
   return fetch(playlistItemUrl, {
@@ -116,7 +115,6 @@ const VideoRender = data => {
 };
 
 export async function getYoutubeMusic(query: string) {
-  log.debug('getYoutubeMusic', 'fetching youtube videos');
   const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=playlist&q=${query}&key=${Config.YOUTUBE_API_KEY}`;
   const accessToken = await getAccessToken();
   return fetch(searchUrl, {
