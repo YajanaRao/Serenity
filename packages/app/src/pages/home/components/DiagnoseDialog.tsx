@@ -24,9 +24,15 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
           />
           <List.Item
             title="Webhook health check"
-            description={!Config.WEBHOOK_URL && JSON.stringify(Config)}
             right={() => (
               <List.Icon icon={Config.WEBHOOK_URL ? 'checkmark' : 'close'} />
+            )}
+            style={{ margin: 0, padding: 0, height: 40 }}
+          />
+          <List.Item
+            title="Youtube Key check"
+            right={() => (
+              <List.Icon icon={Config.YOUTUBE_API_KEY ? 'checkmark' : 'close'} />
             )}
             style={{ margin: 0, padding: 0, height: 40 }}
           />

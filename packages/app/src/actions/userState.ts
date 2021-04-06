@@ -77,37 +77,35 @@ export const giveOfflineAccess = () => (
 ) => {
   try {
     PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE &&
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE && PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     ).then(status => {
+      log.debug('giveOfflineAccess', status);
       if (status) {
         dispatch({ type: 'SET_OFFLINE_ACCESS', payload: true });
       } else {
         PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE &&
-            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE && PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
             title: 'Grant Access',
             message:
               'Serenity App needs access to your EXTERNAL_STORAGE ' +
-              'so you can take play offline songs.',
+              'so you can play offline songs.',
             buttonNeutral: 'Ask Me Later',
             buttonNegative: 'Cancel',
             buttonPositive: 'OK',
           },
         ).then(granted => {
+          log.debug('giveOfflineAccess', granted);
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            log.debug('App mounted', 'Access given');
             dispatch({ type: 'SET_OFFLINE_ACCESS', payload: true });
           } else {
-            log.debug('App mounted', 'No access given');
             dispatch({ type: 'SET_OFFLINE_ACCESS', payload: false });
           }
         });
       }
     });
   } catch (err) {
-    log.error('App mounted', err);
+    log.error('giveOfflineAccess', err);
   }
 };
 
