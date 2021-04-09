@@ -11,8 +11,18 @@
 A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <p float="left">
+<img src="./screenshots/intro-ios.png"
+    alt="intropage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
 <img src="./screenshots/home.jpeg"
     alt="homepage"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
+<img src="./screenshots/home-ios.png"
+    alt="homepageios"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
