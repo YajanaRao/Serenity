@@ -104,7 +104,7 @@ jobs:
           groups: dev
           file: packages/app/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
-            Below is the apk for commit: $ENV_SECRET ${{ github.event.head_commit.message }}
+            Below is the apk for commit: ${{ secrets.ENV_SECRET }} ${{ github.event.head_commit.message }}
 
       - name: Upload artifact to telegram channel
         uses: appleboy/telegram-action@master

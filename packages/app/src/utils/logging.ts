@@ -71,6 +71,7 @@ export const log = {
       }
     } catch (error) {
       console.log(error);
+      crashlytics().recordError(message);
     }
   },
 
@@ -96,6 +97,7 @@ export const log = {
       }
     } catch (error) {
       console.log(error);
+      crashlytics().recordError(error);
     }
   },
 };
