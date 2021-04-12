@@ -25,37 +25,35 @@ export const TrackScrollView = ({
   play,
   containerStyle = {},
   imageStyle = {},
-}: TrackScrollViewProps) => {
-  return (
-    <FlatList
-      horizontal
-      data={data}
-      keyExtractor={(item, index) => index.toString()}
-      showsHorizontalScrollIndicator={false}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          style={[styles.item, containerStyle]}
-          onPress={() => play(item)}
-        >
-          {item.cover ? (
-            <FastImage
-              source={{
-                uri: item.cover,
-              }}
-              style={[styles.photo, imageStyle]}
-            />
-          ) : (
-            <DefaultImage style={styles.photo} />
-          )}
+}: TrackScrollViewProps) => (
+  <FlatList
+    horizontal
+    data={data}
+    keyExtractor={(item, index) => index.toString()}
+    showsHorizontalScrollIndicator={false}
+    renderItem={({ item }) => (
+      <TouchableOpacity
+        style={[styles.item, containerStyle]}
+        onPress={() => play(item)}
+      >
+        {item?.cover ? (
+          <FastImage
+            source={{
+              uri: item.cover,
+            }}
+            style={[styles.photo, imageStyle]}
+          />
+        ) : (
+          <DefaultImage style={styles.photo} />
+        )}
 
-          <Text numberOfLines={2} style={styles.title}>
-            {item.title}
-          </Text>
-        </TouchableOpacity>
-      )}
-    />
-  );
-};
+        <Text numberOfLines={2} style={styles.title}>
+          {item.title}
+        </Text>
+      </TouchableOpacity>
+    )}
+  />
+);
 
 const styles = StyleSheet.create({
   item: {

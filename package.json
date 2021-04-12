@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "yarn workspace app android",
+    "ios": "yarn workspace app ios",
     "start": "yarn workspace app start",
     "release": "yarn workspace app release",
     "test": "jest",

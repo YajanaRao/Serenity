@@ -22,23 +22,22 @@ const HomeStack = () => {
         headerBackImage: () => (
           <IconButton style={{ marginLeft: 0 }} icon="arrow-back" />
         ),
+        headerBackTitleVisible: false
       }}
     >
       <Stack.Screen
         name="Home"
         component={MainScreen}
-        options={({ navigation }) => {
-          return {
-            headerTitle: getGreetingTime(),
-            headerTitleStyle: { fontFamily: 'Nunito-ExtraBold', fontSize: 24 },
-            headerRight: () => (
-              <IconButton
-                icon="settings-outline"
-                onPress={() => navigation.navigate('Settings')}
-              />
-            ),
-          };
-        }}
+        options={({ navigation }) => ({
+          headerTitle: getGreetingTime(),
+          headerTitleStyle: { fontFamily: 'Nunito-ExtraBold', fontSize: 24 },
+          headerRight: () => (
+            <IconButton
+              icon="settings-outline"
+              onPress={() => navigation.navigate('Settings')}
+            />
+          ),
+        })}
       />
       <Stack.Screen
         name="Settings"

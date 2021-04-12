@@ -1,5 +1,5 @@
 import { TrackPlayer } from 'react-track-player';
-import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
+import { DeviceEventEmitter, EmitterSubscription, NativeEventEmitter, Platform } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 import sample from 'lodash/sample';
@@ -31,22 +31,44 @@ export const setUpTrackPlayer = () => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   try {
-    subscription = DeviceEventEmitter.addListener('media', event => {
-      // handle event
-      console.log('from event listener', event);
-      if (event === 'skip_to_next') {
-        dispatch(skipToNext());
-      } else if (event === 'skip_to_previous') {
-        dispatch(skipToPrevious());
-      } else if (event === 'skip_to_next') {
-        dispatch(skipToNext());
-      } else {
-        dispatch({
-          status: event,
-          type: 'STATUS',
-        });
-      }
-    });
+    console.log('setUpTrackPlayer');
+    const eventEmitter = new NativeEventEmitter(TrackPlayer);
+
+    if (Platform.OS === "ios") {
+      subscription = eventEmitter.addListener('media', event => {
+        // handle event
+        console.log('from event listener', event);
+        if (event === 'skip_to_next') {
+          dispatch(skipToNext());
+        } else if (event === 'skip_to_previous') {
+          dispatch(skipToPrevious());
+        } else if (event === 'skip_to_next') {
+          dispatch(skipToNext());
+        } else {
+          dispatch({
+            status: event,
+            type: 'STATUS',
+          });
+        }
+      });
+    } else {
+      subscription = DeviceEventEmitter.addListener('media', event => {
+        // handle event
+        console.log('from event listener', event);
+        if (event === 'skip_to_next') {
+          dispatch(skipToNext());
+        } else if (event === 'skip_to_previous') {
+          dispatch(skipToPrevious());
+        } else if (event === 'skip_to_next') {
+          dispatch(skipToNext());
+        } else {
+          dispatch({
+            status: event,
+            type: 'STATUS',
+          });
+        }
+      });
+    }
     dispatch({
       status: 'paused',
       type: 'STATUS',

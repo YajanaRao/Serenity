@@ -4,9 +4,8 @@ import {
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
 import { Button } from 'react-native-paper';
-import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { googleSignIn, skipGoogleLogin } from '../../../actions/userState';
+import { googleSignIn } from '../../../actions/userState';
 
 export interface GoogleLoginProps {
   color: string;
@@ -19,12 +18,6 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
   const [isLoading, setisLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
-
-  function skip() {
-    dispatch(skipGoogleLogin(true));
-    next();
-  }
-
   const signIn = async () => {
     setisLoading(true);
     dispatch(googleSignIn());
