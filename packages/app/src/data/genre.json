@@ -1,0 +1,74 @@
+[
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Party.jpg",
+    "title": "Party",
+    "tags": "Party",
+    "colors": ["#fc4a1a", "#f7b733"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Workout.jpg",
+    "title": "Workout",
+    "tags": "Workout",
+    "colors": ["#4568DC", "#B06AB3"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Chill.jpg",
+    "title": "Chill",
+    "tags": "Soft",
+    "colors": ["#00F260", "#0575E6"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Classics.jpg",
+    "title": "Classics",
+    "tags": "Oldies",
+    "colors": ["#093028", "#237A57"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Devotional.jpg",
+    "title": "Devotional",
+    "tags": "Devotional",
+    "colors": ["#02AAB0", "#00CDAC"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Ghazals.jpg",
+    "title": "Ghazals",
+    "tags": " Ghazal ",
+    "colors": ["#667db6", "#0082c8", "#0082c8", "#667db6"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Instrumental.jpg",
+    "title": "Instrumental",
+    "tags": "Instrumental",
+    "colors": ["#D31027", "#EA384D"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Live.jpg",
+    "title": "Live",
+    "tags": "Live ",
+    "colors": ["#5433FF", "#20BDFF", "#A5FECB"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Pop.jpg",
+    "title": "Pop",
+    "tags": "Pop",
+    "colors": ["#F00000", "#DC281E"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Remixes.jpg",
+    "title": "Remixes",
+    "tags": "Remixes",
+    "colors": ["#3a6186", "#89253e"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Rock.jpg",
+    "title": "Rock",
+    "tags": "Rock ",
+    "colors": ["#e65c00", "#F9D423"]
+  },
+  {
+    "image": "https://c.saavncdn.com/editorial/genrecharts_Sufi.jpg",
+    "title": "Sufi",
+    "tags": "Sufi",
+    "colors": ["#FBD3E9", "#BB377D"]
+  }
+]
