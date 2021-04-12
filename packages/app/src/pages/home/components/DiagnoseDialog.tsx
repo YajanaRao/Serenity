@@ -21,6 +21,7 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
         <Dialog.Content>
           <List.Item
             title="Webhook health check"
+            description={Config.WEBHOOK_URL}
             right={() => (
               <List.Icon icon={validateWebhook() ? 'checkmark' : 'close'} />
             )}

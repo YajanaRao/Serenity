@@ -114,9 +114,11 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Searching for and playing music from YouTube (including integration with YouTube playlists)
 - Downloading audio from YouTube
 - Play and Download Songs from JioSaavn
+- Unlimited downloads
 
 ## Planned features
 
+- Voice search songs
 - Newest releases - tracks and albums
 - Play and download songs from Google Drive
 - Creating a backup on Google Drive and sync audio from it 🎶
@@ -130,7 +132,6 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Browsing by popularity
 - Country-specific top lists
 - Listening suggestions (similar artists, albums, tracks)
-- Unlimited downloads
 
 ## Development Process
 
