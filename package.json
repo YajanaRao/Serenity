@@ -7,7 +7,7 @@
     "ios": "yarn workspace app ios",
     "start": "yarn workspace app start",
     "release": "yarn workspace app release",
-    "test": "jest",
+    "test": "yarn workspaces run test",
     "lint": "eslint *.js **/*.js"
   },
   "husky": {

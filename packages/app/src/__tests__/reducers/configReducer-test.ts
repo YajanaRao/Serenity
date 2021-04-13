@@ -12,7 +12,7 @@ describe('reducers/index.js', () => {
       };
 
       const givenAction = {
-        payload: 'white',
+        payload: 'light',
         type: 'UPDATE_THEME',
       };
 

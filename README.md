@@ -147,7 +147,7 @@ We need to have google-service.json file in android and IOS directory before run
 
 ## Our Community
 
-You can join [Telegram group](https://t.me/serenityapp) or [Discord Channel](https://discord.gg/vdqH9YqY)
+You can join [Telegram group](https://t.me/serenityapp) or [Discord Channel](https://discord.gg/rrbRm9AP)
 
 ## License
 
