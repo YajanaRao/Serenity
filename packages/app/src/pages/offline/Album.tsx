@@ -10,7 +10,7 @@ import { getOfflineAlbums } from '../../actions/mediaStore';
 import { Blank } from '../../components/Blank';
 import { Screen } from '../../components/Screen';
 import { DefaultImage } from '../../components/DefaultImage';
-import { AlbumProps } from '../../types';
+import { AlbumProps } from '../../utils/types';
 import { RootReducerType } from '../../reducers';
 import { giveOfflineAccess } from '../../actions/userState';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { SongList } from '../components/SongList';
 import { addToQueue, addToPlaylist } from '../actions/playerState';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 interface SongListContainerProps {
   data: TrackProps[];

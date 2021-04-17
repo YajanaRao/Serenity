@@ -9,7 +9,7 @@ import { deserializeSongs } from '../utils/database';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 import realm from '../database';
 import { Headline } from '../components/Headline';
 

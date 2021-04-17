@@ -1,6 +1,6 @@
 import expect from 'expect';
 import { playerStateReducer } from '../../reducers';
-import { TrackProps } from '../../types';
+import { TrackProps } from '../../utils/types';
 
 const track: TrackProps = {
   artist: 'me',

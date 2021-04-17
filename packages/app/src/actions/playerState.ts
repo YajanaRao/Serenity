@@ -1,5 +1,5 @@
-import { TrackPlayer } from 'react-track-player';
-import { DeviceEventEmitter, EmitterSubscription, NativeEventEmitter, Platform } from 'react-native';
+import { addEventListener, TrackPlayer } from 'react-track-player';
+import { EmitterSubscription } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 import sample from 'lodash/sample';
@@ -19,7 +19,7 @@ import {
 } from './realmAction';
 import { deserializeSongs } from '../utils/database';
 import { log } from '../utils/logging';
-import { TrackProps, AlbumProps } from '../types';
+import { TrackProps, AlbumProps } from '../utils/types';
 
 let subscription: EmitterSubscription;
 
@@ -31,44 +31,23 @@ export const setUpTrackPlayer = () => (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   try {
-    console.log('setUpTrackPlayer');
-    const eventEmitter = new NativeEventEmitter(TrackPlayer);
+    subscription = addEventListener('media', event => {
+      // handle event
+      console.log('from event listener', event);
+      if (event === 'skip_to_next') {
+        dispatch(skipToNext());
+      } else if (event === 'skip_to_previous') {
+        dispatch(skipToPrevious());
+      } else if (event === 'skip_to_next') {
+        dispatch(skipToNext());
+      } else {
+        dispatch({
+          status: event,
+          type: 'STATUS',
+        });
+      }
+    });
 
-    if (Platform.OS === "ios") {
-      subscription = eventEmitter.addListener('media', event => {
-        // handle event
-        console.log('from event listener', event);
-        if (event === 'skip_to_next') {
-          dispatch(skipToNext());
-        } else if (event === 'skip_to_previous') {
-          dispatch(skipToPrevious());
-        } else if (event === 'skip_to_next') {
-          dispatch(skipToNext());
-        } else {
-          dispatch({
-            status: event,
-            type: 'STATUS',
-          });
-        }
-      });
-    } else {
-      subscription = DeviceEventEmitter.addListener('media', event => {
-        // handle event
-        console.log('from event listener', event);
-        if (event === 'skip_to_next') {
-          dispatch(skipToNext());
-        } else if (event === 'skip_to_previous') {
-          dispatch(skipToPrevious());
-        } else if (event === 'skip_to_next') {
-          dispatch(skipToNext());
-        } else {
-          dispatch({
-            status: event,
-            type: 'STATUS',
-          });
-        }
-      });
-    }
     dispatch({
       status: 'paused',
       type: 'STATUS',

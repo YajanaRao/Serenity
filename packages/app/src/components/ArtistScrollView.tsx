@@ -2,7 +2,7 @@ import React from 'react';
 import { Paragraph, Title } from 'react-native-paper';
 import { StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 interface Props {
   data: TrackProps[];

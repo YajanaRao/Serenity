@@ -76,9 +76,7 @@ export async function getPlaylistSongs(playlistId: string) {
     },
   })
     .then(response => response.json())
-    .then(data => {
-      return parsePlaylistItem(data);
-    });
+    .then(data => parsePlaylistItem(data));
 }
 
 const VideoRender = data => {
@@ -165,7 +163,6 @@ export async function searchYoutubeMusic(query: string) {
 }
 
 export async function getYoutubePlaylist() {
-  console.log('getYoutubePlaylist');
   if (!Config.YOUTUBE_API_KEY) {
     log.error('config error', `react-native-config is ${Config.toString()}`);
     return null;

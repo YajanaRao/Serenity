@@ -10,7 +10,7 @@ import {
 import FastImage from 'react-native-fast-image';
 
 import { DefaultImage } from './DefaultImage';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 interface TrackScrollViewProps {
   data: TrackProps[];

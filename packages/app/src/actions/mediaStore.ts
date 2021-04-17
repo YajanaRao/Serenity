@@ -11,7 +11,7 @@ import { includes } from 'lodash';
 import { log } from '../utils/logging';
 import { searchYoutubeMusic } from '../services/Youtube';
 import { addSong } from './realmAction';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 const DOWNLOADED_ID = 'user-playlist--000004';
 

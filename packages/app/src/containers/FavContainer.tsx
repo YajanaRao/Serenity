@@ -16,7 +16,7 @@ import {
 } from '../actions/realmAction';
 import { Fav } from '../components/Fav';
 import { Follow } from '../components/Follow';
-import { AlbumProps, ArtistProps, TrackProps } from '../types';
+import { AlbumProps, ArtistProps, TrackProps } from '../utils/types';
 
 interface Props {
   type: string;

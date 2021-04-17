@@ -5,7 +5,7 @@ import isUndefined from 'lodash/isUndefined';
 
 import { loadTrack } from '../actions/playerState';
 import { Track } from '../components/Track';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 import { RootReducerType } from '../reducers';
 import { downloadMedia } from '../actions/mediaStore';
 

@@ -17,7 +17,7 @@ import FastImage from 'react-native-fast-image';
 import { createPlaylist, getAllPlaylists } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
-import { PlaylistProps } from '../../types';
+import { PlaylistProps } from '../../utils/types';
 import { getYoutubePlaylist } from '../../services/Youtube';
 import { useCache } from '../../hooks/useCache';
 import realm from '../../database';

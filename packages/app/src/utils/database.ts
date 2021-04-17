@@ -1,6 +1,6 @@
 import values from 'lodash/values';
 import { log } from './logging';
-import { ArtistProps, AlbumProps, PlaylistProps, TrackProps } from '../types';
+import { ArtistProps, AlbumProps, PlaylistProps, TrackProps } from './types';
 
 export const deserializeSongs = (realmObject: TrackProps[]) => {
   try {

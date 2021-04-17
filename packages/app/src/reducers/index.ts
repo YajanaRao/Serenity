@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { Appearance } from 'react-native';
-import { ArtistProps, TrackProps, AlbumProps } from '../types';
+import { ArtistProps, TrackProps, AlbumProps } from '../utils/types';
 
 interface MediaActions {
   payload: TrackProps[] | ArtistProps[] | AlbumProps[];

@@ -11,7 +11,7 @@ import { DefaultImage } from '../../components/DefaultImage';
 import { Screen } from '../../components/Screen';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
-import { TrackProps } from '../../types';
+import { TrackProps } from '../../utils/types';
 
 export const SongsList = ({ route }) => {
   const { playlist, songs } = route.params;

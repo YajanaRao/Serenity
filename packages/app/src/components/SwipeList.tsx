@@ -5,7 +5,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { TrackContainer } from '../containers/TrackContainer';
 import { ListSongHeader } from './ListSongHeader';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 interface ItemProps {
   item: TrackProps;

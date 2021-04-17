@@ -6,7 +6,7 @@ import includes from 'lodash/includes';
 
 import { useSelector } from 'react-redux';
 import { ArtistComponent } from '../components/ArtistComponent';
-import { ArtistProps } from '../types';
+import { ArtistProps } from '../utils/types';
 
 interface ItemProps {
   item: ArtistProps;

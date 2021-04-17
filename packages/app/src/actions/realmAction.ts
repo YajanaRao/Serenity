@@ -4,7 +4,7 @@ import realm from '../database';
 import { PLAYLIST_SCHEMA_NAME } from '../database/schema/PlaylistSchema';
 import { ARTIST_SCHEMA_NAME } from '../database/schema/ArtistSchema';
 import { ALBUM_SCHEMA_NAME } from '../database/schema/AlbumSchema';
-import { TrackProps, ArtistProps, AlbumProps } from '../types';
+import { TrackProps, ArtistProps, AlbumProps } from '../utils/types';
 import { log } from '../utils/logging';
 
 export const userPlaylistIdPrefix = 'user-playlist--';

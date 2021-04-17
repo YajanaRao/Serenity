@@ -11,7 +11,7 @@ import { getQueuedSongs } from '../actions/realmAction';
 import { removeFromQueue } from '../actions/playerState';
 import { FavContainer } from './FavContainer';
 import { TrackContainer } from './TrackContainer';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 import realm from '../database';
 
 interface Props {}

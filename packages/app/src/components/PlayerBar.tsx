@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native-paper';
 import { DefaultImage } from './DefaultImage';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 interface Props {
   active: TrackProps;

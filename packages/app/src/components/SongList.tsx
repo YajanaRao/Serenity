@@ -4,7 +4,7 @@ import { PlaylistDialog } from './PlaylistDialog';
 import { SwipeList } from './SwipeList';
 import { Container } from './Container';
 
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 interface SongListProps {
   data: TrackProps[];

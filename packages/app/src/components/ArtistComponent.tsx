@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Badge, List } from 'react-native-paper';
 import { View } from 'react-native';
 import generate from 'string-to-color';
-import { ArtistProps } from '../types';
+import { ArtistProps } from '../utils/types';
 
 interface Props {
   item: ArtistProps;

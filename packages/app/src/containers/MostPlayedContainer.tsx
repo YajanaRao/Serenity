@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/core';
 import { TrackScrollView } from '../components/TrackScrollView';
 import { loadTrack } from '../actions/playerState';
 import { getPlayedSongs } from '../actions/realmAction';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 import { mostPlayedSongs } from '../actions/mediaStore';
 import realm from '../database';
 import { Headline } from '../components/Headline';

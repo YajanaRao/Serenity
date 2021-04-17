@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { addToQueue } from '../actions/playerState';
 import { findAlbumSongs, findArtistSongs } from '../actions/mediaStore';
-import { TrackProps } from '../types';
+import { TrackProps } from '../utils/types';
 
 interface Props {
   type: 'album' | 'artist';

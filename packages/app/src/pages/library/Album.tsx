@@ -7,7 +7,7 @@ import { Screen } from '../../components/Screen';
 import { EmptyFavoriteAlbums } from '../../components/EmptyFavoriteAlbums';
 import { getAlbums } from '../../actions/realmAction';
 import { deserializeAlbums } from '../../utils/database';
-import { AlbumProps } from '../../types';
+import { AlbumProps } from '../../utils/types';
 
 export const AlbumScreen = ({ navigation }) => {
   const realmAlbums = getAlbums();

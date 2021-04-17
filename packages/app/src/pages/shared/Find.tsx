@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Screen } from '../../components/Screen';
 import { TrackContainer } from '../../containers/TrackContainer';
 import { RootReducerType } from '../../reducers';
-import { TrackProps } from '../../types';
+import { TrackProps } from '../../utils/types';
 
 export interface FindScreenProps {}
 
