@@ -12,14 +12,14 @@ import { Screen } from '../../components/Screen';
 import { DefaultImage } from '../../components/DefaultImage';
 import { AlbumProps } from '../../utils/types';
 import { RootReducerType } from '../../reducers';
-import { giveOfflineAccess } from '../../actions/userState';
+import { giveReadOfflineAccess } from '../../actions/userState';
 
 export const AlbumScreen = ({ navigation }) => {
   const ref = useRef(null);
   const albums = useSelector(
     (state: RootReducerType) => state.mediaStore.albums,
   );
-  const { offlineAccessGiven } = useSelector(
+  const { offlineReadAccessGiven } = useSelector(
     (state: RootReducerType) => state.user,
   );
 
@@ -28,10 +28,10 @@ export const AlbumScreen = ({ navigation }) => {
   useScrollToTop(ref);
 
   useEffect(() => {
-    if (offlineAccessGiven) {
+    if (offlineReadAccessGiven) {
       dispatch(getOfflineAlbums());
     }
-  }, [offlineAccessGiven]);
+  }, [offlineReadAccessGiven]);
 
   const fetchData = () => {
     setRefreshing(true);
@@ -77,11 +77,11 @@ export const AlbumScreen = ({ navigation }) => {
     );
   }
 
-  if (!offlineAccessGiven) {
+  if (!offlineReadAccessGiven) {
     return (
       <Blank
         text="View your media by Granting Storage Permission"
-        fetchData={() => dispatch(giveOfflineAccess())}
+        fetchData={() => dispatch(giveReadOfflineAccess())}
         buttonText="Allow Access"
       />
     );

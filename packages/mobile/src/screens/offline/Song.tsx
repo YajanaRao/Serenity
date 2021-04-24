@@ -35,7 +35,7 @@ import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { TrackProps } from '../../utils/types';
 import { TrackMenu } from '../../components/TrackMenu';
 import { RootReducerType } from '../../reducers';
-import { giveOfflineAccess } from '../../actions/userState';
+import { giveReadOfflineAccess } from '../../actions/userState';
 
 interface ItemProps {
   item: TrackProps;
@@ -53,7 +53,7 @@ export const SongScreen = () => {
   const { colors } = useTheme();
 
   const songs = useSelector((state: RootReducerType) => state.mediaStore.songs);
-  const { offlineAccessGiven } = useSelector(
+  const { offlineReadAccessGiven } = useSelector(
     (state: RootReducerType) => state.user,
   );
 
@@ -65,10 +65,10 @@ export const SongScreen = () => {
   } = useCollapsibleSubHeader();
 
   useEffect(() => {
-    if (offlineAccessGiven) {
+    if (offlineReadAccessGiven) {
       dispatch(getOfflineSongs());
     }
-  }, [dispatch, offlineAccessGiven]);
+  }, [dispatch, offlineReadAccessGiven]);
 
   const fetchData = () => {
     setRefreshing(true);
@@ -203,11 +203,11 @@ export const SongScreen = () => {
       </Screen>
     );
   }
-  if (!offlineAccessGiven) {
+  if (!offlineReadAccessGiven) {
     return (
       <Blank
         text="View your media by Granting Storage Permission"
-        fetchData={() => dispatch(giveOfflineAccess())}
+        fetchData={() => dispatch(giveReadOfflineAccess())}
         buttonText="Allow Access"
       />
     );

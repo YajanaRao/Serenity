@@ -19,7 +19,7 @@ export const log = {
   error(title: any, message?: any) {
     try {
       if (__DEV__) {
-        console.log(title, message);
+        console.error(title, message);
       } else {
         let text;
         if (message.componentStack) {
