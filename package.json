@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "yarn workspace app android",
-    "start": "yarn workspace app start",
-    "release": "yarn workspace app release",
-    "test": "jest",
+    "android": "yarn workspace mobile android",
+    "ios": "yarn workspace mobile ios",
+    "start": "yarn workspace mobile start",
+    "release": "yarn workspace mobile release",
+    "test": "yarn workspaces run test",
     "lint": "eslint *.js **/*.js"
   },
   "husky": {
@@ -24,7 +25,6 @@
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^4.2.0",
