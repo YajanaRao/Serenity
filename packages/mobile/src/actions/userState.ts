@@ -72,19 +72,19 @@ export const skipGoogleLogin = (skip: boolean) => (
   }
 };
 
-export const giveOfflineAccess = () => (
+export const giveReadOfflineAccess = () => (
   dispatch: ThunkDispatch<undefined, undefined, AnyAction>,
 ) => {
   try {
     PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE && PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     ).then(status => {
-      log.debug('giveOfflineAccess', status);
+      log.debug('giveReadOfflineAccess', status);
       if (status) {
         dispatch({ type: 'SET_OFFLINE_ACCESS', payload: true });
       } else {
         PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE && PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
           {
             title: 'Grant Access',
             message:
@@ -95,17 +95,54 @@ export const giveOfflineAccess = () => (
             buttonPositive: 'OK',
           },
         ).then(granted => {
-          log.debug('giveOfflineAccess', granted);
+          log.debug('giveReadOfflineAccess', granted);
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            dispatch({ type: 'SET_OFFLINE_ACCESS', payload: true });
+            dispatch({ type: 'SET_OFFLINE_READ_ACCESS', payload: true });
           } else {
-            dispatch({ type: 'SET_OFFLINE_ACCESS', payload: false });
+            dispatch({ type: 'SET_OFFLINE_READ_ACCESS', payload: false });
           }
         });
       }
     });
   } catch (err) {
-    log.error('giveOfflineAccess', err);
+    log.error('giveReadOfflineAccess', err);
+  }
+};
+
+export const giveWriteOfflineAccess = () => (
+  dispatch: ThunkDispatch<undefined, undefined, AnyAction>,
+) => {
+  try {
+    PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    ).then(status => {
+      log.debug('giveWriteOfflineAccess', status);
+      if (status) {
+        dispatch({ type: 'SET_OFFLINE_WRITE_ACCESS', payload: true });
+      } else {
+        PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Grant Access',
+            message:
+              'Serenity App needs access to your EXTERNAL_STORAGE ' +
+              'so you can play offline songs.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        ).then(granted => {
+          log.debug('giveWriteOfflineAccess', granted);
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            dispatch({ type: 'SET_OFFLINE_WRITE_ACCESS', payload: true });
+          } else {
+            dispatch({ type: 'SET_OFFLINE_WRITE_ACCESS', payload: false });
+          }
+        });
+      }
+    });
+  } catch (err) {
+    log.error('giveWriteOfflineAccess', err);
   }
 };
 

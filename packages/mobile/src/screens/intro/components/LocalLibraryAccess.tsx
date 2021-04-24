@@ -12,7 +12,7 @@ export interface LocalLibraryAccessProps {
 }
 
 export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
-  const { offlineAccessGiven } = useSelector(
+  const { offlineReadAccessGiven } = useSelector(
     (state: RootReducerType) => state.user,
   );
 
@@ -24,11 +24,11 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
   useEffect(() => {
     PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE &&
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     ).then(status => setGiven(status));
-  }, [offlineAccessGiven]);
+  }, [offlineReadAccessGiven]);
 
-  if (given || offlineAccessGiven) {
+  if (given || offlineReadAccessGiven) {
     return (
       <Button mode="contained" icon="done-all" color={color} onPress={next}>
         Done

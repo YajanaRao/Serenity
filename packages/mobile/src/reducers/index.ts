@@ -43,7 +43,8 @@ const INITIAL_STATE = {
 const INITIAL_USER = {
   user: {},
   googleAccessGiven: false,
-  offlineAccessGiven: false,
+  offlineReadAccessGiven: false,
+  offlineWriteAccessGiven: false,
   introSlidesShown: false,
 };
 
@@ -143,10 +144,15 @@ export const userReducer = (state = INITIAL_USER, action: QueryActions) => {
         ...state,
         googleAccessGiven: action.payload,
       };
-    case 'SET_OFFLINE_ACCESS':
+    case 'SET_OFFLINE_READ_ACCESS':
       return {
         ...state,
-        offlineAccessGiven: action.payload,
+        offlineReadAccessGiven: action.payload,
+      };
+    case 'SET_OFFLINE_WRITE_ACCESS':
+      return {
+        ...state,
+        offlineWriteAccessGiven: action.payload,
       };
     case 'REMOVE_USER':
       return {

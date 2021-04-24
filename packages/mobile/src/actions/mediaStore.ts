@@ -5,12 +5,13 @@ import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
-
+import { JioSaavn, Youtube } from 'media';
 import { includes } from 'lodash';
+
 import { log } from '../utils/logging';
 import { addSong } from './realmAction';
 import { TrackProps } from '../utils/types';
-import { JioSaavn, Youtube } from 'media';
+import { giveWriteOfflineAccess } from './userState';
 
 const DOWNLOADED_ID = 'user-playlist--000004';
 
@@ -35,18 +36,20 @@ export const updateQuery = (query: string, category: string) => async (
     }
 
     if (category !== 'offline') {
-      // const youtubeSongs = await Youtube.searchYoutubeMusic(query);
-      // if (youtubeSongs && youtubeSongs.length) {
-      //   media.push({
-      //     title: 'Youtube Music',
-      //     data: youtubeSongs,
-      //   });
-      // }
+
       const jioSaavnSongs = await JioSaavn.searchJioSaavnMusic(query);
       if (jioSaavnSongs && jioSaavnSongs.length) {
         media.push({
           title: 'JioSaavn Music',
           data: jioSaavnSongs,
+        });
+      }
+
+      const youtubeSongs = await Youtube.searchYoutubeMusic(query);
+      if (youtubeSongs && youtubeSongs.length) {
+        media.push({
+          title: 'Youtube Music',
+          data: youtubeSongs,
         });
       }
     }
@@ -195,12 +198,13 @@ export const downloadMedia = (item: TrackProps) => async (
 ) => {
   try {
     if (item) {
-      const { offlineAccessGiven } = getState().user;
-      if (!offlineAccessGiven) {
+      const { offlineWriteAccessGiven } = getState().user;
+      if (!offlineWriteAccessGiven) {
         dispatch({
           payload: `Download songs by Granting Storage Permission`,
           type: 'NOTIFY',
         });
+        dispatch(giveWriteOfflineAccess());
         return;
       }
       dispatch({
@@ -220,7 +224,16 @@ export const downloadMedia = (item: TrackProps) => async (
         const filePath = `${folderPath}/${title}.mp3`;
         item.path = filePath;
         await download(url, filePath);
-      } else if (includes(['jiosaavn', 'online'], item.type.toLowerCase())) {
+      }
+      else if ('jiosaavn' === item.type.toLowerCase()) {
+        const filePath = `${folderPath}/${item.title.trim()}.m4a`;
+        const imagePath = `${folderPath}/${item.title.trim()}_artwork.jpg`;
+        const audioResponse = await download(item.path, filePath);
+        const imageResponse = await download(item.cover, imagePath);
+        item.path = filePath;
+        log.debug('downloadMedia', audioResponse.toString());
+      }
+      else if (includes(['online'], item.type.toLowerCase())) {
         const filePath = `${folderPath}/${item.title.trim()}.mp3`;
         const response = await download(item.path, filePath);
         item.path = filePath;
@@ -233,9 +246,9 @@ export const downloadMedia = (item: TrackProps) => async (
       });
     }
   } catch (error) {
-    log.error(error);
+    log.error('downloadMedia', error);
     dispatch({
-      payload: `downloadMedia ${item.path} from youtube failed`,
+      payload: `downloadMedia ${item.title} from youtube failed`,
       type: 'NOTIFY',
     });
   }

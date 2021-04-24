@@ -7,7 +7,7 @@ import generate from 'string-to-color';
 import { getOfflineArtists } from '../../actions/mediaStore';
 import { Blank } from '../../components/Blank';
 import { Screen } from '../../components/Screen';
-import { giveOfflineAccess } from '../../actions/userState';
+import { giveReadOfflineAccess } from '../../actions/userState';
 import { RootReducerType } from '../../reducers';
 
 interface ArtistProps {
@@ -23,15 +23,15 @@ export const ArtistScreen = ({ navigation }) => {
   const artists = useSelector((state: any) => state.mediaStore.artists);
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
-  const { offlineAccessGiven } = useSelector(
+  const { offlineReadAccessGiven } = useSelector(
     (state: RootReducerType) => state.user,
   );
 
   useEffect(() => {
-    if (offlineAccessGiven) {
+    if (offlineReadAccessGiven) {
       dispatch(getOfflineArtists());
     }
-  }, [offlineAccessGiven]);
+  }, [offlineReadAccessGiven]);
 
   const fetchData = () => {
     setRefreshing(true);
@@ -72,11 +72,11 @@ export const ArtistScreen = ({ navigation }) => {
       </Screen>
     );
   }
-  if (!offlineAccessGiven) {
+  if (!offlineReadAccessGiven) {
     return (
       <Blank
         text="View your media by Granting Storage Permission"
-        fetchData={() => dispatch(giveOfflineAccess())}
+        fetchData={() => dispatch(giveReadOfflineAccess())}
         buttonText="Allow Access"
       />
     );
