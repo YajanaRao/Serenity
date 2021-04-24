@@ -78,7 +78,7 @@ export const log = {
   debug(title: string, message: string) {
     try {
       if (__DEV__) {
-        console.log(title, message);
+        console.log("debug: ", title, message);
       } else {
         const extras = [];
         extras.push({

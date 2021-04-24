@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import Icon from './components/Icon';
 
-import { RootNavigator } from './pages/RootNavigator';
+import { RootNavigator } from './screens/RootNavigator';
 import { defaultSetup } from './actions';
 import { RootReducerType } from './reducers';
 import { DarkTheme, DefaultTheme } from './utils/theme';

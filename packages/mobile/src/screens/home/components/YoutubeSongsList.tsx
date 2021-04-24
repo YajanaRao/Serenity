@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useDispatch } from 'react-redux';
-import { TrackScrollView } from '../components/TrackScrollView';
+import { TrackScrollView } from '../../../components/TrackScrollView';
 import { Youtube } from 'media';
-import { loadTrack } from '../actions/playerState';
-import { Headline } from '../components/Headline';
+import { loadTrack } from '../../../actions/playerState';
+import { Headline } from '../../../components/Headline';
 
-const YoutubeSongsContainer = () => {
+const YoutubeSongsList = () => {
   const netInfo = useNetInfo();
   const dispatch = useDispatch();
   const [playlists, setPlaylist] = useState([]);
@@ -53,4 +53,4 @@ const YoutubeSongsContainer = () => {
   return null;
 };
 
-export default YoutubeSongsContainer;
+export default YoutubeSongsList;

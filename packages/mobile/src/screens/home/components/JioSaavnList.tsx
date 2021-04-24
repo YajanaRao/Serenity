@@ -2,20 +2,20 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { loadTrack } from '../actions/playerState';
-import { Headline } from '../components/Headline';
-import { TrackScrollView } from '../components/TrackScrollView';
-import { getJioSaavnMusic } from '../services/JioSaavn';
+import { loadTrack } from '../../../actions/playerState';
+import { Headline } from '../../../components/Headline';
+import { TrackScrollView } from '../../../components/TrackScrollView';
+import { JioSaavn } from 'media';
 
-export interface JioSaavnContainerProps {}
+export interface JioSaavnContainerProps { }
 
-export function JioSaavnContainer({}: JioSaavnContainerProps) {
+export function JioSaavnContainer({ }: JioSaavnContainerProps) {
   const [songs, setSongs] = useState(null);
   const netInfo = useNetInfo();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getJioSaavnMusic().then(data => setSongs(data));
+    JioSaavn.getJioSaavnMusic().then(data => setSongs(data));
   }, []);
 
   function playAudioFromJioSaavn(song) {

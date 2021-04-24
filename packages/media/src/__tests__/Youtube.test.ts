@@ -7,7 +7,7 @@ test('API testing for youtube songs', async (done) => {
     try {
         const response = await youtubeSearch("songs");
         const songs = await getSongList(response);
-        expect(songs.length).toBe(19);
+        expect(songs.length).not.toBe(0);
         done()
     } catch (error) {
         console.log(error)

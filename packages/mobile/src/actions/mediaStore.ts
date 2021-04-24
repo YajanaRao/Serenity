@@ -10,7 +10,7 @@ import { includes } from 'lodash';
 import { log } from '../utils/logging';
 import { addSong } from './realmAction';
 import { TrackProps } from '../utils/types';
-import { Youtube } from 'media';
+import { JioSaavn, Youtube } from 'media';
 
 const DOWNLOADED_ID = 'user-playlist--000004';
 
@@ -35,11 +35,18 @@ export const updateQuery = (query: string, category: string) => async (
     }
 
     if (category !== 'offline') {
-      const youtubeSongs = await Youtube.searchYoutubeMusic(query);
-      if (youtubeSongs && youtubeSongs.length) {
+      // const youtubeSongs = await Youtube.searchYoutubeMusic(query);
+      // if (youtubeSongs && youtubeSongs.length) {
+      //   media.push({
+      //     title: 'Youtube Music',
+      //     data: youtubeSongs,
+      //   });
+      // }
+      const jioSaavnSongs = await JioSaavn.searchJioSaavnMusic(query);
+      if (jioSaavnSongs && jioSaavnSongs.length) {
         media.push({
-          title: 'Youtube Music',
-          data: youtubeSongs,
+          title: 'JioSaavn Music',
+          data: jioSaavnSongs,
         });
       }
     }
