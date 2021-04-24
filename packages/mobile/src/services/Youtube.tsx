@@ -1,9 +1,7 @@
-import getArtistTitle from 'get-artist-title';
 import Config from 'react-native-config';
 import { getAccessToken } from '../utils';
 import { log } from '../utils/logging';
 
-const youtubeEndpoint = `https://www.youtube.com`;
 
 export function parsePlaylistItem(data: any) {
   const items = [];
@@ -79,39 +77,6 @@ export async function getPlaylistSongs(playlistId: string) {
     .then(data => parsePlaylistItem(data));
 }
 
-const VideoRender = data => {
-  if (data && (data.videoRenderer || data.playlistVideoRenderer)) {
-    let videoRenderer = null;
-    if (data.videoRenderer) {
-      videoRenderer = data.videoRenderer;
-    } else if (data.playlistVideoRenderer) {
-      videoRenderer = data.playlistVideoRenderer;
-    }
-
-    const id = videoRenderer.videoId;
-    const { thumbnail } = videoRenderer;
-    const thumbnailImage = thumbnail.thumbnails[0].url;
-    const titleText = videoRenderer.title.runs[0].text;
-    // .replace('|', '').toString('ascii');
-    let artist = videoRenderer.description?.runs[0].text;
-    let title = titleText;
-    const response = getArtistTitle(titleText);
-    if (response) {
-      [title, artist] = response;
-    }
-    // const description = videoRenderer.description?.runs[0].text;
-    return {
-      id,
-      type: 'Youtube',
-      cover: thumbnailImage,
-      title,
-      artist,
-      path: `https://www.youtube.com/watch?v=${id}`,
-    };
-  }
-  return {};
-};
-
 export async function getYoutubeMusic(query: string) {
   const searchUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=playlist&q=${query}&key=${Config.YOUTUBE_API_KEY}`;
   const accessToken = await getAccessToken();
@@ -125,42 +90,7 @@ export async function getYoutubeMusic(query: string) {
     .catch(error => log.error('getYoutubeMusic', error));
 }
 
-export async function searchYoutubeMusic(query: string) {
-  log.debug('searchYoutubeMusic', 'fetching youtube videos');
-  const endpoint = `${youtubeEndpoint}/results?search_query=${query}`;
-  return (
-    fetch(endpoint)
-      .then(response => response.text())
-      .then(async page => {
-        const data = page
-          .split('var ytInitialData =')[1]
-          .split('</script>')[0]
-          .slice(0, -1);
-        const initdata = JSON.parse(data);
-        const {
-          sectionListRenderer,
-        } = initdata.contents.twoColumnSearchResultsRenderer.primaryContents;
-        const items = [];
-        await sectionListRenderer.contents.forEach(content => {
-          if (content.itemSectionRenderer) {
-            content.itemSectionRenderer.contents.forEach(item => {
-              if (item.videoRenderer) {
-                const videoRender = item.videoRenderer;
-                // const playListRender = item.playlistRenderer;
 
-                if (videoRender && videoRender.videoId) {
-                  items.push(VideoRender(item));
-                }
-              }
-            });
-          }
-        });
-        return items;
-      })
-      // .then(data => parsePlaylists(data))
-      .catch(error => log.error('searchYoutubeMusic', error))
-  );
-}
 
 export async function getYoutubePlaylist() {
   if (!Config.YOUTUBE_API_KEY) {

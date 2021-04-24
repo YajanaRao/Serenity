@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "yarn workspace app android",
-    "ios": "yarn workspace app ios",
-    "start": "yarn workspace app start",
-    "release": "yarn workspace app release",
+    "android": "yarn workspace mobile android",
+    "ios": "yarn workspace mobile ios",
+    "start": "yarn workspace mobile start",
+    "release": "yarn workspace mobile release",
     "test": "yarn workspaces run test",
     "lint": "eslint *.js **/*.js"
   },

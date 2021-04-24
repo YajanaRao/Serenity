@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
-import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { RootReducer } from '../reducers';
 
@@ -12,14 +11,13 @@ const persistConfig = {
   blacklist: ['query'],
 };
 
-const middleware = [thunk];
 
 const persistedReducer = persistReducer(persistConfig, RootReducer);
 
 export default () => {
   const store = createStore(
     persistedReducer,
-    composeWithDevTools(applyMiddleware(...middleware)),
+    applyMiddleware(thunk)
   );
   const persistor = persistStore(store);
   return { store, persistor };

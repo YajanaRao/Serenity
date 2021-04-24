@@ -6,7 +6,6 @@ import sample from 'lodash/sample';
 
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import ytdl from 'react-native-ytdl';
 import {
   addSong,
   removeSong,
@@ -20,6 +19,7 @@ import {
 import { deserializeSongs } from '../utils/database';
 import { log } from '../utils/logging';
 import { TrackProps, AlbumProps } from '../utils/types';
+import { Youtube } from 'media';
 
 let subscription: EmitterSubscription;
 
@@ -57,45 +57,33 @@ export const setUpTrackPlayer = () => (
   }
 };
 
-export const loadTrack = (track: TrackProps, playOnLoad = true) => (
+export const loadTrack = (track: TrackProps, playOnLoad = true) => async (
   dispatch: ThunkDispatch<{}, {}, AnyAction>,
 ) => {
   try {
     const { path, type } = track;
+    let audioUrl = path;
     log.debug('loadTrack', `load track: ${track.path}`);
     if (path) {
       if (type?.toLowerCase() === 'youtube') {
-        ytdl(path, { filter: format => format.container === 'mp4' })
-          .then(urls => {
-            const { url } = urls[0];
-            TrackPlayer.load({
-              path: url,
-              title: track.title,
-              artist: track.artist,
-              cover: track.cover,
-            })
-              .then(() => {
-                if (playOnLoad) TrackPlayer.play();
-              })
-              .catch(error => console.log('error', error));
-          })
-          .catch(error => {
-            log.error(`loadTrack ${path} from youtube`, error);
-            dispatch({
-              payload: `loadTrack ${path} from youtube failed`,
-              type: 'NOTIFY',
-            });
-          });
-      } else {
-        TrackPlayer.load({
-          path,
-          title: track.title,
-          artist: track.artist,
-          cover: track.cover,
-        }).then(() => {
-          if (playOnLoad) TrackPlayer.play();
-        });
+        audioUrl = await Youtube.getAudioUrl(path);
       }
+      TrackPlayer.load({
+        path: audioUrl,
+        title: track.title,
+        artist: track.artist,
+        cover: track.cover,
+      })
+        .then(() => {
+          if (playOnLoad) TrackPlayer.play();
+        })
+        .catch(error => {
+          log.error('loadTrack', error)
+          dispatch({
+            payload: `loadTrack ${path} of type ${type} failed`,
+            type: 'NOTIFY',
+          });
+        });
       dispatch({
         track,
         type: 'LOAD',
@@ -107,7 +95,7 @@ export const loadTrack = (track: TrackProps, playOnLoad = true) => (
       );
     }
   } catch (error) {
-    log.debug(`loadTrack`, error);
+    log.error(`loadTrack`, error);
   }
 };
 

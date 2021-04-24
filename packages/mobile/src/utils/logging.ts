@@ -19,8 +19,8 @@ export const log = {
   error(title: any, message?: any) {
     try {
       if (__DEV__) {
-        //   console.log(title, message);
-        // } else {
+        console.log(title, message);
+      } else {
         let text;
         if (message.componentStack) {
           text = message.componentStack.slice(0, 2000);
@@ -78,17 +78,29 @@ export const log = {
   debug(title: string, message: string) {
     try {
       if (__DEV__) {
-        // console.log(Config);
-        // } else {
+        console.log(title, message);
+      } else {
+        const extras = [];
+        extras.push({
+          name: 'Platform',
+          value: Platform.OS,
+        }, {
+          name: 'Version',
+          value: Platform.Version
+        }, {
+          name: 'Version Code',
+          value: Config.VERSION_CODE
+        });
         const content = {
           username: 'debug-logs',
           avatar_url: 'https://i.imgur.com/4M34hi2.png',
-          content: `${title}: ${Config.VERSION_CODE}`,
+          content: title,
           embeds: [
             {
               title,
               description: message,
               color: 15258703,
+              fields: extras,
             },
           ],
         };

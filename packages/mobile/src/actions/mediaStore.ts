@@ -5,13 +5,12 @@ import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
-import ytdl from 'react-native-ytdl';
 
 import { includes } from 'lodash';
 import { log } from '../utils/logging';
-import { searchYoutubeMusic } from '../services/Youtube';
 import { addSong } from './realmAction';
 import { TrackProps } from '../utils/types';
+import { Youtube } from 'media';
 
 const DOWNLOADED_ID = 'user-playlist--000004';
 
@@ -36,7 +35,7 @@ export const updateQuery = (query: string, category: string) => async (
     }
 
     if (category !== 'offline') {
-      const youtubeSongs = await searchYoutubeMusic(query);
+      const youtubeSongs = await Youtube.searchYoutubeMusic(query);
       if (youtubeSongs && youtubeSongs.length) {
         media.push({
           title: 'Youtube Music',
@@ -120,9 +119,7 @@ export const findAlbumSongs = async (album: string) => {
   const songs = await RNAndroidAudioStore.getSongs({
     album,
   })
-    .then(media => {
-      return media;
-    })
+    .then(media => media)
     .catch(er => log.error('findAlbumSongs', er));
   return songs;
 };
@@ -131,20 +128,22 @@ export const findArtistSongs = async (artist: string) => {
   const songs = await RNAndroidAudioStore.getSongs({
     artist,
   })
-    .then(media => {
-      return media;
-    })
+    .then(media => media)
     .catch(er => log.error('findArtistSongs', er));
   return songs;
 };
 
-export const filterSongsByGenre = async genre => {
-  const songs = await RNAndroidAudioStore.getSongsByGenres({ genre })
-    .then(media => {
-      return media;
-    })
-    .catch(error => log.error('filterSongsByGenre', error));
-  return songs;
+export const filterSongsByGenre = async (genre: string) => {
+  try {
+    const songs = await RNAndroidAudioStore.getSongsByGenres({ genre });
+    if (!songs.length) {
+      return Youtube.searchYoutubeMusic(genre);
+    }
+    return songs;
+
+  } catch (error) {
+    log.error('filterSongsByGenre', error)
+  }
 };
 
 export const mostPlayedSongs = (array: []) => {
@@ -155,7 +154,6 @@ export const mostPlayedSongs = (array: []) => {
     })),
   );
 };
-
 const _downloadFileProgress = data => {
   const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
   const text = `Progress ${percentage}%`;
@@ -206,8 +204,7 @@ export const downloadMedia = (item: TrackProps) => async (
       const folderPath = `${RNFS.ExternalStorageDirectoryPath}/Music`;
       await checkFolderPath(folderPath);
       if (item.type.toLowerCase() === 'youtube') {
-        const urls = await ytdl(item.path, { quality: 'highestaudio' });
-        const { url } = urls[0];
+        const url = await Youtube.getDownloadUrl(item.path);
         let title = item.title.replace(/[^a-zA-Z ]/g, '');
         if (title.length > 18) {
           title = title.slice(0, 18);

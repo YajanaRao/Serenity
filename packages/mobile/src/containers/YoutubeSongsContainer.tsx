@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useDispatch } from 'react-redux';
 import { TrackScrollView } from '../components/TrackScrollView';
-import { searchYoutubeMusic } from '../services/Youtube';
+import { Youtube } from 'media';
 import { loadTrack } from '../actions/playerState';
 import { Headline } from '../components/Headline';
 
@@ -14,7 +14,7 @@ const YoutubeSongsContainer = () => {
 
   useEffect(() => {
     if (netInfo.isConnected) {
-      searchYoutubeMusic('trending songs').then(data => {
+      Youtube.searchYoutubeMusic('trending songs').then(data => {
         if (data) {
           setPlaylist(data);
         }
