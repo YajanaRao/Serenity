@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { giveOfflineAccess } from '../../../actions/userState';
+import { giveReadOfflineAccess } from '../../../actions/userState';
 import { RootReducerType } from '../../../reducers';
 import { log } from '../../../utils/logging';
 
@@ -19,7 +19,7 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
   const [given, setGiven] = useState(false);
   const dispatch = useDispatch();
   const requestPermission = () => {
-    dispatch(giveOfflineAccess());
+    dispatch(giveReadOfflineAccess());
   };
   useEffect(() => {
     PermissionsAndroid.check(
