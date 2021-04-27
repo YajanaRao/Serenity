@@ -4,7 +4,6 @@ import { Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { giveReadOfflineAccess } from '../../../actions/userState';
 import { RootReducerType } from '../../../reducers';
-import { log } from '../../../utils/logging';
 
 export interface LocalLibraryAccessProps {
   color: string;
@@ -22,10 +21,7 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
     dispatch(giveReadOfflineAccess());
   };
   useEffect(() => {
-    PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE &&
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-    ).then(status => setGiven(status));
+    PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE).then(status => setGiven(status));
   }, [offlineReadAccessGiven]);
 
   if (given || offlineReadAccessGiven) {
