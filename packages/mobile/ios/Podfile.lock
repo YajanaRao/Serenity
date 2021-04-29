@@ -328,6 +328,8 @@ PODS:
     - react-native-config/App (= 1.4.2)
   - react-native-config/App (1.4.2):
     - React-Core
+  - react-native-get-random-values (1.7.0):
+    - React-Core
   - react-native-netinfo (6.0.0):
     - React-Core
   - react-native-pager-view (5.1.2):
@@ -488,6 +490,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../../../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../../../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../../../node_modules/react-native-config`)
+  - react-native-get-random-values (from `../../../node_modules/react-native-get-random-values`)
   - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
   - react-native-pager-view (from `../../../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
@@ -592,6 +595,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon/jsinspector"
   react-native-config:
     :path: "../../../node_modules/react-native-config"
+  react-native-get-random-values:
+    :path: "../../../node_modules/react-native-get-random-values"
   react-native-netinfo:
     :path: "../../../node_modules/@react-native-community/netinfo"
   react-native-pager-view:
@@ -703,6 +708,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 06a9c77b56902ae7ffcdd7a4905f664adc5d237b
   React-jsinspector: 0ae35a37b20d5e031eb020a69cc5afdbd6406301
   react-native-config: c98128a72bc2c3a1ca72caec0b021f0fa944aa29
+  react-native-get-random-values: 237bffb1c7e05fb142092681531810a29ba53015
   react-native-netinfo: e849fc21ca2f4128a5726c801a82fc6f4a6db50d
   react-native-pager-view: c1ec84a464024641ccb1102e9ec12be020d3d74c
   react-native-safe-area-context: 52342d2d80ea8faadd0ffa76d83b6051f20c5329
