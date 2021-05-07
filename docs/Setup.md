@@ -2,6 +2,9 @@
 
 ## Clone github repository
 
+```shell
+git clone --recurse-submodules https://github.com/YajanaRao/Serenity.git
+```
 
 ## Install yarn packages 
 
