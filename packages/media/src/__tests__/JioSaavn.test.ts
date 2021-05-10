@@ -10,9 +10,7 @@ test('API testing for searchJioSaavnMusic', async (done) => {
         expect(songs.length).not.toBe(0);
         done()
     } catch (error) {
-        console.log(error)
-        expect(error).toBe("Something went wrong");
-        done()
-    }
+        console.log(error)        expect(error).toBe("Something went wrong");
+        done()    }
 
 });
