@@ -8,36 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SerenityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SerenityTests.m */; };
-		0365DC4AAE464FC89DA63528 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		0365DC4AAE464FC89DA63528 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1CF5669CABDE40BE88DA5021 /* Nunito-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3458A508860A45029A7F3E03 /* Nunito-ExtraBoldItalic.ttf */; };
-		1EF4000D07E347D3A676DA34 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		1EF4000D07E347D3A676DA34 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* SerenityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SerenityTests.m */; };
 		2E49326D419C4D5092E13246 /* Nunito-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF0D97A59086489697F671C9 /* Nunito-ExtraLightItalic.ttf */; };
-		30DABEC376A74FC8B6751FC4 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		30DABEC376A74FC8B6751FC4 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		329C91E2DB684E82A14080B6 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B27933217644017BC75228B /* Nunito-SemiBold.ttf */; };
 		3472273479B241488BC7BDAE /* Nunito-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2E77429F88C475BB505A953 /* Nunito-BoldItalic.ttf */; };
 		3AF86140C64E448FA0C281D9 /* Nunito-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D81D16C00FD4CB197E42673 /* Nunito-ExtraLight.ttf */; };
 		3C49D4C6532D4AB890BA8BA7 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 967C2B1072FF45BCA39A2800 /* Nunito-Regular.ttf */; };
-		4ACAE6019DCD4AD1B4DD06C2 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		4D7CA604ADDC48A8B41C300C /* (null) in Resources */ = {isa = PBXBuildFile; };
+		4ACAE6019DCD4AD1B4DD06C2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		4D7CA604ADDC48A8B41C300C /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		4D9D7FD7B5CE4E1E828FBC95 /* Nunito-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F9C12A29836482BAC71D1DE /* Nunito-LightItalic.ttf */; };
-		503C800BEDF2493086B652EE /* (null) in Resources */ = {isa = PBXBuildFile; };
+		503C800BEDF2493086B652EE /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		55B9A82B6DF648DBA37EB666 /* Nunito-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 634E5C38E64C4F038468E624 /* Nunito-Italic.ttf */; };
 		593A4E8D571E409A9B37CF1D /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D7BA2ACA60B4018B50086BC /* Nunito-ExtraBold.ttf */; };
 		6D4C4DDB1D0542778B5E9959 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26C470E4C3F844C085213A15 /* Nunito-Bold.ttf */; };
-		6F14B26A5F444D178247987D /* (null) in Resources */ = {isa = PBXBuildFile; };
-		741CCB13B4F94EA28461895E /* (null) in Resources */ = {isa = PBXBuildFile; };
-		84B27C0564D64992BFA1C5F8 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		6F14B26A5F444D178247987D /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		741CCB13B4F94EA28461895E /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		84B27C0564D64992BFA1C5F8 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		94C6C4E39B7F468A8A5E6776 /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 378F3A2F48E94116B9CE38A7 /* Nunito-Black.ttf */; };
 		94D0128C0EEFC9757603D5ED /* libPods-Serenity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2841D0392AC3F78E4D575D62 /* libPods-Serenity.a */; };
-		A607E3EC55094F9EA6446166 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		A607E3EC55094F9EA6446166 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		A6D26E4D25F0B92F00733036 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6D26E4C25F0B92F00733036 /* GoogleService-Info.plist */; };
 		A6D26E4E25F0B92F00733036 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6D26E4C25F0B92F00733036 /* GoogleService-Info.plist */; };
 		A6D26E4F25F0B92F00733036 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6D26E4C25F0B92F00733036 /* GoogleService-Info.plist */; };
@@ -45,15 +45,15 @@
 		A6FFFBBD25EE578600B8E53F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FFFBBC25EE578600B8E53F /* File.swift */; };
 		A6FFFBC025EE69F000B8E53F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FFFBBF25EE69F000B8E53F /* File.swift */; };
 		A6FFFBC225EE6B1600B8E53F /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6FFFBC125EE6B1600B8E53F /* BootSplash.storyboard */; };
-		A9A6230E90D3442E826B646D /* (null) in Resources */ = {isa = PBXBuildFile; };
+		A9A6230E90D3442E826B646D /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		B7A1FF40DA4A455F9339CFC1 /* Nunito-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2362B5DBA644D4B941CD1C5 /* Nunito-Light.ttf */; };
-		C296C273ACD44972BA8F6AF5 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C296C273ACD44972BA8F6AF5 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		C2A45DAD2804E7BD01B70288 /* libPods-Serenity-SerenityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F215D3C0581FCA966F3D00AA /* libPods-Serenity-SerenityTests.a */; };
-		D58EB887981E4D8A8F8205B9 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		DC1CB17747714EF5B47F1BC3 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		D58EB887981E4D8A8F8205B9 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		DC1CB17747714EF5B47F1BC3 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		E393899A74724FD39253727D /* Nunito-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65757B62C59A4F748041828F /* Nunito-BlackItalic.ttf */; };
-		EC2B6435BC7641E794A6F588 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		F5E65AFB6DD5432EA111F9D7 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		EC2B6435BC7641E794A6F588 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		F5E65AFB6DD5432EA111F9D7 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		FA578A8C8DA041BBA860A1B2 /* Nunito-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8ADD60B3537A4375A845CCF7 /* Nunito-SemiBoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
@@ -416,24 +416,24 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				0365DC4AAE464FC89DA63528 /* (null) in Resources */,
+				0365DC4AAE464FC89DA63528 /* BuildFile in Resources */,
 				A6FFFBC225EE6B1600B8E53F /* BootSplash.storyboard in Resources */,
-				4D7CA604ADDC48A8B41C300C /* (null) in Resources */,
-				C296C273ACD44972BA8F6AF5 /* (null) in Resources */,
-				EC2B6435BC7641E794A6F588 /* (null) in Resources */,
-				D58EB887981E4D8A8F8205B9 /* (null) in Resources */,
-				6F14B26A5F444D178247987D /* (null) in Resources */,
-				30DABEC376A74FC8B6751FC4 /* (null) in Resources */,
-				A607E3EC55094F9EA6446166 /* (null) in Resources */,
-				741CCB13B4F94EA28461895E /* (null) in Resources */,
-				4ACAE6019DCD4AD1B4DD06C2 /* (null) in Resources */,
-				84B27C0564D64992BFA1C5F8 /* (null) in Resources */,
-				A9A6230E90D3442E826B646D /* (null) in Resources */,
-				DC1CB17747714EF5B47F1BC3 /* (null) in Resources */,
-				F5E65AFB6DD5432EA111F9D7 /* (null) in Resources */,
+				4D7CA604ADDC48A8B41C300C /* BuildFile in Resources */,
+				C296C273ACD44972BA8F6AF5 /* BuildFile in Resources */,
+				EC2B6435BC7641E794A6F588 /* BuildFile in Resources */,
+				D58EB887981E4D8A8F8205B9 /* BuildFile in Resources */,
+				6F14B26A5F444D178247987D /* BuildFile in Resources */,
+				30DABEC376A74FC8B6751FC4 /* BuildFile in Resources */,
+				A607E3EC55094F9EA6446166 /* BuildFile in Resources */,
+				741CCB13B4F94EA28461895E /* BuildFile in Resources */,
+				4ACAE6019DCD4AD1B4DD06C2 /* BuildFile in Resources */,
+				84B27C0564D64992BFA1C5F8 /* BuildFile in Resources */,
+				A9A6230E90D3442E826B646D /* BuildFile in Resources */,
+				DC1CB17747714EF5B47F1BC3 /* BuildFile in Resources */,
+				F5E65AFB6DD5432EA111F9D7 /* BuildFile in Resources */,
 				A6D26E4D25F0B92F00733036 /* GoogleService-Info.plist in Resources */,
-				1EF4000D07E347D3A676DA34 /* (null) in Resources */,
-				503C800BEDF2493086B652EE /* (null) in Resources */,
+				1EF4000D07E347D3A676DA34 /* BuildFile in Resources */,
+				503C800BEDF2493086B652EE /* BuildFile in Resources */,
 				94C6C4E39B7F468A8A5E6776 /* Nunito-Black.ttf in Resources */,
 				E393899A74724FD39253727D /* Nunito-BlackItalic.ttf in Resources */,
 				6D4C4DDB1D0542778B5E9959 /* Nunito-Bold.ttf in Resources */,
@@ -483,7 +483,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\nexport EXTRA_PACKAGER_ARGS=\"--entry-file packages/mobile/index.js\"\n../../../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export NODE_BINARY=node\n../../../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		04393D8277EC17804A1CEF82 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -579,6 +579,9 @@
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "[CP-User] [RNFB] Core Configuration";
 			runOnlyForDeploymentPostprocessing = 0;

@@ -134,15 +134,9 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Development Process
 
-`git clone https://github.com/YajanaRao/Serenity.git`
+Serenity is open to contributions, but I recommend creating an issue or replying in a comment to let me know what you are working on first that way we don't overwrite each other.
 
-`cd Serenity`
-
-`yarn install` or `npm install`
-
-We need to have google-service.json file in android and IOS directory before running the application on the device
-
-`react-native run-android` or `yarn android` or `npm android`
+Please read Docs/Setup.md for details on this project.
 
 ## Our Community
 

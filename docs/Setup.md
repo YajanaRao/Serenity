@@ -8,10 +8,22 @@ git clone --recurse-submodules https://github.com/YajanaRao/Serenity.git
 
 ## Install yarn packages 
 
+Navigate to project root:
+
+We're using [Yarn](https://yarnpkg.com) for this project, do not use npm for the following commands
 Run below command in project root:
 
 ```shell
 yarn install
+```
+
+## IOS
+
+Navigate to packages/mobile/ios
+
+```shell
+cd packages/mobile/ios
+pod install
 ```
 
 ## Run Metro bundler
@@ -26,4 +38,5 @@ yarn start
 
 ```shell
 yarn android
+yarn ios
 ```
