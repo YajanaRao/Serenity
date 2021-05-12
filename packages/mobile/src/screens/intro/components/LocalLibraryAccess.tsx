@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { PermissionsAndroid } from 'react-native';
-import { Button } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
-import { giveReadOfflineAccess } from '../../../actions/userState';
-import { RootReducerType } from '../../../reducers';
+import React, {useEffect, useState} from 'react';
+import {PermissionsAndroid} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {giveReadOfflineAccess} from '../../../actions/userState';
+import {RootReducerType} from '../../../reducers';
 
 export interface LocalLibraryAccessProps {
   color: string;
   next: () => void;
 }
 
-export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
-  const { offlineReadAccessGiven } = useSelector(
+export function LocalLibraryAccess({color, next}: LocalLibraryAccessProps) {
+  const {offlineReadAccessGiven} = useSelector(
     (state: RootReducerType) => state.user,
   );
 
@@ -21,7 +20,11 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
     dispatch(giveReadOfflineAccess());
   };
   useEffect(() => {
-    PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE).then(status => setGiven(status));
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      ).then(status => setGiven(status));
+    }
   }, [offlineReadAccessGiven]);
 
   if (given || offlineReadAccessGiven) {
@@ -37,8 +40,7 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
       mode="contained"
       icon="unlock-outline"
       color={color}
-      onPress={requestPermission}
-    >
+      onPress={requestPermission}>
       Allow Access
     </Button>
   );
