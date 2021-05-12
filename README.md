@@ -136,7 +136,7 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 Serenity is open to contributions, but I recommend creating an issue or replying in a comment to let me know what you are working on first that way we don't overwrite each other.
 
-Please read Docs/Setup.md for details on this project.
+Please read [Setup.md](Docs/Setup.md) for details on this project.
 
 ## Our Community
 
