@@ -30,7 +30,7 @@ export const AlbumScrollView = ({ data, title, navigateToSongs }: Props) => (
           style={styles.item}
           onPress={() => navigateToSongs(item)}
         >
-          <FastImage source={{ uri: item.artwork }} style={styles.photo} />
+          <FastImage source={{ uri: item.artwork }} style=[styles.photo,{ backgroundColor: "gray" }]  />
           <Paragraph numberOfLines={1}>{item.album}</Paragraph>
         </TouchableOpacity>
       )}

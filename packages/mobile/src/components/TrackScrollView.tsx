@@ -48,7 +48,7 @@ export const TrackScrollView = ({
         )}
 
         <Text numberOfLines={2} style={styles.title}>
-          {item.title}
+          {item?.title}
         </Text>
       </TouchableOpacity>
     )}
@@ -74,5 +74,6 @@ const styles = StyleSheet.create({
     elevation: 4,
     height: 120,
     width: 120,
+    backgroundColor: 'gray'
   },
 });

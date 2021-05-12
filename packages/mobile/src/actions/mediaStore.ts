@@ -24,44 +24,46 @@ export const updateQuery = (query: string, category: string) => async (
 ) => {
   if (query) {
     const media = [];
+    try {
+      const offlineMedia = await RNAndroidAudioStore.search({
+        searchParam: query,
+      });
+      if (offlineMedia && offlineMedia.length) {
+        media.push({
+          title: 'Offline Songs',
+          data: offlineMedia,
+        });
+      }
 
-    const offlineMedia = await RNAndroidAudioStore.search({
-      searchParam: query,
-    });
-    if (offlineMedia && offlineMedia.length) {
-      media.push({
-        title: 'Offline Songs',
-        data: offlineMedia,
+      if (category !== 'offline') {
+
+        const jioSaavnSongs = await JioSaavn.searchJioSaavnMusic(query);
+        if (jioSaavnSongs && jioSaavnSongs.length) {
+          media.push({
+            title: 'JioSaavn Music',
+            data: jioSaavnSongs,
+          });
+        }
+
+        const youtubeSongs = await Youtube.searchYoutubeMusic(query);
+        if (youtubeSongs && youtubeSongs.length) {
+          media.push({
+            title: 'Youtube Music',
+            data: youtubeSongs,
+          });
+        }
+      }
+      dispatch({
+        type: 'UPDATE_QUERY',
+        payload: media,
+      });
+    } catch (error) {
+      log.error("Search", error);
+      dispatch({
+        type: 'UPDATE_QUERY',
+        payload: false,
       });
     }
-
-    if (category !== 'offline') {
-
-      const jioSaavnSongs = await JioSaavn.searchJioSaavnMusic(query);
-      if (jioSaavnSongs && jioSaavnSongs.length) {
-        media.push({
-          title: 'JioSaavn Music',
-          data: jioSaavnSongs,
-        });
-      }
-
-      const youtubeSongs = await Youtube.searchYoutubeMusic(query);
-      if (youtubeSongs && youtubeSongs.length) {
-        media.push({
-          title: 'Youtube Music',
-          data: youtubeSongs,
-        });
-      }
-    }
-    dispatch({
-      type: 'UPDATE_QUERY',
-      payload: media,
-    });
-  } else {
-    dispatch({
-      type: 'UPDATE_QUERY',
-      payload: false,
-    });
   }
 };
 

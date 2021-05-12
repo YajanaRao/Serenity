@@ -4,7 +4,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ActivityIndicator } from 'react-native-paper';
 import { View } from 'react-native';
-
 import { RootScreen } from './Root';
 import configureStore from './store';
 

@@ -26,10 +26,10 @@ export const Track = React.memo(({ track, active, play, download }: Props) => {
   return (
     <View style={[styles.surface, { backgroundColor: colors.background }]}>
       <List.Item
-        title={track.title}
-        description={track.artist ? track.artist : track.album}
+        title={track?.title}
+        description={ track?.artist || track?.album}
         left={() =>
-          track.cover ? (
+          track?.cover ? (
             <FastImage source={{ uri: track.cover }} style={styles.artwork} />
           ) : (
             <DefaultImage style={styles.artwork} />

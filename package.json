@@ -8,7 +8,9 @@
     "start": "yarn workspace mobile start",
     "release": "yarn workspace mobile release",
     "test": "yarn workspaces run test",
-    "lint": "eslint *.js **/*.js"
+    "lint": "eslint *.js **/*.js",
+    "format": "prettier --write .",
+    "xcode": "yarn workspace mobile xcode"
   },
   "husky": {
     "hooks": {

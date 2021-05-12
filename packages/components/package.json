@@ -1,0 +1,12 @@
+{
+  "name": "components",
+  "version": "1.0.0",
+  "description": "UI Components",
+  "main": "index.js",
+  "author": "YajanaRao",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "echo \"no test specified\" "
+  }
+}

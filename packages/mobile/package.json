@@ -38,6 +38,7 @@
     "react-native-fast-image": "^8.3.4",
     "react-native-fs": "^2.17.0",
     "react-native-gesture-handler": "^1.5.2",
+    "react-native-get-random-values": "^1.7.0",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-pager-view": "^5.1.2",
     "react-native-paper": "^4.7.2",
@@ -59,10 +60,10 @@
     "string-to-color": "^2.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
+    "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-typescript": "^7.13.0",
-    "@babel/runtime": "^7.6.2",
+    "@babel/runtime": "^7.12.5",
     "@types/color": "^3.0.1",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",

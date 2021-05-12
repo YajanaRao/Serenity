@@ -7,6 +7,6 @@ export async function youtubeSearch(query: string) {
     return (
         fetch(endpoint)
             .then(response => response.text())
-            .catch(error => console.error('searchYoutubeMusic', error))
+            .catch(error => console.error('youtubeSearch', error))
     );
 }
