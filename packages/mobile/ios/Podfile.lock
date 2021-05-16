@@ -435,6 +435,9 @@ PODS:
     - React-Core
   - RNScreens (2.18.1):
     - React-Core
+  - RNSentry (2.4.2):
+    - React-Core
+    - Sentry (= 6.1.4)
   - RNShare (5.3.0):
     - React-Core
   - RNSVG (12.1.1):
@@ -445,6 +448,9 @@ PODS:
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
+  - Sentry (6.1.4):
+    - Sentry/Core (= 6.1.4)
+  - Sentry/Core (6.1.4)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -520,6 +526,7 @@ DEPENDENCIES:
   - RNReactNativeGetMusicFiles (from `../../react-native-get-music-files`)
   - RNReanimated (from `../../../node_modules/react-native-reanimated`)
   - RNScreens (from `../../../node_modules/react-native-screens`)
+  - "RNSentry (from `../../../node_modules/@sentry/react-native`)"
   - RNShare (from `../../../node_modules/react-native-share`)
   - RNSVG (from `../../../node_modules/react-native-svg`)
   - Yoga (from `../../../node_modules/react-native/ReactCommon/yoga`)
@@ -554,6 +561,7 @@ SPEC REPOS:
     - PromisesObjC
     - SDWebImage
     - SDWebImageWebPCoder
+    - Sentry
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -655,6 +663,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../../../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../../../node_modules/@sentry/react-native"
   RNShare:
     :path: "../../../node_modules/react-native-share"
   RNSVG:
@@ -738,10 +748,12 @@ SPEC CHECKSUMS:
   RNReactNativeGetMusicFiles: 652fe77c494cc18cfca5eb9192124fb995918704
   RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
+  RNSentry: e86fb2e2fec0365644f4b582938bf66be515acce
   RNShare: 4df87d1791f50a2c7b1d89432fb9bbb7c02a9c9a
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   SDWebImage: 7acbb57630ac7db4a495547fb73916ff3e432f6b
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
+  Sentry: 9d055e2de30a77685e86b219acf02e59b82091fc
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
