@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { View, ViewStyle } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 
-import { TrackScrollView } from '../components/TrackScrollView';
-import { loadTrack } from '../actions/playerState';
-import { getPlayedSongs } from '../actions/realmAction';
-import { TrackProps } from '../utils/types';
-import { mostPlayedSongs } from '../actions/mediaStore';
-import realm from '../database';
-import { Headline } from '../components/Headline';
+import { TrackScrollView } from '../../../components/TrackScrollView';
+import { playTrack } from '../../../actions/playerState';
+import { TrackProps } from '../../../utils/types';
+import { Headline } from '../../../components/Headline';
+import { HISTORY_PLAYLIST } from '../../../database/consts';
+import { usePlaylistSongs } from '../../../hooks/usePlaylistSongs';
 
 const CONTINER: ViewStyle = {
   alignItems: 'center',
@@ -23,49 +22,28 @@ const CONTINER: ViewStyle = {
 
 export const MostPlayedContainer = () => {
   const navigation = useNavigation();
-  const realmSongs = getPlayedSongs();
-  const [history, setHistory] = useState(() => {
-    return mostPlayedSongs(realmSongs);
-  });
+  const history = usePlaylistSongs(HISTORY_PLAYLIST, 'most-played')
+
   const dispatch = useDispatch();
-  useEffect(() => {
-    const listener = (songs: [], changes: any) => {
-      if (
-        changes.insertions.length > 0 ||
-        changes.modifications.length > 0 ||
-        changes.deletions.length > 0
-      ) {
-        const song = mostPlayedSongs(songs);
-        setHistory(song);
-      }
-    };
-    if (realmSongs !== undefined && !realm.isInTransaction) {
-      realmSongs.addListener(listener);
-      return () => {
-        realmSongs.removeListener(listener);
-      };
-    }
-  }, [realmSongs]);
 
   const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
-      dispatch(loadTrack(track));
+      dispatch(playTrack(track));
     }
   };
 
   const navigateToSongs = React.useMemo(
     () => () => {
       const playlist = {
-        id: 'user-playlist--000001',
+        id: HISTORY_PLAYLIST,
         name: 'Most Played Songs',
         owner: 'Serenity',
       };
       navigation.navigate('Playlist', {
-        songs: mostPlayedSongs(realmSongs),
         playlist,
       });
     },
-    [navigation, realmSongs],
+    [navigation],
   );
 
   if (history.length) {

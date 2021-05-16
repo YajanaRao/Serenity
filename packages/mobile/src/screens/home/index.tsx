@@ -3,8 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme, IconButton } from 'react-native-paper';
 import { MainScreen } from './Main';
 import { SettingScreen } from './Settings';
-import { SongsList } from '../shared/SongsList';
 import { getGreetingTime } from '../../utils/greeting';
+import { PlaylistSongs } from '../shared/PlaylistSongs';
+import { OnlinePlaylist } from '../shared/OnlinePlaylist';
 
 const Stack = createStackNavigator();
 
@@ -49,7 +50,24 @@ const HomeStack = () => {
       />
       <Stack.Screen
         name="Playlist"
-        component={SongsList}
+        component={PlaylistSongs}
+        options={({ route }) => {
+          const { playlist } = route.params;
+          const { addToQueue } = route.params;
+          return {
+            headerTitle: playlist.name,
+            headerRight: () => (
+              <IconButton
+                icon="play-circle-outline"
+                onPress={() => addToQueue()}
+              />
+            ),
+          };
+        }}
+      />
+      <Stack.Screen
+        name="OnlinePlaylist"
+        component={OnlinePlaylist}
         options={({ route }) => {
           const { playlist } = route.params;
           const { addToQueue } = route.params;

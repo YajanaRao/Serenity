@@ -124,21 +124,6 @@ export const getPlayedSongs = () => {
   }
 };
 
-export const getFavoriteSongs = () => {
-  try {
-    const favorites = realm.objectForPrimaryKey(
-      PLAYLIST_SCHEMA_NAME,
-      favoritesPlaylist,
-    );
-    if (favorites !== undefined) {
-      return favorites.songs;
-    }
-    return undefined;
-  } catch (error) {
-    log.error(`getPlayedSongs`, error);
-    return undefined;
-  }
-};
 
 export const createPlaylist = (playlistName: string) => {
   realm.write(() => {

@@ -18,22 +18,16 @@ import { createPlaylist, getAllPlaylists } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
 import { Screen } from '../../components/Screen';
 import { PlaylistProps } from '../../utils/types';
-import { getYoutubePlaylist } from '../../services/Youtube';
-import { useCache } from '../../hooks/useCache';
 import realm from '../../database';
 import { Title } from '../../components/Title';
 
 export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
-  const { googleAccessGiven } = useSelector(state => state.user);
   const { colors } = useTheme();
   let realmPlaylists = getAllPlaylists();
   const [visible, setVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [name, setName] = useState('');
-  const [youtubePlaylists, { refresh, get }] = useCache(
-    'youtube_playlists',
-    () => getYoutubePlaylist(),
-  );
+
 
   const [localPlaylists, setLocalPlaylists] = useState(() => {
     return deserializePlaylists(realmPlaylists);
@@ -41,17 +35,10 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   const [playlists, setPlaylists] = useState([]);
 
   const navigateToCollection = (playlist: PlaylistProps) => {
-    if (playlist.type === 'Youtube') {
-      navigation.navigate('Songs', {
-        songs: playlist.songs,
-        playlist,
-      });
-    } else {
-      delete playlist.songs;
-      navigation.navigate('PlaylistSongs', {
-        playlist,
-      });
-    }
+    delete playlist.songs;
+    navigation.navigate('PlaylistSongs', {
+      playlist,
+    });
   };
 
   const showDialog = () => setVisible(true);
@@ -75,9 +62,6 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
     realmPlaylists = getAllPlaylists();
     const updatedList = deserializePlaylists(realmPlaylists);
     setLocalPlaylists(updatedList);
-    if (googleAccessGiven) {
-      refresh();
-    }
     setRefreshing(false);
   };
 
@@ -102,20 +86,10 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   useEffect(() => {
     const playlists = [];
     playlists.push({ title: 'Local Playlists', data: localPlaylists });
-    if (youtubePlaylists && youtubePlaylists.length) {
-      playlists.push({
-        title: 'Youtube Playlists',
-        data: youtubePlaylists,
-      });
-    }
     setPlaylists(playlists);
-  }, [localPlaylists, youtubePlaylists]);
+  }, [localPlaylists]);
 
-  useEffect(() => {
-    if (googleAccessGiven) {
-      get();
-    }
-  }, [googleAccessGiven, get]);
+
 
   function refreshPlaylist(title: string) {
     if (title === 'Local Playlists') {
@@ -124,8 +98,6 @@ export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
       const updatedList = deserializePlaylists(realmPlaylists);
       setLocalPlaylists(updatedList);
       setRefreshing(false);
-    } else if (title === 'Youtube Playlists') {
-      refresh();
     }
   }
 

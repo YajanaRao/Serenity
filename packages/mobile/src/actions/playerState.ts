@@ -1,11 +1,11 @@
-import {addEventListener, TrackPlayer} from 'react-track-player';
-import {EmitterSubscription} from 'react-native';
+import { addEventListener, TrackPlayer } from 'react-track-player';
+import { EmitterSubscription } from 'react-native';
 import head from 'lodash/head';
 import isEmpty from 'lodash/isEmpty';
 import sample from 'lodash/sample';
 
-import {ThunkDispatch} from 'redux-thunk';
-import {AnyAction} from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 import {
   addSong,
   removeSong,
@@ -16,10 +16,10 @@ import {
   removeAlbum,
   unshiftSong,
 } from './realmAction';
-import {deserializeSongs} from '../utils/database';
-import {log} from '../utils/logging';
-import {TrackProps, AlbumProps} from '../utils/types';
-import {Youtube} from 'media';
+import { deserializeSongs } from '../utils/database';
+import { log } from '../utils/logging';
+import { TrackProps, AlbumProps } from '../utils/types';
+import { Youtube } from 'media';
 
 let subscription: EmitterSubscription;
 
@@ -28,7 +28,10 @@ const HISTORY_ID = 'user-playlist--000001';
 const FAVOURITE_ID = 'user-playlist--000002';
 
 export const setUpTrackPlayer =
-  () => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+  (track: TrackProps) => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+    if (track) {
+      loadTrack(track);
+    }
     try {
       subscription = addEventListener('media', event => {
         // handle event
@@ -56,61 +59,60 @@ export const setUpTrackPlayer =
     }
   };
 
-export const loadTrack =
-  (track: TrackProps, playOnLoad = true) =>
+export const playTrack = (track: TrackProps) =>
   async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     try {
-      const {path, type} = track;
-      let audioUrl = path;
-      log.debug('loadTrack', `load track: ${track.path}`);
-      if (path) {
-        dispatch({
-          track,
-          type: 'LOAD',
-        });
-        if (type?.toLowerCase() === 'youtube') {
-          audioUrl = await Youtube.getAudioUrl(path);
-        }
-        TrackPlayer.load({
-          path: audioUrl,
-          title: track.title,
-          artist: track.artist,
-          cover: track.cover,
-        })
-          .then(() => {
-            if (playOnLoad) TrackPlayer.play();
-          })
-          .catch(error => {
-            log.error('loadTrack', error);
-            dispatch({
-              payload: `loadTrack ${path} of type ${type} failed`,
-              type: 'NOTIFY',
-            });
-          });
-      } else {
-        log.debug(
-          'loadTrack',
-          `path does not exist for track track: ${track.title} `,
-        );
-      }
+      dispatch({
+        track,
+        type: 'LOAD',
+      });
+      await loadTrack(track);
+      addSong(HISTORY_ID, track, true);
+      play();
     } catch (error) {
-      log.error(`loadTrack`, error);
+      log.error(`playTrack`, error);
+      dispatch({
+        payload: `playTrack ${track.path} of type ${track.type} failed`,
+        type: 'NOTIFY',
+      });
+    }
+  }
+export const loadTrack =
+  async (track: TrackProps) => {
+    const { path, type } = track;
+    let audioUrl = path;
+    log.debug('loadTrack', `load track: ${track.path}`);
+    if (path) {
+      if (type?.toLowerCase() === 'youtube') {
+        audioUrl = await Youtube.getAudioUrl(path);
+      }
+      await TrackPlayer.load({
+        path: audioUrl,
+        title: track.title,
+        artist: track.artist,
+        cover: track.cover,
+      })
+    } else {
+      log.debug(
+        'loadTrack',
+        `path does not exist for track track: ${track.title} `,
+      );
     }
   };
 
 export const playNext =
   (track: TrackProps) =>
-  (dispatch: ThunkDispatch<undefined, undefined, AnyAction>, getState) => {
-    try {
-      unshiftSong(QUEUE_ID, track);
-      if (isEmpty(getState().playerState.active)) {
-        const queue = getQueuedSongs();
-        dispatch(loadTrack(head(queue)));
+    (dispatch: ThunkDispatch<undefined, undefined, AnyAction>, getState) => {
+      try {
+        unshiftSong(QUEUE_ID, track);
+        if (isEmpty(getState().playerState.active)) {
+          const queue = getQueuedSongs();
+          dispatch(playTrack(head(queue)));
+        }
+      } catch (error) {
+        log.error('playNext', error);
       }
-    } catch (error) {
-      log.error('playNext', error);
-    }
-  };
+    };
 
 export const repeatSongs =
   (type: string) => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
@@ -141,7 +143,7 @@ export const startRadio =
     try {
       const track = sample(getState().mediaStore.songs);
       if (track) {
-        dispatch(loadTrack(track));
+        dispatch(playTrack(track));
         dispatch({
           payload: true,
           type: 'RADIO_MODE',
@@ -157,24 +159,18 @@ export const skipToNext =
     try {
       const queue = deserializeSongs(getQueuedSongs());
       let track = null;
-      const {config} = getState();
+      const { config } = getState();
       if (config.repeat === 'repeat-one') {
-        const playedTrack = getState().playerState.active;
-        addSong(HISTORY_ID, playedTrack);
-        dispatch(playTrack());
+        playTrack();
       } else if (config.repeat === 'repeat-all' && queue.length) {
-        const playedTrack = getState().playerState.active;
         track = head(queue);
-        addSong(HISTORY_ID, playedTrack);
         removeSong(QUEUE_ID, track);
       } else if (config.radio && config.repeat !== 'repeat-off') {
-        const playedTrack = getState().playerState.active;
         track = sample(getState().mediaStore.songs);
-        addSong(HISTORY_ID, playedTrack);
       }
 
       if (track) {
-        dispatch(loadTrack(track));
+        dispatch(playTrack(track));
       } else {
         TrackPlayer.pause();
         dispatch({
@@ -193,9 +189,8 @@ export const skipToPrevious =
       const history = getPlayedSongs();
       if (history.length) {
         const track = head(history);
-        // addSong(QUEUE_ID, track);
         if (track) {
-          dispatch(loadTrack(track));
+          play();
         }
       } else {
         TrackPlayer.pause();
@@ -225,25 +220,25 @@ export const destroyTrackPlayer =
 
 export const addToQueue =
   (songs: TrackProps[] | TrackProps) =>
-  (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState) => {
-    if (Array.isArray(songs)) {
-      songs.forEach(song => {
-        addSong(QUEUE_ID, song, true);
-      });
-    } else {
-      addSong(QUEUE_ID, songs, true);
-    }
+    (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState) => {
+      if (Array.isArray(songs)) {
+        songs.forEach(song => {
+          addSong(QUEUE_ID, song, true);
+        });
+      } else {
+        addSong(QUEUE_ID, songs, true);
+      }
 
-    if (isEmpty(getState().playerState.active)) {
-      const queue = getQueuedSongs();
-      dispatch(loadTrack(head(queue)));
-    } else {
-      dispatch({
-        payload: `Added ${songs.length || songs.title} songs to queue`,
-        type: 'NOTIFY',
-      });
-    }
-  };
+      if (isEmpty(getState().playerState.active)) {
+        const queue = getQueuedSongs();
+        dispatch(playTrack(head(queue)));
+      } else {
+        dispatch({
+          payload: `Added ${songs.length || songs.title} songs to queue`,
+          type: 'NOTIFY',
+        });
+      }
+    };
 
 export const removeFromQueue =
   (song: TrackProps) => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
@@ -294,13 +289,13 @@ export const removeAlbumFromFavorite =
 
 export const addToPlaylist =
   (id: string, song: TrackProps) =>
-  (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    addSong(id, song);
-    dispatch({
-      payload: 'Added to the playlist',
-      type: 'NOTIFY',
-    });
-  };
+    (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+      addSong(id, song);
+      dispatch({
+        payload: 'Added to the playlist',
+        type: 'NOTIFY',
+      });
+    };
 
 export const clearHistory =
   () => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
@@ -311,15 +306,15 @@ export const clearHistory =
     });
   };
 
-export const playTrack = () => {
+export const play = () => {
   try {
     TrackPlayer.play();
   } catch (error) {
-    log.error(`playTrack`, error);
+    log.error(`play`, error);
   }
 };
 
-export const pauseTrack = () => {
+export const pause = () => {
   try {
     TrackPlayer.pause();
   } catch (error) {

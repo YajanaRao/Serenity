@@ -4,9 +4,8 @@ import { isEmpty } from 'lodash';
 import { useNavigation } from '@react-navigation/core';
 
 import {
-  playTrack,
-  pauseTrack,
-  loadTrack,
+  play,
+  pause,
   destroyTrackPlayer,
   setUpTrackPlayer,
 } from '../actions/playerState';
@@ -19,23 +18,23 @@ export const PlayerBarContainer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setUpTrackPlayer());
+    dispatch(setUpTrackPlayer(active));
     return () => {
       dispatch(destroyTrackPlayer());
     };
   }, []);
 
-  useEffect(() => {
-    if (active !== {} && !isEmpty(active)) {
-      dispatch(loadTrack(active, false));
-    }
-  }, [active]);
+  // useEffect(() => {
+  //   if (active !== {} && !isEmpty(active)) {
+  //     dispatch(loadTrack(active, false));
+  //   }
+  // }, [active]);
 
   const togglePlayback = () => {
     if (status === 'playing') {
-      pauseTrack();
+      pause();
     } else {
-      playTrack();
+      play();
     }
   };
 

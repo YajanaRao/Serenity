@@ -12,9 +12,11 @@ import { Screen } from '../../components/Screen';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
 import { TrackProps } from '../../utils/types';
+import { usePlaylistSongs } from '../../hooks/usePlaylistSongs';
 
-export const SongsList = ({ route }) => {
-  const { playlist, songs } = route.params;
+export const PlaylistSongs = ({ route }) => {
+  const { playlist, filter } = route.params;
+  const songs = usePlaylistSongs(playlist.id, filter);
   const [refreshing, setRefreshing] = useState(false);
 
   const dispatch = useDispatch();
@@ -23,7 +25,11 @@ export const SongsList = ({ route }) => {
     dispatch(addToQueue(values(songs)));
   };
 
+
   const onRefresh = () => {
+    setRefreshing(true);
+    // const playlistSongs = getPlaylistSongs(playlist.id);
+    // setSongs(playlistSongs);
     setRefreshing(false);
   };
 

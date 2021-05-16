@@ -1,29 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/core';
-import * as data from '../assets/Media.json';
-import { TrackScrollView } from '../components/TrackScrollView';
-import { Headline } from '../components/Headline';
+import { TrackScrollView } from '../../../components/TrackScrollView';
+import { Headline } from '../../../components/Headline';
+import { Assets } from 'media';
 
 const OnlineSongsContainer = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
+  const [playlists, setPlaylists] = useState([]);
+
+  useEffect(() => {
+    const data = Assets.getPlaylists();
+    setPlaylists(data);
+  }, [])
 
   const navigateToPlaylist = (playlist: any) => {
-    const playlistMetadata = {
-      id: 'online-playlist--000002',
-      name: playlist.title,
-      owner: 'Serenity',
-      cover: playlist.cover,
-    };
-    navigation.navigate('Playlist', {
-      playlist: playlistMetadata,
-      songs: playlist.children,
+
+    navigation.navigate('OnlinePlaylist', {
+      playlist: playlist,
     });
   };
 
-  const { media } = data;
   if (netInfo.isConnected) {
     return (
       <View>
@@ -38,7 +37,7 @@ const OnlineSongsContainer = () => {
         >
           <Headline>Online Songs</Headline>
         </View>
-        <TrackScrollView data={media} play={navigateToPlaylist} />
+        <TrackScrollView data={playlists} play={navigateToPlaylist} />
       </View>
     );
   }

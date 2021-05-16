@@ -1,45 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { View } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Button } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/core';
-import { deserializeSongs } from '../utils/database';
-import { TrackScrollView } from '../components/TrackScrollView';
-import { loadTrack } from '../actions/playerState';
-import { getPlayedSongs } from '../actions/realmAction';
-import { TrackProps } from '../utils/types';
-import realm from '../database';
-import { Headline } from '../components/Headline';
+import { TrackScrollView } from '../../../components/TrackScrollView';
+import { playTrack } from '../../../actions/playerState';
+import { TrackProps } from '../../../utils/types';
+import { Headline } from '../../../components/Headline';
+import { usePlaylistSongs } from '../../../hooks/usePlaylistSongs';
+import { HISTORY_PLAYLIST } from '../../../database/consts';
+import { useDispatch } from 'react-redux';
 
 export const RecentContainer = () => {
-  const realmSongs = getPlayedSongs();
   const navigation = useNavigation();
-  const [history, setHistory] = useState(() => {
-    return deserializeSongs(realmSongs);
-  });
+  const history = usePlaylistSongs(HISTORY_PLAYLIST);
   const dispatch = useDispatch();
-  useEffect(() => {
-    const listener = (songs: TrackProps, changes: any) => {
-      if (
-        changes.insertions.length > 0 ||
-        changes.modifications.length > 0 ||
-        changes.deletions.length > 0
-      ) {
-        const song = deserializeSongs(songs);
-        setHistory(song);
-      }
-    };
-    if (realmSongs !== undefined && !realm.isInTransaction) {
-      realmSongs.addListener(listener);
-      return () => realmSongs.removeListener(listener);
-    }
-  }, [realmSongs]);
+
+  // const [history, setHistory] = useState(() => {
+  //   return deserializeSongs(realmSongs);
+  // });
+  // useEffect(() => {
+  //   const listener = (songs: TrackProps, changes: any) => {
+  //     if (
+  //       changes.insertions.length > 0 ||
+  //       changes.modifications.length > 0 ||
+  //       changes.deletions.length > 0
+  //     ) {
+  //       const song = deserializeSongs(songs);
+  //       setHistory(song);
+  //     }
+  //   };
+  //   if (realmSongs !== undefined && !realm.isInTransaction) {
+  //     realmSongs.addListener(listener);
+  //     return () => realmSongs.removeListener(listener);
+  //   }
+  // }, [realmSongs]);
 
   const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
-      dispatch(loadTrack(track));
+      dispatch(playTrack(track));
     }
   };
 
@@ -50,7 +50,6 @@ export const RecentContainer = () => {
       owner: 'Serenity',
     };
     navigation.navigate('Playlist', {
-      songs: history,
       playlist,
     });
   };

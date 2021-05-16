@@ -5,8 +5,9 @@ import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 
 import { useSelector } from 'react-redux';
-import { ArtistComponent } from '../components/ArtistComponent';
-import { ArtistProps } from '../utils/types';
+import { ArtistComponent } from '../../../components/ArtistComponent';
+import { ArtistProps } from '../../../utils/types';
+import Icon from '../../../components/Icon';
 
 interface ItemProps {
   item: ArtistProps;
@@ -44,6 +45,7 @@ export const FollowArtistDialog = ({
         <Dialog.Title>Choose more artists you like.</Dialog.Title>
         <Dialog.Content>
           <Searchbar
+            icon={() => <Icon name="search-outline" color="white" />}
             placeholder="Search"
             onChangeText={query => {
               setQuery(query);
