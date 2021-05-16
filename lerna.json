@@ -1,0 +1,11 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "independent",
+  "ignoreChanges": [
+    "*.md"
+  ],
+  "npmClient": "yarn",
+  "useWorkspaces": true
+}
