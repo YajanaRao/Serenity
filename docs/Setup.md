@@ -15,6 +15,11 @@ The following folders in packages indicate following things
 | react-track-player | audio player for android and ios |
 | react-native-get-music-files | read audio files from device |
 
+## Branches
+
+- develop -> pr this branch for everything
+- master -> source code of production application 
+
 ## Install yarn packages 
 
 Navigate to project root:

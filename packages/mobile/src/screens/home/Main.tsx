@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 
 import { useScrollToTop } from '@react-navigation/native';
 import { NetNotify } from '../../components/NetNotify';
@@ -30,7 +30,7 @@ export const MainScreen = () => {
         <Divider />
         <OnlineSongsContainer />
         <Divider />
-        <YoutubeSongsContainer />
+      { Platform.OS !== "ios" && <YoutubeSongsContainer /> }
         <Divider />
         <JioSaavnContainer />
       </ScrollView>
