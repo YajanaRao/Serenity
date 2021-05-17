@@ -24,7 +24,7 @@ import { getOfflineSongs } from '../../actions/mediaStore';
 import {
   addToQueue,
   shufflePlay,
-  loadTrack,
+  playTrack,
   playNext,
   addSongToFavorite,
   addToPlaylist,
@@ -98,11 +98,11 @@ export const SongScreen = () => {
   };
 
   const playSong = () => {
-    dispatch(loadTrack(song));
+    dispatch(playTrack(song));
   };
 
   const play = (song: TrackProps) => {
-    dispatch(loadTrack(song));
+    dispatch(playTrack(song));
   };
 
   const openMenu = (event: GestureResponderEvent, song: TrackProps) => {
