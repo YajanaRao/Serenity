@@ -19,7 +19,7 @@ export const log = {
       if (__DEV__) {
         console.log('debug: ', title, message);
       } else {
-        Sentry.captureMessage('Something went wrong');
+        Sentry.captureMessage(message);
       }
     } catch (error) {
       console.log(error);
