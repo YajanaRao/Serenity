@@ -1,5 +1,4 @@
 /* global __DEV__ */
-import crashlytics from '@react-native-firebase/crashlytics';
 import * as Sentry from '@sentry/react-native';
 
 export const log = {
@@ -8,14 +7,10 @@ export const log = {
       if (__DEV__) {
         console.error(title, message);
       } else {
-        Sentry.captureException(err);
-        if (message instanceof Error) {
-          crashlytics().recordError(message);
-        }
+        Sentry.captureException(message);
       }
     } catch (error) {
       console.log(error);
-      crashlytics().recordError(message);
     }
   },
 
@@ -24,12 +19,10 @@ export const log = {
       if (__DEV__) {
         console.log('debug: ', title, message);
       } else {
-        crashlytics().log(message);
         Sentry.captureMessage('Something went wrong');
       }
     } catch (error) {
       console.log(error);
-      crashlytics().recordError(error);
     }
   },
 };

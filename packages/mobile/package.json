@@ -17,8 +17,6 @@
     "@react-native-async-storage/async-storage": "^1.15.1",
     "@react-native-community/masked-view": "^0.1.5",
     "@react-native-community/netinfo": "^6.0.0",
-    "@react-native-firebase/app": "^11.2.0",
-    "@react-native-firebase/crashlytics": "^11.2.0",
     "@react-native-google-signin/google-signin": "^6.0.0",
     "@react-navigation/bottom-tabs": "^5.11.9",
     "@react-navigation/core": "^5.15.3",
