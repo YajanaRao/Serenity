@@ -81,7 +81,6 @@ export const loadTrack =
   async (track: TrackProps) => {
     const { path, type } = track;
     let audioUrl = path;
-    log.debug('loadTrack', `load track: ${track.path}`);
     if (path) {
       if (type?.toLowerCase() === 'youtube') {
         audioUrl = await Youtube.getAudioUrl(path);

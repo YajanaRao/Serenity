@@ -10,7 +10,7 @@ import { RepeatContainer } from '../../containers/RepeatContainer';
 import { PlayerController } from '../../containers/PlayerController';
 import { Progress } from '../../components/ProgressBar';
 import { Screen } from '../../components/Screen';
-import { ActiveTrackDetails } from '../../components/ActiveTrackDetails';
+import { ActiveTrackDetails } from './components/ActiveTrackDetails';
 import { RootReducerType } from '../../reducers';
 import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { addToPlaylist } from '../../actions/playerState';
