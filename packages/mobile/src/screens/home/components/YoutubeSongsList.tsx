@@ -4,7 +4,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { useDispatch } from 'react-redux';
 import { TrackScrollView } from '../../../components/TrackScrollView';
 import { Youtube } from 'media';
-import { loadTrack } from '../../../actions/playerState';
+import { playTrack } from '../../../actions/playerState';
 import { Headline } from '../../../components/Headline';
 
 const YoutubeSongsList = () => {
@@ -23,7 +23,7 @@ const YoutubeSongsList = () => {
   }, [netInfo]);
 
   function playAudio(song) {
-    dispatch(loadTrack(song));
+    dispatch(playTrack(song));
   }
 
   if (netInfo.isConnected && playlists.length) {

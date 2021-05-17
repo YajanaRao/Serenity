@@ -4,10 +4,10 @@ import { IconButton, FAB, useTheme } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  playTrack,
+  play,
   skipToNext,
   skipToPrevious,
-  pauseTrack,
+  pause,
 } from '../actions/playerState';
 import { RootReducerType } from '../reducers';
 
@@ -29,11 +29,11 @@ export const PlayerController = () => {
   const togglePlayback = () => {
     if (status === 'playing') {
       requestAnimationFrame(() => {
-        pauseTrack();
+        pause();
       });
     } else {
       requestAnimationFrame(() => {
-        playTrack();
+        play();
       });
     }
   };

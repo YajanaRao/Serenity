@@ -3,12 +3,12 @@ import { Platform, ScrollView, View } from 'react-native';
 
 import { useScrollToTop } from '@react-navigation/native';
 import { NetNotify } from '../../components/NetNotify';
-import { RecentContainer } from '../../containers/RecentContainer';
-import { MostPlayedContainer } from '../../containers/MostPlayedContainer';
+import { RecentContainer } from './components/RecentContainer';
+import { MostPlayedContainer } from './components/MostPlayedContainer';
 import OnlineContainer from '../../containers/OnlineContainer';
 import { Screen } from '../../components/Screen';
-import { ShortCutContainer } from '../../containers/ShortcutContainer';
-import OnlineSongsContainer from '../../containers/OnlineSongsContainer';
+import { ShortCutContainer } from './components/ShortcutContainer';
+import OnlineSongsContainer from './components/OnlineSongsContainer';
 import YoutubeSongsContainer from './components/YoutubeSongsList';
 import { JioSaavnContainer } from './components/JioSaavnList';
 

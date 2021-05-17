@@ -1,0 +1,1 @@
+export const HISTORY_PLAYLIST = 'user-playlist--000001';

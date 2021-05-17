@@ -2,7 +2,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { loadTrack } from '../../../actions/playerState';
+import { playTrack } from '../../../actions/playerState';
 import { Headline } from '../../../components/Headline';
 import { TrackScrollView } from '../../../components/TrackScrollView';
 import { JioSaavn } from 'media';
@@ -19,7 +19,7 @@ export function JioSaavnContainer({ }: JioSaavnContainerProps) {
   }, []);
 
   function playAudioFromJioSaavn(song) {
-    dispatch(loadTrack(song));
+    dispatch(playTrack(song));
   }
 
   if (netInfo.isConnected) {
