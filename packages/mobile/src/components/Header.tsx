@@ -21,7 +21,7 @@ export const Header = ({
   useEffect(() => {
     const timeOutId = setTimeout(
       () => dispatch(updateQuery(query, params?.type)),
-      500,
+      200,
     );
     return () => clearTimeout(timeOutId);
   }, [query]);
