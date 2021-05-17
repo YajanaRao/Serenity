@@ -25,7 +25,7 @@ export const log = {
         console.log('debug: ', title, message);
       } else {
         crashlytics().log(message);
-        Sentry.captureMessage('Something went wrong');
+        Sentry.captureMessage(message);
       }
     } catch (error) {
       console.log(error);
