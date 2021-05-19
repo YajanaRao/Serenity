@@ -7,6 +7,7 @@
     "bootstrap": "npx lerna bootstrap",
     "rebootstrap": "npx lerna clean --yes && npm run bootstrap",
     "ios": "yarn workspace mobile ios",
+    "pod": "yarn workspace mobile pod-install",
     "start": "yarn workspace mobile start",
     "release": "yarn workspace mobile release",
     "test": "yarn workspaces run test",

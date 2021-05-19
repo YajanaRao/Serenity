@@ -3274,6 +3274,11 @@
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
+"@yajanarao/react-native-get-music-files@latest":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@yajanarao/react-native-get-music-files/-/react-native-get-music-files-2.1.0.tgz#dc4cf689f197323cadffc9c920bf0581cae1b0e4"
+  integrity sha512-lrfT9RdJSy+YuDG4u7wPNvG43joXRls/Z7Czgoon0ezMi1gnLJBeG4Hy9HIHEn+BQw73p86d8D0FgpAGKAdCKQ==
+
 JSONStream@^1.0.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
@@ -10956,6 +10961,11 @@ react-test-renderer@17.0.2:
     react-is "^17.0.2"
     react-shallow-renderer "^16.13.1"
     scheduler "^0.20.2"
+
+react-track-player@latest:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-track-player/-/react-track-player-1.0.12.tgz#1118faf497f9772460b1c4de5bffb554023cc388"
+  integrity sha512-3gU7wCZ3kPyc+doh+KaP7B0QjelOfJVx0VzAf2UvCK/desNgE5fXZQVO6NCtCkFfo8HamiRF46D27hr7aytBNA==
 
 react@17.0.1:
   version "17.0.1"
