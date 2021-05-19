@@ -1,4 +1,4 @@
-export const PLAYLIST_SCHEMA_NAME = 'Playlist';
+export const PLAYLIST_SCHEMA_NAME: string = 'Playlist';
 
 const PlaylistSchema = {
   name: PLAYLIST_SCHEMA_NAME,

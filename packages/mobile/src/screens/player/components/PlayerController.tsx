@@ -8,8 +8,8 @@ import {
   skipToNext,
   skipToPrevious,
   pause,
-} from '../actions/playerState';
-import { RootReducerType } from '../reducers';
+} from '../../../actions/playerState';
+import { RootReducerType } from '../../../reducers';
 
 export const PlayerController = () => {
   const dispatch = useDispatch();
@@ -39,14 +39,14 @@ export const PlayerController = () => {
   };
   return (
     <View style={styles.playerToolbox}>
-      <IconButton icon="skip-back-outline" size={40} onPress={previous} />
+      <IconButton icon="skip-back-outline" size={50} onPress={previous} />
       <FAB
         icon={status === 'playing' ? 'pause' : 'play'}
         onPress={togglePlayback}
         loading={status === 'loading'}
         style={{ backgroundColor: colors.onSurface }}
       />
-      <IconButton icon="skip-forward-outline" size={40} onPress={next} />
+      <IconButton icon="skip-forward-outline" size={50} onPress={next} />
     </View>
   );
 };
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    flex: 2,
+    flex: 3,
   },
 });

@@ -13,10 +13,9 @@ import { addSong } from './realmAction';
 import { TrackProps } from '../utils/types';
 import { giveWriteOfflineAccess } from './userState';
 
-const DOWNLOADED_ID = 'user-playlist--000004';
 
 export const addSongToDownloads = (song: TrackProps) => {
-  addSong(DOWNLOADED_ID, song, true);
+  addSong(DOWNLOADED_PLAYLIST_ID, song, true);
 };
 
 export const updateQuery = (query: string, category: string) => async (
@@ -163,7 +162,7 @@ export const mostPlayedSongs = (array: []) => {
     values(groupBy(array, 'title')).map(group => ({
       ...group[0],
       count: group.length,
-    })),
+    })), 'title', 'asc'
   );
 };
 const _downloadFileProgress = data => {

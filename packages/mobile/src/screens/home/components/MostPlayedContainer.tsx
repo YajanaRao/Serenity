@@ -9,10 +9,10 @@ import { TrackScrollView } from '../../../components/TrackScrollView';
 import { playTrack } from '../../../actions/playerState';
 import { TrackProps } from '../../../utils/types';
 import { Headline } from '../../../components/Headline';
-import { HISTORY_PLAYLIST } from '../../../database/consts';
+import { HISTORY_PLAYLIST_ID } from '../../../database/consts';
 import { usePlaylistSongs } from '../../../hooks/usePlaylistSongs';
 
-const CONTINER: ViewStyle = {
+const CONTAINER: ViewStyle = {
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -22,7 +22,7 @@ const CONTINER: ViewStyle = {
 
 export const MostPlayedContainer = () => {
   const navigation = useNavigation();
-  const history = usePlaylistSongs(HISTORY_PLAYLIST, 'most-played')
+  const history = usePlaylistSongs(HISTORY_PLAYLIST_ID, 'most-played')
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ export const MostPlayedContainer = () => {
   const navigateToSongs = React.useMemo(
     () => () => {
       const playlist = {
-        id: HISTORY_PLAYLIST,
+        id: HISTORY_PLAYLIST_ID,
         name: 'Most Played Songs',
         owner: 'Serenity',
       };
@@ -49,7 +49,7 @@ export const MostPlayedContainer = () => {
   if (history.length) {
     return (
       <View>
-        <View style={CONTINER}>
+        <View style={CONTAINER}>
           <Headline>Most Played</Headline>
           {history.length > 3 ? (
             <Button onPress={navigateToSongs} uppercase={false}>

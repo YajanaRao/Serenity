@@ -9,12 +9,12 @@ import { playTrack } from '../../../actions/playerState';
 import { TrackProps } from '../../../utils/types';
 import { Headline } from '../../../components/Headline';
 import { usePlaylistSongs } from '../../../hooks/usePlaylistSongs';
-import { HISTORY_PLAYLIST } from '../../../database/consts';
+import { HISTORY_PLAYLIST_ID } from '../../../database/consts';
 import { useDispatch } from 'react-redux';
 
 export const RecentContainer = () => {
   const navigation = useNavigation();
-  const history = usePlaylistSongs(HISTORY_PLAYLIST);
+  const history = usePlaylistSongs(HISTORY_PLAYLIST_ID);
   const dispatch = useDispatch();
 
   // const [history, setHistory] = useState(() => {

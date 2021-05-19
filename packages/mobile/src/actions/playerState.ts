@@ -20,12 +20,11 @@ import { deserializeSongs } from '../utils/database';
 import { log } from '../utils/logging';
 import { TrackProps, AlbumProps } from '../utils/types';
 import { Youtube } from 'media';
+import { FAVORITES_PLAYLIST_ID, HISTORY_PLAYLIST_ID, QUEUE_ID } from '../database/consts';
 
 let subscription: EmitterSubscription;
 
-const QUEUE_ID = 'user-playlist--000003';
-const HISTORY_ID = 'user-playlist--000001';
-const FAVOURITE_ID = 'user-playlist--000002';
+
 
 export const setUpTrackPlayer =
   (track: TrackProps) => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
@@ -33,7 +32,7 @@ export const setUpTrackPlayer =
       loadTrack(track);
     }
     try {
-      subscription = addEventListener('media', event => {
+      subscription = addEventListener('media', (event: any) => {
         // handle event
         console.log('from event listener', event);
         if (event === 'skip_to_next') {
@@ -67,7 +66,7 @@ export const playTrack = (track: TrackProps) =>
         type: 'LOAD',
       });
       await loadTrack(track);
-      addSong(HISTORY_ID, track, true);
+      addSong(HISTORY_PLAYLIST_ID, track, true);
       play();
     } catch (error) {
       log.error(`playTrack`, error);
@@ -156,11 +155,11 @@ export const startRadio =
 export const skipToNext =
   () => (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState) => {
     try {
-      const queue = deserializeSongs(getQueuedSongs());
-      let track = null;
+      const queue: TrackProps[] = deserializeSongs(getQueuedSongs());
+      let track: TrackProps | null = null;
       const { config } = getState();
       if (config.repeat === 'repeat-one') {
-        playTrack();
+        play();
       } else if (config.repeat === 'repeat-all' && queue.length) {
         track = head(queue);
         removeSong(QUEUE_ID, track);
@@ -261,7 +260,7 @@ export const clearQueue =
 
 export const addSongToFavorite =
   (song: TrackProps) => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    addSong(FAVOURITE_ID, song, true);
+    addSong(FAVORITES_PLAYLIST_ID, song, true);
     dispatch({
       payload: `Added song ${song.title}to favorites`,
       type: 'NOTIFY',
@@ -298,7 +297,7 @@ export const addToPlaylist =
 
 export const clearHistory =
   () => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    clearAllSongs(HISTORY_ID);
+    clearAllSongs(HISTORY_PLAYLIST_ID);
     dispatch({
       payload: 'Cleared history',
       type: 'NOTIFY',
