@@ -133,7 +133,7 @@ jobs:
 #         if: startsWith(github.ref, 'refs/tags/')
         with:
           tag_name: v${{ github.run_number }}
-          files: app-release.apk
+          files: app-release.apk/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
