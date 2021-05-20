@@ -137,6 +137,9 @@ jobs:
           tag_name: v${{ github.run_number }}
           release_name: Release v${{ github.run_number }} 
           
+      - name: Display structure of downloaded files
+        run: ls -R
+          
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
