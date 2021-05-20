@@ -126,7 +126,7 @@ jobs:
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
-          name: apk  
+          name: app-release.apk  
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
