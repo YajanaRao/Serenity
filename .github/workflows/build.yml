@@ -126,7 +126,7 @@ jobs:
       - name: Download APK from build
         uses: actions/download-artifact@v1
         with:
-          name: apk  
+          name: app-release.apk  
           
       - name: Create Release
         id: create_release
@@ -143,6 +143,9 @@ jobs:
       - name: Display structure of downloaded files 1
         run: ls
           
+      - name: Current working directory
+        run: pwd
+      
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
@@ -150,6 +153,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: apk
+          asset_path: /home/runner/work/Serenity/Serenity/app-release.apk
           asset_name: Serenity.apk
           asset_content_type: application/zip
