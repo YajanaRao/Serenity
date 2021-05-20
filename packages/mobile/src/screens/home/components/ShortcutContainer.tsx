@@ -3,17 +3,11 @@ import { View, TouchableOpacity } from 'react-native';
 import { Avatar, Caption } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/core';
-
-import { getPlayedSongs, getFavoriteSongs } from '../actions/realmAction';
-import { startRadio } from '../actions/playerState';
-import { mostPlayedSongs } from '../actions/mediaStore';
+import { startRadio } from '../../../actions/playerState';
 
 export const ShortCutContainer = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const mostPlayed = () => {
-    return mostPlayedSongs(getPlayedSongs());
-  };
 
   const navigateToHistory = React.useMemo(
     () => () => {
@@ -23,8 +17,7 @@ export const ShortCutContainer = () => {
         owner: 'Serenity',
       };
       navigation.navigate('Playlist', {
-        playlist,
-        songs: getPlayedSongs(),
+        playlist
       });
     },
     [navigation],
@@ -38,8 +31,7 @@ export const ShortCutContainer = () => {
         owner: 'Serenity',
       };
       navigation.navigate('Playlist', {
-        playlist,
-        songs: getFavoriteSongs(),
+        playlist
       });
     },
     [navigation],
@@ -48,13 +40,13 @@ export const ShortCutContainer = () => {
   const navigateToMostPlayed = React.useMemo(
     () => () => {
       const playlist = {
-        id: 'user-playlist--000002',
+        id: 'user-playlist--000001',
         name: 'Most Played Songs',
         owner: 'Serenity',
       };
       navigation.navigate('Playlist', {
         playlist,
-        songs: mostPlayed(),
+        filter: 'most-played',
       });
     },
     [navigation],

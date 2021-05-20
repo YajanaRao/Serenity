@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Subheading, Text } from 'react-native-paper';
-import { TrackProps } from '../utils/types';
 import ActiveTrackImage from './ActiveTrackImage';
+import { TrackProps } from '../../../utils/types';
 
 interface Props {
   track: TrackProps;

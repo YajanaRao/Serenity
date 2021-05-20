@@ -3,7 +3,6 @@ import { Searchbar, useTheme } from 'react-native-paper';
 import { Keyboard, View, ViewStyle } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/core';
-import { debounce } from 'lodash';
 import { updateQuery } from '../actions/mediaStore';
 
 export const Header = ({
@@ -21,7 +20,7 @@ export const Header = ({
   useEffect(() => {
     const timeOutId = setTimeout(
       () => dispatch(updateQuery(query, params?.type)),
-      500,
+      200,
     );
     return () => clearTimeout(timeOutId);
   }, [query]);

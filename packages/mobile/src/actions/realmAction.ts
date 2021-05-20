@@ -6,13 +6,13 @@ import { ARTIST_SCHEMA_NAME } from '../database/schema/ArtistSchema';
 import { ALBUM_SCHEMA_NAME } from '../database/schema/AlbumSchema';
 import { TrackProps, ArtistProps, AlbumProps } from '../utils/types';
 import { log } from '../utils/logging';
+import { FAVORITES_PLAYLIST_ID, HISTORY_PLAYLIST_ID, QUEUE_ID } from '../database/consts';
 
 export const userPlaylistIdPrefix = 'user-playlist--';
 export const userSongIdPrefix = 'user-song--';
 export const artistIdPrefix = 'artist--';
 export const albumIdPrefix = 'album--';
 
-export const favoritesPlaylist = 'user-playlist--000002';
 
 const generateId = () => {
   const playlists = realm.objects(PLAYLIST_SCHEMA_NAME).sorted('id', true);
@@ -96,7 +96,7 @@ export const getQueuedSongs = () => {
   try {
     const queue = realm.objectForPrimaryKey(
       PLAYLIST_SCHEMA_NAME,
-      'user-playlist--000003',
+      QUEUE_ID,
     );
     if (queue !== undefined) {
       return queue.songs;
@@ -112,7 +112,7 @@ export const getPlayedSongs = () => {
   try {
     const history = realm.objectForPrimaryKey(
       PLAYLIST_SCHEMA_NAME,
-      'user-playlist--000001',
+      HISTORY_PLAYLIST_ID,
     );
     if (history !== undefined) {
       return history.songs;
@@ -124,21 +124,6 @@ export const getPlayedSongs = () => {
   }
 };
 
-export const getFavoriteSongs = () => {
-  try {
-    const favorites = realm.objectForPrimaryKey(
-      PLAYLIST_SCHEMA_NAME,
-      favoritesPlaylist,
-    );
-    if (favorites !== undefined) {
-      return favorites.songs;
-    }
-    return undefined;
-  } catch (error) {
-    log.error(`getPlayedSongs`, error);
-    return undefined;
-  }
-};
 
 export const createPlaylist = (playlistName: string) => {
   realm.write(() => {
@@ -223,7 +208,7 @@ export const clearAllSongs = (id: string) => {
 export const isSongPresent = (id: string) => {
   const playlist = realm.objectForPrimaryKey(
     PLAYLIST_SCHEMA_NAME,
-    favoritesPlaylist,
+    FAVORITES_PLAYLIST_ID,
   );
   return find(playlist.songs, { id });
 };

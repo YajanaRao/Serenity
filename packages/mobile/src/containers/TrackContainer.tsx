@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 
-import { loadTrack } from '../actions/playerState';
+import { playTrack } from '../actions/playerState';
 import { Track } from '../components/Track';
 import { TrackProps } from '../utils/types';
 import { RootReducerType } from '../reducers';
@@ -34,7 +34,7 @@ export const TrackContainer = ({ track, goBack }: Props) => {
   const play = () => {
     if (!isActive) {
       // requestAnimationFrame(() => {
-      dispatch(loadTrack(track));
+      dispatch(playTrack(track));
       // });
     }
     if (goBack) {
