@@ -139,6 +139,9 @@ jobs:
           
       - name: Display structure of downloaded files
         run: ls -R
+        
+      - name: Display structure of downloaded files 1
+        run: ls
           
       - name: Upload Release APK
         id: upload_release_asset
