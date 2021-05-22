@@ -12,7 +12,7 @@ import PagerView, {
 import { Button, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { useDispatch } from 'react-redux';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { LocalLibraryAccess } from './components/LocalLibraryAccess';
 import GoogleLogin from './components/GoogleLogin';
 import { appIntroduction } from '../../actions/userState';

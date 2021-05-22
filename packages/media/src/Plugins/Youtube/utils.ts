@@ -33,7 +33,7 @@ const VideoRender = data => {
   return {};
 };
 
-export async function getSongList(page: string) {
+export async function getSongList(page: string, length = 20) {
   const data = page
     .split('var ytInitialData =')[1]
     .split('</script>')[0]
@@ -43,18 +43,23 @@ export async function getSongList(page: string) {
     sectionListRenderer,
   } = initdata.contents.twoColumnSearchResultsRenderer.primaryContents;
   const items = [];
+  let index = 0;
   await sectionListRenderer.contents.forEach(content => {
     if (content.itemSectionRenderer) {
-      content.itemSectionRenderer.contents.forEach(item => {
+      for (const item of content.itemSectionRenderer.contents) {
         if (item.videoRenderer) {
+          if (index === length) {
+            break
+          }
           const videoRender = item.videoRenderer;
           // const playListRender = item.playlistRenderer;
 
           if (videoRender && videoRender.videoId) {
             items.push(VideoRender(item));
+            index++;
           }
         }
-      });
+      };
     }
   });
   return items;

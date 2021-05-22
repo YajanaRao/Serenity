@@ -11,9 +11,7 @@ import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 
 import Genre from '../../data/genre.json';
-import { Screen } from '../../components/Screen';
-import { Headline } from '../../components/Headline';
-import { Title } from '../../components/Title';
+import { Screen, Headline, Title } from 'components';
 
 interface GenreProps {
   item: {

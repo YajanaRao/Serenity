@@ -8,7 +8,7 @@ import generate from 'string-to-color';
 import { FollowArtistDialog } from './components/FollowArtistDialog';
 import { addArtist, getArtists } from '../../actions/realmAction';
 import { deserializeArtists } from '../../utils/database';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { ArtistProps } from '../../utils/types';
 
 export const ArtistScreen = ({ navigation }) => {

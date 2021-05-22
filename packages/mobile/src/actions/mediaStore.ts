@@ -5,13 +5,14 @@ import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import RNFS from 'react-native-fs';
-import { JioSaavn, Youtube } from 'media';
+import { searchSongs, Youtube } from 'media';
 import { includes } from 'lodash';
 
 import { log } from '../utils/logging';
 import { addSong } from './realmAction';
 import { TrackProps } from '../utils/types';
 import { giveWriteOfflineAccess } from './userState';
+import { DOWNLOADED_PLAYLIST_ID } from '../database/consts';
 
 
 export const addSongToDownloads = (song: TrackProps) => {
@@ -19,7 +20,7 @@ export const addSongToDownloads = (song: TrackProps) => {
 };
 
 export const updateQuery = (query: string, category: string) => async (
-  dispatch: ThunkDispatch<{}, {}, AnyAction>,
+  dispatch: ThunkDispatch<{}, {}, AnyAction>
 ) => {
   if (query) {
     const media = [];
@@ -33,24 +34,9 @@ export const updateQuery = (query: string, category: string) => async (
           data: offlineMedia,
         });
       }
-
-      if (category !== 'offline') {
-
-        const jioSaavnSongs = await JioSaavn.searchJioSaavnMusic(query);
-        if (jioSaavnSongs && jioSaavnSongs.length) {
-          media.push({
-            title: 'JioSaavn Music',
-            data: jioSaavnSongs,
-          });
-        }
-
-        const youtubeSongs = await Youtube.searchYoutubeMusic(query);
-        if (youtubeSongs && youtubeSongs.length) {
-          media.push({
-            title: 'Youtube Music',
-            data: youtubeSongs,
-          });
-        }
+    if (category !== 'offline') {
+        const songs = await searchSongs(query);
+        if (songs.length) media.concat(songs);
       }
       dispatch({
         type: 'UPDATE_QUERY',

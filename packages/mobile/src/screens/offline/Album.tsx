@@ -8,7 +8,7 @@ import { useScrollToTop } from '@react-navigation/native';
 
 import { getOfflineAlbums } from '../../actions/mediaStore';
 import { Blank } from '../../components/Blank';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { DefaultImage } from '../../components/DefaultImage';
 import { AlbumProps } from '../../utils/types';
 import { RootReducerType } from '../../reducers';

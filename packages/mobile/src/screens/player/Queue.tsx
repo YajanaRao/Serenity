@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Chip, IconButton } from 'react-native-paper';
+import { Chip } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearQueue } from '../../actions/playerState';
 import { AlertDialog } from '../../components/AlertDialog';
-import { Screen } from '../../components/Screen';
-import { Title } from '../../components/Title';
+import { Screen, Title } from 'components';
 import { Track } from '../../components/Track';
 import { QueueContainer } from '../../containers/QueueContainer';
 import { RootReducerType } from '../../reducers';
 
-export interface QueueScreenProps {}
+export interface QueueScreenProps { }
 
 export function QueueScreen({ navigation }: QueueScreenProps) {
   const dispatch = useDispatch();

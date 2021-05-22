@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/core';
 import { TrackScrollView } from '../../../components/TrackScrollView';
 import { playTrack } from '../../../actions/playerState';
 import { TrackProps } from '../../../utils/types';
-import { Headline } from '../../../components/Headline';
+import { Headline } from 'components';
 import { HISTORY_PLAYLIST_ID } from '../../../database/consts';
 import { usePlaylistSongs } from '../../../hooks/usePlaylistSongs';
 

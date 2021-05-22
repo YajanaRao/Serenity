@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/core';
 import { TrackScrollView } from '../../../components/TrackScrollView';
-import { Headline } from '../../../components/Headline';
+import { Headline } from 'components';
 import { Assets } from 'media';
 
 const OnlineSongsContainer = () => {

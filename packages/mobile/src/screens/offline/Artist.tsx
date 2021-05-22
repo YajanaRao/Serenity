@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import generate from 'string-to-color';
 import { getOfflineArtists } from '../../actions/mediaStore';
 import { Blank } from '../../components/Blank';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { giveReadOfflineAccess } from '../../actions/userState';
 import { RootReducerType } from '../../reducers';
 

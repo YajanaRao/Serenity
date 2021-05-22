@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { TrackScrollView } from '../../../components/TrackScrollView';
 import { Youtube } from 'media';
 import { playTrack } from '../../../actions/playerState';
-import { Headline } from '../../../components/Headline';
+import { Headline } from 'components';
 
 const YoutubeSongsList = () => {
   const netInfo = useNetInfo();

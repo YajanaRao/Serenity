@@ -48,7 +48,7 @@ import DoneAllIcon from '../assets/Icons/done-all.svg';
 import UnlockOutlineIcon from '../assets/Icons/unlock-outline.svg';
 import LogInOutlineIcon from '../assets/Icons/log-in-outline.svg';
 import PersonOutlineIcon from '../assets/Icons/person-outline.svg';
-import { log } from '../utils/logging';
+import { log } from '../../../mobile/src/utils/logging';
 
 const ICONS = {
   'arrow-back': ArrowBackIcon,
@@ -110,12 +110,10 @@ export interface IconProps {
   allowFontScaling?: boolean | undefined;
 }
 
-const Icon = ({ name, size = 40, color = '#000000', ...props }: IconProps) => {
+export const Icon = ({ name, size = 40, color = '#000000', ...props }: IconProps) => {
   const IconImpl = ICONS[name];
   if (!IconImpl) log.error('missing icon', name);
   return IconImpl ? (
     <IconImpl width={size} height={size} color={color} {...props} />
   ) : null;
 };
-
-export default Icon;

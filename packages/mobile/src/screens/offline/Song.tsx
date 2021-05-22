@@ -30,7 +30,7 @@ import {
   addToPlaylist,
 } from '../../actions/playerState';
 import { Blank } from '../../components/Blank';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { PlaylistDialog } from '../../components/PlaylistDialog';
 import { TrackProps } from '../../utils/types';
 import { TrackMenu } from '../../components/TrackMenu';

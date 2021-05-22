@@ -4,6 +4,7 @@ import { Keyboard, View, ViewStyle } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/core';
 import { updateQuery } from '../actions/mediaStore';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 export const Header = ({
   containerStyle = {},
@@ -14,12 +15,18 @@ export const Header = ({
 }) => {
   const [query, setQuery] = useState('');
   const { params } = useRoute();
+  const netInfo = useNetInfo();
+ 
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let type = netInfo.isConnected ? "online" : "offline";
+    if(params?.type){
+      type = params?.type;
+    }
     const timeOutId = setTimeout(
-      () => dispatch(updateQuery(query, params?.type)),
+      () => dispatch(updateQuery(query, type)),
       200,
     );
     return () => clearTimeout(timeOutId);

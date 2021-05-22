@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { PlaylistDialog } from './PlaylistDialog';
 import { SwipeList } from './SwipeList';
-import { Container } from './Container';
+import { Container } from 'components';
 
 import { TrackProps } from '../utils/types';
 

@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 import { List } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { EmptyFavoriteAlbums } from '../../components/EmptyFavoriteAlbums';
 import { getAlbums } from '../../actions/realmAction';
 import { deserializeAlbums } from '../../utils/database';

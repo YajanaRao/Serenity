@@ -3,12 +3,11 @@ import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Caption, IconButton, useTheme } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { includes } from 'lodash';
-import Icon from '../../components/Icon';
+import { Icon, Screen } from 'components';
 import { FavContainer } from '../../containers/FavContainer';
 import { RepeatContainer } from '../../containers/RepeatContainer';
 import { PlayerController } from './components/PlayerController';
 import { Progress } from '../../components/ProgressBar';
-import { Screen } from '../../components/Screen';
 import { ActiveTrackDetails } from './components/ActiveTrackDetails';
 import { RootReducerType } from '../../reducers';
 import { PlaylistDialog } from '../../components/PlaylistDialog';
@@ -85,16 +84,16 @@ export const PlayerScreen = ({ navigation }) => {
                 ['youtube', 'online', 'jiosaavn'],
                 active.type?.toLowerCase(),
               ) && (
-                <View style={styles.extraIcon}>
-                  <IconButton
-                    style={{ padding: 0, margin: 0 }}
-                    size={20}
-                    icon={props => <Icon name="download-outline" {...props} />}
-                    onPress={download}
-                  />
-                  <Caption>Download</Caption>
-                </View>
-              )}
+                  <View style={styles.extraIcon}>
+                    <IconButton
+                      style={{ padding: 0, margin: 0 }}
+                      size={20}
+                      icon={props => <Icon name="download-outline" {...props} />}
+                      onPress={download}
+                    />
+                    <Caption>Download</Caption>
+                  </View>
+                )}
               <View style={styles.extraIcon}>
                 <IconButton
                   size={20}

@@ -7,9 +7,9 @@ import { ActivityIndicator } from 'react-native-paper';
 import { addToQueue } from '../../actions/playerState';
 import { filterSongsByGenre } from '../../actions/mediaStore';
 import { SongListContainer } from '../../containers/SongListContainer';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
-import { Container } from '../../components/Container';
+import { Container } from 'components';
 
 export const FilterScreen = ({ navigation, route }: StackScreenProps<any>) => {
   const [songs, setSongs] = useState([]);

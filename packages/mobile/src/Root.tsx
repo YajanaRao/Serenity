@@ -3,7 +3,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 
-import Icon from './components/Icon';
+import { Icon } from 'components';
 
 import { RootNavigator } from './screens/RootNavigator';
 import { defaultSetup } from './actions';

@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import { findArtistSongs } from '../../actions/mediaStore';
 import { SongListContainer } from '../../containers/SongListContainer';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
 export const ArtistSongs = ({ route }) => {

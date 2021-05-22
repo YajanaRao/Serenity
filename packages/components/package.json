@@ -2,7 +2,7 @@
   "name": "components",
   "version": "1.0.0",
   "description": "UI Components",
-  "main": "index.js",
+  "main": "index.tsx",
   "author": "YajanaRao",
   "license": "MIT",
   "private": true,

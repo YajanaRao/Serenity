@@ -6,7 +6,7 @@ import { NetNotify } from '../../components/NetNotify';
 import { RecentContainer } from './components/RecentContainer';
 import { MostPlayedContainer } from './components/MostPlayedContainer';
 import OnlineContainer from '../../containers/OnlineContainer';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { ShortCutContainer } from './components/ShortcutContainer';
 import OnlineSongsContainer from './components/OnlineSongsContainer';
 import YoutubeSongsContainer from './components/YoutubeSongsList';
@@ -30,7 +30,7 @@ export const MainScreen = () => {
         <Divider />
         <OnlineSongsContainer />
         <Divider />
-      { Platform.OS !== "ios" && <YoutubeSongsContainer /> }
+        {Platform.OS !== "ios" && <YoutubeSongsContainer />}
         <Divider />
         <JioSaavnContainer />
       </ScrollView>

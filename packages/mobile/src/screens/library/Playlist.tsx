@@ -12,14 +12,13 @@ import { RefreshControl, SectionList, StyleSheet, View } from 'react-native';
 
 import { Collection } from 'realm';
 import { StackScreenProps } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import { createPlaylist, getAllPlaylists } from '../../actions/realmAction';
 import { deserializePlaylists } from '../../utils/database';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { PlaylistProps } from '../../utils/types';
 import realm from '../../database';
-import { Title } from '../../components/Title';
+import { Title } from 'components';
 
 export const PlaylistScreen = ({ navigation }: StackScreenProps) => {
   const { colors } = useTheme();

@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, View, SectionList } from 'react-native';
-import { List } from 'react-native-paper';
+import { View, SectionList } from 'react-native';
+import { List, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { TrackContainer } from '../../containers/TrackContainer';
 import { RootReducerType } from '../../reducers';
 import { TrackProps } from '../../utils/types';
 
-export interface FindScreenProps {}
+export interface FindScreenProps { }
 
 export function FindScreen({ navigation }: FindScreenProps) {
   const searchResult = useSelector(

@@ -8,7 +8,7 @@ import FastImage from 'react-native-fast-image';
 import { addToQueue } from '../../actions/playerState';
 import { TrackContainer } from '../../containers/TrackContainer';
 import { DefaultImage } from '../../components/DefaultImage';
-import { Screen } from '../../components/Screen';
+import { Screen } from 'components';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 
 import { TrackProps } from '../../utils/types';

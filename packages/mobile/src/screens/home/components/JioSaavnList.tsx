@@ -2,10 +2,11 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { playTrack } from '../../../actions/playerState';
-import { Headline } from '../../../components/Headline';
-import { TrackScrollView } from '../../../components/TrackScrollView';
+import { Headline } from 'components';
 import { JioSaavn } from 'media';
+
+import { playTrack } from '../../../actions/playerState';
+import { TrackScrollView } from '../../../components/TrackScrollView';
 
 export interface JioSaavnContainerProps { }
 
