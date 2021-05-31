@@ -9,18 +9,24 @@ import { useTheme, Text, IconButton, Surface } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import Genre from '../../data/genre.json';
 import { Screen, Headline, Title } from 'components';
 
-interface GenreProps {
-  item: {
-    colors: [];
-    title: string;
-  };
-}
 
-export const SearchScreen = ({ navigation }) => {
+import { SearchStackParamList, GenreProps } from './types';
+
+type SearchScreenNavigationProp = StackNavigationProp<
+  SearchStackParamList,
+  'Search'
+>;
+
+type Props = {
+  navigation: SearchScreenNavigationProp;
+};
+
+export const SearchScreen = ({ navigation }: Props) => {
   const ref = useRef(null);
   const { colors, roundness } = useTheme();
   useScrollToTop(ref);
@@ -58,14 +64,13 @@ export const SearchScreen = ({ navigation }) => {
         ListHeaderComponent={() => (
           <Headline style={styles.headline}>All Moods & Genres</Headline>
         )}
-        renderItem={({ item }: GenreProps) => (
+        renderItem={({ item }: { item: GenreProps }) => (
           <TouchableOpacity
             style={{
               flex: 1,
             }}
             onPress={() =>
               navigation.navigate('Filter', {
-                songs: [],
                 genre: item,
               })
             }
@@ -115,9 +120,6 @@ export const SearchScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  searchbar: {
-    margin: 10,
-  },
   searchBarContainer: {
     marginHorizontal: 10,
     marginVertical: 6,
@@ -128,7 +130,6 @@ const styles = StyleSheet.create({
   },
   searchBarPlaceholder: { fontSize: 18, paddingLeft: 8 },
   item: {
-    // backgroundColor: Colors.lightBlueA100,
     borderRadius: 4,
     flex: 1,
     justifyContent: 'center',

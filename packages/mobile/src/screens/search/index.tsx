@@ -2,10 +2,15 @@ import React from 'react';
 import { useTheme, IconButton } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { FilterScreen } from '../shared/Filter';
+import { FilterScreen } from './Filter';
 import { SearchScreen } from './Search';
 
-const Stack = createStackNavigator();
+export type SearchStackParamList = {
+  Search: undefined;
+  Filter: { genre: { title: string }, addToQueue: () => void };
+};
+
+const Stack = createStackNavigator<SearchStackParamList>();
 
 export const SearchStack = () => {
   const theme = useTheme();

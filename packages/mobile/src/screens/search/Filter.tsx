@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import { StackScreenProps } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { ActivityIndicator } from 'react-native-paper';
 import { addToQueue } from '../../actions/playerState';
 import { filterSongsByGenre } from '../../actions/mediaStore';
@@ -10,11 +10,27 @@ import { SongListContainer } from '../../containers/SongListContainer';
 import { Screen } from 'components';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import { Container } from 'components';
+import { SearchStackParamList } from './types';
+import { RouteProp } from '@react-navigation/core';
 
-export const FilterScreen = ({ navigation, route }: StackScreenProps<any>) => {
+type FilterScreenNavigationProp = StackNavigationProp<
+  SearchStackParamList,
+  'Filter'
+>;
+
+type ProfileScreenRouteProp = RouteProp<SearchStackParamList, 'Filter'>;
+
+
+type Props = {
+  navigation: FilterScreenNavigationProp;
+  route: ProfileScreenRouteProp;
+};
+
+export const FilterScreen = ({ navigation, route }: Props) => {
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const { genre } = route.params;
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,12 +45,10 @@ export const FilterScreen = ({ navigation, route }: StackScreenProps<any>) => {
   };
 
   const fetchData = async () => {
-    const genre = route.params.genre.title;
-    const data = await filterSongsByGenre(genre);
+    const data = await filterSongsByGenre(genre.title);
     setSongs(data);
   };
 
-  const { genre } = route.params;
 
   if (isLoading) {
     return (

@@ -5,10 +5,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import color from 'color';
-
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native';
 import { OfflineStack } from './offline';
-import { SearchStack } from './search';
+import { SearchStack, SearchStackParamList } from './search';
 import HomeStack from './home';
 import IntroductionScreen from './intro/Introduction';
 import { LibraryStack } from './library';
@@ -19,9 +19,28 @@ import { PlayerStack } from './player';
 import { FindScreen } from './shared/Find';
 import { Header } from '../components/Header';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
-const NativeStack = createNativeStackNavigator();
+type BottomTabParamList = {
+  Home: undefined;
+  Search: NavigatorScreenParams<SearchStackParamList>;
+  Library: undefined;
+  Offline: undefined;
+};
+
+type RootStackParamList = {
+  Main: any;
+  Find: { type?: string };
+  Player: undefined;
+};
+
+type AppStackParamList = {
+  Launch: undefined;
+  App: NavigatorScreenParams<RootStackParamList>;
+  Intro: undefined;
+};
+
+const Tab = createBottomTabNavigator<BottomTabParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
+const NativeStack = createNativeStackNavigator<AppStackParamList>();
 
 const BottomNavigator = () => {
   const theme = useTheme();
@@ -100,6 +119,8 @@ const BottomNavigator = () => {
   );
 };
 
+
+
 const RootStack = () => {
   return (
     <Stack.Navigator mode="modal">
@@ -113,7 +134,7 @@ const RootStack = () => {
         component={FindScreen}
         initialParams={{ type: 'all' }}
         options={{
-          header: ({ navigation, route }) => (
+          header: ({ navigation }) => (
             <Header goBack={navigation.goBack} />
           ),
         }}
@@ -127,7 +148,7 @@ const RootStack = () => {
   );
 };
 
-const AuthStack = () => {
+const AppStack = () => {
   return (
     <NativeStack.Navigator
       screenOptions={{
@@ -151,7 +172,7 @@ export const RootNavigator = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.surface }}>
       <NotificationContainer />
-      <AuthStack />
+      <AppStack />
     </SafeAreaView>
   );
 };
