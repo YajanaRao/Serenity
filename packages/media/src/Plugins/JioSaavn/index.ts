@@ -12,7 +12,6 @@ export async function getTopCharts() {
 
 export async function searchJioSaavnMusic(query: string) {
     try {
-        console.log("searching songs");
         const data = await jioSaavnSearch(query);
         const songs = await parseSongs(data);
         return songs;

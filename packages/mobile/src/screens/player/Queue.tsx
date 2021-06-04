@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Chip } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { clearQueue } from '../../actions/playerState';
 import { AlertDialog } from '../../components/AlertDialog';
-import { Screen, Title } from 'components';
-import { Track } from '../../components/Track';
-import { QueueContainer } from '../../containers/QueueContainer';
-import { RootReducerType } from '../../reducers';
+import { Screen } from 'components';
+import { QueueList } from './components/QueueList';
 
 export interface QueueScreenProps { }
 
 export function QueueScreen({ navigation }: QueueScreenProps) {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const active = useSelector(
-    (state: RootReducerType) => state.playerState.active,
-  );
+
 
   const close = () => {
     navigation.navigate('Home');
@@ -50,10 +46,7 @@ export function QueueScreen({ navigation }: QueueScreenProps) {
         title="Clear Queue"
         message="Clear queue would stop current playing song"
       />
-      <Title style={{ margin: 8 }}>Now Playing</Title>
-      <Track track={active} play={() => navigation.goBack()} active />
-      <Title style={{ margin: 8 }}>Next in Queue</Title>
-      <QueueContainer />
+      <QueueList />
       <View style={{ height: 100 }} />
     </Screen>
   );

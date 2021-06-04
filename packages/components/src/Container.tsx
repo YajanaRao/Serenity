@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet, ViewProps } from 'react-native';
+import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 
 interface ContainerProps {
-  style?: ViewProps;
+  style?: StyleProp<ViewStyle>;
   children: ReactNode;
 }
 

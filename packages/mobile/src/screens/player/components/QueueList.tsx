@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { Surface, Title, IconButton, Divider } from 'react-native-paper';
+import { Surface, IconButton, Divider } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
+import { Title } from 'components';
 
 import { useNavigation } from '@react-navigation/core';
-import { deserializeSongs } from '../utils/database';
-import { getQueuedSongs } from '../actions/realmAction';
-import { removeFromQueue } from '../actions/playerState';
-import { FavContainer } from './FavContainer';
-import { TrackContainer } from './TrackContainer';
-import { TrackProps } from '../utils/types';
-import realm from '../database';
+import { deserializeSongs } from '../../../utils/database';
+import { getQueuedSongs } from '../../../actions/realmAction';
+import { removeFromQueue } from '../../../actions/playerState';
+import { FavContainer } from '../../../containers/FavContainer';
+import { TrackContainer } from '../../../containers/TrackContainer';
+import { TrackProps } from '../../../utils/types';
+import realm from '../../../database';
+import { RootReducerType } from '../../../reducers';
+import { Track } from '../../../components/Track';
 
-interface Props {}
+interface Props { }
 
 interface ItemProps {
   item: TrackProps;
 }
 
-export const QueueContainer = ({}: Props) => {
+export const QueueList = ({ }: Props) => {
   const realmSongs = getQueuedSongs();
-  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const active = useSelector(
+    (state: RootReducerType) => state.playerState.active,
+  );
+  const dispatch = useDispatch();
 
   const [queue, setQueue] = useState(() => {
     return deserializeSongs(realmSongs);
@@ -57,6 +63,13 @@ export const QueueContainer = ({}: Props) => {
       <View>
         <SwipeListView
           data={queue}
+          ListHeaderComponent={() => (
+            <View>
+              <Title style={{ margin: 8 }}>Now Playing</Title>
+              <Track track={active} play={() => navigation.goBack()} active />
+              <Title style={{ margin: 8 }}>Next in Queue</Title>
+            </View>
+          )}
           renderItem={({ item }: ItemProps) => <TrackContainer track={item} />}
           ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}

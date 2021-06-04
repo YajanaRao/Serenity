@@ -4,23 +4,31 @@ import {
   TouchableOpacity,
   Animated,
   Pressable,
+  View
 } from 'react-native';
 import { useTheme, Text, IconButton, Surface } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import Genre from '../../data/genre.json';
 import { Screen, Headline, Title } from 'components';
 
-interface GenreProps {
-  item: {
-    colors: [];
-    title: string;
-  };
-}
 
-export const SearchScreen = ({ navigation }) => {
+import { SearchStackParamList, GenreProps } from './types';
+import VoiceSearch from './components/VoiceSearch';
+
+type SearchScreenNavigationProp = StackNavigationProp<
+  SearchStackParamList,
+  'Search'
+>;
+
+type Props = {
+  navigation: SearchScreenNavigationProp;
+};
+
+export const SearchScreen = ({ navigation }: Props) => {
   const ref = useRef(null);
   const { colors, roundness } = useTheme();
   useScrollToTop(ref);
@@ -58,14 +66,13 @@ export const SearchScreen = ({ navigation }) => {
         ListHeaderComponent={() => (
           <Headline style={styles.headline}>All Moods & Genres</Headline>
         )}
-        renderItem={({ item }: GenreProps) => (
+        renderItem={({ item }: { item: GenreProps }) => (
           <TouchableOpacity
             style={{
               flex: 1,
             }}
             onPress={() =>
               navigation.navigate('Filter', {
-                songs: [],
                 genre: item,
               })
             }
@@ -94,41 +101,46 @@ export const SearchScreen = ({ navigation }) => {
           width: '100%',
         }}
       >
-        <Pressable onPress={() => navigation.navigate('Find')}>
-          <Surface
-            style={[styles.searchBarContainer, { borderRadius: roundness }]}
-          >
-            <IconButton icon="search-outline" />
-            <Text
-              style={[
-                styles.searchBarPlaceholder,
-                { color: colors.placeholder },
-              ]}
+        <Surface style={styles.searchBarContainer}>
+          <Pressable onPress={() => navigation.navigate('Find')}>
+            <Surface
+              style={[styles.searchInput, { borderRadius: roundness }]}
             >
-              Artists, songs or podcasts
+
+              <IconButton icon="search-outline" />
+              <Text
+                style={[
+                  styles.searchBarPlaceholder,
+                  { color: colors.placeholder },
+                ]}
+              >
+                Artists, songs or podcasts
             </Text>
-          </Surface>
-        </Pressable>
+            </Surface>
+          </Pressable>
+          <VoiceSearch />
+        </Surface>
+
       </Animated.View>
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  searchbar: {
-    margin: 10,
-  },
   searchBarContainer: {
     marginHorizontal: 10,
     marginVertical: 6,
+    elevation: 4,
+    justifyContent: "space-between",
+    flexDirection: "row"
+  },
+  searchInput: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    elevation: 4,
   },
   searchBarPlaceholder: { fontSize: 18, paddingLeft: 8 },
   item: {
-    // backgroundColor: Colors.lightBlueA100,
     borderRadius: 4,
     flex: 1,
     justifyContent: 'center',

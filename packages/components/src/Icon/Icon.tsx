@@ -18,6 +18,7 @@ import HeartIcon from '../assets/Icons/heart.svg';
 import HomeOutlineIcon from '../assets/Icons/home-outline.svg';
 import HomeIcon from '../assets/Icons/home.svg';
 import LogOutOutlineIcon from '../assets/Icons/log-out-outline.svg';
+import MicOutlineIcon from '../assets/Icons/mic-outline.svg';
 import MenuOutlineIcon from '../assets/Icons/menu-outline.svg';
 import MoreVerticalOutlineIcon from '../assets/Icons/more-vertical-outline.svg';
 import MusicOutlineIcon from '../assets/Icons/music-outline.svg';
@@ -76,6 +77,7 @@ const ICONS = {
   plus: PlusIcon,
   checkmark: CheckmarkIcon,
   close: CloseIcon,
+  'mic-outline': MicOutlineIcon,
   'more-vertical-outline': MoreVerticalOutlineIcon,
   'menu-outline': MenuOutlineIcon,
   folder: FolderIcon,

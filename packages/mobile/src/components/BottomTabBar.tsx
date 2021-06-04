@@ -17,7 +17,6 @@ export const BottomTabBar = ({
   navigation,
   backgroundColor,
 }: BottomTabBarProps) => {
-  console.log();
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
