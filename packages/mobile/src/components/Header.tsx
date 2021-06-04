@@ -13,20 +13,29 @@ export const Header = ({
   containerStyle?: ViewStyle;
   goBack?: () => void;
 }) => {
+
   const [query, setQuery] = useState('');
   const { params } = useRoute();
   const netInfo = useNetInfo();
- 
+
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let type = netInfo.isConnected ? "online" : "offline";
-    if(params?.type){
-      type = params?.type;
+    const { query } = params;
+    if (query) {
+      setQuery(query)
+    }
+  }, [])
+
+  useEffect(() => {
+    let category = netInfo.isConnected ? "online" : "offline";
+    const { type } = params;
+    if (type) {
+      category = type;
     }
     const timeOutId = setTimeout(
-      () => dispatch(updateQuery(query, type)),
+      () => dispatch(updateQuery(query, category)),
       200,
     );
     return () => clearTimeout(timeOutId);
@@ -48,7 +57,7 @@ export const Header = ({
         value={query}
         icon={goBack ? 'arrow-back-outline' : 'search-outline'}
         onIconPress={() => (goBack ? goBack() : Keyboard.dismiss())}
-        clearIcon="close-outline"
+        clearIcon={query ? "close-outline" : "mic-outline"}
         autoFocus
       />
     </View>

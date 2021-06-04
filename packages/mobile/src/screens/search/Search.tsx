@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Animated,
   Pressable,
+  View
 } from 'react-native';
 import { useTheme, Text, IconButton, Surface } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,6 +17,7 @@ import { Screen, Headline, Title } from 'components';
 
 
 import { SearchStackParamList, GenreProps } from './types';
+import VoiceSearch from './components/VoiceSearch';
 
 type SearchScreenNavigationProp = StackNavigationProp<
   SearchStackParamList,
@@ -99,21 +101,26 @@ export const SearchScreen = ({ navigation }: Props) => {
           width: '100%',
         }}
       >
-        <Pressable onPress={() => navigation.navigate('Find')}>
-          <Surface
-            style={[styles.searchBarContainer, { borderRadius: roundness }]}
-          >
-            <IconButton icon="search-outline" />
-            <Text
-              style={[
-                styles.searchBarPlaceholder,
-                { color: colors.placeholder },
-              ]}
+        <Surface style={styles.searchBarContainer}>
+          <Pressable onPress={() => navigation.navigate('Find')}>
+            <Surface
+              style={[styles.searchInput, { borderRadius: roundness }]}
             >
-              Artists, songs or podcasts
+
+              <IconButton icon="search-outline" />
+              <Text
+                style={[
+                  styles.searchBarPlaceholder,
+                  { color: colors.placeholder },
+                ]}
+              >
+                Artists, songs or podcasts
             </Text>
-          </Surface>
-        </Pressable>
+            </Surface>
+          </Pressable>
+          <VoiceSearch />
+        </Surface>
+
       </Animated.View>
     </Screen>
   );
@@ -123,10 +130,14 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     marginHorizontal: 10,
     marginVertical: 6,
+    elevation: 4,
+    justifyContent: "space-between",
+    flexDirection: "row"
+  },
+  searchInput: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    elevation: 4,
   },
   searchBarPlaceholder: { fontSize: 18, paddingLeft: 8 },
   item: {

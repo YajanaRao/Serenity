@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { FilterScreen } from './Filter';
 import { SearchScreen } from './Search';
+import VoiceSearch from './VoiceSearch';
 
 export type SearchStackParamList = {
   Search: undefined;
