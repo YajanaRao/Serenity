@@ -4,15 +4,14 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ActivityIndicator } from 'react-native-paper';
 import { View } from 'react-native';
+import { store } from '@serenity/core';
+import { persistStore } from 'redux-persist';
 import { RootScreen } from './Root';
-import configureStore from './store';
-import * as Sentry from "@sentry/react-native";
+import { SentryContainer } from './containers/SentryContainer';
 
-Sentry.init({
-  dsn: "https://94ad3322cfed4d539c476404c19fee4c@o291897.ingest.sentry.io/5767946",
-});
 
-const { store, persistor } = configureStore();
+
+const persistor = persistStore(store);
 
 
 const App = () => {
@@ -23,15 +22,15 @@ const App = () => {
   );
 
   return (
-<Sentry.TouchEventBoundary>
-    <SafeAreaProvider>
-      <Provider store={store}>
-        <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
-          <RootScreen />
-        </PersistGate>
-      </Provider>
+    <SentryContainer>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
+            <RootScreen />
+          </PersistGate>
+        </Provider>
       </SafeAreaProvider>
-      </Sentry.TouchEventBoundary>
+    </SentryContainer>
   );
 };
 

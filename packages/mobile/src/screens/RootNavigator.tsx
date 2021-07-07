@@ -32,7 +32,7 @@ type RootStackParamList = {
   Player: undefined;
 };
 
-type AppStackParamList = {
+export type AppStackParamList = {
   Launch: undefined;
   App: NavigatorScreenParams<RootStackParamList>;
   Intro: undefined;
@@ -121,50 +121,49 @@ const BottomNavigator = () => {
 
 
 
-const RootStack = () => {
-  return (
-    <Stack.Navigator mode="modal">
-      <Stack.Screen
-        name="Main"
-        component={BottomNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Find"
-        component={FindScreen}
-        initialParams={{ type: 'all' }}
-        options={{
-          header: ({ navigation }) => (
-            <Header goBack={navigation.goBack} />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="Player"
-        component={PlayerStack}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const AppStack = () => {
-  return (
-    <NativeStack.Navigator
-      screenOptions={{
-        headerShown: false,
+const RootStack = () => (
+  <Stack.Navigator mode="modal">
+    <Stack.Screen
+      name="Main"
+      component={BottomNavigator}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Find"
+      component={FindScreen}
+      initialParams={{ type: 'all' }}
+      options={{
+        header: ({ navigation }) => (
+          <Header goBack={navigation.goBack} />
+        ),
       }}
-      initialRouteName="Launch"
-    >
-      <NativeStack.Screen name="App" component={RootStack} />
-      <NativeStack.Screen name="Intro" component={IntroductionScreen} />
-      <NativeStack.Screen name="Launch" component={LaunchScreen} />
-    </NativeStack.Navigator>
-  );
-};
+    />
+    <Stack.Screen
+      name="Player"
+      component={PlayerStack}
+      options={{ headerShown: false }}
+    />
+  </Stack.Navigator>
+);
+
+
+const AppStack = () => (
+  <NativeStack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+    initialRouteName="Launch"
+  >
+    <NativeStack.Screen name="App" component={RootStack} />
+    <NativeStack.Screen name="Intro" component={IntroductionScreen} />
+    <NativeStack.Screen name="Launch" component={LaunchScreen} />
+  </NativeStack.Navigator>
+);
+
 export const RootNavigator = () => {
   const theme = useTheme();
   const { colors } = theme;
+
   useEffect(() => {
     RNBootSplash.hide({ fade: true });
   }, []);

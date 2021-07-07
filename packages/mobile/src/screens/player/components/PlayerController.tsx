@@ -2,40 +2,27 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { IconButton, FAB, useTheme } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-
-import {
-  play,
-  skipToNext,
-  skipToPrevious,
-  pause,
-} from '../../../actions/playerState';
-import { RootReducerType } from '../../../reducers';
+import { playNext, playPrevious, toggle } from '../../../../../core/src';
+import { playNextSong } from '../../../../../core/src/actions/player';
+import { RootReducerType } from '../../../../../core/src/reducers';
 
 export const PlayerController = () => {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const status = useSelector(
-    (state: RootReducerType) => state.playerState.status,
+    (state: RootReducerType) => state.player.status,
   );
 
   const previous = () => {
-    dispatch(skipToPrevious());
+    dispatch(playPrevious());
   };
 
   const next = () => {
-    dispatch(skipToNext());
+    dispatch(playNextSong());
   };
 
   const togglePlayback = () => {
-    if (status === 'playing') {
-      requestAnimationFrame(() => {
-        pause();
-      });
-    } else {
-      requestAnimationFrame(() => {
-        play();
-      });
-    }
+    dispatch(toggle())
   };
   return (
     <View style={styles.playerToolbox}>

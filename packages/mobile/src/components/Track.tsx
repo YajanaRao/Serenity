@@ -16,8 +16,8 @@ interface TrackProps {
 interface Props {
   track: TrackProps;
   active: boolean;
-  play(): void;
-  download(): void;
+  play: () => void;
+  download?: () => void;
 }
 
 export const Track = React.memo(({ track, active, play, download }: Props) => {
@@ -27,7 +27,7 @@ export const Track = React.memo(({ track, active, play, download }: Props) => {
     <View style={[styles.surface, { backgroundColor: colors.background }]}>
       <List.Item
         title={track?.title}
-        description={ track?.artist || track?.album}
+        description={track?.artist || track?.album}
         left={() =>
           track?.cover ? (
             <FastImage source={{ uri: track.cover }} style={styles.artwork} />
@@ -41,7 +41,7 @@ export const Track = React.memo(({ track, active, play, download }: Props) => {
               style={[{ height: 50, width: 30, marginLeft: 4 }, props.style]}
             />
           ) : (
-            track.type === 'online' && (
+            track?.type === 'online' && (
               <IconButton
                 icon="download-outline"
                 onPress={download}

@@ -14,13 +14,13 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackScreenProps } from '@react-navigation/stack';
-import { Screen } from 'components';
-import { updateTheme, changeRadioMode } from '../../actions';
-import { clearHistory } from '../../actions/playerState';
-import { AlertDialog } from '../../components/AlertDialog';
-import { googleSignIn, removeUserInfo } from '../../actions/userState';
+import { Screen } from '@serenity/components';
+// import { changeRadioMode } from '../../actions';
+import { clearHistory, updateTheme } from '@serenity/core';
+import { AlertDialog } from '../../components/Dialogs/AlertDialog';
+// import { googleSignIn, removeUserInfo } from '../../actions/userActions';
 import { log } from '../../utils/logging';
-import { LoadingDialog } from '../../components/LoadingDialog';
+import { LoadingDialog } from '../../components/Dialogs/LoadingDialog';
 import { DiagnoseDialog } from './components/DiagnoseDialog';
 
 export const SettingScreen = ({ navigation }: StackScreenProps) => {
@@ -34,15 +34,15 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
   const { dark } = theme;
 
   const toggleTheme = (isDark: boolean) => {
-    let themeType = 'default';
+    let themeType = 'dark';
     if (isDark) {
-      themeType = 'dark';
+      themeType = 'default';
     }
     dispatch(updateTheme(themeType));
   };
 
   const toggleRadioMode = () => {
-    dispatch(changeRadioMode(!radio));
+    // dispatch(changeRadioMode(!radio));
   };
 
   const showAlert = () => {
@@ -59,7 +59,7 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
       const { idToken } = await GoogleSignin.getTokens();
       await GoogleSignin.clearCachedAccessToken(idToken);
       await AsyncStorage.clear();
-      dispatch(removeUserInfo());
+      // dispatch(removeUserInfo());
       setLoading(false);
       navigation.navigate('Intro');
     } catch (error) {
@@ -71,7 +71,7 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
 
   const signIn = async () => {
     try {
-      dispatch(googleSignIn());
+      // dispatch(googleSignIn());
     } catch (error) {
       log.error('signIn', error);
     }

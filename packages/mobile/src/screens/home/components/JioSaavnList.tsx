@@ -1,12 +1,12 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Headline } from 'components';
 import { JioSaavn } from 'media';
 
-import { playTrack } from '../../../actions/playerState';
-import { TrackScrollView } from '../../../components/TrackScrollView';
+import { TrackItem } from './TrackItem';
+import { playSong } from '../../../../../core/src';
 
 export interface JioSaavnContainerProps { }
 
@@ -20,7 +20,7 @@ export function JioSaavnContainer({ }: JioSaavnContainerProps) {
   }, []);
 
   function playAudioFromJioSaavn(song) {
-    dispatch(playTrack(song));
+    dispatch(playSong(song));
   }
 
   if (netInfo.isConnected) {
@@ -37,7 +37,13 @@ export function JioSaavnContainer({ }: JioSaavnContainerProps) {
         >
           <Headline>JioSaavn Songs</Headline>
         </View>
-        <TrackScrollView data={songs} play={playAudioFromJioSaavn} />
+        <FlatList
+          horizontal
+          data={songs}
+          keyExtractor={(item) => item}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <TrackItem id={item} onPress={playAudioFromJioSaavn} />}
+        />
       </View>
     );
   }

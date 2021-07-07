@@ -2,7 +2,7 @@ import React from 'react';
 import { Title, Paragraph } from 'react-native-paper';
 import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { Container } from 'components';
+import { Container } from '@serenity/components';
 
 interface TrackProps {
   artwork: string;
@@ -30,7 +30,7 @@ export const AlbumScrollView = ({ data, title, navigateToSongs }: Props) => (
           style={styles.item}
           onPress={() => navigateToSongs(item)}
         >
-          <FastImage source={{ uri: item.artwork }} style=[{ backgroundColor: "gray" }]  />
+          <FastImage source={{ uri: item.artwork }} style=[{backgroundColor: "gray" }]  />
           <Paragraph numberOfLines={1}>{item.album}</Paragraph>
         </TouchableOpacity>
       )}

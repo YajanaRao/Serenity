@@ -4,38 +4,27 @@ import { isEmpty } from 'lodash';
 import { useNavigation } from '@react-navigation/core';
 
 import {
-  play,
-  pause,
   destroyTrackPlayer,
   setUpTrackPlayer,
-} from '../actions/playerState';
+} from '../../../core/src/actions/player';
 import { PlayerBar } from '../components/PlayerBar';
+import { toggle } from '@serenity/core';
 
 export const PlayerBarContainer = () => {
   const navigation = useNavigation();
-  const active = useSelector((state: any) => state.playerState.active);
-  const status = useSelector((state: any) => state.playerState.status);
+  const track = useSelector((state: any) => state.player.track);
+  const status = useSelector((state: any) => state.player.status);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setUpTrackPlayer(active));
+    dispatch(setUpTrackPlayer());
     return () => {
       dispatch(destroyTrackPlayer());
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (active !== {} && !isEmpty(active)) {
-  //     dispatch(loadTrack(active, false));
-  //   }
-  // }, [active]);
-
   const togglePlayback = () => {
-    if (status === 'playing') {
-      pause();
-    } else {
-      play();
-    }
+    dispatch(toggle())
   };
 
   const navigateToPlayer = React.useMemo(
@@ -43,12 +32,12 @@ export const PlayerBarContainer = () => {
     [navigation],
   );
 
-  if (Object.keys(active).length === 0 && active.constructor === Object) {
+  if (isEmpty(track)) {
     return null;
   }
   return (
     <PlayerBar
-      active={active}
+      active={track}
       status={status}
       togglePlayback={togglePlayback}
       navigateToPlayer={navigateToPlayer}

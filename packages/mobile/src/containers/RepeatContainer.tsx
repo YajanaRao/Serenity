@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import { RepeatIcon } from '../components/RepeatIcon';
-import { repeatSongs } from '../actions/playerState';
-import { RootReducerType } from '../reducers';
+import { repeatSongs } from '../../../core/src/actions/player';
+import { RootReducerType } from '../../../core/src/reducers';
 
 export const RepeatContainer = () => {
   const repeat = useSelector((state: RootReducerType) => state.config.repeat);

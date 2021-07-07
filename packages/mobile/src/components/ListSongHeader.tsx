@@ -4,7 +4,7 @@ import { Title, Button } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 
 import { DefaultImage } from './DefaultImage';
-import { Container } from 'components';
+import { Container } from '@serenity/components';
 
 interface ListSongHeaderProps {
   title: string;

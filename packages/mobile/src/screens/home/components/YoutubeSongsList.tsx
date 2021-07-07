@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useDispatch } from 'react-redux';
-import { TrackScrollView } from '../../../components/TrackScrollView';
 import { Youtube } from 'media';
-import { playTrack } from '../../../actions/playerState';
 import { Headline } from 'components';
+import { playSong } from '@serenity/core';
+import { TrackItem } from './TrackItem';
 
 const YoutubeSongsList = () => {
   const netInfo = useNetInfo();
@@ -23,7 +23,7 @@ const YoutubeSongsList = () => {
   }, [netInfo]);
 
   function playAudio(song) {
-    dispatch(playTrack(song));
+    dispatch(playSong(song));
   }
 
   if (netInfo.isConnected && playlists.length) {
@@ -40,11 +40,12 @@ const YoutubeSongsList = () => {
         >
           <Headline>Youtube Songs</Headline>
         </View>
-        <TrackScrollView
-          containerStyle={{ width: 180 }}
-          imageStyle={{ height: 101, width: 180 }}
+        <FlatList
+          horizontal
           data={playlists}
-          play={playAudio}
+          keyExtractor={(item) => item}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <TrackItem id={item} onPress={playAudio} />}
         />
       </View>
     );

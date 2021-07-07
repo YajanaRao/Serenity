@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { mediaStoreReducer } from '../../reducers';
+import { mediaStoreReducer } from '../../../../core/src/reducers';
 import { TrackProps, ArtistProps, AlbumProps } from '../../utils/types';
 
 const track: TrackProps = {

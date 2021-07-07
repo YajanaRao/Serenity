@@ -1,5 +1,5 @@
 {
-  "name": "components",
+  "name": "@serenity/components",
   "version": "1.0.0",
   "description": "UI Components",
   "main": "index.tsx",
@@ -8,5 +8,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"no test specified\" "
+  },
+  "dependencies": {
+    "react-native-paper": "^4.9.2"
   }
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import { View, SectionList } from 'react-native';
 import { List, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { Screen } from 'components';
+import { Screen } from '@serenity/components';
 import { TrackContainer } from '../../containers/TrackContainer';
-import { RootReducerType } from '../../reducers';
+import { RootReducerType } from '../../../../core/src/reducers';
 import { TrackProps } from '../../utils/types';
 
 export interface FindScreenProps { }

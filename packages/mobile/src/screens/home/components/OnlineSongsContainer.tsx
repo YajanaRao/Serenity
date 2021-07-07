@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/core';
-import { TrackScrollView } from '../../../components/TrackScrollView';
 import { Headline } from 'components';
 import { Assets } from 'media';
+import { TrackItem } from './TrackItem';
 
 const OnlineSongsContainer = () => {
   const netInfo = useNetInfo();
@@ -37,7 +37,13 @@ const OnlineSongsContainer = () => {
         >
           <Headline>Online Songs</Headline>
         </View>
-        <TrackScrollView data={playlists} play={navigateToPlaylist} />
+        <FlatList
+          horizontal
+          data={playlists}
+          keyExtractor={(item) => item}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <TrackItem id={item} onPress={navigateToPlaylist} />}
+        />
       </View>
     );
   }

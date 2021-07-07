@@ -5,22 +5,23 @@
 ```shell
 git clone --recurse-submodules https://github.com/YajanaRao/Serenity.git
 ```
+
 ## Project structure
 
 The following folders in packages indicate following things
 
-| folder name | description |
-| ------ | ------------ |
-| mobile | native android and ios related codes |
-| react-track-player | audio player for android and ios |
-| react-native-get-music-files | read audio files from device |
+| folder name                  | description                          |
+| ---------------------------- | ------------------------------------ |
+| mobile                       | native android and ios related codes |
+| react-track-player           | audio player for android and ios     |
+| react-native-get-music-files | read audio files from device         |
 
 ## Branches
 
 - develop -> pr this branch for everything
-- master -> source code of production application 
+- master -> source code of production application
 
-## Install yarn packages 
+## Install yarn packages
 
 Navigate to project root:
 
@@ -43,6 +44,7 @@ pod install
 ## Configurations
 
 Create a .env file for managing secrets in mobile folder
+
 ```shell
 cd packages/mobile
 touch .env
@@ -62,9 +64,10 @@ yarn start
 yarn android
 yarn ios
 ```
+
 ## Run tests
 
-The tests of a specific packages are present in __tests__ folder to run
+The tests of a specific packages are present in **tests** folder to run
 
 ```shell
 yarn tests

@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { configReducer } from '../../reducers';
+import { configReducer } from '../../../../core/src/reducers';
 
 describe('reducers/index.js', () => {
   describe('configReducer', () => {
@@ -8,7 +8,6 @@ describe('reducers/index.js', () => {
         radio: false,
         repeat: 'repeat-all',
         setup: false,
-        themeType: 'dark',
       };
 
       const givenAction = {
@@ -22,7 +21,6 @@ describe('reducers/index.js', () => {
         radio: false,
         repeat: 'repeat-all',
         setup: false,
-        themeType: 'light',
       });
     });
 

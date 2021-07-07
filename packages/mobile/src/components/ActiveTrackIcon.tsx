@@ -12,7 +12,7 @@ interface ActiveTrackIconProps {
 const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
   const animatedRef = useRef(null);
   const { colors } = useTheme();
-  const status = useSelector((state: any) => state.playerState.status);
+  const status = useSelector((state: any) => state.player.status);
 
   useEffect(() => {
     if (status === 'playing') {

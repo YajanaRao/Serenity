@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { StatusBar, StyleSheet, SafeAreaView } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
-// import SafeAreaView from 'react-native-safe-area-view';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface ScreenProps {
   children: ReactNode;

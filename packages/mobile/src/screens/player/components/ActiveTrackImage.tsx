@@ -11,7 +11,7 @@ interface ActiveTrackImageProps {
 
 const ActiveTrackImage = ({ style }: ActiveTrackImageProps) => {
   const animatedRef = useRef(null);
-  const status = useSelector((state: any) => state.playerState.status);
+  const status = useSelector((state: any) => state.player.status);
 
   useEffect(() => {
     if (status === 'playing') {

@@ -113,6 +113,7 @@ export interface IconProps {
 }
 
 export const Icon = ({ name, size = 40, color = '#000000', ...props }: IconProps) => {
+  // @ts-ignore
   const IconImpl = ICONS[name];
   if (!IconImpl) log.error('missing icon', name);
   return IconImpl ? (

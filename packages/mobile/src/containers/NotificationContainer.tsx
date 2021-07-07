@@ -3,7 +3,7 @@ import { Snackbar } from 'react-native-paper';
 
 import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
-import { RootReducerType } from '../reducers';
+import { RootReducerType } from '../../../core/src/reducers';
 
 export interface Props {
   result: string;

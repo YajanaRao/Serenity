@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { queryReducer } from '../../reducers';
+import { queryReducer } from '../../../../core/src/reducers';
 
 describe('reducers/index.js', () => {
   describe('queryReducer', () => {

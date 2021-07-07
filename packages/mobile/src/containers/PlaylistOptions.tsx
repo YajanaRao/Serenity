@@ -13,12 +13,11 @@ import {
 import { StyleSheet, View, Dimensions } from 'react-native';
 
 import { useDispatch } from 'react-redux';
-import { addToQueue } from '../actions/playerState';
 import { DefaultImage } from '../components/DefaultImage';
-import { deletePlaylist, renamePlaylist } from '../actions/realmAction';
-import { RenamePlaylistDailog } from '../components/RenamePlaylistDailog';
-import { AlertDialog } from '../components/AlertDialog';
+import { RenamePlaylistDailog } from '../components/Dialogs/RenamePlaylistDailog';
+import { AlertDialog } from '../components/Dialogs/AlertDialog';
 import { log } from '../utils/logging';
+import { addSongToQueue, deletePlaylist, renamePlaylist } from '@serenity/core';
 
 const RENAME_DIALOG = 'RENAME';
 const DELETE_DAILOG = 'DELETE';
@@ -38,7 +37,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
   };
 
   const deleteAction = () => {
-    deletePlaylist(playlist.id);
+    dispatch(deletePlaylist(playlist.id));
     navigation.goBack();
   };
 
@@ -66,9 +65,9 @@ export const PlaylistOptions = ({ route, navigation }) => {
     bs.current.snapTo(1);
   };
 
-  const addSongToQueue = () => {
+  const addToQueue = () => {
     const { songs } = route.params;
-    dispatch(addToQueue(values(songs)));
+    dispatch(addSongToQueue(values(songs)));
   };
 
   const renderInner = () => {
@@ -122,7 +121,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
             </TouchableWithoutFeedback>
           </View>
           <View style={{ backgroundColor: colors.surface }}>
-            <TouchableWithoutFeedback onPress={addSongToQueue}>
+            <TouchableWithoutFeedback onPress={addToQueue}>
               <List.Item
                 title="Play All"
                 left={props => (

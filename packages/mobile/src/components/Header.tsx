@@ -3,7 +3,7 @@ import { Searchbar, useTheme } from 'react-native-paper';
 import { Keyboard, View, ViewStyle } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/core';
-import { updateQuery } from '../actions/mediaStore';
+import { updateQuery } from '../../../core/src/actions/media';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 export const Header = ({

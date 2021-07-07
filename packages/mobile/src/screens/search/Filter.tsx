@@ -4,14 +4,13 @@ import isEmpty from 'lodash/isEmpty';
 
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { ActivityIndicator } from 'react-native-paper';
-import { addToQueue } from '../../actions/playerState';
-import { filterSongsByGenre } from '../../actions/mediaStore';
-import { SongListContainer } from '../../containers/SongListContainer';
-import { Screen } from 'components';
-import { EmptyPlaylist } from '../../components/EmptyPlaylist';
-import { Container } from 'components';
-import { SearchStackParamList } from './types';
+import { Container, Screen } from '@serenity/components';
 import { RouteProp } from '@react-navigation/core';
+import { filterSongsByGenre } from '../../../../core/src/actions/media';
+import { SongListContainer } from '../../containers/SongListContainer';
+import { EmptyPlaylist } from '../../components/EmptyPlaylist';
+import { SearchStackParamList } from './types';
+import { addSongToPlaylist } from '../../../../core/src';
 
 type FilterScreenNavigationProp = StackNavigationProp<
   SearchStackParamList,
@@ -41,7 +40,7 @@ export const FilterScreen = ({ navigation, route }: Props) => {
   }, []);
 
   const addSongsToQueue = () => {
-    dispatch(addToQueue(songs));
+    dispatch(addSongToPlaylist(songs));
   };
 
   const fetchData = async () => {

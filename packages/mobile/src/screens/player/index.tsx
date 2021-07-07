@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from 'react-native-paper';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
-import { PlayerScreen } from './Player';
+import { PlayerScreen } from './player/Player';
 import { QueueScreen } from './Queue';
 
 const NativeStack = createNativeStackNavigator();

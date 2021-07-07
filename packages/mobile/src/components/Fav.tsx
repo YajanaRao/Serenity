@@ -5,26 +5,24 @@ import { IconButton } from 'react-native-paper';
 interface FavProps {
   style?: ViewProps;
   liked: boolean;
-  addToFavorite(): void;
-  removeFromFavorite(): void;
+  onPress(): void;
 }
 
 export const Fav = ({
   style,
   liked,
-  addToFavorite,
-  removeFromFavorite,
+  onPress
 }: FavProps) => (
   <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
     {liked ? (
       <IconButton
         animated
         icon="heart"
-        onPress={removeFromFavorite}
+        onPress={onPress}
         color="#f64f59"
       />
     ) : (
-      <IconButton animated icon="heart-outline" onPress={addToFavorite} />
+      <IconButton animated icon="heart-outline" onPress={onPress} />
     )}
   </View>
 );

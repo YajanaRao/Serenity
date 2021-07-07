@@ -53,15 +53,8 @@ const HomeStack = () => {
         component={PlaylistSongs}
         options={({ route }) => {
           const { playlist } = route.params;
-          const { addToQueue } = route.params;
           return {
             headerTitle: playlist.name,
-            headerRight: () => (
-              <IconButton
-                icon="play-circle-outline"
-                onPress={() => addToQueue()}
-              />
-            ),
           };
         }}
       />
@@ -70,15 +63,8 @@ const HomeStack = () => {
         component={OnlinePlaylist}
         options={({ route }) => {
           const { playlist } = route.params;
-          const { addToQueue } = route.params;
           return {
             headerTitle: playlist.name,
-            headerRight: () => (
-              <IconButton
-                icon="play-circle-outline"
-                onPress={() => addToQueue()}
-              />
-            ),
           };
         }}
       />

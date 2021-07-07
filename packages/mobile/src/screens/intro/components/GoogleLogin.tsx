@@ -5,7 +5,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import { Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { googleSignIn } from '../../../actions/userState';
+// import { googleSignIn } from '../../../actions/userActions';
 
 export interface GoogleLoginProps {
   color: string;
@@ -20,7 +20,7 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
   const dispatch = useDispatch();
   const signIn = async () => {
     setisLoading(true);
-    dispatch(googleSignIn());
+    // dispatch(googleSignIn());
   };
 
   useEffect(() => {

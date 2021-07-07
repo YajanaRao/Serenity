@@ -2,7 +2,7 @@ import React from 'react';
 import { Headline } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { Screen } from 'components';
+import { Screen } from '@serenity/components';
 import Animations from '../assets/Animations';
 
 const CONTAINER: ViewStyle = {

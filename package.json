@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "yarn workspace mobile android",
+    "web": "yarn workspace web start",
     "bootstrap": "npx lerna bootstrap",
     "rebootstrap": "npx lerna clean --yes && npm run bootstrap",
     "ios": "yarn workspace mobile ios",

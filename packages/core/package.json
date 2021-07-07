@@ -1,0 +1,14 @@
+{
+  "name": "@serenity/core",
+  "version": "1.0.0",
+  "description": "Core serenity module",
+  "main": "src/index.tsx",
+  "author": "YajanaRao",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.0",
+    "normalizr": "^3.6.1",
+    "redux": "^4.1.0"
+  }
+}

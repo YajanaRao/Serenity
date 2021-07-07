@@ -115,10 +115,10 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Downloading audio from YouTube
 - Play and Download Songs from JioSaavn
 - Unlimited downloads
+- Voice search songs
 
 ## Planned features
 
-- Voice search songs
 - Newest releases - tracks and albums
 - Play and download songs from Google Drive
 - Creating a backup on Google Drive and sync audio from it 🎶

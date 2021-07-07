@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {Button} from 'react-native-paper';
-import {giveReadOfflineAccess} from '../../../actions/userState';
-import {RootReducerType} from '../../../reducers';
+import React, { useEffect, useState } from 'react';
+import { PermissionsAndroid } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'react-native-paper';
+import { giveReadOfflineAccess } from '@serenity/core';
+import { RootReducerType } from '../../../../../core/src/reducers';
 
 export interface LocalLibraryAccessProps {
   color: string;
   next: () => void;
 }
 
-export function LocalLibraryAccess({color, next}: LocalLibraryAccessProps) {
-  const {offlineReadAccessGiven} = useSelector(
+export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
+  const { offlineReadAccessGiven } = useSelector(
     (state: RootReducerType) => state.user,
   );
 

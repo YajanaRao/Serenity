@@ -1,20 +1,28 @@
 import React, { useEffect } from 'react';
-import { StackScreenProps } from '@react-navigation/stack';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
 import { useTheme } from 'react-native-paper';
 
-export interface LaunchScreenProps extends StackScreenProps {}
+import { StackNavigationProp } from '@react-navigation/stack';
+import { AppStackParamList } from '../RootNavigator';
+import { selectIntroSlides, useReduxState } from '@serenity/core';
 
-function LaunchScreen({ navigation }: LaunchScreenProps) {
+type LaunchScreenNavigationProp = StackNavigationProp<
+  AppStackParamList,
+  'Launch'
+>;
+
+type Props = {
+  navigation: LaunchScreenNavigationProp;
+};
+function LaunchScreen({ navigation }: Props) {
   const { colors } = useTheme();
-  const { introSlidesShown } = useSelector(state => state.user);
+  const introSlidesShown = useReduxState(selectIntroSlides);
 
   useEffect(() => {
     isSignedIn();
   }, []);
 
-  const isSignedIn = async () => {
+  const isSignedIn = () => {
     if (introSlidesShown) {
       navigation.navigate('App');
     } else {

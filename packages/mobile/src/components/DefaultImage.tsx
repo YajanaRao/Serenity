@@ -2,7 +2,7 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
 // @ts-ignore
-import { Icon } from 'components';
+import { Icon } from '@serenity/components';
 
 interface StyleProps {
   height: number;

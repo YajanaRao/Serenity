@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { SongList } from '../components/SongList';
-import { addToQueue, addToPlaylist } from '../actions/playerState';
+import { addSongToPlaylist, addSongToQueue } from '@serenity/core';
+import { SongList } from '../components/Lists/SongList';
 import { TrackProps } from '../utils/types';
 
 interface SongListContainerProps {
@@ -20,11 +20,11 @@ export const SongListContainer = ({
   const dispatch = useDispatch();
 
   const addSongsToPlaylist = (id: string, song: TrackProps) => {
-    dispatch(addToPlaylist(id, song));
+    dispatch(addSongToPlaylist(id, song));
   };
 
   const addSongsToQueue = (songs: TrackProps[] | TrackProps) => {
-    dispatch(addToQueue(songs));
+    dispatch(addSongToQueue(songs));
   };
   return (
     <SongList

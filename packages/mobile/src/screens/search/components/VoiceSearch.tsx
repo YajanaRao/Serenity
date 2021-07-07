@@ -5,9 +5,9 @@ import Voice, {
 } from '@react-native-voice/voice';
 import LottieView from 'lottie-react-native'
 import { Dialog, Portal, IconButton, TouchableRipple } from 'react-native-paper';
-import Animations from '../../../assets/Animations';
-import { Title } from 'components';
+import { Title } from '@serenity/components';
 import { useNavigation } from '@react-navigation/core';
+import Animations from '../../../assets/Animations';
 
 
 const VoiceSearch = () => {
