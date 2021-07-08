@@ -1,77 +1,65 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Appearance } from 'react-native';
-import { PermissionsAndroid, Platform } from 'react-native';
+import { Appearance, PermissionsAndroid, Platform } from 'react-native';
 
-export const giveReadOfflineAccess = () => {
-  try {
-    if (Platform.OS === "ios") {
-      return true
-    } else {
-      PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE && PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      ).then(status => {
-        if (status) {
-          return true;
-        } else {
-          PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-            {
-              title: 'Grant Access',
-              message:
-                'Serenity App needs access to your EXTERNAL_STORAGE ' +
-                'so you can play offline songs.',
-              buttonNeutral: 'Ask Me Later',
-              buttonNegative: 'Cancel',
-              buttonPositive: 'OK',
-            },
-          ).then(granted => {
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-        }
-      });
-    }
 
-  } catch (err) {
-    console.error('giveReadOfflineAccess', err);
+export const giveReadOfflineAccess = () => PermissionsAndroid.request(
+  PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  {
+    title: 'Grant Access',
+    message:
+      'Serenity App needs access to your EXTERNAL_STORAGE ' +
+      'so you can play offline songs.',
+    buttonNeutral: 'Ask Me Later',
+    buttonNegative: 'Cancel',
+    buttonPositive: 'OK',
+  },
+).then(granted => {
+  if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    return true;
   }
-};
+  return false;
 
+}).catch(err => {
+  console.error('giveReadOfflineAccess', err);
+  return false;
+});
+
+
+export const checkReadOfflineAccess = () => PermissionsAndroid.check(
+  PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE && PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+)
 export const giveWriteOfflineAccess = () => {
   try {
     if (Platform.OS === "ios") {
       return false;
-    } else {
-      PermissionsAndroid.check(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      ).then(status => {
-        if (status) {
-          return true;
-        } else {
-          PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-            {
-              title: 'Grant Access',
-              message:
-                'Serenity App needs access to your EXTERNAL_STORAGE ' +
-                'so you can play offline songs.',
-              buttonNeutral: 'Ask Me Later',
-              buttonNegative: 'Cancel',
-              buttonPositive: 'OK',
-            },
-          ).then(granted => {
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-        }
-      });
     }
+    PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    ).then(status => {
+      if (status) {
+        return true;
+      }
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Grant Access',
+          message:
+            'Serenity App needs access to your EXTERNAL_STORAGE ' +
+            'so you can play offline songs.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      ).then(granted => {
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          return true;
+        }
+        return false;
+
+      });
+
+    });
+
 
   } catch (err) {
     console.error('giveWriteOfflineAccess', err);
@@ -88,14 +76,25 @@ const uiSlice = createSlice({
     themeType: Appearance.getColorScheme(),
   },
   reducers: {
-    hideIntroSlides(state, action) {
+    hideIntroSlides(state) {
       state.introSlidesShown = true;
     },
     updateTheme(state, action) {
       state.themeType = action.payload;
     },
-    updateOfflineReadAccess(state, action) {
-      state.offlineReadAccessGiven = action.payload;
+    updateOfflineReadAccess(state) {
+      checkReadOfflineAccess().then(status => {
+        console.log('checked', status);
+        if (status) {
+          state.offlineReadAccessGiven = true;
+        } else {
+          giveReadOfflineAccess().then(response => {
+            console.log("sec attempt", response);
+            state.offlineReadAccessGiven = response;
+
+          })
+        }
+      })
     },
     updateOfflineWriteAccess(state, action) {
       state.offlineWriteAccessGiven = action.payload;
@@ -107,7 +106,7 @@ export const selectIntroSlides = (state) => state.ui.introSlidesShown;
 export const selectThemeType = (state) => state.ui.themeType;
 
 
-export const { hideIntroSlides, updateTheme } =
+export const { hideIntroSlides, updateTheme, updateOfflineReadAccess } =
   uiSlice.actions;
 
 export default uiSlice.reducer;

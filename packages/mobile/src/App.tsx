@@ -30,7 +30,7 @@ const App = () => {
           </PersistGate>
         </Provider>
       </SafeAreaProvider>
-    </SentryContainer>
+    </SentryContainer >
   );
 };
 

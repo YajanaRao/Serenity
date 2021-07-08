@@ -4,7 +4,7 @@ import { RefreshControl, FlatList } from 'react-native';
 import { isEmpty } from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import { Screen } from '@serenity/components';
-import { fetchOfflineArtists, selectArtistIds, giveReadOfflineAccess } from '@serenity/core';
+import { fetchOfflineArtists, selectArtistIds, giveReadOfflineAccess, updateOfflineReadAccess } from '@serenity/core';
 import { Blank } from '../../../components/Blank';
 
 import { RootReducerType } from '../../../../../core/src/reducers';
@@ -26,7 +26,7 @@ export const ArtistsScreen = ({ }) => {
     if (!artists.length) {
       fetchData();
     }
-  }, [offlineReadAccessGiven]);
+  }, []);
 
   const fetchData = () => {
     if (offlineReadAccessGiven && !loading) {
@@ -53,7 +53,7 @@ export const ArtistsScreen = ({ }) => {
     return (
       <Blank
         text="View your media by Granting Storage Permission"
-        fetchData={() => dispatch(giveReadOfflineAccess())}
+        fetchData={() => dispatch(updateOfflineReadAccess())}
         buttonText="Allow Access"
       />
     );

@@ -1,5 +1,11 @@
 module.exports = {
-  extends: ["airbnb", "prettier"],
+  extends: [
+    "airbnb",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+  ],
   parser: "babel-eslint",
   plugins: ["react-hooks"],
   env: {

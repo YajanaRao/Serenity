@@ -37,7 +37,7 @@ import { SongItem } from './components/SongItem';
 import { SongOptions } from './components/SongOptions';
 
 interface ItemProps {
-  item: string;
+  item: number;
 }
 
 export const SongScreen = () => {
@@ -58,7 +58,6 @@ export const SongScreen = () => {
   const loading = false;
   const error = null;
   const songs = useSelector(state => songsSelectors.selectIds(state));
-  console.log('songs: ', songs);
   // const { error, loading } = useSelector(state => state.song.songs)
 
   const fetchSongs = async () => {

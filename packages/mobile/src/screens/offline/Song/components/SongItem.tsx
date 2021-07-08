@@ -1,17 +1,20 @@
 import React from 'react';
 import { List, IconButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { selectSongById } from '@serenity/core';
+import { songsSelectors } from '@serenity/core';
 import { TrackProps } from '../../../../utils/types';
 
 export interface SongItemProps {
-    id: string;
+    id: number;
     onPress: (song: TrackProps) => void;
     openMenu: (song: TrackProps) => void;
 }
 
 export function SongItem({ id, onPress, openMenu }: SongItemProps) {
-    const song = useSelector(state => selectSongById(state, id))
+    const song = useSelector(state => songsSelectors.selectById(state, id))
+    if (!song) {
+        return null;
+    }
     return (
         <List.Item
             title={song.title}

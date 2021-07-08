@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useSelector } from 'react-redux';
-import { selectSongById } from '../../../../../core/src';
+import { songsSelectors } from '@serenity/core';
 import { DefaultImage } from '../../../components/DefaultImage';
 import { TrackProps } from '../../../utils/types';
 
@@ -12,7 +12,7 @@ export interface TrackItemProps {
 }
 
 export function TrackItem({ id, onPress }: TrackItemProps) {
-    const track = useSelector(state => selectSongById(state, id));
+    const track = useSelector(state => songsSelectors.selectById(state, id));
     return (
         <TouchableOpacity
             style={[styles.item]}
