@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, Badge, List } from 'react-native-paper';
 import { View } from 'react-native';
 import generate from 'string-to-color';
-import { ArtistProps } from '../../../../utils/types';
-import { useSelector } from 'react-redux';
-import { selectArtistById } from '../../../../../../core/src';
+import { artistsSelectors, useAppDispatch, useAppSelector, artistUpdated } from '@serenity/core';
 
 interface Props {
-  id: string;
-  toggleLike(id: string): void;
+  id: number;
 }
 
-export const ArtistComponent = ({ id, toggleLike }: Props) => {
-  const artist = useSelector(state => selectArtistById(state, id))
-  const [selected, selectArtist] = useState(false);
+export const ArtistList = ({ id }: Props) => {
+  const artist = useAppSelector(state => artistsSelectors.selectById(state, id))
+  const dispatch = useAppDispatch();
 
-  const selectArtits = () => {
-    selectArtist(!selected)
-    toggleLike(id);
+  const toggleLike = () => {
+    dispatch(artistUpdated({ id, changes: { liked: !artist.liked } }))
   };
+
 
   return (
     <List.Item
@@ -33,7 +30,7 @@ export const ArtistComponent = ({ id, toggleLike }: Props) => {
               zIndex: 10,
             }}
             size={24}
-            visible={selected}
+            visible={artist.liked === true}
           />
           <Avatar.Text
             size={54}
@@ -42,7 +39,7 @@ export const ArtistComponent = ({ id, toggleLike }: Props) => {
           />
         </View>
       )}
-      onPress={selectArtits}
+      onPress={toggleLike}
     />
   );
 };

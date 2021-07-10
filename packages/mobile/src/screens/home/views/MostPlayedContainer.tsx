@@ -5,8 +5,8 @@ import isEmpty from 'lodash/isEmpty';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 
-import { TrackProps } from '../../../utils/types';
 import { Headline } from '@serenity/components';
+import { TrackProps } from '../../../utils/types';
 import { playSong } from '../../../../../core/src';
 import { TrackItem } from '../components/TrackItem';
 
@@ -58,7 +58,7 @@ export const MostPlayedContainer = () => {
         <FlatList
           horizontal
           data={history}
-          keyExtractor={(item) => item}
+          keyExtractor={(item, index) => `most-played-${item}-${index}`}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => <TrackItem id={item} onPress={play} />}
         />

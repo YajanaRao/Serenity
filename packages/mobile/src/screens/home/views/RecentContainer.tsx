@@ -55,7 +55,7 @@ export const RecentContainer = () => {
         <FlatList
           horizontal
           data={history}
-          keyExtractor={(item) => item}
+          keyExtractor={(item, index) => `recently-played-${item}-${index}`}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => <TrackItem id={item} onPress={play} />}
         />

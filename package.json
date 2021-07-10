@@ -22,7 +22,9 @@
     }
   },
   "workspaces": {
-    "packages": ["packages/*"]
+    "packages": [
+      "packages/*"
+    ]
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",

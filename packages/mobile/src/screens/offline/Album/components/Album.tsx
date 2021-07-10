@@ -1,18 +1,17 @@
 import React from 'react';
 import { List } from 'react-native-paper';
-import { useSelector } from 'react-redux';
-import { selectAlbumById } from '@serenity/core';
+import { albumsSelectors, useAppSelector } from '@serenity/core';
 import FastImage from 'react-native-fast-image';
-import { DefaultImage } from '../../../../components/DefaultImage';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
+import { DefaultImage } from '../../../../components/DefaultImage';
 
 export interface AlbumProps {
     id: string;
 }
 
 export function Album({ id }: AlbumProps) {
-    const album = useSelector(state => selectAlbumById(state, id));
+    const album = useAppSelector(state => albumsSelectors.selectById(state, id));
     const navigation = useNavigation();
     return (
         <List.Item
@@ -31,7 +30,7 @@ export function Album({ id }: AlbumProps) {
             description={`${album.numberOfSongs} songs`}
             onPress={() => {
                 navigation.navigate('AlbumSongs', {
-                    album: album,
+                    album,
                 });
             }}
         />

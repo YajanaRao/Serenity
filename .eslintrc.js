@@ -20,6 +20,13 @@ module.exports = {
     "react-hooks/exhaustive-deps": "warn",
     "import/extensions": "off",
   },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
+  },
   globals: {
     fetch: false,
   },

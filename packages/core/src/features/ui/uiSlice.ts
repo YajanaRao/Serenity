@@ -74,6 +74,7 @@ const uiSlice = createSlice({
     offlineReadAccessGiven: false,
     offlineWriteAccessGiven: false,
     themeType: Appearance.getColorScheme(),
+    notify: false,
   },
   reducers: {
     hideIntroSlides(state) {
@@ -83,18 +84,18 @@ const uiSlice = createSlice({
       state.themeType = action.payload;
     },
     updateOfflineReadAccess(state) {
-      checkReadOfflineAccess().then(status => {
-        console.log('checked', status);
-        if (status) {
-          state.offlineReadAccessGiven = true;
-        } else {
-          giveReadOfflineAccess().then(response => {
-            console.log("sec attempt", response);
-            state.offlineReadAccessGiven = response;
-
-          })
-        }
-      })
+      // checkReadOfflineAccess().then(status => {
+      //   // console.log('checked', status);
+      //   // if (status) {
+      //   //   state.offlineReadAccessGiven = true;
+      //   // } else {
+      //   //   giveReadOfflineAccess().then(response => {
+      //   //     console.log("sec attempt", response, state);
+      //   //     state.offlineReadAccessGiven = response;
+      //   //   })
+      //   // }
+      // })
+      state.offlineReadAccessGiven = true;
     },
     updateOfflineWriteAccess(state, action) {
       state.offlineWriteAccessGiven = action.payload;

@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import artistsSlice from '../features/media/artistsSlice';
 import { configReducer } from './configReducer';
 import playlistsSlice from '../features/playlists/playlistsSlice';
-import mediaSlice from '../features/media/mediaSlice';
+import albumsSlice from '../features/media/albumsSlice';
 import playerSlice from '../features/player/playerSlice';
 import uiSlice from '../features/ui/uiSlice';
 import songsSlice from '../features/media/songsSlice';
@@ -13,13 +14,6 @@ interface QueryActions {
 const INITIAL_QUERY = {
   message: '',
   searchResult: false,
-};
-
-const INITIAL_USER = {
-  user: {},
-  googleAccessGiven: false,
-  offlineReadAccessGiven: false,
-  offlineWriteAccessGiven: false,
 };
 
 
@@ -41,50 +35,18 @@ export const queryReducer = (state = INITIAL_QUERY, action: QueryActions) => {
   }
 };
 
-export const userReducer = (state = INITIAL_USER, action: QueryActions) => {
-  switch (action.type) {
-    case 'SET_USER':
-      return {
-        ...state,
-        user: action.payload,
-        googleAccessGiven: true,
-      };
-    case 'SET_GOOGLE_ACCESS':
-      return {
-        ...state,
-        googleAccessGiven: action.payload,
-      };
-    case 'SET_OFFLINE_READ_ACCESS':
-      return {
-        ...state,
-        offlineReadAccessGiven: action.payload,
-      };
-    case 'SET_OFFLINE_WRITE_ACCESS':
-      return {
-        ...state,
-        offlineWriteAccessGiven: action.payload,
-      };
-    case 'REMOVE_USER':
-      return {
-        ...state,
-        user: {},
-        googleAccessGiven: false,
-      };
-    default:
-      return state;
-  }
-};
+
 
 
 export const RootReducer = combineReducers<any>({
   player: playerSlice,
   playlists: playlistsSlice,
-  media: mediaSlice,
+  albums: albumsSlice,
   songs: songsSlice,
+  artists: artistsSlice,
   ui: uiSlice,
   config: configReducer,
   query: queryReducer,
-  user: userReducer,
 });
 
 export type RootReducerType = ReturnType<typeof RootReducer>;

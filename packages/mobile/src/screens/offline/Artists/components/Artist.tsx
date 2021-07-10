@@ -1,16 +1,16 @@
 import React from 'react';
 import { List, Avatar } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { selectArtistById } from '@serenity/core';
+import { artistsSelectors } from '@serenity/core';
 import { useNavigation } from '@react-navigation/core';
 import generate from 'string-to-color';
 
 export interface ArtistProps {
-    id: string
+    id: number
 }
 
 export function Artist({ id }: ArtistProps) {
-    const artist = useSelector(state => selectArtistById(state, id));
+    const artist = useSelector(state => artistsSelectors.selectById(state, id));
     const navigation = useNavigation();
     return (
         <List.Item
@@ -26,7 +26,7 @@ export function Artist({ id }: ArtistProps) {
             )}
             onPress={() =>
                 navigation.navigate('ArtistSongs', {
-                    artist: artist,
+                    artist,
                 })
             }
         />

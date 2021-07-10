@@ -5,8 +5,6 @@ import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { searchSongs, Youtube } from 'media';
-import { selectSongById } from "../features/media/mediaSlice";
-import { playSong, removeSongFromHistory, removeSongFromQueue, selectNextSong, selectPreviousSong } from "../features/player/playerSlice";
 
 import { log } from '../../../mobile/src/utils/logging';
 
@@ -74,39 +72,9 @@ export const filterSongsByGenre = async (genre: string) => {
   }
 };
 
-export const mostPlayedSongs = (array: []) => {
-  return orderBy(
-    values(groupBy(array, 'title')).map(group => ({
-      ...group[0],
-      count: group.length,
-    })), 'title', 'asc'
-  );
-};
-
-
-
-// play next song
-export function playNext() {
-  return (dispatch, getState) => {
-    const state = getState();
-    const id = selectNextSong(state);
-    if (id) {
-      const song = selectSongById(state, id);
-      dispatch(removeSongFromQueue(id))
-      dispatch(playSong(song));
-    }
-  }
-}
-
-// play previous song
-export function playPrevious() {
-  return (dispatch, getState) => {
-    const state = getState();
-    const id = selectPreviousSong(state);
-    if (id) {
-      const song = selectSongById(state, id);
-      dispatch(removeSongFromHistory(id))
-      dispatch(playSong(song));
-    }
-  }
-}
+export const mostPlayedSongs = (array: []) => orderBy(
+  values(groupBy(array, 'title')).map(group => ({
+    ...group[0],
+    count: group.length,
+  })), 'title', 'asc'
+);

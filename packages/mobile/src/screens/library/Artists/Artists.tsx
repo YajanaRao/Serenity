@@ -4,7 +4,7 @@ import { Avatar, List } from 'react-native-paper';
 import { useScrollToTop } from '@react-navigation/native';
 import { Screen } from '@serenity/components';
 import { useSelector } from 'react-redux';
-import { selectLikedArtistIds } from '@serenity/core';
+import { selectLikedArtists } from '@serenity/core';
 import { FollowArtistDialog } from './components/FollowArtistDialog';
 import { Artist } from './components/Artist';
 
@@ -13,7 +13,7 @@ export const ArtistScreen = () => {
   useScrollToTop(ref);
 
   const [visible, setVisible] = useState(false);
-  const artists = useSelector(state => selectLikedArtistIds(state));
+  const artists = useSelector(state => selectLikedArtists(state));
 
   const showDialog = () => {
     setVisible(true);

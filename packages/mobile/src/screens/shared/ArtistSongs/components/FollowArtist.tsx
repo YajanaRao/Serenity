@@ -1,14 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLikedAlbumById, toggleArtistLike } from '@serenity/core';
+import { artistUpdated, selectArtistLikeById, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Follow } from '../../../../components/Follow';
 
 export const FollowArtist = ({ id }: { id: string }) => {
-    const liked = useSelector(state => selectLikedAlbumById(state, id));
-    const dispatch = useDispatch()
+    const liked = useAppSelector(state => selectArtistLikeById(state, id));
+    const dispatch = useAppDispatch()
 
     const toggleLike = () => {
-        dispatch(toggleArtistLike(id));
+        dispatch(artistUpdated({ id, changes: { liked: !liked } }));
     };
 
 

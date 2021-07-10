@@ -15,7 +15,7 @@ export const fetchOfflineSongs = createAsyncThunk(
 )
 
 
-type Song = { id: string; title: string, album: string, artist: string, path: string }
+type Song = { id: string; title: string, album: string, artist: string, path: string, liked: boolean }
 
 const songsAdapter = createEntityAdapter<Song>({
     // Assume IDs are stored in a field other than `book.id`
@@ -36,7 +36,7 @@ const songsSlice = createSlice({
         songAdded: songsAdapter.addOne,
         // song
         toggleSongLike(state, action) {
-            const song = state.songs.entities.find((song) => song.id === action.payload);
+            const song = state.entities[action.payload];
             if (song) {
                 song.liked = !song.liked;
             }
@@ -78,4 +78,12 @@ const songsSlice = createSlice({
 export const songsSelectors = songsAdapter.getSelectors(
     (state) => state.songs
 )
+
+export const selectSongLikeById = (state, songId: number) => {
+    const song = songsSelectors.selectById(state, songId);
+    return song?.liked;
+}
+
+export const { toggleSongLike } = songsSlice.actions;
+
 export default songsSlice.reducer;

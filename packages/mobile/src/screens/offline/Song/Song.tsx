@@ -53,12 +53,11 @@ export const SongScreen = () => {
   const { colors } = useTheme();
 
   const { offlineReadAccessGiven } = useSelector(
-    (state: RootReducerType) => state.user,
+    (state: RootReducerType) => state.ui,
   );
-  const loading = false;
-  const error = null;
+
   const songs = useSelector(state => songsSelectors.selectIds(state));
-  // const { error, loading } = useSelector(state => state.song.songs)
+  const { error, loading } = useSelector(state => state.songs)
 
   const fetchSongs = async () => {
     try {

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
 import RNAndroidAudioStore from '@yajanarao/react-native-get-music-files';
-// import { normalizeAlbums, normalizeArtists, normalizeSongs } from "../../schema";
+import { RootState } from "store";
 
 
 export const fetchOfflineArtists = createAsyncThunk(
@@ -15,13 +15,13 @@ export const fetchOfflineArtists = createAsyncThunk(
 )
 
 
-type Artist = { id: string; title: string, album: string, artist: string }
+type Artist = { id: string; artist: string, numberOfSongs: string, numberOfAlbums: string, liked: boolean }
 
 const artistsAdapter = createEntityAdapter<Artist>({
     // Assume IDs are stored in a field other than `book.id`
     // selectId: (book) => book.bookId,
     // Keep the "all IDs" array sorted based on book titles
-    sortComparer: (a, b) => a.title.localeCompare(b.title),
+    sortComparer: (a, b) => a.artist.localeCompare(b.artist),
 })
 
 
@@ -34,33 +34,24 @@ const artistsSlice = createSlice({
     reducers: {
 
         artistAdded: artistsAdapter.addOne,
-        // artist
-        toggleArtistLike(state, action) {
-            const artist = state.artists.entities.find((artist) => artist.id === action.payload);
-            if (artist) {
-                artist.liked = !artist.liked;
-            }
-        },
+        artistUpdated: artistsAdapter.updateOne
     },
     extraReducers: {
 
         // handling artists
-        [fetchOfflineArtists.pending]: (state, action) => {
+        [fetchOfflineArtists.pending]: (state) => {
             if (!state.loading) {
                 state.loading = true
                 state.error = null;
             }
         },
         [fetchOfflineArtists.fulfilled]: (state, action) => {
+            console.log(action.payload);
             if (state.loading) {
-                state.loading = false;
                 if (action.payload && action.payload.length) {
                     artistsAdapter.setAll(state, action.payload)
-                    //   const normalized = normalizeSongs(action.payload)
-                    //   const entities = normalized.entities.songs;
-                    //   state.songs.entities = entities;
-                    //   state.songs.allIds = Object.keys(entities);
                 }
+                state.loading = false;
             }
         },
         [fetchOfflineArtists.rejected]: (state, action) => {
@@ -75,6 +66,17 @@ const artistsSlice = createSlice({
 
 // Can create a set of memoized selectors based on the location of this entity state
 export const artistsSelectors = artistsAdapter.getSelectors(
-    (state) => state.artists
+    (state: RootState) => state.artists
 )
+
+export const selectArtistLikeById = (state, albumId: number) => {
+    const album = artistsSelectors.selectById(state, albumId);
+    return album?.liked;
+}
+
+export const selectLikedArtists = (state) => artistsSelectors.selectIds(state).filter(id => artistsSelectors.selectById(state, id)?.liked)
+export const selectFilteredArtists = (state, query: string) => artistsSelectors.selectIds(state).filter(id => artistsSelectors.selectById(state, id)?.artist.startsWith(query))
+
+export const { artistUpdated } = artistsSlice.actions;
+
 export default artistsSlice.reducer;

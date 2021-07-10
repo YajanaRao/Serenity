@@ -3,8 +3,8 @@ import { View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 import { StackNavigationProp } from '@react-navigation/stack';
+import { selectIntroSlides, useAppSelector } from '@serenity/core';
 import { AppStackParamList } from '../RootNavigator';
-import { selectIntroSlides, useReduxState } from '@serenity/core';
 
 type LaunchScreenNavigationProp = StackNavigationProp<
   AppStackParamList,
@@ -16,7 +16,7 @@ type Props = {
 };
 function LaunchScreen({ navigation }: Props) {
   const { colors } = useTheme();
-  const introSlidesShown = useReduxState(selectIntroSlides);
+  const introSlidesShown = useAppSelector(selectIntroSlides);
 
   useEffect(() => {
     isSignedIn();

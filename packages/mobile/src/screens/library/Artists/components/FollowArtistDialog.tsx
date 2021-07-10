@@ -5,9 +5,8 @@ import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { ArtistComponent } from './ArtistComponent';
-import { ArtistProps } from '../../../../utils/types';
-import { selectArtistIds, toggleArtistLike } from '@serenity/core';
+import { artistsSelectors, artistUpdated, selectFilteredArtists } from '@serenity/core';
+import { ArtistList } from './ArtistList';
 
 export interface Props {
   visible: boolean;
@@ -18,22 +17,12 @@ export const FollowArtistDialog = ({
   visible,
   hideDialog,
 }: Props) => {
-  const artists = useSelector((state: any) => selectArtistIds(state));
   const [query, setQuery] = useState('');
-  const [filtered, setFiltered] = useState(artists);
+  const [text, setText] = useState('');
+  const artists = useSelector((state: any) => selectFilteredArtists(state, query));
 
-  useEffect(() => {
-    // const data = filter(artists, (artist: ArtistProps) => {
-    //   return includes(artist.artist.toLowerCase(), query.toLowerCase());
-    // });
-    // setFiltered(data);
-  }, [query, artists]);
 
-  const dispatch = useDispatch();
 
-  const toggleLike = (id: string) => {
-    dispatch(toggleArtistLike(id))
-  };
 
   return (
     <Portal>
@@ -42,34 +31,34 @@ export const FollowArtistDialog = ({
         <Dialog.ScrollArea
           style={{ height: Dimensions.get('window').height - 300 }}
         >
-          {artists.length ? (
-            <FlatList
-              data={filtered}
-              keyExtractor={(item, index) => index.toString()}
-              // numColumns={2}
-              ListHeaderComponent={() => (
-                <Searchbar
-                  icon={() => <IconButton icon="search-outline" />}
-                  clearIcon={() => <IconButton icon="close" />}
-                  placeholder="Search"
-                  onChangeText={query => {
-                    setQuery(query);
-                  }}
-                  value={query}
-                />
-              )}
-              renderItem={({ item }: { item: string }) => (
-                <ArtistComponent
-                  id={item}
-                  toggleLike={toggleLike}
-                />
-              )}
-            />
-          ) : (
-            <View style={{ margin: 16 }}>
-              <Text>No Artists found in Local library</Text>
-            </View>
-          )}
+          <FlatList
+            data={artists}
+            keyExtractor={(item, index) => index.toString()}
+            // numColumns={2}
+            ListHeaderComponent={() => (
+              <Searchbar
+                icon={() => <IconButton icon="search-outline" />}
+                clearIcon={() => <IconButton icon="close" />}
+                placeholder="Search"
+                onChangeText={setText}
+                onEndEditing={() => setQuery(text)}
+                autoFocus
+                blurOnSubmit={false}
+                value={text}
+              />
+            )}
+            ListEmptyComponent={() => (
+              <View style={{ margin: 16 }}>
+                <Text>No Artists found in Local library</Text>
+              </View>
+            )}
+            renderItem={({ item }: { item: number }) => (
+              <ArtistList
+                id={item}
+              />
+            )}
+          />
+
         </Dialog.ScrollArea>
         <Dialog.Actions>
           <Button onPress={hideDialog}>Cancel</Button>

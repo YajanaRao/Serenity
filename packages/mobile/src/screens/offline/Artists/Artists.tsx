@@ -2,25 +2,21 @@ import React, { useEffect } from 'react';
 import { Divider } from 'react-native-paper';
 import { RefreshControl, FlatList } from 'react-native';
 import { isEmpty } from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
 import { Screen } from '@serenity/components';
-import { fetchOfflineArtists, selectArtistIds, giveReadOfflineAccess, updateOfflineReadAccess } from '@serenity/core';
+import { fetchOfflineArtists, updateOfflineReadAccess, artistsSelectors, useAppSelector, useAppDispatch } from '@serenity/core';
 import { Blank } from '../../../components/Blank';
-
-import { RootReducerType } from '../../../../../core/src/reducers';
 import { Artist } from './components/Artist';
 
+
 interface ItemProps {
-  item: string;
+  item: number;
 }
 
 export const ArtistsScreen = ({ }) => {
-  const dispatch = useDispatch();
-  const { offlineReadAccessGiven } = useSelector(
-    (state: RootReducerType) => state.user,
-  );
-  const { loading, error } = useSelector(state => state.media.artists);
-  const artists = useSelector(state => selectArtistIds(state));
+  const dispatch = useAppDispatch();
+  const { offlineReadAccessGiven } = useAppSelector((state) => state.ui);
+  const { loading, error } = useAppSelector(state => state.artists);
+  const artists = useAppSelector(state => artistsSelectors.selectIds(state));
 
   useEffect(() => {
     if (!artists.length) {
@@ -29,9 +25,7 @@ export const ArtistsScreen = ({ }) => {
   }, []);
 
   const fetchData = () => {
-    if (offlineReadAccessGiven && !loading) {
-      dispatch(fetchOfflineArtists());
-    }
+    dispatch(fetchOfflineArtists());
   };
 
   if (!isEmpty(artists)) {
@@ -49,6 +43,7 @@ export const ArtistsScreen = ({ }) => {
       </Screen>
     );
   }
+
   if (!offlineReadAccessGiven || error) {
     return (
       <Blank
@@ -60,3 +55,4 @@ export const ArtistsScreen = ({ }) => {
   }
   return <Blank text="No offline Artists found.." fetchData={fetchData} />;
 };
+
