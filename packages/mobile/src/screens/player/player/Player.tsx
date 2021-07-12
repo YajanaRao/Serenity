@@ -8,7 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { addSongToPlaylist } from '@serenity/core';
 import { RepeatContainer } from '../../../containers/RepeatContainer';
 import { PlayerController } from '../components/PlayerController';
-import { Progress } from '../../../components/ProgressBar';
+import { Progress } from './components/ProgressBar';
 import { ActiveTrackDetails } from '../components/ActiveTrackDetails';
 import { RootReducerType } from '../../../../../core/src/reducers';
 import { PlaylistDialog } from '../../../components/Dialogs/PlaylistDialog';

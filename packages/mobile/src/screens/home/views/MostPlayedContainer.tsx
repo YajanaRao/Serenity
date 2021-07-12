@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/core';
 
 import { Headline } from '@serenity/components';
 import { TrackProps } from '../../../utils/types';
-import { playSong } from '../../../../../core/src';
+import { historySelectors, playSong } from '../../../../../core/src';
 import { TrackItem } from '../components/TrackItem';
 
 const CONTAINER: ViewStyle = {
@@ -20,7 +20,7 @@ const CONTAINER: ViewStyle = {
 
 export const MostPlayedContainer = () => {
   const navigation = useNavigation();
-  const history = useSelector(state => state.player.history)
+  const history = useSelector(state => historySelectors.selectIds(state))
 
   const dispatch = useDispatch();
 
@@ -32,14 +32,7 @@ export const MostPlayedContainer = () => {
 
   const navigateToSongs = React.useMemo(
     () => () => {
-      const playlist = {
-        id: '1',
-        name: 'Most Played Songs',
-        owner: 'Serenity',
-      };
-      navigation.navigate('Playlist', {
-        playlist,
-      });
+      navigation.navigate('History');
     },
     [navigation],
   );
