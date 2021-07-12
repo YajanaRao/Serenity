@@ -18,29 +18,14 @@ export const ShortCutContainer = () => {
 
   const navigateToFavorite = React.useMemo(
     () => () => {
-      const playlist = {
-        id: 'user-playlist--000002',
-        name: 'Liked Songs',
-        owner: 'Serenity',
-      };
-      navigation.navigate('Playlist', {
-        playlist
-      });
+      navigation.navigate('Favorites');
     },
     [navigation],
   );
 
   const navigateToMostPlayed = React.useMemo(
     () => () => {
-      const playlist = {
-        id: 'user-playlist--000001',
-        name: 'Most Played Songs',
-        owner: 'Serenity',
-      };
-      navigation.navigate('Playlist', {
-        playlist,
-        filter: 'most-played',
-      });
+      navigation.navigate('History');
     },
     [navigation],
   );

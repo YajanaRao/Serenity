@@ -5,7 +5,8 @@ import { MainScreen } from './Main';
 import { SettingScreen } from './Settings';
 import { getGreetingTime } from '../../utils/greeting';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
-import { OnlinePlaylist } from '../shared/OnlinePlaylist';
+import { Favorites } from './Favorites';
+import { HistoryScreen } from './History';
 
 const Stack = createStackNavigator();
 
@@ -59,14 +60,15 @@ const HomeStack = () => {
         }}
       />
       <Stack.Screen
-        name="OnlinePlaylist"
-        component={OnlinePlaylist}
-        options={({ route }) => {
-          const { playlist } = route.params;
-          return {
-            headerTitle: playlist.name,
-          };
+        name="Favorites"
+        component={Favorites}
+        options={{
+          title: 'Liked Songs'
         }}
+      />
+      <Stack.Screen
+        name="History"
+        component={HistoryScreen}
       />
     </Stack.Navigator>
   );

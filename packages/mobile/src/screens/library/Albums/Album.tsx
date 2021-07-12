@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 
 import { Screen } from '@serenity/components';
 import { selectLikedAlbums, useAppSelector } from '@serenity/core';
-import { EmptyFavoriteAlbums } from '../../../components/EmptyFavoriteAlbums';
+import { EmptyFavoriteAlbums } from './components/EmptyFavoriteAlbums';
 import { Album } from './components/Album';
 
 export const AlbumScreen = () => {

@@ -6,8 +6,8 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { log } from '../../../mobile/src/utils/logging';
 import { TrackProps } from '../../../mobile/src/utils/types';
-import { Youtube } from 'media';
-import { playNext, playPrevious, playSong, updateStatus } from '@serenity/core';
+import { updateStatus } from '../features/player/playerSlice';
+import { playSong } from '../features/player';
 
 let subscription: EmitterSubscription;
 
@@ -19,13 +19,13 @@ export function setUpTrackPlayer() {
       subscription = addEventListener('media', (event: any) => {
         // handle event
         console.log('from event listener', event);
-        if (event === 'skip_to_next') {
-          dispatch(playNext());
-        } else if (event === 'skip_to_previous') {
-          dispatch(playPrevious());
-        } else {
-          dispatch(updateStatus(event));
-        }
+        // if (event === 'skip_to_next') {
+        //   dispatch(playNext());
+        // } else if (event === 'skip_to_previous') {
+        //   dispatch(playPrevious());
+        // } else {
+        //   dispatch(updateStatus(event));
+        // }
       });
     } catch (error) {
       log.error('setUpTrackPlayer', error);
@@ -38,11 +38,11 @@ export function setUpTrackPlayer() {
 export const loadTrack =
   async (track: TrackProps) => {
     const { path, type } = track;
-    let audioUrl = path;
+    const audioUrl = path;
     if (path) {
-      if (type?.toLowerCase() === 'youtube') {
-        audioUrl = await Youtube.getAudioUrl(path);
-      }
+      // if (type?.toLowerCase() === 'youtube') {
+      //   audioUrl = await Youtube.getAudioUrl(path);
+      // }
       await TrackPlayer.load({
         path: audioUrl,
         title: track.title,
@@ -71,7 +71,7 @@ export const shufflePlay =
   };
 
 export const startRadio =
-  () => (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState) => {
+  () => (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     try {
       const track = sample(getState().queue);
       if (track) {
@@ -96,6 +96,4 @@ export const destroyTrackPlayer =
     }
     dispatch(updateStatus("init"));
   };
-
-
 

@@ -1,14 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-export const userPlaylistIdPrefix = 'user-playlist--';
-
-const generateId = () => {
-  const r = Math.random()
-    .toString(36)
-    .substring(7);
-  return `${userPlaylistIdPrefix}${r}`;
-};
-
+// @ts-nocheck
+import { createSlice, nanoid } from '@reduxjs/toolkit';
 
 
 const playlistsSlice = createSlice({
@@ -28,7 +19,7 @@ const playlistsSlice = createSlice({
         });
       },
       prepare(name: string) {
-        return { payload: { name, id: generateId() } };
+        return { payload: { name, id: nanoid() } };
       },
     },
     deletePlaylist(state, action) {

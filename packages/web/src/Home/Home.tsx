@@ -7,6 +7,7 @@ export interface HomeProps {
 }
 
 export function Home({ }: HomeProps) {
+    
     return (
         <Screen>
             <Container>

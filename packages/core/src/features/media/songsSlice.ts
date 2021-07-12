@@ -1,12 +1,12 @@
+// @ts-nocheck
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import RNAndroidAudioStore from '@yajanarao/react-native-get-music-files';
-// import { normalizeAlbums, normalizeArtists, normalizeSongs } from "../../schema";
+import { getSongs } from "./deviceMedia";
 
 
 export const fetchOfflineSongs = createAsyncThunk(
     'songs/offline',
     async (_, { }) => {
-        const media = await RNAndroidAudioStore.getAll({});
+        const media = await getSongs();
         if (!media) {
             return []
         }
@@ -45,12 +45,14 @@ const songsSlice = createSlice({
     extraReducers: {
 
         // handling songs
+        // @ts-ignore
         [fetchOfflineSongs.pending]: (state, action) => {
             if (!state.loading) {
                 state.loading = true
                 state.error = null;
             }
         },
+        // @ts-ignore
         [fetchOfflineSongs.fulfilled]: (state, action) => {
             if (state.loading) {
                 state.loading = false;
@@ -63,9 +65,9 @@ const songsSlice = createSlice({
                 }
             }
         },
+        // @ts-ignore
         [fetchOfflineSongs.rejected]: (state, action) => {
             if (state.loading) {
-                console.log("pending", state);
                 state.loading = false;
                 state.error = action.error
             }
@@ -76,13 +78,21 @@ const songsSlice = createSlice({
 
 // Can create a set of memoized selectors based on the location of this entity state
 export const songsSelectors = songsAdapter.getSelectors(
+    // @ts-ignore
     (state) => state.songs
 )
 
+// @ts-ignore
 export const selectSongLikeById = (state, songId: number) => {
     const song = songsSelectors.selectById(state, songId);
     return song?.liked;
 }
+
+// @ts-ignore
+export const selectFilteredSongs = (state, query: string) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase()))
+
+// @ts-ignore
+export const selectLikedSongs = (state) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.liked)
 
 export const { toggleSongLike } = songsSlice.actions;
 

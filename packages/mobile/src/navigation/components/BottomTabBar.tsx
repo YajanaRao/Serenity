@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TouchableRipple, Divider, Text } from 'react-native-paper';
 import { NavigationState } from '@react-navigation/core';
-import { PlayerBarContainer } from '../containers/PlayerBarContainer';
+import { PlayerBarContainer } from '../../containers/PlayerBarContainer';
 
 interface BottomTabBarProps {
   navigation: any;

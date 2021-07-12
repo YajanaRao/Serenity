@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  // "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
@@ -9,6 +9,7 @@
       "esnext.asynciterable"
     ],
     "strict": true,
+    "composite": true,
     "esModuleInterop": true,
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
@@ -19,6 +20,10 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "baseUrl": "./src"
-  }
+    "baseUrl": "src",
+    "paths": {
+      
+    }
+  },
+  "include": ["src"]
 }

@@ -2,19 +2,12 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
-import { StackNavigationProp } from '@react-navigation/stack';
 import { selectIntroSlides, useAppSelector } from '@serenity/core';
-import { AppStackParamList } from '../RootNavigator';
+import { useNavigation } from '@react-navigation/core';
 
-type LaunchScreenNavigationProp = StackNavigationProp<
-  AppStackParamList,
-  'Launch'
->;
 
-type Props = {
-  navigation: LaunchScreenNavigationProp;
-};
-function LaunchScreen({ navigation }: Props) {
+export function LaunchScreen() {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const introSlidesShown = useAppSelector(selectIntroSlides);
 
@@ -33,4 +26,3 @@ function LaunchScreen({ navigation }: Props) {
   return <View style={{ flex: 1, backgroundColor: colors.background }} />;
 }
 
-export default LaunchScreen;

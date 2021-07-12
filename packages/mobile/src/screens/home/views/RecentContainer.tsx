@@ -1,20 +1,18 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
-import { Button, Text } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/core';
 import { Headline } from '@serenity/components';
-import { useDispatch, useSelector } from 'react-redux';
+import { playSong, useAppDispatch, useAppSelector, historySelectors } from '@serenity/core';
 import { TrackProps } from '../../../utils/types';
-import { playSong } from '../../../../../core/src';
 import { TrackItem } from '../components/TrackItem';
 
 export const RecentContainer = () => {
   const navigation = useNavigation();
-  const history = useSelector(state => state.player.history);
-  console.log('history', history);
-  const dispatch = useDispatch();
+  const history = useAppSelector(state => historySelectors.selectIds(state));
+  const dispatch = useAppDispatch();
 
   const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
@@ -23,14 +21,7 @@ export const RecentContainer = () => {
   };
 
   const navigateToSongs = () => {
-    const playlist = {
-      id: 'user-playlist--000001',
-      name: 'Recent songs',
-      owner: 'Serenity',
-    };
-    navigation.navigate('Playlist', {
-      playlist,
-    });
+    navigation.navigate('History');
   };
 
   if (history.length) {

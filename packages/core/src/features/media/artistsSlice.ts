@@ -1,12 +1,13 @@
+// @ts-nocheck
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import RNAndroidAudioStore from '@yajanarao/react-native-get-music-files';
 import { RootState } from "store";
+import { getArtists } from "./deviceMedia";
 
 
 export const fetchOfflineArtists = createAsyncThunk(
     'artists/offline',
     async (_, { }) => {
-        const media = await RNAndroidAudioStore.getArtists({});
+        const media = await getArtists()
         if (!media) {
             return []
         }
@@ -39,12 +40,14 @@ const artistsSlice = createSlice({
     extraReducers: {
 
         // handling artists
+        // @ts-ignore
         [fetchOfflineArtists.pending]: (state) => {
             if (!state.loading) {
                 state.loading = true
                 state.error = null;
             }
         },
+        // @ts-ignore
         [fetchOfflineArtists.fulfilled]: (state, action) => {
             console.log(action.payload);
             if (state.loading) {
@@ -54,6 +57,7 @@ const artistsSlice = createSlice({
                 state.loading = false;
             }
         },
+        // @ts-ignore
         [fetchOfflineArtists.rejected]: (state, action) => {
             if (state.loading) {
                 state.loading = false;
@@ -65,16 +69,21 @@ const artistsSlice = createSlice({
 
 
 // Can create a set of memoized selectors based on the location of this entity state
-export const artistsSelectors = artistsAdapter.getSelectors(
-    (state: RootState) => state.artists
+export const artistsSelectors = artistsAdapter.getSelectors<RootState>(
+    // @ts-ignore
+    (state) => state.artists
 )
 
+// @ts-ignore
 export const selectArtistLikeById = (state, albumId: number) => {
     const album = artistsSelectors.selectById(state, albumId);
     return album?.liked;
 }
 
+// @ts-ignore
 export const selectLikedArtists = (state) => artistsSelectors.selectIds(state).filter(id => artistsSelectors.selectById(state, id)?.liked)
+
+// @ts-ignore
 export const selectFilteredArtists = (state, query: string) => artistsSelectors.selectIds(state).filter(id => artistsSelectors.selectById(state, id)?.artist.startsWith(query))
 
 export const { artistUpdated } = artistsSlice.actions;

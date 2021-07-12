@@ -3,7 +3,7 @@ import { Title, Subheading } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/core';
-import Animations from '../assets/Animations';
+import Animations from '../../../../assets/Animations';
 
 const CONTAINER: ViewStyle = {
   alignItems: 'center',

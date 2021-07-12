@@ -5,23 +5,13 @@ import { useScrollToTop } from '@react-navigation/native';
 import { Screen } from '@serenity/components';
 import { useSelector } from 'react-redux';
 import { selectLikedArtists } from '@serenity/core';
-import { FollowArtistDialog } from './components/FollowArtistDialog';
 import { Artist } from './components/Artist';
 
-export const ArtistScreen = () => {
+export const ArtistScreen = ({ navigation }) => {
   const ref = useRef(null);
   useScrollToTop(ref);
 
-  const [visible, setVisible] = useState(false);
   const artists = useSelector(state => selectLikedArtists(state));
-
-  const showDialog = () => {
-    setVisible(true);
-  };
-
-  const hideDialog = () => {
-    setVisible(false);
-  };
 
 
   return (
@@ -38,16 +28,12 @@ export const ArtistScreen = () => {
                 icon="plus"
               />
             )}
-            onPress={showDialog}
+            onPress={() => navigation.navigate('FollowArtists')}
           />
         )}
         data={artists}
         keyExtractor={(item) => item}
         renderItem={({ item }: { item: string }) => <Artist id={item} />}
-      />
-      <FollowArtistDialog
-        visible={visible}
-        hideDialog={hideDialog}
       />
     </Screen>
   );

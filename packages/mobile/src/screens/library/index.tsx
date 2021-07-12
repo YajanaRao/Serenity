@@ -11,9 +11,11 @@ import { AlbumSongs } from '../shared/AlbumSongs/AlbumSongs';
 import { ArtistSongs } from '../shared/ArtistSongs/ArtistSongs';
 import { PlaylistOptions } from '../../containers/PlaylistOptions';
 import { PlaylistSongs } from './PlaylistSongs/PlaylistSongs';
+import { FollowArtists } from './Artists/FollowArtists';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
+
 
 const TabNavigator = () => {
   const theme = useTheme();
@@ -38,6 +40,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Playlist" component={PlaylistScreen} />
       <Tab.Screen name="Artist" component={ArtistScreen} />
+
       <Tab.Screen name="Album" component={AlbumScreen} />
     </Tab.Navigator>
   );
@@ -73,6 +76,10 @@ export const LibraryStack = () => {
       <Stack.Screen
         name="AlbumSongs"
         component={AlbumSongs}
+      />
+      <Stack.Screen
+        name="FollowArtists"
+        component={FollowArtists}
       />
       <Stack.Screen
         name="PlaylistSongs"

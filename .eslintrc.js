@@ -5,6 +5,7 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:workspaces/recommended",
   ],
   parser: "babel-eslint",
   plugins: ["react-hooks"],
@@ -19,6 +20,8 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "import/extensions": "off",
+    "no-param-reassign": ["error", { props: false }],
+    "no-undef": "off",
   },
   settings: {
     "import/resolver": {

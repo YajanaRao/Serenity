@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Portal, Dialog, Button, Searchbar, Text, IconButton } from 'react-native-paper';
 import { View, FlatList, Dimensions } from 'react-native';
-import filter from 'lodash/filter';
-import includes from 'lodash/includes';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { artistsSelectors, artistUpdated, selectFilteredArtists } from '@serenity/core';
+import { useSelector } from 'react-redux';
+import { selectFilteredArtists } from '@serenity/core';
 import { ArtistList } from './ArtistList';
 
 export interface Props {

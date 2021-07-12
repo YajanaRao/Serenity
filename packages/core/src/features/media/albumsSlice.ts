@@ -1,21 +1,20 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import RNAndroidAudioStore from '@yajanarao/react-native-get-music-files';
-import { RootState } from "store";
+import { getAlbums } from "./deviceMedia";
 
-
-export const fetchOfflineAlbums = createAsyncThunk(
-    'albums/offline',
-    async (_, { }) => {
-        const media = await RNAndroidAudioStore.getAlbums({});
-        if (!media) {
-            return []
-        }
-        return media;
-    }
-)
 
 
 type Album = { id: string; author: string, album: string, cover: string, numberOfSongs: string, numberOfAlbums: string, liked: boolean }
+
+export const fetchAlbums = createAsyncThunk<[Album]>('albums/fetch', async () => {
+    // @ts-ignore
+    const media = await getAlbums();
+    if (!media) {
+        return []
+    }
+    return media;
+})
+
+
 
 const albumsAdapter = createEntityAdapter<Album>({
     // Assume IDs are stored in a field other than `book.id`
@@ -39,13 +38,15 @@ const albumsSlice = createSlice({
     extraReducers: {
 
         // handling artists
-        [fetchOfflineAlbums.pending]: (state) => {
+        // @ts-ignore
+        [fetchAlbums.pending]: (state) => {
             if (!state.loading) {
                 state.loading = true
                 state.error = null;
             }
         },
-        [fetchOfflineAlbums.fulfilled]: (state, action) => {
+        // @ts-ignore
+        [fetchAlbums.fulfilled]: (state, action) => {
             if (state.loading) {
                 if (action.payload && action.payload.length) {
                     albumsAdapter.setAll(state, action.payload)
@@ -53,7 +54,8 @@ const albumsSlice = createSlice({
                 state.loading = false;
             }
         },
-        [fetchOfflineAlbums.rejected]: (state, action) => {
+        // @ts-ignore
+        [fetchAlbums.rejected]: (state, action) => {
             if (state.loading) {
                 state.loading = false;
                 state.error = action.error
@@ -65,14 +67,17 @@ const albumsSlice = createSlice({
 
 // Can create a set of memoized selectors based on the location of this entity state
 export const albumsSelectors = albumsAdapter.getSelectors(
-    (state: RootState) => state.albums
+    // @ts-ignore
+    (state) => state.albums
 )
 
+// @ts-ignore
 export const selectAlbumLikeById = (state, albumId: number) => {
     const album = albumsSelectors.selectById(state, albumId);
     return album?.liked;
 }
 
+// @ts-ignore
 export const selectLikedAlbums = (state) => albumsSelectors.selectIds(state).filter(id => albumsSelectors.selectById(state, id)?.liked)
 
 export const { albumUpdated } = albumsSlice.actions;

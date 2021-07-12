@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import historySlice from '../features/player/historySlice';
 import artistsSlice from '../features/media/artistsSlice';
 import { configReducer } from './configReducer';
 import playlistsSlice from '../features/playlists/playlistsSlice';
@@ -40,6 +41,7 @@ export const queryReducer = (state = INITIAL_QUERY, action: QueryActions) => {
 
 export const RootReducer = combineReducers<any>({
   player: playerSlice,
+  history: historySlice,
   playlists: playlistsSlice,
   albums: albumsSlice,
   songs: songsSlice,

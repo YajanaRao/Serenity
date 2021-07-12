@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSlice } from '@reduxjs/toolkit';
 import { Appearance, PermissionsAndroid, Platform } from 'react-native';
 

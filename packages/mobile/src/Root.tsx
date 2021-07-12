@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { Icon, ThemeProvider, DarkTheme, DefaultTheme } from '@serenity/components';
-import { selectThemeType } from '@serenity/core';
-import { RootNavigator } from './screens/RootNavigator';
+import { selectThemeType, useAppSelector } from '@serenity/core';
+import { RootNavigator } from './navigation/RootNavigator';
 
 export const RootScreen = () => {
-  const themeType = useSelector(selectThemeType);
+  const themeType = useAppSelector(selectThemeType);
 
   let theme = DefaultTheme;
 
