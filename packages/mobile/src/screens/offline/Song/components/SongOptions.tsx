@@ -16,7 +16,7 @@ import { addSongToQueue, toggleLike } from '@serenity/core';
 import { useDispatch } from 'react-redux';
 import { skipToNext } from '../../../../../../core/src/actions/player';
 
-export const SongOptions = ({ bs, song, closeBottomSheet, playSong, addSongToPlaylist }) => {
+export const SongOptions = React.memo(({ bs, song, closeBottomSheet, playSong, addSongToPlaylist }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const sheetOpenValue = new Animated.Value(1);
@@ -56,38 +56,21 @@ export const SongOptions = ({ bs, song, closeBottomSheet, playSong, addSongToPla
 
     const renderInner = () => {
         if (!song) {
-            return
+            return null;
         }
         const { title, artist, album, liked } = song;
         return (
             <View style={styles.panel}>
                 <View
-                    style={{
+                    style={[styles.panelContainer, {
                         backgroundColor: colors.surface,
-                        borderTopEndRadius: 12,
-                        borderTopStartRadius: 12,
-                    }}
+                    }]}
                 >
-                    <View
-                        style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderTopEndRadius: 12,
-                            borderTopStartRadius: 12,
-                        }}
-                    >
+                    <View style={styles.sheetContainer}>
                         <View
-                            style={{
-                                justifyContent: 'center',
-                                alignItems: 'flex-end',
-                                width: '100%',
-                                height: 50,
+                            style={[styles.closeContainer, {
                                 backgroundColor: colors.surface,
-                                marginBottom: 16,
-                                elevation: 2,
-                                borderTopEndRadius: 12,
-                                borderTopStartRadius: 12,
-                            }}
+                            }]}
                         >
                             <TouchableWithoutFeedback onPress={closeBottomSheet}>
                                 <IconButton icon="close" />
@@ -187,7 +170,7 @@ export const SongOptions = ({ bs, song, closeBottomSheet, playSong, addSongToPla
             </Portal>
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12 },
@@ -199,4 +182,24 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         zIndex: 1000,
     },
+    panelContainer: {
+        borderTopEndRadius: 12,
+        borderTopStartRadius: 12,
+    },
+    sheetContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopEndRadius: 12,
+        borderTopStartRadius: 12,
+    },
+    closeContainer: {
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        width: '100%',
+        height: 50,
+        marginBottom: 16,
+        elevation: 2,
+        borderTopEndRadius: 12,
+        borderTopStartRadius: 12,
+    }
 });

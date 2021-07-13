@@ -6,7 +6,6 @@ import {
   useTheme,
   ActivityIndicator,
 } from 'react-native-paper';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   View,
   RefreshControl,
@@ -23,7 +22,9 @@ import { Screen } from '@serenity/components';
 import {
   giveReadOfflineAccess, fetchOfflineSongs, addSongToPlaylist, playSong, addSongToQueue,
   shufflePlay,
-  songsSelectors
+  songsSelectors,
+  useAppSelector,
+  useAppDispatch
 } from '@serenity/core';
 
 
@@ -31,8 +32,6 @@ import {
 import { Blank } from '../../../components/Blank';
 import { PlaylistDialog } from '../../../components/Dialogs/PlaylistDialog';
 import { TrackProps } from '../../../utils/types';
-import { RootReducerType } from '../../../../../core/src/reducers';
-// import { addSongsToPlaylist } from '../../actions/playlist';
 import { SongItem } from './components/SongItem';
 import { SongOptions } from './components/SongOptions';
 
@@ -48,22 +47,17 @@ export const SongScreen = () => {
   useScrollToTop(ref);
   const [visible, setVisible] = useState('');
   const [song, setSong] = useState();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const { colors } = useTheme();
 
-  const { offlineReadAccessGiven } = useSelector(
-    (state: RootReducerType) => state.ui,
-  );
-
-  const songs = useSelector(state => songsSelectors.selectIds(state));
-  const { error, loading } = useSelector(state => state.songs)
+  const { offlineReadAccessGiven } = useAppSelector((state) => state.ui);
+  const songs = useAppSelector(state => songsSelectors.selectIds(state));
+  const { error, loading } = useAppSelector(state => state.songs)
 
   const fetchSongs = async () => {
     try {
-      // setRefreshing(true)
       await dispatch(fetchOfflineSongs())
-      // setRefreshing(false);
     } catch (err) {
       console.log('error', `Fetch failed: ${err.message}`)
     }
@@ -80,7 +74,7 @@ export const SongScreen = () => {
     if (!songs.length) {
       fetchSongs();
     }
-  }, [songs]);
+  }, []);
 
   const fetchData = () => {
     if (offlineReadAccessGiven && !loading) {
@@ -100,7 +94,6 @@ export const SongScreen = () => {
   };
 
   const play = (song: TrackProps) => {
-    console.log('playSong');
     dispatch(playSong(song));
   };
 

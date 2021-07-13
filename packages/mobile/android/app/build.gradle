@@ -80,6 +80,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     enableHermes: true,
+    hermesCommand: "../../../../node_modules/hermes-engine/%OS-BIN%/hermes"
 ]
 
 apply from: "../../../../node_modules/react-native/react.gradle"

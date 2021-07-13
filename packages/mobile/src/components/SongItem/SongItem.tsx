@@ -10,7 +10,7 @@ interface Props {
     id: number;
 }
 
-export const SongItem = ({ id }: Props) => {
+export const SongItem = React.memo(({ id }: Props) => {
     const { colors } = useTheme();
     const song = useAppSelector(state => songsSelectors.selectById(state, id));
     const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ export const SongItem = ({ id }: Props) => {
             />
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     surface: {

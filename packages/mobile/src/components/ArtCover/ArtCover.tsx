@@ -7,7 +7,7 @@ export interface ArtCoverProps {
     cover: string | null
 }
 
-export function ArtCover({ cover }: ArtCoverProps) {
+export const ArtCover = React.memo(({ cover }: ArtCoverProps) => {
     if (cover) {
         return (
             <FastImage source={{ uri: cover }} style={styles.artwork} />
@@ -17,7 +17,8 @@ export function ArtCover({ cover }: ArtCoverProps) {
     return (
         <DefaultImage style={styles.artwork} />
     )
-}
+})
+
 
 const styles = StyleSheet.create({
     artwork: {

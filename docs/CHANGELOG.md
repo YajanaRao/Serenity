@@ -1,3 +1,8 @@
+13 July 2021
+
+- Understanding and using why-did-you-render
+- Understanding and using react.memo
+
 12 July 2021
 
 - Created separate slice for history and queue

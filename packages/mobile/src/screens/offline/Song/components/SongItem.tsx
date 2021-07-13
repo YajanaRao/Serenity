@@ -1,7 +1,6 @@
 import React from 'react';
 import { List, IconButton } from 'react-native-paper';
-import { useSelector } from 'react-redux';
-import { songsSelectors } from '@serenity/core';
+import { songsSelectors, useAppSelector } from '@serenity/core';
 import { TrackProps } from '../../../../utils/types';
 
 export interface SongItemProps {
@@ -10,8 +9,8 @@ export interface SongItemProps {
     openMenu: (song: TrackProps) => void;
 }
 
-export function SongItem({ id, onPress, openMenu }: SongItemProps) {
-    const song = useSelector(state => songsSelectors.selectById(state, id))
+function Song({ id, onPress, openMenu }: SongItemProps) {
+    const song = useAppSelector(state => songsSelectors.selectById(state, id))
     if (!song) {
         return null;
     }
@@ -32,3 +31,5 @@ export function SongItem({ id, onPress, openMenu }: SongItemProps) {
         />
     );
 }
+
+export const SongItem = React.memo(Song)
