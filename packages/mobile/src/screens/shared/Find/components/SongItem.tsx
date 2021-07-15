@@ -1,5 +1,4 @@
-import React from 'react';
-
+import * as React from 'react';
 // import { playTrack } from '../actions/player';
 import { playSong, songsSelectors, useAppDispatch, useAppSelector } from '@serenity/core';
 import { View, StyleSheet } from 'react-native';

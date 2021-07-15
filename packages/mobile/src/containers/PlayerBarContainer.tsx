@@ -1,30 +1,24 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
 import { useNavigation } from '@react-navigation/core';
-
-import {
-  destroyTrackPlayer,
-  setUpTrackPlayer,
-} from '../../../core/src/actions/player';
+import { Player, useAppDispatch, useAppSelector } from '@serenity/core';
 import { PlayerBar } from '../components/PlayerBar';
-import { toggle } from '@serenity/core';
 
 export const PlayerBarContainer = () => {
   const navigation = useNavigation();
-  const track = useSelector((state: any) => state.player.track);
-  const status = useSelector((state: any) => state.player.status);
-  const dispatch = useDispatch();
+  const track = useAppSelector((state: any) => state.player.track);
+  const status = useAppSelector((state: any) => state.player.status);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setUpTrackPlayer());
+    dispatch(Player.setUpTrackPlayer());
     return () => {
-      dispatch(destroyTrackPlayer());
+      dispatch(Player.destroyTrackPlayer());
     };
   }, []);
 
   const togglePlayback = () => {
-    dispatch(toggle())
+    dispatch(Player.toggle())
   };
 
   const navigateToPlayer = React.useMemo(

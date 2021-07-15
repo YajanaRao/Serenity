@@ -30,12 +30,6 @@ const playerSlice = createSlice({
     },
 
 
-
-    // clear queue
-    clearQueue(state) {
-      state.queue = [];
-    },
-
     // repeat options
     repeatSongs(state, action) {
       state.repeat = action.type;
@@ -45,6 +39,6 @@ const playerSlice = createSlice({
 
 export const selectQueueSongs = (state) => state.player.queue;
 
-export const { play, toggle, updateStatus, clearQueue, addSongToQueue, removeSongFromQueue } = playerSlice.actions;
+export const { play, updateStatus, clearQueue, addSongToQueue, removeSongFromQueue } = playerSlice.actions;
 
 export default playerSlice.reducer;

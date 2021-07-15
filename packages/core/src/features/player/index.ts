@@ -23,11 +23,11 @@ export function setUpTrackPlayer() {
         // } else if (event === 'skip_to_previous') {
         //   dispatch(playPrevious());
         // } else {
-        //   dispatch(updateStatus(event));
+        dispatch(updateStatus(event));
         // }
       });
     } catch (error) {
-      log.error('setUpTrackPlayer', error);
+      console.log('setUpTrackPlayer', error);
     }
   };
 }
@@ -43,7 +43,7 @@ export const shufflePlay =
         type: 'SHUFFLE_PLAY',
       });
     } catch (error) {
-      log.error('shufflePlay', error);
+      console.log('shufflePlay', error);
     }
   };
 
@@ -59,7 +59,7 @@ export const startRadio =
         });
       }
     } catch (error) {
-      log.error('startRadio', error);
+      console.log('startRadio', error);
     }
   };
 
@@ -112,7 +112,7 @@ export function playSong(song: Song) {
   }
 }
 export function playNext() {
-  return (dispatch: any, getState: any) => {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { queue } = getState();
     if (!queue.length) {
       // no songs in the queue
@@ -127,7 +127,7 @@ export function playNext() {
 }
 
 export function playPrevious() {
-  return (dispatch: any, getState: any) => {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { history } = getState();
     if (!history.length) {
       // no songs in the queue
@@ -141,8 +141,9 @@ export function playPrevious() {
 
 }
 
-export function togglePlayer() {
-  return (dispatch: any, getState: any) => {
+
+export function toggle() {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { status } = getState().player;
     if (status === "playing") {
       TrackPlayer.pause();

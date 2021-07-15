@@ -1,3 +1,9 @@
+15 July 2021
+
+- Fixed couple of issues in Player
+- Trying out babel plugin to ease absolute imports (WIP)
+- Code optimization
+
 13 July 2021
 
 - Understanding and using why-did-you-render
