@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { historySelectors, Player, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Headline } from '@serenity/components';
-import { TrackProps } from '../../../../utils/types';
+import { TrackProps } from '~/utils/types';
 import { TrackItem } from '../../components/TrackItem';
 
 const CONTAINER: ViewStyle = {

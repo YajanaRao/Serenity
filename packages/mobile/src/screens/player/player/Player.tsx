@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Caption, IconButton, useTheme } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
 import { includes } from 'lodash';
 import { Icon, Screen } from '@serenity/components';
 import LinearGradient from 'react-native-linear-gradient';
-import { addSongToPlaylist } from '@serenity/core';
-import { RepeatContainer } from '../../../containers/RepeatContainer';
+import { addSongToPlaylist, useAppDispatch, useAppSelector } from '@serenity/core';
+import { RepeatContainer } from '~/containers/RepeatContainer';
 import { PlayerController } from '../components/PlayerController';
 import { Progress } from './components/ProgressBar';
 import { ActiveTrackDetails } from '../components/ActiveTrackDetails';
-import { RootReducerType } from '../../../../../core/src/reducers';
-import { PlaylistDialog } from '../../../components/Dialogs/PlaylistDialog';
+import { PlaylistDialog } from '~/components/Dialogs/PlaylistDialog';
 import { downloadMedia } from '../../../../../core/src/actions/download';
 import { FavSong } from './components/Fav';
-import Images from '../../../assets/Images';
+import Images from '~/assets/Images';
 
 export const PlayerScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const [visible, setVisible] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const close = () => {
     navigation.goBack();
   };
 
-  const active = useSelector(
-    (state: RootReducerType) => state.player.track,
+  const active = useAppSelector(
+    (state) => state.player.track,
   );
 
   const addToPlaylist = (id: string) => {

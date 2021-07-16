@@ -29,9 +29,9 @@ import {
 
 
 
-import { Blank } from '../../../components/Blank';
-import { PlaylistDialog } from '../../../components/Dialogs/PlaylistDialog';
-import { TrackProps } from '../../../utils/types';
+import { Blank } from '~/components/Blank';
+import { PlaylistDialog } from '~/components/Dialogs/PlaylistDialog';
+import { TrackProps } from '~/utils/types';
 import { SongItem } from './components/SongItem';
 import { SongOptions } from './components/SongOptions';
 

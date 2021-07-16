@@ -3,11 +3,9 @@ import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Title, useTheme } from 'react-native-paper';
 import { useQuote } from '~/hooks/useQuote';
 
-export const QuoteContainer = () => {
+export const QuoteCard = () => {
   const quote = useQuote();
   const { dark } = useTheme();
-
-
 
   const backgroundImage = `https://source.unsplash.com/random/?${dark ? 'black' : 'white'}`;
 

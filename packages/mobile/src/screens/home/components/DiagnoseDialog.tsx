@@ -1,7 +1,7 @@
 import React from 'react';
 import Config from 'react-native-config';
 import { Dialog, Portal, Button, List } from 'react-native-paper';
-import { log } from '../../../utils/logging';
+import { log } from '~/utils/logging';
 
 export interface DiagnoseDialogProps {
   visible: boolean;

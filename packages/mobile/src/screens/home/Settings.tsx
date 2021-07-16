@@ -17,10 +17,9 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { Screen } from '@serenity/components';
 // import { changeRadioMode } from '../../actions';
 import { clearHistory, updateTheme } from '@serenity/core';
-import { AlertDialog } from '../../components/Dialogs/AlertDialog';
-// import { googleSignIn, removeUserInfo } from '../../actions/userActions';
-import { log } from '../../utils/logging';
-import { LoadingDialog } from '../../components/Dialogs/LoadingDialog';
+import { log } from '~/utils/logging';
+import { AlertDialog } from '~/components/Dialogs/AlertDialog';
+import { LoadingDialog } from '~/components/Dialogs/LoadingDialog';
 import { DiagnoseDialog } from './components/DiagnoseDialog';
 
 export const SettingScreen = ({ navigation }: StackScreenProps) => {

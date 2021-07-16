@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Screen } from '@serenity/components';
 
@@ -7,19 +7,19 @@ import { NetNotify } from '../../../components/NetNotify';
 import { RecentContainer } from './components/RecentContainer';
 import { MostPlayedContainer } from './components/MostPlayedContainer';
 import { ShortCutContainer } from './components/ShortcutContainer';
-import { QuoteContainer } from './components/QuoteContainer';
+import { QuoteCard } from './components/QuoteCard';
 
 const Divider = () => <View style={{ marginVertical: 8 }} />;
 
 export const MainScreen = () => {
-  const ref = useRef();
+  const ref = React.useRef();
   useScrollToTop(ref);
   return (
     <Screen>
       <ScrollView ref={ref}>
         <NetNotify />
         <ShortCutContainer />
-        <QuoteContainer />
+        <QuoteCard />
         <Divider />
         <RecentContainer />
         <Divider />

@@ -23,14 +23,6 @@ module.exports = {
     "no-param-reassign": ["error", { props: false }],
     "no-undef": "off",
   },
-  settings: {
-    "import/resolver": {
-      "babel-plugin-root-import": {
-        rootPathPrefix: "~",
-        rootPathSuffix: "src",
-      },
-    },
-  },
   globals: {
     fetch: false,
   },

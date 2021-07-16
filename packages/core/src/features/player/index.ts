@@ -151,9 +151,10 @@ export function toggle() {
       TrackPlayer.play();
     } else if (status === "init") {
       console.log('init');
-      // loadTrack(track).then(() => {
-      //   TrackPlayer.play()
-      // });
+      const { track } = getState().player;
+      loadTrack(track).then(() => {
+        TrackPlayer.play()
+      });
     } else {
       console.log("another status: ", status)
     }

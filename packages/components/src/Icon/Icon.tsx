@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import AlertCircleOutlineIcon from '../assets/Icons/alert-circle-outline.svg';
 import ArrowBackIcon from '../assets/Icons/arrow-back.svg';
 import ArrowBackOutlineIcon from '../assets/Icons/arrow-back-outline.svg';
@@ -49,7 +49,6 @@ import DoneAllIcon from '../assets/Icons/done-all.svg';
 import UnlockOutlineIcon from '../assets/Icons/unlock-outline.svg';
 import LogInOutlineIcon from '../assets/Icons/log-in-outline.svg';
 import PersonOutlineIcon from '../assets/Icons/person-outline.svg';
-import { log } from '../../../mobile/src/utils/logging';
 
 const ICONS = {
   'arrow-back': ArrowBackIcon,
@@ -115,7 +114,7 @@ export interface IconProps {
 export const Icon = ({ name, size = 40, color = '#000000', ...props }: IconProps) => {
   // @ts-ignore
   const IconImpl = ICONS[name];
-  if (!IconImpl) log.error('missing icon', name);
+  if (!IconImpl) console.log('missing icon', name);
   return IconImpl ? (
     <IconImpl width={size} height={size} color={color} {...props} />
   ) : null;

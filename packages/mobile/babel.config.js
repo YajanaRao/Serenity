@@ -6,7 +6,6 @@ module.exports = {
 	],
 	plugins: [
 		[
-			'transform-remove-console',
 			'babel-plugin-root-import',
 			{
 				rootPathSuffix: './src',
