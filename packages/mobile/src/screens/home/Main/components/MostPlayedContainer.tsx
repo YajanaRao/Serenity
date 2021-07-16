@@ -1,14 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { View, ViewStyle, FlatList } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
-
+import { historySelectors, Player, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Headline } from '@serenity/components';
-import { TrackProps } from '../../../utils/types';
-import { historySelectors, playSong } from '../../../../../core/src';
-import { TrackItem } from '../components/TrackItem';
+import { TrackProps } from '../../../../utils/types';
+import { TrackItem } from '../../components/TrackItem';
 
 const CONTAINER: ViewStyle = {
   alignItems: 'center',
@@ -20,13 +18,13 @@ const CONTAINER: ViewStyle = {
 
 export const MostPlayedContainer = () => {
   const navigation = useNavigation();
-  const history = useSelector(state => historySelectors.selectIds(state))
+  const history = useAppSelector(state => historySelectors.selectIds(state))
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const play = (track: TrackProps) => {
     if (!isEmpty(track)) {
-      dispatch(playSong(track));
+      dispatch(Player.playSong(track));
     }
   };
 

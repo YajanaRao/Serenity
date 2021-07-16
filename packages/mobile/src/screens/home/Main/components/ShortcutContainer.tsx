@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { Avatar, Caption } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/core';
-import { startRadio } from '../../../../../core/src/actions/player';
+import { startRadio } from '@serenity/core/src/actions/player';
 
 export const ShortCutContainer = () => {
   const navigation = useNavigation();

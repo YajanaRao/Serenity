@@ -2,13 +2,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TouchableRipple, Divider, Text } from 'react-native-paper';
 import { NavigationState } from '@react-navigation/core';
-import { PlayerBarContainer } from '../../containers/PlayerBarContainer';
+import { PlayerBar } from './PlayerBar';
 
 interface BottomTabBarProps {
   navigation: any;
   descriptors: any;
   state: NavigationState;
   backgroundColor: string;
+  activeTintColor: string;
 }
 
 export const BottomTabBar = ({
@@ -16,25 +17,26 @@ export const BottomTabBar = ({
   descriptors,
   navigation,
   backgroundColor,
+  activeTintColor,
 }: BottomTabBarProps) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   if (focusedOptions.tabBarVisible === false) {
     return null;
   }
-  const { routes, index } = state;
+  const { routes } = state;
   return (
-    <View style={{ elevation: 4, backgroundColor }}>
-      <PlayerBarContainer />
+    <View style={[styles.tabBarContainer, { backgroundColor }]}>
+      <PlayerBar />
       <Divider />
-      <View style={[styles.container]}>
+      <View style={styles.container}>
         {routes.map((route: any, index: number) => {
           const { options } = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-              ? options.title
-              : route.name;
+                ? options.title
+                : route.name;
 
           const isFocused = state.index === index;
           const onPress = () => {
@@ -60,8 +62,8 @@ export const BottomTabBar = ({
             <TouchableRipple
               key={route.key}
               style={styles.tabButton}
-              // rippleColor={colors.primary}
-              // underlayColor={colors.primary}
+              rippleColor={activeTintColor}
+              underlayColor={activeTintColor}
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -69,19 +71,12 @@ export const BottomTabBar = ({
               onPress={onPress}
               onLongPress={onLongPress}
             >
-              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <View style={styles.labelContainer}>
                 {options.tabBarIcon({ focused: isFocused })}
                 <Text
-                  style={{
-                    includeFontPadding: false,
-                    textAlign: 'center',
-                    textAlignVertical: 'center',
-                    fontSize: 10,
-                    letterSpacing: 0.4,
-                    marginBottom: 4,
-                    padding: 0,
+                  style={[styles.labelText, {
                     fontFamily: isFocused ? 'Nunito-Bold' : 'Nunito',
-                  }}
+                  }]}
                 >
                   {label}
                 </Text>
@@ -90,14 +85,28 @@ export const BottomTabBar = ({
           );
         })}
       </View>
-    </View>
+    </View >
   );
 };
 
 const styles = StyleSheet.create({
+  tabBarContainer: { elevation: 4 },
   container: {
     flexDirection: 'row',
     marginTop: 4,
+  },
+  labelContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  labelText: {
+    includeFontPadding: false,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 10,
+    letterSpacing: 0.4,
+    marginBottom: 4,
+    padding: 0,
   },
   tabButton: {
     flex: 1,

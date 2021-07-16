@@ -1,3 +1,7 @@
+16 July 2021
+
+- Absolute import using [babel-plugin-root-import](https://github.com/entwicklerstube/babel-plugin-root-import)
+
 15 July 2021
 
 - Fixed couple of issues in Player

@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native';
 
 import IntroductionScreen from '../screens/intro/Introduction';
 
-import NotificationContainer from '../containers/NotificationContainer';
+import NotificationDialog from './components/NotificationDialog';
 import { LaunchScreen } from '../screens/launch/Launch';
 import { PlayerStack } from '../screens/player';
 import { FindScreen } from '../screens/shared/Find/Find';
@@ -77,7 +77,7 @@ export const RootNavigator = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.surface }}>
-      <NotificationContainer />
+      <NotificationDialog />
       <AppStack />
     </SafeAreaView>
   );

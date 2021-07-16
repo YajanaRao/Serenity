@@ -32,7 +32,7 @@ export const BottomNavigator = () => {
   return (
     <Tab.Navigator
       tabBar={props => (
-        <BottomTabBar {...props} backgroundColor={colors.surface} />
+        <BottomTabBar {...props} backgroundColor={colors.surface} activeTintColor={colors.primary} />
       )}
       tabBarOptions={{
         style: { backgroundColor: colors.surface },

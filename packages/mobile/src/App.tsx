@@ -5,9 +5,9 @@ import { View } from 'react-native';
 import { store } from '@serenity/core';
 import { persistStore } from 'redux-persist';
 import { Spinner } from '@serenity/components';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RootScreen } from './Root';
 import { SentryContainer } from './containers/SentryContainer';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 
@@ -22,13 +22,15 @@ const App = () => {
   );
 
   return (
-    <SafeAreaProvider>
-      <Provider store={store}>
-        <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
-          <RootScreen />
-        </PersistGate>
-      </Provider>
-    </SafeAreaProvider>
+    <SentryContainer>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
+            <RootScreen />
+          </PersistGate>
+        </Provider>
+      </SafeAreaProvider>
+    </SentryContainer>
   );
 };
 

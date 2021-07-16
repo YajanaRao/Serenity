@@ -1,10 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { Headline } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Screen } from '@serenity/components';
 import Animations from '../assets/Animations';
 
+// TODO:
+// consistence styling
 const CONTAINER: ViewStyle = {
   flex: 1,
   justifyContent: 'center',

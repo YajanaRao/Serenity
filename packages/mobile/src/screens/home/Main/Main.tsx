@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { Screen } from '@serenity/components';
 
 import { useScrollToTop } from '@react-navigation/native';
-import { NetNotify } from '../../components/NetNotify';
-import { RecentContainer } from './views/RecentContainer';
-import { MostPlayedContainer } from './views/MostPlayedContainer';
-import OnlineContainer from '../../containers/OnlineContainer';
-import { Screen } from '@serenity/components';
-import { ShortCutContainer } from './views/ShortcutContainer';
+import { NetNotify } from '../../../components/NetNotify';
+import { RecentContainer } from './components/RecentContainer';
+import { MostPlayedContainer } from './components/MostPlayedContainer';
+import { ShortCutContainer } from './components/ShortcutContainer';
+import { QuoteContainer } from './components/QuoteContainer';
 
 const Divider = () => <View style={{ marginVertical: 8 }} />;
 
@@ -19,7 +19,7 @@ export const MainScreen = () => {
       <ScrollView ref={ref}>
         <NetNotify />
         <ShortCutContainer />
-        <OnlineContainer />
+        <QuoteContainer />
         <Divider />
         <RecentContainer />
         <Divider />

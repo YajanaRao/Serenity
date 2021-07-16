@@ -1,4 +1,3 @@
-// babel.config.js
 module.exports = {
 	presets: [
 		['@babel/preset-env', {targets: {node: 'current'}, loose: true}],
@@ -7,9 +6,11 @@ module.exports = {
 	],
 	plugins: [
 		[
-			'module-resolver',
+			'transform-remove-console',
+			'babel-plugin-root-import',
 			{
-				root: ['./src'],
+				rootPathSuffix: './src',
+				rootPathPrefix: '~/',
 			},
 		],
 	],

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme, IconButton } from 'react-native-paper';
-import { MainScreen } from './Main';
+import { MainScreen } from './Main/Main';
 import { SettingScreen } from './Settings';
 import { getGreetingTime } from '../../utils/greeting';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
