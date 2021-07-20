@@ -1,7 +1,7 @@
 16 July 2021
 
 - Absolute import using [babel-plugin-root-import](https://github.com/entwicklerstube/babel-plugin-root-import)
-- Fixed issue with toggle status on init 
+- Fixed issue with toggle status on init
 - Remove babel plugin to remove logs
 
 15 July 2021

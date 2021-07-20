@@ -5,7 +5,7 @@
 	"scripts": {
 		"android": "react-native run-android",
 		"clean": "cd android && ./gradlew clean && cd ..",
-		"release": "cd android && ./gradlew assembleRelease  --no-daemon",
+		"release": "cd android && ./gradlew assembleRelease",
 		"ios": "react-native run-ios",
 		"pod-install": "npx pod-install",
 		"start": "react-native start",

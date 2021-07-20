@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { configReducer } from '../../../../core/src/reducers';
+import { configReducer } from '@serenity/core/src/reducers';
 
 describe('reducers/index.js', () => {
   describe('configReducer', () => {

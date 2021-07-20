@@ -6,8 +6,8 @@ import isUndefined from 'lodash/isUndefined';
 // import { playTrack } from '../actions/player';
 import { Track } from '../components/Track';
 import { TrackProps } from '../utils/types';
-import { RootReducerType } from '../../../core/src/reducers';
-import { downloadMedia } from '../../../core/src/actions/media';
+import { RootReducerType } from '@serenity/core/src/reducers';
+import { downloadMedia } from '@serenity/core/src/actions/media';
 import { playSong } from '@serenity/core';
 
 interface Props {

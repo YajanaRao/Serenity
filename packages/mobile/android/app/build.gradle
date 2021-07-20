@@ -79,8 +79,8 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: true,
-    hermesCommand: "../../../../node_modules/hermes-engine/%OS-BIN%/hermesc"
+    enableHermes: false,
+    hermesCommand:  '../../../../node_modules/hermes-engine/%OS-BIN%/hermesc'
 ]
 
 apply from: "../../../../node_modules/react-native/react.gradle"
@@ -112,14 +112,6 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-
-    packagingOptions {
-        pickFirst '**/*.so'
-    }
-
-    dexOptions {
-       javaMaxHeapSize "3g"
-    }
     
     compileSdkVersion rootProject.ext.compileSdkVersion
 

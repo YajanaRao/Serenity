@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectSongById } from '../../../../../core/src';
+import { selectSongById } from '@serenity/core';
 import { TrackContainer } from '../../../containers/TrackContainer';
 
 export interface TrackItemProps {

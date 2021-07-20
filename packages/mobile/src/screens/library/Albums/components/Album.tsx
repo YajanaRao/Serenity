@@ -2,7 +2,7 @@ import React from 'react';
 import { List } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/core';
-import { albumsSelectors, useAppSelector } from '../../../../../../core/src';
+import { albumsSelectors, useAppSelector } from '@serenity/core';
 
 export interface AlbumProps {
     id: number;

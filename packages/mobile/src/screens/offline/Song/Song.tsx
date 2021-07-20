@@ -20,8 +20,8 @@ import {
 
 import { Screen } from '@serenity/components';
 import {
+  Player,
   giveReadOfflineAccess, fetchOfflineSongs, addSongToPlaylist, playSong, addSongToQueue,
-  shufflePlay,
   songsSelectors,
   useAppSelector,
   useAppDispatch
@@ -94,7 +94,7 @@ export const SongScreen = () => {
   };
 
   const play = (song: TrackProps) => {
-    dispatch(playSong(song));
+    dispatch(Player.playSong(song));
   };
 
   const openBottomSheet = () => {
@@ -157,7 +157,7 @@ export const SongScreen = () => {
               <IconButton
                 icon="shuffle-outline"
                 color={colors.primary}
-                onPress={() => dispatch(shufflePlay(songs))}
+                onPress={() => dispatch(Player.repeat("shuffle"))}
               />
               <IconButton
                 icon="search-outline"

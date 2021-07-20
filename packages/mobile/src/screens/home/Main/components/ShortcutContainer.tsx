@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { Avatar, Caption } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/core';
-import { startRadio } from '@serenity/core/src/actions/player';
+import { Player } from '@serenity/core';
 
 export const ShortCutContainer = () => {
   const navigation = useNavigation();
@@ -31,7 +31,7 @@ export const ShortCutContainer = () => {
   );
 
   const startSongs = () => {
-    dispatch(startRadio());
+    dispatch(Player.startRadio());
   };
 
   return (

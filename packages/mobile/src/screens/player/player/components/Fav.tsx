@@ -12,7 +12,6 @@ export function FavSong({ id }: FavSongProps) {
     const dispatch = useDispatch()
 
     const toggleLike = () => {
-        console.log("about to dispatch")
         dispatch(toggleSongLike(id));
     };
 

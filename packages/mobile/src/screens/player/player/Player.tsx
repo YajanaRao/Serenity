@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Caption, IconButton, useTheme } from 'react-native-paper';
 import { includes } from 'lodash';
-import { Icon, Screen } from '@serenity/components';
+import { Screen } from '@serenity/components';
 import LinearGradient from 'react-native-linear-gradient';
 import { addSongToPlaylist, useAppDispatch, useAppSelector } from '@serenity/core';
 import { RepeatContainer } from '~/containers/RepeatContainer';
@@ -10,7 +10,7 @@ import { PlayerController } from '../components/PlayerController';
 import { Progress } from './components/ProgressBar';
 import { ActiveTrackDetails } from '../components/ActiveTrackDetails';
 import { PlaylistDialog } from '~/components/Dialogs/PlaylistDialog';
-import { downloadMedia } from '../../../../../core/src/actions/download';
+import { downloadMedia } from '@serenity/core/src/actions/download';
 import { FavSong } from './components/Fav';
 import Images from '~/assets/Images';
 
@@ -66,7 +66,7 @@ export const PlayerScreen = ({ navigation }) => {
               <Progress />
             </View>
             <View style={styles.playerToolbox}>
-              <FavSong id={active.id} type="song" style={{ flex: 1 }} />
+              <FavSong id={active.id} />
               <PlayerController />
               <RepeatContainer />
             </View>
@@ -75,7 +75,7 @@ export const PlayerScreen = ({ navigation }) => {
                 <IconButton
                   size={20}
                   style={{ padding: 0, margin: 0 }}
-                  icon={props => <Icon name="menu-outline" {...props} />}
+                  icon="menu-outline"
                   onPress={() => navigation.navigate('Queue')}
                 />
                 <Caption style={{ padding: 0, margin: 0 }}>Queue</Caption>
@@ -88,7 +88,7 @@ export const PlayerScreen = ({ navigation }) => {
                     <IconButton
                       style={{ padding: 0, margin: 0 }}
                       size={20}
-                      icon={props => <Icon name="download-outline" {...props} />}
+                      icon="download-outline"
                       onPress={download}
                     />
                     <Caption>Download</Caption>
@@ -98,13 +98,7 @@ export const PlayerScreen = ({ navigation }) => {
                 <IconButton
                   size={20}
                   style={{ padding: 0, margin: 0 }}
-                  icon={props => (
-                    <Icon
-                      name="folder-add-outline"
-                      {...props}
-                      style={{ padding: 0, margin: 0 }}
-                    />
-                  )}
+                  icon="folder-add-outline"
                   onPress={() => setVisible('DIALOG')}
                 />
                 <Caption>Playlist</Caption>

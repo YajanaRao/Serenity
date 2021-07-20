@@ -5,7 +5,7 @@ import { Screen } from '@serenity/components';
 import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { addSongToQueue } from '@serenity/core';
-import { findAlbumSongs } from '../../../../../core/src/actions/media';
+import { findAlbumSongs } from '@serenity/core/src/actions/media';
 import { SongListContainer } from '../../../containers/SongListContainer';
 import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
 import { FavAlbum } from './components/FavAlbum';

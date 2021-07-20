@@ -17,7 +17,7 @@ import { DefaultImage } from '../components/DefaultImage';
 import { RenamePlaylistDailog } from '../components/Dialogs/RenamePlaylistDailog';
 import { AlertDialog } from '../components/Dialogs/AlertDialog';
 import { log } from '../utils/logging';
-import { addSongToQueue, deletePlaylist, renamePlaylist } from '@serenity/core';
+import { addSongToQueue, deletePlaylist, renamePlaylist, Player } from '@serenity/core';
 
 const RENAME_DIALOG = 'RENAME';
 const DELETE_DAILOG = 'DELETE';
@@ -67,7 +67,7 @@ export const PlaylistOptions = ({ route, navigation }) => {
 
   const addToQueue = () => {
     const { songs } = route.params;
-    dispatch(addSongToQueue(values(songs)));
+    dispatch(Player.addSongToQueue(values(songs)));
   };
 
   const renderInner = () => {

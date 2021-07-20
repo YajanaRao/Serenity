@@ -5,7 +5,6 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { log } from '../../../mobile/src/utils/logging';
 // import { log } from '../utils/logging';
 
 export const setUserInfo = (user: any) => (
@@ -17,7 +16,7 @@ export const setUserInfo = (user: any) => (
       type: 'SET_USER',
     });
   } catch (error) {
-    log.error('setUserInfo', error);
+    console.error('setUserInfo', error);
   }
 };
 
@@ -29,7 +28,7 @@ export const removeUserInfo = () => (
       type: 'REMOVE_USER',
     });
   } catch (error) {
-    log.error('removeUserInfo', error);
+    console.error('removeUserInfo', error);
   }
 };
 
@@ -58,7 +57,7 @@ export const googleSignIn = () => async (
     } else {
       // some other error happened
     }
-    log.error('skipGoogleSignIn', error);
+    console.error('skipGoogleSignIn', error);
   }
 };
 
@@ -68,7 +67,7 @@ export const skipGoogleLogin = (skip: boolean) => (
   try {
     dispatch({ type: 'SET_GOOGLE_ACCESS', payload: skip });
   } catch (error) {
-    log.error('skipGoogleLogin', error);
+    console.error('skipGoogleLogin', error);
   }
 };
 

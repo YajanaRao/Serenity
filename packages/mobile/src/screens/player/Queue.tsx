@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { AlertDialog } from '../../components/Dialogs/AlertDialog';
 import { Screen } from '@serenity/components';
 import { QueueList } from './components/QueueList';
-import { clearQueue } from '../../../../core/src';
+import { clearQueue } from '@serenity/core';
 
 export interface QueueScreenProps { }
 

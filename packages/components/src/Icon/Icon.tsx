@@ -49,6 +49,7 @@ import DoneAllIcon from '../assets/Icons/done-all.svg';
 import UnlockOutlineIcon from '../assets/Icons/unlock-outline.svg';
 import LogInOutlineIcon from '../assets/Icons/log-in-outline.svg';
 import PersonOutlineIcon from '../assets/Icons/person-outline.svg';
+import TelegramAppIcon from '../assets/Icons/telegram-app.svg';
 
 const ICONS = {
   'arrow-back': ArrowBackIcon,
@@ -71,7 +72,7 @@ const ICONS = {
   'log-out-outline': LogOutOutlineIcon,
   'trash-outline': TrashOutlineIcon,
   'alert-circle-outline': AlertCircleOutlineIcon,
-  play: PlayIcon,
+  'play': PlayIcon,
   pause: PauseIcon,
   plus: PlusIcon,
   checkmark: CheckmarkIcon,
@@ -101,6 +102,7 @@ const ICONS = {
   'unlock-outline': UnlockOutlineIcon,
   'log-in-outline': LogInOutlineIcon,
   'person-outline': PersonOutlineIcon,
+  'telegram': TelegramAppIcon,
 };
 
 export interface IconProps {

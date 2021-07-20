@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Headline } from 'components';
-import { JioSaavn } from 'media';
+import { JioSaavn } from '@serenity/extensions';
 
 import { TrackItem } from './TrackItem';
-import { playSong } from '../../../../../core/src';
+import { playSong } from '@serenity/core';
 
 export interface JioSaavnContainerProps { }
 

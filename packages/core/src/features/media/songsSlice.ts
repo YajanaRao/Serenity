@@ -5,7 +5,7 @@ import { getSongs } from "./deviceMedia";
 
 export const fetchOfflineSongs = createAsyncThunk(
     'songs/offline',
-    async (_, { }) => {
+    async () => {
         const media = await getSongs();
         if (!media) {
             return []
@@ -15,7 +15,7 @@ export const fetchOfflineSongs = createAsyncThunk(
 )
 
 
-type Song = { id: string; title: string, album: string, artist: string, path: string, liked: boolean }
+type Song = { id: string; title: string, album: string, artist: string, path: string, liked: boolean, cover: string }
 
 const songsAdapter = createEntityAdapter<Song>({
     // Assume IDs are stored in a field other than `book.id`
@@ -34,6 +34,7 @@ const songsSlice = createSlice({
     reducers: {
 
         songAdded: songsAdapter.addOne,
+        songsAdded: songsAdapter.addMany,
         // song
         toggleSongLike(state, action) {
             const song = state.entities[action.payload];
@@ -46,7 +47,7 @@ const songsSlice = createSlice({
 
         // handling songs
         // @ts-ignore
-        [fetchOfflineSongs.pending]: (state, action) => {
+        [fetchOfflineSongs.pending]: (state) => {
             if (!state.loading) {
                 state.loading = true
                 state.error = null;
@@ -94,6 +95,6 @@ export const selectFilteredSongs = (state, query: string) => songsSelectors.sele
 // @ts-ignore
 export const selectLikedSongs = (state) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.liked)
 
-export const { toggleSongLike } = songsSlice.actions;
+export const { toggleSongLike, songAdded, songsAdded } = songsSlice.actions;
 
 export default songsSlice.reducer;

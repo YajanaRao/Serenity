@@ -12,9 +12,8 @@ import {
 } from 'react-native-paper';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { DefaultImage } from '../../../../components/DefaultImage';
-import { addSongToQueue, toggleLike } from '@serenity/core';
+import { addSongToQueue, toggleLike, Player } from '@serenity/core';
 import { useDispatch } from 'react-redux';
-import { skipToNext } from '../../../../../../core/src/actions/player';
 
 export const SongOptions = React.memo(({ bs, song, closeBottomSheet, playSong, addSongToPlaylist }) => {
     const theme = useTheme();
@@ -32,7 +31,9 @@ export const SongOptions = React.memo(({ bs, song, closeBottomSheet, playSong, a
 
     const addSongToPlayNext = () => {
         closeBottomSheet();
-        dispatch(skipToNext(song));
+        // TODO:
+        // add song to play next feature
+        // dispatch(skipToNext(song));
     };
 
     const addToQueue = () => {

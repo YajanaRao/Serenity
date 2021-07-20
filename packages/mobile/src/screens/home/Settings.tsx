@@ -1,31 +1,23 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import {
   Text,
   Switch,
   Drawer,
   TouchableRipple,
   useTheme,
-  List,
-  Avatar,
+  IconButton
 } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StackScreenProps } from '@react-navigation/stack';
 import { Screen } from '@serenity/components';
 // import { changeRadioMode } from '../../actions';
 import { clearHistory, updateTheme } from '@serenity/core';
-import { log } from '~/utils/logging';
 import { AlertDialog } from '~/components/Dialogs/AlertDialog';
-import { LoadingDialog } from '~/components/Dialogs/LoadingDialog';
 import { DiagnoseDialog } from './components/DiagnoseDialog';
 
-export const SettingScreen = ({ navigation }: StackScreenProps) => {
+export const SettingScreen = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const { googleAccessGiven, user } = useSelector(state => state.user);
+  // const { googleAccessGiven, user } = useSelector(state => state.ui);
 
   const [visible, setVisible] = useState('');
   const radio = useSelector((state: any) => state.config.radio);
@@ -48,34 +40,6 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
     setVisible('ALERT');
   };
 
-  const signOut = async () => {
-    try {
-      setLoading(true);
-      GoogleSignin.configure();
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      await GoogleSignin.revokeAccess();
-      const { idToken } = await GoogleSignin.getTokens();
-      await GoogleSignin.clearCachedAccessToken(idToken);
-      await AsyncStorage.clear();
-      // dispatch(removeUserInfo());
-      setLoading(false);
-      navigation.navigate('Intro');
-    } catch (error) {
-      log.error('signOut', error);
-      setLoading(false);
-      navigation.navigate('Intro');
-    }
-  };
-
-  const signIn = async () => {
-    try {
-      // dispatch(googleSignIn());
-    } catch (error) {
-      log.error('signIn', error);
-    }
-  };
-
   const clearData = () => {
     dispatch(clearHistory());
     setVisible('');
@@ -94,22 +58,7 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
         visible={visible === 'DIAGNOSE'}
         hideDialog={() => setVisible('')}
       />
-      <LoadingDialog visible={loading} title="Logging you out" />
       <ScrollView>
-        {user !== {} ||
-          (user !== null && (
-            <List.Item
-              title={user.user.name}
-              description={user.user.email}
-              left={props =>
-                user.user.photo ? (
-                  <Avatar.Image {...props} source={{ uri: user.user.photo }} />
-                ) : (
-                  <List.Icon {...props} icon="person-outline" />
-                )
-              }
-            />
-          ))}
         <Drawer.Section title="Preferences">
           <TouchableRipple onPress={() => toggleTheme(dark)}>
             <View style={styles.preference}>
@@ -139,19 +88,19 @@ export const SettingScreen = ({ navigation }: StackScreenProps) => {
             label="Clear history"
             icon="trash-outline"
           />
-          {!googleAccessGiven || !user ? (
-            <Drawer.Item
-              onPress={signIn}
-              label="Sign In"
-              icon="log-in-outline"
-            />
-          ) : (
-            <Drawer.Item
-              onPress={signOut}
-              label="Sign Out"
-              icon="log-out-outline"
-            />
-          )}
+        </Drawer.Section>
+        <Drawer.Section title="Social">
+          <IconButton icon="telegram" />
+          <Drawer.Item
+            onPress={() => setVisible('DIAGNOSE')}
+            label="Diagnostics"
+            icon="alert-circle-outline"
+          />
+          <Drawer.Item
+            onPress={showAlert}
+            label="Clear history"
+            icon="trash-outline"
+          />
         </Drawer.Section>
       </ScrollView>
     </Screen>

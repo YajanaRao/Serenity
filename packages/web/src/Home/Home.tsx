@@ -1,34 +1,59 @@
-import React from 'react';
+import * as React from 'react';
+import { FlatList } from 'react-native';
 import { Container, Screen, Title } from '@serenity/components';
 import './Home.css'
 import logo from '../logo.svg';
+import { songAdded, songsSelectors, UI, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Extensions } from '@serenity/extensions';
+import { Switch } from 'react-native-paper';
+import { PlayerBar } from './components/PlayerBar';
+import { Song } from './components/Song';
 
-export interface HomeProps {
-}
+export function Home() {
+    const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+    const dispatch = useAppDispatch();
 
-export function Home({ }: HomeProps) {
-    
+    React.useEffect(() => {
+        // @ts-ignore
+        dispatch(Extensions.init());
+    }, [dispatch])
+    function onToggleTheme() {
+        setIsSwitchOn(!isSwitchOn);
+        // @ts-ignore
+        dispatch(UI.toggleTheme());
+        // @ts-ignore
+        dispatch(songAdded({
+            title: "New song",
+            artist: "New artist",
+            album: "New album",
+            path: ''
+        }));
+    }
+
+
+    // @ts-ignore
+    const songs = useAppSelector(state => songsSelectors.selectIds(state));
     return (
         <Screen>
-            <Container>
-                <Title>new one</Title>
+            <Container style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 8 }}>
+                <Title>Serenity</Title>
+                <Switch value={isSwitchOn} onValueChange={onToggleTheme} />
             </Container>
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.tsx</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
-            </div>
+            <FlatList
+                data={songs}
+                horizontal={true}
+                // @ts-ignore
+                keyExtractor={(item) => `${item}`}
+                renderItem={({ item }) => <Song id={item} />}
+            />
+            <Container>
+                <div className="App">
+                    <header className="App-header">
+                        <img src={logo} className="App-logo" alt="logo" />
+                    </header>
+                </div>
+            </Container>
+            <PlayerBar />
         </Screen>
     );
 }

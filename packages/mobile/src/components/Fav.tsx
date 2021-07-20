@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { View, ViewProps } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
@@ -10,7 +10,7 @@ interface FavProps {
 
 export const Fav = ({
   style,
-  liked,
+  liked = false,
   onPress
 }: FavProps) => (
   <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>

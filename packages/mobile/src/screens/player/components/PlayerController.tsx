@@ -1,28 +1,26 @@
-import React from 'react';
+import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { IconButton, FAB, useTheme } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { playNext, playPrevious, toggle } from '../../../../../core/src';
-import { playNextSong } from '../../../../../core/src/actions/player';
-import { RootReducerType } from '../../../../../core/src/reducers';
+import { Player } from '@serenity/core';
 
 export const PlayerController = () => {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const status = useSelector(
-    (state: RootReducerType) => state.player.status,
+    (state) => state.player.status,
   );
 
   const previous = () => {
-    dispatch(playPrevious());
+    dispatch(Player.playPrevious());
   };
 
   const next = () => {
-    dispatch(playNextSong());
+    dispatch(Player.playNext());
   };
 
   const togglePlayback = () => {
-    dispatch(toggle())
+    dispatch(Player.toggle())
   };
   return (
     <View style={styles.playerToolbox}>

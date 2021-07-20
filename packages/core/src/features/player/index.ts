@@ -6,26 +6,22 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 import { addSongToHistory } from "./historySlice";
-import { play, removeSongFromQueue, updateStatus } from "./playerSlice";
+import { play, removeSongFromQueue, repeatSongs, updateStatus } from "./playerSlice";
 
 let subscription: EmitterSubscription;
 
 
 
 export function setUpTrackPlayer() {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     try {
       subscription = addEventListener('media', (event: any) => {
-        // handle event
-        console.log('from event listener', event);
-        // if (event === 'skip_to_next') {
-        //   dispatch(playNext());
-        // } else if (event === 'skip_to_previous') {
-        //   dispatch(playPrevious());
-        // } else {
         dispatch(updateStatus(event));
-        // }
       });
+      const { track } = getState().player;
+      if (track) {
+        loadTrack(track);
+      }
     } catch (error) {
       console.log('setUpTrackPlayer', error);
     }
@@ -35,17 +31,15 @@ export function setUpTrackPlayer() {
 
 
 
-export const shufflePlay =
-  (songs: Song[]) => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+export function repeat(repeatType: string) {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     try {
-      dispatch({
-        songs,
-        type: 'SHUFFLE_PLAY',
-      });
+      dispatch(repeatSongs(repeatType));
     } catch (error) {
       console.log('shufflePlay', error);
     }
   };
+}
 
 export const startRadio =
   () => (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
@@ -65,14 +59,15 @@ export const startRadio =
 
 
 
-export const destroyTrackPlayer =
-  () => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+export function destroyTrackPlayer() {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     TrackPlayer.destroy();
     if (subscription !== undefined) {
       subscription.remove();
     }
     dispatch(updateStatus("init"));
   };
+}
 
 interface Song {
   title: string;
@@ -96,18 +91,18 @@ function loadTrack(track: Song) {
 
 export function playSong(song: Song) {
   return (dispatch: any, getState: any) => {
-    console.log("playing", song);
-
     if (!song.path && !song.url) {
       throw new Error("path or url of the song is missing");
     }
 
-    const playedSong = getState().player.track;
+    const { track } = getState().player;
     dispatch(addSongToHistory({
-      ...playedSong,
+      ...track,
       date: new Date().toUTCString(),
     }))
-    loadTrack(song);
+    loadTrack(song).then(() => {
+      TrackPlayer.play();
+    });
     dispatch(play(song));
   }
 }
@@ -150,13 +145,16 @@ export function toggle() {
     } else if (status === "paused") {
       TrackPlayer.play();
     } else if (status === "init") {
-      console.log('init');
       const { track } = getState().player;
       loadTrack(track).then(() => {
         TrackPlayer.play()
       });
     } else {
-      console.log("another status: ", status)
+      console.log("another status: ", status);
+      const { track } = getState().player;
+      loadTrack(track).then(() => {
+        TrackPlayer.play()
+      });
     }
     dispatch(updateStatus(status))
   }

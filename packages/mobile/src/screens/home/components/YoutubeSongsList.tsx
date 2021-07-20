@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useDispatch } from 'react-redux';
-import { Youtube } from 'media';
+import { Youtube } from '@serenity/extensions';
 import { Headline } from 'components';
 import { playSong } from '@serenity/core';
 import { TrackItem } from './TrackItem';

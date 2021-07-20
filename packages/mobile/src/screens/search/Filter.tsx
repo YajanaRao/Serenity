@@ -6,11 +6,11 @@ import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { ActivityIndicator } from 'react-native-paper';
 import { Container, Screen } from '@serenity/components';
 import { RouteProp } from '@react-navigation/core';
-import { filterSongsByGenre } from '../../../../core/src/actions/media';
+import { filterSongsByGenre } from '@serenity/core/src/actions/media';
 import { SongListContainer } from '../../containers/SongListContainer';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import { SearchStackParamList } from './types';
-import { addSongToPlaylist } from '../../../../core/src';
+import { addSongToPlaylist } from '@serenity/core';
 
 type FilterScreenNavigationProp = StackNavigationProp<
   SearchStackParamList,

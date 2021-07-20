@@ -1,12 +1,6 @@
-import { TrackProps } from "../../../mobile/src/utils/types";
 import RNFS from 'react-native-fs';
 import { giveWriteOfflineAccess } from './userActions';
 import { includes } from 'lodash';
-import { log } from '../../../mobile/src/utils/logging';
-
-export const addSongToDownloads = (song: TrackProps) => {
-    console.log("download here")
-};
 
 const _downloadFileProgress = data => {
     const percentage = ((100 * data.bytesWritten) / data.contentLength) | 0;
@@ -32,7 +26,7 @@ async function checkFolderPath(folderPath: string) {
             await RNFS.mkdir(folderPath);
         }
     } catch (error) {
-        log.error('checkFolderPath', error);
+        console.error('checkFolderPath', error);
     }
 }
 
@@ -76,22 +70,21 @@ export const downloadMedia = (item: TrackProps) => async (
                 const audioResponse = await download(item.path, filePath);
                 const imageResponse = await download(item.cover, imagePath);
                 item.path = filePath;
-                log.debug('downloadMedia', audioResponse.toString());
+                console.debug('downloadMedia', audioResponse.toString());
             }
             else if (includes(['online'], item.type.toLowerCase())) {
                 const filePath = `${folderPath}/${item.title.trim()}.mp3`;
                 const response = await download(item.path, filePath);
                 item.path = filePath;
-                log.debug('downloadMedia', response.toString());
+                console.debug('downloadMedia', response.toString());
             }
-            addSongToDownloads(item);
             dispatch({
                 payload: `File ${item.title} downloaded successfully`,
                 type: 'NOTIFY',
             });
         }
     } catch (error) {
-        log.error('downloadMedia', error);
+        console.error('downloadMedia', error);
         dispatch({
             payload: `downloadMedia ${item.title} from youtube failed`,
             type: 'NOTIFY',

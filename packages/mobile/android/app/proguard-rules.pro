@@ -25,9 +25,10 @@
   public *;
 }
 
--keep class com.facebook.hermes.unicode.** { *; }
--keep class com.facebook.jni.** { *; }
-
 -keep class com.serenity.BuildConfig { *; }
 
 -keep public class com.horcrux.svg.** {*;}
+
+# hermes
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }

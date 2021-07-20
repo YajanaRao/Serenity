@@ -15,7 +15,7 @@ const persistedReducer = persistReducer(persistConfig, RootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk]
+  middleware: [thunk],
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

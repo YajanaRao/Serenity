@@ -4,10 +4,7 @@ import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { searchSongs, Youtube } from 'media';
-
-import { log } from '../../../mobile/src/utils/logging';
-
+import { Youtube } from '@serenity/extensions';
 
 
 export const updateQuery = (query: string, category: string) => async (
@@ -25,16 +22,16 @@ export const updateQuery = (query: string, category: string) => async (
           data: offlineMedia,
         });
       }
-      if (category !== 'offline') {
-        const songs = await searchSongs(query);
-        if (songs.length) media.concat(songs);
-      }
+      // if (category !== 'offline') {
+      //   const songs = await searchSongs(query);
+      //   if (songs.length) media.concat(songs);
+      // }
       dispatch({
         type: 'UPDATE_QUERY',
         payload: media,
       });
     } catch (error) {
-      log.error("Search", error);
+      console.error("Search", error);
       dispatch({
         type: 'UPDATE_QUERY',
         payload: false,
