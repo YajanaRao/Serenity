@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { FlatList } from 'react-native';
 import { Container, Screen, Title } from '@serenity/components';
-import './Home.css'
-import logo from '../logo.svg';
-import { songAdded, songsSelectors, UI, useAppDispatch, useAppSelector } from '@serenity/core';
+import { songsSelectors, UI, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Extensions } from '@serenity/extensions';
 import { Switch } from 'react-native-paper';
 import { PlayerBar } from './components/PlayerBar';
@@ -21,13 +19,6 @@ export function Home() {
         setIsSwitchOn(!isSwitchOn);
         // @ts-ignore
         dispatch(UI.toggleTheme());
-        // @ts-ignore
-        dispatch(songAdded({
-            title: "New song",
-            artist: "New artist",
-            album: "New album",
-            path: ''
-        }));
     }
 
 
@@ -36,23 +27,26 @@ export function Home() {
     return (
         <Screen>
             <Container style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 8 }}>
-                <Title>Serenity</Title>
+                <Title style={{ fontWeight: "bold", fontSize: 24 }}>Serenity</Title>
                 <Switch value={isSwitchOn} onValueChange={onToggleTheme} />
             </Container>
-            <FlatList
-                data={songs}
-                horizontal={true}
-                // @ts-ignore
-                keyExtractor={(item) => `${item}`}
-                renderItem={({ item }) => <Song id={item} />}
-            />
-            <Container>
-                <div className="App">
-                    <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo" />
-                    </header>
-                </div>
+            <Container style={{ flexDirection: 'row' }}>
+                <Container style={{ flex: 1, padding: 12 }}>
+                    <Title style={{ marginVertical: 8 }}>Home</Title>
+                    <Title style={{ marginVertical: 8 }}>Search</Title>
+                    <Title style={{ marginVertical: 8 }}>Your library</Title>
+                </Container>
+                <Container style={{ flex: 5 }}>
+                    <FlatList
+                        data={songs}
+                        horizontal={true}
+                        // @ts-ignore
+                        keyExtractor={(item) => `${item}`}
+                        renderItem={({ item }) => <Song id={item} />}
+                    />
+                </Container>
             </Container>
+
             <PlayerBar />
         </Screen>
     );

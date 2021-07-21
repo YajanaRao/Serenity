@@ -22,12 +22,12 @@ import MicOutlineIcon from '../assets/Icons/mic-outline.svg';
 import MenuOutlineIcon from '../assets/Icons/menu-outline.svg';
 import MoreVerticalOutlineIcon from '../assets/Icons/more-vertical-outline.svg';
 import MusicOutlineIcon from '../assets/Icons/music-outline.svg';
-import PauseIcon from '../assets/Icons/pause.svg';
+import { ReactComponent as PauseIcon } from '../assets/Icons/pause.svg';
 import PlayCircleOutlineIcon from '../assets/Icons/play-circle-outline.svg';
-import PlayIcon from '../assets/Icons/play.svg';
+import { ReactComponent as PlayIcon } from '../assets/Icons/play.svg';
 import PlaylistPlayIcon from '../assets/Icons/playlist-play.svg';
 import PlaylistPlusIcon from '../assets/Icons/playlist-plus.svg';
-import PlusIcon from '../assets/Icons/plus.svg';
+import { ReactComponent as PlusIcon } from '../assets/Icons/plus.svg';
 import RadioOutlineIcon from '../assets/Icons/radio-outline.svg';
 import RefreshOutlineIcon from '../assets/Icons/refresh-outline.svg';
 import RepeatOffIcon from '../assets/Icons/repeat-off.svg';
@@ -73,7 +73,7 @@ const ICONS = {
   'trash-outline': TrashOutlineIcon,
   'alert-circle-outline': AlertCircleOutlineIcon,
   'play': PlayIcon,
-  pause: PauseIcon,
+  'pause': PauseIcon,
   plus: PlusIcon,
   checkmark: CheckmarkIcon,
   close: CloseIcon,

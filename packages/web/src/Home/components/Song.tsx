@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Image, View } from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
-import { Card, Title } from '@serenity/components';
+import { Hoverable, Title, Text } from '@serenity/components';
 import { songsSelectors, useAppSelector, Player, useAppDispatch } from '@serenity/core';
 
 export interface SongProps {
@@ -19,14 +18,15 @@ export function Song({ id }: SongProps) {
     if (song) {
 
         return (
-            <TouchableRipple onPress={() => playSong(song)}>
-                <Card style={{ margin: 12 }}>
-                    <Image source={{ uri: song.cover }} style={{ height: 200, width: 200 }} />
-                    <View style={{ margin: 8 }}>
-                        <Title>{song.title}</Title>
-                    </View>
-                </Card>
-            </TouchableRipple>
+            <Hoverable style={{ margin: 8, padding: 4 }} onPress={() => playSong(song)}>
+                {/* <Card style={{ margin: 12 }}> */}
+                <Image source={{ uri: song.cover }} style={{ height: 150, width: 150, borderRadius: 8 }} />
+                <View style={{ margin: 8 }}>
+                    <Title>{song.title}</Title>
+                    <Text>{song.artist}</Text>
+                </View>
+                {/* </Card> */}
+            </Hoverable>
         );
     }
     return null;

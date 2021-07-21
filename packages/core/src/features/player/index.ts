@@ -15,6 +15,7 @@ let subscription: EmitterSubscription;
 export function setUpTrackPlayer() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     try {
+      // @ts-ignore
       subscription = addEventListener('media', (event: any) => {
         dispatch(updateStatus(event));
       });

@@ -1,10 +1,10 @@
 import React from 'react';
-import { TextStyle, Text as SimpleText, Platform } from 'react-native';
+import { TextStyle, Text as SimpleText, Platform, StyleProp } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 export interface TextProps {
     children: React.ReactChild | React.ReactChild[];
-    style?: TextStyle;
+    style?: StyleProp<TextStyle>;
 }
 
 export function Text({ children, style }: TextProps) {
@@ -14,7 +14,7 @@ export function Text({ children, style }: TextProps) {
     return (
         <SimpleText
             style={[
-                { fontFamily, color: colors.text },
+                { fontFamily, color: colors.text, fontSize: 12 },
                 style,
             ]}
         >
