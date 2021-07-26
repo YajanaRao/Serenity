@@ -1,28 +1,31 @@
 import React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { useTheme } from 'react-native-paper';
 import { DefaultImage } from '../DefaultImage';
 
 export interface ArtCoverProps {
-    cover: string | null
+    cover: string | null,
+    style?: StyleProp<ViewStyle>;
 }
 
-export const ArtCover = React.memo(({ cover }: ArtCoverProps) => {
+export const ArtCover = React.memo(({ cover, style = {} }: ArtCoverProps) => {
+    const { colors } = useTheme();
     if (cover) {
         return (
-            <FastImage source={{ uri: cover }} style={styles.artwork} />
+            <FastImage source={{ uri: cover }} style={[styles.artwork, style, { backgroundColor: colors.surface }]} />
         );
     }
 
     return (
-        <DefaultImage style={styles.artwork} />
+        <DefaultImage size={50} style={[styles.artwork, style]} />
     )
 })
 
 
 const styles = StyleSheet.create({
     artwork: {
-        backgroundColor: '#d7d1c9',
         borderRadius: 4,
         height: 50,
         width: 50,

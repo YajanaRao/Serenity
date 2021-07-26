@@ -9,10 +9,10 @@ import {
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
-import { Button, Text, useTheme } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { useDispatch } from 'react-redux';
-import { Screen } from '@serenity/components';
+import { Screen, Button } from '@serenity/components';
 import { hideIntroSlides } from '@serenity/core';
 import { LocalLibraryAccess } from './components/LocalLibraryAccess';
 import GoogleLogin from './components/GoogleLogin';

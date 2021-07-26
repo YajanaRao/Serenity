@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { useScrollToTop } from '@react-navigation/native';
 
 import { Screen } from '@serenity/components';
-import { fetchOfflineAlbums, giveReadOfflineAccess, useAppDispatch, useAppSelector, albumsSelectors } from '@serenity/core';
+import { fetchAlbums, UI, useAppDispatch, useAppSelector, albumsSelectors, EntityId } from '@serenity/core';
 import { Blank } from '../../../components/Blank';
 import { Album } from './components/Album';
 
@@ -26,7 +26,7 @@ export const AlbumScreen = ({ }) => {
 
   const fetchData = () => {
     if (offlineReadAccessGiven && !loading) {
-      dispatch(fetchOfflineAlbums());
+      dispatch(fetchAlbums());
     }
   };
 
@@ -40,8 +40,8 @@ export const AlbumScreen = ({ }) => {
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={fetchData} />
           }
-          keyExtractor={(item: number) => item}
-          renderItem={({ item }: { item: number }) => <Album id={item} />}
+          keyExtractor={(item: EntityId) => `album-${item}`}
+          renderItem={({ item }: { item: EntityId }) => <Album id={item} />}
         />
       </Screen>
     );
@@ -51,7 +51,7 @@ export const AlbumScreen = ({ }) => {
     return (
       <Blank
         text="View your media by Granting Storage Permission"
-        fetchData={() => dispatch(giveReadOfflineAccess())}
+        fetchData={() => dispatch(UI.giveReadOfflineAccess())}
         buttonText="Allow Access"
       />
     );

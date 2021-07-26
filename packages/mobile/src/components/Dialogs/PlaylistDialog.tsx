@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Dialog, Portal, Button } from 'react-native-paper';
 import { FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@serenity/core';
 
 interface Props {
   visible: boolean;
@@ -20,12 +20,13 @@ export const PlaylistDialog = ({
   hideModal,
   addToPlaylist,
 }: Props) => {
-  const playlists = useSelector(state => state.playlists);
+  const playlists = useAppSelector(state => state.playlists);
+
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={hideModal}>
         <Dialog.Title style={{ textAlign: 'center' }}>
-          {playlists.length ? 'Add to Playlist' : 'No playlists found'}
+          {playlists && playlists.length ? 'Add to Playlist' : 'No playlists found'}
         </Dialog.Title>
 
         <Dialog.ScrollArea>

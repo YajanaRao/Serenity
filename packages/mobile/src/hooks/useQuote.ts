@@ -9,7 +9,6 @@ export function useQuote() {
       fetch('https://quotes.rest/qod.json')
         .then(response => response.json())
         .then(responseJson => {
-          console.log("fetching quote", responseJson)
           setQuote(responseJson.contents.quotes[0].quote);
         })
         .catch(error => {

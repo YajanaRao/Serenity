@@ -1,5 +1,5 @@
-import React from 'react';
-import { Title, Button, Divider, Subheading } from 'react-native-paper';
+import * as React from 'react';
+import { Title, Button, Divider, Subheading, IconButton } from 'react-native-paper';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
@@ -11,21 +11,41 @@ import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
 
 import { addSongToQueue, selectPlaylistSongsById } from '@serenity/core';
 import { SongItem } from '../../offline/Song/components/SongItem';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { PlaylistOptions } from 'components/PlaylistOptions';
 
-export const PlaylistSongs = ({ route }) => {
+export const PlaylistSongs = ({ route, navigation }) => {
   const { playlist } = route.params;
   const songs = useSelector(state => selectPlaylistSongsById(state, playlist.id))
-  console.log('playlist songs', songs);
   const dispatch = useDispatch();
+  const bottomSheetModalRef = React.useRef<BottomSheet>(null);
+
 
   const addToQueue = () => {
     dispatch(addSongToQueue(values(songs)));
   };
 
+  // callbacks
+  const handlePresentModalPress = React.useCallback(() => {
+    bottomSheetModalRef.current?.expand();
+  }, []);
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: playlist.name,
+      headerTitleAlign: 'start',
+      headerRight: () => (
+        <IconButton icon="more-vertical-outline" onPress={handlePresentModalPress} />
+      )
+    })
+  }, [navigation])
+
+
 
 
   return (
     <Screen>
+      <PlaylistOptions bottomSheetModalRef={bottomSheetModalRef} songs={songs} playlist={playlist} />
       {isEmpty(songs) ? (
         <EmptyPlaylist />
       ) : (

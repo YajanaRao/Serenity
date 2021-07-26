@@ -2,6 +2,7 @@ import {
     createEntityAdapter,
     createSlice,
 } from '@reduxjs/toolkit'
+import { RootState } from 'store'
 
 type Song = { id: string; title: string, date: string }
 
@@ -29,7 +30,7 @@ const queueSlice = createSlice({
 })
 
 
-export const queueSelectors = queueAdapter.getSelectors(
+export const queueSelectors = queueAdapter.getSelectors<RootState>(
     (state) => state.queue
 )
 

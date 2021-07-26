@@ -1,12 +1,14 @@
 import { addEventListener, TrackPlayer } from 'react-track-player';
 import { EmitterSubscription } from 'react-native';
 import sample from 'lodash/sample';
+import isEmpty from 'lodash/isEmpty';
 
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 import { addSongToHistory } from "./historySlice";
-import { play, removeSongFromQueue, repeatSongs, updateStatus } from "./playerSlice";
+import { addSongToQueue, play, removeSongFromQueue, repeatSongs, updateStatus } from "./playerSlice";
+import { addSongsToQueue } from './queueSlice';
 
 let subscription: EmitterSubscription;
 
@@ -20,7 +22,7 @@ export function setUpTrackPlayer() {
         dispatch(updateStatus(event));
       });
       const { track } = getState().player;
-      if (track) {
+      if (!isEmpty(track)) {
         loadTrack(track);
       }
     } catch (error) {
@@ -97,10 +99,12 @@ export function playSong(song: Song) {
     }
 
     const { track } = getState().player;
-    dispatch(addSongToHistory({
-      ...track,
-      date: new Date().toUTCString(),
-    }))
+    if (!isEmpty(track)) {
+      dispatch(addSongToHistory({
+        ...track,
+        date: new Date().toUTCString(),
+      }))
+    }
     loadTrack(song).then(() => {
       TrackPlayer.play();
     });
@@ -160,4 +164,18 @@ export function toggle() {
     dispatch(updateStatus(status))
   }
 
+}
+
+export function add(songs: Array<Song> | Song) {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
+    const { track } = getState().player;
+    if (Array.isArray(songs)) {
+      dispatch(addSongsToQueue(songs));
+    } else {
+      dispatch(addSongToQueue(songs));
+    }
+    if (isEmpty(track)) {
+      dispatch(playSong(track));
+    }
+  }
 }

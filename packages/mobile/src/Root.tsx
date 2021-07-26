@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Icon, ThemeProvider, DarkTheme, DefaultTheme } from '@serenity/components';
 import { selectThemeType, useAppSelector } from '@serenity/core';
 import { RootNavigator } from './navigation/RootNavigator';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export const RootScreen = () => {
   const themeType = useAppSelector(selectThemeType);
@@ -21,7 +22,9 @@ export const RootScreen = () => {
         }}
         theme={theme}
       >
-        <RootNavigator />
+        <BottomSheetModalProvider>
+          <RootNavigator />
+        </BottomSheetModalProvider>
       </ThemeProvider>
     </NavigationContainer>
   );

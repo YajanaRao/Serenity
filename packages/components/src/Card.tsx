@@ -8,9 +8,9 @@ export interface CardProps {
 }
 
 export function Card({ children, style = {} }: CardProps) {
-    return (
-        <Surface style={style}>
-            {children}
-        </Surface>
-    );
+  return (
+    <Surface style={style}>
+      {children}
+    </Surface>
+  );
 }

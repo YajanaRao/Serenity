@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Dialog, Portal, Button, TextInput } from 'react-native-paper';
-
+import { Dialog, Portal, TextInput } from 'react-native-paper';
+import { Button } from '@serenity/components';
 interface Props {
   visible: boolean;
   hideDialog(): void;

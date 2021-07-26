@@ -1,8 +1,8 @@
 import React from 'react';
-import { artistUpdated, selectArtistLikeById, useAppDispatch, useAppSelector } from '@serenity/core';
-import { Follow } from '../../../../components/Follow';
+import { artistUpdated, EntityId, selectArtistLikeById, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Follow } from 'components/Follow';
 
-export const FollowArtist = ({ id }: { id: string }) => {
+export const FollowArtist = ({ id }: { id: EntityId }) => {
     const liked = useAppSelector(state => selectArtistLikeById(state, id));
     const dispatch = useAppDispatch()
 
@@ -13,7 +13,7 @@ export const FollowArtist = ({ id }: { id: string }) => {
 
     return (
         <Follow
-            liked={liked}
+            liked={liked || false}
             onPress={toggleLike}
         />
     )

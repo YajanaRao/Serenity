@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
+import { RootState } from "store";
 import { getAlbums } from "./deviceMedia";
 
 
@@ -66,8 +67,7 @@ const albumsSlice = createSlice({
 
 
 // Can create a set of memoized selectors based on the location of this entity state
-export const albumsSelectors = albumsAdapter.getSelectors(
-    // @ts-ignore
+export const albumsSelectors = albumsAdapter.getSelectors<RootState>(
     (state) => state.albums
 )
 

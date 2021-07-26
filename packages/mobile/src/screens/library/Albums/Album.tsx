@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 
 import { Screen } from '@serenity/components';
-import { selectLikedAlbums, useAppSelector } from '@serenity/core';
+import { EntityId, selectLikedAlbums, useAppSelector } from '@serenity/core';
 import { EmptyFavoriteAlbums } from './components/EmptyFavoriteAlbums';
 import { Album } from './components/Album';
 
@@ -16,7 +16,7 @@ export const AlbumScreen = () => {
         <FlatList
           data={albums}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }: { item: number }) => <Album id={item} />}
+          renderItem={({ item }: { item: EntityId }) => <Album id={item} />}
         />
       ) : (
         <EmptyFavoriteAlbums />

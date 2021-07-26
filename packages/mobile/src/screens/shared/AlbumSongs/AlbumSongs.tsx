@@ -6,7 +6,7 @@ import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { addSongToQueue } from '@serenity/core';
 import { findAlbumSongs } from '@serenity/core/src/actions/media';
-import { SongListContainer } from '../../../containers/SongListContainer';
+import { SongList } from '../../../components/SongList';
 import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
 import { FavAlbum } from './components/FavAlbum';
 
@@ -29,7 +29,7 @@ export const AlbumSongs = ({ route, navigation }) => {
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
           <FavAlbum id={album.id} />
-          {isFetching ? null : <IconButton icon="play-circle-outline" onPress={addSongsToQueue} />}
+          <IconButton icon="play-circle-outline" onPress={addSongsToQueue} disabled={isFetching} />
         </View>
       ),
     });
@@ -54,7 +54,7 @@ export const AlbumSongs = ({ route, navigation }) => {
   }
   return (
     <Screen>
-      <SongListContainer
+      <SongList
         data={songs}
         fetchData={fetchData}
         title={album.name || album.album}

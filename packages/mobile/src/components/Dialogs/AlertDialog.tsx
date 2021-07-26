@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Paragraph, Dialog, Portal } from 'react-native-paper';
-
+import { Paragraph, Dialog, Portal } from 'react-native-paper';
+import { Button } from '@serenity/components';
 interface AlertProps {
   visible: boolean;
   title: string;
@@ -26,12 +26,12 @@ export const AlertDialog = ({
           <Paragraph>{message}</Paragraph>
         </Dialog.Content>
         <Dialog.Actions>
-          <Button onPress={hideDialog} mode="outlined" style={{ width: 100 }}>
+          <Button onPress={hideDialog} style={{ width: 100 }}>
             Cancel
           </Button>
           <Button
             onPress={action}
-            mode="contained"
+            color="red"
             style={{ width: 100, marginLeft: 12 }}
           >
             Ok

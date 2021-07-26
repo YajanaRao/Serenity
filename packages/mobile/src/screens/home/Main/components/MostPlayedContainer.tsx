@@ -3,9 +3,8 @@ import { View, ViewStyle, FlatList } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
-import { historySelectors, Player, useAppDispatch, useAppSelector } from '@serenity/core';
+import { historySelectors, Player, SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Headline } from '@serenity/components';
-import { TrackProps } from '~/utils/types';
 import { TrackItem } from '../../components/TrackItem';
 
 const CONTAINER: ViewStyle = {
@@ -22,7 +21,7 @@ export const MostPlayedContainer = () => {
 
   const dispatch = useAppDispatch();
 
-  const play = (track: TrackProps) => {
+  const play = (track: SongProps) => {
     if (!isEmpty(track)) {
       dispatch(Player.playSong(track));
     }

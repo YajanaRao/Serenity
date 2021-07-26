@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PermissionsAndroid } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'react-native-paper';
-import { giveReadOfflineAccess } from '@serenity/core';
-import { RootReducerType } from '@serenity/core/src/reducers';
+import { giveReadOfflineAccess, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Button } from '@serenity/components';
 
 export interface LocalLibraryAccessProps {
   color: string;
@@ -11,12 +9,10 @@ export interface LocalLibraryAccessProps {
 }
 
 export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
-  const { offlineReadAccessGiven } = useSelector(
-    (state: RootReducerType) => state.user,
-  );
+  const { offlineReadAccessGiven } = useAppSelector((state) => state.ui);
 
   const [given, setGiven] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const requestPermission = () => {
     dispatch(giveReadOfflineAccess());
   };

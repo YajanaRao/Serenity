@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+import { RootState } from "store";
 import { getSongs } from "./deviceMedia";
 
 
@@ -78,22 +79,21 @@ const songsSlice = createSlice({
 
 
 // Can create a set of memoized selectors based on the location of this entity state
-export const songsSelectors = songsAdapter.getSelectors(
-    // @ts-ignore
+export const songsSelectors = songsAdapter.getSelectors<RootState>(
     (state) => state.songs
 )
 
-// @ts-ignore
+export const selectLikedSongs = createSelector([state => songsSelectors.selectAll(state)], songs => songs.filter(song => song.liked));
+
 export const selectSongLikeById = (state, songId: number) => {
     const song = songsSelectors.selectById(state, songId);
     return song?.liked;
 }
 
-// @ts-ignore
 export const selectFilteredSongs = (state, query: string) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase()))
 
 // @ts-ignore
-export const selectLikedSongs = (state) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.liked)
+export const selectLikedSongIds = createSelector([selectLikedSongs], likedSongs => likedSongs.map(item => item.id))
 
 export const { toggleSongLike, songAdded, songsAdded } = songsSlice.actions;
 

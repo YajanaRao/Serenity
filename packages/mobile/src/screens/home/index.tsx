@@ -52,12 +52,6 @@ const HomeStack = () => {
       <Stack.Screen
         name="Playlist"
         component={PlaylistSongs}
-        options={({ route }) => {
-          const { playlist } = route.params;
-          return {
-            headerTitle: playlist.name,
-          };
-        }}
       />
       <Stack.Screen
         name="Favorites"

@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Title, Button, Divider, Subheading, IconButton } from 'react-native-paper';
-import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import values from 'lodash/values';
 import FastImage from 'react-native-fast-image';
 import { Screen } from '@serenity/components';
-import { selectPlaylistSongsById } from '@serenity/core';
-import { DefaultImage } from '../../components/DefaultImage';
-import { EmptyPlaylist } from '../../components/EmptyPlaylist';
+import { selectPlaylistSongsById, SongProps } from '@serenity/core';
+import { DefaultImage } from 'components/DefaultImage';
+import { EmptyPlaylist } from 'components/EmptyPlaylist';
 
-import { TrackProps } from '../../utils/types';
-import { TrackContainer } from '../../containers/TrackContainer';
+import { TrackContainer } from 'containers/TrackContainer';
 
 export const PlaylistSongs = ({ route, navigation }) => {
   const { playlist, filter } = route.params;
@@ -68,7 +67,7 @@ export const PlaylistSongs = ({ route, navigation }) => {
             </View>
           )}
           data={songs}
-          renderItem={({ item }: { item: TrackProps }) => (
+          renderItem={({ item }: { item: SongProps }) => (
             <TrackContainer track={item} />
           )}
           ItemSeparatorComponent={() => <Divider inset />}

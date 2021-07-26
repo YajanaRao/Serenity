@@ -1,9 +1,15 @@
-import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer } from 'redux-persist';
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { RootReducer } from '../reducers';
-
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from "redux-persist";
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -15,11 +21,17 @@ const persistedReducer = persistReducer(persistConfig, RootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk],
+  // this is done to handle error with non serializable value for register function
+  // https://github.com/rt2zz/redux-persist/issues/988
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+    }
+  })
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof RootReducer>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 

@@ -32,7 +32,7 @@ export const EmptyPlaylist = () => {
             loop
           />
         </View>
-        <Headline style={{ textAlign: 'center' }}>Empty playlists</Headline>
+        <Headline style={{ textAlign: 'center' }}>Empty playlist</Headline>
       </View>
     </Screen>
   );

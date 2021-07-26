@@ -1,52 +1,45 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Divider,
-  Button,
   IconButton,
   useTheme,
-  ActivityIndicator,
 } from 'react-native-paper';
 import {
   View,
   RefreshControl,
   StyleSheet,
-  Animated,
+  FlatList,
 } from 'react-native';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
-import {
-  useCollapsibleSubHeader,
-  CollapsibleSubHeaderAnimator,
-} from 'react-navigation-collapsible';
 
-import { Screen } from '@serenity/components';
+import { Screen, Button } from '@serenity/components';
 import {
   Player,
-  giveReadOfflineAccess, fetchOfflineSongs, addSongToPlaylist, playSong, addSongToQueue,
+  UI,
+  fetchOfflineSongs,
+  addSongToPlaylist,
+  addSongToQueue,
   songsSelectors,
   useAppSelector,
-  useAppDispatch
+  useAppDispatch,
+  EntityId
 } from '@serenity/core';
-
-
-
-import { Blank } from '~/components/Blank';
-import { PlaylistDialog } from '~/components/Dialogs/PlaylistDialog';
-import { TrackProps } from '~/utils/types';
+import { Blank } from 'components/Blank';
+import { PlaylistDialog } from 'components/Dialogs/PlaylistDialog';
+import { TrackProps } from 'utils/types';
 import { SongItem } from './components/SongItem';
 import { SongOptions } from './components/SongOptions';
+import BottomSheet from '@gorhom/bottom-sheet';
 
-interface ItemProps {
-  item: number;
-}
 
 export const SongScreen = () => {
 
-  const bs = useRef();
+  const bottomSheetModalRef = React.useRef<BottomSheet>(null);
 
   const ref = useRef(null);
   useScrollToTop(ref);
   const [visible, setVisible] = useState('');
-  const [song, setSong] = useState();
+  const [song, setSong] = useState<EntityId>();
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -55,139 +48,114 @@ export const SongScreen = () => {
   const songs = useAppSelector(state => songsSelectors.selectIds(state));
   const { error, loading } = useAppSelector(state => state.songs)
 
-  const fetchSongs = async () => {
-    try {
-      await dispatch(fetchOfflineSongs())
-    } catch (err) {
-      console.log('error', `Fetch failed: ${err.message}`)
-    }
-  }
-
-  const {
-    onScroll /* Event handler */,
-    containerPaddingTop /* number */,
-    scrollIndicatorInsetTop /* number */,
-    translateY,
-  } = useCollapsibleSubHeader();
-
   useEffect(() => {
     if (!songs.length) {
       fetchSongs();
     }
   }, []);
 
-  const fetchData = () => {
-    if (offlineReadAccessGiven && !loading) {
-      fetchSongs();
+  async function fetchSongs() {
+    try {
+      if (offlineReadAccessGiven && !loading) {
+        await dispatch(fetchOfflineSongs())
+      }
+    } catch (err) {
+      console.log('error', `Fetch failed: ${err.message}`)
     }
-  };
+  }
 
-  const showDialog = () => {
+
+  function showDialog() {
     setVisible('DIALOG');
   };
 
 
 
   const addToPlaylist = (id: string) => {
-    dispatch(addSongToPlaylist(id, song.id));
+    dispatch(addSongToPlaylist(id, song));
     setVisible('');
   };
 
-  const play = (song: TrackProps) => {
+  function play(song: TrackProps) {
     dispatch(Player.playSong(song));
   };
 
-  const openBottomSheet = () => {
-    bs.current.snapTo(0);
-  };
+  const openBottomSheet = React.useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
 
-  const closeBottomSheet = () => {
-    bs.current.snapTo(1);
-  };
-
-  const openMenu = (song: TrackProps) => {
-    setSong(song);
+  function openMenu(songId: EntityId) {
+    setSong(songId);
     openBottomSheet();
   };
+
+  if (!offlineReadAccessGiven || error) {
+    return (
+      <Blank
+        text="View your media by Granting Storage Permission"
+        fetchData={() => dispatch(UI.giveReadOfflineAccess())}
+        buttonText="Allow Access"
+      />
+    );
+  }
 
 
   if (songs.length) {
     return (
       <Screen>
+        <View style={[styles.header, { backgroundColor: colors.background }]}>
+          <Button
+            icon="play"
+            onPress={() => dispatch(addSongToQueue(songs))}
+          >
+            Play All
+          </Button>
+          <View style={{ flexDirection: 'row' }}>
+            <IconButton
+              icon="shuffle-outline"
+              color={colors.primary}
+              onPress={() => dispatch(Player.repeat("shuffle"))}
+            />
+            <IconButton
+              icon="search-outline"
+              color={colors.primary}
+              onPress={() =>
+                navigation.navigate('Find', {
+                  type: 'offline',
+                })
+              }
+            />
+          </View>
+        </View>
+        <Divider />
         <PlaylistDialog
           visible={visible === 'DIALOG'}
           hideModal={() => setVisible('')}
           addToPlaylist={addToPlaylist}
         />
         <SongOptions
-          bs={bs}
-          song={song}
-          closeBottomSheet={closeBottomSheet}
-          playSong={play}
+          bs={bottomSheetModalRef}
+          id={song}
           addSongToPlaylist={showDialog}
         />
-        <Animated.FlatList
-          onScroll={onScroll}
-          contentContainerStyle={{ paddingTop: containerPaddingTop }}
-          scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
+        <FlatList
           ref={ref}
           data={songs}
-          renderItem={({ item }: ItemProps) => <SongItem id={item} onPress={play} openMenu={openMenu} />}
-          // ItemSeparatorComponent={() => <Divider inset />}
-          keyExtractor={(item) => item}
+          renderItem={({ item }: { item: EntityId }) => <SongItem id={item} onPress={play} openMenu={openMenu} />}
+          keyExtractor={(item: EntityId) => `song-${item}`}
           refreshControl={
             <RefreshControl
               progressViewOffset={32}
               refreshing={loading}
-              onRefresh={fetchData}
+              onRefresh={fetchSongs}
             />
           }
         />
-
-        <CollapsibleSubHeaderAnimator translateY={translateY}>
-          <View style={[styles.header, { backgroundColor: colors.background }]}>
-            <Button
-              icon="play"
-              mode="outlined"
-              onPress={() => dispatch(addSongToQueue(songs))}
-            >
-              Play All
-            </Button>
-            <View style={{ flexDirection: 'row' }}>
-              <IconButton
-                icon="shuffle-outline"
-                color={colors.primary}
-                onPress={() => dispatch(Player.repeat("shuffle"))}
-              />
-              <IconButton
-                icon="search-outline"
-                color={colors.primary}
-                onPress={() =>
-                  navigation.navigate('Find', {
-                    type: 'offline',
-                  })
-                }
-              />
-            </View>
-          </View>
-          <Divider />
-        </CollapsibleSubHeaderAnimator>
       </Screen>
     );
   }
-  if (!offlineReadAccessGiven || error) {
-    return (
-      <Blank
-        text="View your media by Granting Storage Permission"
-        fetchData={() => dispatch(giveReadOfflineAccess())}
-        buttonText="Allow Access"
-      />
-    );
-  }
-  if (loading) {
-    return <ActivityIndicator />
-  }
-  return <Blank text="No offline songs found.." fetchData={fetchData} />;
+
+  return <Blank text="No offline songs found.." fetchData={fetchSongs} />;
 };
 
 const styles = StyleSheet.create({

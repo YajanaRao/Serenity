@@ -3,27 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Appearance, PermissionsAndroid, Platform } from 'react-native';
 
 
-export const giveReadOfflineAccess = () => PermissionsAndroid.request(
-  PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-  {
-    title: 'Grant Access',
-    message:
-      'Serenity App needs access to your EXTERNAL_STORAGE ' +
-      'so you can play offline songs.',
-    buttonNeutral: 'Ask Me Later',
-    buttonNegative: 'Cancel',
-    buttonPositive: 'OK',
-  },
-).then(granted => {
-  if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    return true;
-  }
-  return false;
 
-}).catch(err => {
-  console.error('giveReadOfflineAccess', err);
-  return false;
-});
 
 
 export const checkReadOfflineAccess = () => PermissionsAndroid.check(
@@ -84,19 +64,9 @@ const uiSlice = createSlice({
     updateTheme(state, action) {
       state.themeType = action.payload;
     },
-    updateOfflineReadAccess(state) {
-      // checkReadOfflineAccess().then(status => {
-      //   // console.log('checked', status);
-      //   // if (status) {
-      //   //   state.offlineReadAccessGiven = true;
-      //   // } else {
-      //   //   giveReadOfflineAccess().then(response => {
-      //   //     console.log("sec attempt", response, state);
-      //   //     state.offlineReadAccessGiven = response;
-      //   //   })
-      //   // }
-      // })
-      state.offlineReadAccessGiven = true;
+    updateOfflineReadAccess(state, action) {
+      console.log(action);
+      state.offlineReadAccessGiven = action.payload;
     },
     updateOfflineWriteAccess(state, action) {
       state.offlineWriteAccessGiven = action.payload;

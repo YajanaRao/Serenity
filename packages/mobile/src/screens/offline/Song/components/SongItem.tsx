@@ -1,12 +1,12 @@
 import React from 'react';
 import { List, IconButton } from 'react-native-paper';
-import { songsSelectors, useAppSelector } from '@serenity/core';
-import { TrackProps } from '../../../../utils/types';
+import { EntityId, SongProps, songsSelectors, useAppSelector } from '@serenity/core';
+import { ArtCover } from 'components/ArtCover/ArtCover';
 
 export interface SongItemProps {
-    id: number;
-    onPress: (song: TrackProps) => void;
-    openMenu: (song: TrackProps) => void;
+    id: EntityId;
+    onPress: (song: SongProps) => void;
+    openMenu: (id: EntityId) => void;
 }
 
 function Song({ id, onPress, openMenu }: SongItemProps) {
@@ -18,13 +18,14 @@ function Song({ id, onPress, openMenu }: SongItemProps) {
         <List.Item
             title={song.title}
             description={song.artist || song.album}
+            left={props => (
+                <ArtCover cover={song.cover} />
+            )}
             right={props => (
                 <IconButton
                     {...props}
                     icon="more-vertical-outline"
-                    onPress={() =>
-                        openMenu(song)
-                    }
+                    onPress={() => openMenu(id)}
                 />
             )}
             onPress={() => onPress(song)}

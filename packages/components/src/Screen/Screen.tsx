@@ -7,7 +7,7 @@ interface ScreenProps {
   children: ReactNode;
 }
 
-export const Screen = ({ children }: ScreenProps) => {
+const Screen = ({ children }: ScreenProps) => {
   const theme = useTheme();
   const { colors, dark } = theme;
   return (
@@ -22,6 +22,8 @@ export const Screen = ({ children }: ScreenProps) => {
     </SafeAreaView>
   );
 };
+
+export default Screen;
 
 const styles = StyleSheet.create({
   container: {

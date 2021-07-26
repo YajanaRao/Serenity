@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Linking } from 'react-native';
 import {
   Text,
   Switch,
   Drawer,
   TouchableRipple,
   useTheme,
-  IconButton
 } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { Screen } from '@serenity/components';
-// import { changeRadioMode } from '../../actions';
 import { clearHistory, updateTheme } from '@serenity/core';
-import { AlertDialog } from '~/components/Dialogs/AlertDialog';
+import { AlertDialog } from 'components/Dialogs/AlertDialog';
 import { DiagnoseDialog } from './components/DiagnoseDialog';
+import Config from 'react-native-config';
 
 export const SettingScreen = () => {
   const dispatch = useDispatch();
-  // const { googleAccessGiven, user } = useSelector(state => state.ui);
 
   const [visible, setVisible] = useState('');
   const radio = useSelector((state: any) => state.config.radio);
@@ -44,6 +42,11 @@ export const SettingScreen = () => {
     dispatch(clearHistory());
     setVisible('');
   };
+
+  function openSupport() {
+    console.log(Config)
+    Linking.openURL(Config.TELEGRAM_LINK);
+  }
 
   return (
     <Screen>
@@ -90,15 +93,14 @@ export const SettingScreen = () => {
           />
         </Drawer.Section>
         <Drawer.Section title="Social">
-          <IconButton icon="telegram" />
           <Drawer.Item
-            onPress={() => setVisible('DIAGNOSE')}
-            label="Diagnostics"
-            icon="alert-circle-outline"
+            onPress={openSupport}
+            label="Join our community"
+            icon="telegram"
           />
           <Drawer.Item
             onPress={showAlert}
-            label="Clear history"
+            label="Github"
             icon="trash-outline"
           />
         </Drawer.Section>

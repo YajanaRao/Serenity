@@ -5,18 +5,18 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { TrackContainer } from '../../containers/TrackContainer';
 import { ListSongHeader } from '../ListSongHeader';
-import { TrackProps } from '../../utils/types';
+import { SongProps } from '@serenity/core';
 
 interface ItemProps {
-  item: TrackProps;
+  item: SongProps;
 }
 
 interface Props {
   title: string;
   cover: string;
-  addToQueue(songs: TrackProps[] | TrackProps): void;
-  data: TrackProps[];
-  showModal(song: TrackProps): void;
+  addToQueue(songs: SongProps[] | SongProps): void;
+  data: SongProps[];
+  showModal(song: SongProps): void;
   fetchData(): void;
 }
 

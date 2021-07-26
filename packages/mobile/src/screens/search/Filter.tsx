@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { ActivityIndicator } from 'react-native-paper';
 import { Container, Screen } from '@serenity/components';
 import { RouteProp } from '@react-navigation/core';
 import { filterSongsByGenre } from '@serenity/core/src/actions/media';
-import { SongListContainer } from '../../containers/SongListContainer';
+import { SongList } from '../../components/SongList';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import { SearchStackParamList } from './types';
 import { addSongToPlaylist } from '@serenity/core';
@@ -64,7 +64,7 @@ export const FilterScreen = ({ navigation, route }: Props) => {
 
   return (
     <Screen>
-      <SongListContainer
+      <SongList
         data={songs}
         fetchData={fetchData}
         title={genre.title}

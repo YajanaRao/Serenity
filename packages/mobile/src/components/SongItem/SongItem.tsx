@@ -1,13 +1,11 @@
 import React from 'react';
-
-// import { playTrack } from '../actions/player';
-import { playSong, songsSelectors, useAppDispatch, useAppSelector } from '@serenity/core';
 import { View, StyleSheet } from 'react-native';
+import { EntityId, playSong, songsSelectors, useAppDispatch, useAppSelector } from '@serenity/core';
 import { useTheme, List } from 'react-native-paper';
 import { ArtCover } from '../ArtCover/ArtCover';
 
 interface Props {
-    id: number;
+    id: EntityId;
 }
 
 export const SongItem = React.memo(({ id }: Props) => {
@@ -26,7 +24,7 @@ export const SongItem = React.memo(({ id }: Props) => {
             <List.Item
                 title={song?.title}
                 description={song?.artist || song?.album}
-                left={() => <ArtCover cover={song?.cover} />}
+                left={(props) => <ArtCover cover={song?.cover} {...props} />}
                 onPress={() => play()}
             />
         </View>

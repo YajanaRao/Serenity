@@ -1,31 +1,28 @@
 import React from 'react';
-import BottomSheet from 'reanimated-bottom-sheet';
-import Animated from 'react-native-reanimated';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
-    Title,
     List,
-    Portal,
-    Subheading,
     useTheme,
-    IconButton,
+    Surface,
+    Divider
 } from 'react-native-paper';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { DefaultImage } from '../../../../components/DefaultImage';
-import { addSongToQueue, toggleLike, Player } from '@serenity/core';
-import { useDispatch } from 'react-redux';
+import { StyleSheet, View } from 'react-native';
+import { addSongToQueue, toggleLike, Player, useAppSelector, songsSelectors, useAppDispatch } from '@serenity/core';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { ArtCover } from 'components/ArtCover/ArtCover';
 
-export const SongOptions = React.memo(({ bs, song, closeBottomSheet, playSong, addSongToPlaylist }) => {
-    const theme = useTheme();
-    const dispatch = useDispatch();
-    const sheetOpenValue = new Animated.Value(1);
-    const { colors } = theme;
+export const SongOptions = ({ bs, id, addSongToPlaylist }) => {
+    const song = useAppSelector(state => songsSelectors.selectById(state, id))
 
+    const { colors } = useTheme();
+    const dispatch = useAppDispatch();
+    // const sheetOpenValue = new Animated.Value(1);
 
+    const snapPoints = React.useMemo(() => ['30%', '50%'], []);
 
-    const play = () => {
+    function play() {
+        dispatch(Player.playSong(song));
         closeBottomSheet();
-        playSong(song);
     };
 
 
@@ -54,144 +51,116 @@ export const SongOptions = React.memo(({ bs, song, closeBottomSheet, playSong, a
         addSongToPlaylist();
     }
 
+    const closeBottomSheet = () => {
+        bottomSheetModalRef.current?.dismiss();
+    };
 
-    const renderInner = () => {
-        if (!song) {
-            return null;
-        }
-        const { title, artist, album, liked } = song;
+
+    function renderInner() {
+        const { liked } = song;
         return (
-            <View style={styles.panel}>
-                <View
-                    style={[styles.panelContainer, {
-                        backgroundColor: colors.surface,
-                    }]}
-                >
-                    <View style={styles.sheetContainer}>
-                        <View
-                            style={[styles.closeContainer, {
-                                backgroundColor: colors.surface,
-                            }]}
-                        >
-                            <TouchableWithoutFeedback onPress={closeBottomSheet}>
-                                <IconButton icon="close" />
-                            </TouchableWithoutFeedback>
-                        </View>
-                        <TouchableWithoutFeedback
+            <View
+                style={{
+                    backgroundColor: colors.surface,
+                    flex: 1,
+                    marginBottom: 24,
+                    borderTopStartRadius: 24,
+                    borderTopEndRadius: 24
+                }}
+            >
+                <View style={{ margin: 12 }}>
+                    <TouchableWithoutFeedback
+                        onPress={closeBottomSheet}
+                    >
+                        <List.Item
+                            title={song.title}
+                            description={song.artist || song.album}
+                            left={props => (
+                                <ArtCover cover={song.cover} {...props} />
+                            )}
                             onPress={closeBottomSheet}
-                            style={{
-                                // flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: Dimensions.get('window').width,
-                            }}
-                        >
-                            <DefaultImage style={styles.artCover} />
-                            <Title>{title}</Title>
-                            <Subheading>{`by ${artist || album}`}</Subheading>
+                        />
+                    </TouchableWithoutFeedback>
+                </View>
+                <Divider />
+                <View style={{ backgroundColor: colors.surface }}>
+                    <View>
+                        <TouchableWithoutFeedback onPress={play}>
+                            <List.Item
+                                title="Play Now"
+                                left={props => (
+                                    <List.Icon {...props} icon="play-circle-outline" />
+                                )}
+                            />
                         </TouchableWithoutFeedback>
-                    </View>
-                    <View style={{ backgroundColor: colors.surface }}>
-                        <View>
-                            <TouchableWithoutFeedback onPress={play}>
-                                <List.Item
-                                    title="Play Now"
-                                    left={props => (
-                                        <List.Icon {...props} icon="play-circle-outline" />
-                                    )}
-                                />
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback onPress={addSongToPlayNext}>
-                                <List.Item
-                                    title="Play next"
-                                    left={props => (
-                                        <List.Icon {...props} icon="playlist-play" />
-                                    )}
-                                />
-                            </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={addSongToPlayNext}>
+                            <List.Item
+                                title="Play next"
+                                left={props => (
+                                    <List.Icon {...props} icon="playlist-play" />
+                                )}
+                            />
+                        </TouchableWithoutFeedback>
 
-                            <TouchableWithoutFeedback onPress={addToQueue}>
-                                <List.Item
-                                    title="Add to Queue"
-                                    left={props => (
-                                        <List.Icon {...props} icon="playlist-play" />
-                                    )}
-                                />
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback onPress={addToFav}>
-                                <List.Item
-                                    title={liked ? "Reomve from Favorites" : "Add to Favorites"}
-                                    left={props => (
-                                        <List.Icon {...props} icon={liked ? "heart" : "heart-outline"} />
-                                    )}
-                                />
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback onPress={addToPlaylist}>
-                                <List.Item
-                                    title="Add to Playlist"
-                                    left={props => (
-                                        <List.Icon {...props} icon="playlist-plus" />
-                                    )}
-                                />
-                            </TouchableWithoutFeedback>
-                        </View>
+                        <TouchableWithoutFeedback onPress={addToQueue}>
+                            <List.Item
+                                title="Add to Queue"
+                                left={props => (
+                                    <List.Icon {...props} icon="playlist-play" />
+                                )}
+                            />
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={addToFav}>
+                            <List.Item
+                                title={liked ? "Reomve from Favorites" : "Add to Favorites"}
+                                left={props => (
+                                    <List.Icon {...props} icon={liked ? "heart" : "heart-outline"} />
+                                )}
+                            />
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={addToPlaylist}>
+                            <List.Item
+                                title="Add to Playlist"
+                                left={props => (
+                                    <List.Icon {...props} icon="playlist-plus" />
+                                )}
+                            />
+                        </TouchableWithoutFeedback>
                     </View>
                 </View>
             </View>
         );
     };
 
+    if (!song) {
+        return null;
+    }
+
     return (
-        <View>
-            <Portal>
-                <Animated.View
-                    style={[
-                        {
-                            flex: 1,
-                            backgroundColor: 'rgba(0,0,0, .7)',
-                            ...StyleSheet.absoluteFillObject,
-                        },
-                        {
-                            opacity: Animated.cond(
-                                Animated.greaterOrEq(sheetOpenValue, 0.95),
-                                0,
-                                1,
-                            ),
-                        },
-                    ]}
-                    pointerEvents="none"
-                />
-                <BottomSheet
-                    ref={bs}
-                    snapPoints={['100%', 0]}
-                    renderContent={renderInner}
-                    initialSnap={1}
-                    callbackNode={sheetOpenValue}
-                />
-            </Portal>
-        </View>
+        <Surface>
+            <BottomSheetModal
+                ref={bs}
+                index={1}
+                snapPoints={snapPoints}
+                backgroundComponent={() => <Surface style={{}} />}
+            // handleComponent={Handle}
+            >
+                {renderInner()}
+            </BottomSheetModal>
+        </Surface>
     );
-});
+};
 
 const styles = StyleSheet.create({
     artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12 },
-    panel: {
-        height: '100%',
-        justifyContent: 'flex-end',
-        paddingTop: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        zIndex: 1000,
-    },
-    panelContainer: {
-        borderTopEndRadius: 12,
-        borderTopStartRadius: 12,
-    },
-    sheetContainer: {
+    handle: {
         justifyContent: 'center',
-        alignItems: 'center',
-        borderTopEndRadius: 12,
+        alignItems: 'flex-end',
+        width: '100%',
+        height: 50,
+        elevation: 2,
         borderTopStartRadius: 12,
+        borderTopEndRadius: 12,
     },
     closeContainer: {
         justifyContent: 'center',

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { IconButton } from 'react-native-paper';
 import { findArtistSongs } from '@serenity/core/src/actions/media';
 import { addSongToQueue } from '@serenity/core';
-import { SongListContainer } from '../../../containers/SongListContainer';
+import { SongList } from 'components/SongList';
 import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
 import { FollowArtist } from './components/FollowArtist';
 
@@ -29,7 +29,7 @@ export const ArtistSongs = ({ route, navigation }) => {
       headerTitle: artist.artist || artist.name,
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
-          <FollowArtist id={artist} />
+          <FollowArtist id={artist.id} />
           <IconButton icon="play-circle-outline" onPress={addSongsToQueue} />
         </View>
       ),
@@ -57,7 +57,7 @@ export const ArtistSongs = ({ route, navigation }) => {
 
   return (
     <Screen>
-      <SongListContainer
+      <SongList
         data={songs}
         fetchData={fetchData}
         title={artist.name || artist.artist}

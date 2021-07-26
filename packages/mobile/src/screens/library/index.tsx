@@ -2,14 +2,12 @@ import React from 'react';
 import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { View } from 'react-native';
 
 import { AlbumScreen } from './Albums/Album';
 import { ArtistScreen } from './Artists/Artists';
 import { PlaylistScreen } from './Playlists/Playlists';
 import { AlbumSongs } from '../shared/AlbumSongs/AlbumSongs';
 import { ArtistSongs } from '../shared/ArtistSongs/ArtistSongs';
-import { PlaylistOptions } from '../../containers/PlaylistOptions';
 import { PlaylistSongs } from './PlaylistSongs/PlaylistSongs';
 import { FollowArtists } from './Artists/FollowArtists';
 
@@ -57,7 +55,6 @@ export const LibraryStack = () => {
         },
         headerTintColor: colors.text,
         safeAreaInsets: { top: 0, bottom: 0 },
-        headerTitleAlign: 'center',
         headerBackImage: () => (
           <IconButton style={{ marginLeft: 0 }} icon="arrow-back" />
         ),
@@ -84,15 +81,6 @@ export const LibraryStack = () => {
       <Stack.Screen
         name="PlaylistSongs"
         component={PlaylistSongs}
-        options={({ route, navigation }) => {
-          const { playlist } = route.params;
-          return {
-            headerTitle: playlist.name,
-            headerRight: () => (
-              <PlaylistOptions route={route} navigation={navigation} />
-            ),
-          };
-        }}
       />
     </Stack.Navigator>
   );

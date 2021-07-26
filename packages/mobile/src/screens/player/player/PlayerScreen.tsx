@@ -5,14 +5,14 @@ import { includes } from 'lodash';
 import { Screen } from '@serenity/components';
 import LinearGradient from 'react-native-linear-gradient';
 import { addSongToPlaylist, useAppDispatch, useAppSelector } from '@serenity/core';
-import { RepeatContainer } from '~/containers/RepeatContainer';
-import { PlayerController } from '../components/PlayerController';
+import { RepeatContainer } from 'containers/RepeatContainer';
+import { PlayerController } from './components/PlayerController';
 import { Progress } from './components/ProgressBar';
 import { ActiveTrackDetails } from '../components/ActiveTrackDetails';
-import { PlaylistDialog } from '~/components/Dialogs/PlaylistDialog';
+import { PlaylistDialog } from 'components/Dialogs/PlaylistDialog';
 import { downloadMedia } from '@serenity/core/src/actions/download';
-import { FavSong } from './components/Fav';
-import Images from '~/assets/Images';
+import { FavSong } from './components/FavSong';
+import Images from 'assets/Images';
 
 export const PlayerScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -74,11 +74,11 @@ export const PlayerScreen = ({ navigation }) => {
               <View style={styles.extraIcon}>
                 <IconButton
                   size={20}
-                  style={{ padding: 0, margin: 0 }}
+                  style={styles.icon}
                   icon="menu-outline"
                   onPress={() => navigation.navigate('Queue')}
                 />
-                <Caption style={{ padding: 0, margin: 0 }}>Queue</Caption>
+                <Caption style={styles.icon}>Queue</Caption>
               </View>
               {includes(
                 ['youtube', 'online', 'jiosaavn'],
@@ -86,7 +86,7 @@ export const PlayerScreen = ({ navigation }) => {
               ) && (
                   <View style={styles.extraIcon}>
                     <IconButton
-                      style={{ padding: 0, margin: 0 }}
+                      style={styles.icon}
                       size={20}
                       icon="download-outline"
                       onPress={download}
@@ -97,7 +97,7 @@ export const PlayerScreen = ({ navigation }) => {
               <View style={styles.extraIcon}>
                 <IconButton
                   size={20}
-                  style={{ padding: 0, margin: 0 }}
+                  style={styles.icon}
                   icon="folder-add-outline"
                   onPress={() => setVisible('DIALOG')}
                 />
@@ -145,4 +145,5 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   extraIcon: { justifyContent: 'center', alignItems: 'center' },
+  icon: { padding: 0, margin: 0 }
 });

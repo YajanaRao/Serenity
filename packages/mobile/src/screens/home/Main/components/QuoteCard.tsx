@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Title, useTheme } from 'react-native-paper';
-import { useQuote } from '~/hooks/useQuote';
+import { useQuote } from 'hooks/useQuote';
 
 export const QuoteCard = () => {
   const quote = useQuote();

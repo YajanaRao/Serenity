@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/core';
-import { Headline } from 'components';
+import { Headline } from '@serenity/components';
 import { Assets } from 'media';
 import { TrackItem } from './TrackItem';
 
@@ -27,13 +27,7 @@ const OnlineSongsContainer = () => {
     return (
       <View>
         <View
-          style={{
-            marginLeft: 16,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: 8,
-          }}
+          style={styles.titleContainer}
         >
           <Headline>Online Songs</Headline>
         </View>
@@ -52,3 +46,13 @@ const OnlineSongsContainer = () => {
 };
 
 export default OnlineSongsContainer;
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    marginLeft: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  }
+});
