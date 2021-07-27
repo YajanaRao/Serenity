@@ -10,11 +10,15 @@ git clone --recurse-submodules https://github.com/YajanaRao/Serenity.git
 
 The following folders in packages indicate following things
 
-| folder name                  | description                          |
-| ---------------------------- | ------------------------------------ |
-| mobile                       | native android and ios related codes |
-| react-track-player           | audio player for android and ios     |
-| react-native-get-music-files | read audio files from device         |
+| folder name                  | description                           |
+| ---------------------------- | ------------------------------------- |
+| mobile                       | native android and ios related codes  |
+| react-track-player           | audio player for android and ios      |
+| react-native-get-music-files | read audio files from device          |
+| components                   | Cross Platform components and theming |
+| core                         | Shared redux logic                    |
+| extensions                   | third party extensions to the app     |
+| web                          | react native web application          |
 
 ## Branches
 

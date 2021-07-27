@@ -89,10 +89,6 @@ Serenity is a world class music player which focuses on giving wonderful experie
 
   > There are two means of refuge from the miseries of life: music and cats.
 
-### Artificial Intelligence
-
-- Machine learning for Facial recognition
-
 ### Awesome UI
 
 - > Beauty ain't always a little, cute colored flower. Beauty is anything where people be like, 'Damn.'
