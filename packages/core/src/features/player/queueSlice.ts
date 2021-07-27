@@ -3,10 +3,11 @@ import {
     createSlice,
 } from '@reduxjs/toolkit'
 import { RootState } from 'store'
+import { SongProps } from './types'
 
-type Song = { id: string; title: string, date: string }
+type QueueSongs = SongProps & { date: string };
 
-const queueAdapter = createEntityAdapter<Song>({
+const queueAdapter = createEntityAdapter<QueueSongs>({
     // Keep the "all IDs" array sorted based on book titles
     sortComparer: (a, b) => a.date.localeCompare(b.date),
 })
@@ -23,8 +24,7 @@ const queueSlice = createSlice({
         removeSongFromQueue: queueAdapter.removeOne,
 
         queueReceived(state, action) {
-            // Or, call them as "mutating" helpers in a case reducer
-            queueAdapter.setAll(state, action.payload.queue)
+            queueAdapter.setAll(state, action.payload)
         },
     },
 })

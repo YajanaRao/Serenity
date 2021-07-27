@@ -4,10 +4,7 @@
     "target": "es5",
     "module": "commonjs",
     "jsx": "react-native",
-    "lib": [
-      "es6",
-      "esnext.asynciterable"
-    ],
+    "lib": ["es6", "esnext.asynciterable"],
     "strict": true,
     "composite": true,
     "esModuleInterop": true,
@@ -20,10 +17,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "baseUrl": "src",
-    "paths": {
-      
-    }
+    "baseUrl": "./src",
+    "paths": {}
   },
   "include": ["src"]
 }

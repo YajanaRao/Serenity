@@ -11,6 +11,7 @@ export * from './features/media/albumsSlice';
 export * from './features/player/playerSlice';
 export * from './features/ui/uiSlice';
 export * from './features/media/songsSlice';
+export * from './features/player/queueSlice';
 export * from './features/media/artistsSlice';
 export * from './features/player/historySlice';
 export * from './features/player';

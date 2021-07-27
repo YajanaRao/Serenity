@@ -1,15 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Divider } from 'react-native-paper';
 import { View } from 'react-native';
 import { Title } from '@serenity/components';
 
 import { useNavigation } from '@react-navigation/core';
-import { RootReducerType } from '@serenity/core/reducer';
 import { Track } from '../../../components/Track';
 import { TrackItem } from './TrackItem';
 import { TrackSurface } from './TrackSurface';
+import { useAppSelector } from '../../../../../core/src';
 
 interface Props { }
 
@@ -19,13 +18,10 @@ interface ItemProps {
 
 export const QueueList = ({ }: Props) => {
   const navigation = useNavigation();
-  const active = useSelector(
-    (state: RootReducerType) => state.player.track,
-  );
+  const active = useAppSelector((state) => state.player.track);
 
-  const queue = useSelector(state => state.player.queue);
-  console.log('queue: ', queue);
-
+  const queue = useAppSelector(state => state.queue.ids);
+  console.log(queue);
   return (
     <View>
       <SwipeListView

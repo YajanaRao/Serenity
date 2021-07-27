@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectSongById } from '@serenity/core';
+import { EntityId, queueSelectors } from '@serenity/core';
 import { TrackContainer } from '../../../containers/TrackContainer';
 
 export interface TrackItemProps {
-    id: string;
+    id: EntityId;
 }
 
 export function TrackItem({ id }: TrackItemProps) {
-    const track = useSelector(state => selectSongById(state, id));
+    const track = useSelector(state => queueSelectors.selectById(state, id));
 
     return (
         <TrackContainer track={track} />

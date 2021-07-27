@@ -7,6 +7,7 @@ import albumsSlice from '../features/media/albumsSlice';
 import playerSlice from '../features/player/playerSlice';
 import uiSlice from '../features/ui/uiSlice';
 import songsSlice from '../features/media/songsSlice';
+import queueSlice from '../features/player/queueSlice';
 
 interface QueryActions {
   payload: boolean | string;
@@ -42,6 +43,7 @@ export const queryReducer = (state = INITIAL_QUERY, action: QueryActions) => {
 export const RootReducer = combineReducers<any>({
   player: playerSlice,
   history: historySlice,
+  queue: queueSlice,
   playlists: playlistsSlice,
   albums: albumsSlice,
   songs: songsSlice,

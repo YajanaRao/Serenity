@@ -2,15 +2,15 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { IconButton, Surface } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeSongFromQueue, selectSongById, toggleSongLike } from '@serenity/core';
-import { Fav } from '../../../components/Fav';
-import { TrackProps } from '../../../utils/types';
+import { removeSongFromQueue, queueSelectors, toggleSongLike } from '@serenity/core';
+import { Fav } from 'components/Fav';
+import { TrackProps } from 'utils/types';
 
 export interface TrackSurfaceProps {
 }
 
 export function TrackSurface({ id }: TrackSurfaceProps) {
-    const track = useSelector(state => selectSongById(state, id));
+    const track = useSelector(state => queueSelectors.selectById(state, id));
     const dispatch = useDispatch();
 
 

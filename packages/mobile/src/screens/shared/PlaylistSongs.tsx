@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Title, Button, Divider, Subheading, IconButton } from 'react-native-paper';
+import { Title, Divider, Subheading, IconButton } from 'react-native-paper';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import values from 'lodash/values';
 import FastImage from 'react-native-fast-image';
-import { Screen } from '@serenity/components';
+import { Screen, Button } from '@serenity/components';
 import { selectPlaylistSongsById, SongProps } from '@serenity/core';
 import { DefaultImage } from 'components/DefaultImage';
 import { EmptyPlaylist } from 'components/EmptyPlaylist';
@@ -60,7 +60,7 @@ export const PlaylistSongs = ({ route, navigation }) => {
                 <Subheading>{`by ${playlist.owner}`}</Subheading>
               </View>
               <View style={styles.buttonContainer}>
-                <Button mode="contained" onPress={addSongToQueue}>
+                <Button onPress={addSongToQueue}>
                   Play All
                 </Button>
               </View>

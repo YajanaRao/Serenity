@@ -1,15 +1,16 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Button, Container, Screen, Title } from '@serenity/components';
-import { Player, selectLikedSongIds, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Player, selectLikedSongIds, selectLikedSongs, useAppDispatch, useAppSelector } from '@serenity/core';
 import { SongItem } from 'components/SongItem/SongItem';
 import { FavBanner } from 'components/FavBanner/FavBanner';
 
 export function Favorites() {
   const songs = useAppSelector(state => selectLikedSongIds(state));
+  const likedSongs = useAppSelector(state => selectLikedSongs(state));
   const dispatch = useAppDispatch();
   function playSongs() {
-    dispatch(Player.add(songs));
+    dispatch(Player.add(likedSongs));
   }
 
   if (!songs) return null;

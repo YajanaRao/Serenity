@@ -8,7 +8,7 @@ import { AnyAction } from 'redux';
 
 import { addSongToHistory } from "./historySlice";
 import { addSongToQueue, play, removeSongFromQueue, repeatSongs, updateStatus } from "./playerSlice";
-import { addSongsToQueue } from './queueSlice';
+import { addSongsToQueue, queueReceived } from './queueSlice';
 
 let subscription: EmitterSubscription;
 
@@ -170,7 +170,8 @@ export function add(songs: Array<Song> | Song) {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { track } = getState().player;
     if (Array.isArray(songs)) {
-      dispatch(addSongsToQueue(songs));
+      console.log("adding songs", songs);
+      dispatch(queueReceived(songs));
     } else {
       dispatch(addSongToQueue(songs));
     }

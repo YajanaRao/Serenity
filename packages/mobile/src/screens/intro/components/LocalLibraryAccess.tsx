@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { PermissionsAndroid } from 'react-native';
-import { giveReadOfflineAccess, useAppDispatch, useAppSelector } from '@serenity/core';
+import { PermissionsAndroid, Platform } from 'react-native';
+import { UI, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Button } from '@serenity/components';
 
 export interface LocalLibraryAccessProps {
@@ -14,7 +14,7 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
   const [given, setGiven] = useState(false);
   const dispatch = useAppDispatch();
   const requestPermission = () => {
-    dispatch(giveReadOfflineAccess());
+    dispatch(UI.giveReadOfflineAccess());
   };
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -26,7 +26,7 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
 
   if (given || offlineReadAccessGiven) {
     return (
-      <Button mode="contained" icon="done-all" color={color} onPress={next}>
+      <Button icon="done-all" color={color} onPress={next}>
         Done
       </Button>
     );
@@ -34,7 +34,6 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
 
   return (
     <Button
-      mode="contained"
       icon="unlock-outline"
       color={color}
       onPress={requestPermission}>

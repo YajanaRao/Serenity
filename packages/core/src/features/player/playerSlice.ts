@@ -39,6 +39,6 @@ const playerSlice = createSlice({
 
 export const selectQueueSongs = (state) => state.player.queue;
 
-export const { play, updateStatus, clearQueue, addSongToQueue, removeSongFromQueue, repeatSongs } = playerSlice.actions;
+export const { play, updateStatus, repeatSongs } = playerSlice.actions;
 
 export default playerSlice.reducer;
