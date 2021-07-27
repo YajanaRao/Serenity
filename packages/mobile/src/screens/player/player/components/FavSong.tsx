@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSongLikeById, toggleSongLike } from '@serenity/core';
+import { EntityId, selectSongLikeById, toggleSongLike } from '@serenity/core';
 import { Fav } from 'components/Fav';
 
 export interface FavSongProps {
-    id: number;
+    id: EntityId;
 }
 
 export function FavSong({ id }: FavSongProps) {

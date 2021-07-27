@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { StyleProp } from 'react-native';
-import { View, ViewProps } from 'react-native';
+import { StyleProp, ViewStyle, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 interface FavProps {
-  style?: StyleProp<ViewProps>;
+  style?: StyleProp<ViewStyle>;
   liked: boolean;
   onPress(): void;
 }

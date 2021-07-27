@@ -15,7 +15,7 @@ const CONTAINER: ViewStyle = {
   marginBottom: 8,
 };
 
-export const MostPlayedContainer = () => {
+export const MostPlayed = () => {
   const navigation = useNavigation();
   const history = useAppSelector(state => historySelectors.selectIds(state))
 

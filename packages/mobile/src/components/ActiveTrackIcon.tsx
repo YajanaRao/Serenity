@@ -10,15 +10,15 @@ interface ActiveTrackIconProps {
 }
 
 const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
-  const animatedRef = useRef(null);
+  const animatedRef = useRef<LottieView>(null);
   const { colors } = useTheme();
   const status = useSelector((state: any) => state.player.status);
 
   useEffect(() => {
     if (status === 'playing') {
-      animatedRef.current.play();
+      animatedRef.current?.play();
     } else {
-      animatedRef.current.pause();
+      animatedRef.current?.pause();
     }
   }, [status]);
 

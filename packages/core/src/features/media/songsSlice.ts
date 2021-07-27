@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createEntityAdapter, createSelector, EntityId } from "@reduxjs/toolkit";
 import { RootState } from "store";
 import { getSongs } from "./deviceMedia";
 
@@ -19,9 +18,6 @@ export const fetchOfflineSongs = createAsyncThunk(
 type Song = { id: string; title: string, album: string, artist: string, path: string, liked: boolean, cover: string }
 
 const songsAdapter = createEntityAdapter<Song>({
-    // Assume IDs are stored in a field other than `book.id`
-    // selectId: (book) => book.bookId,
-    // Keep the "all IDs" array sorted based on book titles
     sortComparer: (a, b) => a.title.localeCompare(b.title),
 })
 
@@ -85,14 +81,12 @@ export const songsSelectors = songsAdapter.getSelectors<RootState>(
 
 export const selectLikedSongs = createSelector([state => songsSelectors.selectAll(state)], songs => songs.filter(song => song.liked));
 
-export const selectSongLikeById = (state, songId: number) => {
-    const song = songsSelectors.selectById(state, songId);
-    return song?.liked;
+export const selectSongLikeById = (state: RootState, songId: EntityId) => {
+    return songsSelectors.selectById(state, songId)?.liked;
 }
 
-export const selectFilteredSongs = (state, query: string) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase()))
+export const selectFilteredSongs = (state: RootState, query: string) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase()))
 
-// @ts-ignore
 export const selectLikedSongIds = createSelector([selectLikedSongs], likedSongs => likedSongs.map(item => item.id))
 
 export const { toggleSongLike, songAdded, songsAdded } = songsSlice.actions;

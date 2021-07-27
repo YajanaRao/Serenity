@@ -5,8 +5,8 @@ import { MainScreen } from './Main/Main';
 import { SettingScreen } from './Settings';
 import { getGreetingTime } from '../../utils/greeting';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
-import { Favorites } from './Favorites';
-import { HistoryScreen } from './History';
+import { Favorites } from './FavoritesScreen';
+import { HistoryScreen } from './HistoryScreen';
 
 const Stack = createStackNavigator();
 

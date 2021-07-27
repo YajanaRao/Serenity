@@ -3,9 +3,9 @@ import { ScrollView, View } from 'react-native';
 import { Screen } from '@serenity/components';
 
 import { useScrollToTop } from '@react-navigation/native';
-import { NetNotify } from '../../../components/NetNotify';
+import { NetNotify } from 'components/NetNotify';
 import { RecentContainer } from './components/RecentContainer';
-import { MostPlayedContainer } from './components/MostPlayedContainer';
+import { MostPlayed } from './components/MostPlayed';
 import { ShortCutContainer } from './components/ShortcutContainer';
 import { QuoteCard } from './components/QuoteCard';
 
@@ -23,7 +23,7 @@ export const MainScreen = () => {
         <Divider />
         <RecentContainer />
         <Divider />
-        <MostPlayedContainer />
+        <MostPlayed />
         <Divider />
         {/* <OnlineSongsContainer />
         <Divider />

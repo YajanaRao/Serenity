@@ -17,41 +17,22 @@ export interface ButtonProps {
 export function Button({ children, onPress, icon, color: buttonColor, style, disabled = false }: ButtonProps) {
   const { colors, dark } = useTheme();
 
-  const { current: opacity } = React.useRef<Animated.Value>(new Animated.Value(1)); // Initial value for opacity: 0
   const { current: elevation } = React.useRef<Animated.Value>(new Animated.Value(4)); // Initial value for opacity: 0
 
   function handlePressIn() {
-    Animated.sequence([
-      Animated.parallel([
-        Animated.timing(opacity, {
-          toValue: 0.9,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(elevation, {
-          toValue: 8,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]),
-    ]).start();
+    Animated.timing(elevation, {
+      toValue: 8,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
   }
 
   function handlePressOut() {
-    Animated.sequence([
-      Animated.parallel([
-        Animated.timing(opacity, {
-          toValue: 1,
-          duration: 150,
-          useNativeDriver: true,
-        }),
-        Animated.timing(elevation, {
-          toValue: 4,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]),
-    ]).start();
+    Animated.timing(elevation, {
+      toValue: 4,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
   }
 
   let backgroundColor: string, textColor: string;
@@ -74,10 +55,10 @@ export function Button({ children, onPress, icon, color: buttonColor, style, dis
     <TouchableOpacity
       onPress={onPress}
       accessibilityRole="button"
+      activeOpacity={0.8}
     >
       <Animated.View
         style={[{
-          opacity,
           elevation,
           backgroundColor,
           justifyContent
@@ -109,7 +90,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   button: {
-    minWidth: 64,
+    minWidth: 84,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,

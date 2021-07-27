@@ -3,7 +3,7 @@ import { IconButton, useTheme } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { AlbumScreen } from './Albums/Album';
+import { AlbumScreen } from './Albums/AlbumSceen';
 import { ArtistScreen } from './Artists/Artists';
 import { PlaylistScreen } from './Playlists/Playlists';
 import { AlbumSongs } from '../shared/AlbumSongs/AlbumSongs';
