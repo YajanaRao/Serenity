@@ -3,10 +3,9 @@ import { Title, Divider, Subheading, IconButton } from 'react-native-paper';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import values from 'lodash/values';
 import FastImage from 'react-native-fast-image';
 import { Screen, Button } from '@serenity/components';
-import { selectPlaylistSongsById, SongProps } from '@serenity/core';
+import { selectPlaylistSongsById, SongProps, Player } from '@serenity/core';
 import { DefaultImage } from 'components/DefaultImage';
 import { EmptyPlaylist } from 'components/EmptyPlaylist';
 
@@ -19,7 +18,7 @@ export const PlaylistSongs = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   const addSongToQueue = () => {
-    dispatch(addSongToQueue(values(songs)));
+    dispatch(Player.add(songs));
   };
 
   React.useLayoutEffect(() => {

@@ -5,6 +5,7 @@ import { useFocusEffect } from '@react-navigation/core';
 import Animations from 'assets/Animations';
 import { StyleSheet } from 'react-native';
 import { Title } from '@serenity/components';
+import { Surface } from 'react-native-paper';
 
 
 export const FavBanner = ({ title }: { title: string }) => {
@@ -19,7 +20,7 @@ export const FavBanner = ({ title }: { title: string }) => {
     );
     return (
         <View style={styles.container}>
-            <View
+            <Surface
                 style={styles.animationContainer}
             >
                 <LottieView
@@ -27,7 +28,7 @@ export const FavBanner = ({ title }: { title: string }) => {
                     source={Animations.favoriteAnimation}
                     loop
                 />
-            </View>
+            </Surface>
             <Title style={{ fontSize: 24 }}>{title}</Title>
         </View>
     );

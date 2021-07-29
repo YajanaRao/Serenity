@@ -18,9 +18,6 @@ export const fetchAlbums = createAsyncThunk<[Album]>('albums/fetch', async () =>
 
 
 const albumsAdapter = createEntityAdapter<Album>({
-    // Assume IDs are stored in a field other than `book.id`
-    // selectId: (book) => book.bookId,
-    // Keep the "all IDs" array sorted based on book titles
     sortComparer: (a, b) => a.album.localeCompare(b.album),
 })
 

@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
-
-// import { playTrack } from '../actions/player';
 import { Track } from '../components/Track';
-import { TrackProps } from '../utils/types';
-import { RootReducerType } from '@serenity/core/src/reducers';
-import { downloadMedia } from '@serenity/core';
+import { downloadMedia, SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
 import { playSong } from '@serenity/core';
 
 interface Props {
-  track: TrackProps;
+  track: SongProps;
   goBack?: () => void;
 }
 
 export const TrackContainer = ({ track, goBack }: Props) => {
   const [isActive, setActive] = useState(false);
-  const dispatch = useDispatch();
-  const active = useSelector(
-    (state: RootReducerType) => state.player.active,
+  const dispatch = useAppDispatch();
+  const active = useAppSelector(
+    (state) => state.player.active,
   );
 
   const download = () => {
@@ -34,9 +29,7 @@ export const TrackContainer = ({ track, goBack }: Props) => {
 
   const play = () => {
     if (!isActive) {
-      // requestAnimationFrame(() => {
       dispatch(playSong(track));
-      // });
     }
     if (goBack) {
       goBack();

@@ -27,11 +27,6 @@ export const queryReducer = (state = INITIAL_QUERY, action: QueryActions) => {
         ...state,
         searchResult: action.payload,
       };
-    case 'NOTIFY':
-      return {
-        ...state,
-        message: action.payload,
-      };
     default:
       return state;
   }

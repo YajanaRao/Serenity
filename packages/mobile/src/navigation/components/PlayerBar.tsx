@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { useNavigation } from '@react-navigation/core';
 import { Player, useAppDispatch, useAppSelector } from '@serenity/core';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
@@ -10,12 +10,11 @@ import {
   IconButton,
   ActivityIndicator,
 } from 'react-native-paper';
-import { ArtCover } from '../../components/ArtCover/ArtCover';
+import { ArtCover } from 'components/ArtCover/ArtCover';
 
 export const PlayerBar = () => {
   const navigation = useNavigation();
-  const track = useAppSelector((state: any) => state.player.track);
-  const status = useAppSelector((state: any) => state.player.status);
+  const { track, status } = useAppSelector((state) => state.player);
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -37,6 +36,7 @@ export const PlayerBar = () => {
   if (isEmpty(track)) {
     return null;
   }
+
   return (
     <TouchableOpacity
       activeOpacity={0.9}

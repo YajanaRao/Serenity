@@ -25,7 +25,7 @@ export const ShortCutContainer = () => {
 
   const navigateToMostPlayed = React.useMemo(
     () => () => {
-      navigation.navigate('History');
+      navigation.navigate('MostPlayed');
     },
     [navigation],
   );

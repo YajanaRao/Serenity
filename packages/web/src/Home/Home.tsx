@@ -21,8 +21,6 @@ export function Home() {
         dispatch(UI.toggleTheme());
     }
 
-
-    // @ts-ignore
     const songs = useAppSelector(state => songsSelectors.selectIds(state));
     return (
         <Screen>

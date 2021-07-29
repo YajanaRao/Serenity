@@ -8,7 +8,6 @@ import { SongProps } from './types'
 type QueueSongs = SongProps & { date: string };
 
 const queueAdapter = createEntityAdapter<QueueSongs>({
-    // Keep the "all IDs" array sorted based on book titles
     sortComparer: (a, b) => a.date.localeCompare(b.date),
 })
 
@@ -16,10 +15,8 @@ const queueSlice = createSlice({
     name: 'queue',
     initialState: queueAdapter.getInitialState(),
     reducers: {
-        // Can pass adapter functions directly as case reducers.  Because we're passing this
-        // as a value, `createSlice` will auto-generate the `bookAdded` action type / creator
         addSongToQueue: queueAdapter.addOne,
-        addSongsToQueue: queueAdapter.addMany,
+        addSongsToQueue: queueAdapter.updateMany,
         queueUpdated: queueAdapter.updateOne,
         removeSongFromQueue: queueAdapter.removeOne,
 

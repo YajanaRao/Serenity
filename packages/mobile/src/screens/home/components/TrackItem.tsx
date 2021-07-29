@@ -2,13 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useSelector } from 'react-redux';
-import { songsSelectors } from '@serenity/core';
+import { SongProps, songsSelectors } from '@serenity/core';
 import { DefaultImage } from '../../../components/DefaultImage';
-import { TrackProps } from '../../../utils/types';
 
 export interface TrackItemProps {
     id: string;
-    onPress: (track: TrackProps) => void;
+    onPress: (track: SongProps) => void;
 }
 
 export function TrackItem({ id, onPress }: TrackItemProps) {

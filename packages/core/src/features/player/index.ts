@@ -7,70 +7,12 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 import { addSongToHistory } from "./historySlice";
-import { addSongToQueue, play, removeSongFromQueue, repeatSongs, updateStatus } from "./playerSlice";
-import { addSongsToQueue, queueReceived } from './queueSlice';
+import { play, repeatSongs, updateRadioMode, updateStatus } from "./playerSlice";
+import { addSongsToQueue, addSongToQueue, queueReceived, removeSongFromQueue } from './queueSlice';
+import { updateNotification } from '../ui/uiSlice';
 
 let subscription: EmitterSubscription;
 
-
-
-export function setUpTrackPlayer() {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
-    try {
-      // @ts-ignore
-      subscription = addEventListener('media', (event: any) => {
-        dispatch(updateStatus(event));
-      });
-      const { track } = getState().player;
-      if (!isEmpty(track)) {
-        loadTrack(track);
-      }
-    } catch (error) {
-      console.log('setUpTrackPlayer', error);
-    }
-  };
-}
-
-
-
-
-export function repeat(repeatType: string) {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    try {
-      dispatch(repeatSongs(repeatType));
-    } catch (error) {
-      console.log('shufflePlay', error);
-    }
-  };
-}
-
-export const startRadio =
-  () => (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
-    try {
-      const track = sample(getState().queue);
-      if (track) {
-        dispatch(playSong(track));
-        dispatch({
-          payload: true,
-          type: 'RADIO_MODE',
-        });
-      }
-    } catch (error) {
-      console.log('startRadio', error);
-    }
-  };
-
-
-
-export function destroyTrackPlayer() {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    TrackPlayer.destroy();
-    if (subscription !== undefined) {
-      subscription.remove();
-    }
-    dispatch(updateStatus("init"));
-  };
-}
 
 interface Song {
   title: string;
@@ -90,7 +32,42 @@ function loadTrack(track: Song) {
   });
 }
 
+export function setUpTrackPlayer() {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
+    try {
+      // @ts-ignore
+      subscription = addEventListener('media', (event: any) => {
+        dispatch(updateStatus(event));
+      });
+      const { track } = getState().player;
+      if (!isEmpty(track)) {
+        loadTrack(track);
+      }
+    } catch (error) {
+      console.log('setUpTrackPlayer', error);
+    }
+  };
+}
 
+export function repeat(repeatType: string) {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+    try {
+      dispatch(repeatSongs(repeatType));
+    } catch (error) {
+      console.log('shufflePlay', error);
+    }
+  };
+}
+
+export function destroyTrackPlayer() {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+    TrackPlayer.destroy();
+    if (subscription !== undefined) {
+      subscription.remove();
+    }
+    dispatch(updateStatus("init"));
+  };
+}
 
 export function playSong(song: Song) {
   return (dispatch: any, getState: any) => {
@@ -111,6 +88,7 @@ export function playSong(song: Song) {
     dispatch(play(song));
   }
 }
+
 export function playNext() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { queue } = getState();
@@ -138,7 +116,6 @@ export function playPrevious() {
     dispatch(playSong(song));
     loadTrack(song);
   }
-
 }
 
 
@@ -163,20 +140,38 @@ export function toggle() {
     }
     dispatch(updateStatus(status))
   }
-
 }
 
 export function add(songs: Array<Song> | Song) {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { track } = getState().player;
     if (Array.isArray(songs)) {
-      console.log("adding songs", songs);
-      dispatch(queueReceived(songs));
+      dispatch(addSongsToQueue(songs));
+      dispatch(updateNotification(`${songs.length} songs added to queue`));
     } else {
+      console.log("adding songs in else", songs);
       dispatch(addSongToQueue(songs));
+      dispatch(updateNotification(`${songs.title} added to queue`));
     }
     if (isEmpty(track)) {
       dispatch(playSong(track));
+    }
+  }
+}
+
+export function startRadio() {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
+    try {
+      const { track } = getState().player;
+      if (isEmpty(track)) {
+        const song = sample(getState().songs.entities);
+        dispatch(playSong(song));
+        dispatch(updateRadioMode(true));
+      } else {
+        TrackPlayer.play();
+      }
+    } catch (error) {
+      console.log('startRadio', error);
     }
   }
 }

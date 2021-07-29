@@ -24,6 +24,8 @@ const store = configureStore({
   // this is done to handle error with non serializable value for register function
   // https://github.com/rt2zz/redux-persist/issues/988
   middleware: getDefaultMiddleware({
+    // https://github.com/reduxjs/redux-toolkit/issues/415
+    immutableCheck: false,
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
     }
@@ -32,7 +34,6 @@ const store = configureStore({
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof RootReducer>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
 export default store;

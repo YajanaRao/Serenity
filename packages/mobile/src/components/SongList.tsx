@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { addSongToPlaylist, addSongToQueue, SongProps, useAppDispatch } from '@serenity/core';
+import { addSongToPlaylist, Player, SongProps, useAppDispatch } from '@serenity/core';
 import { PlaylistDialog } from './Dialogs/PlaylistDialog';
 import { SwipeList } from './Lists/SwipeList';
 import { Container } from '@serenity/components';
@@ -41,7 +41,7 @@ export const SongList = ({
   };
 
   function addSongsToQueue(songs: SongProps[] | SongProps) {
-    dispatch(addSongToQueue(songs));
+    dispatch(Player.add(songs));
   };
 
   return (

@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Screen } from '@serenity/components';
 import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
-import { addSongToQueue } from '@serenity/core';
+import { Player } from '@serenity/core';
 import { findAlbumSongs } from '@serenity/core/src/actions/media';
 import { SongList } from '../../../components/SongList';
 import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
@@ -19,8 +19,7 @@ export const AlbumSongs = ({ route, navigation }) => {
   });
 
   const addSongsToQueue = () => {
-    console.log("view: ", data)
-    dispatch(addSongToQueue(data.songs));
+    dispatch(Player.add(data.songs));
   };
 
   React.useLayoutEffect(() => {

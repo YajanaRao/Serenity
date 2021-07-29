@@ -19,9 +19,6 @@ export const fetchOfflineArtists = createAsyncThunk(
 type Artist = { id: string; artist: string, numberOfSongs: string, numberOfAlbums: string, liked: boolean }
 
 const artistsAdapter = createEntityAdapter<Artist>({
-    // Assume IDs are stored in a field other than `book.id`
-    // selectId: (book) => book.bookId,
-    // Keep the "all IDs" array sorted based on book titles
     sortComparer: (a, b) => a.artist.localeCompare(b.artist),
 })
 

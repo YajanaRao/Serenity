@@ -5,7 +5,7 @@ import { Screen } from '@serenity/components';
 import { useScrollToTop } from '@react-navigation/native';
 import { NetNotify } from 'components/NetNotify';
 import { RecentContainer } from './components/RecentContainer';
-import { MostPlayed } from './components/MostPlayed';
+import { MostPlayed } from '../MostPlayed/MostPlayedView';
 import { ShortCutContainer } from './components/ShortcutContainer';
 import { QuoteCard } from './components/QuoteCard';
 

@@ -8,6 +8,7 @@ const playerSlice = createSlice({
     track: {},
     status: "init",
     repeat: 'repeat-all',
+    radio: false
   },
   reducers: {
     // load the song from source and play the song
@@ -33,12 +34,18 @@ const playerSlice = createSlice({
     // repeat options
     repeatSongs(state, action) {
       state.repeat = action.type;
+    },
+
+    // radio mode
+    // radio mode will infinite loop of songs
+    updateRadioMode(state, action) {
+      state.radio = action.payload;
     }
   },
 });
 
 export const selectQueueSongs = (state) => state.player.queue;
 
-export const { play, updateStatus, repeatSongs } = playerSlice.actions;
+export const { play, updateStatus, repeatSongs, updateRadioMode } = playerSlice.actions;
 
 export default playerSlice.reducer;

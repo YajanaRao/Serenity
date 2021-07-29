@@ -36,12 +36,12 @@ export const FilterScreen = ({ navigation, route }: Props) => {
     fetchData().then(() => {
       setIsLoading(false);
     })
-    navigation.setOptions({ addToQueue: addSongsToQueue });
+    // navigation.setOptions({ addToQueue: addSongsToQueue });
   }, []);
 
-  const addSongsToQueue = () => {
-    dispatch(addSongToPlaylist(songs));
-  };
+  // const addSongsToQueue = () => {
+  //   dispatch(addSongToPlaylist(songs));
+  // };
 
   const fetchData = async () => {
     const data = await filterSongsByGenre(genre.title);

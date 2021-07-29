@@ -1,63 +1,41 @@
 import * as React from 'react';
 import { Snackbar } from 'react-native-paper';
+import { updateNotification, useAppDispatch, useAppSelector } from '@serenity/core';
 
-import isEqual from 'lodash/isEqual';
-import { connect } from 'react-redux';
-import { RootReducerType } from '@serenity/core/src/reducers';
 
-export interface Props {
-  result: string;
-}
-
-interface State {
-  result: string;
-  visible: boolean;
-}
-class NotificationDialog extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      result: '',
-      visible: false,
-    };
+const NotificationBar = () => {
+  const [visible, setVisible] = React.useState(false);
+  const { notify } = useAppSelector(state => state.ui);
+  console.log(notify);
+  const dispatch = useAppDispatch();
+  function clearNotification() {
+    dispatch(updateNotification(""));
+    setVisible(false);
   }
 
-  static getDerivedStateFromProps(props: Props, state: State) {
-    if (!isEqual(props.result, state.result) && props.result != null) {
-      return {
-        result: props.result,
-        visible: true,
-      };
+  React.useEffect(() => {
+    if (notify) {
+      setVisible(true);
     }
-    return null;
-  }
+    return () => setVisible(false);
+  }, [notify])
 
-  render() {
-    const { result, visible } = this.state;
-
-    return (
-      <Snackbar
-        style={{ marginBottom: 120, zIndex: 10 }}
-        visible={visible}
-        onDismiss={() => this.setState({ visible: false })}
-        // duration={1000}
-        action={{
-          label: 'Dismiss',
-          onPress: () => {
-            this.setState({
-              visible: false,
-            });
-          },
-        }}
-      >
-        {result}
-      </Snackbar>
-    );
-  }
+  return (
+    <Snackbar
+      style={{ marginBottom: 120, zIndex: 10 }}
+      visible={visible}
+      onDismiss={clearNotification}
+      // duration={1000}
+      action={{
+        label: 'Dismiss',
+        onPress: () => {
+          clearNotification();
+        },
+      }}
+    >
+      {notify}
+    </Snackbar>
+  );
 }
 
-const mapStateToProps = (state: RootReducerType) => ({
-  result: state.query.message,
-});
-
-export default connect(mapStateToProps)(NotificationDialog);
+export default NotificationBar;

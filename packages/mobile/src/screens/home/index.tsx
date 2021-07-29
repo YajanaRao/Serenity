@@ -7,6 +7,7 @@ import { getGreetingTime } from '../../utils/greeting';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
 import { Favorites } from './FavoritesScreen';
 import { HistoryScreen } from './HistoryScreen';
+import { MostPlayedScreen } from './MostPlayed/MostPlayedScreen';
 
 const Stack = createStackNavigator();
 
@@ -63,6 +64,13 @@ const HomeStack = () => {
       <Stack.Screen
         name="History"
         component={HistoryScreen}
+      />
+      <Stack.Screen
+        name="MostPlayed"
+        component={MostPlayedScreen}
+        options={{
+          title: "Most Played Songs"
+        }}
       />
     </Stack.Navigator>
   );
