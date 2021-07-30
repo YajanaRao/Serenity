@@ -1,28 +1,46 @@
-import React from 'react';
-import { IconButton, List, useTheme } from 'react-native-paper';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import isEqual from 'lodash/isEqual';
+import isUndefined from 'lodash/isUndefined';
+import { View, StyleSheet } from 'react-native';
+import { IconButton, useTheme, List } from 'react-native-paper';
+import { downloadMedia, SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
+import { playSong } from '@serenity/core';
 import FastImage from 'react-native-fast-image';
-import ActiveTrackIcon from './ActiveTrackIcon';
-import { DefaultImage } from './DefaultImage';
-
-interface TrackProps {
-  title: string;
-  album?: string;
-  artist?: string;
-  cover?: string;
-  type?: string;
-}
+import { DefaultImage } from 'components/DefaultImage';
+import ActiveTrackIcon from 'components/ActiveTrackIcon';
 
 interface Props {
-  track: TrackProps;
-  active: boolean;
-  play: () => void;
-  download?: () => void;
+  track: SongProps;
+  goBack?: () => void;
 }
 
-export const Track = React.memo(({ track, active, play, download }: Props) => {
-  const theme = useTheme();
-  const { colors } = theme;
+export const Track = ({ track, goBack }: Props) => {
+  const [isActive, setActive] = useState(false);
+  const dispatch = useAppDispatch();
+  const active = useAppSelector(
+    (state) => state.player.active,
+  );
+
+  const download = () => {
+    dispatch(downloadMedia(track));
+  };
+
+  useEffect(() => {
+    if (!isUndefined(active) && track.id) {
+      setActive(isEqual(active.id, track.id));
+    }
+  }, [active, track]);
+
+  const play = () => {
+    if (!isActive) {
+      dispatch(playSong(track));
+    }
+    if (goBack) {
+      goBack();
+    }
+  };
+
+  const { colors } = useTheme();
   return (
     <View style={[styles.surface, { backgroundColor: colors.background }]}>
       <List.Item
@@ -54,7 +72,7 @@ export const Track = React.memo(({ track, active, play, download }: Props) => {
       />
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   surface: {

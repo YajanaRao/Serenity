@@ -49,6 +49,7 @@ import UnlockOutlineIcon from '../assets/Icons/unlock-outline.svg';
 import LogInOutlineIcon from '../assets/Icons/log-in-outline.svg';
 import PersonOutlineIcon from '../assets/Icons/person-outline.svg';
 import TelegramAppIcon from '../assets/Icons/telegram-app.svg';
+import GithubIcon from '../assets/Icons/github-outline.svg';
 
 const ICONS = {
   'arrow-back': ArrowBackIcon,
@@ -102,6 +103,7 @@ const ICONS = {
   'log-in-outline': LogInOutlineIcon,
   'person-outline': PersonOutlineIcon,
   telegram: TelegramAppIcon,
+  'github-outline': GithubIcon,
 };
 
 export default ICONS;

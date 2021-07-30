@@ -8,8 +8,7 @@ import { Screen, Button } from '@serenity/components';
 import { selectPlaylistSongsById, SongProps, Player } from '@serenity/core';
 import { DefaultImage } from 'components/DefaultImage';
 import { EmptyPlaylist } from 'components/EmptyPlaylist';
-
-import { TrackContainer } from 'containers/TrackContainer';
+import { Track } from 'components/Track';
 
 export const PlaylistSongs = ({ route, navigation }) => {
   const { playlist, filter } = route.params;
@@ -67,7 +66,7 @@ export const PlaylistSongs = ({ route, navigation }) => {
           )}
           data={songs}
           renderItem={({ item }: { item: SongProps }) => (
-            <TrackContainer track={item} />
+            <Track track={item} />
           )}
           ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}

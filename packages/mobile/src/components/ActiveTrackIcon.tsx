@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import LottieView from 'lottie-react-native';
 import { useSelector } from 'react-redux';
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Animations from '../assets/Animations';
 
 interface ActiveTrackIconProps {
-  style: ViewStyle;
+  style: StyleProp<ViewStyle>;
 }
 
 const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
@@ -37,4 +37,5 @@ const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
     </View>
   );
 };
+
 export default ActiveTrackIcon;

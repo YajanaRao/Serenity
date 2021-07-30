@@ -3,9 +3,9 @@ import { Surface, IconButton, Divider } from 'react-native-paper';
 import { View, StyleSheet, RefreshControl } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
-import { TrackContainer } from '../../containers/TrackContainer';
 import { ListSongHeader } from '../ListSongHeader';
 import { SongProps } from '@serenity/core';
+import { Track } from 'components/Track';
 
 interface ItemProps {
   item: SongProps;
@@ -48,7 +48,7 @@ export const SwipeList = ({
       ListFooterComponent={() => <View style={{ height: 100 }} />}
       ItemSeparatorComponent={() => <Divider inset />}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }: ItemProps) => <TrackContainer track={item} />}
+      renderItem={({ item }: ItemProps) => <Track track={item} />}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}

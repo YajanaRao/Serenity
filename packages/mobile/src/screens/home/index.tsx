@@ -2,11 +2,11 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme, IconButton } from 'react-native-paper';
 import { MainScreen } from './Main/Main';
-import { SettingScreen } from './Settings';
+import { SettingScreen } from './Settings/SettingsScreen';
 import { getGreetingTime } from '../../utils/greeting';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
 import { Favorites } from './FavoritesScreen';
-import { HistoryScreen } from './HistoryScreen';
+import { HistoryScreen } from './History/HistoryScreen';
 import { MostPlayedScreen } from './MostPlayed/MostPlayedScreen';
 
 const Stack = createStackNavigator();

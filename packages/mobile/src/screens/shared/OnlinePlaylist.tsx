@@ -8,10 +8,10 @@ import FastImage from 'react-native-fast-image';
 import { Headline, Screen } from '@serenity/components';
 import { Assets } from 'media';
 import { addSongToQueue } from '@serenity/core';
-import { TrackContainer } from '../../containers/TrackContainer';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import { DefaultImage } from '../../components/DefaultImage';
 import { TrackProps } from '../../utils/types';
+import { Track } from 'components/Track';
 
 export const OnlinePlaylist = ({ route, navigation }) => {
   const { playlist, filter } = route.params;
@@ -73,7 +73,7 @@ export const OnlinePlaylist = ({ route, navigation }) => {
           )}
           data={songs}
           renderItem={({ item }: { item: TrackProps }) => (
-            <TrackContainer track={item} />
+            <Track track={item} />
           )}
           ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}

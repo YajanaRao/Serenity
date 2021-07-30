@@ -1,6 +1,7 @@
 import React from 'react';
 import Config from 'react-native-config';
-import { Dialog, Portal, Button, List } from 'react-native-paper';
+import { Dialog, Portal, List } from 'react-native-paper';
+import { Button } from '@serenity/components';
 import { log } from 'utils/logging';
 
 export interface DiagnoseDialogProps {
@@ -43,7 +44,6 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
         <Dialog.Actions>
           <Button
             onPress={hideDialog}
-            mode="outlined"
             style={{ width: 100, marginRight: 12 }}
           >
             Ok

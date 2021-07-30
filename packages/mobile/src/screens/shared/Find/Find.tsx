@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { View, SectionList, Keyboard, FlatList } from 'react-native';
+import { View, Keyboard, FlatList } from 'react-native';
 import { Text, Searchbar, useTheme } from 'react-native-paper';
 import { Screen } from '@serenity/components';
 import { selectFilteredSongs, useAppSelector } from '@serenity/core';

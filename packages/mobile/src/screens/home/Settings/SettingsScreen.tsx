@@ -11,14 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Screen } from '@serenity/components';
 import { clearHistory, updateTheme } from '@serenity/core';
 import { AlertDialog } from 'components/Dialogs/AlertDialog';
-import { DiagnoseDialog } from './components/DiagnoseDialog';
+import { DiagnoseDialog } from './DiagnoseDialog';
 import Config from 'react-native-config';
 
 export const SettingScreen = () => {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState('');
-  const radio = useSelector((state: any) => state.config.radio);
   const theme = useTheme();
   const { dark } = theme;
 
@@ -30,9 +29,7 @@ export const SettingScreen = () => {
     dispatch(updateTheme(themeType));
   };
 
-  const toggleRadioMode = () => {
-    // dispatch(changeRadioMode(!radio));
-  };
+
 
   const showAlert = () => {
     setVisible('ALERT');
@@ -44,9 +41,13 @@ export const SettingScreen = () => {
   };
 
   function openSupport() {
-    console.log(Config)
     Linking.openURL(Config.TELEGRAM_LINK);
   }
+
+  function openGithub() {
+    Linking.openURL("https://github.com/YajanaRao/Serenity");
+  }
+
 
   return (
     <Screen>
@@ -71,14 +72,6 @@ export const SettingScreen = () => {
               </View>
             </View>
           </TouchableRipple>
-          <TouchableRipple onPress={toggleRadioMode}>
-            <View style={styles.preference}>
-              <Text>Radio Mode</Text>
-              <View pointerEvents="none">
-                <Switch value={radio} />
-              </View>
-            </View>
-          </TouchableRipple>
         </Drawer.Section>
         <Drawer.Section title="Data">
           <Drawer.Item
@@ -99,9 +92,9 @@ export const SettingScreen = () => {
             icon="telegram"
           />
           <Drawer.Item
-            onPress={showAlert}
+            onPress={openGithub}
             label="Github"
-            icon="trash-outline"
+            icon="github-outline"
           />
         </Drawer.Section>
       </ScrollView>

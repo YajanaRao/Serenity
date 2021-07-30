@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { Container, Screen, Title } from '@serenity/components';
 import { useAppSelector, historySelectors } from '@serenity/core';
-import { SongItem } from '../../components/SongItem/SongItem';
+import { SongItem } from '../../../components/SongItem/SongItem';
 
 export function HistoryScreen() {
 	const songs = useAppSelector(state => historySelectors.selectIds(state));
