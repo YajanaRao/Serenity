@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "setup": "scripts/setup",
     "android": "yarn workspace mobile android",
     "bootstrap": "npx lerna bootstrap",
     "rebootstrap": "npx lerna clean --yes && npm run bootstrap",
