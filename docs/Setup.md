@@ -3,7 +3,7 @@
 ## Clone github repository
 
 ```shell
-git clone --recurse-submodules https://github.com/YajanaRao/Serenity.git
+git clone https://github.com/YajanaRao/Serenity.git
 ```
 
 ## Project structure
@@ -33,7 +33,7 @@ We're using [Yarn](https://yarnpkg.com) for this project, do not use npm for the
 Run below command in project root:
 
 ```shell
-yarn install
+yarn setup
 ```
 
 ## IOS
