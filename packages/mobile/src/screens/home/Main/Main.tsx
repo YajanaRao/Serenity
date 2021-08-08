@@ -7,7 +7,7 @@ import { NetNotify } from 'components/NetNotify';
 import { RecentContainer } from '../History/RecentView';
 import { MostPlayed } from '../MostPlayed/MostPlayedView';
 import { ShortCutContainer } from './components/ShortcutContainer';
-import { QuoteCard } from './components/QuoteCard';
+import QuoteCard from './components/QuoteCard';
 
 const Divider = () => <View style={{ marginVertical: 8 }} />;
 

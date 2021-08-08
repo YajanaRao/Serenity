@@ -1,5 +1,5 @@
-// @ts-nocheck
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
 
 const playerSlice = createSlice({
@@ -12,18 +12,10 @@ const playerSlice = createSlice({
   },
   reducers: {
     // load the song from source and play the song
-    play: {
-      reducer(state, action) {
-        state.track = action.payload;
-        state.status = "paused";
-      },
-      // @ts-ignore
-      prepare(track) {
-        return { payload: track };
-      },
+    play(state, action) {
+      state.track = action.payload;
+      state.status = "paused";
     },
-
-
 
     // change the player status
     updateStatus(state, action) {
@@ -32,8 +24,8 @@ const playerSlice = createSlice({
 
 
     // repeat options
-    repeatSongs(state, action) {
-      state.repeat = action.type;
+    updateRepeatType(state, action) {
+      state.repeat = action.payload;
     },
 
     // radio mode
@@ -44,8 +36,8 @@ const playerSlice = createSlice({
   },
 });
 
-export const selectQueueSongs = (state) => state.player.queue;
+export const selectQueueSongs = (state: RootState) => state.player.queue;
 
-export const { play, updateStatus, repeatSongs, updateRadioMode } = playerSlice.actions;
+export const { play, updateStatus, updateRepeatType, updateRadioMode } = playerSlice.actions;
 
 export default playerSlice.reducer;

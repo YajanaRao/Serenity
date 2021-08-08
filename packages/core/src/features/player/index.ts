@@ -2,28 +2,21 @@ import { addEventListener, TrackPlayer } from 'react-track-player';
 import { EmitterSubscription } from 'react-native';
 import sample from 'lodash/sample';
 import isEmpty from 'lodash/isEmpty';
-
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 import { addSongToHistory } from "./historySlice";
-import { play, repeatSongs, updateRadioMode, updateStatus } from "./playerSlice";
-import { addSongsToQueue, addSongToQueue, queueReceived, removeSongFromQueue } from './queueSlice';
+import { play, updateRadioMode, updateRepeatType, updateStatus } from "./playerSlice";
+import { addSongToQueue, addSongsToQueue, removeSongFromQueue } from './queueSlice';
 import { updateNotification } from '../ui/uiSlice';
+import { SongProps } from './types';
 
 let subscription: EmitterSubscription;
 
 
-interface Song {
-  title: string;
-  artist?: string;
-  album?: string;
-  cover?: string;
-  path?: string;
-  url?: string;
-}
 
-function loadTrack(track: Song) {
+
+function loadTrack(track: SongProps) {
   return TrackPlayer.load({
     path: track.path,
     title: track.title,
@@ -49,10 +42,10 @@ export function setUpTrackPlayer() {
   };
 }
 
-export function repeat(repeatType: string) {
+export function repeatSongs(repeatType: string) {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     try {
-      dispatch(repeatSongs(repeatType));
+      dispatch(updateRepeatType(repeatType));
     } catch (error) {
       console.log('shufflePlay', error);
     }
@@ -69,7 +62,7 @@ export function destroyTrackPlayer() {
   };
 }
 
-export function playSong(song: Song) {
+export function playSong(song: SongProps) {
   return (dispatch: any, getState: any) => {
     if (!song.path && !song.url) {
       throw new Error("path or url of the song is missing");
@@ -93,13 +86,13 @@ export function playNext() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { queue } = getState();
     if (!queue.length) {
-      // no songs in the queue
-      // TODO:
-      // display notification saying the same only once  
+      dispatch(updateNotification("No songs in the queue"));
     }
-    const song = queue[0];
+    const { entities, ids } = queue;
+    const song = entities[ids[0]];
+    console.log(song);
     dispatch(playSong(song));
-    dispatch(removeSongFromQueue(song));
+    dispatch(removeSongFromQueue(song.id));
     loadTrack(song);
   }
 }
@@ -108,11 +101,10 @@ export function playPrevious() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { history } = getState();
     if (!history.length) {
-      // no songs in the queue
-      // TODO:
-      // display notification saying the same only once  
+      dispatch(updateNotification("No songs in the history"));
     }
-    const song = history[0];
+    const { entities, ids } = history;
+    const song = entities[ids[0]];
     dispatch(playSong(song));
     loadTrack(song);
   }
@@ -142,14 +134,13 @@ export function toggle() {
   }
 }
 
-export function add(songs: Array<Song> | Song) {
+export function add(songs: Array<SongProps> | SongProps) {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { track } = getState().player;
     if (Array.isArray(songs)) {
       dispatch(addSongsToQueue(songs));
       dispatch(updateNotification(`${songs.length} songs added to queue`));
     } else {
-      console.log("adding songs in else", songs);
       dispatch(addSongToQueue(songs));
       dispatch(updateNotification(`${songs.title} added to queue`));
     }
@@ -162,6 +153,7 @@ export function add(songs: Array<Song> | Song) {
 export function startRadio() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     try {
+      dispatch(updateNotification("Starting radio"));
       const { track } = getState().player;
       if (isEmpty(track)) {
         const song = sample(getState().songs.entities);

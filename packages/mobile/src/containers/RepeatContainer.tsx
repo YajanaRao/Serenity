@@ -1,20 +1,20 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { View } from 'react-native';
 import { RepeatIcon } from '../components/RepeatIcon';
-import { Player } from '@serenity/core';
+import { Player, useAppSelector } from '@serenity/core';
 
 export const RepeatContainer = () => {
-  const repeat = useSelector((state) => state.config.repeat);
+  const { repeat } = useAppSelector((state) => state.player);
   const dispatch = useDispatch();
 
   const updateRepeatType = () => {
     if (repeat === 'repeat-all') {
-      dispatch(Player.repeat('repeat-one'));
+      dispatch(Player.repeatSongs('repeat-one'));
     } else if (repeat === 'repeat-one') {
-      dispatch(Player.repeat('repeat-off'));
+      dispatch(Player.repeatSongs('repeat-off'));
     } else {
-      dispatch(Player.repeat('repeat-all'));
+      dispatch(Player.repeatSongs('repeat-all'));
     }
   };
 

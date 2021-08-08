@@ -79,7 +79,8 @@ export const songsSelectors = songsAdapter.getSelectors<RootState>(
     (state) => state.songs
 )
 
-export const selectLikedSongs = createSelector([state => songsSelectors.selectAll(state)], songs => songs.filter(song => song.liked));
+export const selectLikedSongIds = (state: RootState) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.liked);
+
 
 export const selectSongLikeById = (state: RootState, songId: EntityId) => {
     return songsSelectors.selectById(state, songId)?.liked;
@@ -87,7 +88,13 @@ export const selectSongLikeById = (state: RootState, songId: EntityId) => {
 
 export const selectFilteredSongs = (state: RootState, query: string) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase()))
 
-export const selectLikedSongIds = createSelector([selectLikedSongs], likedSongs => likedSongs.map(item => item.id))
+export const selectLikedSongs = (state: RootState) => selectLikedSongIds(state).map(id => {
+    const song = songsSelectors.selectById(state, id);
+    // return {
+    //     id: song
+    // }
+    return song;
+});
 
 export const { toggleSongLike, songAdded, songsAdded } = songsSlice.actions;
 

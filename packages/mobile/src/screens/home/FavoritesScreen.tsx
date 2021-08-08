@@ -9,8 +9,11 @@ export function Favorites() {
   const songs = useAppSelector(state => selectLikedSongIds(state));
   const likedSongs = useAppSelector(state => selectLikedSongs(state));
   const dispatch = useAppDispatch();
+
   function playSongs() {
-    dispatch(Player.add(likedSongs));
+    if (likedSongs.length) {
+      dispatch(Player.add(likedSongs));
+    }
   }
 
   if (!songs) return null;

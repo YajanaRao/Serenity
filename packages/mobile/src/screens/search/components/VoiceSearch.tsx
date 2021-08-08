@@ -13,7 +13,7 @@ import Animations from '../../../assets/Animations';
 const VoiceSearch = () => {
     const [visible, setVisible] = React.useState(false);
     const navigation = useNavigation();
-    const animatedRef = useRef(null);
+    const animatedRef = useRef<LottieView>(null);
 
     const showDialog = () => {
         setVisible(true);
@@ -24,20 +24,20 @@ const VoiceSearch = () => {
 
     function onSpeechStart(e: any) {
         console.log('onSpeechStart: ', e);
-        animatedRef.current.play();
+        animatedRef.current?.play();
     };
 
 
 
     function onSpeechEnd(e: any) {
         console.log('onSpeechEnd: ', e);
-        animatedRef.current.pause();
+        animatedRef.current?.pause();
     };
 
 
     function onSpeechResults(e: SpeechResultsEvent) {
         console.log('onSpeechResults: ', e);
-        animatedRef.current.pause();
+        animatedRef.current?.pause();
         hideDialog();
         navigation.navigate('Find', { query: e.value[0] })
     };

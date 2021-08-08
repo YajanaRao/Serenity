@@ -1,27 +1,26 @@
-import React from 'react';
+import * as React from 'react';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Divider } from 'react-native-paper';
 import { View } from 'react-native';
 import { Title } from '@serenity/components';
 
 import { useNavigation } from '@react-navigation/core';
-import { Track } from '../../../components/Track';
+import { Track } from 'components/Track';
 import { TrackItem } from './TrackItem';
 import { TrackSurface } from './TrackSurface';
-import { useAppSelector } from '../../../../../core/src';
+import { EntityId, queueSelectors, useAppSelector } from '@serenity/core';
 
 interface Props { }
 
 interface ItemProps {
-  item: string;
+  item: EntityId;
 }
 
 export const QueueList = ({ }: Props) => {
   const navigation = useNavigation();
   const active = useAppSelector((state) => state.player.track);
 
-  const queue = useAppSelector(state => state.queue.ids);
-  console.log(queue);
+  const queue = useAppSelector(state => queueSelectors.selectIds(state));
   return (
     <View>
       <SwipeListView

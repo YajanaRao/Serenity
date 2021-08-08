@@ -7,7 +7,7 @@ import {
   TouchableRipple,
   useTheme,
 } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Screen } from '@serenity/components';
 import { clearHistory, updateTheme } from '@serenity/core';
 import { AlertDialog } from 'components/Dialogs/AlertDialog';

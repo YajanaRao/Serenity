@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { Button } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/core';
 import { Headline } from '@serenity/components';
-import { playSong, useAppDispatch, useAppSelector, historySelectors } from '@serenity/core';
-import { TrackProps } from '../../../utils/types';
+import { playSong, useAppDispatch, useAppSelector, historySelectors, SongProps } from '@serenity/core';
 import { TrackItem } from '../components/TrackItem';
 
 export const RecentContainer = () => {
@@ -14,7 +13,7 @@ export const RecentContainer = () => {
   const history = useAppSelector(state => historySelectors.selectIds(state));
   const dispatch = useAppDispatch();
 
-  const play = (track: TrackProps) => {
+  const play = (track: SongProps) => {
     if (!isEmpty(track)) {
       dispatch(playSong(track));
     }
@@ -28,13 +27,7 @@ export const RecentContainer = () => {
     return (
       <View>
         <View
-          style={{
-            marginLeft: 16,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: 8,
-          }}
+          style={styles.container}
         >
           <Headline>Recently Played</Headline>
           {history.length > 3 ? (
@@ -56,3 +49,12 @@ export const RecentContainer = () => {
   return null;
 };
 
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  }
+});

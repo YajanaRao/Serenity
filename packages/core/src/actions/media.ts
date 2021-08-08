@@ -44,7 +44,7 @@ export const findAlbumSongs = async (album: string) => {
   const songs = await RNAndroidAudioStore.getSongs({
     album,
   })
-    .catch(er => log.error('findAlbumSongs', er));
+    .catch(er => console.error('findAlbumSongs', er));
   return songs;
 };
 export const findArtistSongs = async (artist: string) => {
@@ -52,7 +52,7 @@ export const findArtistSongs = async (artist: string) => {
     artist,
   })
     .then(media => media)
-    .catch(er => log.error('findArtistSongs', er));
+    .catch(er => console.error('findArtistSongs', er));
   return songs;
 };
 
@@ -65,7 +65,7 @@ export const filterSongsByGenre = async (genre: string) => {
     return songs;
 
   } catch (error) {
-    log.error('filterSongsByGenre', error)
+    console.error('filterSongsByGenre', error)
   }
 };
 

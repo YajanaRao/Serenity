@@ -1,10 +1,12 @@
-// @ts-nocheck
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { SongProps } from 'features/player/types';
+import { RootState } from 'store';
 
+type PlaylistProps = { id: string; name: string, owner: string, date: string, liked: boolean, songs: SongProps[] }
 
 const playlistsSlice = createSlice({
   name: 'playlists',
-  initialState: [],
+  initialState: [] as PlaylistProps[],
   reducers: {
     addPlaylist: {
       reducer(state, action) {
@@ -25,17 +27,12 @@ const playlistsSlice = createSlice({
     deletePlaylist(state, action) {
       state.filter(playlist => playlist.id !== action.payload)
     },
-    renamePlaylist: {
-      reducer(state, action) {
-        const { playlistId, name } = action.payload;
-        const playlist = state.find(playlist => playlist.id === playlistId);
-        if (playlist) {
-          playlist.name = name;
-        }
-      },
-      prepare(playlistId: string, name: string) {
-        return { payload: { playlistId, name } };
-      },
+    renamePlaylist(state, action) {
+      const { playlistId, name } = action.payload;
+      const playlist = state.find(playlist => playlist.id === playlistId);
+      if (playlist) {
+        playlist.name = name;
+      }
     },
     addSongToPlaylist: {
       reducer(state, action) {
@@ -61,21 +58,21 @@ const playlistsSlice = createSlice({
   },
 });
 
-export const selectPlaylists = (state) => state.playlists;
+export const selectPlaylists = (state: RootState) => state.playlists;
 
 // get all playlist ids
-export const selectPlaylistIds = (state) => {
-  return selectPlaylists(state).map((playlist) => playlist.id);
+export const selectPlaylistIds = (state: RootState) => {
+  return selectPlaylists(state).map((playlist: PlaylistProps) => playlist.id);
 };
 
 // get playlist from id
-export const selectPlaylistById = (state, playlistId: string) => {
-  return selectPlaylists(state).find((playlist) => playlist.id === playlistId)
+export const selectPlaylistById = (state: RootState, playlistId: string) => {
+  return selectPlaylists(state).find((playlist: PlaylistProps) => playlist.id === playlistId)
 }
 
-export const selectPlaylistSongsById = (state, playlistId: string) => {
+export const selectPlaylistSongsById = (state: RootState, playlistId: string) => {
   const playlist = selectPlaylistById(state, playlistId);
-  return playlist.songs.map((song) => song.id);
+  return playlist.songs.map((song: SongProps) => song.id);
 };
 
 export const { addPlaylist, deletePlaylist, renamePlaylist, addSongToPlaylist, toggleLike } =

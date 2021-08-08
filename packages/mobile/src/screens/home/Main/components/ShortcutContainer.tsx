@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Avatar, Caption } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/core';
@@ -36,14 +36,10 @@ export const ShortCutContainer = () => {
 
   return (
     <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        margin: 16,
-      }}
+      style={styles.container}
     >
       <TouchableOpacity
-        style={{ justifyContent: 'center', alignItems: 'center' }}
+        style={styles.shortcutContainer}
         onPress={navigateToHistory}
       >
         <Avatar.Icon
@@ -54,7 +50,7 @@ export const ShortCutContainer = () => {
         <Caption>History</Caption>
       </TouchableOpacity>
       <TouchableOpacity
-        style={{ justifyContent: 'center', alignItems: 'center' }}
+        style={styles.shortcutContainer}
         onPress={navigateToFavorite}
       >
         <Avatar.Icon
@@ -65,7 +61,7 @@ export const ShortCutContainer = () => {
         <Caption>Favorite</Caption>
       </TouchableOpacity>
       <TouchableOpacity
-        style={{ justifyContent: 'center', alignItems: 'center' }}
+        style={styles.shortcutContainer}
         onPress={navigateToMostPlayed}
       >
         <Avatar.Icon
@@ -76,7 +72,7 @@ export const ShortCutContainer = () => {
         <Caption>Most Played</Caption>
       </TouchableOpacity>
       <TouchableOpacity
-        style={{ justifyContent: 'center', alignItems: 'center' }}
+        style={styles.shortcutContainer}
         onPress={startSongs}
       >
         <Avatar.Icon
@@ -89,3 +85,12 @@ export const ShortCutContainer = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    margin: 16,
+  },
+  shortcutContainer: { justifyContent: 'center', alignItems: 'center' }
+});

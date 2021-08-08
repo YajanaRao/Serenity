@@ -6,7 +6,6 @@ import { updateNotification, useAppDispatch, useAppSelector } from '@serenity/co
 const NotificationBar = () => {
   const [visible, setVisible] = React.useState(false);
   const { notify } = useAppSelector(state => state.ui);
-  console.log(notify);
   const dispatch = useAppDispatch();
   function clearNotification() {
     dispatch(updateNotification(""));

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { store } from '@serenity/core';
 import { persistStore } from 'redux-persist';
 import { Spinner } from '@serenity/components';
@@ -16,7 +16,7 @@ const persistor = persistStore(store);
 
 const App = () => {
   const renderActivityIndicator = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Spinner />
     </View>
   );
@@ -35,3 +35,7 @@ const App = () => {
 };
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' }
+});

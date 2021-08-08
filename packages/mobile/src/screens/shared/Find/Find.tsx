@@ -7,9 +7,9 @@ import { SongItem } from './components/SongItem';
 
 export interface FindScreenProps { }
 
-export function FindScreen({ navigation }: FindScreenProps) {
+export function FindScreen({ navigation, route }: FindScreenProps) {
   const { colors } = useTheme();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(route.params?.query);
   const songs = useAppSelector(state => selectFilteredSongs(state, query));
 
   const handleChange = (text: string) => {
@@ -24,7 +24,7 @@ export function FindScreen({ navigation }: FindScreenProps) {
             style={{ borderRadius: 0 }}
             placeholder="Artists, songs or podcasts"
             onChangeText={handleChange}
-            // value={query}
+            defaultValue={query}
             icon={navigation.goBack ? 'arrow-back-outline' : 'search-outline'}
             onIconPress={() => (navigation.goBack ? navigation.goBack() : Keyboard.dismiss())}
             clearIcon={query ? "close-outline" : "mic-outline"}

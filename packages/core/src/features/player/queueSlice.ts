@@ -15,10 +15,20 @@ const queueSlice = createSlice({
     name: 'queue',
     initialState: queueAdapter.getInitialState(),
     reducers: {
-        addSongToQueue: queueAdapter.addOne,
-        addSongsToQueue: queueAdapter.updateMany,
+        addSongToQueue(state, action) {
+            action.payload["date"] = new Date().toISOString();
+            queueAdapter.addOne(state, action);
+        },
+        addSongsToQueue(state, action) {
+            action.payload = action.payload.map((song: SongProps) => {
+                song["date"] = new Date().toISOString()
+                return song;
+            })
+            queueAdapter.addMany(state, action)
+        },
         queueUpdated: queueAdapter.updateOne,
         removeSongFromQueue: queueAdapter.removeOne,
+        clearQueue: queueAdapter.removeAll,
 
         queueReceived(state, action) {
             queueAdapter.setAll(state, action.payload)
@@ -32,6 +42,6 @@ export const queueSelectors = queueAdapter.getSelectors<RootState>(
 )
 
 
-export const { addSongToQueue, addSongsToQueue, removeSongFromQueue, queueUpdated, queueReceived } = queueSlice.actions;
+export const { addSongToQueue, addSongsToQueue, removeSongFromQueue, queueUpdated, queueReceived, clearQueue } = queueSlice.actions;
 
 export default queueSlice.reducer;
