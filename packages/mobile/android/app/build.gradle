@@ -80,7 +80,9 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     enableHermes: true,
-    hermesCommand:  '../../../../node_modules/hermes-engine/%OS-BIN%/hermesc'
+    hermesCommand:  '../../../../node_modules/hermes-engine/%OS-BIN%/hermesc',
+    composeSourceMapsPath: "../../node_modules/react-native/scripts/compose-source-maps.js",
+    cliPath: "../../node_modules/react-native/cli.js",
 ]
 
 apply from: "../../../../node_modules/react-native/react.gradle"
