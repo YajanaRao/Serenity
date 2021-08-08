@@ -79,7 +79,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: false,
+    enableHermes: true,
     hermesCommand:  '../../../../node_modules/hermes-engine/%OS-BIN%/hermesc'
 ]
 

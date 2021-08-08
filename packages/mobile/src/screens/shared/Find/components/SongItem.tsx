@@ -1,13 +1,13 @@
 import * as React from 'react';
 // import { playTrack } from '../actions/player';
-import { playSong, songsSelectors, useAppDispatch, useAppSelector } from '@serenity/core';
+import { EntityId, playSong, songsSelectors, useAppDispatch, useAppSelector } from '@serenity/core';
 import { View, StyleSheet } from 'react-native';
 import { useTheme, List } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { ArtCover } from '../../../../components/ArtCover/ArtCover';
 
 interface Props {
-    id: number;
+    id: EntityId;
 }
 
 export const SongItem = ({ id }: Props) => {
