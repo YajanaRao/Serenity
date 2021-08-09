@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import { RootState } from "store";
+import { RootState } from "../../store";
 import { getAlbums } from "./deviceMedia";
 
 
@@ -68,14 +68,12 @@ export const albumsSelectors = albumsAdapter.getSelectors<RootState>(
     (state) => state.albums
 )
 
-// @ts-ignore
-export const selectAlbumLikeById = (state, albumId: number) => {
+export const selectAlbumLikeById = (state: RootState, albumId: number) => {
     const album = albumsSelectors.selectById(state, albumId);
     return album?.liked;
 }
 
-// @ts-ignore
-export const selectLikedAlbums = (state) => albumsSelectors.selectIds(state).filter(id => albumsSelectors.selectById(state, id)?.liked)
+export const selectLikedAlbums = (state: RootState) => albumsSelectors.selectIds(state).filter(id => albumsSelectors.selectById(state, id)?.liked)
 
 export const { albumUpdated } = albumsSlice.actions;
 

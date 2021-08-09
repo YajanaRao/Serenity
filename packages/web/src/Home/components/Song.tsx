@@ -12,7 +12,6 @@ export function Song({ id }: SongProps) {
 
     const song = useAppSelector(state => songsSelectors.selectById(state, id));
     function playSong(song: any) {
-        // @ts-ignore
         dispatch(Player.playSong(song))
     }
     if (song) {
