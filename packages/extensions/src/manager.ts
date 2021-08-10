@@ -12,11 +12,11 @@ function getPlugin(id: string) {
 
 export function init() {
     return (dispatch: any) => {
-        // JioSaavn.getJioSaavnMusic().then(songs => {
-        //     console.log(songs);
+        JioSaavn.getJioSaavnMusic().then(songs => {
+            console.log(songs);
         // @ts-ignore
         dispatch(songsAdded(data.media[1].children));
-        // });
+        });
     }
 }
 

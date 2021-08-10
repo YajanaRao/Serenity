@@ -13,9 +13,6 @@ import { SongProps } from './types';
 
 let subscription: EmitterSubscription;
 
-
-
-
 function loadTrack(track: SongProps) {
   return TrackPlayer.load({
     path: track.path,

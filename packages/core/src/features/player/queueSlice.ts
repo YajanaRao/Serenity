@@ -2,7 +2,7 @@ import {
     createEntityAdapter,
     createSlice,
 } from '@reduxjs/toolkit'
-import { RootState } from 'store'
+import { RootState } from '../../store'
 import { SongProps } from './types'
 
 type QueueSongs = SongProps & { date: string };
@@ -20,7 +20,7 @@ const queueSlice = createSlice({
             queueAdapter.addOne(state, action);
         },
         addSongsToQueue(state, action) {
-            action.payload = action.payload.map((song: SongProps) => {
+            action.payload = action.payload.map((song: QueueSongs) => {
                 song["date"] = new Date().toISOString()
                 return song;
             })

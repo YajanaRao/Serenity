@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter, createSelector, EntityId } from "@reduxjs/toolkit";
-import { RootState } from "store";
+import { RootState } from "../../store";
 import { getSongs } from "./deviceMedia";
 
 
