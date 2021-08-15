@@ -8,6 +8,9 @@ import { PlaylistSongs } from '../shared/PlaylistSongs';
 import { Favorites } from './FavoritesScreen';
 import { HistoryScreen } from './History/HistoryScreen';
 import { MostPlayedScreen } from './MostPlayed/MostPlayedScreen';
+import { PodcastScreen } from './Podcast/Podcast';
+import { MeditationScreen } from './Meditation/Meditation';
+import { PlaylistScreen } from './Playlist/Playlist';
 
 const Stack = createStackNavigator();
 
@@ -71,6 +74,18 @@ const HomeStack = () => {
         options={{
           title: "Most Played Songs"
         }}
+      />
+      <Stack.Screen
+        name="Podcast"
+        component={PodcastScreen}
+      />
+      <Stack.Screen
+        name="Meditation"
+        component={MeditationScreen}
+      />
+      <Stack.Screen
+        name="Songs"
+        component={PlaylistScreen}
       />
     </Stack.Navigator>
   );

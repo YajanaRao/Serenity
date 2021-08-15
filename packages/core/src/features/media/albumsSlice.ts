@@ -1,20 +1,8 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { getAlbums } from "./deviceMedia";
-
 
 
 type Album = { id: string; author: string, album: string, cover: string, numberOfSongs: string, numberOfAlbums: string, liked: boolean }
-
-export const fetchAlbums = createAsyncThunk<[Album]>('albums/fetch', async () => {
-    // @ts-ignore
-    const media = await getAlbums();
-    if (!media) {
-        return []
-    }
-    return media;
-})
-
 
 
 const albumsAdapter = createEntityAdapter<Album>({
@@ -30,36 +18,9 @@ const albumsSlice = createSlice({
     }),
     reducers: {
 
-        albumAdded: albumsAdapter.addOne,
+        albumAdded: albumsAdapter.addMany,
         albumUpdated: albumsAdapter.updateOne
-    },
-    extraReducers: {
-
-        // handling artists
-        // @ts-ignore
-        [fetchAlbums.pending]: (state) => {
-            if (!state.loading) {
-                state.loading = true
-                state.error = null;
-            }
-        },
-        // @ts-ignore
-        [fetchAlbums.fulfilled]: (state, action) => {
-            if (state.loading) {
-                if (action.payload && action.payload.length) {
-                    albumsAdapter.setAll(state, action.payload)
-                }
-                state.loading = false;
-            }
-        },
-        // @ts-ignore
-        [fetchAlbums.rejected]: (state, action) => {
-            if (state.loading) {
-                state.loading = false;
-                state.error = action.error
-            }
-        },
-    },
+    }
 });
 
 
@@ -75,6 +36,6 @@ export const selectAlbumLikeById = (state: RootState, albumId: number) => {
 
 export const selectLikedAlbums = (state: RootState) => albumsSelectors.selectIds(state).filter(id => albumsSelectors.selectById(state, id)?.liked)
 
-export const { albumUpdated } = albumsSlice.actions;
+export const { albumUpdated, albumAdded } = albumsSlice.actions;
 
 export default albumsSlice.reducer;

@@ -16,7 +16,7 @@ import { Screen, Button } from '@serenity/components';
 import {
   Player,
   UI,
-  fetchOfflineSongs,
+  Native,
   addSongToPlaylist,
   addSongToQueue,
   songsSelectors,
@@ -57,7 +57,7 @@ export const SongScreen = () => {
   async function fetchSongs() {
     try {
       if (offlineReadAccessGiven && !loading) {
-        await dispatch(fetchOfflineSongs())
+        await dispatch(Native.getSongs())
       }
     } catch (err) {
       console.log('error', `Fetch failed: ${err.message}`)

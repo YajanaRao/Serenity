@@ -16,6 +16,18 @@ const persistConfig = {
   blacklist: ['query'],
 };
 
+const middlewares = getDefaultMiddleware({
+  // https://github.com/reduxjs/redux-toolkit/issues/415
+  immutableCheck: false,
+  serializableCheck: {
+    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+  }
+});
+
+if (__DEV__) {
+  const createDebugger = require("redux-flipper").default;
+  middlewares.push(createDebugger());
+}
 
 const persistedReducer = persistReducer(persistConfig, RootReducer);
 
@@ -23,13 +35,7 @@ const store = configureStore({
   reducer: persistedReducer,
   // this is done to handle error with non serializable value for register function
   // https://github.com/rt2zz/redux-persist/issues/988
-  middleware: getDefaultMiddleware({
-    // https://github.com/reduxjs/redux-toolkit/issues/415
-    immutableCheck: false,
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-    }
-  })
+  middleware: middlewares,
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

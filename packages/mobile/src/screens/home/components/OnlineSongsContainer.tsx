@@ -1,27 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { useNavigation } from '@react-navigation/core';
 import { Headline } from '@serenity/components';
-import { Assets } from 'media';
-import { TrackItem } from './TrackItem';
+import { Track } from './Track';
+import { Meditation } from './Meditation';
+import { SongProps } from '@serenity/core';
+import { Podcasts, Meditations, Songs } from '@serenity/extensions';
+import { useNavigation } from '@react-navigation/core';
 
 const OnlineSongsContainer = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
-  const [playlists, setPlaylists] = useState([]);
+  const [playlists, setPlaylists] = React.useState([]);
+  const [podcasts, setPodcasts] = React.useState([]);
+  const [meditations, setMeditations] = React.useState([]);
 
   useEffect(() => {
-    const data = Assets.getPlaylists();
-    setPlaylists(data);
+    Songs.getPlaylists().then(response => setPlaylists(response));
+    setPodcasts(Podcasts.getPodcasts());
+    setMeditations(Meditations.getMeditations())
   }, [])
 
-  const navigateToPlaylist = (playlist: any) => {
-
-    navigation.navigate('OnlinePlaylist', {
-      playlist: playlist,
-    });
+  const navigateToPodcast = (item: any) => {
+    navigation.navigate("Podcast", { podcast: item })
   };
+  const navigateToMeditation = (item: any) => {
+    navigation.navigate("Meditation", { meditation: item })
+  };
+  const navigateToSongs = (item: any) => {
+    navigation.navigate("Songs", { playlist: item });
+  }
 
   if (netInfo.isConnected) {
     return (
@@ -29,14 +37,38 @@ const OnlineSongsContainer = () => {
         <View
           style={styles.titleContainer}
         >
-          <Headline>Online Songs</Headline>
+          <Headline>Songs</Headline>
         </View>
         <FlatList
           horizontal
           data={playlists}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <TrackItem id={item} onPress={navigateToPlaylist} />}
+          renderItem={({ item }: { item: SongProps }) => <Track track={item} onPress={navigateToSongs} />}
+        />
+        <View
+          style={styles.titleContainer}
+        >
+          <Headline>Podcasts</Headline>
+        </View>
+        <FlatList
+          horizontal
+          data={podcasts}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }: { item: SongProps }) => <Track track={item} onPress={navigateToPodcast} />}
+        />
+        <View
+          style={styles.titleContainer}
+        >
+          <Headline>Meditations</Headline>
+        </View>
+        <FlatList
+          horizontal
+          data={meditations}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }: { item: SongProps }) => <Meditation track={item} onPress={navigateToMeditation} />}
         />
       </View>
     );

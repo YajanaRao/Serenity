@@ -3,13 +3,13 @@ import { Divider } from 'react-native-paper';
 import { RefreshControl, FlatList } from 'react-native';
 import { isEmpty } from 'lodash';
 import { Screen } from '@serenity/components';
-import { fetchOfflineArtists, updateOfflineReadAccess, artistsSelectors, useAppSelector, useAppDispatch } from '@serenity/core';
+import { updateOfflineReadAccess, artistsSelectors, useAppSelector, useAppDispatch, Native, EntityId } from '@serenity/core';
 import { Blank } from '../../../components/Blank';
 import { Artist } from './components/Artist';
 
 
 interface ItemProps {
-  item: number;
+  item: EntityId;
 }
 
 export const ArtistsScreen = ({ }) => {
@@ -25,7 +25,7 @@ export const ArtistsScreen = ({ }) => {
   }, []);
 
   const fetchData = () => {
-    dispatch(fetchOfflineArtists());
+    dispatch(Native.getArtists());
   };
 
   if (!isEmpty(artists)) {
@@ -37,7 +37,7 @@ export const ArtistsScreen = ({ }) => {
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={fetchData} />
           }
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => `${item}`}
           renderItem={({ item }: ItemProps) => <Artist id={item} />}
         />
       </Screen>

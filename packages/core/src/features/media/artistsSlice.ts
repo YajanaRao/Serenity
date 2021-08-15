@@ -1,19 +1,19 @@
 // @ts-nocheck
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
 import { RootState } from "store";
-import { getArtists } from "./deviceMedia";
+// import { getArtists } from "./deviceMedia";
 
 
-export const fetchOfflineArtists = createAsyncThunk(
-    'artists/offline',
-    async (_, { }) => {
-        const media = await getArtists()
-        if (!media) {
-            return []
-        }
-        return media;
-    }
-)
+// export const fetchOfflineArtists = createAsyncThunk(
+//     'artists/offline',
+//     async (_, { }) => {
+//         const media = await getArtists()
+//         if (!media) {
+//             return []
+//         }
+//         return media;
+//     }
+// )
 
 
 type Artist = { id: string; artist: string, numberOfSongs: string, numberOfAlbums: string, liked: boolean }
@@ -30,38 +30,10 @@ const artistsSlice = createSlice({
         error: null
     }),
     reducers: {
-
         artistAdded: artistsAdapter.addOne,
+        artistsAdded: artistsAdapter.addMany,
         artistUpdated: artistsAdapter.updateOne
-    },
-    extraReducers: {
-
-        // handling artists
-        // @ts-ignore
-        [fetchOfflineArtists.pending]: (state) => {
-            if (!state.loading) {
-                state.loading = true
-                state.error = null;
-            }
-        },
-        // @ts-ignore
-        [fetchOfflineArtists.fulfilled]: (state, action) => {
-            console.log(action.payload);
-            if (state.loading) {
-                if (action.payload && action.payload.length) {
-                    artistsAdapter.setAll(state, action.payload)
-                }
-                state.loading = false;
-            }
-        },
-        // @ts-ignore
-        [fetchOfflineArtists.rejected]: (state, action) => {
-            if (state.loading) {
-                state.loading = false;
-                state.error = action.error
-            }
-        },
-    },
+    }
 });
 
 
@@ -83,6 +55,6 @@ export const selectLikedArtists = (state) => artistsSelectors.selectIds(state).f
 // @ts-ignore
 export const selectFilteredArtists = (state, query: string) => artistsSelectors.selectIds(state).filter(id => artistsSelectors.selectById(state, id)?.artist.startsWith(query))
 
-export const { artistUpdated } = artistsSlice.actions;
+export const { artistUpdated, artistAdded, artistsAdded } = artistsSlice.actions;
 
 export default artistsSlice.reducer;

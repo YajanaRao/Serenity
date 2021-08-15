@@ -27,6 +27,7 @@ export function Home() {
     dispatch(UI.toggleTheme());
   }
 
+
   const songs = useAppSelector((state) => songsSelectors.selectIds(state));
   return (
     <Screen>
@@ -42,7 +43,7 @@ export function Home() {
       </Container>
       <Container style={{ flexDirection: "row" }}>
         <Container style={{ flex: 1, padding: 12 }}>
-          <Card style={{borderRadius: 4, marginVertical: 2}}>
+          <Card style={{ borderRadius: 4, marginVertical: 2 }}>
             <Title style={{ margin: 8 }}>Home</Title>
           </Card>
           <Title style={{ margin: 8 }}>Search</Title>
@@ -57,7 +58,14 @@ export function Home() {
           />
         </Container>
       </Container>
-
+      <GoogleLogin
+        credentialsDetails={{
+          redirectUrl: "GOOGLE_REDIRECT_URI",
+          clientId: "GOOGLE_CLIENT_ID",
+        }}
+        getAccessToken={getAccessToken}
+        getUserDetails={getUserDetails}
+      />
       <PlayerBar />
     </Screen>
   );

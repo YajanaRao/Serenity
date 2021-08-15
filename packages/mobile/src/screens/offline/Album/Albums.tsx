@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { useScrollToTop } from '@react-navigation/native';
 
 import { Screen } from '@serenity/components';
-import { fetchAlbums, UI, useAppDispatch, useAppSelector, albumsSelectors, EntityId } from '@serenity/core';
+import { Native, UI, useAppDispatch, useAppSelector, albumsSelectors, EntityId } from '@serenity/core';
 import { Blank } from '../../../components/Blank';
 import { Album } from './components/Album';
 
@@ -26,7 +26,7 @@ export const AlbumScreen = ({ }) => {
 
   const fetchData = () => {
     if (offlineReadAccessGiven && !loading) {
-      dispatch(fetchAlbums());
+      dispatch(Native.getAlbums());
     }
   };
 

@@ -57,7 +57,6 @@
 		"redux": "^4.0.0-0",
 		"redux-persist": "^5.10.0",
 		"redux-thunk": "2.3.0",
-		"reselect": "^4.0.0",
 		"string-to-color": "^2.1.1"
 	},
 	"devDependencies": {
@@ -81,9 +80,11 @@
 		"jetifier": "^1.6.1",
 		"metro": "^0.65.2",
 		"metro-react-native-babel-preset": "^0.64.0",
+		"react-native-flipper": "^0.102.0",
 		"react-native-svg-transformer": "^0.14.3",
 		"react-native-typescript-transformer": "^1.2.13",
 		"react-test-renderer": "17.0.2",
+		"redux-flipper": "^2.0.0",
 		"ts-jest": "^26.5.4",
 		"typescript": "^4.2.3",
 		"yarn": "^1.22.10"

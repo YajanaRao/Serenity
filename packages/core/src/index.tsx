@@ -18,6 +18,8 @@ export * from './features/player';
 export * as Player from './features/player';
 export * as UI from './features/ui';
 
+export * as Native from './features/media/deviceMedia';
+
 export {
     playlistsSlice,
     albumsSlice,

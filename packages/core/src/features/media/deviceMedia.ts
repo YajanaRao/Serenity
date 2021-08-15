@@ -1,6 +1,10 @@
 // @ts-ignore
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import RNAndroidAudioStore from '@yajanarao/react-native-get-music-files';
 import { Platform } from 'react-native';
+import { albumAdded } from './albumsSlice';
+import { artistsAdded } from './artistsSlice';
+import { songsAdded } from './songsSlice';
 
 
 /**
@@ -8,8 +12,11 @@ import { Platform } from 'react-native';
  * @returns albums
  */
 export function getAlbums() {
-    if (Platform.OS !== "web") {
-        return RNAndroidAudioStore.getAlbums({});
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+        if (Platform.OS !== "web") {
+            const albums = await RNAndroidAudioStore.getAlbums({});
+            dispatch(albumAdded(albums));
+        }
     }
 }
 
@@ -18,8 +25,11 @@ export function getAlbums() {
  * @returns artists
  */
 export function getArtists() {
-    if (Platform.OS !== "web") {
-        return RNAndroidAudioStore.getArtists({});
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+        if (Platform.OS !== "web") {
+            const artists = await RNAndroidAudioStore.getArtists({});
+            dispatch(artistsAdded(artists));
+        }
     }
 }
 
@@ -28,7 +38,12 @@ export function getArtists() {
  * @returns songs
  */
 export function getSongs() {
-    if (Platform.OS !== "web") {
-        return RNAndroidAudioStore.getAll({});
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+        if (Platform.OS !== "web") {
+            const songs = await RNAndroidAudioStore.getAll({ batchSize: 50 });
+            console.log(songs.length);
+            dispatch(songsAdded(songs));
+
+        }
     }
 }

@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Title } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
-
+import { Title, Text } from '@serenity/components'
 import { DefaultImage } from './DefaultImage';
 import { Container, Button } from '@serenity/components';
 
 interface ListSongHeaderProps {
   title: string;
+  description?: string;
   cover: string;
   addSongsToQueue(): void;
 }
 
 export const ListSongHeader = ({
   title,
+  description,
   cover,
   addSongsToQueue,
 }: ListSongHeaderProps) => (
@@ -27,6 +28,7 @@ export const ListSongHeader = ({
     </View>
     <View style={styles.titleContainer}>
       <Title>{title}</Title>
+      {description ? <Text>{description}</Text> : null}
     </View>
     <View style={styles.buttonContainer}>
       <Button onPress={addSongsToQueue}>

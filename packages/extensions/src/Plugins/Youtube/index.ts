@@ -1,14 +1,15 @@
-// import ytdl from 'react-native-ytdl';
+import ytdl from 'react-native-ytdl';
 import { youtubeSearch } from './service';
 import { getSongList } from './utils';
 
 export function getAudioUrl(youtubeUrl: string) {
-    // return ytdl(youtubeUrl, { filter: format => format.container === 'mp4' })
-    //     .then(urls => {
-    //         const { url } = urls[0];
-    //         console.log(url)
-    //         return url;
-    //     });
+    console.log(youtubeUrl);
+    return ytdl(youtubeUrl, { filter: format => format.container === 'mp4' })
+        .then(urls => {
+            const { url } = urls[0];
+            console.log(url)
+            return url;
+        });
 }
 
 export async function getDownloadUrl(youtubeUrl: string) {
@@ -23,6 +24,7 @@ export async function searchYoutubeMusic(query: string) {
     // log.debug('searchYoutubeMusic', 'fetching youtube videos');
     try {
         const page = await youtubeSearch(query);
+        console.log(page);
         // @ts-ignore d
         const songs = await getSongList(page);
         return songs;
