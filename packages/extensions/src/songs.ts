@@ -1,4 +1,5 @@
 import Config from 'react-native-config';
+import { getAudioUrl } from './Plugins/Youtube';
 var ytpl = require('react-native-ytpl');
 
 const songs = {
@@ -27,6 +28,10 @@ const songs = {
             }
         })
         return data;
+    },
+    async playSong(url: string) {
+        const ytdlUrl = await getAudioUrl(url);
+        return ytdlUrl;
     }
 }
 
