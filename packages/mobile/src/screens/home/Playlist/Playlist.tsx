@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RefreshControl } from 'react-native';
 import { Songs } from '@serenity/extensions';
 import { addSongsToQueue, playSong, useAppDispatch } from '@serenity/core';
-import { List } from 'react-native-paper';
+import { List, useTheme } from 'react-native-paper';
 import { ArtCover } from 'components/ArtCover/ArtCover';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
@@ -16,29 +16,35 @@ export function PlaylistScreen({ route }: PlaylistProps) {
 
     const options = {
         navigationOptions: {
-            headerStyle: { backgroundColor: 'transparent' } /* Optional */,
+            headerStyle: { backgroundColor: 'transparent' },
             title: '',
         },
         config: {
-            collapsedColor: 'transparent' /* Optional */,
-            useNativeDriver: true /* Optional, default: true */,
-            elevation: 0 /* Optional */,
-            disableOpacity: true /* Optional, default: false */,
+            collapsedColor: 'transparent',
+            useNativeDriver: true,
+            elevation: 0,
+            disableOpacity: true,
         },
     };
+
+    const { colors } = useTheme();
+    const [songs, setSongs] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+    const dispatch = useAppDispatch();
+
+
     const {
         onScroll,
         containerPaddingTop,
         scrollIndicatorInsetTop,
     } = useCollapsibleHeader(options);
 
-    const [isLoading, setIsLoading] = React.useState(true);
 
 
     function getSongs() {
         setIsLoading(true);
         Songs.getSongs(playlist).then(response => {
-            setEpisodes(response);
+            setSongs(response);
             setIsLoading(false);
         });
     }
@@ -47,13 +53,8 @@ export function PlaylistScreen({ route }: PlaylistProps) {
         getSongs();
     }, [playlist]);
 
-    const [episodes, setEpisodes] = React.useState([]);
-    const dispatch = useAppDispatch();
-
-
-
     async function playAudio(song) {
-        const url = await Meditations.playMeditation(song.path);
+        const url = await Songs.playSong(song.path);
         const track = {
             ...song,
             path: url,
@@ -62,7 +63,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
     }
 
     function addSongToQueue() {
-        dispatch(addSongsToQueue(episodes));
+        dispatch(addSongsToQueue(songs));
     }
 
     return (
@@ -70,7 +71,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
             onScroll={onScroll}
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
-            data={episodes}
+            data={songs}
             keyExtractor={(item) => item.id}
             ListHeaderComponent={() => (
                 <ListHeader
@@ -87,6 +88,10 @@ export function PlaylistScreen({ route }: PlaylistProps) {
                     refreshing={isLoading}
                     onRefresh={getSongs}
                     colors={['#12c2e9', '#c471ed', '#f64f59']}
+                    progressBackgroundColor={colors.surface}
+                    size={0}
+                    title="Loading"
+                    titleColor={colors.text}
                 />
             }
             renderItem={({ item }) => (

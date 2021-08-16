@@ -33,7 +33,7 @@
 		"@yajanarao/react-native-get-music-files": "latest",
 		"lodash": "4.17.21",
 		"lottie-ios": "3.1.8",
-		"lottie-react-native": "^3.5.0",
+		"lottie-react-native": "^4.0.3",
 		"react": "17.0.1",
 		"react-native": "0.64.0",
 		"react-native-bootsplash": "^3.1.5",
