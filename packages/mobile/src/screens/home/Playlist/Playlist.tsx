@@ -7,6 +7,7 @@ import { ArtCover } from 'components/ArtCover/ArtCover';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { ListHeader } from './ListHeader';
+import { RefreshIndicator } from 'components/RefreshIndicator';
 
 export interface PlaylistProps {
 }
@@ -27,7 +28,6 @@ export function PlaylistScreen({ route }: PlaylistProps) {
         },
     };
 
-    const { colors } = useTheme();
     const [songs, setSongs] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const dispatch = useAppDispatch();
@@ -76,22 +76,17 @@ export function PlaylistScreen({ route }: PlaylistProps) {
             ListHeaderComponent={() => (
                 <ListHeader
                     title={playlist.title}
-                    description={playlist.artist}
+                    description={playlist.description}
                     cover={playlist.cover}
-                    addSongsToQueue={addSongToQueue}
+                    onPress={addSongToQueue}
                 />
             )}
             showsHorizontalScrollIndicator={false}
             refreshing={isLoading}
             refreshControl={
-                <RefreshControl
+                <RefreshIndicator
                     refreshing={isLoading}
                     onRefresh={getSongs}
-                    colors={['#12c2e9', '#c471ed', '#f64f59']}
-                    progressBackgroundColor={colors.surface}
-                    size={0}
-                    title="Loading"
-                    titleColor={colors.text}
                 />
             }
             renderItem={({ item }) => (

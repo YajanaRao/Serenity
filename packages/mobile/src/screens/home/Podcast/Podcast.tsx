@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { RefreshControl } from 'react-native';
 import { Podcasts } from '@serenity/extensions';
 import { addSongsToQueue, playSong, useAppDispatch } from '@serenity/core';
 import { Divider, List } from 'react-native-paper';
@@ -7,6 +6,7 @@ import { ArtCover } from 'components/ArtCover/ArtCover';
 import { ListSongHeader } from 'components/ListSongHeader';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
+import { RefreshIndicator } from 'components/RefreshIndicator';
 
 export interface PodcastProps {
 }
@@ -77,12 +77,10 @@ export function PodcastScreen({ route }: PodcastProps) {
             ItemSeparatorComponent={() => <Divider />}
             showsHorizontalScrollIndicator={false}
             refreshing={isLoading}
-
             refreshControl={
-                <RefreshControl
+                <RefreshIndicator
                     refreshing={isLoading}
                     onRefresh={getPodcasts}
-                    colors={['#12c2e9', '#c471ed', '#f64f59']}
                 />
             }
             renderItem={({ item }) => (
