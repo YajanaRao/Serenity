@@ -6,7 +6,7 @@ import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { Headline } from '@serenity/components';
 import { playSong, useAppDispatch, useAppSelector, historySelectors, SongProps } from '@serenity/core';
-import { TrackItem } from '../components/TrackItem';
+import { TrackItem } from './components/TrackItem';
 
 export const RecentContainer = () => {
   const navigation = useNavigation();

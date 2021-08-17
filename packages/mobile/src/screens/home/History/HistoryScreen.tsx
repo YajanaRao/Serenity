@@ -1,24 +1,43 @@
 import React from 'react';
-import { FlatList } from 'react-native';
-import { Screen } from '@serenity/components';
+import { SectionList, View } from 'react-native';
+import { Screen, Title } from '@serenity/components';
 import { useAppSelector, historySelectors } from '@serenity/core';
-import { SongItem } from 'components/SongItem/SongItem';
 import { EmptyPlaylist } from 'components/EmptyPlaylist';
+import { HistoryItem } from 'components/SongItem/HistoryItem';
+import _ from 'lodash';
+import moment from 'moment';
 
 export function HistoryScreen() {
-	const songs = useAppSelector(state => historySelectors.selectIds(state));
+	const songs = useAppSelector(state => historySelectors.selectEntities(state));
+	const [data, setData] = React.useState([]);
 
-	if (!songs) return null;
+
+	React.useEffect(() => {
+		const grouping = _.groupBy(songs, element => moment(element.date).format("ddd, D MMM YYYY"))
+		const sections = _.map(grouping, (items, date) => ({
+			title: date,
+			data: items
+		}));
+		setData(sections);
+	}, [])
+
+
 	return (
 		<Screen>
-			<FlatList
-				data={songs}
+			<SectionList
+				sections={data}
 				ListEmptyComponent={() => (
 					<EmptyPlaylist />
 				)}
+				renderSectionHeader={({ section: { title } }) => (
+					<View style={{ marginVertical: 8, marginHorizontal: 4 }}>
+						<Title >{title}</Title>
+					</View>
+				)}
 				keyExtractor={(item, index) => `history-${item}-${index}`}
-				renderItem={({ item }) => <SongItem id={item} />}
+				renderItem={({ item }) => <HistoryItem id={item.id} />}
 			/>
 		</Screen>
 	);
+	return null;
 }

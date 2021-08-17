@@ -2,13 +2,14 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { Screen } from '@serenity/components';
 import { useAppSelector, historySelectors } from '@serenity/core';
-import { SongItem } from '../../../components/SongItem/SongItem';
 import { useMostRepeated } from 'hooks/useMostRepeated';
 import { EmptyPlaylist } from 'components/EmptyPlaylist';
+import { HistoryItem } from 'components/SongItem/HistoryItem';
 
 export function MostPlayedScreen() {
     const songs = useAppSelector(state => historySelectors.selectIds(state));
     var mostPlayedSongs = useMostRepeated(songs);
+
 
     if (!songs) return null;
     return (
@@ -19,7 +20,7 @@ export function MostPlayedScreen() {
                     <EmptyPlaylist />
                 )}
                 keyExtractor={(item, index) => `history-${item}-${index}`}
-                renderItem={({ item }) => <SongItem id={item} />}
+                renderItem={({ item }) => <HistoryItem id={item} />}
             />
         </Screen>
     );

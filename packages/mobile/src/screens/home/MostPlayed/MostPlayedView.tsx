@@ -5,7 +5,7 @@ import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { historySelectors, Player, SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Headline } from '@serenity/components';
-import { TrackItem } from '../components/TrackItem';
+import { TrackItem } from './components/TrackItem';
 import { useMostRepeated } from 'hooks/useMostRepeated';
 
 
