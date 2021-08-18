@@ -8,17 +8,26 @@ import _ from 'lodash';
 import moment from 'moment';
 
 export function HistoryScreen() {
+	const [refreshing, setRefreshing] = React.useState(false);
 	const songs = useAppSelector(state => historySelectors.selectEntities(state));
 	const [data, setData] = React.useState([]);
 
 
-	React.useEffect(() => {
+	function sortSongs() {
+		setRefreshing(true);
 		const grouping = _.groupBy(songs, element => moment(element.date).format("ddd, D MMM YYYY"))
 		const sections = _.map(grouping, (items, date) => ({
 			title: date,
 			data: items
 		}));
-		setData(sections);
+		const orderedSections = _.orderBy(sections, section => section.title, 'desc');
+		setData(orderedSections);
+		setRefreshing(false);
+	}
+
+
+	React.useEffect(() => {
+		sortSongs();
 	}, [])
 
 
@@ -34,6 +43,8 @@ export function HistoryScreen() {
 						<Title >{title}</Title>
 					</View>
 				)}
+				refreshing={refreshing}
+				onRefresh={sortSongs}
 				keyExtractor={(item, index) => `history-${item}-${index}`}
 				renderItem={({ item }) => <HistoryItem id={item.id} />}
 			/>

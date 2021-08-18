@@ -1,3 +1,7 @@
+17 Aug 2021
+
+- Show date wise played in recent screen and order them in latest played first
+
 29 July 2021
 
 - Fixing issues with most played songs in all places

@@ -26,6 +26,7 @@ export function setUpTrackPlayer() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     try {
       // @ts-ignore
+      dispatch(updateStatus("init"));
       subscription = addEventListener('media', (event: any) => {
         dispatch(updateStatus(event));
       });

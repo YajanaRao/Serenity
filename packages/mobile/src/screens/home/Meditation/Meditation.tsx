@@ -7,6 +7,7 @@ import { ArtCover } from 'components/ArtCover/ArtCover';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { ListHeader } from './ListHeader';
+import { Container, Spinner } from '../../../../../components';
 
 export interface MeditationProps {
 }
@@ -64,6 +65,8 @@ export function MeditationScreen({ route }: MeditationProps) {
     function addSongToQueue() {
         dispatch(addSongsToQueue(episodes));
     }
+
+    if (isLoading && episodes.length === 0) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
 
     return (
         <Animated.FlatList

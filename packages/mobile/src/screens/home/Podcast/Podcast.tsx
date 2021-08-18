@@ -7,6 +7,7 @@ import { ListSongHeader } from 'components/ListSongHeader';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { RefreshIndicator } from 'components/RefreshIndicator';
+import { Container, Spinner } from '../../../../../components';
 
 export interface PodcastProps {
 }
@@ -59,6 +60,9 @@ export function PodcastScreen({ route }: PodcastProps) {
         dispatch(addSongsToQueue(episodes));
     }
 
+    if (isLoading && episodes.length === 0) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
+
+
     return (
         <Animated.FlatList
             onScroll={onScroll}
@@ -95,7 +99,4 @@ export function PodcastScreen({ route }: PodcastProps) {
             }
         />
     );
-
-
-
 }

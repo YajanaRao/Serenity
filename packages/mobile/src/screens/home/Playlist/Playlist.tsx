@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { RefreshControl } from 'react-native';
 import { Songs } from '@serenity/extensions';
 import { addSongsToQueue, playSong, useAppDispatch } from '@serenity/core';
-import { List, useTheme } from 'react-native-paper';
+import { List } from 'react-native-paper';
 import { ArtCover } from 'components/ArtCover/ArtCover';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { ListHeader } from './ListHeader';
 import { RefreshIndicator } from 'components/RefreshIndicator';
+import { Container, Spinner } from '@serenity/components';
 
 export interface PlaylistProps {
 }
@@ -66,6 +66,8 @@ export function PlaylistScreen({ route }: PlaylistProps) {
         dispatch(addSongsToQueue(songs));
     }
 
+    if (isLoading && songs.length === 0) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
+
     return (
         <Animated.FlatList
             onScroll={onScroll}
@@ -92,16 +94,15 @@ export function PlaylistScreen({ route }: PlaylistProps) {
             renderItem={({ item }) => (
                 <List.Item
                     title={item.title}
+                    titleStyle={{ fontSize: 14 }}
+                    descriptionStyle={{ fontSize: 12 }}
                     titleNumberOfLines={2}
                     onPress={() => playAudio(item)}
-                    description={`${item.description}`}
-                    left={props => <ArtCover {...props} cover={item.cover} style={{ height: 48, width: 84 }} />}
+                    description={`${item.artist} - ${item.description}`}
+                    left={props => <ArtCover {...props} cover={item.cover} style={{ height: 62, width: 112 }} />}
                 />
             )}
         />
     );
-
-
-
 }
-// 168 / 2
+
