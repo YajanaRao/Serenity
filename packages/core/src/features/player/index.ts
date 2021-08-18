@@ -88,7 +88,6 @@ export function playNext() {
     }
     const { entities, ids } = queue;
     const song = entities[ids[0]];
-    console.log(song);
     dispatch(playSong(song));
     dispatch(removeSongFromQueue(song.id));
     loadTrack(song);

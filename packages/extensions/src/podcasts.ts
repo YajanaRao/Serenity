@@ -62,7 +62,6 @@ const Podcasts = {
             }
         })
         delete rss.items;
-        console.log(rss);
         return data;
     }
 };

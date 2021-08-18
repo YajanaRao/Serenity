@@ -82,27 +82,3 @@ export const selectLikedSongs = (state: RootState) => selectLikedSongIds(state).
 export const { toggleSongLike, songAdded, songsAdded } = songsSlice.actions;
 
 export default songsSlice.reducer;
-
-// export const api = createApi({
-//     baseQuery: fetchBaseQuery({ baseUrl: 'https://rss.art19.com/' }),
-//     endpoints: (build) => ({
-//         getPodcasts: build.query<EntityState<Song>, void>({
-//             query: (podcast) => `${podcast}`,
-//             transformResponse(response) {
-//                 console.log("response", response);
-//                 const songs = [{
-//                     id: "1",
-//                     title: "The Best of Tim Ferriss",
-//                     album: "The Best of Tim Ferriss",
-//                     artist: "Tim Ferriss",
-//                     path: "https://rss.art19.com/tim-ferriss-show/podcast/the-best-of-tim-ferriss",
-//                     liked: false,
-//                     cover: "https://rss.art19.com/tim-ferriss-show/podcast/the-best-of-tim-ferriss/cover.jpg",
-//                 }]
-//                 return songsAdapter.addMany(songsAdapter.getInitialState(), songs)
-//             },
-//         }),
-//     }),
-// })
-
-// export const { useGetPodcastsQuery } = api;
