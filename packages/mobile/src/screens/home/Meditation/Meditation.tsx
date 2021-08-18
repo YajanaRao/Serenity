@@ -95,10 +95,12 @@ export function MeditationScreen({ route }: MeditationProps) {
             renderItem={({ item }) => (
                 <List.Item
                     title={item.title}
+                    titleStyle={{ fontSize: 14 }}
+                    descriptionStyle={{ fontSize: 12 }}
                     titleNumberOfLines={2}
                     onPress={() => playAudio(item)}
-                    description={`${item.description}`}
-                    left={props => <ArtCover {...props} cover={item.cover} style={{ height: 48, width: 84 }} />}
+                    description={`${item.artist} - ${item.description}`}
+                    left={props => <ArtCover {...props} cover={item.cover} style={{ height: 62, width: 122 }} />}
                 />
             )}
         />

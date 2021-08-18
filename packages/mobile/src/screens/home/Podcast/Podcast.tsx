@@ -90,6 +90,8 @@ export function PodcastScreen({ route }: PodcastProps) {
             renderItem={({ item }) => (
                 <List.Item
                     title={item.title}
+                    titleStyle={{ fontSize: 14 }}
+                    descriptionStyle={{ fontSize: 12 }}
                     titleNumberOfLines={2}
                     onPress={() => playAudio(item)}
                     description={item.artist || item.description}
