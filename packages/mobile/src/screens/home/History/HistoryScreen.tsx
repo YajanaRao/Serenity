@@ -15,7 +15,7 @@ export function HistoryScreen() {
 
 	function sortSongs() {
 		setRefreshing(true);
-		const grouping = _.groupBy(songs, element => moment(element.date).format("ddd, D MMM YYYY"))
+		const grouping = _.groupBy(songs, element => moment(element.date).format('l'))
 		const sections = _.map(grouping, (items, date) => ({
 			title: date,
 			data: items
@@ -40,7 +40,7 @@ export function HistoryScreen() {
 				)}
 				renderSectionHeader={({ section: { title } }) => (
 					<View style={{ marginVertical: 8, marginHorizontal: 4 }}>
-						<Title >{title}</Title>
+						<Title >{moment(title).format("ddd, D MMM YYYY")}</Title>
 					</View>
 				)}
 				refreshing={refreshing}
@@ -50,5 +50,4 @@ export function HistoryScreen() {
 			/>
 		</Screen>
 	);
-	return null;
 }

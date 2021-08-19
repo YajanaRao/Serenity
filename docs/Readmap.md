@@ -2,6 +2,7 @@
 
 ## Release beta August 21
 
+- Fix issue with progress bar in react track player
 - Fix non playing songs from youtube playlist - (Taking time to load songs 🤔)
 - Fix player issue with state not being in sync after closing and reopening the app
 - Search youtube songs

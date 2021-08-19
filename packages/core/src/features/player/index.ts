@@ -28,7 +28,11 @@ export function setUpTrackPlayer() {
       // @ts-ignore
       dispatch(updateStatus("init"));
       subscription = addEventListener('media', (event: any) => {
-        dispatch(updateStatus(event));
+        if (event === "skip_to_next") {
+          dispatch(playNext());
+        } else {
+          dispatch(updateStatus(event));
+        }
       });
       const { track } = getState().player;
       if (!isEmpty(track)) {
@@ -82,15 +86,23 @@ export function playSong(song: SongProps) {
 
 export function playNext() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
-    const { queue } = getState();
-    if (!queue.length) {
-      dispatch(updateNotification("No songs in the queue"));
+    const { repeat } = getState().player;
+    if (repeat === "repeat-one") {
+      const { track } = getState().player;
+      dispatch(playSong(track));
+    } else if (repeat === "repeat-all") {
+      const { queue } = getState();
+      if (!queue.length) {
+        dispatch(updateNotification("No songs in the queue"));
+      }
+      const { entities, ids } = queue;
+      const song = entities[ids[0]];
+      dispatch(playSong(song));
+      dispatch(removeSongFromQueue(song.id));
+      loadTrack(song);
+    } else if (repeat === "repeat-off") {
+      dispatch(updateNotification("Repeat is off"));
     }
-    const { entities, ids } = queue;
-    const song = entities[ids[0]];
-    dispatch(playSong(song));
-    dispatch(removeSongFromQueue(song.id));
-    loadTrack(song);
   }
 }
 
