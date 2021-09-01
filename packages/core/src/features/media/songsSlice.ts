@@ -1,8 +1,5 @@
-import { createSlice, createAsyncThunk, createEntityAdapter, EntityId, EntityState } from "@reduxjs/toolkit";
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createSlice, createEntityAdapter, EntityId } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { getSongs } from "./deviceMedia";
-// import * as rssParser from 'react-native-rss-parser';
 
 type Song = { id: string; title: string, album: string, artist: string, path: string, liked: boolean, cover: string }
 
@@ -30,33 +27,6 @@ const songsSlice = createSlice({
             }
         },
     },
-    // extraReducers: {
-
-    //     // handling songs
-    //     // @ts-ignore
-    //     [fetchOfflineSongs.pending]: (state) => {
-    //         if (!state.loading) {
-    //             state.loading = true
-    //             state.error = null;
-    //         }
-    //     },
-    //     // @ts-ignore
-    //     [fetchOfflineSongs.fulfilled]: (state, action) => {
-    //         if (state.loading) {
-    //             state.loading = false;
-    //             if (action.payload && action.payload.length) {
-    //                 songsAdapter.setAll(state, action.payload)
-    //             }
-    //         }
-    //     },
-    //     // @ts-ignore
-    //     [fetchOfflineSongs.rejected]: (state, action) => {
-    //         if (state.loading) {
-    //             state.loading = false;
-    //             state.error = action.error
-    //         }
-    //     },
-    // },
 });
 
 
@@ -72,7 +42,11 @@ export const selectSongLikeById = (state: RootState, songId: EntityId) => {
     return songsSelectors.selectById(state, songId)?.liked;
 }
 
-export const selectFilteredSongs = (state: RootState, query: string) => songsSelectors.selectIds(state).filter(id => songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase()))
+export const selectFilteredSongs = (state: RootState, query: string) => songsSelectors.selectIds(state).filter(id => {
+    if (songsSelectors.selectById(state, id)?.title && query) {
+        return songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase())
+    }
+})
 
 export const selectLikedSongs = (state: RootState) => selectLikedSongIds(state).map(id => {
     const song = songsSelectors.selectById(state, id);
