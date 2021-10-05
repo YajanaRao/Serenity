@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Chip } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
-import { clearQueue } from '../../actions/playerState';
-import { AlertDialog } from '../../components/AlertDialog';
-import { Screen } from 'components';
+import { AlertDialog } from '../../components/Dialogs/AlertDialog';
+import { Screen } from '@serenity/components';
 import { QueueList } from './components/QueueList';
+import { clearQueue } from '@serenity/core';
 
 export interface QueueScreenProps { }
 

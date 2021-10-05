@@ -2,17 +2,16 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
 // @ts-ignore
-import { Icon } from 'components';
+import { Icon } from '@serenity/components';
+import { StyleProp, ViewStyle } from 'react-native';
 
-interface StyleProps {
-  height: number;
-}
 
 interface DefaultImageProps {
-  style: StyleProps;
+  style: StyleProp<ViewStyle>;
+  size?: number;
 }
 
-export const DefaultImage = ({ style }: DefaultImageProps) => {
+export const DefaultImage = ({ style, size = 50 }: DefaultImageProps) => {
   return (
     <LinearGradient
       colors={['#C9D6FF', '#E2E2E2']}
@@ -21,7 +20,7 @@ export const DefaultImage = ({ style }: DefaultImageProps) => {
       <Icon
         name="music-outline"
         color="#ffffff"
-        size={style.height < 200 ? style.height - 10 : 100}
+        size={size < 200 ? size - 10 : 100}
       />
     </LinearGradient>
   );

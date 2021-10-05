@@ -78,8 +78,12 @@ import com.android.build.OutputFile
  * ]
  */
 
+// https://github.com/react-native-community/cli/issues/877
 project.ext.react = [
-    enableHermes: false
+    enableHermes: true,
+    hermesCommand:  '../../../../node_modules/hermes-engine/%OS-BIN%/hermesc',
+    composeSourceMapsPath: "../../node_modules/react-native/scripts/compose-source-maps.js",
+    cliPath: "../../node_modules/react-native/cli.js",
 ]
 
 apply from: "../../../../node_modules/react-native/react.gradle"
@@ -111,15 +115,10 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-
-    packagingOptions {
-        pickFirst '**/*.so'
-    }
-
     dexOptions {
        javaMaxHeapSize "3g"
     }
-    
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -195,6 +194,19 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
         
+    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
+      exclude group:'com.facebook.fbjni'
+    }
+
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
+        exclude group:'com.facebook.flipper'
+        exclude group:'com.squareup.okhttp3', module:'okhttp'
+    }
+
+    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
+        exclude group:'com.facebook.flipper'
+    }
+    
     if (enableHermes) {
         def hermesPath = "../../../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

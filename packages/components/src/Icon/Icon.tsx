@@ -1,4 +1,3 @@
-import React from 'react';
 import AlertCircleOutlineIcon from '../assets/Icons/alert-circle-outline.svg';
 import ArrowBackIcon from '../assets/Icons/arrow-back.svg';
 import ArrowBackOutlineIcon from '../assets/Icons/arrow-back-outline.svg';
@@ -49,7 +48,8 @@ import DoneAllIcon from '../assets/Icons/done-all.svg';
 import UnlockOutlineIcon from '../assets/Icons/unlock-outline.svg';
 import LogInOutlineIcon from '../assets/Icons/log-in-outline.svg';
 import PersonOutlineIcon from '../assets/Icons/person-outline.svg';
-import { log } from '../../../mobile/src/utils/logging';
+import TelegramAppIcon from '../assets/Icons/telegram-app.svg';
+import GithubIcon from '../assets/Icons/github-outline.svg';
 
 const ICONS = {
   'arrow-back': ArrowBackIcon,
@@ -102,20 +102,8 @@ const ICONS = {
   'unlock-outline': UnlockOutlineIcon,
   'log-in-outline': LogInOutlineIcon,
   'person-outline': PersonOutlineIcon,
+  telegram: TelegramAppIcon,
+  'github-outline': GithubIcon,
 };
 
-export interface IconProps {
-  name: string;
-  size?: number;
-  color?: string;
-  direction?: 'rtl' | 'ltr';
-  allowFontScaling?: boolean | undefined;
-}
-
-export const Icon = ({ name, size = 40, color = '#000000', ...props }: IconProps) => {
-  const IconImpl = ICONS[name];
-  if (!IconImpl) log.error('missing icon', name);
-  return IconImpl ? (
-    <IconImpl width={size} height={size} color={color} {...props} />
-  ) : null;
-};
+export default ICONS;

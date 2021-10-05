@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { playerStateReducer } from '../../reducers';
+import { playerStateReducer } from '@serenity/core/src/reducers';
 import { TrackProps } from '../../utils/types';
 
 const track: TrackProps = {

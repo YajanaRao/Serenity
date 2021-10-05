@@ -9,13 +9,13 @@ import {
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
-import { Button, Text, useTheme } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
 import { useDispatch } from 'react-redux';
-import { Screen } from 'components';
+import { Screen, Button } from '@serenity/components';
+import { hideIntroSlides } from '@serenity/core';
 import { LocalLibraryAccess } from './components/LocalLibraryAccess';
 import GoogleLogin from './components/GoogleLogin';
-import { appIntroduction } from '../../actions/userState';
 import Images from '../../assets/Images';
 
 const data = [
@@ -37,16 +37,16 @@ const data = [
     key: 'second',
     color: '#F9A826',
   },
-  {
-    type: 'Youtube',
-    imageUri: Images.youtubeImage,
-    heading: 'Youtube Music',
-    description:
-      'Serenity Needs Access to your YouTube library to list playlist you have created in YouTube. (Optional)',
-    key: 'third',
-    color: '#F50057',
-    icon: 'logo-youtube',
-  },
+  // {
+  //   type: 'Youtube',
+  //   imageUri: Images.youtubeImage,
+  //   heading: 'Youtube Music',
+  //   description:
+  //     'Serenity Needs Access to your YouTube library to list playlist you have created in YouTube. (Optional)',
+  //   key: 'third',
+  //   color: '#F50057',
+  //   icon: 'logo-youtube',
+  // },
   // {
   //   type: 'Customization',
   //   imageUri: require('../../../assets/theme.png'),
@@ -78,40 +78,38 @@ const Circle = ({
   scrollOffsetAnimatedValue,
 }: {
   scrollOffsetAnimatedValue: Animated.Value;
-}) => {
-  return (
-    <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
-      {data.map(({ color }, index) => {
-        const inputRange = [0, 0.5, 0.99];
-        const inputRangeOpacity = [0, 0.5, 0.99];
-        const scale = scrollOffsetAnimatedValue.interpolate({
-          inputRange,
-          outputRange: [1, 0, 1],
-          extrapolate: 'clamp',
-        });
+}) => (
+  <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
+    {data.map(({ color }, index) => {
+      const inputRange = [0, 0.5, 0.99];
+      const inputRangeOpacity = [0, 0.5, 0.99];
+      const scale = scrollOffsetAnimatedValue.interpolate({
+        inputRange,
+        outputRange: [1, 0, 1],
+        extrapolate: 'clamp',
+      });
 
-        const opacity = scrollOffsetAnimatedValue.interpolate({
-          inputRange: inputRangeOpacity,
-          outputRange: [0.2, 0, 0.2],
-        });
+      const opacity = scrollOffsetAnimatedValue.interpolate({
+        inputRange: inputRangeOpacity,
+        outputRange: [0.2, 0, 0.2],
+      });
 
-        return (
-          <Animated.View
-            key={index}
-            style={[
-              styles.circle,
-              {
-                backgroundColor: color,
-                opacity,
-                transform: [{ scale }],
-              },
-            ]}
-          />
-        );
-      })}
-    </View>
-  );
-};
+      return (
+        <Animated.View
+          key={index}
+          style={[
+            styles.circle,
+            {
+              backgroundColor: color,
+              opacity,
+              transform: [{ scale }],
+            },
+          ]}
+        />
+      );
+    })}
+  </View>
+);
 
 const Ticker = ({
   scrollOffsetAnimatedValue,
@@ -131,13 +129,11 @@ const Ticker = ({
   return (
     <View style={styles.tickerContainer}>
       <Animated.View style={{ transform: [{ translateY }] }}>
-        {data.map(({ type }, index) => {
-          return (
-            <Text key={index} style={styles.tickerText}>
-              {type}
-            </Text>
-          );
-        })}
+        {data.map(({ type }, index) => (
+          <Text key={index} style={styles.tickerText}>
+            {type}
+          </Text>
+        ))}
       </Animated.View>
     </View>
   );
@@ -177,7 +173,7 @@ const Item = ({
   const { colors } = useTheme();
 
   function launchApp() {
-    dispatch(appIntroduction(true));
+    dispatch(hideIntroSlides(true));
     navigation.navigate('App');
   }
 
@@ -293,15 +289,13 @@ const Pagination = ({
           },
         ]}
       />
-      {data.map(item => {
-        return (
-          <View key={item.key} style={styles.paginationDotContainer}>
-            <View
-              style={[styles.paginationDot, { backgroundColor: item.color }]}
-            />
-          </View>
-        );
-      })}
+      {data.map(item => (
+        <View key={item.key} style={styles.paginationDotContainer}>
+          <View
+            style={[styles.paginationDot, { backgroundColor: item.color }]}
+          />
+        </View>
+      ))}
     </View>
   );
 };

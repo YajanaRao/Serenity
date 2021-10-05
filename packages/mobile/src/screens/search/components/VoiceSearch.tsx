@@ -5,15 +5,15 @@ import Voice, {
 } from '@react-native-voice/voice';
 import LottieView from 'lottie-react-native'
 import { Dialog, Portal, IconButton, TouchableRipple } from 'react-native-paper';
-import Animations from '../../../assets/Animations';
-import { Title } from 'components';
+import { Title } from '@serenity/components';
 import { useNavigation } from '@react-navigation/core';
+import Animations from '../../../assets/Animations';
 
 
 const VoiceSearch = () => {
     const [visible, setVisible] = React.useState(false);
     const navigation = useNavigation();
-    const animatedRef = useRef(null);
+    const animatedRef = useRef<LottieView>(null);
 
     const showDialog = () => {
         setVisible(true);
@@ -24,20 +24,20 @@ const VoiceSearch = () => {
 
     function onSpeechStart(e: any) {
         console.log('onSpeechStart: ', e);
-        animatedRef.current.play();
+        animatedRef.current?.play();
     };
 
 
 
     function onSpeechEnd(e: any) {
         console.log('onSpeechEnd: ', e);
-        animatedRef.current.pause();
+        animatedRef.current?.pause();
     };
 
 
     function onSpeechResults(e: SpeechResultsEvent) {
         console.log('onSpeechResults: ', e);
-        animatedRef.current.pause();
+        animatedRef.current?.pause();
         hideDialog();
         navigation.navigate('Find', { query: e.value[0] })
     };

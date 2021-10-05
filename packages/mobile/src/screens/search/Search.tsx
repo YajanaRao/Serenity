@@ -12,8 +12,8 @@ import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { Screen, Headline, Title } from '@serenity/components';
 import Genre from '../../data/genre.json';
-import { Screen, Headline, Title } from 'components';
 
 
 import { SearchStackParamList, GenreProps } from './types';
@@ -115,7 +115,7 @@ export const SearchScreen = ({ navigation }: Props) => {
                 ]}
               >
                 Artists, songs or podcasts
-            </Text>
+              </Text>
             </Surface>
           </Pressable>
           <VoiceSearch />

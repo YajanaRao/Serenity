@@ -1,27 +1,12 @@
-import React, { useEffect } from 'react';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-
-import { Icon } from 'components';
-
-import { RootNavigator } from './screens/RootNavigator';
-import { defaultSetup } from './actions';
-import { RootReducerType } from './reducers';
-import { DarkTheme, DefaultTheme } from './utils/theme';
+import { ThemeProvider, DarkTheme, DefaultTheme } from '@serenity/components';
+import { selectThemeType, useAppSelector } from '@serenity/core';
+import { RootNavigator } from './navigation/RootNavigator';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export const RootScreen = () => {
-  const themeType = useSelector(
-    (state: RootReducerType) => state.config.themeType,
-  );
-  const setup = useSelector((state: any) => state.config.setup);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!setup) {
-      dispatch(defaultSetup());
-    }
-  }, [setup, dispatch]);
+  const themeType = useAppSelector(selectThemeType);
 
   let theme = DefaultTheme;
 
@@ -31,14 +16,13 @@ export const RootScreen = () => {
 
   return (
     <NavigationContainer theme={theme}>
-      <PaperProvider
-        settings={{
-          icon: props => <Icon {...props} />,
-        }}
+      <ThemeProvider
         theme={theme}
       >
-        <RootNavigator />
-      </PaperProvider>
+        <BottomSheetModalProvider>
+          <RootNavigator />
+        </BottomSheetModalProvider>
+      </ThemeProvider>
     </NavigationContainer>
   );
 };

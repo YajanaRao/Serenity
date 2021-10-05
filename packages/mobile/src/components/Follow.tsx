@@ -3,26 +3,24 @@ import { View, ViewProps } from 'react-native';
 import { Chip } from 'react-native-paper';
 
 interface Props {
-  style: ViewProps;
+  style?: ViewProps;
   liked: boolean;
-  addToFavorite(): void;
-  removeFromFavorite(): void;
+  onPress(): void;
 }
 
 export const Follow = ({
   style,
   liked,
-  addToFavorite,
-  removeFromFavorite,
+  onPress,
 }: Props) => {
   return (
     <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
       {liked ? (
-        <Chip mode="outlined" onPress={removeFromFavorite}>
+        <Chip mode="outlined" onPress={onPress}>
           Following
         </Chip>
       ) : (
-        <Chip icon="plus" mode="outlined" onPress={addToFavorite}>
+        <Chip icon="plus" mode="outlined" onPress={onPress}>
           Follow
         </Chip>
       )}

@@ -5,6 +5,7 @@
   "scripts": {
     "setup": "scripts/setup",
     "android": "yarn workspace mobile android",
+    "web": "yarn workspace web start",
     "bootstrap": "npx lerna bootstrap",
     "rebootstrap": "npx lerna clean --yes && npm run bootstrap",
     "ios": "yarn workspace mobile ios",
@@ -12,7 +13,7 @@
     "start": "yarn workspace mobile start",
     "release": "yarn workspace mobile release",
     "test": "yarn workspaces run test",
-    "lint": "eslint *.js **/*.js",
+    "lint": "yarn workspaces run lint", 
     "format": "prettier --write .",
     "xcode": "yarn workspace mobile xcode"
   },
@@ -22,7 +23,9 @@
     }
   },
   "workspaces": {
-    "packages": ["packages/*"]
+    "packages": [
+      "packages/*"
+    ]
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^2.0.0",
@@ -32,6 +35,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-workspaces": "^0.6.2",
     "husky": "^6.0.0",
     "lerna": "^4.0.0",
     "prettier": "^2.2.1",

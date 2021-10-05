@@ -14,9 +14,9 @@ const Tree = ({ message }: TreeProps) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      animatedRef.current.play();
+      animatedRef.current?.play();
 
-      return () => animatedRef.current.pause();
+      return () => animatedRef.current?.pause();
     }, []),
   );
 
@@ -33,7 +33,7 @@ const Tree = ({ message }: TreeProps) => {
         <LottieView
           ref={animatedRef}
           source={Animations.treeAnimation}
-          // loop
+        // loop
         />
       </View>
       <Subheading style={{ textAlign: 'center', fontFamily: 'Nunito-Bold' }}>
