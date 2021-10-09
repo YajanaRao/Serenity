@@ -15,6 +15,31 @@
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
+    <img src="./screenshots/home-ios.png"
+    alt="home-page"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
+    <img src="./screenshots/library.jpeg"
+    alt="library-page"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
+    <img src="./screenshots/player-dark.jpeg"
+    alt="player-page"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
+    <img src="./screenshots/player-white.jpeg"
+    alt="player-page"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
+    <img src="./screenshots/search.jpeg"
+    alt="search-page"
+    height="320"
+    width="160"
+    style="float: left; margin-right: 10px;" />
 </p>
 
 ## Download
