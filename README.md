@@ -15,7 +15,7 @@
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
-    <img src="./screenshots/home-ios.png"
+    <img src="./screenshots/home.jpeg"
     alt="home-page"
     height="320"
     width="160"
