@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-yarn install
 git submodule update --init
-npx lerna bootstrap
+yarn install
