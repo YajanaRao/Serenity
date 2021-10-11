@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+@echo off
 yarn install
 git submodule update --init

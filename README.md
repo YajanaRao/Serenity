@@ -1,12 +1,11 @@
 # Serenity 🏵️
 
-## Audio Player for Music Meditation and Podcasts
+## Audio Player for Music, Meditation and Podcasts
 
 ![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/YajanaRao/Serenity/pulls)
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 
 <p float="left">
@@ -66,6 +65,12 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Searching for and playing music from YouTube (including integration with YouTube playlists)
 - Voice search songs
 
+## Development Process
+
+Serenity is open to contributions, but I recommend creating an issue or replying in a comment to let me know what you are working on first that way we don't overwrite each other.
+
+Please read [Setup.md](docs/Setup.md) for details on this project.
+
 ## Planned features
 
 - Play and download songs from Google Drive
@@ -81,12 +86,6 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Browsing by popularity
 - Country-specific top lists
 - Listening suggestions (similar artists, albums, tracks)
-
-## Development Process
-
-Serenity is open to contributions, but I recommend creating an issue or replying in a comment to let me know what you are working on first that way we don't overwrite each other.
-
-Please read [Setup.md](docs/Setup.md) for details on this project.
 
 ## Our Community
 
