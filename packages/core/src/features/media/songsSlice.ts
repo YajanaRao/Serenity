@@ -1,4 +1,5 @@
 import { createSlice, createEntityAdapter, EntityId } from "@reduxjs/toolkit";
+import Fuse from "fuse.js";
 import { RootState } from "../../store";
 
 type Song = { id: string; title: string, album: string, artist: string, path: string, liked: boolean, cover: string }
@@ -42,11 +43,16 @@ export const selectSongLikeById = (state: RootState, songId: EntityId) => {
     return songsSelectors.selectById(state, songId)?.liked;
 }
 
-export const selectFilteredSongs = (state: RootState, query: string) => songsSelectors.selectIds(state).filter(id => {
-    if (songsSelectors.selectById(state, id)?.title && query) {
-        return songsSelectors.selectById(state, id)?.title.toLowerCase().includes(query.toLowerCase())
+export const selectFilteredSongs = (state: RootState, query: string) => {
+    const options = {
+        includeScore: true,
+        keys: ['author', 'title']
     }
-})
+    const songs = songsSelectors.selectAll(state);
+    const fuse = new Fuse(songs, options)
+    const result = fuse.search('tion')
+    return result;
+}
 
 export const selectLikedSongs = (state: RootState) => selectLikedSongIds(state).map(id => {
     const song = songsSelectors.selectById(state, id);
