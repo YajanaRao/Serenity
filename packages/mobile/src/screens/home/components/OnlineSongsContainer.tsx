@@ -34,11 +34,11 @@ const OnlineSongsContainer = () => {
   if (netInfo.isConnected) {
     return (
       <View>
-        <View
+        { playlists.length && <View
           style={styles.titleContainer}
         >
           <Headline>Songs</Headline>
-        </View>
+        </View> }
         <FlatList
           horizontal
           data={playlists}
