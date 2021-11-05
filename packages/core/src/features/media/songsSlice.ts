@@ -44,14 +44,17 @@ export const selectSongLikeById = (state: RootState, songId: EntityId) => {
 }
 
 export const selectFilteredSongs = (state: RootState, query: string) => {
+    if (!query) {
+        return [];
+    }
     const options = {
         includeScore: true,
         keys: ['author', 'title']
     }
     const songs = songsSelectors.selectAll(state);
     const fuse = new Fuse(songs, options)
-    const result = fuse.search('tion')
-    return result;
+    const result = fuse.search(query);
+    return result.map(item => item.item);
 }
 
 export const selectLikedSongs = (state: RootState) => selectLikedSongIds(state).map(id => {

@@ -11,28 +11,27 @@ type PlaylistProps = {
   songs: SongProps[];
 };
 
-const initialState: PlaylistProps[] = [
-  {
-    id: nanoid(),
-    name: "Chants",
-    liked: false,
-    owner: "Serenity",
-    date: new Date().toUTCString(),
-    songs: [
-      {
-        id: nanoid(),
-        title: "Nirvana Shatakam",
-        artist: "Sounds of Isha",
-        path: "http://docs.google.com/uc?export=open&id=14bZMducT2AppBJlpou-uq_uY8LqnQ07H"
-      },
-      {
-        id: nanoid(),
-        title: "Ganapathi Upanishath",
-        path: "http://docs.google.com/uc?export=open&id=191L0KaL2KCMcETUb5M_w-ZgeT9WZKrQz"
-      }
-    ]
-  }
-]
+const initialState: PlaylistProps[] = []
+// {
+//   id: nanoid(),
+//   name: "Chants",
+//   liked: false,
+//   owner: "Serenity",
+//   date: new Date().toUTCString(),
+//   songs: [
+//     {
+//       id: nanoid(),
+//       title: "Nirvana Shatakam",
+//       artist: "Sounds of Isha",
+//       path: "http://docs.google.com/uc?export=open&id=14bZMducT2AppBJlpou-uq_uY8LqnQ07H"
+//     },
+//     {
+//       id: nanoid(),
+//       title: "Ganapathi Upanishath",
+//       path: "http://docs.google.com/uc?export=open&id=191L0KaL2KCMcETUb5M_w-ZgeT9WZKrQz"
+//     }
+//   ]
+// }
 
 const playlistsSlice = createSlice({
   name: "playlists",
