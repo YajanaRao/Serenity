@@ -29,10 +29,6 @@ export const MainScreen = () => {
         <MostPlayed />
         <Divider />
         <OnlineSongsContainer />
-        {/* <Divider />
-        {Platform.OS !== "ios" && <YoutubeSongsContainer />}
-        <Divider />
-        <JioSaavnContainer /> */}
       </ScrollView>
     </Screen>
   );
