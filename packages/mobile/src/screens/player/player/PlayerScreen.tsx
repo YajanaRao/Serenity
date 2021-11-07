@@ -62,9 +62,7 @@ export const PlayerScreen = ({ navigation }) => {
               <IconButton icon="close" onPress={close} />
             </View>
             <ActiveTrackDetails track={active} />
-            <View style={styles.centerContainer}>
               <Progress />
-            </View>
             <View style={styles.playerToolbox}>
               <FavSong id={active.id} />
               <PlayerController />
@@ -121,11 +119,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     resizeMode: 'cover',
-  },
-  centerContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 16,
   },
   playerContainer: {
     flex: 1,

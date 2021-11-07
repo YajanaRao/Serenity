@@ -31,14 +31,14 @@ const OnlineSongsContainer = () => {
     navigation.navigate("Songs", { playlist: item });
   }
 
-  if (netInfo.isConnected) {
+  if (netInfo.isConnected) {    
     return (
       <View>
-        { playlists.length && <View
+        { playlists?.length ? <View
           style={styles.titleContainer}
         >
           <Headline>Songs</Headline>
-        </View> }
+        </View> : null }
         <FlatList
           horizontal
           data={playlists}
