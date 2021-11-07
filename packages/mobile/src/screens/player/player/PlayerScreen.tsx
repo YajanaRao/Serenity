@@ -62,7 +62,7 @@ export const PlayerScreen = ({ navigation }) => {
               <IconButton icon="close" onPress={close} />
             </View>
             <ActiveTrackDetails track={active} />
-              <Progress />
+            <Progress />
             <View style={styles.playerToolbox}>
               <FavSong id={active.id} />
               <PlayerController />

@@ -1,3 +1,4 @@
+import { useAppSelector } from '@serenity/core';
 import moment from 'moment';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -14,19 +15,31 @@ let SeekBar = ({ trackTintColor, thumbTintColor, value }: { trackTintColor: stri
 
 export const Progress = () => {
   const { colors } = useTheme();
+  const status = useAppSelector(
+    (state) => state.player.status,
+  );  
   const [duration, setDuration] = React.useState(0);
   const [position, setPosition] = React.useState('00:00');
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
+    getDuration();
+    if(status === 'playing'){
+      const poll = setInterval(getProgress, 1000)
+      return () => clearInterval(poll)
+    }
+  }, [status])
+
+  function getDuration(){
     TrackPlayer.getDuration().then((end: number) => {
       setDuration(end)  
     })
-    const poll = setInterval(getProgress, 1000)
-    return () => clearInterval(poll)
-  }, [])
+  }
 
   function getProgress() {
+    if(!duration) {
+      getDuration();
+    }
     TrackPlayer.getPosition().then((start: number) => {
       const startTime = moment.utc(start).format("mm:ss");
       const progress = start / duration * 100;
