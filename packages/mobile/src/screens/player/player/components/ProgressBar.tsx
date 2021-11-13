@@ -43,7 +43,6 @@ export const Progress = () => {
     TrackPlayer.getPosition().then((start: number) => {
       const startTime = moment.utc(start).format("mm:ss");
       const progress = start / duration * 100;
-      console.log(progress)
       setPosition(startTime);
       setProgress(progress);
     })
