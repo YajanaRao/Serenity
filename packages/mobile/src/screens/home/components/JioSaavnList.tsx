@@ -6,7 +6,7 @@ import { Headline } from 'components';
 import { JioSaavn } from '@serenity/extensions';
 
 import { TrackItem } from './TrackItem';
-import { playSong } from '@serenity/core';
+import { Player } from '@serenity/core';
 
 export interface JioSaavnContainerProps { }
 
@@ -20,7 +20,7 @@ export function JioSaavnContainer({ }: JioSaavnContainerProps) {
   }, []);
 
   function playAudioFromJioSaavn(song) {
-    dispatch(playSong(song));
+    dispatch(Player.playSong(song));
   }
 
   if (netInfo.isConnected) {

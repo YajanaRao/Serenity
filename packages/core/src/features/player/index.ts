@@ -44,16 +44,6 @@ export function setUpTrackPlayer() {
   };
 }
 
-export function repeatSongs(repeatType: string) {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    try {
-      dispatch(updateRepeatType(repeatType));
-    } catch (error) {
-      console.log('shufflePlay', error);
-    }
-  };
-}
-
 export function destroyTrackPlayer() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     TrackPlayer.destroy();
@@ -64,9 +54,20 @@ export function destroyTrackPlayer() {
   };
 }
 
+export function repeatSongs(repeatType: string) {
+  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+    try {
+      dispatch(updateRepeatType(repeatType));
+    } catch (error) {
+      console.log('shufflePlay', error);
+    }
+  };
+}
+
+
 export function playSong(song: SongProps) {
   return (dispatch: any, getState: any) => {
-    if (!song.path && !song.url) {
+    if (!song?.path && !song?.url) {
       throw new Error("path or url of the song is missing");
     }
 
@@ -94,12 +95,13 @@ export function playNext() {
       const { queue } = getState();
       if (!queue.length) {
         dispatch(updateNotification("No songs in the queue"));
+      } else {
+        const { entities, ids } = queue;
+        const song = entities[ids[0]];
+        dispatch(playSong(song));
+        dispatch(removeSongFromQueue(song.id));
+        loadTrack(song);
       }
-      const { entities, ids } = queue;
-      const song = entities[ids[0]];
-      dispatch(playSong(song));
-      dispatch(removeSongFromQueue(song.id));
-      loadTrack(song);
     } else if (repeat === "repeat-off") {
       dispatch(updateNotification("Repeat is off"));
     }
@@ -123,12 +125,14 @@ export function playPrevious() {
 export function toggle() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { status } = getState().player;
+    console.log(status);
     if (status === "playing") {
       TrackPlayer.pause();
     } else if (status === "paused") {
       TrackPlayer.play();
     } else if (status === "init") {
       const { track } = getState().player;
+      console.log(track);
       loadTrack(track).then(() => {
         TrackPlayer.play()
       });
@@ -175,4 +179,12 @@ export function startRadio() {
       console.log('startRadio', error);
     }
   }
+}
+
+export function getDuration() {
+  return TrackPlayer.getDuration();
+}
+
+export function getPosition(){
+  return TrackPlayer.getPosition();
 }

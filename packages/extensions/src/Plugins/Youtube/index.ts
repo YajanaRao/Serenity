@@ -3,12 +3,9 @@ import { youtubeSearch } from './service';
 import { getSongList } from './utils';
 
 export function getAudioUrl(youtubeUrl: string) {
-    console.log(youtubeUrl);
-    console.log(ytdl.validateURL(youtubeUrl));
     return ytdl(youtubeUrl, { filter: format => format.container === 'mp4' })
         .then(urls => {
             const { url } = urls[0];
-            console.log(url)
             return url;
         });
 }

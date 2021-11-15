@@ -2274,6 +2274,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-6.0.6.tgz#41a81786aed010926ab63d5f576025c9688a2ed0"
   integrity sha512-Lyshmg15NfKLPp3evXkg8yrhBpJlzb4b7M9z5/yDqot7P2WNmBmOYfsYjhlTCLmBV/N/U+MnA5V5NGmUKUS49A==
 
+"@react-native-community/slider@^4.1.12":
+  version "4.1.12"
+  resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-4.1.12.tgz#279ff7bbe487af92ad95ec758a029a54569e2a62"
+  integrity sha512-CiuLZ2orueBiWHYxfaJF57jQY6HY2Q3z5pdAE4MKH8EqIImr/jgDJrJ/UxOVZHK1Ng9P+XlGIKfVIcuWZ6guuA==
+
 "@react-native-google-signin/google-signin@^6.0.0":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-6.0.1.tgz#c953c24c74c42009f59213015d4bdd4e58133c54"

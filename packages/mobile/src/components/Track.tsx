@@ -4,7 +4,7 @@ import isUndefined from 'lodash/isUndefined';
 import { View, StyleSheet } from 'react-native';
 import { IconButton, useTheme, List } from 'react-native-paper';
 import { downloadMedia, SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
-import { playSong } from '@serenity/core';
+import { Player } from '@serenity/core';
 import FastImage from 'react-native-fast-image';
 import { DefaultImage } from 'components/DefaultImage';
 import ActiveTrackIcon from 'components/ActiveTrackIcon';
@@ -33,7 +33,7 @@ export const Track = ({ track, goBack }: Props) => {
 
   const play = () => {
     if (!isActive) {
-      dispatch(playSong(track));
+      dispatch(Player.playSong(track));
     }
     if (goBack) {
       goBack();
