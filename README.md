@@ -49,7 +49,7 @@
 
 ## What is this ?
 
-Serenity is a audio player which focuses on play Music Meditation and Podcasts. It let's you stream songs from various sources including Local and Online storage devices
+Serenity is a audio player which focuses on playing Music, Meditation and Podcasts. It let's you stream songs from various sources including Local and Online storage devices
 
 ## Pre-alpha release
 

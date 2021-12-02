@@ -4,7 +4,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { useDispatch } from 'react-redux';
 import { Youtube } from '@serenity/extensions';
 import { Headline } from 'components';
-import { playSong } from '@serenity/core';
+import { Player } from '@serenity/core';
 import { TrackItem } from './TrackItem';
 
 const YoutubeSongsList = () => {
@@ -23,7 +23,7 @@ const YoutubeSongsList = () => {
   }, [netInfo]);
 
   function playAudio(song) {
-    dispatch(playSong(song));
+    dispatch(Player.playSong(song));
   }
 
   if (netInfo.isConnected && playlists.length) {

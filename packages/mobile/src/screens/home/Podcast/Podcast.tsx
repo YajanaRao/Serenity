@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Podcasts } from '@serenity/extensions';
-import { addSongsToQueue, playSong, useAppDispatch } from '@serenity/core';
+import { addSongsToQueue, Player, useAppDispatch } from '@serenity/core';
 import { Divider, List } from 'react-native-paper';
 import { ArtCover } from 'components/ArtCover/ArtCover';
 import { ListSongHeader } from 'components/ListSongHeader';
@@ -53,7 +53,7 @@ export function PodcastScreen({ route }: PodcastProps) {
 
 
     function playAudio(song) {
-        dispatch(playSong(song));
+        dispatch(Player.playSong(song));
     }
 
     function addSongToQueue() {

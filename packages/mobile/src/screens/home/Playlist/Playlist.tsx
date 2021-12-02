@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Songs } from '@serenity/extensions';
-import { addSongsToQueue, playSong, useAppDispatch } from '@serenity/core';
+import { addSongsToQueue, Player, useAppDispatch } from '@serenity/core';
 import { List } from 'react-native-paper';
 import { ArtCover } from 'components/ArtCover/ArtCover';
 import { Animated } from 'react-native';
@@ -59,7 +59,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
             ...song,
             path: url,
         }
-        dispatch(playSong(track));
+        dispatch(Player.playSong(track));
     }
 
     function addSongToQueue() {
