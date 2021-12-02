@@ -11,10 +11,12 @@ import {
   ActivityIndicator,
 } from 'react-native-paper';
 import { ArtCover } from 'components/ArtCover/ArtCover';
+import { usePlaybackState } from 'react-track-player';
 
 export const PlayerBar = () => {
   const navigation = useNavigation();
-  const { track, status } = useAppSelector((state) => state.player);
+  const { track } = useAppSelector((state) => state.player);
+  const status = usePlaybackState();
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -25,7 +27,11 @@ export const PlayerBar = () => {
   }, []);
 
   const togglePlayback = () => {
-    dispatch(Player.toggle())
+    if(status === "playing"){
+      Player.pause();
+    } else {
+      Player.play();
+    }
   };
 
   const navigateToPlayer = React.useMemo(

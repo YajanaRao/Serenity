@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
-import { useSelector } from 'react-redux';
 import { ViewStyle } from 'react-native';
 import Animations from '../../../assets/Animations';
+import { usePlaybackState } from 'react-track-player';
 
 interface ActiveTrackImageProps {
   style: ViewStyle;
@@ -11,7 +11,7 @@ interface ActiveTrackImageProps {
 
 const ActiveTrackImage = ({ style }: ActiveTrackImageProps) => {
   const animatedRef = useRef(null);
-  const status = useSelector((state: any) => state.player.status);
+  const status = usePlaybackState();
 
   useEffect(() => {
     if (status === 'playing') {

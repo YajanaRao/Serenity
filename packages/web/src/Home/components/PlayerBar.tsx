@@ -2,12 +2,13 @@ import * as React from 'react';
 import { Image, View } from 'react-native';
 import { useAppDispatch, useAppSelector, Player } from '@serenity/core'
 import { Card, Title, Text } from '@serenity/components';
-import { ProgressBar } from 'react-track-player';
+import { ProgressBar, usePlaybackState } from 'react-track-player';
 import { IconButton } from 'react-native-paper';
 
 export function PlayerBar() {
     const dispatch = useAppDispatch();
-    const { track, status } = useAppSelector(state => state.player);
+    const { track } = useAppSelector(state => state.player);
+    const status = usePlaybackState();
 
     React.useEffect(() => {
         dispatch(Player.setUpTrackPlayer());
@@ -16,8 +17,13 @@ export function PlayerBar() {
 
     function toggle() {
         // @ts-ignore
-        dispatch(Player.toggle())
+        if(status === "playing"){
+            Player.pause():
+        } else {
+            Player.pause();
+        }
     }
+    
     return (
         <Card style={{ padding: 12, flexDirection: "row", position: "absolute", bottom: 0, width: "100%", justifyContent: "space-around" }}>
             <View style={{ flexDirection: "row", flex: 1 }}>
