@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -10,7 +9,6 @@ import { filterSongsByGenre } from '@serenity/core/src/actions/media';
 import { SongList } from '../../components/SongList';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import { SearchStackParamList } from './types';
-import { addSongToPlaylist } from '@serenity/core';
 
 type FilterScreenNavigationProp = StackNavigationProp<
   SearchStackParamList,
@@ -28,7 +26,6 @@ type Props = {
 export const FilterScreen = ({ navigation, route }: Props) => {
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useDispatch();
   const { genre } = route.params;
 
   useEffect(() => {
@@ -36,12 +33,7 @@ export const FilterScreen = ({ navigation, route }: Props) => {
     fetchData().then(() => {
       setIsLoading(false);
     })
-    // navigation.setOptions({ addToQueue: addSongsToQueue });
   }, []);
-
-  // const addSongsToQueue = () => {
-  //   dispatch(addSongToPlaylist(songs));
-  // };
 
   const fetchData = async () => {
     const data = await filterSongsByGenre(genre.title);

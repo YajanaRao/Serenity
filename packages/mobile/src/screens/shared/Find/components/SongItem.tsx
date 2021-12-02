@@ -1,6 +1,5 @@
 import * as React from 'react';
-// import { playTrack } from '../actions/player';
-import { playSong, SongProps, useAppDispatch } from '@serenity/core';
+import { Player, SongProps, useAppDispatch } from '@serenity/core';
 import { View, StyleSheet } from 'react-native';
 import { useTheme, List } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/core';
@@ -17,7 +16,7 @@ export const SongItem = ({ track }: Props) => {
 
 
     const play = () => {
-        if (track) dispatch(playSong(track));
+        if (track) dispatch(Player.playSong(track));
         navigation.goBack();
     };
 

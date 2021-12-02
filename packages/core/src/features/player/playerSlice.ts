@@ -30,6 +30,6 @@ const playerSlice = createSlice({
 
 export const selectQueueSongs = (state: RootState) => state.player.queue;
 
-export const { play, updateRepeatType, updateRadioMode } = playerSlice.actions;
+export const { playTrack, updateRepeatType, updateRadioMode } = playerSlice.actions;
 
 export default playerSlice.reducer;

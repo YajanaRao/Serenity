@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { EntityId, playSong, songsSelectors, useAppDispatch, useAppSelector } from '@serenity/core';
+import { EntityId, Player, songsSelectors, useAppDispatch, useAppSelector } from '@serenity/core';
 import { useTheme, List } from 'react-native-paper';
 import { ArtCover } from '../ArtCover/ArtCover';
 
@@ -15,7 +15,7 @@ export const SongItem = React.memo(({ id }: Props) => {
 
 
     const play = () => {
-        if (song) dispatch(playSong(song));
+        if (song) dispatch(Player.playSong(song));
     };
 
     if (!song) return null;
