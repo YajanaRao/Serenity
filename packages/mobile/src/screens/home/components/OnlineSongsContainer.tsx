@@ -17,7 +17,7 @@ const OnlineSongsContainer = () => {
 
   useEffect(() => {
     Songs.getPlaylists().then(response => setPlaylists(response));
-    setPodcasts(Podcasts.getPodcasts());
+    Podcasts.getPodcasts().then(response => setPodcasts(response));
     setMeditations(Meditations.getMeditations())
   }, [])
 
