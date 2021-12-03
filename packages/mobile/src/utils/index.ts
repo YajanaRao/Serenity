@@ -6,11 +6,9 @@ const fetchLyrics = (artistName: string, songName: string) => {
   const uri = `https://azlyrics.com/lyrics/${artistName}/${songName}.html`;
   fetch(uri)
     .then(response => {
-      // console.log(response);
       return response;
     })
     .catch(error => {
-      // console.log(error);
       return error;
     });
 };

@@ -12,13 +12,13 @@ export function PlayerBar() {
 
     React.useEffect(() => {
         dispatch(Player.setUpTrackPlayer());
-        return dispatch(Player.destroyTrackPlayer());
+        return Player.destroyTrackPlayer();
     }, [dispatch]);
 
     function toggle() {
         // @ts-ignore
         if(status === "playing"){
-            Player.pause():
+            Player.pause();
         } else {
             Player.pause();
         }

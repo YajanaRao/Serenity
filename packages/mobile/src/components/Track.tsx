@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import isUndefined from 'lodash/isUndefined';
 import { View, StyleSheet } from 'react-native';
-import { IconButton, useTheme, List } from 'react-native-paper';
-import { downloadMedia, SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
+import { useTheme, List } from 'react-native-paper';
+import { SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
 import { Player } from '@serenity/core';
 import FastImage from 'react-native-fast-image';
 import { DefaultImage } from 'components/DefaultImage';
@@ -20,10 +20,6 @@ export const Track = ({ track, goBack }: Props) => {
   const active = useAppSelector(
     (state) => state.player.active,
   );
-
-  const download = () => {
-    dispatch(downloadMedia(track));
-  };
 
   useEffect(() => {
     if (!isUndefined(active) && track.id) {
@@ -58,15 +54,7 @@ export const Track = ({ track, goBack }: Props) => {
             <ActiveTrackIcon
               style={[{ height: 50, width: 30, marginLeft: 4 }, props.style]}
             />
-          ) : (
-            track?.type === 'online' && (
-              <IconButton
-                icon="download-outline"
-                onPress={download}
-                {...props}
-              />
-            )
-          )
+          ) : null
         }
         onPress={() => play()}
       />

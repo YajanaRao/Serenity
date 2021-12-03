@@ -30,6 +30,7 @@ import { TrackProps } from 'utils/types';
 import { SongItem } from './components/SongItem';
 import { SongOptions } from './components/SongOptions';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { log } from 'utils/logging';
 
 
 export const SongScreen = () => {
@@ -60,7 +61,7 @@ export const SongScreen = () => {
         await dispatch(Native.getSongs())
       }
     } catch (err) {
-      console.log('error', `Fetch failed: ${err.message}`)
+      log.error('error', `Fetch failed: ${err.message}`)
     }
   }
 

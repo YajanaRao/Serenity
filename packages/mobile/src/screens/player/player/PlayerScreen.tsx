@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Caption, IconButton, useTheme } from 'react-native-paper';
-import { includes } from 'lodash';
 import { Screen } from '@serenity/components';
 import LinearGradient from 'react-native-linear-gradient';
 import { addSongToPlaylist, useAppDispatch, useAppSelector } from '@serenity/core';
@@ -10,7 +9,6 @@ import { PlayerController } from './components/PlayerController';
 import { Progress } from './components/ProgressBar';
 import { ActiveTrackDetails } from '../components/ActiveTrackDetails';
 import { PlaylistDialog } from 'components/Dialogs/PlaylistDialog';
-import { downloadMedia } from '@serenity/core/src/actions/download';
 import { FavSong } from './components/FavSong';
 import Images from 'assets/Images';
 
@@ -30,12 +28,6 @@ export const PlayerScreen = ({ navigation }) => {
     dispatch(addSongToPlaylist(id, active.id));
     setVisible('');
   };
-
-
-  function download() {
-    dispatch(downloadMedia(active));
-    setVisible('');
-  }
 
   return (
     <Screen>
@@ -78,20 +70,6 @@ export const PlayerScreen = ({ navigation }) => {
                 />
                 <Caption style={styles.icon}>Queue</Caption>
               </View>
-              {includes(
-                ['youtube', 'online', 'jiosaavn'],
-                active.type?.toLowerCase(),
-              ) && (
-                  <View style={styles.extraIcon}>
-                    <IconButton
-                      style={styles.icon}
-                      size={20}
-                      icon="download-outline"
-                      onPress={download}
-                    />
-                    <Caption>Download</Caption>
-                  </View>
-                )}
               <View style={styles.extraIcon}>
                 <IconButton
                   size={20}

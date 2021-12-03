@@ -11,10 +11,16 @@ export const Progress = () => {
   const { colors } = useTheme();
   const { duration, position } = useProgress();
   const [seekValue, setSeekValue] = React.useState();
+  const [isSeeking, setSeeking] = React.useState(false);
 
 
   const getPosition = () => {
-    const seconds = seekValue || position; 
+    let seconds;
+    if(isSeeking){
+      seconds = seekValue;
+    } else {
+      seconds = position
+    }
     return moment.utc(seconds).format("mm:ss")
   }
   return (
@@ -24,13 +30,16 @@ export const Progress = () => {
           style={{ width: '100%', height: 40 }}
           minimumValue={0}
           maximumValue={duration}
-          value={position || seekValue}
+          value={position}
           minimumTrackTintColor={colors.primary}
           maximumTrackTintColor={colors.placeholder}
+          onSlidingStart={() => setSeeking(true)}
           onValueChange={value => setSeekValue(value)}
           onSlidingComplete={value => {
+            TrackPlayer.pause();
             TrackPlayer.seekTo(value)
-            setSeekValue(null);
+            TrackPlayer.play();
+            setSeeking(false);
           }}
         />
       </View>

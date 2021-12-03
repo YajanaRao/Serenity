@@ -8,6 +8,7 @@ import { Dialog, Portal, IconButton, TouchableRipple } from 'react-native-paper'
 import { Title } from '@serenity/components';
 import { useNavigation } from '@react-navigation/core';
 import Animations from '../../../assets/Animations';
+import { log } from 'utils/logging';
 
 
 const VoiceSearch = () => {
@@ -23,20 +24,17 @@ const VoiceSearch = () => {
     const hideDialog = () => setVisible(false);
 
     function onSpeechStart(e: any) {
-        console.log('onSpeechStart: ', e);
         animatedRef.current?.play();
     };
 
 
 
     function onSpeechEnd(e: any) {
-        console.log('onSpeechEnd: ', e);
         animatedRef.current?.pause();
     };
 
 
     function onSpeechResults(e: SpeechResultsEvent) {
-        console.log('onSpeechResults: ', e);
         animatedRef.current?.pause();
         hideDialog();
         navigation.navigate('Find', { query: e.value[0] })
@@ -51,7 +49,7 @@ const VoiceSearch = () => {
         try {
             await Voice.start('en-US');
         } catch (e) {
-            console.error(e);
+            log.error('_startRecognizing', e);
         }
     };
 
@@ -59,7 +57,7 @@ const VoiceSearch = () => {
         try {
             await Voice.stop();
         } catch (e) {
-            console.error(e);
+            log.error('_stopRecognizing',e);
         }
     };
 

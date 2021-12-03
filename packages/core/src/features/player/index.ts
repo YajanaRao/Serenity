@@ -42,12 +42,10 @@ export function setUpTrackPlayer() {
 }
 
 export function destroyTrackPlayer() {
-  return (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     TrackPlayer.destroy();
     if (subscription !== undefined) {
       subscription.remove();
     }
-  };
 }
 
 export function repeatSongs(repeatType: string) {

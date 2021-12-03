@@ -8,14 +8,13 @@ import { RecentContainer } from '../History/RecentView';
 import { MostPlayed } from '../MostPlayed/MostPlayedView';
 import { ShortCutContainer } from './components/ShortcutContainer';
 import QuoteCard from './components/QuoteCard';
-import OnlineSongsContainer from '../components/OnlineSongsContainer';
+import OnlineSongsContainer from './components/OnlineSongsContainer';
 
 const Divider = () => <View style={{ marginVertical: 8 }} />;
 
 export const MainScreen = () => {
   const ref = React.useRef();
   useScrollToTop(ref);
-
 
   return (
     <Screen>
