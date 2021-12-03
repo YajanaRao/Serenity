@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { sample } from 'lodash';
+import { log } from 'utils/logging';
 
 export function useQuote() {
   const { isConnected } = useNetInfo()
@@ -13,7 +14,7 @@ export function useQuote() {
           setQuote(sample(responseJson));
         })
         .catch(error => {
-          console.error('QuoteContainer', error);
+          log.error('QuoteContainer', error);
         });
     }
     return

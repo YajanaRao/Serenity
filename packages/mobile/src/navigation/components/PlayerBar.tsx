@@ -21,9 +21,7 @@ export const PlayerBar = () => {
 
   React.useEffect(() => {
     dispatch(Player.setUpTrackPlayer());
-    return () => {
-      dispatch(Player.destroyTrackPlayer());
-    };
+    return () =>  Player.destroyTrackPlayer();
   }, []);
 
   const togglePlayback = () => {
