@@ -10,6 +10,8 @@ Base 64 encode the `.env` file:
 base64 -i .env.production
 ```
 
+Note: Run this on bash shell.
+
 Add the output to an env variable in github action.
 
 ```shell
