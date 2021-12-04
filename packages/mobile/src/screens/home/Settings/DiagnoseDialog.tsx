@@ -1,6 +1,9 @@
 import React from 'react';
-import { Dialog, Portal, List } from 'react-native-paper';
+import { Config } from 'react-native-config';
+import { Dialog, Portal, Text, useTheme } from 'react-native-paper';
 import { Button } from '@serenity/components';
+import _ from 'lodash';
+import { FlatList } from 'react-native';
 
 export interface DiagnoseDialogProps {
   visible: boolean;
@@ -8,17 +11,29 @@ export interface DiagnoseDialogProps {
 }
 
 export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
+  const { colors } = useTheme();
+  const [logs, setLogs] = React.useState([]);
 
+  React.useEffect(() => {
+    diagnose();
+  }, []);
+
+  function diagnose() {
+    console.log(Config)
+    setLogs([{ message: `Version Code ${Config.VERSION_CODE}`, state: 'success' }, { message: `Version Name 1.${Config.VERSION_NAME}`, state: 'success' }])
+    if (_.has(Config, 'SUPA_BASE')) {
+      setLogs(logs => [...logs, { message: 'Supabase key is present in environment variable', state: 'success' }])
+    }
+    if (__DEV__) {
+      setLogs(logs => [...logs, { message: 'Running in debug environment', state: 'error' }])
+    }
+  }
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={hideDialog}>
         <Dialog.Title>Diagnose</Dialog.Title>
         <Dialog.Content>
-          <List.Item
-            title="Dev Env health check"
-            right={() => <List.Icon icon={__DEV__ ? 'checkmark' : 'close'} />}
-            style={{ margin: 0, padding: 0, height: 40 }}
-          />
+          <FlatList data={logs} renderItem={({ item }) => <Text style={{ color: item.state === "success" ? colors.primary : colors.error }}>{item.message}</Text>} />
         </Dialog.Content>
         <Dialog.Actions>
           <Button

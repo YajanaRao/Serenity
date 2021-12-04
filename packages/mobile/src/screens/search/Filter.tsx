@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
 
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator, IconButton } from 'react-native-paper';
 import { Container, Screen } from '@serenity/components';
 import { RouteProp } from '@react-navigation/core';
 import { filterSongsByGenre } from '@serenity/core/src/actions/media';
@@ -26,7 +26,18 @@ type Props = {
 export const FilterScreen = ({ navigation, route }: Props) => {
   const [songs, setSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { genre } = route.params;
+  const { genre, addToQueue } = route.params;
+
+  navigation.setOptions({
+    headerTitle: genre.title,
+    headerRight: () => (
+      <IconButton
+        icon="play-circle-outline"
+        onPress={() => addToQueue()}
+        disabled={!songs.length}
+      />
+    ),
+  })
 
   useEffect(() => {
     setIsLoading(true);

@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { FilterScreen } from './Filter';
 import { SearchScreen } from './Search';
-import VoiceSearch from './VoiceSearch';
 
 export type SearchStackParamList = {
   Search: undefined;
@@ -41,19 +40,6 @@ export const SearchStack = () => {
       <Stack.Screen
         name="Filter"
         component={FilterScreen}
-        options={({ route }) => {
-          const { genre } = route.params;
-          const { addToQueue } = route.params;
-          return {
-            headerTitle: genre.title,
-            headerRight: () => (
-              <IconButton
-                icon="play-circle-outline"
-                onPress={() => addToQueue()}
-              />
-            ),
-          };
-        }}
       />
     </Stack.Navigator>
   );
