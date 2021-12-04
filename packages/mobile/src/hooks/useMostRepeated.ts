@@ -1,4 +1,3 @@
-import * as React from 'react';
 import _ from 'lodash';
 
 export function useMostRepeated(data: any[]) {

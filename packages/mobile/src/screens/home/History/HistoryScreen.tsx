@@ -40,7 +40,7 @@ export function HistoryScreen() {
 				)}
 				renderSectionHeader={({ section: { title } }) => (
 					<View style={{ marginVertical: 8, marginHorizontal: 4 }}>
-						<Title >{moment(title).format("ddd, D MMM YYYY")}</Title>
+						<Title >{moment(title, 'l').format("ddd, D MMM YYYY")}</Title>
 					</View>
 				)}
 				refreshing={refreshing}

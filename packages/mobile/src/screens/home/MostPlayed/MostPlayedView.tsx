@@ -29,7 +29,7 @@ export const MostPlayed = () => {
     [navigation],
   );
 
-  if (history.length) {
+  if (history.length > 3) {
     return (
       <View>
         <View style={styles.container}>

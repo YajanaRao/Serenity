@@ -4,7 +4,6 @@ import values from 'lodash/values';
 import orderBy from 'lodash/orderBy';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { Youtube } from '@serenity/extensions';
 
 
 export const updateQuery = (query: string, category: string) => async (
@@ -22,10 +21,6 @@ export const updateQuery = (query: string, category: string) => async (
           data: offlineMedia,
         });
       }
-      // if (category !== 'offline') {
-      //   const songs = await searchSongs(query);
-      //   if (songs.length) media.concat(songs);
-      // }
       dispatch({
         type: 'UPDATE_QUERY',
         payload: media,
@@ -59,9 +54,6 @@ export const findArtistSongs = async (artist: string) => {
 export const filterSongsByGenre = async (genre: string) => {
   try {
     const songs = await RNAndroidAudioStore.getSongsByGenres({ genre });
-    if (!songs.length) {
-      return Youtube.searchYoutubeMusic(genre);
-    }
     return songs;
 
   } catch (error) {

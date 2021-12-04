@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
+import orderBy from 'lodash/orderBy';
 import { Button } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/core';
@@ -10,7 +11,7 @@ import { TrackItem } from './components/TrackItem';
 
 export const RecentContainer = () => {
   const navigation = useNavigation();
-  const history = useAppSelector(state => historySelectors.selectIds(state));
+	const songs = useAppSelector(state => historySelectors.selectEntities(state));
   const dispatch = useAppDispatch();
 
   const play = (track: SongProps) => {
@@ -23,7 +24,9 @@ export const RecentContainer = () => {
     navigation.navigate('History');
   };
 
-  if (history.length) {
+  let history = orderBy(songs, element => element.date, 'desc');
+
+  if (history.length > 3) {
     return (
       <View>
         <View
@@ -41,7 +44,7 @@ export const RecentContainer = () => {
           data={history}
           keyExtractor={(item, index) => `recently-played-${item}-${index}`}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <TrackItem id={item} onPress={play} />}
+          renderItem={({ item }) => <TrackItem id={item.id} onPress={play} />}
         />
       </View>
     );

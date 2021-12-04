@@ -30,8 +30,12 @@ const songs = {
         return data;
     },
     async playSong(url: string) {
-        const ytdlUrl = await getAudioUrl(url);
-        return ytdlUrl;
+        try {
+            const ytdlUrl = await getAudioUrl(url);
+            return ytdlUrl;
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

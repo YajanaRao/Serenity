@@ -10,7 +10,6 @@ export function MostPlayedScreen() {
     const songs = useAppSelector(state => historySelectors.selectIds(state));
     var mostPlayedSongs = useMostRepeated(songs);
 
-
     if (!songs) return null;
     return (
         <Screen>
