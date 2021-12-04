@@ -1,5 +1,5 @@
 import React from 'react';
-import { Config} from 'react-native-config';
+import { Config } from 'react-native-config';
 import { Dialog, Portal, Text, useTheme } from 'react-native-paper';
 import { Button } from '@serenity/components';
 import _ from 'lodash';
@@ -18,12 +18,14 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
     diagnose();
   }, []);
 
-  function diagnose(){
-    if(_.has(Config, 'SUPA_BASE')){
-      setLogs(logs => [...logs, { message: 'Supabase key is present in environment variable', state: 'success'}])
+  function diagnose() {
+    console.log(Config)
+    setLogs([{ message: `Version Code ${Config.VERSION_CODE}`, state: 'success' }, { message: `Version Name 1.${Config.VERSION_NAME}`, state: 'success' }])
+    if (_.has(Config, 'SUPA_BASE')) {
+      setLogs(logs => [...logs, { message: 'Supabase key is present in environment variable', state: 'success' }])
     }
-    if(__DEV__ ){
-      setLogs(logs => [...logs, { message: 'Running in debug environment', state: 'error'}])
+    if (__DEV__) {
+      setLogs(logs => [...logs, { message: 'Running in debug environment', state: 'error' }])
     }
   }
   return (
@@ -31,7 +33,7 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
       <Dialog visible={visible} onDismiss={hideDialog}>
         <Dialog.Title>Diagnose</Dialog.Title>
         <Dialog.Content>
-          <FlatList data={logs} renderItem={({item}) => <Text style={{color: item.state === "success" ? colors.primary : colors.error }}>{item.message}</Text>} />
+          <FlatList data={logs} renderItem={({ item }) => <Text style={{ color: item.state === "success" ? colors.primary : colors.error }}>{item.message}</Text>} />
         </Dialog.Content>
         <Dialog.Actions>
           <Button
