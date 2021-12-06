@@ -1,7 +1,7 @@
 // @ts-ignore
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import RNAndroidAudioStore from '@yajanarao/react-native-get-music-files';
-import { Platform } from 'react-native';
+import { Platform, DeviceEventEmitter } from 'react-native';
 import { albumAdded } from './albumsSlice';
 import { artistsAdded } from './artistsSlice';
 import { songsAdded } from './songsSlice';
@@ -40,9 +40,19 @@ export function getArtists() {
 export function getSongs() {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
         if (Platform.OS !== "web") {
-            const songs = await RNAndroidAudioStore.getAll({ batchSize: 50 });
-            console.log(songs.length);
-            dispatch(songsAdded(songs));
+            RNAndroidAudioStore.getAll({ batchNumber: 1 });
+            // console.log(songs.length);
+            // dispatch(songsAdded(songs));
+            DeviceEventEmitter.addListener(
+                'onBatchReceived',
+                (params) => {
+                    dispatch(songsAdded(params.batch));
+                    // this.setState({songs : [
+                    //     ...this.state.songs,
+                    //     ...params.batch
+                    // ]});
+                }
+            )
 
         }
     }

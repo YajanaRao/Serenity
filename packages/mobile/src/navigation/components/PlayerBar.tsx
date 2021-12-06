@@ -1,7 +1,7 @@
 import * as React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { useNavigation } from '@react-navigation/core';
-import { Player, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Player, useAppSelector } from '@serenity/core';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import {
   Surface,
@@ -17,12 +17,6 @@ export const PlayerBar = () => {
   const navigation = useNavigation();
   const { track } = useAppSelector((state) => state.player);
   const status = usePlaybackState();
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    dispatch(Player.setUpTrackPlayer());
-    return () =>  Player.destroyTrackPlayer();
-  }, []);
 
   const togglePlayback = () => {
     if(status === "playing"){

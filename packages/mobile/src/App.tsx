@@ -14,7 +14,8 @@ import { SentryContainer } from './containers/SentryContainer';
 const persistor = persistStore(store);
 
 
-const App = () => {
+function App(){
+
   const renderActivityIndicator = () => (
     <View style={styles.container}>
       <Spinner />
