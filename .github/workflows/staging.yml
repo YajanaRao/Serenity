@@ -55,7 +55,7 @@ jobs:
         run: echo $ENV_SECRET  | base64 -d  > packages/mobile/.env
 
       - name: Add Version details 
-        run: echo "VERSION_CODE = ${{ github.run_number }}" >> packages/mobile/.env
+        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> packages/mobile/.env
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
