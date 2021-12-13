@@ -131,7 +131,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode project.env.get("VERSION_CODE", "1").toInteger() 
-        versionName project.env.get("VERSION_CODE", "0")
+        versionName "0." + project.env.get("VERSION_CODE", "0")
         multiDexEnabled true
         resValue "string", "build_config_package", "com.serenity"
     }

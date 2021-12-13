@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
 import { ViewStyle } from 'react-native';
-import Animations from '../../../assets/Animations';
+import Animations from 'assets/Animations';
 import { usePlaybackState } from 'react-track-player';
 
 interface ActiveTrackImageProps {

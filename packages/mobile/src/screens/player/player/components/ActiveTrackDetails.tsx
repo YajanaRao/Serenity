@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Subheading, Text } from 'react-native-paper';
 import ActiveTrackImage from './ActiveTrackImage';
-import { TrackProps } from '../../../utils/types';
+import { TrackProps } from '../../../../utils/types';
 
 interface Props {
   track: TrackProps;
@@ -16,8 +16,8 @@ export const ActiveTrackDetails = ({ track }: Props) => {
         {track?.cover ? (
           <FastImage
             source={{ uri: track.cover }}
-            style={[styles.artCover]}
-            resizeMode="contain"
+            style={styles.artCover}
+            resizeMode="cover"
           />
         ) : (
           <ActiveTrackImage style={styles.artCover} />
@@ -40,11 +40,7 @@ export const ActiveTrackDetails = ({ track }: Props) => {
 
 const styles = StyleSheet.create({
   artCover: {
-    borderRadius: 12,
-    // elevation: 4,
-    height: Dimensions.get('window').width - 80,
-    maxHeight: 300,
-    maxWidth: 300,
+    height: Dimensions.get('window').height - 380,
     width: Dimensions.get('window').width - 50,
   },
   centerContainer: {

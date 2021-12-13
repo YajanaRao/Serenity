@@ -40,17 +40,12 @@ export function getArtists() {
 export function getSongs() {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
         if (Platform.OS !== "web") {
-            RNAndroidAudioStore.getAll({ batchNumber: 1 });
-            // console.log(songs.length);
+            RNAndroidAudioStore.getAll({ batchNumber: 10 });
             // dispatch(songsAdded(songs));
             DeviceEventEmitter.addListener(
                 'onBatchReceived',
                 (params) => {
                     dispatch(songsAdded(params.batch));
-                    // this.setState({songs : [
-                    //     ...this.state.songs,
-                    //     ...params.batch
-                    // ]});
                 }
             )
 

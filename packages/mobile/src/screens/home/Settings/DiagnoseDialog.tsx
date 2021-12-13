@@ -19,8 +19,7 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
   }, []);
 
   function diagnose() {
-    console.log(Config)
-    setLogs([{ message: `Version Code ${Config.VERSION_CODE}`, state: 'success' }, { message: `Version Name 1.${Config.VERSION_NAME}`, state: 'success' }])
+    setLogs([{ message: `Version Code ${Config.VERSION_CODE}`, state: 'success' }, { message: `Version Name ${Config.VERSION_NAME}`, state: 'success' }])
     if (_.has(Config, 'SUPA_BASE')) {
       setLogs(logs => [...logs, { message: 'Supabase key is present in environment variable', state: 'success' }])
     }
@@ -33,7 +32,10 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
       <Dialog visible={visible} onDismiss={hideDialog}>
         <Dialog.Title>Diagnose</Dialog.Title>
         <Dialog.Content>
-          <FlatList data={logs} renderItem={({ item }) => <Text style={{ color: item.state === "success" ? colors.primary : colors.error }}>{item.message}</Text>} />
+          <FlatList 
+          data={logs} 
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => <Text style={{ color: item.state === "success" ? colors.primary : colors.error }}>{item.message}</Text>} />
         </Dialog.Content>
         <Dialog.Actions>
           <Button

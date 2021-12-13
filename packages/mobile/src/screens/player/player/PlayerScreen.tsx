@@ -7,7 +7,7 @@ import { addSongToPlaylist, useAppDispatch, useAppSelector } from '@serenity/cor
 import { RepeatContainer } from 'containers/RepeatContainer';
 import { PlayerController } from './components/PlayerController';
 import { Progress } from './components/ProgressBar';
-import { ActiveTrackDetails } from '../components/ActiveTrackDetails';
+import { ActiveTrackDetails } from './components/ActiveTrackDetails';
 import { PlaylistDialog } from 'components/Dialogs/PlaylistDialog';
 import { FavSong } from './components/FavSong';
 import Images from 'assets/Images';
