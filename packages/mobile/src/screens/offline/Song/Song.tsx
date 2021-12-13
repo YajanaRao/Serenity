@@ -17,7 +17,7 @@ import {
   Player,
   UI,
   Native,
-  addSongToPlaylist,
+  Playlist,
   addSongToQueue,
   songsSelectors,
   useAppSelector,
@@ -73,7 +73,7 @@ export const SongScreen = () => {
 
 
   const addToPlaylist = (id: string) => {
-    dispatch(addSongToPlaylist(id, song));
+    dispatch(Playlist.addSongToPlaylist(id, song));
     setVisible('');
   };
 

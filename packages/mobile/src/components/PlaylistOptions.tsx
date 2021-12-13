@@ -45,7 +45,7 @@ export const PlaylistOptions = ({ bottomSheetModalRef, songs, playlist }) => {
   const rename = (playlistName: string) => {
     const { id } = playlist;
     hideDialog();
-    renamePlaylist(id, playlistName);
+    dispatch(renamePlaylist({ playlistId: id, name: playlistName}));
     navigation.goBack();
   };
 
@@ -63,7 +63,7 @@ export const PlaylistOptions = ({ bottomSheetModalRef, songs, playlist }) => {
   };
 
   const addToQueue = () => {
-    dispatch(Player.addSongToQueue(values(songs)));
+    dispatch(Player.add(songs));
   };
 
   const renderInner = () => {

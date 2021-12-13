@@ -16,7 +16,7 @@ export * from './features/media/artistsSlice';
 export * from './features/player/historySlice';
 export * as Player from './features/player';
 export * as UI from './features/ui';
-
+export * as Playlist from './features/playlists';
 export * as Native from './features/media/deviceMedia';
 
 export {

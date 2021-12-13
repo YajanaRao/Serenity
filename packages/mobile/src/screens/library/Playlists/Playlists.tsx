@@ -4,11 +4,10 @@ import {
   Portal,
   Dialog,
   TextInput,
-  Button,
   useTheme,
 } from 'react-native-paper';
 import { View } from 'react-native';
-import { Screen } from '@serenity/components';
+import { Button, Screen } from '@serenity/components';
 import { addPlaylist, selectPlaylistIds } from '@serenity/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
@@ -20,7 +19,6 @@ export const PlaylistScreen = () => {
   const [name, setName] = useState('');
   const playlists = useSelector(state => selectPlaylistIds(state));
   const dispatch = useDispatch();
-
 
 
   const showDialog = () => setVisible(true);
@@ -48,8 +46,8 @@ export const PlaylistScreen = () => {
               onChangeText={setName}
             />
           </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>Cancel</Button>
+          <Dialog.Actions style={{justifyContent: "space-around"}}>
+            <Button onPress={hideDialog} color={colors.error}>Cancel</Button>
             <Button onPress={create}>Create</Button>
           </Dialog.Actions>
         </Dialog>
@@ -69,19 +67,6 @@ export const PlaylistScreen = () => {
         data={playlists}
         keyExtractor={(item) => item}
         renderItem={({ item }: { item: string }) => <Playlist id={item} />}
-
-      // renderSectionHeader={({ section: { title } }) => (
-      //   <View style={styles.sectionHeader}>
-      //     <Title>{title}</Title>
-      //     <Chip
-      //       icon="refresh-outline"
-      //       disabled={refreshing}
-      //       onPress={() => refreshPlaylist(title)}
-      //     >
-      //       Refresh
-      //     </Chip>
-      //   </View>
-      // )}
       />
     </Screen>
   );

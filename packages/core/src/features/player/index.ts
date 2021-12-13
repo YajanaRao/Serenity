@@ -95,7 +95,7 @@ export function playNext() {
       dispatch(playSong(track));
     } else if (repeat === "repeat-all") {
       const { queue } = getState();
-      if (!queue.length) {
+      if (!queue.ids.length) {
         dispatch(updateNotification("No songs in the queue"));
       } else {
         const { entities, ids } = queue;
@@ -113,7 +113,7 @@ export function playNext() {
 export function playPrevious() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     const { history } = getState();
-    if (!history.length) {
+    if (!history.ids.length) {
       dispatch(updateNotification("No songs in the history"));
     }
     const { entities, ids } = history;

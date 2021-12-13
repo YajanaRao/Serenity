@@ -3,11 +3,11 @@ import { View, StyleSheet, ImageBackground } from 'react-native';
 import { Caption, IconButton, useTheme } from 'react-native-paper';
 import { Screen } from '@serenity/components';
 import LinearGradient from 'react-native-linear-gradient';
-import { addSongToPlaylist, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Playlist, useAppDispatch, useAppSelector } from '@serenity/core';
 import { RepeatContainer } from 'containers/RepeatContainer';
 import { PlayerController } from './components/PlayerController';
 import { Progress } from './components/ProgressBar';
-import { ActiveTrackDetails } from '../components/ActiveTrackDetails';
+import { ActiveTrackDetails } from './components/ActiveTrackDetails';
 import { PlaylistDialog } from 'components/Dialogs/PlaylistDialog';
 import { FavSong } from './components/FavSong';
 import Images from 'assets/Images';
@@ -20,12 +20,12 @@ export const PlayerScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const active = useAppSelector(
-    (state) => state.player.track,
+  const {track} = useAppSelector(
+    (state) => state.player,
   );
 
   const addToPlaylist = (id: string) => {
-    dispatch(addSongToPlaylist(id, active.id));
+    dispatch(Playlist.addSongToPlaylist(id, track.id));
     setVisible('');
   };
 
@@ -33,8 +33,8 @@ export const PlayerScreen = ({ navigation }) => {
     <Screen>
       <ImageBackground
         source={
-          active.cover
-            ? { uri: active.cover }
+          track.cover
+            ? { uri: track.cover }
             : Images.welcomeImage
         }
         blurRadius={40}
@@ -53,10 +53,10 @@ export const PlayerScreen = ({ navigation }) => {
             <View style={styles.container}>
               <IconButton icon="close" onPress={close} />
             </View>
-            <ActiveTrackDetails track={active} />
+            <ActiveTrackDetails track={track} />
             <Progress />
             <View style={styles.playerToolbox}>
-              <FavSong id={active.id} />
+              <FavSong id={track.id} />
               <PlayerController />
               <RepeatContainer />
             </View>
