@@ -10,9 +10,9 @@ import { Screen } from '@serenity/components';
 import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
 
 import { addSongToQueue, selectPlaylistSongsById } from '@serenity/core';
-import { SongItem } from '../../offline/Song/components/SongItem';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { PlaylistOptions } from 'components/PlaylistOptions';
+import { SongItem } from 'components/SongItem/SongItem';
 
 export const PlaylistSongs = ({ route, navigation }) => {
   const { playlist } = route.params;
@@ -29,6 +29,7 @@ export const PlaylistSongs = ({ route, navigation }) => {
   const handlePresentModalPress = React.useCallback(() => {
     bottomSheetModalRef.current?.expand();
   }, []);
+  
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
