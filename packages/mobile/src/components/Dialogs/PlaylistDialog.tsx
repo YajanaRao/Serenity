@@ -1,7 +1,8 @@
 import React from 'react';
-import { List, Dialog, Portal, Button } from 'react-native-paper';
+import { List, Dialog, Portal } from 'react-native-paper';
 import { FlatList } from 'react-native';
 import { useAppSelector } from '@serenity/core';
+import { Button } from '@serenity/components';
 
 interface Props {
   visible: boolean;
@@ -44,7 +45,7 @@ export const PlaylistDialog = ({
           />
         </Dialog.ScrollArea>
         <Dialog.Actions>
-          <Button mode="contained" onPress={() => hideModal()}>
+          <Button onPress={() => hideModal()}>
             Close
           </Button>
         </Dialog.Actions>

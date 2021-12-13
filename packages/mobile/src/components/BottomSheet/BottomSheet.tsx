@@ -5,9 +5,7 @@ import {
 } from 'react-native-paper';
 import { Pressable } from 'react-native';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-
 import { BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
-
 import Animated, { Extrapolate, interpolateNode } from 'react-native-reanimated';
 import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 
@@ -42,7 +40,7 @@ const CustomBackdrop = ({ animatedIndex, style, onPress }: BottomSheetBackdropPr
 };
 
 export const BottomSheet = ({ bs, children }: { bs: React.Ref<BottomSheetModalMethods>, children: React.ReactNode }) => {
-    const snapPoints = React.useMemo(() => ['30%', '70%'], []);
+    const snapPoints = React.useMemo(() => ['30%', '60%'], []);
 
 
     const closeBottomSheet = () => {

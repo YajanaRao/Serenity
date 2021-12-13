@@ -41,8 +41,6 @@ export const PlaylistSongs = ({ route, navigation }) => {
   }, [navigation])
 
 
-
-
   return (
     <Screen>
       <PlaylistOptions bottomSheetModalRef={bottomSheetModalRef} songs={songs} playlist={playlist} />
