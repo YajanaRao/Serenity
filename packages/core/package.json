@@ -13,6 +13,7 @@
     "redux": "^4.1.0"
   },
   "scripts": {
+    "test": "jest",
     "lint": "eslint .  --ext .js,.jsx,.ts,.tsx"
   }
 }
