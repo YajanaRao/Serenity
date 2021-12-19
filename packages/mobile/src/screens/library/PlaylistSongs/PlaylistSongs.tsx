@@ -2,15 +2,14 @@ import * as React from 'react';
 import { Title, Button, Divider, Subheading, IconButton } from 'react-native-paper';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import isEmpty from 'lodash/isEmpty';
-import values from 'lodash/values';
+import {isEmpty, values} from 'lodash';
 import FastImage from 'react-native-fast-image';
-import { DefaultImage } from '../../../components/DefaultImage';
-import { Screen } from '@serenity/components';
-import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
-
-import { addSongToQueue, selectPlaylistSongsById } from '@serenity/core';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { Screen } from '@serenity/components';
+import { addSongToQueue, selectPlaylistSongsById } from '@serenity/core';
+
+import { DefaultImage } from '../../../components/DefaultImage';
+import { EmptyPlaylist } from '../../../components/EmptyPlaylist';
 import { PlaylistOptions } from 'components/PlaylistOptions';
 import { SongItem } from 'components/SongItem/SongItem';
 

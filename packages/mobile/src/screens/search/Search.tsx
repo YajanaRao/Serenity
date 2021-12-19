@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -13,7 +13,8 @@ import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { Screen, Headline, Title } from '@serenity/components';
-import Genre from '../../data/genre.json';
+// import Genre from '../../data/genre.json';
+import { Genre } from '@serenity/extensions';
 
 
 import { SearchStackParamList, GenreProps } from './types';
@@ -31,6 +32,7 @@ type Props = {
 export const SearchScreen = ({ navigation }: Props) => {
   const ref = useRef(null);
   const { colors, roundness } = useTheme();
+  const [genres, setGenres] = useState([])
   useScrollToTop(ref);
 
   const {
@@ -48,6 +50,13 @@ export const SearchScreen = ({ navigation }: Props) => {
 
   const stickyHeaderHeight = 60;
 
+  React.useEffect(() => {
+    Genre.getGenres().then(data =>{
+      console.log(data);
+      setGenres(data);
+    });
+  }, [])
+
   return (
     <Screen>
       <Animated.FlatList
@@ -60,7 +69,7 @@ export const SearchScreen = ({ navigation }: Props) => {
         }}
         ref={ref}
         key="Genre"
-        data={Genre}
+        data={genres}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         ListHeaderComponent={() => (
@@ -78,7 +87,7 @@ export const SearchScreen = ({ navigation }: Props) => {
             }
           >
             <LinearGradient
-              colors={item.colors}
+              colors={[item.colors__001, item.colors__002]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.item}

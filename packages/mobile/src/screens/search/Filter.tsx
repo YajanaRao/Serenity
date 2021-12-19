@@ -9,6 +9,7 @@ import { filterSongsByGenre } from '@serenity/core/src/actions/media';
 import { SongList } from '../../components/SongList';
 import { EmptyPlaylist } from '../../components/EmptyPlaylist';
 import { SearchStackParamList } from './types';
+import { Songs } from '@serenity/extensions';
 
 type FilterScreenNavigationProp = StackNavigationProp<
   SearchStackParamList,
@@ -48,7 +49,9 @@ export const FilterScreen = ({ navigation, route }: Props) => {
 
   const fetchData = async () => {
     const data = await filterSongsByGenre(genre.title);
-    setSongs(data);
+    const songs = await Songs.getSongs(genre);
+    console.log(songs);
+    setSongs([...data, ...songs]);
   };
 
 
