@@ -57,6 +57,8 @@ jobs:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: echo $ENV_SECRET  | base64 -d  > packages/mobile/.env
 
+  - name: Add Version details 
+        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> packages/mobile/.env
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
@@ -135,31 +137,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-#       - name: Create Release
-#         id: create_release
-#         uses: actions/create-release@v1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-#         with:
-#           tag_name: v${{ github.run_number }}
-#           release_name: Release v${{ github.run_number }} 
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }} 
           
-#       - name: Display structure of downloaded files
-#         run: ls -R
-        
-#       - name: Display structure of downloaded files 1
-#         run: ls
-          
-#       - name: Current working directory
-#         run: pwd
-      
-#       - name: Upload Release APK
-#         id: upload_release_asset
-#         uses: actions/upload-release-asset@v1.0.1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         with:
-#           upload_url: ${{ steps.create_release.outputs.upload_url }}
-#           asset_path: /home/runner/work/Serenity/Serenity/app-release.apk
-#           asset_name: Serenity.apk
-#           asset_content_type: application/zip
+      - name: Upload Release APK
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: /home/runner/work/Serenity/Serenity/app-release.apk
+          asset_name: Serenity.apk
+          asset_content_type: application/zip
