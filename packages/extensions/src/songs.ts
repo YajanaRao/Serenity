@@ -24,7 +24,8 @@ const songs = {
                 artist: artist,
                 description: item?.duration,
                 cover: item.thumbnails[0].url,
-                path: item.url
+                path: item.url,
+                type: 'youtube'
             }
         })
         return data;

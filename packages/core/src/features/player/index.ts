@@ -4,18 +4,22 @@ import sample from 'lodash/sample';
 import isEmpty from 'lodash/isEmpty';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-
 import { addSongToHistory } from "./historySlice";
 import { playTrack, updateRadioMode, updateRepeatType } from "./playerSlice";
 import { addSongToQueue, addSongsToQueue, removeSongFromQueue } from './queueSlice';
 import { updateNotification } from '../ui/uiSlice';
 import { SongProps } from './types';
+import { Songs } from '@serenity/extensions';
 
 let subscription: EmitterSubscription;
 
-function loadTrack(track: SongProps) {
+async function loadTrack(track: SongProps) {
+  let url = track.path;
+  if(track?.type === "youtube"){
+    url = await Songs.playSong(url);
+  }
   return TrackPlayer.load({
-    path: track.path,
+    path: url,
     title: track.title,
     artist: track.artist,
     cover: track.cover,
@@ -25,6 +29,7 @@ function loadTrack(track: SongProps) {
 export function setUpTrackPlayer() {
   return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any) => {
     try {
+      TrackPlayer.setup();
       // @ts-ignore
       subscription = addEventListener('media', (event: any) => {
         if (event === "skip_to_next") {

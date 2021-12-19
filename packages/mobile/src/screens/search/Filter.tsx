@@ -50,7 +50,6 @@ export const FilterScreen = ({ navigation, route }: Props) => {
   const fetchData = async () => {
     const data = await filterSongsByGenre(genre.title);
     const songs = await Songs.getSongs(genre);
-    console.log(songs);
     setSongs([...data, ...songs]);
   };
 

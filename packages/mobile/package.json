@@ -55,7 +55,7 @@
 		"react-native-swipe-list-view": "^3.2.7",
 		"react-native-tab-view": "^3.0.1",
 		"react-navigation-collapsible": "^5.8.1",
-		"react-track-player": "latest",
+		"react-track-player": "*",
 		"redux": "^4.0.0-0",
 		"redux-persist": "^5.10.0",
 		"redux-thunk": "2.3.0",
