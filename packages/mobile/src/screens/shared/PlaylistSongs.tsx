@@ -1,37 +1,39 @@
-import React, { useState } from 'react';
-import { Title, Button, Divider, Subheading } from 'react-native-paper';
-import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
-import { useDispatch } from 'react-redux';
+import * as React from 'react';
+import { Title, Divider, Subheading, IconButton } from 'react-native-paper';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import values from 'lodash/values';
 import FastImage from 'react-native-fast-image';
-import { addToQueue } from '../../actions/playerState';
-import { TrackContainer } from '../../containers/TrackContainer';
-import { DefaultImage } from '../../components/DefaultImage';
-import { Screen } from '../../components/Screen';
-import { EmptyPlaylist } from '../../components/EmptyPlaylist';
+import { Screen, Button } from '@serenity/components';
+import { selectPlaylistSongsById, SongProps, Player } from '@serenity/core';
+import { DefaultImage } from 'components/DefaultImage';
+import { EmptyPlaylist } from 'components/EmptyPlaylist';
+import { Track } from 'components/Track';
 
-import { TrackProps } from '../../utils/types';
-import { usePlaylistSongs } from '../../hooks/usePlaylistSongs';
-
-export const PlaylistSongs = ({ route }) => {
+export const PlaylistSongs = ({ route, navigation }) => {
   const { playlist, filter } = route.params;
-  const songs = usePlaylistSongs(playlist.id, filter);
-  const [refreshing, setRefreshing] = useState(false);
+  const songs = useSelector(state => selectPlaylistSongsById(state, playlist.id));
 
   const dispatch = useDispatch();
 
   const addSongToQueue = () => {
-    dispatch(addToQueue(values(songs)));
+    dispatch(Player.add(songs));
   };
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          icon="play-circle-outline"
+          onPress={addSongToQueue}
+        />
+      ),
+    });
+  }, [navigation]);
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    // const playlistSongs = getPlaylistSongs(playlist.id);
-    // setSongs(playlistSongs);
-    setRefreshing(false);
-  };
+
+
+
 
   return (
     <Screen>
@@ -56,22 +58,19 @@ export const PlaylistSongs = ({ route }) => {
                 <Subheading>{`by ${playlist.owner}`}</Subheading>
               </View>
               <View style={styles.buttonContainer}>
-                <Button mode="contained" onPress={addSongToQueue}>
+                <Button onPress={addSongToQueue}>
                   Play All
                 </Button>
               </View>
             </View>
           )}
           data={songs}
-          renderItem={({ item }: { item: TrackProps }) => (
-            <TrackContainer track={item} />
+          renderItem={({ item }: { item: SongProps }) => (
+            <Track track={item} />
           )}
           ItemSeparatorComponent={() => <Divider inset />}
           keyExtractor={(item, index) => index.toString()}
           ListFooterComponent={() => <View style={{ height: 100 }} />}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
         />
       )}
     </Screen>

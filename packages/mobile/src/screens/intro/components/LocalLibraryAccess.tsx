@@ -1,24 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {Button} from 'react-native-paper';
-import {giveReadOfflineAccess} from '../../../actions/userState';
-import {RootReducerType} from '../../../reducers';
+import React, { useEffect, useState } from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
+import { UI, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Button } from '@serenity/components';
 
 export interface LocalLibraryAccessProps {
   color: string;
   next: () => void;
 }
 
-export function LocalLibraryAccess({color, next}: LocalLibraryAccessProps) {
-  const {offlineReadAccessGiven} = useSelector(
-    (state: RootReducerType) => state.user,
-  );
+export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
+  const { offlineReadAccessGiven } = useAppSelector((state) => state.ui);
 
   const [given, setGiven] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const requestPermission = () => {
-    dispatch(giveReadOfflineAccess());
+    dispatch(UI.giveReadOfflineAccess());
   };
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -30,7 +26,7 @@ export function LocalLibraryAccess({color, next}: LocalLibraryAccessProps) {
 
   if (given || offlineReadAccessGiven) {
     return (
-      <Button mode="contained" icon="done-all" color={color} onPress={next}>
+      <Button icon="done-all" color={color} onPress={next}>
         Done
       </Button>
     );
@@ -38,7 +34,6 @@ export function LocalLibraryAccess({color, next}: LocalLibraryAccessProps) {
 
   return (
     <Button
-      mode="contained"
       icon="unlock-outline"
       color={color}
       onPress={requestPermission}>

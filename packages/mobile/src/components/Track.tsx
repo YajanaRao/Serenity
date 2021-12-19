@@ -1,33 +1,47 @@
-import React from 'react';
-import { IconButton, List, useTheme } from 'react-native-paper';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import isEqual from 'lodash/isEqual';
+import isUndefined from 'lodash/isUndefined';
+import { View, StyleSheet } from 'react-native';
+import { useTheme, List } from 'react-native-paper';
+import { SongProps, useAppDispatch, useAppSelector } from '@serenity/core';
+import { Player } from '@serenity/core';
 import FastImage from 'react-native-fast-image';
-import ActiveTrackIcon from './ActiveTrackIcon';
-import { DefaultImage } from './DefaultImage';
-
-interface TrackProps {
-  title: string;
-  album?: string;
-  artist?: string;
-  cover?: string;
-  type?: string;
-}
+import { DefaultImage } from 'components/DefaultImage';
+import ActiveTrackIcon from 'components/ActiveTrackIcon';
 
 interface Props {
-  track: TrackProps;
-  active: boolean;
-  play(): void;
-  download(): void;
+  track: SongProps;
+  goBack?: () => void;
 }
 
-export const Track = React.memo(({ track, active, play, download }: Props) => {
-  const theme = useTheme();
-  const { colors } = theme;
+export const Track = ({ track, goBack }: Props) => {
+  const [isActive, setActive] = useState(false);
+  const dispatch = useAppDispatch();
+  const active = useAppSelector(
+    (state) => state.player.active,
+  );
+
+  useEffect(() => {
+    if (!isUndefined(active) && track.id) {
+      setActive(isEqual(active.id, track.id));
+    }
+  }, [active, track]);
+
+  const play = () => {
+    if (!isActive) {
+      dispatch(Player.playSong(track));
+    }
+    if (goBack) {
+      goBack();
+    }
+  };
+
+  const { colors } = useTheme();
   return (
     <View style={[styles.surface, { backgroundColor: colors.background }]}>
       <List.Item
         title={track?.title}
-        description={ track?.artist || track?.album}
+        description={track?.artist || track?.album}
         left={() =>
           track?.cover ? (
             <FastImage source={{ uri: track.cover }} style={styles.artwork} />
@@ -40,21 +54,13 @@ export const Track = React.memo(({ track, active, play, download }: Props) => {
             <ActiveTrackIcon
               style={[{ height: 50, width: 30, marginLeft: 4 }, props.style]}
             />
-          ) : (
-            track.type === 'online' && (
-              <IconButton
-                icon="download-outline"
-                onPress={download}
-                {...props}
-              />
-            )
-          )
+          ) : null
         }
         onPress={() => play()}
       />
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   surface: {

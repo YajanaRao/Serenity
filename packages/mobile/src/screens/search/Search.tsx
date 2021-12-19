@@ -1,30 +1,38 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
   Animated,
   Pressable,
+  View
 } from 'react-native';
 import { useTheme, Text, IconButton, Surface } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-import Genre from '../../data/genre.json';
-import { Screen } from '../../components/Screen';
-import { Headline } from '../../components/Headline';
-import { Title } from '../../components/Title';
+import { Screen, Headline, Title } from '@serenity/components';
+// import Genre from '../../data/genre.json';
+import { Genre } from '@serenity/extensions';
 
-interface GenreProps {
-  item: {
-    colors: [];
-    title: string;
-  };
-}
 
-export const SearchScreen = ({ navigation }) => {
+import { SearchStackParamList, GenreProps } from './types';
+import VoiceSearch from './components/VoiceSearch';
+
+type SearchScreenNavigationProp = StackNavigationProp<
+  SearchStackParamList,
+  'Search'
+>;
+
+type Props = {
+  navigation: SearchScreenNavigationProp;
+};
+
+export const SearchScreen = ({ navigation }: Props) => {
   const ref = useRef(null);
   const { colors, roundness } = useTheme();
+  const [genres, setGenres] = useState([])
   useScrollToTop(ref);
 
   const {
@@ -42,6 +50,13 @@ export const SearchScreen = ({ navigation }) => {
 
   const stickyHeaderHeight = 60;
 
+  React.useEffect(() => {
+    Genre.getGenres().then(data =>{
+      console.log(data);
+      setGenres(data);
+    });
+  }, [])
+
   return (
     <Screen>
       <Animated.FlatList
@@ -54,26 +69,25 @@ export const SearchScreen = ({ navigation }) => {
         }}
         ref={ref}
         key="Genre"
-        data={Genre}
+        data={genres}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         ListHeaderComponent={() => (
           <Headline style={styles.headline}>All Moods & Genres</Headline>
         )}
-        renderItem={({ item }: GenreProps) => (
+        renderItem={({ item }: { item: GenreProps }) => (
           <TouchableOpacity
             style={{
               flex: 1,
             }}
             onPress={() =>
               navigation.navigate('Filter', {
-                songs: [],
                 genre: item,
               })
             }
           >
             <LinearGradient
-              colors={item.colors}
+              colors={[item.colors__001, item.colors__002]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.item}
@@ -96,41 +110,46 @@ export const SearchScreen = ({ navigation }) => {
           width: '100%',
         }}
       >
-        <Pressable onPress={() => navigation.navigate('Find')}>
-          <Surface
-            style={[styles.searchBarContainer, { borderRadius: roundness }]}
-          >
-            <IconButton icon="search-outline" />
-            <Text
-              style={[
-                styles.searchBarPlaceholder,
-                { color: colors.placeholder },
-              ]}
+        <Surface style={styles.searchBarContainer}>
+          <Pressable onPress={() => navigation.navigate('Find')}>
+            <Surface
+              style={[styles.searchInput, { borderRadius: roundness }]}
             >
-              Artists, songs or podcasts
-            </Text>
-          </Surface>
-        </Pressable>
+
+              <IconButton icon="search-outline" />
+              <Text
+                style={[
+                  styles.searchBarPlaceholder,
+                  { color: colors.placeholder },
+                ]}
+              >
+                Artists, songs or podcasts
+              </Text>
+            </Surface>
+          </Pressable>
+          <VoiceSearch />
+        </Surface>
+
       </Animated.View>
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  searchbar: {
-    margin: 10,
-  },
   searchBarContainer: {
     marginHorizontal: 10,
     marginVertical: 6,
+    elevation: 4,
+    justifyContent: "space-between",
+    flexDirection: "row"
+  },
+  searchInput: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    elevation: 4,
   },
   searchBarPlaceholder: { fontSize: 18, paddingLeft: 8 },
   item: {
-    // backgroundColor: Colors.lightBlueA100,
     borderRadius: 4,
     flex: 1,
     justifyContent: 'center',

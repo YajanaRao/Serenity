@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Title, Button } from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
-
+import { Title, Text } from '@serenity/components'
 import { DefaultImage } from './DefaultImage';
-import { Container } from './Container';
+import { Container, Button } from '@serenity/components';
 
 interface ListSongHeaderProps {
   title: string;
+  description?: string;
   cover: string;
   addSongsToQueue(): void;
 }
 
 export const ListSongHeader = ({
   title,
+  description,
   cover,
   addSongsToQueue,
 }: ListSongHeaderProps) => (
@@ -27,9 +28,10 @@ export const ListSongHeader = ({
     </View>
     <View style={styles.titleContainer}>
       <Title>{title}</Title>
+      {description ? <Text>{description}</Text> : null}
     </View>
     <View style={styles.buttonContainer}>
-      <Button mode="contained" onPress={addSongsToQueue}>
+      <Button onPress={addSongsToQueue}>
         Play All
       </Button>
     </View>
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 8,
   },
-  artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12 },
+  artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12, backgroundColor: 'lightgray' },
   titleContainer: {
     alignItems: 'center',
     justifyContent: 'center',

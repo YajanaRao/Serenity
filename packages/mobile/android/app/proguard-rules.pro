@@ -25,10 +25,13 @@
   public *;
 }
 
--keep class com.facebook.hermes.unicode.** { *; }
-
--keep class io.realm.react.**
-
 -keep class com.serenity.BuildConfig { *; }
 
 -keep public class com.horcrux.svg.** {*;}
+
+# hermes
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }
+
+# reanimated
+-keep class com.facebook.react.turbomodule.** { *; }

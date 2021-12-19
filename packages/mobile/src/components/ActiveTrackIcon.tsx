@@ -1,24 +1,24 @@
 import React, { useRef, useEffect } from 'react';
 import LottieView from 'lottie-react-native';
-import { useSelector } from 'react-redux';
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Animations from '../assets/Animations';
+import { usePlaybackState } from 'react-track-player';
 
 interface ActiveTrackIconProps {
-  style: ViewStyle;
+  style: StyleProp<ViewStyle>;
 }
 
 const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
-  const animatedRef = useRef(null);
+  const animatedRef = useRef<LottieView>(null);
   const { colors } = useTheme();
-  const status = useSelector((state: any) => state.playerState.status);
+  const status = usePlaybackState();
 
   useEffect(() => {
     if (status === 'playing') {
-      animatedRef.current.play();
+      animatedRef.current?.play();
     } else {
-      animatedRef.current.pause();
+      animatedRef.current?.pause();
     }
   }, [status]);
 
@@ -37,4 +37,5 @@ const ActiveTrackIcon = ({ style }: ActiveTrackIconProps) => {
     </View>
   );
 };
+
 export default ActiveTrackIcon;

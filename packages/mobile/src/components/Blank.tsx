@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
+import { Button } from '@serenity/components';
 import { StyleSheet, View } from 'react-native';
 import Tree from './Tree';
 
@@ -16,7 +17,7 @@ export const Blank = ({ text, fetchData, buttonText = 'Refresh' }: Props) => {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Tree message={text} />
       <View style={styles.padding}>
-        <Button mode="contained" onPress={fetchData}>
+        <Button onPress={fetchData}>
           {buttonText}
         </Button>
       </View>

@@ -1,30 +1,28 @@
-import React from 'react';
-import { View, ViewProps } from 'react-native';
+import * as React from 'react';
+import { StyleProp, ViewStyle, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
 interface FavProps {
-  style?: ViewProps;
+  style?: StyleProp<ViewStyle>;
   liked: boolean;
-  addToFavorite(): void;
-  removeFromFavorite(): void;
+  onPress(): void;
 }
 
 export const Fav = ({
   style,
-  liked,
-  addToFavorite,
-  removeFromFavorite,
+  liked = false,
+  onPress
 }: FavProps) => (
   <View style={[style, { justifyContent: 'center', alignItems: 'center' }]}>
     {liked ? (
       <IconButton
         animated
         icon="heart"
-        onPress={removeFromFavorite}
+        onPress={onPress}
         color="#f64f59"
       />
     ) : (
-      <IconButton animated icon="heart-outline" onPress={addToFavorite} />
+      <IconButton animated icon="heart-outline" onPress={onPress} />
     )}
   </View>
 );

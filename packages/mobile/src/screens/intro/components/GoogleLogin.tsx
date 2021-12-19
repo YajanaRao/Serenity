@@ -4,9 +4,9 @@ import {
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
 import { Button } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
-import { googleSignIn } from '../../../actions/userState';
-
+import { useSelector } from 'react-redux';
+// import { googleSignIn } from '../../../actions/userActions';
+// https://github.com/ryanmcdermott/clean-code-javascript
 export interface GoogleLoginProps {
   color: string;
   next: () => void;
@@ -17,10 +17,9 @@ function GoogleLogin({ color, next }: GoogleLoginProps) {
   const { googleAccessGiven } = useSelector(state => state.user);
   const [isLoading, setisLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const dispatch = useDispatch();
   const signIn = async () => {
     setisLoading(true);
-    dispatch(googleSignIn());
+    // dispatch(googleSignIn());
   };
 
   useEffect(() => {

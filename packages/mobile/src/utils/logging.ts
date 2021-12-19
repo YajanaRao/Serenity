@@ -5,9 +5,11 @@ export const log = {
   error(title: any, message?: any) {
     try {
       if (__DEV__) {
-        console.error(title, message);
+      console.error(title, message);
       } else {
-        Sentry.captureException(message);
+        Sentry.captureException(message, {
+          tags: title
+        });
       }
     } catch (error) {
       console.log(error);
@@ -17,10 +19,8 @@ export const log = {
   debug(title: string, message: string) {
     try {
       if (__DEV__) {
-        console.log('debug: ', title, message);
-      } else {
-        Sentry.captureMessage(message);
-      }
+      console.log('debug: ', title, message);
+      } 
     } catch (error) {
       console.log(error);
     }

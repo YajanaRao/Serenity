@@ -1,14 +1,12 @@
 # Serenity 🏵️
 
-## A React Native Music Player for Android and IOS
+## Audio Player for Music, Meditation and Podcasts
 
 ![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/YajanaRao/Serenity/pulls)
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
-A mobile music player focused on streaming from free sources. Built with Rich UI
 
 <p float="left">
 <img src="./screenshots/intro-ios.png"
@@ -16,89 +14,42 @@ A mobile music player focused on streaming from free sources. Built with Rich UI
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
-<img src="./screenshots/home.jpeg"
-    alt="homepage"
+    <img src="./screenshots/home.jpeg"
+    alt="home-page"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
-<img src="./screenshots/home-ios.png"
-    alt="homepageios"
+    <img src="./screenshots/library.jpeg"
+    alt="library-page"
     height="320"
     width="160"
     style="float: left; margin-right: 10px;" />
-<img src="./screenshots/search.jpeg"
-    alt="searchpage"
+    <img src="./screenshots/player-dark.png"
+    alt="player-page"
     height="320"
     width="160"
-    style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/viemu00pradw81y/Screenshot_2021-03-21-21-48-33-793_com.serenity.jpg?dl=0"
-    alt="searchresultpage"
+    style="float: left; margin-right: 10px;" />
+    <img src="./screenshots/player-white.png"
+    alt="player-page"
     height="320"
     width="160"
-    style="float: left; margin-right: 10px;"/>
-<img src="./screenshots/library.jpeg"
-    alt="albumpage"
+    style="float: left; margin-right: 10px;" />
+    <img src="./screenshots/search.png"
+    alt="search-page"
     height="320"
     width="160"
-    style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/1shpv8mxvb13ids/Screenshot_2021-03-21-21-53-19-221_com.serenity.jpg?dl=0"
-    alt="artistpage"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;"/>
-<img src="./screenshots/player-dark.jpeg"
-    alt="playerpagedark"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;"/>
-<img src="./screenshots/player-white.jpeg"
-    alt="playerpagewhite"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;"/>
-<img src="https://dl.dropboxusercontent.com/s/w0s74b06v8k831a/Screenshot_2021-03-21-21-02-09-621_com.serenity.jpg?dl=0"
-    alt="playlistpage"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;"/>
+    style="float: left; margin-right: 10px;" />
 </p>
 
 ## Download
 
 [Become a Tester](https://appdistribution.firebase.dev/i/Dv8WUupp)
 
-[Download the App](https://install.appcenter.ms/users/Yajana/apps/Serenity)
+[Download the App](https://github.com/YajanaRao/Serenity/releases)
 
-## What is this?
+## What is this ?
 
-Serenity is a world class music player which focuses on giving wonderful experience to the user.
-
-## Aspects Involved
-
-### Music
-
-- In the words of Plato
-
-  > Music gives a soul to the universe, wings to the mind, flight to the imagination and life to everything.
-
-- In the words of Billy Joel
-
-  > I think music in itself is healing. It’s an explosive expression of humanity. It’s something we are all touched by. No matter what culture we’re from, everyone loves music.
-
-- In the words of Albert Schweitzer
-
-  > There are two means of refuge from the miseries of life: music and cats.
-
-### Artificial Intelligence
-
-- Machine learning for Facial recognition
-
-### Awesome UI
-
-- > Beauty ain't always a little, cute colored flower. Beauty is anything where people be like, 'Damn.'
-- In the words of Yajana
-
-  > When I admire the wonders of an Application or the beauty of the UI, my soul expands in the worship of the creator
+Serenity is a audio player which focuses on playing Music, Meditation and Podcasts. It let's you stream songs from various sources including Local and Online storage devices
 
 ## Pre-alpha release
 
@@ -112,15 +63,18 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Manage songs queue
 - Radio mode (automatically queue similar tracks)
 - Searching for and playing music from YouTube (including integration with YouTube playlists)
-- Downloading audio from YouTube
-- Play and Download Songs from JioSaavn
-- Unlimited downloads
+- Voice search songs
+
+## Development Process
+
+Serenity is open to contributions, but I recommend creating an issue or replying in a comment to let me know what you are working on first that way we don't overwrite each other.
+
+Please read [Setup.md](docs/Setup.md) for details on this project.
 
 ## Planned features
 
-- Voice search songs
-- Newest releases - tracks and albums
 - Play and download songs from Google Drive
+- Newest releases - tracks and albums
 - Creating a backup on Google Drive and sync audio from it 🎶
 - Searching for related songs in YouTube
 - Multiple language support
@@ -132,12 +86,6 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 - Browsing by popularity
 - Country-specific top lists
 - Listening suggestions (similar artists, albums, tracks)
-
-## Development Process
-
-Serenity is open to contributions, but I recommend creating an issue or replying in a comment to let me know what you are working on first that way we don't overwrite each other.
-
-Please read [Setup.md](docs/Setup.md) for details on this project.
 
 ## Our Community
 

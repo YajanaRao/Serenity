@@ -23,10 +23,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: checkout submodule
-        run: |
-          git submodule init
-          git submodule update
+      - name: Setup packages
+        run: yarn setup
 
       # set yarn cache directory
       - name: Get yarn cache directory path
@@ -56,6 +54,8 @@ jobs:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: echo $ENV_SECRET  | base64 -d  > packages/mobile/.env
 
+      - name: Add Version details 
+        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> packages/mobile/.env
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2

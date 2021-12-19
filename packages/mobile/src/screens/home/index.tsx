@@ -1,11 +1,16 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme, IconButton } from 'react-native-paper';
-import { MainScreen } from './Main';
-import { SettingScreen } from './Settings';
-import { getGreetingTime } from '../../utils/greeting';
+import { MainScreen } from './Main/Main';
+import { SettingScreen } from './Settings/SettingsScreen';
+import { getGreetingTime } from 'utils/greeting';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
-import { OnlinePlaylist } from '../shared/OnlinePlaylist';
+import { Favorites } from './FavoritesScreen';
+import { HistoryScreen } from './History/HistoryScreen';
+import { MostPlayedScreen } from './MostPlayed/MostPlayedScreen';
+import { PodcastScreen } from './Podcast/Podcast';
+import { MeditationScreen } from './Meditation/Meditation';
+import { PlaylistScreen } from './Playlist/Playlist';
 
 const Stack = createStackNavigator();
 
@@ -51,36 +56,36 @@ const HomeStack = () => {
       <Stack.Screen
         name="Playlist"
         component={PlaylistSongs}
-        options={({ route }) => {
-          const { playlist } = route.params;
-          const { addToQueue } = route.params;
-          return {
-            headerTitle: playlist.name,
-            headerRight: () => (
-              <IconButton
-                icon="play-circle-outline"
-                onPress={() => addToQueue()}
-              />
-            ),
-          };
+      />
+      <Stack.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          title: 'Liked Songs'
         }}
       />
       <Stack.Screen
-        name="OnlinePlaylist"
-        component={OnlinePlaylist}
-        options={({ route }) => {
-          const { playlist } = route.params;
-          const { addToQueue } = route.params;
-          return {
-            headerTitle: playlist.name,
-            headerRight: () => (
-              <IconButton
-                icon="play-circle-outline"
-                onPress={() => addToQueue()}
-              />
-            ),
-          };
+        name="History"
+        component={HistoryScreen}
+      />
+      <Stack.Screen
+        name="MostPlayed"
+        component={MostPlayedScreen}
+        options={{
+          title: "Most Played Songs"
         }}
+      />
+      <Stack.Screen
+        name="Podcast"
+        component={PodcastScreen}
+      />
+      <Stack.Screen
+        name="Meditation"
+        component={MeditationScreen}
+      />
+      <Stack.Screen
+        name="Songs"
+        component={PlaylistScreen}
       />
     </Stack.Navigator>
   );
