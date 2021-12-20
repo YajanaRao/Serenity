@@ -7,7 +7,8 @@ import { ArtCover } from 'components/ArtCover/ArtCover';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { ListHeader } from './ListHeader';
-import { Container, Spinner } from '../../../../../components';
+import { Container, Spinner } from '@serenity/components';
+import { useQuery } from 'react-query';
 
 export interface MeditationProps {
 }
@@ -33,25 +34,9 @@ export function MeditationScreen({ route }: MeditationProps) {
         scrollIndicatorInsetTop,
     } = useCollapsibleHeader(options);
 
-    const [isLoading, setIsLoading] = React.useState(true);
+    const {data, isLoading, refetch, isFetching} = useQuery(['meditation', meditation.id], () => Meditations.getMeditation(meditation.id))
 
-
-    function getMeditations() {
-        setIsLoading(true);
-        Meditations.getMeditation(meditation.id).then(response => {
-            setEpisodes(response);
-            setIsLoading(false);
-        });
-    }
-
-    React.useEffect(() => {
-        getMeditations();
-    }, [meditation]);
-
-    const [episodes, setEpisodes] = React.useState([]);
     const dispatch = useAppDispatch();
-
-
 
     async function playAudio(song) {
         const url = await Meditations.playMeditation(song.path);
@@ -63,17 +48,17 @@ export function MeditationScreen({ route }: MeditationProps) {
     }
 
     function addSongToQueue() {
-        dispatch(addSongsToQueue(episodes));
+        dispatch(addSongsToQueue(data));
     }
 
-    if (isLoading && episodes.length === 0) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
+    if (isLoading) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
 
     return (
         <Animated.FlatList
             onScroll={onScroll}
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
-            data={episodes}
+            data={data}
             keyExtractor={(item) => item.id}
             ListHeaderComponent={() => (
                 <ListHeader
@@ -87,8 +72,8 @@ export function MeditationScreen({ route }: MeditationProps) {
             refreshing={isLoading}
             refreshControl={
                 <RefreshControl
-                    refreshing={isLoading}
-                    onRefresh={getMeditations}
+                    refreshing={isFetching}
+                    onRefresh={refetch}
                     colors={['#12c2e9', '#c471ed', '#f64f59']}
                 />
             }

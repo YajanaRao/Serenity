@@ -8,6 +8,7 @@ import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { ListHeader } from './ListHeader';
 import { RefreshIndicator } from 'components/RefreshIndicator';
 import { Container, Spinner } from '@serenity/components';
+import { useQuery } from 'react-query';
 
 export interface PlaylistProps {
 }
@@ -28,8 +29,6 @@ export function PlaylistScreen({ route }: PlaylistProps) {
         },
     };
 
-    const [songs, setSongs] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true);
     const dispatch = useAppDispatch();
 
 
@@ -39,19 +38,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
         scrollIndicatorInsetTop,
     } = useCollapsibleHeader(options);
 
-
-
-    function getSongs() {
-        setIsLoading(true);
-        Songs.getSongs(playlist).then(response => {
-            setSongs(response);
-            setIsLoading(false);
-        });
-    }
-
-    React.useEffect(() => {
-        getSongs();
-    }, [playlist]);
+    const {data, isLoading, refetch, isFetching} = useQuery(['songs', playlist.id], () => Songs.getSongs(playlist))
 
     async function playAudio(song) {
         const url = await Songs.playSong(song.path);
@@ -63,17 +50,17 @@ export function PlaylistScreen({ route }: PlaylistProps) {
     }
 
     function addSongToQueue() {
-        dispatch(addSongsToQueue(songs));
+        dispatch(addSongsToQueue(data));
     }
 
-    if (isLoading && songs.length === 0) return <Container style={styles.container}><Spinner /></Container>
+    if (isLoading) return <Container style={styles.container}><Spinner /></Container>
 
     return (
         <Animated.FlatList
             onScroll={onScroll}
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
-            data={songs}
+            data={data}
             keyExtractor={(item) => item.id}
             ListHeaderComponent={() => (
                 <ListHeader
@@ -87,8 +74,8 @@ export function PlaylistScreen({ route }: PlaylistProps) {
             refreshing={isLoading}
             refreshControl={
                 <RefreshIndicator
-                    refreshing={isLoading}
-                    onRefresh={getSongs}
+                    refreshing={isFetching}
+                    onRefresh={refetch}
                 />
             }
             renderItem={({ item }) => (

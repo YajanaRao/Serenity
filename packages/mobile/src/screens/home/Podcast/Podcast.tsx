@@ -7,13 +7,16 @@ import { ListSongHeader } from 'components/ListSongHeader';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { RefreshIndicator } from 'components/RefreshIndicator';
-import { Container, Spinner } from '../../../../../components';
+import { Container, Spinner } from '@serenity/components';
+import { useQuery } from 'react-query';
 
 export interface PodcastProps {
 }
 
 export function PodcastScreen({ route }: PodcastProps) {
     const { podcast } = route.params;
+
+    const {data, isLoading, refetch, isFetching} = useQuery(['podcast', podcast.id], () => Podcasts.getPodcast(podcast.id))
 
     const options = {
         navigationOptions: {
@@ -33,21 +36,6 @@ export function PodcastScreen({ route }: PodcastProps) {
         scrollIndicatorInsetTop,
     } = useCollapsibleHeader(options);
 
-    const [isLoading, setIsLoading] = React.useState(true);
-
-    function getPodcasts() {
-        setIsLoading(true);
-        Podcasts.getPodcast(podcast.id).then(response => {
-            setEpisodes(response);
-            setIsLoading(false);
-        });
-    }
-
-    React.useEffect(() => {
-        getPodcasts();
-    }, [podcast]);
-
-    const [episodes, setEpisodes] = React.useState([]);
     const dispatch = useAppDispatch();
 
 
@@ -68,7 +56,7 @@ export function PodcastScreen({ route }: PodcastProps) {
             onScroll={onScroll}
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
-            data={episodes}
+            data={data}
             keyExtractor={(item) => item.id}
             ListHeaderComponent={() => (
                 <ListSongHeader
@@ -83,8 +71,8 @@ export function PodcastScreen({ route }: PodcastProps) {
             refreshing={isLoading}
             refreshControl={
                 <RefreshIndicator
-                    refreshing={isLoading}
-                    onRefresh={getPodcasts}
+                    refreshing={isFetching}
+                    onRefresh={refetch}
                 />
             }
             renderItem={({ item }) => (

@@ -8,13 +8,15 @@ import { Spinner } from '@serenity/components';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RootScreen } from './Root';
 import { SentryContainer } from './containers/SentryContainer';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+const queryClient = new QueryClient()
 
 
 const persistor = persistStore(store);
 
 
-function App(){
+function App() {
 
   const renderActivityIndicator = () => (
     <View style={styles.container}>
@@ -24,13 +26,15 @@ function App(){
 
   return (
     <SentryContainer>
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
-            <RootScreen />
-          </PersistGate>
-        </Provider>
-      </SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <Provider store={store}>
+            <PersistGate loading={renderActivityIndicator()} persistor={persistor}>
+              <RootScreen />
+            </PersistGate>
+          </Provider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
     </SentryContainer>
   );
 };
