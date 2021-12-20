@@ -18,11 +18,11 @@ import {
   UI,
   Native,
   Playlist,
-  addSongToQueue,
   songsSelectors,
   useAppSelector,
   useAppDispatch,
-  EntityId
+  EntityId,
+  SongProps
 } from '@serenity/core';
 import { Blank } from 'components/Blank';
 import { PlaylistDialog } from 'components/Dialogs/PlaylistDialog';
@@ -46,7 +46,7 @@ export const SongScreen = () => {
   const { colors } = useTheme();
 
   const { offlineReadAccessGiven } = useAppSelector((state) => state.ui);
-  const songs = useAppSelector(state => songsSelectors.selectIds(state));
+  const songs = useAppSelector(state => songsSelectors.selectAll(state));
   const { error, loading } = useAppSelector(state => state.songs)
 
   useEffect(() => {
@@ -107,7 +107,7 @@ export const SongScreen = () => {
         <View style={[styles.header, { backgroundColor: colors.background }]}>
           <Button
             icon="play"
-            onPress={() => dispatch(addSongToQueue(songs))}
+            onPress={() => dispatch(Player.add(songs))}
           >
             Play All
           </Button>
@@ -115,7 +115,7 @@ export const SongScreen = () => {
             <IconButton
               icon="shuffle-outline"
               color={colors.primary}
-              onPress={() => dispatch(Player.repeat("shuffle"))}
+              onPress={() => dispatch(Player.repeatSongs("shuffle"))}
             />
             <IconButton
               icon="search-outline"
@@ -142,8 +142,8 @@ export const SongScreen = () => {
         <FlatList
           ref={ref}
           data={songs}
-          renderItem={({ item }: { item: EntityId }) => <SongItem id={item} onPress={play} openMenu={openMenu} />}
-          keyExtractor={(item: EntityId) => `song-${item}`}
+          renderItem={({ item }: { item: SongProps }) => <SongItem id={item.id} onPress={play} openMenu={openMenu} />}
+          keyExtractor={(item: SongProps) => `song-${item.id}`}
           refreshControl={
             <RefreshControl
               progressViewOffset={32}

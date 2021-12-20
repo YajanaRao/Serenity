@@ -2,6 +2,7 @@ import { addEventListener, TrackPlayer } from 'react-track-player';
 import { EmitterSubscription } from 'react-native';
 import sample from 'lodash/sample';
 import isEmpty from 'lodash/isEmpty';
+import head from 'lodash/head';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { addSongToHistory } from "./historySlice";
@@ -139,7 +140,10 @@ export function add(songs: Array<SongProps> | SongProps) {
       dispatch(updateNotification(`${songs.title} added to queue`));
     }
     if (isEmpty(track)) {
-      dispatch(playSong(track));
+      const song = Array.isArray(songs) ? head(songs) : songs;
+      if(song){
+        dispatch(playSong(song));
+      }
     }
   }
 }
