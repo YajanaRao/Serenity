@@ -41,12 +41,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
     const {data, isLoading, refetch, isFetching} = useQuery(['songs', playlist.id], () => Songs.getSongs(playlist))
 
     async function playAudio(song) {
-        const url = await Songs.playSong(song.path);
-        const track = {
-            ...song,
-            path: url,
-        }
-        dispatch(Player.playSong(track));
+        dispatch(Player.playSong(song));
     }
 
     function addSongToQueue() {

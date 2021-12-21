@@ -45,10 +45,10 @@ export function PodcastScreen({ route }: PodcastProps) {
     }
 
     function addSongToQueue() {
-        dispatch(addSongsToQueue(episodes));
+        dispatch(addSongsToQueue(data));
     }
 
-    if (isLoading && episodes.length === 0) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
+    if (isLoading) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
 
 
     return (
