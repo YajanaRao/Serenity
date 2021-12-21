@@ -8,7 +8,9 @@ import { RecentContainer } from '../History/RecentView';
 import { MostPlayed } from '../MostPlayed/MostPlayedView';
 import { ShortCutContainer } from './components/ShortcutContainer';
 import QuoteCard from './components/QuoteCard';
-import OnlineSongsContainer from './components/OnlineSongsContainer';
+import PlaylistList from './components/PlaylistList';
+import PodcastList from './components/PodcastList';
+import MeditationList from './components/MeditationList';
 
 const Divider = () => <View style={{ marginVertical: 8 }} />;
 
@@ -27,7 +29,10 @@ export const MainScreen = () => {
         <Divider />
         <MostPlayed />
         <Divider />
-        <OnlineSongsContainer />
+        <PodcastList/>
+        <PlaylistList />
+        <Divider />
+        <MeditationList/>
       </ScrollView>
     </Screen>
   );
