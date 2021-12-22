@@ -14,10 +14,10 @@ function getQuery() {
 
 export function useQuote() {
   const { isConnected } = useNetInfo()
-  const quote = { quote: '', author: '' };
-  const { data } = useQuery('quote', getQuery)
+  let quote = { quote: '', author: '' };
+  const { data, isLoading } = useQuery('quote', getQuery)
   if (isConnected) {
-    return sample(data);
+    quote = sample(data);
   }
-  return quote;
+  return {quote, isLoading};
 }
