@@ -50,15 +50,15 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
-        run: echo $FIREBASE_SECRET > packages/mobile/android/app/google-services.json
+        run: echo $FIREBASE_SECRET > app/mobile/android/app/google-services.json
 
       - name: Decode env file
         env:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
-        run: echo $ENV_SECRET  | base64 -d  > packages/mobile/.env
+        run: echo $ENV_SECRET  | base64 -d  > app/mobile/.env
 
       - name: Add Version details 
-        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> packages/mobile/.env
+        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> app/mobile/.env
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
@@ -82,7 +82,7 @@ jobs:
         if: ${{ !github.event.pull_request }}
         with:
           name: app-release.apk
-          path: packages/mobile/android/app/build/outputs/apk/release/app-release.apk
+          path: app/mobile/android/app/build/outputs/apk/release/app-release.apk
 
       - name: upload artifact to Beta App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
@@ -91,7 +91,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: beta
-          file: packages/mobile/android/app/build/outputs/apk/release/app-release.apk
+          file: app/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
@@ -102,7 +102,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: dev
-          file: packages/mobile/android/app/build/outputs/apk/release/app-release.apk
+          file: app/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
@@ -114,7 +114,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
-          document: ${{ github.workspace }}/packages/mobile/android/app/build/outputs/apk/release/app-release.apk
+          document: ${{ github.workspace }}/app/mobile/android/app/build/outputs/apk/release/app-release.apk
 
   release:
     name: Release APK
