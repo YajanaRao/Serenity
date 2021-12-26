@@ -74,6 +74,7 @@ jobs:
          restore-keys: |
           ${{ runner.os }}-gradle-caches-
 
+      # fixed permission issue
       - name: Make gradlew executable
         run: chmod +x app/mobile/android/gradlew
 
