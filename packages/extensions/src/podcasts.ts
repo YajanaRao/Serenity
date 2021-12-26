@@ -1,4 +1,4 @@
-import * as rssParser from 'react-native-rss-parser';
+import { parseRss } from './utils';
 import Config from 'react-native-config';
 
 const Podcasts = {
@@ -13,12 +13,10 @@ const Podcasts = {
             this.podcastList = await response.json();
             return this.podcastList;
     },
-    async getPodcast(id: string) {
-        const podcast = this.podcastList.find(podcast => podcast.id === id);
-        if (!podcast) return [];
-        const response = await fetch(podcast.url)
+    async getPodcast(url: string) {
+        const response = await fetch(url)
         const responseData = await response.text();
-        const rss = await rssParser.parse(responseData);
+        const rss = await parseRss(responseData);
         const data = rss.items.map((item: any) => {
             let artist = item.authors[0]?.name;
             if (item.itunes.authors.length) artist = item.itunes.authors[0]?.name

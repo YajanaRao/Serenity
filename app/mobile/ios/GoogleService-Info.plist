@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>86193367343-a1u4hfpghnq75t5fioi0ugs60h52bil3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.86193367343-a1u4hfpghnq75t5fioi0ugs60h52bil3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>86193367343-8ajbuqnqt4mdbsqj6l2fqq0g73cjd9n9.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAzXeA-h22pPE_U6BNWR2MyD1USiMm9HJA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>86193367343</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.serenity</string>
+	<key>PROJECT_ID</key>
+	<string>serenity-d1937</string>
+	<key>STORAGE_BUCKET</key>
+	<string>serenity-d1937.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:86193367343:ios:d68eb40004fce518d219da</string>
+	<key>DATABASE_URL</key>
+	<string>https://serenity-d1937.firebaseio.com</string>
+</dict>
+</plist>
