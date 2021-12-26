@@ -74,6 +74,9 @@ jobs:
          restore-keys: |
           ${{ runner.os }}-gradle-caches-
 
+      - name: Make gradlew executable
+        run: chmod +x app/mobile/android/gradlew
+
       # Build android app
       - name: Build Android Release
         run: yarn release
