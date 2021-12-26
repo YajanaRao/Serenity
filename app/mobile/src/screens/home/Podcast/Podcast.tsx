@@ -6,7 +6,6 @@ import { ArtCover } from 'components/ArtCover/ArtCover';
 import { ListSongHeader } from 'components/ListSongHeader';
 import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
-import { RefreshIndicator } from 'components/RefreshIndicator';
 import { Container, Spinner } from '@serenity/components';
 import { useQuery } from 'react-query';
 
@@ -17,7 +16,7 @@ export interface PodcastProps {
 export function PodcastScreen({ route }: PodcastProps) {
     const { podcast } = route.params;
 
-    const {data, isLoading, refetch, isFetching} = useQuery(['podcast', podcast.id], () => Podcasts.getPodcast(podcast.url))
+    const { data, isLoading, refetch } = useQuery(['podcast', podcast.id], () => Podcasts.getPodcast(podcast.url))
 
     const options = {
         navigationOptions: {
@@ -50,7 +49,7 @@ export function PodcastScreen({ route }: PodcastProps) {
     }
 
     if (isLoading) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
-
+    
 
     return (
         <Animated.FlatList
@@ -70,12 +69,7 @@ export function PodcastScreen({ route }: PodcastProps) {
             ItemSeparatorComponent={() => <Divider />}
             showsHorizontalScrollIndicator={false}
             refreshing={isLoading}
-            refreshControl={
-                <RefreshIndicator
-                    refreshing={isFetching}
-                    onRefresh={refetch}
-                />
-            }
+            onRefresh={refetch}
             renderItem={({ item }) => (
                 <List.Item
                     title={item.title}
@@ -86,8 +80,7 @@ export function PodcastScreen({ route }: PodcastProps) {
                     description={item.artist || item.description}
                     left={props => <ArtCover {...props} cover={item.cover} style={{ height: 80, width: 80 }} />}
                 />
-            )
-            }
+            )}
         />
     );
 }

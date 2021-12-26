@@ -6,7 +6,6 @@ import { ArtCover } from 'components/ArtCover/ArtCover';
 import { Animated, StyleSheet } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { ListHeader } from './ListHeader';
-import { RefreshIndicator } from 'components/RefreshIndicator';
 import { Container, Spinner } from '@serenity/components';
 import { useQuery } from 'react-query';
 
@@ -38,7 +37,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
         scrollIndicatorInsetTop,
     } = useCollapsibleHeader(options);
 
-    const {data, isLoading, refetch, isFetching} = useQuery(['songs', playlist.id], () => Songs.getSongs(playlist))
+    const {data, isLoading, refetch} = useQuery(['songs', playlist.id], () => Songs.getSongs(playlist))
 
     async function playAudio(song) {
         dispatch(Player.playSong(song));
@@ -67,12 +66,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
             )}
             showsHorizontalScrollIndicator={false}
             refreshing={isLoading}
-            refreshControl={
-                <RefreshIndicator
-                    refreshing={isFetching}
-                    onRefresh={refetch}
-                />
-            }
+            onRefresh={refetch}
             renderItem={({ item }) => (
                 <List.Item
                     title={item.title}
