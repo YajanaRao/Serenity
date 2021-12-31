@@ -26,12 +26,12 @@ const BookList = () => {
         <View
           style={styles.titleContainer}
         >
-          <Headline>Podcasts</Headline>
+          <Headline>Audio Books</Headline>
         </View>
         <FlatList
           horizontal
           data={data}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.title}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }: { item: SongProps }) => <Track track={item} onPress={navigateToPodcast} />}
         />

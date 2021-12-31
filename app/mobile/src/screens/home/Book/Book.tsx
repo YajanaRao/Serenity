@@ -58,7 +58,7 @@ export function BookScreen({ route }: BookProps) {
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
             data={book.tracks}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.title}
             ListHeaderComponent={() => (
                 <ListSongHeader
                     title={book.title}
