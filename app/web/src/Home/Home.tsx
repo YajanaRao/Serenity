@@ -1,29 +1,14 @@
 import * as React from "react";
-import { FlatList } from "react-native";
 import { Card, Container, Screen, Title } from "@serenity/components";
 import {
-  EntityId,
-  songsSelectors,
   UI,
-  useAppDispatch,
-  useAppSelector,
 } from "@serenity/core";
-import { Songs } from "@serenity/extensions";
-import { Switch } from "react-native-paper";
+import { Switch, ActivityIndicator } from "react-native-paper";
 import { PlayerBar } from "./components/PlayerBar";
-import { Song } from "./components/Song";
+import PlaylistList from "./components/PlaylistList";
 
 export function Home() {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-  const [playlists, setPlaylists] = React.useState([]);
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    // @ts-ignore
-    Songs.getPlaylists().then(data => {
-      setPlaylists(data);
-    })
-  }, [dispatch]);
   function onToggleTheme() {
     setIsSwitchOn(!isSwitchOn);
     // @ts-ignore
@@ -31,44 +16,31 @@ export function Home() {
   }
 
 
-  // const songs = useAppSelector((state) => songsSelectors.selectIds(state));
   return (
     <Screen>
       <Container
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          margin: 8,
+          marginVertical: 24,
+          marginHorizontal: 16
         }}
       >
         <Title style={{ fontWeight: "bold", fontSize: 24 }}>Serenity</Title>
         <Switch value={isSwitchOn} onValueChange={onToggleTheme} />
       </Container>
-      <Container style={{ flexDirection: "row" }}>
-        <Container style={{ flex: 1, padding: 12 }}>
+      <Container style={{ flexDirection: "row", flex: 1 }}>
+        <Container style={{ padding: 16, width: 250 }}>
           <Card style={{ borderRadius: 4, marginVertical: 2 }}>
             <Title style={{ margin: 8 }}>Home</Title>
           </Card>
           <Title style={{ margin: 8 }}>Search</Title>
           <Title style={{ margin: 8 }}>Your library</Title>
         </Container>
-        <Container style={{ flex: 5 }}>
-          <FlatList
-            data={playlists}
-            horizontal={true}
-            keyExtractor={(item: EntityId) => `${item}`}
-            renderItem={({ item }) => <Song id={item} />}
-          />
+        <Container style={{ flex: 1, overflow: "scroll" }}>
+          <PlaylistList />
         </Container>
       </Container>
-      {/* <GoogleLogin
-        credentialsDetails={{
-          redirectUrl: "GOOGLE_REDIRECT_URI",
-          clientId: "GOOGLE_CLIENT_ID",
-        }}
-        getAccessToken={getAccessToken}
-        getUserDetails={getUserDetails}
-      /> */}
       <PlayerBar />
     </Screen>
   );

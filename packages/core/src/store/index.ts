@@ -24,10 +24,10 @@ const middlewares = getDefaultMiddleware({
   }
 });
 
-if (__DEV__) {
-  const createDebugger = require("redux-flipper").default;
-  middlewares.push(createDebugger());
-}
+// if (__DEV__) {
+//   const createDebugger = require("redux-flipper").default;
+//   middlewares.push(createDebugger());
+// }
 
 const persistedReducer = persistReducer(persistConfig, RootReducer);
 
