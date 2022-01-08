@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Image, View } from 'react-native';
-import { Hoverable, Title, Text } from '@serenity/components';
+import { Hoverable, Title } from '@serenity/components';
 import { Player, SongProps, useAppDispatch } from '@serenity/core';
 
 export function Song({song}: {song: SongProps}) {
     const dispatch = useAppDispatch();
 
-    console.log(song);
     function playSong(song: any) {
         dispatch(Player.playSong(song))
     }

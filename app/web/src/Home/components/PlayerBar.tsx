@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector, Player } from '@serenity/core'
 import { Card, Title, Text } from '@serenity/components';
 import { usePlaybackState } from 'react-track-player';
 import { IconButton } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { isEmpty } from 'lodash';
 
 export function PlayerBar() {
     const dispatch = useAppDispatch();
@@ -23,9 +25,11 @@ export function PlayerBar() {
             Player.pause();
         }
     }
-    
+
+    if(isEmpty(track)) return null;
+
     return (
-        <Card style={{ padding: 12, flexDirection: "row", position: "absolute", bottom: 0, width: "100%", justifyContent: "space-around" }}>
+        <Card style={styles.container}>
             <View style={{ flexDirection: "row", flex: 1 }}>
                 <Image source={{ uri: track.cover }} style={{ height: 50, width: 50 }} />
                 <View style={{ justifyContent: 'center', alignItems: 'flex-start', marginLeft: 12 }}>
@@ -44,3 +48,7 @@ export function PlayerBar() {
         </Card>
     );
 }
+
+const styles = StyleSheet.create({
+    container: { padding: 12, flexDirection: "row", position: "absolute", bottom: 0, width: "100%", justifyContent: "space-around" }
+})

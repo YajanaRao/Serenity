@@ -21,7 +21,7 @@ const PlaylistList = () => {
 
   if (netInfo.isConnected && !isLoading) {
     return (
-      <View>
+      <div className='container'>
         <View
           style={styles.titleContainer}
         >
@@ -32,10 +32,11 @@ const PlaylistList = () => {
           data={data}
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           // @ts-ignore
           renderItem={({ item }: { item: SongProps }) => <Song song={item} />}
         />
-      </View>
+      </div>
     );
   }
 
@@ -45,6 +46,7 @@ const PlaylistList = () => {
 export default PlaylistList;
 
 const styles = StyleSheet.create({
+  container: { overflow: 'hidden' },
   titleContainer: {
     marginLeft: 16,
     flexDirection: 'row',
