@@ -5,8 +5,8 @@ import { persistStore } from 'redux-persist';
 import { store } from '@serenity/core';
 import { Spinner } from '@serenity/components';
 import { Root } from 'Home/Root';
-import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from "react-router-dom";
 
 const queryClient = new QueryClient()
 
@@ -14,7 +14,7 @@ const persistor = persistStore(store);
 
 function App() {
   return (
-    <NavigationContainer>
+    <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={<Spinner />} persistor={persistor}>
           <QueryClientProvider client={queryClient}>
@@ -22,7 +22,7 @@ function App() {
           </QueryClientProvider>
         </PersistGate>
       </Provider>
-    </NavigationContainer>
+    </BrowserRouter>
 
   );
 }

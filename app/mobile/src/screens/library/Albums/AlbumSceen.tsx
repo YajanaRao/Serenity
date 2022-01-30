@@ -12,15 +12,12 @@ export const AlbumScreen = () => {
 
   return (
     <Screen>
-      {albums && albums.length ? (
-        <FlatList
-          data={albums}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }: { item: EntityId }) => <Album id={item} />}
-        />
-      ) : (
-        <EmptyFavoriteAlbums />
-      )}
+      <FlatList
+        data={albums}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }: { item: EntityId }) => <Album id={item} />}
+        ListEmptyComponent={() => <EmptyFavoriteAlbums />}
+      />
     </Screen>
   );
 };

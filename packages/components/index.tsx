@@ -9,7 +9,7 @@ import { Icon } from "./src/Icon";
 import Container from "./src/Container";
 import { Card } from "./src/Card";
 import Screen from "./src/Screen/Screen";
-import { Spinner } from "./src/Spinner";
+import { Spinner } from "./src/Spinner/Spinner";
 import { DarkTheme, DefaultTheme } from "./src/theme";
 import { Theme } from "react-native-paper/lib/typescript/types";
 

@@ -1,4 +1,4 @@
-import { getAudioUrl } from "./Plugins/Youtube";
+import { getAudioUrl } from "../Plugins/Youtube";
 
 var ytpl = require('react-native-ytpl');
 

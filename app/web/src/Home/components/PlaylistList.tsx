@@ -5,19 +5,14 @@ import { Headline } from '@serenity/components';
 // import { Track } from '../../components/Track';
 import { SongProps } from '@serenity/core';
 import { Songs } from '@serenity/extensions';
-import { useNavigation } from '@react-navigation/core';
 import { useQuery } from 'react-query';
 import { Song } from './Song';
 
 const PlaylistList = () => {
   const netInfo = useNetInfo();
-  const navigation = useNavigation();
 
   const { data, isLoading } = useQuery('playlists', () => Songs.getPlaylists())
 
-  const navigateToSongs = (item: any) => {
-    navigation.navigate("Songs", { playlist: item });
-  }
 
   if (netInfo.isConnected && !isLoading) {
     return (

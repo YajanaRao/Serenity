@@ -1,36 +1,25 @@
 import React, { useRef } from 'react';
 import { Title, Subheading } from 'react-native-paper';
-import { View, ViewStyle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/core';
 import Animations from '../../../../assets/Animations';
 
-const CONTAINER: ViewStyle = {
-  alignItems: 'center',
-  flex: 1,
-  justifyContent: 'center',
-  margin: 24,
-};
 
 export const EmptyFavoriteAlbums = () => {
   const animatedRef = useRef(null);
 
   useFocusEffect(
     React.useCallback(() => {
-      animatedRef.current.play();
+      animatedRef?.current?.play();
 
-      return () => animatedRef.current.pause();
+      return () => animatedRef?.current?.pause();
     }, []),
   );
   return (
-    <View style={CONTAINER}>
+    <View style={styles.container}>
       <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 150,
-          width: '100%',
-        }}
+        style={styles.animationContainer}
       >
         <LottieView
           ref={animatedRef}
@@ -45,3 +34,18 @@ export const EmptyFavoriteAlbums = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    padding: 24,
+  },
+  animationContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 150,
+    width: '100%',
+  }
+})
