@@ -1,6 +1,6 @@
 # Serenity 🏵️
 
-## Audio Player for Music, Meditation and Podcasts
+## Free App for Music, Meditation and Podcasts
 
 ![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
@@ -49,7 +49,7 @@
 
 ## What is this ?
 
-Serenity is a audio player which focuses on playing Music, Meditation and Podcasts. It let's you stream songs from various sources including Local and Online storage devices
+Serenity is a free app which focuses on playing Music, Meditation and Podcasts. It let's you stream songs from various sources including Local and Online storage devices
 
 ## Pre-alpha release
 

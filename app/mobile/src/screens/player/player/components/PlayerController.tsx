@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { IconButton, FAB, useTheme } from 'react-native-paper';
+import { FAB, useTheme } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { Player } from '@serenity/core';
 import { usePlaybackState } from 'react-track-player';
+import { IconButton } from '@serenity/components';
+import { Neomorph } from 'react-native-neomorph-shadows';
 
 export const PlayerController = () => {
   const dispatch = useDispatch();
@@ -19,23 +21,39 @@ export const PlayerController = () => {
   };
 
   const togglePlayback = () => {
-    if(state === "playing"){
+    if (state === "playing") {
       Player.pause()
     } else {
       Player.play();
     }
   };
-  
+
   return (
     <View style={styles.playerToolbox}>
-      <IconButton icon="skip-back-outline" size={50} onPress={previous} />
-      <FAB
-        icon={state === 'playing' ? 'pause' : 'play'}
-        onPress={togglePlayback}
-        loading={state === 'loading'}
-        style={{ backgroundColor: colors.onSurface }}
-      />
-      <IconButton icon="skip-forward-outline" size={50} onPress={next} />
+      <IconButton name="skip-back-outline" onPress={previous} size={70} />
+      <Neomorph
+        // swapShadows // <- change zIndex of each shadow color
+        darkShadowColor={'black'}
+        lightShadowColor={'white'}
+        style={{
+          shadowRadius: 8,
+          borderRadius: 40,
+          backgroundColor: colors.surface,
+          width: 80,
+          height: 80,
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex"
+        }}
+      >
+        <FAB
+          icon={state === 'playing' ? 'pause' : 'play'}
+          onPress={togglePlayback}
+          loading={state === 'loading'}
+          style={{ backgroundColor: colors.surface, width: 80, height: 80, borderRadius: 40, justifyContent: 'center', alignItems: "center" }}
+        />
+      </Neomorph>
+      <IconButton name="skip-forward-outline" onPress={next} size={70} />
     </View>
   );
 };

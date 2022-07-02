@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
-import { Caption, IconButton, useTheme } from 'react-native-paper';
-import { Screen } from '@serenity/components';
+import { Caption, useTheme } from 'react-native-paper';
+import { Screen, IconButton } from '@serenity/components';
 import LinearGradient from 'react-native-linear-gradient';
 import { Playlist, useAppDispatch, useAppSelector } from '@serenity/core';
 import { RepeatContainer } from 'containers/RepeatContainer';
@@ -20,7 +20,7 @@ export const PlayerScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const {track} = useAppSelector(
+  const { track } = useAppSelector(
     (state) => state.player,
   );
 
@@ -37,7 +37,7 @@ export const PlayerScreen = ({ navigation }) => {
             ? { uri: track.cover }
             : Images.welcomeImage
         }
-        blurRadius={40}
+        blurRadius={80}
         style={[styles.imageBackground, { backgroundColor: colors.background }]}
       >
         <LinearGradient
@@ -51,30 +51,32 @@ export const PlayerScreen = ({ navigation }) => {
           />
           <View style={styles.playerContainer}>
             <View style={styles.container}>
-              <IconButton icon="close" onPress={close} />
+              <IconButton name="close" onPress={close} />
             </View>
             <ActiveTrackDetails track={track} />
             <Progress />
             <View style={styles.playerToolbox}>
-              <FavSong id={track.id} />
               <PlayerController />
-              <RepeatContainer />
             </View>
             <View style={styles.extraMenuContainer}>
               <View style={styles.extraIcon}>
                 <IconButton
-                  size={20}
-                  style={styles.icon}
-                  icon="menu-outline"
+                  name="menu-outline"
                   onPress={() => navigation.navigate('Queue')}
                 />
                 <Caption style={styles.icon}>Queue</Caption>
               </View>
               <View style={styles.extraIcon}>
+                <FavSong id={track.id} />
+                <Caption style={styles.icon}>Add To Fav</Caption>
+              </View>
+              <View style={styles.extraIcon}>
+                <RepeatContainer />
+                <Caption style={styles.icon}>Repeat</Caption>
+              </View>
+              <View style={styles.extraIcon}>
                 <IconButton
-                  size={20}
-                  style={styles.icon}
-                  icon="folder-add-outline"
+                  name="folder-add-outline"
                   onPress={() => setVisible('DIALOG')}
                 />
                 <Caption>Playlist</Caption>
@@ -92,6 +94,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 10,
+    marginHorizontal: 12,
   },
   imageBackground: {
     flex: 1,

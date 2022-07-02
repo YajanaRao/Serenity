@@ -21,18 +21,19 @@ const MeditationList = () => {
     navigation.navigate("Meditation", { meditation: item })
   };
 
-  if (netInfo.isConnected) {    
+  if (netInfo.isConnected) {
     return (
       <View>
-        <View
+        {/* <View
           style={styles.titleContainer}
-        >
-          <Headline>Meditations</Headline>
-        </View>
+        > */}
+          <Headline style={styles.title}>Meditations</Headline>
+        {/* </View> */}
         <FlatList
           horizontal
           data={meditations}
           keyExtractor={(item) => item.id}
+          contentContainerStyle={{paddingTop: 14}}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }: { item: SongProps }) => <Meditation track={item} onPress={navigateToMeditation} />}
         />
@@ -46,11 +47,7 @@ const MeditationList = () => {
 export default MeditationList;
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  title: {
     marginLeft: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
   }
 });

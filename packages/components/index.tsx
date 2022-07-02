@@ -10,6 +10,8 @@ import Container from "./src/Container";
 import { Card } from "./src/Card";
 import Screen from "./src/Screen/Screen";
 import { Spinner } from "./src/Spinner";
+import IconButton from "./src/IconButton";
+import {Image} from './src/Image';
 import { DarkTheme, DefaultTheme } from "./src/theme";
 import { Theme } from "react-native-paper/lib/typescript/types";
 
@@ -40,4 +42,6 @@ export {
   Text,
   Button,
   Hoverable,
+  IconButton,
+  Image
 };

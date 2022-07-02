@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme, IconButton } from 'react-native-paper';
+import { useTheme  } from 'react-native-paper';
+import { IconButton } from '@serenity/components';
 import { MainScreen } from './Main/Main';
 import { SettingScreen } from './Settings/SettingsScreen';
-import { getGreetingTime } from 'utils/greeting';
 import { PlaylistSongs } from '../shared/PlaylistSongs';
 import { Favorites } from './FavoritesScreen';
 import { HistoryScreen } from './History/HistoryScreen';
@@ -20,30 +20,23 @@ const HomeStack = () => {
   const { colors } = theme;
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerStyle: {
-          backgroundColor: colors.surface,
+          backgroundColor: colors.background,
         },
         headerTintColor: colors.text,
         safeAreaInsets: { top: 0, bottom: 0 },
         headerBackImage: () => (
-          <IconButton style={{ marginLeft: 0 }} icon="arrow-back" />
+          <IconButton name="arrow-back" onPress={() => navigation.goBack()}/>
         ),
         headerBackTitleVisible: false
-      }}
+      })}
     >
       <Stack.Screen
         name="Home"
         component={MainScreen}
-        options={({ navigation }) => ({
-          headerTitle: getGreetingTime(),
-          headerTitleStyle: { fontFamily: 'Nunito-ExtraBold', fontSize: 24 },
-          headerRight: () => (
-            <IconButton
-              icon="settings-outline"
-              onPress={() => navigation.navigate('Settings')}
-            />
-          ),
+        options={() => ({
+          headerShown: false
         })}
       />
       <Stack.Screen

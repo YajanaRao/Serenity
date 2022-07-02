@@ -186,7 +186,6 @@ const Item = ({
       case 'Welcome':
         return (
           <Button
-            mode="contained"
             icon="arrow-forward"
             color={color}
             onPress={next}
@@ -197,7 +196,6 @@ const Item = ({
       default:
         return (
           <Button
-            mode="contained"
             icon="home"
             color={color}
             onPress={launchApp}

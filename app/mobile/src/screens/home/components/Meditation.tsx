@@ -4,6 +4,8 @@ import FastImage from 'react-native-fast-image';
 import { SongProps } from '@serenity/core';
 import { DefaultImage } from '../../../components/DefaultImage';
 import { Text } from '@serenity/components';
+import { Neomorph } from 'react-native-neomorph-shadows';
+import { useTheme } from 'react-native-paper';
 
 export interface MeditationProps {
     track: SongProps;
@@ -11,22 +13,38 @@ export interface MeditationProps {
 }
 
 export function Meditation({ track, onPress }: MeditationProps) {
+    const { colors } = useTheme();
     return (
         <TouchableOpacity
             style={[styles.item]}
             onPress={() => onPress(track)}
         >
-            {track?.cover ? (
-                <FastImage
-                    source={{
-                        uri: track.cover,
-                    }}
-                    style={[styles.photo]}
-                />
-            ) : (
-                <DefaultImage style={styles.photo} />
-            )}
-
+            <Neomorph
+                // swapShadows // <- change zIndex of each shadow color
+                darkShadowColor={'black'}
+                lightShadowColor={'white'}
+                style={{
+                    shadowRadius: 6,
+                    borderRadius: 12,
+                    backgroundColor: colors.surface,
+                    width: 194,
+                    height: 120,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    //   display: "flex"
+                }}
+            >
+                {track?.cover ? (
+                    <FastImage
+                        source={{
+                            uri: track.cover,
+                        }}
+                        style={[styles.photo]}
+                    />
+                ) : (
+                    <DefaultImage style={styles.photo} />
+                )}
+            </Neomorph>
             <Text numberOfLines={2} style={styles.title}>
                 {track?.title}
             </Text>
@@ -38,6 +56,7 @@ const styles = StyleSheet.create({
     item: {
         alignItems: 'center',
         marginBottom: 4,
+        marginTop: 12,
         marginLeft: 12,
         width: 200,
     },
@@ -53,7 +72,7 @@ const styles = StyleSheet.create({
         elevation: 4,
         height: 120,
         width: 194,
-        backgroundColor: 'gray'
+        backgroundColor: 'transparent'
     },
 });
 

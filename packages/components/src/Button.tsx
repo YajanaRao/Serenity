@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { Animated, StyleSheet, StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
+import { Animated, StyleSheet, StyleProp, ViewStyle, TouchableOpacity, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import color from 'color';
 import { Text } from './Text';
 import { Icon } from './Icon';
+import { NeomorphFlex } from 'react-native-neomorph-shadows';
+
 
 export interface ButtonProps {
   icon?: string;
@@ -16,11 +18,11 @@ export interface ButtonProps {
 
 export function Button({ children, onPress, icon, color: buttonColor, style, disabled = false }: ButtonProps) {
   const { colors, dark } = useTheme();
-
-  const { current: elevation } = React.useRef<Animated.Value>(new Animated.Value(4)); // Initial value for opacity: 0
+  const AnimatedNeomorph = Animated.createAnimatedComponent(NeomorphFlex)
+  const { current: shadowRadius } = React.useRef<Animated.Value>(new Animated.Value(8)); // Initial value for shadowRadius: 8
 
   function handlePressIn() {
-    Animated.timing(elevation, {
+    Animated.timing(shadowRadius, {
       toValue: 8,
       duration: 200,
       useNativeDriver: true,
@@ -28,8 +30,8 @@ export function Button({ children, onPress, icon, color: buttonColor, style, dis
   }
 
   function handlePressOut() {
-    Animated.timing(elevation, {
-      toValue: 4,
+    Animated.timing(shadowRadius, {
+      toValue: 0,
       duration: 200,
       useNativeDriver: true,
     }).start();
@@ -55,20 +57,26 @@ export function Button({ children, onPress, icon, color: buttonColor, style, dis
     <TouchableOpacity
       onPress={onPress}
       accessibilityRole="button"
-      activeOpacity={0.8}
+      activeOpacity={0.8} 
+      // onMouseEnter={handlePressIn}
+      // onMouseLeave={handlePressOut}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
     >
-      <Animated.View
-        style={[{
-          elevation,
-          backgroundColor,
-          justifyContent
-        }, styles.button, style]}
-        // @ts-ignore
-        onMouseEnter={handlePressIn}
-        onMouseLeave={handlePressOut}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
+      <AnimatedNeomorph
+        darkShadowColor={'black'}
+        lightShadowColor={'white'}
+        style={{
+          shadowRadius: shadowRadius,
+          borderRadius: 25,
+          height: 50,
+          backgroundColor: colors.surface,
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: 'wrap'
+        }}
       >
+      <View style={[styles.button, style, {backgroundColor, justifyContent}]}>
         <Text style={[styles.label, {
           color: textColor,
         }]}
@@ -76,7 +84,8 @@ export function Button({ children, onPress, icon, color: buttonColor, style, dis
           {children}
         </Text>
         {icon && <Icon name={icon} size={20} color={textColor} style={{ marginLeft: 4 }} />}
-      </Animated.View>
+      </View>
+      </AnimatedNeomorph>
     </TouchableOpacity>
   );
 }
@@ -90,14 +99,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   button: {
-    minWidth: 84,
+    minWidth: 125,
+    height: 50,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    borderRadius: 6,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    borderWidth: 0,
+    borderRadius: 25,
   },
 });

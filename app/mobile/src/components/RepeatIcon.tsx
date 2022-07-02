@@ -1,6 +1,5 @@
 import React from 'react';
-import { IconButton } from 'react-native-paper';
-
+import {IconButton} from '@serenity/components';
 interface Props {
   repeat: string;
   updateRepeatType(): void;
@@ -23,5 +22,5 @@ export const RepeatIcon = ({ repeat, updateRepeatType }: Props) => {
       break;
   }
 
-  return <IconButton animated icon={iconName} onPress={updateRepeatType} />;
+  return <IconButton name={iconName} onPress={updateRepeatType} />;
 };

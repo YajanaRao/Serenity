@@ -7,11 +7,11 @@ import {
   Surface,
   Text,
   Caption,
-  IconButton,
   ActivityIndicator,
 } from 'react-native-paper';
 import { ArtCover } from 'components/ArtCover/ArtCover';
 import { usePlaybackState } from 'react-track-player';
+import { IconButton } from '@serenity/components';
 
 export const PlayerBar = () => {
   const navigation = useNavigation();
@@ -62,11 +62,10 @@ export const PlayerBar = () => {
             <ActivityIndicator animating={status === 'loading'} />
           ) : (
             <IconButton
-              icon={status === 'playing' ? 'pause' : 'play'}
-              animated
-              size={34}
+              name={status === 'playing' ? 'pause' : 'play'}
+              // animated
+              size={46}
               onPress={togglePlayback}
-              style={styles.icon}
             />
           )}
         </View>
@@ -82,7 +81,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: 50,
   },
-  icon: { margin: 0, padding: 0 },
   playBar: {
     alignItems: 'center',
     elevation: 0,

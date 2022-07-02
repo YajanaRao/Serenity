@@ -21,15 +21,12 @@ const PlaylistList = () => {
   if (netInfo.isConnected && !isLoading) {
     return (
       <View>
-        <View
-          style={styles.titleContainer}
-        >
-          <Headline>Songs</Headline>
-        </View>
+        <Headline style={styles.title}>Songs</Headline>
         <FlatList
           horizontal
           data={data}
           keyExtractor={(item) => item.id}
+          contentContainerStyle={{ paddingTop: 14 }}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }: { item: SongProps }) => <Track track={item} onPress={navigateToSongs} />}
         />
@@ -43,11 +40,7 @@ const PlaylistList = () => {
 export default PlaylistList;
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  title: {
     marginLeft: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
   }
 });

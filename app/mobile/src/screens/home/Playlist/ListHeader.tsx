@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import FastImage from 'react-native-fast-image';
-import { Title, Text, Button } from '@serenity/components'
+import { Title, Text, Button, Image } from '@serenity/components'
 import { Container } from '@serenity/components';
 
 interface ListHeaderProps {
@@ -20,7 +19,7 @@ export const ListHeader = ({
     <Container>
         <View style={styles.coverContainer}>
             {cover ? (
-                <FastImage source={{ uri: cover }} style={styles.artCover} />
+                <Image source={cover} style={styles.artCover} />
             ) : null}
         </View>
         <View style={styles.titleContainer}>
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginBottom: 8,
     },
-    artCover: { width: 324, height: 180, elevation: 4, borderRadius: 12, backgroundColor: 'lightgray' },
+    artCover: { width: 324, height: 180, borderRadius: 12, backgroundColor: 'lightgray' },
     titleContainer: {
         alignItems: 'center',
         justifyContent: 'center',

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Image, View } from 'react-native';
 import { useAppDispatch, useAppSelector, Player } from '@serenity/core'
-import { Card, Title, Text } from '@serenity/components';
+import { Card, Title, Text, IconButton } from '@serenity/components';
 import { usePlaybackState } from 'react-track-player';
-import { IconButton } from 'react-native-paper';
 
 export function PlayerBar() {
     const dispatch = useAppDispatch();
@@ -17,13 +16,13 @@ export function PlayerBar() {
 
     function toggle() {
         // @ts-ignore
-        if(status === "playing"){
+        if (status === "playing") {
             Player.pause();
         } else {
             Player.pause();
         }
     }
-    
+
     return (
         <Card style={{ padding: 12, flexDirection: "row", position: "absolute", bottom: 0, width: "100%", justifyContent: "space-around" }}>
             <View style={{ flexDirection: "row", flex: 1 }}>
@@ -34,9 +33,9 @@ export function PlayerBar() {
                 </View>
             </View>
             <View style={{ flex: 1, flexDirection: "row" }}>
-                <IconButton icon={"skip-back-outline"} />
-                <IconButton icon={status === "playing" ? "pause" : "play"} onPress={toggle} />
-                <IconButton icon={"skip-forward-outline"} />
+                <IconButton name={"skip-back-outline"} />
+                <IconButton name={status === "playing" ? "pause" : "play"} onPress={toggle} />
+                <IconButton name={"skip-forward-outline"} />
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 {/* <ProgressBar /> */}

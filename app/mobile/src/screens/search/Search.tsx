@@ -52,7 +52,6 @@ export const SearchScreen = ({ navigation }: Props) => {
 
   React.useEffect(() => {
     Genre.getGenres().then(data =>{
-      console.log(data);
       setGenres(data);
     });
   }, [])
