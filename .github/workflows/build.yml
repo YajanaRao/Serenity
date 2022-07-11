@@ -89,7 +89,7 @@ jobs:
           path: app/mobile/android/app/build/outputs/apk/release/app-release.apk
 
       - name: upload artifact to Beta App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
         if: ${{ !github.event.pull_request }}
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
@@ -100,7 +100,7 @@ jobs:
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
       - name: upload artifact to Dev App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
         if: ${{ github.event.pull_request }}
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
