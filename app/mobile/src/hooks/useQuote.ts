@@ -3,9 +3,15 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { sample } from 'lodash';
 import { log } from 'utils/logging';
 import { useQuery } from 'react-query';
+import Config from 'react-native-config';
 
 function getQuery() {
-  return fetch('https://gist.githubusercontent.com/YajanaRao/3917a962bbe8462ac5083da2186b7c3d/raw/001db7423543f53c0fd72273c333b53d32d50f7d/quotes.json')
+  return fetch('https://okmuhrunizvusvoypvis.supabase.co/rest/v1/quotes?select=*', {
+    headers: {
+      Apikey: Config.SUPA_BASE,
+      Authorization: `Bearer ${Config.SUPA_BASE}`
+  }
+  })
     .then(response => response.json())
     .catch(error => {
       log.error('QuoteContainer', error);

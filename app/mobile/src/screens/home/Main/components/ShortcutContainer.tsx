@@ -92,5 +92,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     margin: 16,
   },
-  shortcutContainer: { justifyContent: 'center', alignItems: 'center' }
+  shortcutContainer: { justifyContent: 'center', alignItems: 'center', elevation: 8 }
 });
