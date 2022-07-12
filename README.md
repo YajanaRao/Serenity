@@ -1,46 +1,26 @@
-# Serenity 🏵️
+<p align="center">
+  <img src="./screenshots/Meditation-bro.svg" alt="logo" height="150"/>
+</p>
 
-## Free App for Music, Meditation and Podcasts
+<h2 align="center">
+    Serenity
+</h2>
+
+<p align="center">
+Free App for Music, Meditation and Podcasts
+</p>
+
+<p align="center">
 
 ![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/YajanaRao/Serenity/pulls)
-
-
-<p float="left">
-<img src="./screenshots/intro-ios.png"
-    alt="intropage"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;" />
-    <img src="./screenshots/home.jpeg"
-    alt="home-page"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;" />
-    <img src="./screenshots/library.jpeg"
-    alt="library-page"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;" />
-    <img src="./screenshots/player-dark.png"
-    alt="player-page"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;" />
-    <img src="./screenshots/player-white.png"
-    alt="player-page"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;" />
-    <img src="./screenshots/search.png"
-    alt="search-page"
-    height="320"
-    width="160"
-    style="float: left; margin-right: 10px;" />
 </p>
 
+<p align="center">
+  <img src="./screenshots/banner.png" alt="banner" />
+</p>
 ## Download
 
 [Become a Tester](https://appdistribution.firebase.dev/i/Dv8WUupp)

@@ -24,7 +24,7 @@ const PlaylistList = () => {
         <View
           style={styles.titleContainer}
         >
-          <Headline>Songs</Headline>
+          <Headline>Music</Headline>
         </View>
         <FlatList
           horizontal

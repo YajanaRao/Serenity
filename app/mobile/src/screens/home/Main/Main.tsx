@@ -25,7 +25,6 @@ export const MainScreen = () => {
         <NetNotify />
         <ShortCutContainer />
         <QuoteCard />
-        <Divider />
         <RecentContainer />
         <Divider />
         <MostPlayed />
