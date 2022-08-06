@@ -13,7 +13,7 @@ const MeditationList = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
 
-  const {data, isLoading} = useQuery('podcasts', () => Meditations.getMeditations())
+  const {data, isLoading} = useQuery('meditations', () => Meditations.getMeditations())
 
 
   const navigateToMeditation = (item: any) => {
