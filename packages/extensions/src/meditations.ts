@@ -15,11 +15,8 @@ const Meditations = {
         this.meditationList = await response.json();
         return this.meditationList;
     },
-    async getMeditation(id: string) {
-        const meditation = this.meditationList.find(meditation => meditation.id === id);
-        if (!meditation) return [];
-
-        const playlist = await ytpl(meditation.url);
+    async getMeditation(url: string) {
+        const playlist = await ytpl(url);
         const data = playlist.items.map((item: any) => {
             let artist = item.author?.name;
             return {

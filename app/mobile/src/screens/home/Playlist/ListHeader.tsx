@@ -25,13 +25,11 @@ export const ListHeader = ({
         </View>
         <View style={styles.titleContainer}>
             <Title>{title}</Title>
-            {description ? <Text>{description}</Text> : null}
+            {description ? <Text numberOfLines={0}>{description}</Text> : null}
         </View>
-        <View style={styles.buttonContainer}>
-            <Button onPress={onPress}>
-                Play All
-            </Button>
-        </View>
+        <Button onPress={onPress} style={styles.buttonContainer}>
+            Play All
+        </Button>
     </Container>
 );
 
@@ -40,13 +38,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 4,
-        margin: 8,
+        margin: 12,
     },
     buttonContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        marginBottom: 8,
+        margin: 12,
     },
     artCover: { width: 324, height: 180, elevation: 4, borderRadius: 12, backgroundColor: 'lightgray' },
     titleContainer: {

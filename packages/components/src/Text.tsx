@@ -13,7 +13,7 @@ export interface TextProps {
 export function Text({ children, style, numberOfLines = 2, ...rest }: TextProps) {
   const { colors } = useTheme();
 
-  const fontFamily = Platform.OS === 'web' ? 'Nunito' : 'Nunito-ExtraBold';
+  const fontFamily = Platform.OS === 'web' ? 'Nunito' : 'Nunito-Regular';
   return (
     <SimpleText
       {...rest}

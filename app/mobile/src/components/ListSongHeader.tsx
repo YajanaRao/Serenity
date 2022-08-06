@@ -28,13 +28,11 @@ export const ListSongHeader = ({
     </View>
     <View style={styles.titleContainer}>
       <Title>{title}</Title>
-      {description ? <Text>{description}</Text> : null}
+      {description ? <Text numberOfLines={0}>{description}</Text> : null}
     </View>
-    <View style={styles.buttonContainer}>
-      <Button onPress={addSongsToQueue}>
-        Play All
-      </Button>
-    </View>
+    <Button onPress={addSongsToQueue} style={styles.buttonContainer}>
+      Play All
+    </Button>
   </Container>
 );
 
@@ -46,16 +44,13 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    marginBottom: 8,
+    margin: 12,
   },
   artCover: { width: 200, height: 200, elevation: 4, borderRadius: 12, backgroundColor: 'lightgray' },
   titleContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 8,
+    margin: 12,
   },
   fillContainer: {
     flex: 1,

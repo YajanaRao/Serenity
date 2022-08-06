@@ -16,11 +16,9 @@ export const Blank = ({ text, fetchData, buttonText = 'Refresh' }: Props) => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Tree message={text} />
-      <View style={styles.padding}>
-        <Button onPress={fetchData}>
-          {buttonText}
-        </Button>
-      </View>
+      <Button onPress={fetchData} style={styles.padding}>
+        {buttonText}
+      </Button>
     </View>
   );
 };

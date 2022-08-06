@@ -34,7 +34,7 @@ export function MeditationScreen({ route }: MeditationProps) {
         scrollIndicatorInsetTop,
     } = useCollapsibleHeader(options);
 
-    const {data, isLoading, refetch, isFetching} = useQuery(['meditation', meditation.id], () => Meditations.getMeditation(meditation.id))
+    const {data, isLoading, refetch, isFetching} = useQuery(['meditation', meditation.id], () => Meditations.getMeditation(meditation.url))
 
     const dispatch = useAppDispatch();
 
