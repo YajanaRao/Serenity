@@ -13,13 +13,13 @@ const MeditationList = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
 
-  const {data, isLoading} = useQuery('meditations', () => Meditations.getMeditations())
+  const {data} = useQuery('meditations', () => Meditations.getMeditations())
 
 
   const navigateToMeditation = (item: any) => {
     analytics().logSelectItem({
       content_type: 'meditation',
-      item_list_id: item.id,
+      item_list_id: item.id.toString(),
       item_list_name: item.title
     })
     navigation.navigate("Meditation", { meditation: item })

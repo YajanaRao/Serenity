@@ -28,9 +28,9 @@ export const RecentContainer = () => {
 
   if (history.length > 3) {
     return (
-      <View>
+      <View style={styles.container}>
         <View
-          style={styles.container}
+          style={styles.titleContainer}
         >
           <Headline>Recently Played</Headline>
           {history.length > 3 ? (
@@ -54,6 +54,9 @@ export const RecentContainer = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginVertical: 16,
+  },
+  titleContainer: {
     marginLeft: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',

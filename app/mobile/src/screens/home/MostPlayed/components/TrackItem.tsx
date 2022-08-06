@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 4,
         marginLeft: 12,
-        width: 120,
+        width: 140,
     },
     title: {
         fontSize: 12,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     photo: {
         borderRadius: 12,
         elevation: 4,
-        height: 120,
+        height: 140,
         width: "100%",
         backgroundColor: 'gray'
     },

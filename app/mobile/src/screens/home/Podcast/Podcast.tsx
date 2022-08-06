@@ -8,6 +8,7 @@ import { Animated } from 'react-native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { Container, Spinner } from '@serenity/components';
 import { useQuery } from 'react-query';
+import analytics from '@react-native-firebase/analytics';
 
 export interface PodcastProps {
     route: any
@@ -41,6 +42,11 @@ export function PodcastScreen({ route }: PodcastProps) {
 
 
     function playAudio(song) {
+        analytics().logSelectItem({
+            content_type: 'podcast',
+            item_list_id: song.id.toString(),
+            item_list_name: song.title
+        })
         dispatch(Player.playSong(song));
     }
 
@@ -49,7 +55,7 @@ export function PodcastScreen({ route }: PodcastProps) {
     }
 
     if (isLoading) return <Container style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Spinner /></Container>
-    
+
 
     return (
         <Animated.FlatList

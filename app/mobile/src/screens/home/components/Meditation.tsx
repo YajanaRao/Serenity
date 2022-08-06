@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         marginBottom: 4,
         marginLeft: 12,
-        width: 340,
+        width: 280,
     },
     textContainer: {
         marginTop: 8,
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     photo: {
         borderRadius: 12,
         elevation: 4,
-        height: 188,
-        width: 336,
+        height: 156,
+        width: 280,
         backgroundColor: 'gray'
     },
 });

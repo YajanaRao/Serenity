@@ -7,22 +7,28 @@ import { Books } from '@serenity/extensions';
 import { useNavigation } from '@react-navigation/core';
 import { useQuery } from 'react-query';
 import { Book } from 'screens/home/components/Book';
+import analytics from '@react-native-firebase/analytics';
 
 const BookList = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
 
-  const {data, isLoading} = useQuery('books', () => Books.getBooks())
+  const { data, isLoading } = useQuery('books', () => Books.getBooks())
 
 
   const navigateToPodcast = (item: any) => {
+    analytics().logSelectItem({
+      content_type: 'book',
+      item_list_id: item.id.toString(),
+      item_list_name: item.title
+    })
     navigation.navigate("Book", { book: item })
   };
- 
 
-  if (netInfo.isConnected && !isLoading) {    
+
+  if (netInfo.isConnected && !isLoading) {
     return (
-      <View>
+      <View style={styles.container}>
         <View
           style={styles.titleContainer}
         >
@@ -45,6 +51,7 @@ const BookList = () => {
 export default BookList;
 
 const styles = StyleSheet.create({
+  container: { marginVertical: 18 },
   titleContainer: {
     marginLeft: 16,
     flexDirection: 'row',

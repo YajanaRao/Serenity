@@ -7,6 +7,7 @@ import { Podcasts } from '@serenity/extensions';
 import { useNavigation } from '@react-navigation/core';
 import { useQuery } from 'react-query';
 import { Podcast } from 'screens/home/components/Podcast';
+import analytics from '@react-native-firebase/analytics';
 
 const PodcastList = () => {
   const netInfo = useNetInfo();
@@ -16,6 +17,11 @@ const PodcastList = () => {
 
 
   const navigateToPodcast = (item: any) => {
+    analytics().logSelectItem({
+      content_type: 'podcast',
+      item_list_id: item.id.toString(),
+      item_list_name: item.title
+    })
     navigation.navigate("Podcast", { podcast: item })
   };
  
