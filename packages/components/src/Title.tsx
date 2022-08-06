@@ -7,7 +7,7 @@ export interface TitleProps {
   style?: TextStyle;
 }
 
-export function Title({ children, style }: TitleProps) {
+export function Title({ children, style, ...rest }: TitleProps) {
   const { colors } = useTheme();
 
   const fontFamily = Platform.OS === 'web' ? 'Nunito' : 'Nunito-ExtraBold';
@@ -17,6 +17,7 @@ export function Title({ children, style }: TitleProps) {
         { fontFamily, color: colors.text, fontSize: 16 },
         style,
       ]}
+      {...rest}
     >
       {children}
     </Text>

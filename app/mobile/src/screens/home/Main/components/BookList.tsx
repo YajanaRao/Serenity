@@ -2,11 +2,11 @@ import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Headline } from '@serenity/components';
-import { Track } from '../../components/Track';
 import { SongProps } from '@serenity/core';
 import { Books } from '@serenity/extensions';
 import { useNavigation } from '@react-navigation/core';
 import { useQuery } from 'react-query';
+import { Book } from 'screens/home/components/Book';
 
 const BookList = () => {
   const netInfo = useNetInfo();
@@ -33,7 +33,7 @@ const BookList = () => {
           data={data}
           keyExtractor={(item) => item.title}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }: { item: SongProps }) => <Track track={item} onPress={navigateToPodcast} />}
+          renderItem={({ item }: { item: SongProps }) => <Book track={item} onPress={navigateToPodcast} />}
         />
       </View>
     );

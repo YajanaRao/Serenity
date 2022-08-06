@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { SongProps } from '@serenity/core';
 import { DefaultImage } from '../../../components/DefaultImage';
-import { Text } from '@serenity/components';
+import { Text, Title } from '@serenity/components';
 
 export interface MeditationProps {
     track: SongProps;
@@ -26,24 +26,29 @@ export function Meditation({ track, onPress }: MeditationProps) {
             ) : (
                 <DefaultImage style={styles.photo} />
             )}
-
-            <Text numberOfLines={2} style={styles.title}>
-                {track?.title}
-            </Text>
+            <View style={styles.textContainer}>
+                <Title numberOfLines={2} style={styles.title}>
+                    {track?.title}
+                </Title>
+                <Text numberOfLines={2} style={styles.title}>
+                    {track?.author}
+                </Text>
+            </View>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     item: {
-        alignItems: 'center',
+        // alignItems: 'center',
         marginBottom: 4,
         marginLeft: 12,
-        width: 200,
+        width: 340,
+    },
+    textContainer: {
+        marginTop: 8,
     },
     title: {
-        fontSize: 12,
-        marginTop: 8,
         padding: 0,
         fontFamily: 'Nunito-Bold',
         includeFontPadding: false,
@@ -51,8 +56,8 @@ const styles = StyleSheet.create({
     photo: {
         borderRadius: 12,
         elevation: 4,
-        height: 120,
-        width: 194,
+        height: 188,
+        width: 336,
         backgroundColor: 'gray'
     },
 });

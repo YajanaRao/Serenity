@@ -20,6 +20,8 @@
 		"@react-native-community/masked-view": "^0.1.5",
 		"@react-native-community/netinfo": "^6.0.0",
 		"@react-native-community/slider": "^4.1.12",
+		"@react-native-firebase/analytics": "^15.2.0",
+		"@react-native-firebase/app": "^15.2.0",
 		"@react-native-google-signin/google-signin": "^6.0.0",
 		"@react-native-voice/voice": "^3.1.5",
 		"@react-navigation/bottom-tabs": "^5.11.9",

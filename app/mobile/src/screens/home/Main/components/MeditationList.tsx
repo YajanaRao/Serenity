@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Headline } from '@serenity/components';
@@ -6,18 +6,22 @@ import { Meditation } from '../../components/Meditation';
 import { SongProps } from '@serenity/core';
 import { Meditations } from '@serenity/extensions';
 import { useNavigation } from '@react-navigation/core';
+import analytics from '@react-native-firebase/analytics';
+import { useQuery } from 'react-query';
 
 const MeditationList = () => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
-  const [meditations, setMeditations] = React.useState([]);
 
-  useEffect(() => {
-    setMeditations(Meditations.getMeditations())
-  }, [])
+  const {data, isLoading} = useQuery('podcasts', () => Meditations.getMeditations())
 
 
   const navigateToMeditation = (item: any) => {
+    analytics().logSelectItem({
+      content_type: 'meditation',
+      item_list_id: item.id,
+      item_list_name: item.title
+    })
     navigation.navigate("Meditation", { meditation: item })
   };
 
@@ -31,7 +35,7 @@ const MeditationList = () => {
         </View>
         <FlatList
           horizontal
-          data={meditations}
+          data={data}
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }: { item: SongProps }) => <Meditation track={item} onPress={navigateToMeditation} />}

@@ -2,11 +2,11 @@ import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Headline } from '@serenity/components';
-import { Track } from '../../components/Track';
 import { SongProps } from '@serenity/core';
 import { Podcasts } from '@serenity/extensions';
 import { useNavigation } from '@react-navigation/core';
 import { useQuery } from 'react-query';
+import { Podcast } from 'screens/home/components/Podcast';
 
 const PodcastList = () => {
   const netInfo = useNetInfo();
@@ -33,7 +33,7 @@ const PodcastList = () => {
           data={data}
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }: { item: SongProps }) => <Track track={item} onPress={navigateToPodcast} />}
+          renderItem={({ item }: { item: SongProps }) => <Podcast track={item} onPress={navigateToPodcast} />}
         />
       </View>
     );
