@@ -1,5 +1,6 @@
 *.jsbundle
 *.tsbuildinfo
+ .turbo
 .DS_Store
 .history
 .jest
@@ -10,3 +11,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 node_modules/*
+
+# generated files by bob
+lib

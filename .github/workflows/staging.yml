@@ -47,15 +47,15 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
-        run: echo $FIREBASE_SECRET > packages/mobile/android/app/google-services.json
+        run: echo $FIREBASE_SECRET > app/mobile/android/app/google-services.json
 
       - name: Decode env file
         env:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
-        run: echo $ENV_SECRET  | base64 -d  > packages/mobile/.env
+        run: echo $ENV_SECRET  | base64 -d  > app/mobile/.env
 
       - name: Add Version details 
-        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> packages/mobile/.env
+        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> app/mobile/.env
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
@@ -70,6 +70,10 @@ jobs:
          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
          restore-keys: |
           ${{ runner.os }}-gradle-caches-
+      
+      # fixed permission issue
+      - name: Make gradlew executable
+        run: chmod +x app/mobile/android/gradlew
 
       # Build android app
       - name: Build Android Release
@@ -80,14 +84,15 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
-          path: packages/mobile/android/app/build/outputs/apk/release/app-release.apk
+          path: app/mobile/android/app/build/outputs/apk/release/app-release.apk
 
       - name: upload artifact to Dev App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.2
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
+          serviceCredentialsFile: app/mobile/android/app/google-services.json
           groups: dev
-          file: packages/mobile/android/app/build/outputs/apk/release/app-release.apk
+          file: app/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}

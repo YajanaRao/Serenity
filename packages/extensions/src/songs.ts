@@ -36,6 +36,7 @@ const songs = {
             return ytdlUrl;
         } catch (error) {
             console.log(error)
+            return null;
         }
     }
 }

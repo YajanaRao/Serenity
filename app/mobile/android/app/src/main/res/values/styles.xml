@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!-- <item name="colorPrimaryDark">#233656</item> -->
+        <!-- <item name="colorControlActivated">#a6ed8e</item> -->
+        <item name="android:windowBackground">@color/darkBackground</item>
+
+    </style>
+
+    <!-- Add the following lines (BootTheme should inherit from AppTheme) -->
+    <style name="BootTheme" parent="AppTheme">
+        <!-- set the generated bootsplash.xml drawable as activity background -->
+        <item name="android:background">@drawable/bootsplash</item>
+    </style>
+
+</resources>

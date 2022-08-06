@@ -8,7 +8,7 @@ import { SongProps } from './types'
 type QueueSongs = SongProps & { date: string };
 
 const queueAdapter = createEntityAdapter<QueueSongs>({
-    sortComparer: (a, b) => a.date.localeCompare(b.date),
+    sortComparer: (a, b) => a.date?.localeCompare(b.date),
 })
 
 const queueSlice = createSlice({
