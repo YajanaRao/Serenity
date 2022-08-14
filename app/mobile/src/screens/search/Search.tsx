@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Animated,
   Pressable,
-  View
 } from 'react-native';
 import { useTheme, Text, IconButton, Surface } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
