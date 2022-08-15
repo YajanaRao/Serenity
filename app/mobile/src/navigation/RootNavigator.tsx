@@ -44,6 +44,7 @@ const RootStack = () => (
       name="Find"
       component={FindScreen}
       initialParams={{ type: 'all' }}
+      options={{ headerShown: false }}
     />
     <Stack.Screen
       name="Player"

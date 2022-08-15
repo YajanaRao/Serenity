@@ -10,9 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useScrollToTop } from '@react-navigation/native';
 import { useCollapsibleHeader } from 'react-navigation-collapsible';
 import { StackNavigationProp } from '@react-navigation/stack';
-
 import { Screen, Headline, Title } from '@serenity/components';
-// import Genre from '../../data/genre.json';
 import { Genre } from '@serenity/extensions';
 
 
@@ -51,7 +49,6 @@ export const SearchScreen = ({ navigation }: Props) => {
 
   React.useEffect(() => {
     Genre.getGenres().then(data =>{
-      console.log(data);
       setGenres(data);
     });
   }, [])

@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Keyboard, FlatList } from 'react-native';
-import { Text, Searchbar, useTheme } from 'react-native-paper';
+import { Text, Searchbar, useTheme, IconButton } from 'react-native-paper';
 import { Screen } from '@serenity/components';
 import { selectFilteredSongs, useAppSelector } from '@serenity/core';
 import { SongItem } from './components/SongItem';
+import analytics from '@react-native-firebase/analytics';
 
 export interface FindScreenProps { }
 
@@ -14,29 +15,25 @@ export function FindScreen({ navigation, route }: FindScreenProps) {
 
   const handleChange = (text: string) => {
     setQuery(text);
-  };
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      header: () => (
-        <View style={[{ backgroundColor: colors.surface }]}>
-          <Searchbar
-            style={{ borderRadius: 0 }}
-            placeholder="Artists, songs or podcasts"
-            onChangeText={handleChange}
-            defaultValue={query}
-            icon={navigation.goBack ? 'arrow-back-outline' : 'search-outline'}
-            onIconPress={() => (navigation.goBack ? navigation.goBack() : Keyboard.dismiss())}
-            clearIcon={query ? "close-outline" : "mic-outline"}
-            autoFocus
-          />
-        </View>
-      )
+    analytics().logSearch({
+      search_term: text
     })
-  }, [navigation]);
+  };
 
   return (
     <Screen>
+      <View style={[{ backgroundColor: colors.surface }]}>
+        <Searchbar
+          style={{ borderRadius: 0 }}
+          placeholder="Artists, songs or podcasts"
+          onChangeText={handleChange}
+          defaultValue={query}
+          icon={navigation.goBack ? 'arrow-back-outline' : 'search-outline'}
+          onIconPress={() => (navigation.goBack ? navigation.goBack() : Keyboard.dismiss())}
+          clearIcon={() => <IconButton icon="close-outline" onPress={() => setQuery("")}/>}
+          autoFocus
+        />
+      </View>
       {songs && songs.length ? (
         // <SectionList
         //   keyboardShouldPersistTaps="always"

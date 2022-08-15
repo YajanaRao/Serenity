@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlatList, RefreshControl, ScrollView, SectionList, StyleSheet, View } from 'react-native';
+import { FlatList, RefreshControl, SectionList, StyleSheet, View } from 'react-native';
 import { Headline, Screen } from '@serenity/components';
 import { NetNotify } from 'components/NetNotify';
 import { RecentContainer } from '../History/RecentView';
@@ -20,7 +20,7 @@ export const MainScreen = ({ navigation }) => {
   function navigateToMedia(item: any) {
     analytics().logSelectItem({
       content_type: item.type,
-      item_list_id: item.id.toString(),
+      item_list_id: item.title,
       item_list_name: item.title
     })
     if (item.type === "meditation") {
@@ -52,6 +52,7 @@ export const MainScreen = ({ navigation }) => {
 
   return (
     <Screen>
+      <NetNotify/>
       <SectionList
         stickySectionHeadersEnabled={false}
         sections={media}
@@ -59,7 +60,6 @@ export const MainScreen = ({ navigation }) => {
         onRefresh={refetch}
         ListHeaderComponent={() => (
           <>
-            <NetNotify />
             <ShortCutContainer />
             <QuoteCard />
             <Divider />
