@@ -2,20 +2,20 @@ import * as React from 'react';
 import { FlatList, RefreshControl, SectionList, StyleSheet, View } from 'react-native';
 import { Headline, Screen } from '@serenity/components';
 import { NetNotify } from 'components/NetNotify';
-import { RecentContainer } from '../History/RecentView';
-import { MostPlayed } from '../MostPlayed/MostPlayedView';
 import { ShortCutContainer } from './components/ShortcutContainer';
 import QuoteCard from './components/QuoteCard';
-import { capitalize, groupBy } from 'lodash';
+import { capitalize } from 'lodash';
 import { useQuery } from 'react-query';
 import { getMedia } from 'services/supabase';
 import analytics from '@react-native-firebase/analytics';
 import { Media } from '../components/Media';
+import { useTheme } from 'react-native-paper';
 
 const Divider = () => <View style={{ marginVertical: 8 }} />;
 
-export const MainScreen = ({ navigation }) => {
-  const [media, setMedia] = React.useState([])
+export function MainScreen({ navigation }) {
+
+  const { colors } = useTheme();
 
   function navigateToMedia(item: any) {
     analytics().logSelectItem({
@@ -34,28 +34,17 @@ export const MainScreen = ({ navigation }) => {
     }
   };
 
-  const { isLoading, refetch, data } = useQuery(['media'], getMedia)
+  const { isLoading, refetch, data } = useQuery(['media'], getMedia, {
+    initialData: []
+  })
 
-  async function formatData() {
-    let results = groupBy(data, 'type');
-    let datasets = Object.keys(results).map(index => {
-      return {
-        title: index,
-        data: results[index]
-      }
-    });
-    setMedia(datasets)
-  }
-  React.useEffect(() => {
-    formatData()
-  }, [data])
 
   return (
     <Screen>
-      <NetNotify/>
+      <NetNotify />
       <SectionList
         stickySectionHeadersEnabled={false}
-        sections={media}
+        sections={data}
         refreshing={isLoading}
         onRefresh={refetch}
         ListHeaderComponent={() => (
@@ -70,6 +59,10 @@ export const MainScreen = ({ navigation }) => {
             progressViewOffset={32}
             refreshing={isLoading}
             onRefresh={refetch}
+            colors={['#12c2e9', '#c471ed', '#f64f59']}
+            progressBackgroundColor={colors.surface}
+            titleColor={colors.text}
+            tintColor={colors.primary}
           />
         }
         renderSectionHeader={({ section }) => (
