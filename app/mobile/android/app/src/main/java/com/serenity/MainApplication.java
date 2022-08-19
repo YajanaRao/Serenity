@@ -8,6 +8,8 @@ import android.app.Application;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.lottie.LottiePackage;
+import com.facebook.react.config.ReactFeatureFlags;
+import com.serenity.newarchitecture.MainApplicationReactNativeHost;
 
 
 import com.facebook.react.ReactNativeHost;
@@ -47,9 +49,16 @@ public class MainApplication extends Application implements ReactApplication {
     }
   };
 
+  private final ReactNativeHost mNewArchitectureNativeHost =
+      new MainApplicationReactNativeHost(this);
+
   @Override
   public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
+    if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
+      return mNewArchitectureNativeHost;
+    } else {
+      return mReactNativeHost;
+    }
   }
 
   @Override

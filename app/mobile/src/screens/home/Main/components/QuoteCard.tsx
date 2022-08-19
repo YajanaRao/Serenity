@@ -16,12 +16,11 @@ const QuoteCard = () => {
         blurRadius={1}
       >
         <View style={styles.quoteContainer}>
-        {isLoading ? <ActivityIndicator color={colors.text} /> : (
           <View>
-            <Title style={{ fontFamily: 'Nunito-Italic' }}>{quote?.quote}</Title>
-            <Title style={{ fontFamily: 'Nunito-Italic' }}>{`~ ${quote?.author}`}</Title>
+            <Title style={{ fontFamily: 'Nunito-Italic', textAlign: 'center' }}>{quote?.quote}</Title>
+            <Title style={{ fontFamily: 'Nunito-Italic', textAlign: 'center' }}>{`~ ${quote?.author}`}</Title>
+            { quote?.caption && <Title style={{ fontFamily: 'Nunito-SemiBold', textAlign: 'center', marginTop: 8, color: colors.disabled }}>{quote?.caption}</Title>}
           </View>
-        )}
         </View>
       </ImageBackground>
     </ Surface>

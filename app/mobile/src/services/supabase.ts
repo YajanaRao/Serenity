@@ -9,7 +9,6 @@ export function getMedia() {
         }
     }).then(async(res) => {
         const response = await res.json()
-        console.log(response);
         let results = groupBy(response, 'type');
         let data = Object.keys(results).map(index => {
           return {
