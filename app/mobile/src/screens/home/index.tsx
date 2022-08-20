@@ -11,7 +11,6 @@ import { MostPlayedScreen } from './MostPlayed/MostPlayedScreen';
 import { PodcastScreen } from './Podcast/Podcast';
 import { MeditationScreen } from './Meditation/Meditation';
 import { PlaylistScreen } from './Playlist/Playlist';
-import { BookScreen } from './Book/Book';
 
 const Stack = createStackNavigator();
 
@@ -83,10 +82,6 @@ const HomeStack = () => {
       <Stack.Screen
         name="Meditation"
         component={MeditationScreen}
-      />
-      <Stack.Screen
-        name="Book"
-        component={BookScreen}
       />
       <Stack.Screen
         name="Songs"

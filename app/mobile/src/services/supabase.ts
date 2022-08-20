@@ -1,3 +1,4 @@
+import { groupBy } from 'lodash';
 import Config from 'react-native-config';
 
 export function getMedia() {
@@ -6,7 +7,17 @@ export function getMedia() {
             Apikey: Config.SUPA_BASE,
             Authorization: `Bearer ${Config.SUPA_BASE}`
         }
-    }).then(res =>
-        res.json()
+    }).then(async(res) => {
+        const response = await res.json()
+        let results = groupBy(response, 'type');
+        let data = Object.keys(results).map(index => {
+          return {
+            title: index,
+            data: results[index]
+          }
+        });
+        return data;
+    }
+
     )
 }

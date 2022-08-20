@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Surface, Title, useTheme } from 'react-native-paper';
+import { Surface, Title, useTheme } from 'react-native-paper';
 import { useQuote } from 'hooks/useQuote';
 
 const QuoteCard = () => {
-  const { quote, isLoading } = useQuote();
+  const { quote } = useQuote();
   const { dark, colors } = useTheme();
   const backgroundImage = `https://source.unsplash.com/random/?${dark ? 'black' : 'white'}`;
   return (
@@ -16,12 +16,11 @@ const QuoteCard = () => {
         blurRadius={1}
       >
         <View style={styles.quoteContainer}>
-        {isLoading ? <ActivityIndicator color={colors.text} /> : (
           <View>
-            <Title style={{ fontFamily: 'Nunito-Italic' }}>{quote?.quote}</Title>
-            <Title style={{ fontFamily: 'Nunito-Italic' }}>{`~ ${quote?.author}`}</Title>
+            <Title style={{ fontFamily: 'Nunito-Italic', textAlign: 'center' }}>{quote?.quote}</Title>
+            <Title style={{ fontFamily: 'Nunito-Italic', textAlign: 'center' }}>{`~ ${quote?.author}`}</Title>
+            { quote?.caption && <Title style={{ fontFamily: 'Nunito-SemiBold', textAlign: 'center', marginTop: 8, color: colors.disabled }}>{quote?.caption}</Title>}
           </View>
-        )}
         </View>
       </ImageBackground>
     </ Surface>
