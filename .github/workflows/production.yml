@@ -17,7 +17,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    uses: .github/workflows/build.yml
+    uses: ./.github/workflows/build.yml
 
   distribute:
     name: Distribute application
@@ -64,4 +64,4 @@ jobs:
           document: ${{ github.workspace }}/app/mobile/android/app/build/outputs/apk/release/app-release.apk
 
   release:
-    uses: .github/workflows/release.yml
+    uses: ./.github/workflows/release.yml
