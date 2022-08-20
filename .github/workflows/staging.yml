@@ -54,16 +54,9 @@ jobs:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: echo $ENV_SECRET  | base64 -d  > app/mobile/.env
 
-      - name: Git Version
-        uses: codacy/git-version@2.5.4
-        with:
-          dev-branch: develop
-
       - name: Add Version details
         run: |
-            NEW_VERSION=$(docker run --rm -v $(pwd):/repo codacy/git-version)
-            echo $NEW_VERSION
-            echo -e "\nNEW_VERSION = ${{ github.run_number }}" >> app/mobile/.env
+            echo -e "\nVERSION_CODE = $(scripts/bump-version.sh 2)" >> app/mobile/.env
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
