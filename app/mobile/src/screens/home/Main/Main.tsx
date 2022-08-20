@@ -27,8 +27,6 @@ export function MainScreen({ navigation }) {
       navigation.navigate("Meditation", { meditation: item })
     } else if (item.type === 'podcast') {
       navigation.navigate("Podcast", { podcast: item })
-    } else if (item.type === 'book') {
-      navigation.navigate("Book", { book: item })
     } else {
       navigation.navigate("Songs", { playlist: item });
     }
@@ -96,7 +94,6 @@ export function MainScreen({ navigation }) {
         <PlaylistList />
         <Divider />
         <MeditationList />
-        <BookList />
       </ScrollView> */}
     </Screen>
   );

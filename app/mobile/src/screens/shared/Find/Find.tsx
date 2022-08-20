@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { View, Keyboard, FlatList } from 'react-native';
 import { Text, Searchbar, useTheme, IconButton } from 'react-native-paper';
 import { Screen } from '@serenity/components';
@@ -10,13 +10,16 @@ export interface FindScreenProps { }
 
 export function FindScreen({ navigation, route }: FindScreenProps) {
   const { colors } = useTheme();
-  const [query, setQuery] = useState(route.params?.query);
+  const [query, setQuery] = React.useState(route.params?.query);
   const songs = useAppSelector(state => selectFilteredSongs(state, query));
 
   const handleChange = (text: string) => {
-    setQuery(text);
-    analytics().logSearch({
-      search_term: text
+
+    React.startTransition(() => {
+      setQuery(text);
+      analytics().logSearch({
+        search_term: text
+      })
     })
   };
 

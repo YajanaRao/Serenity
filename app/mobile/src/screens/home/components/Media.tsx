@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Book } from './Book';
 import { Meditation } from './Meditation';
 import { Podcast } from './Podcast';
 import { Track } from './Track';
@@ -12,8 +11,6 @@ export function Media({ item, onPress }) {
             return <Podcast track={item} onPress={onPress} />
         case 'meditation':
             return <Meditation track={item} onPress={onPress} />
-        case 'book':
-            return <Book track={item} onPress={onPress} />
         default:
             return null;
     }

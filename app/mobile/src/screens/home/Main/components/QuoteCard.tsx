@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Surface, Title, useTheme } from 'react-native-paper';
+import { Surface, Title, useTheme } from 'react-native-paper';
 import { useQuote } from 'hooks/useQuote';
 
 const QuoteCard = () => {
-  const { quote, isLoading } = useQuote();
+  const { quote } = useQuote();
   const { dark, colors } = useTheme();
   const backgroundImage = `https://source.unsplash.com/random/?${dark ? 'black' : 'white'}`;
   return (
