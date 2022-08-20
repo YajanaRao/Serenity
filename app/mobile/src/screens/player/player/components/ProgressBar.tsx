@@ -1,9 +1,9 @@
-import moment from 'moment';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTheme, Text } from 'react-native-paper';
 import { TrackPlayer, useProgress } from 'react-track-player';
 import Slider from '@react-native-community/slider';
+import dayjs from 'dayjs';
 
 
 
@@ -21,7 +21,7 @@ export const Progress = () => {
     } else {
       seconds = position
     }
-    return moment.utc(seconds).format("mm:ss")
+    return dayjs.utc(seconds).format("mm:ss")
   }
   return (
     <View style={{ marginHorizontal: 12 }}>
@@ -45,7 +45,7 @@ export const Progress = () => {
       </View>
       <View style={styles.progressDetails}>
         <Text>{getPosition()}</Text>
-        <Text>{moment.utc(duration).format("mm:ss")}</Text>
+        <Text>{dayjs.utc(duration).format("mm:ss")}</Text>
       </View>
     </View>
   );

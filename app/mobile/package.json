@@ -12,8 +12,7 @@
 		"test": "jest",
 		"lint": "eslint .  --ext .js,.jsx,.ts,.tsx",
 		"log": "adb logcat *:S ReactNative:V ReactNativeJS:V",
-		"build": "react-native run-android --variant=release",
-		"ci": "node src/bumpVersion.ts"
+		"build": "react-native run-android --variant=release"
 	},
 	"dependencies": {
 		"@gorhom/bottom-sheet": "^2",
@@ -35,10 +34,10 @@
 		"@serenity/components": "*",
 		"@serenity/core": "*",
 		"@yajanarao/react-native-get-music-files": "latest",
+		"dayjs": "^1.11.5",
 		"lodash": "4.17.21",
 		"lottie-ios": "3.1.8",
 		"lottie-react-native": "^5.1.4",
-		"moment": "^2.29.1",
 		"react": "18.0.0",
 		"react-native": "0.69.4",
 		"react-native-bootsplash": "^3.1.5",

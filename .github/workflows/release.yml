@@ -1,0 +1,30 @@
+name: Create Github Release
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  release:
+    name: Release APK
+    needs: build
+    if: ${{ !github.event.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download APK from build
+        uses: actions/download-artifact@v1
+        with:
+          name: app-release.apk  
+          
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          files: app-release.apk/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
