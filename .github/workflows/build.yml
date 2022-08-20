@@ -56,9 +56,15 @@ jobs:
         env:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: echo $ENV_SECRET  | base64 -d  > app/mobile/.env
+        
+      
+      - name: Git Version
+        uses: codacy/git-version@2.5.4
+        with:
+          dev-branch: develop
+          release-branch: main
 
       - name: Add Version details
-        uses: codacy/git-version@2.4.0
         run: |
             NEW_VERSION=$(docker run --rm -v $(pwd):/repo codacy/git-version)
             echo $NEW_VERSION
