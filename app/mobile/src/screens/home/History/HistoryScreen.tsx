@@ -15,7 +15,7 @@ export function HistoryScreen() {
 
 	function sortSongs() {
 		setRefreshing(true);
-		const grouping = _.groupBy(songs, element => dayjs(element.date).format('l'))
+		const grouping = _.groupBy(songs, element => element?.date)
 		const sections = _.map(grouping, (items, date) => ({
 			title: date,
 			data: items

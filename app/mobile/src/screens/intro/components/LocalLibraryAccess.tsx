@@ -20,7 +20,10 @@ export function LocalLibraryAccess({ color, next }: LocalLibraryAccessProps) {
     if (Platform.OS === 'android') {
       PermissionsAndroid.check(
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      ).then(status => setGiven(status));
+      ).then(status => {
+        setGiven(status)
+        next();
+      });
     }
   }, [offlineReadAccessGiven]);
 
