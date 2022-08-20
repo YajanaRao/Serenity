@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build
+name: Staging
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -54,8 +54,16 @@ jobs:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: echo $ENV_SECRET  | base64 -d  > app/mobile/.env
 
-      - name: Add Version details 
-        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> app/mobile/.env
+      - name: Git Version
+        uses: codacy/git-version@2.5.4
+        with:
+          dev-branch: develop
+
+      - name: Add Version details
+        run: |
+            NEW_VERSION=$(docker run --rm -v $(pwd):/repo codacy/git-version)
+            echo $NEW_VERSION
+            echo -e "\nNEW_VERSION = ${{ github.run_number }}" >> app/mobile/.env
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
