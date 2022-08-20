@@ -4,7 +4,9 @@ import { Screen, Title } from '@serenity/components';
 import { useAppSelector, historySelectors } from '@serenity/core';
 import { EmptyPlaylist } from 'components/EmptyPlaylist';
 import { HistoryItem } from 'components/SongItem/HistoryItem';
-import _ from 'lodash';
+import groupBy from 'lodash/groupBy';
+import map from 'lodash/map';
+import orderBy from 'lodash/orderBy';
 import dayjs from 'dayjs';
 
 export function HistoryScreen() {
@@ -15,12 +17,12 @@ export function HistoryScreen() {
 
 	function sortSongs() {
 		setRefreshing(true);
-		const grouping = _.groupBy(songs, element => element?.date)
-		const sections = _.map(grouping, (items, date) => ({
+		const grouping = groupBy(songs, element => element?.date)
+		const sections = map(grouping, (items, date) => ({
 			title: date,
 			data: items
 		}));
-		const orderedSections = _.orderBy(sections, section => section.title, 'desc');
+		const orderedSections = orderBy(sections, section => section.title, 'desc');
 		setData(orderedSections);
 		setRefreshing(false);
 	}
