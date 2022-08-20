@@ -1,6 +1,6 @@
 {
 	"name": "mobile",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"private": false,
 	"scripts": {
 		"android": "react-native run-android",
@@ -12,7 +12,8 @@
 		"test": "jest",
 		"lint": "eslint .  --ext .js,.jsx,.ts,.tsx",
 		"log": "adb logcat *:S ReactNative:V ReactNativeJS:V",
-		"build": "react-native run-android --variant=release"
+		"build": "react-native run-android --variant=release",
+		"ci": "node src/bumpVersion.ts"
 	},
 	"dependencies": {
 		"@gorhom/bottom-sheet": "^2",
