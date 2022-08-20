@@ -1,13 +1,6 @@
 name: Create Android Build
 on:
-  workflow_call:
-    inputs:
-      username:
-        required: true
-        type: string
-    secrets:
-      token:
-        required: true
+  workflow_call
 
 jobs:
   # This workflow contains a single job called "build"
