@@ -58,7 +58,6 @@ jobs:
         uses: codacy/git-version@2.5.4
         with:
           dev-branch: develop
-          release-branch: main
 
       - name: Add Version details
         run: |
