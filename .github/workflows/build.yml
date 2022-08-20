@@ -31,6 +31,9 @@ jobs:
 #           restore-keys: |
 #             ${{ runner.os }}-yarn-
 
+      - name: Walk around for yarn install issue
+        run: rm yarn.lock
+
       - name: Install packages
         run: yarn
 
