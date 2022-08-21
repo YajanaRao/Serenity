@@ -7,6 +7,8 @@ const QuoteCard = () => {
   const { quote } = useQuote();
   const { dark, colors } = useTheme();
   const backgroundImage = `https://source.unsplash.com/random/?${dark ? 'black' : 'white'}`;
+
+  if (!quote) return null;
   return (
     <Surface style={styles.container}>
       <ImageBackground
@@ -19,7 +21,7 @@ const QuoteCard = () => {
           <View>
             <Title style={{ fontFamily: 'Nunito-Italic', textAlign: 'center' }}>{quote?.quote}</Title>
             <Title style={{ fontFamily: 'Nunito-Italic', textAlign: 'center' }}>{`~ ${quote?.author}`}</Title>
-            { quote?.caption && <Title style={{ fontFamily: 'Nunito-SemiBold', textAlign: 'center', marginTop: 8, color: colors.disabled }}>{quote?.caption}</Title>}
+            {quote?.caption && <Title style={{ fontFamily: 'Nunito-SemiBold', textAlign: 'center', marginTop: 8, color: colors.disabled }}>{quote?.caption}</Title>}
           </View>
         </View>
       </ImageBackground>

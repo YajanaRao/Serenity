@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { FlatList, RefreshControl, SectionList, StyleSheet, View } from 'react-native';
-import { Headline, Screen } from '@serenity/components';
+import { FlatList, Linking, RefreshControl, SectionList, StyleSheet, View } from 'react-native';
+import { Headline, Screen, Title } from '@serenity/components';
 import { NetNotify } from 'components/NetNotify';
 import { ShortCutContainer } from './components/ShortcutContainer';
 import QuoteCard from './components/QuoteCard';
@@ -9,7 +9,7 @@ import { useQuery } from 'react-query';
 import { getMedia } from 'services/supabase';
 import analytics from '@react-native-firebase/analytics';
 import { Media } from '../components/Media';
-import { useTheme } from 'react-native-paper';
+import { Card, Paragraph, useTheme } from 'react-native-paper';
 
 const Divider = () => <View style={{ marginVertical: 8 }} />;
 
@@ -45,6 +45,7 @@ export function MainScreen({ navigation }) {
         sections={data}
         refreshing={isLoading}
         onRefresh={refetch}
+        keyExtractor={(index) => index.toString()}
         ListHeaderComponent={() => (
           <>
             <ShortCutContainer />
@@ -63,23 +64,39 @@ export function MainScreen({ navigation }) {
             tintColor={colors.primary}
           />
         }
-        renderSectionHeader={({ section }) => (
-          <>
-            <View
-              style={styles.titleContainer}
-            >
-              <Headline>{capitalize(section.title)}</Headline>
-            </View>
-            <FlatList
-              horizontal
-              data={section.data}
-              renderItem={({ item }) => <Media item={item} onPress={navigateToMedia} />}
-              keyExtractor={(item) => item.id}
-              showsHorizontalScrollIndicator={false}
-            />
-          </>
-        )}
+        renderSectionHeader={({ section }) => {
+          if (section.title !== "post") {
+            return (
+              <>
+                <View
+                  style={styles.titleContainer}
+                >
+                  <Headline>{capitalize(section.title)}</Headline>
+                </View>
+                <FlatList
+                  horizontal
+                  data={section.data}
+                  renderItem={({ item }) => <Media item={item} onPress={navigateToMedia} />}
+                  keyExtractor={(item) => item.id}
+                  showsHorizontalScrollIndicator={false}
+                />
+              </>
+            )
+          }
+          return null;
+        }}
         renderItem={({ item, section }) => {
+          if (section.title === "post") {
+            return (
+              <Card style={{margin: 12}} onPress={() => Linking.openURL(item.url)}>
+                <Card.Cover source={{ uri: item.cover }} />
+                <Card.Content>
+                  <Title>{item.title}</Title>
+                  <Paragraph numberOfLines={3}>{item.description}</Paragraph>
+                </Card.Content>
+              </Card>
+            )
+          }
           return null;
         }}
       />

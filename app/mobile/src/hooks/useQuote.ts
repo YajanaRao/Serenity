@@ -20,7 +20,7 @@ function getQuery() {
 
 export function useQuote() {
   const { isConnected } = useNetInfo()
-  let quote = { quote: '', author: '' };
+  let quote = { quote: '', author: '', caption: '' };
   const { data, isLoading } = useQuery('quote', getQuery)
   if (isConnected) {
     quote = sample(data);
