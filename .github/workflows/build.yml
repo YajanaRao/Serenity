@@ -49,19 +49,19 @@ jobs:
       - name: Add Version details
         run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> app/mobile/.env
 
-      - name: Cache Gradle Wrapper
-        uses: actions/cache@v2
-        with:
-         path: ~/.gradle/wrapper
-         key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+#       - name: Cache Gradle Wrapper
+#         uses: actions/cache@v2
+#         with:
+#          path: ~/.gradle/wrapper
+#          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
 
-      - name: Cache Gradle Dependencies
-        uses: actions/cache@v2
-        with:
-         path: ~/.gradle/caches
-         key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-         restore-keys: |
-          ${{ runner.os }}-gradle-caches-
+#       - name: Cache Gradle Dependencies
+#         uses: actions/cache@v2
+#         with:
+#          path: ~/.gradle/caches
+#          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+#          restore-keys: |
+#           ${{ runner.os }}-gradle-caches-
 
       # fixed permission issue
       - name: Make gradlew executable
