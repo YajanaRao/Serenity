@@ -1,3 +1,12 @@
 #!/usr/bin/env bash
 git submodule update --init
 git submodule update --recursive --remote
+
+# install packages
+yarn install
+
+# make gradlew executable
+chmod +x app/mobile/android/gradlew
+
+# create android release
+yarn release

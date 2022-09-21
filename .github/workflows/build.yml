@@ -31,8 +31,8 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-yarn-
             
-      - name: Install packages
-        run: yarn
+      # - name: Install packages
+      #   run: yarn
 
       - name: Decode google-services.json
         env:
@@ -68,5 +68,5 @@ jobs:
         run: chmod +x app/mobile/android/gradlew
 
       # Build android app
-      - name: Build Android Release
-        run: yarn release
+      # - name: Build Android Release
+      #   run: yarn release
