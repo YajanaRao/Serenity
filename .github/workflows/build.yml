@@ -17,23 +17,20 @@ jobs:
         run: yarn setup
 
       # set yarn cache directory
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      # - name: Get yarn cache directory path
+      #   id: yarn-cache-dir-path
+      #   run: echo "::set-output name=dir::$(yarn cache dir)"
 
       # Yarn cache
-      - name: Cache Node Modules
-        id: cache-root
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      # - name: Cache Node Modules
+      #   id: cache-root
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-yarn-
             
-      - name: Delete cache for yarn Install
-        run: rm yarn.lock && rm -rf node_modules
-
       - name: Install packages
         run: yarn
 
