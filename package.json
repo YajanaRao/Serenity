@@ -24,6 +24,11 @@
     "packages": [
       "packages/*",
       "app/*"
+    ],
+    "nohoist": [
+      "**/react",
+      "**/react-native",
+      "**/react-native/**"
     ]
   },
   "devDependencies": {
