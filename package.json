@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "setup": "scripts/setup",
-    "android": "yarn workspace mobile android",
-    "web": "yarn workspace web start",
-    "ios": "yarn workspace mobile ios",
-    "pod": "yarn workspace mobile pod-install",
-    "start": "yarn workspace mobile start",
-    "release": "yarn workspace mobile release",
-    "test": "yarn workspaces run test",
-    "lint": "yarn workspaces run lint",
+    "android": "turbo run android --filter=mobile",
+    "ios": "turbo run ios --filter=mobile",
+    "pod": "turbo run pod-install --filter=mobile",
+    "start": "turbo run start --filter=mobile",
+    "web": "turbo run start --filter=web",
+    "release": "turbo run release --filter=mobile",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
     "format": "prettier --write .",
-    "xcode": "yarn workspace mobile xcode"
+    "xcode": "turbo run xcode --filter=mobile"
   },
   "husky": {
     "hooks": {
@@ -38,6 +38,7 @@
     "husky": "^6.0.0",
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
+    "turbo": "^1.5.3",
     "typescript": "^4.2.3"
   }
 }

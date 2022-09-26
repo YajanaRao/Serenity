@@ -2,10 +2,6 @@
 git submodule update --init
 git submodule update --recursive --remote
 
-# clean up for  now
-rm -rf /node_modules
-rm -rf yarn.lock
-
 # install packages
 yarn install
 
