@@ -4,6 +4,7 @@
     "android": {
       "cache": false
     },
-    "release": {}
+    "release": {},
+    "start": {}
   }
 }

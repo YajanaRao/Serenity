@@ -85,7 +85,7 @@
 		"jetifier": "^1.6.1",
 		"metro": "^0.65.2",
 		"metro-react-native-babel-preset": "^0.70.3",
-		"react-native-flipper": "^0.102.0",
+		"react-native-flipper": "^0.164.0",
 		"react-native-gradle-plugin": "0.70.2",
 		"react-native-svg-transformer": "^0.14.3",
 		"react-native-typescript-transformer": "^1.2.13",
