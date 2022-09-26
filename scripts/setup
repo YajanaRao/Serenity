@@ -3,10 +3,10 @@ git submodule update --init
 git submodule update --recursive --remote
 
 # install packages
-npm install
+npm install --legacy-peer-deps
 
 # make gradlew executable
-chmod +x app/mobile/android/gradlew
+chmod +x apps/mobile/android/gradlew
 
 # create android release
-npm release
+npm run release
