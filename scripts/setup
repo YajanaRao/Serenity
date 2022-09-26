@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-git submodule update --init
-git submodule update --recursive --remote
+git submodule update --init --recursive
 
 # install packages
 npm install --legacy-peer-deps
