@@ -3,10 +3,10 @@ git submodule update --init
 git submodule update --recursive --remote
 
 # install packages
-yarn install
+npm install
 
 # make gradlew executable
 chmod +x app/mobile/android/gradlew
 
 # create android release
-yarn release
+npm release
