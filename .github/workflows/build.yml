@@ -16,7 +16,7 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
-        run: echo $FIREBASE_SECRET > apps/mobile/android/apps/google-services.json
+        run: echo $FIREBASE_SECRET > apps/mobile/android/app/google-services.json
 
       - name: Decode env file
         env:
@@ -27,7 +27,7 @@ jobs:
    
       - name: Add Version details
         run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> apps/mobile/.env
-        
+
       - name: Setup packages
         run: npm run setup
 
