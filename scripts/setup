@@ -3,7 +3,7 @@ git submodule update --init
 git submodule update --recursive --remote
 
 # install packages
-yarn install
+yarn install --frozen-lockfile
 
 # make gradlew executable
 chmod +x app/mobile/android/gradlew
