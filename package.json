@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "setup": "scripts/setup",
-    "android": "turbo run android --filter=mobile",
-    "ios": "turbo run ios --filter=mobile",
-    "pod": "turbo run pod-install --filter=mobile",
-    "start": "turbo run start --filter=mobile",
-    "web": "turbo run start --filter=web",
-    "release": "turbo run release --filter=mobile",
+    "android": "turbo run android --scope=mobile",
+    "ios": "turbo run ios --scope=mobile",
+    "pod": "turbo run pod-install --scope=mobile",
+    "start": "turbo run start --scope=mobile",
+    "web": "turbo run start --scope=web",
+    "release": "turbo run release --scope=mobile",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "format": "prettier --write .",
-    "xcode": "turbo run xcode --filter=mobile"
+    "xcode": "turbo run xcode --scope=mobile"
   },
   "husky": {
     "hooks": {

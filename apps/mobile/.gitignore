@@ -71,3 +71,7 @@ lib/
 
 # config
 .env
+
+
+# google-services.json
+google-services.json

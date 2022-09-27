@@ -1,5 +1,13 @@
 ## Adding liked property to each song item vs creating a separate playlist for liked songs
 
+## Release beta October 22
+
+- CI / CD management
+    - Easy setup
+        - Keep all secrets in a single file
+        - Write less platform dependent code
+    - Automated Versioning
+
 ## Release beta August 21
 
 - Fix issue with progress bar in react track player
