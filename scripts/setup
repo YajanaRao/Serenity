@@ -2,9 +2,16 @@
 git submodule update --init --recursive
 
 # install packages
+echo "Installing Node modules"
 npm install --legacy-peer-deps
 
-# Update the version
+echo "Installing Fastlane"
+gem install bundler
+cd apps/mobile && bundle install && cd ../..
+echo "Fastlane setup done"
+
+
+echo "Update the Application Version"
 npm run bump-patch
 
 # make gradlew executable
