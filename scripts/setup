@@ -4,6 +4,9 @@ git submodule update --init --recursive
 # install packages
 npm install --legacy-peer-deps
 
+# Update the version
+npm run bump-patch
+
 # make gradlew executable
 chmod +x apps/mobile/android/gradlew
 

@@ -18,9 +18,6 @@ jobs:
       #     FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
       #   run: echo $FIREBASE_SECRET > apps/mobile/android/app/google-services.json
 
-      - name: Patch Version
-        run: npm run bump-patch
-
       - name: Decode env file
         env:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
