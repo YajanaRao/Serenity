@@ -22,11 +22,6 @@ jobs:
         env:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: echo $ENV_SECRET  | base64 -d  > apps/mobile/.env
-        
-      
-   
-      - name: Add Version details
-        run: echo -e "\nVERSION_CODE = ${{ github.run_number }}" >> apps/mobile/.env
 
       - name: Setup packages
         run: npm run setup
@@ -46,8 +41,6 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-yarn-
             
-      # - name: Install packages
-      #   run: yarn
 
 #       - name: Cache Gradle Wrapper
 #         uses: actions/cache@v2
@@ -64,9 +57,3 @@ jobs:
 #           ${{ runner.os }}-gradle-caches-
 
       # fixed permission issue
-      - name: Make gradlew executable
-        run: chmod +x apps/mobile/android/gradlew
-
-      # Build android app
-      # - name: Build Android Release
-      #   run: yarn release

@@ -13,7 +13,16 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  setup:
+    name: Setup Versioning
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Patch Version
+        run: npm run bump-patch
+
   build:
+    needs: setup
     uses: ./.github/workflows/build.yml
   
   # This workflow contains a single job called "build"
@@ -30,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
-          path: apps/mobile/android/apps/build/outputs/apk/release/app-release.apk
+          path: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
 
       - name: upload artifact to Dev App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
@@ -39,6 +48,6 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           serviceCredentialsFile: apps/mobile/android/apps/google-services.json
           groups: dev
-          file: apps/mobile/android/apps/build/outputs/apk/release/app-release.apk
+          file: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}

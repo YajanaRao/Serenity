@@ -16,7 +16,16 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  setup:
+    name: Setup Versioning
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Patch Version
+        run: npm run bump-patch
+
   build:
+    needs: setup
     uses: ./.github/workflows/build.yml
 
   distribute:
@@ -29,7 +38,7 @@ jobs:
         if: ${{ !github.event.pull_request }}
         with:
           name: app-release.apk
-          path: apps/mobile/android/apps/build/outputs/apk/release/app-release.apk
+          path: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
 
       - name: upload artifact to Beta App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
@@ -38,7 +47,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: beta
-          file: apps/mobile/android/apps/build/outputs/apk/release/app-release.apk
+          file: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
@@ -49,7 +58,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: dev
-          file: apps/mobile/android/apps/build/outputs/apk/release/app-release.apk
+          file: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
@@ -61,7 +70,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
-          document: ${{ github.workspace }}/apps/mobile/android/apps/build/outputs/apk/release/app-release.apk
+          document: ${{ github.workspace }}/apps/mobile/android/app/build/outputs/apk/release/app-release.apk
 
   release:
     uses: ./.github/workflows/release.yml

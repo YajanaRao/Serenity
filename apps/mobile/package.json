@@ -1,11 +1,14 @@
 {
 	"name": "mobile",
-	"version": "0.1.0",
+	"version": "0.1.4",
 	"private": false,
 	"scripts": {
 		"android": "react-native run-android",
 		"clean": "cd android && ./gradlew clean && cd ..",
-		"release": "cd android && ./gradlew assembleRelease",
+		"bump-patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump",
+		"bump-minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
+		"bump-major": "npm version major --no-git-tag-version && bundle exec fastlane bump",
+		"release": "bundle exec fastlane beta",
 		"ios": "react-native run-ios",
 		"pod-install": "npx pod-install",
 		"start": "react-native start",

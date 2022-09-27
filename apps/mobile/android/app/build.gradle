@@ -135,8 +135,8 @@ android {
         applicationId "com.serenity"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode project.env.get("VERSION_CODE", "1").toInteger() 
-        versionName "0." + project.env.get("VERSION_CODE", "0")
+        versionCode 1 
+        versionName "0.1.4"
         multiDexEnabled true
         resValue "string", "build_config_package", "com.serenity"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
