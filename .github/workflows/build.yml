@@ -13,6 +13,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+
       # - name: Decode google-services.json
       #   env:
       #     FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
