@@ -5,6 +5,7 @@
   "scripts": {
     "setup": "scripts/setup",
     "bump-patch": "turbo run bump-patch",
+    "bump-minor": "turbo run bump-minor",
     "android": "turbo run android --scope=mobile",
     "ios": "turbo run ios --scope=mobile",
     "pod": "turbo run pod-install --scope=mobile",

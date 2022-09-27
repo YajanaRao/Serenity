@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Patch Version
-        run: npm run bump-patch
+        run: npm run bump-minor
 
   build:
     needs: setup
