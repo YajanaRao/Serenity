@@ -13,10 +13,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Decode google-services.json
-        env:
-          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
-        run: echo $FIREBASE_SECRET > apps/mobile/android/app/google-services.json
+      # - name: Decode google-services.json
+      #   env:
+      #     FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+      #   run: echo $FIREBASE_SECRET > apps/mobile/android/app/google-services.json
 
       - name: Decode env file
         env:
