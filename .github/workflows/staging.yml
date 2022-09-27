@@ -12,18 +12,36 @@ on:
       - "docs/**"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-  
+jobs:  
   # This workflow contains a single job called "build"
-  distribute:
+  build:
+  
     name: Distribute the Dev Release
     needs: build
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+
+      # - name: Decode google-services.json
+      #   env:
+      #     FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+      #   run: echo $FIREBASE_SECRET > apps/mobile/android/app/google-services.json
+
+      - name: Decode env file
+        env:
+          ENV_SECRET: ${{ secrets.ENV_SECRET }}
+        run: echo $ENV_SECRET  | base64 -d  > apps/mobile/.env
+
+      - name: Setup packages
+        run: npm run setup
 
       # uploading artifact
       - name: Upload Artifact
