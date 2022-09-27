@@ -5,6 +5,7 @@
       "cache": false
     },
     "release": {},
-    "start": {}
+    "start": {},
+    "bump-patch": {}
   }
 }
