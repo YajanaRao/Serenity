@@ -37,7 +37,7 @@ jobs:
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
-          serviceCredentialsFile: apps/mobile/android/apps/google-services.json
+          serviceCredentialsFile: apps/mobile/android/app/google-services.json
           groups: dev
           file: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
