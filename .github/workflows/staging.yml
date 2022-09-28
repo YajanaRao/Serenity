@@ -17,7 +17,6 @@ jobs:
   build:
   
     name: Building and Distribution of Dev Release
-    needs: build
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
