@@ -16,7 +16,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
   
-    name: Distribute the Dev Release
+    name: Building and Distribution of Dev Release
     needs: build
     runs-on: ubuntu-latest
 

@@ -81,9 +81,9 @@ import com.android.build.OutputFile
 // https://github.com/react-native-community/cli/issues/877
 project.ext.react = [
     enableHermes: true,
-    hermesCommand:  '../../../../node_modules/hermes-engine/%OS-BIN%/hermesc',
-    composeSourceMapsPath: "../../node_modules/react-native/scripts/compose-source-maps.js",
-    cliPath: "../../../../node_modules/react-native/cli.js",
+    cliPath: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/cli.js",
+    hermesCommand: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/sdks/hermesc/%OS-BIN%/hermesc",
+    composeSourceMapsPath: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/scripts/compose-source-maps.js",
 ]
 
 apply from: "../../../../node_modules/react-native/react.gradle"
@@ -112,7 +112,7 @@ def enableProguardInReleaseBuilds = true
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-def enableHermes = project.ext.react.get("enableHermes", false);
+def enableHermes = project.ext.react.get("enableHermes", true);
 
 /**
  * Architectures to build native code for in debug.
