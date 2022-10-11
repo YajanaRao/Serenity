@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTheme, Text } from 'react-native-paper';
 import { TrackPlayer, useProgress } from 'react-track-player';
@@ -21,7 +21,7 @@ export const Progress = () => {
     } else {
       seconds = position
     }
-    return dayjs.utc(seconds).format("mm:ss")
+    return dayjs(seconds).format("mm:ss")
   }
   return (
     <View style={{ marginHorizontal: 12 }}>
@@ -45,7 +45,7 @@ export const Progress = () => {
       </View>
       <View style={styles.progressDetails}>
         <Text>{getPosition()}</Text>
-        <Text>{dayjs.utc(duration).format("mm:ss")}</Text>
+        <Text>{dayjs(duration).format("mm:ss")}</Text>
       </View>
     </View>
   );
