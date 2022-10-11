@@ -32,6 +32,9 @@ jobs:
       - name: Setup packages
         run: npm run setup
 
+      - name: Android Build
+        run: npm run build
+
       # set yarn cache directory
       # - name: Get yarn cache directory path
       #   id: yarn-cache-dir-path

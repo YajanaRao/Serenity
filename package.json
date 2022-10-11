@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "setup": "scripts/setup",
+    "build": "scripts/build",
     "bump-patch": "turbo run bump-patch",
     "bump-minor": "turbo run bump-minor",
     "android": "turbo run android --scope=mobile",

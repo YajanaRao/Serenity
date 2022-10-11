@@ -27,28 +27,6 @@ The following folders in packages indicate following things
 - develop -> pr this branch for everything
 - master -> source code of production application
 
-## Install packages
-
-Navigate to project root:
-
-We're using [Turbo](https://turborepo.org) for this project
-Run below command in project root:
-
-```shell
-yarn setup 
-# or
-npm run setup
-```
-
-## IOS
-
-Navigate to packages/mobile/ios
-
-```shell
-cd packages/mobile/ios
-pod install
-```
-
 ## Configurations
 
 Create a .env file for managing secrets in mobile folder
@@ -57,8 +35,25 @@ Create a .env file for managing secrets in mobile folder
 cd packages/mobile
 touch .env
 ```
+## Build release app
 
-## Run Metro bundler
+Navigate to project root:
+
+We're using [Turbo](https://turborepo.org) for this project
+Run below command in project root:
+
+```shell
+yarn setup
+yarn build 
+# or
+npm run setup
+npm run build
+```
+
+
+## Development Mode
+
+Run metro bundler
 
 ```shell
 yarn start
