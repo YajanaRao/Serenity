@@ -18,7 +18,7 @@ export function MostPlayedScreen() {
                 ListEmptyComponent={() => (
                     <EmptyPlaylist />
                 )}
-                keyExtractor={(item, index) => `history-${item}-${index}`}
+                keyExtractor={(index) => `history-${index.toString()}`}
                 renderItem={({ item }) => <HistoryItem id={item} />}
             />
         </Screen>

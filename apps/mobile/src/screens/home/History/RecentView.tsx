@@ -3,7 +3,6 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
 import { Button } from 'react-native-paper';
-
 import { useNavigation } from '@react-navigation/core';
 import { Headline } from '@serenity/components';
 import { Player, useAppDispatch, useAppSelector, historySelectors, SongProps } from '@serenity/core';
@@ -42,7 +41,7 @@ export const RecentContainer = () => {
         <FlatList
           horizontal
           data={history}
-          keyExtractor={(item, index) => `recently-played-${item}-${index}`}
+          keyExtractor={(index) => `recently-played-${index.toString()}`}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => <TrackItem id={item.id} onPress={play} />}
         />

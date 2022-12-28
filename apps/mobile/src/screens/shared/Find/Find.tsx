@@ -51,7 +51,7 @@ export function FindScreen({ navigation, route }: FindScreenProps) {
         //   )}
         // />
         <FlatList data={songs}
-          keyExtractor={(item, index) => `search-${item}-${index}`}
+          keyExtractor={(index) => `search-${index}`}
           renderItem={({ item }) => (
             <SongItem track={item} />
           )}

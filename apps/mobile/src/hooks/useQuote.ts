@@ -6,10 +6,10 @@ import { useQuery } from 'react-query';
 import Config from 'react-native-config';
 
 function getQuery() {
-  return fetch(`https://okmuhrunizvusvoypvis.supabase.co/rest/v1/quotes?show=eq.1&select=*`, {
+  return fetch(`${Config.SUPABASE_URL}/quotes?show=eq.1&select=*`, {
     headers: {
-      Apikey: Config.SUPA_BASE,
-      Authorization: `Bearer ${Config.SUPA_BASE}`
+      Apikey: Config.SUPABASE_TOKEN,
+      Authorization: `Bearer ${Config.SUPABASE_TOKEN}`
   }
   })
     .then(response => response.json())

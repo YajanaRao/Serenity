@@ -20,7 +20,7 @@ export function DiagnoseDialog({ visible, hideDialog }: DiagnoseDialogProps) {
 
   function diagnose() {
     setLogs([{ message: `Version Code ${Config.VERSION_CODE}`, state: 'success' }, { message: `Version Name ${Config.VERSION_NAME}`, state: 'success' }])
-    if (_.has(Config, 'SUPA_BASE')) {
+    if (_.has(Config, 'SUPABASE_TOKEN')) {
       setLogs(logs => [...logs, { message: 'Supabase key is present in environment variable', state: 'success' }])
     }
     if (__DEV__) {

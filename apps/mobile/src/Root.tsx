@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { ThemeProvider, DarkTheme, DefaultTheme } from '@serenity/components';
 import { selectThemeType, useAppSelector, useAppDispatch, Player } from '@serenity/core';

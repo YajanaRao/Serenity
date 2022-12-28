@@ -37,7 +37,7 @@ export const ArtistsScreen = ({ }) => {
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={fetchData} />
           }
-          keyExtractor={(item) => `${item}`}
+          keyExtractor={(item) => `${item.toString()}`}
           renderItem={({ item }: ItemProps) => <Artist id={item} />}
         />
       </Screen>

@@ -56,7 +56,7 @@ export function Home() {
           <FlatList
             data={playlists}
             horizontal={true}
-            keyExtractor={(item: EntityId) => `${item}`}
+            keyExtractor={(index) => `${index.toString()}`}
             renderItem={({ item }) => <Song id={item} />}
           />
         </Container>

@@ -47,7 +47,7 @@ export function HistoryScreen() {
 				)}
 				refreshing={refreshing}
 				onRefresh={sortSongs}
-				keyExtractor={(item, index) => `history-${item}-${index}`}
+				keyExtractor={(item, index) => index.toString()}
 				renderItem={({ item }) => <HistoryItem id={item.id} />}
 			/>
 		</Screen>

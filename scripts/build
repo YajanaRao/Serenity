@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 echo "Update the Application Version"
 npm run bump-patch
 echo "Version Updated"

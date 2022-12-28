@@ -35,7 +35,7 @@ export function Favorites() {
             <Title>Checkout out for songs you may like</Title>
           </Container>
         )}
-        keyExtractor={(item, index) => `fav-${item}-${index}`}
+        keyExtractor={(index) => `fav-${index.toString()}`}
         renderItem={({ item }) => <SongItem id={item} />}
       />
     </Screen>

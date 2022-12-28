@@ -40,7 +40,7 @@ export const AlbumScreen = ({ }) => {
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={fetchData} />
           }
-          keyExtractor={(item: EntityId) => `album-${item}`}
+          keyExtractor={(index) => `album-${index.toString()}`}
           renderItem={({ item }: { item: EntityId }) => <Album id={item} />}
         />
       </Screen>

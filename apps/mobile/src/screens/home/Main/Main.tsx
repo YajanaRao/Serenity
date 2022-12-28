@@ -43,9 +43,9 @@ export function MainScreen({ navigation }) {
       <SectionList
         stickySectionHeadersEnabled={false}
         sections={data}
+        keyExtractor={(index) => index.toString()}
         refreshing={isLoading}
         onRefresh={refetch}
-        keyExtractor={(index) => index.toString()}
         ListHeaderComponent={() => (
           <>
             <ShortCutContainer />
@@ -76,8 +76,8 @@ export function MainScreen({ navigation }) {
                 <FlatList
                   horizontal
                   data={section.data}
+                  keyExtractor={(index) => index.toString()}
                   renderItem={({ item }) => <Media item={item} onPress={navigateToMedia} />}
-                  keyExtractor={(item) => item.id}
                   showsHorizontalScrollIndicator={false}
                 />
               </>
@@ -100,18 +100,6 @@ export function MainScreen({ navigation }) {
           return null;
         }}
       />
-      {/* <ScrollView ref={ref}>
-        <ShortCutContainer />
-        <QuoteCard />
-        <RecentContainer />
-        <Divider />
-        <MostPlayed />
-        <Divider />
-        <PodcastList />
-        <PlaylistList />
-        <Divider />
-        <MeditationList />
-      </ScrollView> */}
     </Screen>
   );
 };

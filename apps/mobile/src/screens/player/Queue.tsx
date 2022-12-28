@@ -70,7 +70,7 @@ export function QueueScreen({ navigation }: QueueScreenProps) {
         )}
         renderItem={({ item }: ItemProps) => <TrackItem id={item} />}
         ItemSeparatorComponent={() => <Divider inset />}
-        keyExtractor={(item) => item}
+        keyExtractor={(index) => index.toString()}
         renderHiddenItem={({ item }) => <TrackSurface id={item} />}
         leftOpenValue={75}
         rightOpenValue={-75}

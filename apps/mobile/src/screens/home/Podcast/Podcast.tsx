@@ -63,7 +63,7 @@ export function PodcastScreen({ route }: PodcastProps) {
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
             data={data}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(index) => index.toString()}
             ListHeaderComponent={() => (
                 <ListSongHeader
                     title={podcast.title}

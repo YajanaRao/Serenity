@@ -5,13 +5,14 @@ var ytpl = require('react-native-ytpl');
 const songs = {
     playlists: [],
     async getPlaylists() {
-        const response = await fetch("https://okmuhrunizvusvoypvis.supabase.co/rest/v1/playlists?select=*", {
+        const response = await fetch(`${Config.SUPABASE_URL}/playlists?select=*`, {
             headers: {
-                Apikey: Config.SUPA_BASE,
-                Authorization: `Bearer ${Config.SUPA_BASE}`
+                Apikey: Config.SUPABASE_TOKEN,
+                Authorization: `Bearer ${Config.SUPABASE_TOKEN}`
             }
         });
         const playlists = await response.json();
+        console.log(playlists);
         return playlists;
     },
     async getSongs(playlist) {

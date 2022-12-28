@@ -43,7 +43,7 @@ export const MostPlayed = () => {
         <FlatList
           horizontal
           data={mostPlayedSongs}
-          keyExtractor={(item, index) => `most-played-${item}-${index}`}
+          keyExtractor={(index) => `most-played-${index.toString()}`}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => <TrackItem id={item} onPress={play} />}
         />
