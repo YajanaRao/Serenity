@@ -12,7 +12,6 @@ const songs = {
             }
         });
         const playlists = await response.json();
-        console.log(playlists);
         return playlists;
     },
     async getSongs(playlist) {

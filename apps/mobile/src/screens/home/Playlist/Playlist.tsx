@@ -55,7 +55,7 @@ export function PlaylistScreen({ route }: PlaylistProps) {
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
             data={data}
-            keyExtractor={(index) => index.toString()}
+            keyExtractor={(item) => item.id}
             ListHeaderComponent={() => (
                 <ListHeader
                     title={playlist.title}

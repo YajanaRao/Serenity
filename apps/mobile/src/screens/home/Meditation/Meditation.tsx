@@ -59,7 +59,7 @@ export function MeditationScreen({ route }: MeditationProps) {
             contentContainerStyle={{ paddingTop: containerPaddingTop }}
             scrollIndicatorInsets={{ top: scrollIndicatorInsetTop }}
             data={data}
-            keyExtractor={(index) => index.toString()}
+            keyExtractor={(item) => item.id}
             ListHeaderComponent={() => (
                 <ListHeader
                     title={meditation.title}

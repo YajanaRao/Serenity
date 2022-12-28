@@ -43,7 +43,7 @@ export function MainScreen({ navigation }) {
       <SectionList
         stickySectionHeadersEnabled={false}
         sections={data}
-        keyExtractor={(index) => index.toString()}
+        keyExtractor={(item, index) => index.toString()}
         refreshing={isLoading}
         onRefresh={refetch}
         ListHeaderComponent={() => (
@@ -76,7 +76,7 @@ export function MainScreen({ navigation }) {
                 <FlatList
                   horizontal
                   data={section.data}
-                  keyExtractor={(index) => index.toString()}
+                  keyExtractor={(item, index) => index.toString()}
                   renderItem={({ item }) => <Media item={item} onPress={navigateToMedia} />}
                   showsHorizontalScrollIndicator={false}
                 />

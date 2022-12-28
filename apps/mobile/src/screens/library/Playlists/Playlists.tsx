@@ -65,7 +65,7 @@ export const PlaylistScreen = () => {
         )}
         ListFooterComponent={() => <View style={{ height: 100 }} />}
         data={playlists}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }: { item: string }) => <Playlist id={item} />}
       />
     </Screen>

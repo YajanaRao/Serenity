@@ -59,6 +59,10 @@ Run metro bundler
 yarn start
 ```
 
+## Create .env file for secrets
+
+Serenity App uses supabase as backend. We need supabase token and server  url as variables in `.env` file.
+
 ## Connect emulator or real device
 
 ## Install application on device
