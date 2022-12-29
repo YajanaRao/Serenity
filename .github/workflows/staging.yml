@@ -39,6 +39,9 @@ jobs:
           ENV_SECRET: ${{ secrets.ENV_SECRET }}
         run: echo $ENV_SECRET  | base64 -d  > apps/mobile/.env
 
+      - name: Update permission of executables
+        run: chmod +x scripts/setup scripts/build
+
       - name: Setup packages
         run: npm run setup
 
