@@ -4,9 +4,9 @@ import {useTheme, Text} from 'react-native-paper';
 import {TrackPlayer, useProgress} from 'react-track-player';
 import Slider from '@react-native-community/slider';
 
-function millisToMinutesAndSeconds(millis) {
-	var minutes = Math.floor(millis / 60000);
-	var seconds = ((millis % 60000) / 1000).toFixed(0);
+function millisToMinutesAndSeconds(millis: number) {
+	let minutes = Math.floor(millis / 60000);
+	let seconds = ((millis % 60000) / 1000).toFixed(0);
 	return seconds == 60
 		? minutes + 1 + ':00'
 		: minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
@@ -15,18 +15,7 @@ function millisToMinutesAndSeconds(millis) {
 export const Progress = () => {
 	const {colors} = useTheme();
 	const {duration, position} = useProgress();
-	const [seekValue, setSeekValue] = React.useState();
-	const [isSeeking, setSeeking] = React.useState(false);
 
-	const getPosition = () => {
-		let seconds;
-		if (isSeeking) {
-			seconds = seekValue;
-		} else {
-			seconds = position;
-		}
-		return millisToMinutesAndSeconds(seconds);
-	};
 	return (
 		<View style={{marginHorizontal: 12}}>
 			<View style={styles.view}>
@@ -37,18 +26,20 @@ export const Progress = () => {
 					value={position}
 					minimumTrackTintColor={colors.primary}
 					maximumTrackTintColor={colors.placeholder}
-					onSlidingStart={() => setSeeking(true)}
-					onValueChange={value => setSeekValue(value)}
-					onSlidingComplete={value => {
+					onSlidingStart={() => {
+						console.log('value change');
+
 						TrackPlayer.pause();
-						TrackPlayer.seekTo(value);
-						TrackPlayer.play();
-						setSeeking(false);
+					}}
+					onSlidingComplete={value => {
+						TrackPlayer.seekTo(value).then(() => {
+							TrackPlayer.play();
+						});
 					}}
 				/>
 			</View>
 			<View style={styles.progressDetails}>
-				<Text>{getPosition()}</Text>
+				<Text>{millisToMinutesAndSeconds(position)}</Text>
 				<Text>{millisToMinutesAndSeconds(duration)}</Text>
 			</View>
 		</View>
