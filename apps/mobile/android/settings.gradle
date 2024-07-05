@@ -6,7 +6,7 @@ apply from: file("../../../node_modules/@react-native-community/cli-platform-and
 applyNativeModulesSettingsGradle(settings)
 include ':app'
 
-includeBuild('../../../node_modules/react-native-gradle-plugin')
+includeBuild('../../../node_modules/@react-native/gradle-plugin')
 if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true") {
     include(":ReactAndroid")
     project(":ReactAndroid").projectDir = file('../../../node_modules/react-native/ReactAndroid')

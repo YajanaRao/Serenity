@@ -6,7 +6,7 @@ module.exports = {
 		'plugin:import/warnings',
 		'plugin:import/typescript',
 		'plugin:workspaces/recommended',
-		'@react-native-community',
+		'@react-native',
 	],
 	parser: 'babel-eslint',
 	plugins: ['react-hooks'],
