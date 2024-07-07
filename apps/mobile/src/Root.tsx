@@ -9,7 +9,7 @@ import {
 } from '@serenity/core';
 import {RootNavigator} from './navigation/RootNavigator';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import analytics from '@react-native-firebase/analytics';
+// import analytics from '@react-native-firebase/analytics';
 
 export const RootScreen = () => {
 	const routeNameRef = React.useRef();
@@ -40,12 +40,12 @@ export const RootScreen = () => {
 				const previousRouteName = routeNameRef.current;
 				const currentRouteName = navigationRef.current.getCurrentRoute().name;
 
-				if (previousRouteName !== currentRouteName) {
-					await analytics().logScreenView({
-						screen_name: currentRouteName,
-						screen_class: currentRouteName,
-					});
-				}
+				// if (previousRouteName !== currentRouteName) {
+				// 	await analytics().logScreenView({
+				// 		screen_name: currentRouteName,
+				// 		screen_class: currentRouteName,
+				// 	});
+				// }
 				routeNameRef.current = currentRouteName;
 			}}>
 			<ThemeProvider theme={theme}>
