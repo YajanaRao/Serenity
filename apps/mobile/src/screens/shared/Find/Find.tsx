@@ -4,7 +4,7 @@ import {Text, Searchbar, useTheme, IconButton} from 'react-native-paper';
 import {Screen} from '@serenity/components';
 import {selectFilteredSongs, useAppSelector} from '@serenity/core';
 import {SongItem} from './components/SongItem';
-// import analytics from '@react-native-firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
 
 export interface FindScreenProps {}
 
@@ -16,9 +16,9 @@ export function FindScreen({navigation, route}: FindScreenProps) {
 	const handleChange = (text: string) => {
 		React.startTransition(() => {
 			setQuery(text);
-			// analytics().logSearch({
-			//   search_term: text
-			// })
+			analytics().logSearch({
+				search_term: text,
+			});
 		});
 	};
 

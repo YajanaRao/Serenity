@@ -14,7 +14,7 @@ import QuoteCard from './components/QuoteCard';
 import {capitalize} from 'lodash';
 import {useQuery} from 'react-query';
 import {getMedia} from 'services/supabase';
-// import analytics from '@react-native-firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
 import {Media} from '../components/Media';
 import {Card, Paragraph, useTheme} from 'react-native-paper';
 
@@ -24,11 +24,11 @@ export function MainScreen({navigation}) {
 	const {colors} = useTheme();
 
 	function navigateToMedia(item: any) {
-		// analytics().logSelectItem({
-		//   content_type: item.type,
-		//   item_list_id: item.title,
-		//   item_list_name: item.title
-		// })
+		analytics().logSelectItem({
+			content_type: item.type,
+			item_list_id: item.title,
+			item_list_name: item.title,
+		});
 		if (item.type === 'meditation') {
 			navigation.navigate('Meditation', {meditation: item});
 		} else if (item.type === 'podcast') {
