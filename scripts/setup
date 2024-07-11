@@ -3,7 +3,7 @@ git submodule update --init --recursive
 
 # install packages
 echo "Installing Node modules"
-npm install --legacy-peer-deps
+yarn
 echo "Node Modules Installed"
 
 echo "Installing Fastlane"
@@ -11,6 +11,6 @@ gem install bundler
 cd apps/mobile && bundle install && cd ../..
 echo "Fastlane setup done"
 
-echo "Installing Pods"
-npm run pod
-echo "Pod Install is done"
+# echo "Installing Pods"
+# npm run pod
+# echo "Pod Install is done"
