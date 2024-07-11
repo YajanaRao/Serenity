@@ -1,2 +1,13 @@
+arguments=--init-script /home/yajana/.local/share/TabNine/language-servers/bundled_java/1.24.0/lib/app/configuration/org.eclipse.osgi/51/0/.cp/gradle/init/init.gradle
+auto.sync=false
+build.scans.enabled=false
+connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
 connection.project.dir=
 eclipse.preferences.version=1
+gradle.user.home=
+java.home=/usr/lib/jvm/java-11-openjdk-amd64
+jvm.arguments=
+offline.mode=false
+override.workspace.settings=true
+show.console.view=true
+show.executions.view=true
