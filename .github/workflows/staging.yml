@@ -56,7 +56,7 @@ jobs:
           path: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
 
       - name: upload artifact to Dev App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.4
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
