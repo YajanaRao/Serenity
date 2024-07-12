@@ -8,22 +8,6 @@ buildscript {
         targetSdkVersion = 34
         kotlinVersion = "1.9.22"
         ndkVersion = "26.1.10909125"
-        set('react-native', [
-            versions: [
-            // Overriding Build/Android SDK Versions
-            android : [
-                minSdk    : 21, // 23+ if using auth module
-                targetSdk : 33,
-                compileSdk: 34,
-            ],
-
-            // Overriding Library SDK Versions
-            firebase: [
-                // Override Firebase SDK Version
-                bom           : "33.1.1"
-            ],
-            ],
-        ])
     }
     
     repositories {
