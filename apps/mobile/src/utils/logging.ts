@@ -1,6 +1,5 @@
 /* global __DEV__ */
 import * as Sentry from '@sentry/react-native';
-import analytics from '@react-native-firebase/analytics';
 
 export const log = {
 	error(title: any, message?: any) {
@@ -22,7 +21,7 @@ export const log = {
 			if (__DEV__) {
 				console.log('debug: ', title, message);
 			} else {
-				analytics().logEvent(title, {message});
+				Sentry.captureMessage(`${title} : ${title}`, 'debug');
 			}
 		} catch (error) {
 			console.log(error);
