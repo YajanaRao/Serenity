@@ -8,7 +8,7 @@ import {Animated} from 'react-native';
 import {useCollapsibleHeader} from 'react-navigation-collapsible';
 import {Container, Spinner} from '@serenity/components';
 import {useQuery} from 'react-query';
-import analytics from '@react-native-firebase/analytics';
+import {setCustomTag} from 'react-native-clarity';
 
 export interface PodcastProps {
 	route: any;
@@ -39,11 +39,7 @@ export function PodcastScreen({route}: PodcastProps) {
 	const dispatch = useAppDispatch();
 
 	function playAudio(song) {
-		analytics().logSelectItem({
-			content_type: 'podcast',
-			item_list_id: song.id.toString(),
-			item_list_name: song.title,
-		});
+		setCustomTag('podcast', song.title);
 		dispatch(Player.playSong(song));
 	}
 

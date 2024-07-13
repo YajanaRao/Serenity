@@ -1,5 +1,8 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+	NavigationContainer,
+	useNavigationContainerRef,
+} from '@react-navigation/native';
 import {ThemeProvider, DarkTheme, DefaultTheme} from '@serenity/components';
 import {
 	selectThemeType,
@@ -9,11 +12,14 @@ import {
 } from '@serenity/core';
 import {RootNavigator} from './navigation/RootNavigator';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import analytics from '@react-native-firebase/analytics';
+import Config from 'react-native-config';
+import {initialize, setCurrentScreenName} from 'react-native-clarity';
+
+initialize(Config.CLARITY_PROJECT_ID);
 
 export const RootScreen = () => {
+	const navigationRef = useNavigationContainerRef();
 	const routeNameRef = React.useRef();
-	const navigationRef = React.useRef();
 	const themeType = useAppSelector(selectThemeType);
 
 	const dispatch = useAppDispatch();
@@ -35,18 +41,16 @@ export const RootScreen = () => {
 			ref={navigationRef}
 			onReady={() => {
 				routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+				setCurrentScreenName(routeNameRef.current);
 			}}
 			onStateChange={async () => {
 				const previousRouteName = routeNameRef.current;
 				const currentRouteName = navigationRef.current.getCurrentRoute().name;
 
 				if (previousRouteName !== currentRouteName) {
-					await analytics().logScreenView({
-						screen_name: currentRouteName,
-						screen_class: currentRouteName,
-					});
+					routeNameRef.current = currentRouteName;
+					setCurrentScreenName(currentRouteName);
 				}
-				routeNameRef.current = currentRouteName;
 			}}>
 			<ThemeProvider theme={theme}>
 				<BottomSheetModalProvider>
