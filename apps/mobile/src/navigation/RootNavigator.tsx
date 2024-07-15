@@ -30,7 +30,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 const NativeStack = createNativeStackNavigator<AppStackParamList>();
 
 const RootStack = () => (
-	<Stack.Navigator mode="modal">
+	<Stack.Navigator
+		screenOptions={{
+			presentation: 'modal',
+		}}>
 		<Stack.Screen
 			name="Main"
 			component={BottomNavigator}
