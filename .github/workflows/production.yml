@@ -17,19 +17,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   setup:
-    name: Setup Versioning
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Patch Version
-        run: npm run bump-minor
-
-  build:
-    needs: setup
-    uses: ./.github/workflows/build.yml
-
-  distribute:
-    name: Distribute application
+    name: Building and Distribution of Production Release
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -71,6 +59,3 @@ jobs:
           message: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
           document: ${{ github.workspace }}/apps/mobile/android/app/build/outputs/apk/release/app-release.apk
-
-  release:
-    uses: ./.github/workflows/release.yml
