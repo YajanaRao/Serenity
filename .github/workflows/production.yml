@@ -19,9 +19,37 @@ jobs:
   build:
   
     name: Building and Distribution of Production Release
-    needs: build
     runs-on: ubuntu-latest
+    
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Decode env file
+        env:
+          ENV_SECRET: ${{ secrets.ENV_SECRET }}
+        run: echo $ENV_SECRET  | base64 -d  > apps/mobile/.env
+
+      - name: Update permission of executables
+        run: chmod +x scripts/setup scripts/build
+
+      - name: Setup packages
+        run: npm run setup
+
+      - name: Android Build
+        run: npm run build
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         if: ${{ !github.event.pull_request }}
@@ -60,3 +88,16 @@ jobs:
           message: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
           document: ${{ github.workspace }}/apps/mobile/android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Download APK from build
+        uses: actions/download-artifact@v1
+        with:
+          name: app-release.apk  
+          
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          files: app-release.apk/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
