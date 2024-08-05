@@ -68,12 +68,19 @@ jobs:
           releaseNotes: |
             Below is the apk for commit: ${{ github.event.head_commit.message }}
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-release.apk
+          path: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
+
       - name: upload artifact to Dev App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
         if: ${{ github.event.pull_request }}
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          serviceCredentialsFile: apps/mobile/android/app/google-services.json
           groups: dev
           file: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
           releaseNotes: |
