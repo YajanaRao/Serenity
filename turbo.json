@@ -8,6 +8,7 @@
     "start": {},
     "bump-patch": {},
     "bump-minor": {},
-    "pod-install": {}
+    "pod-install": {},
+    "test": {}
   }
 }
