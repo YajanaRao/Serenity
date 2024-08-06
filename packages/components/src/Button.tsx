@@ -14,8 +14,11 @@ export interface ButtonProps {
   disabled?: boolean
 }
 
+
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
 export function Button({ children, onPress, icon, color: buttonColor, style, disabled = false }: ButtonProps) {
-  const { colors, dark } = useTheme();
+  const { colors, dark, roundness } = useTheme();
 
   const { current: elevation } = React.useRef<Animated.Value>(new Animated.Value(4)); // Initial value for opacity: 0
 
@@ -52,41 +55,40 @@ export function Button({ children, onPress, icon, color: buttonColor, style, dis
 
   const justifyContent = icon ? "space-between" : "center";
   return (
-    <TouchableOpacity
+    <AnimatedTouchable
       onPress={onPress}
       accessibilityRole="button"
       activeOpacity={0.8}
+
+      style={[{
+        elevation,
+        backgroundColor,
+        borderRadius: roundness,
+        justifyContent
+      }, styles.button, style]}
+      // @ts-ignore
+      onMouseEnter={handlePressIn}
+      onMouseLeave={handlePressOut}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
     >
-      <Animated.View
-        style={[{
-          elevation,
-          backgroundColor,
-          justifyContent
-        }, styles.button, style]}
-        // @ts-ignore
-        onMouseEnter={handlePressIn}
-        onMouseLeave={handlePressOut}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
+      <Text style={[styles.label, {
+        color: textColor,
+      }]}
       >
-        <Text style={[styles.label, {
-          color: textColor,
-        }]}
-        >
-          {children}
-        </Text>
-        {icon && <Icon name={icon} size={20} color={textColor} style={{ marginLeft: 4 }} />}
-      </Animated.View>
-    </TouchableOpacity>
+        {children}
+      </Text>
+      {icon && <Icon name={icon} size={20} color={textColor} style={{ marginLeft: 4 }} />}
+    </AnimatedTouchable>
   );
 }
 
 const styles = StyleSheet.create({
   label: {
     textAlign: 'center',
+    alignSelf: 'center',
     letterSpacing: 1,
-    marginVertical: 9,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '500',
   },
   button: {
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    borderRadius: 6,
+    paddingVertical: 10,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,

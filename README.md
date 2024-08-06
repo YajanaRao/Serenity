@@ -13,7 +13,7 @@ Free App for Music, Meditation and Podcasts
 <div align="center">
 
 ![Platform - Android](https://img.shields.io/badge/platform-Android-yellow.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/app/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12302c2333a943529c90a79b98a9629c)](https://www.codacy.com/apps/yajananrao/Serenity?utm_source=github.com&utm_medium=referral&utm_content=YajanaRao/Serenity&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/YajanaRao/Serenity.svg?branch=master)](https://travis-ci.org/YajanaRao/Serenity)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](https://github.com/YajanaRao/Serenity/pulls)
 </div>
@@ -30,7 +30,7 @@ Free App for Music, Meditation and Podcasts
 
 ## What is this ?
 
-Serenity is a audio player which focuses on playing Music, Meditation and Podcasts. It let's you stream songs from various sources including Local and Online storage devices
+Serenity is a audio player which focuses on playing Music, Meditation and Podcasts. It let's you stream audio from various sources including Local and Online storage devices
 
 ## Pre-alpha release
 
@@ -38,10 +38,10 @@ The current version is a pre-alpha early access. Some of it is usable, some of i
 
 ## Features
 
-- Listen songs from local library
+- Listen to audio from local library
 - Browsing by genre
-- Create playlists and play songs from saved playlists
-- Manage songs queue
+- Create playlists and play audio from saved playlists
+- Manage audio queue
 - Radio mode (automatically queue similar tracks)
 - Searching for and playing music from YouTube (including integration with YouTube playlists)
 - Voice search songs
@@ -52,21 +52,6 @@ Serenity is open to contributions, but I recommend creating an issue or replying
 
 Please read [Setup.md](docs/Setup.md) for details on this project.
 
-## Planned features
-
-- Play and download songs from Google Drive
-- Newest releases - tracks and albums
-- Creating a backup on Google Drive and sync audio from it 🎶
-- Searching for related songs in YouTube
-- Multiple language support
-- Real time lyrics
-- Support for web (React Native Web) and Desktop (React Native Windows and MacOS)
-- Searching for and playing music from bandcamp (including albums), and soundcloud
-- Searching for albums (powered by last.fm and musicbrainz), album view, automatic song lookup based on artist and track name (in progress, can be dodgy sometimes)
-- Newest releases with reviews - tracks and albums
-- Browsing by popularity
-- Country-specific top lists
-- Listening suggestions (similar artists, albums, tracks)
 
 ## Our Community
 

@@ -3,10 +3,10 @@ import Config from 'react-native-config';
 const Genre = {
     genres: [],
     async getGenres() {
-        const response = await fetch("https://okmuhrunizvusvoypvis.supabase.co/rest/v1/genre?select=*", {
+        const response = await fetch(`${Config.SUPABASE_URL}/genre?select=*`, {
             headers: {
-                Apikey: Config.SUPA_BASE,
-                Authorization: `Bearer ${Config.SUPA_BASE}`
+                Apikey: Config.SUPABASE_TOKEN,
+                Authorization: `Bearer ${Config.SUPABASE_TOKEN}`
             }
         });
         this.genres = await response.json();

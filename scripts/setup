@@ -1,3 +1,16 @@
 #!/usr/bin/env bash
-git submodule update --init
-git submodule update --recursive --remote
+git submodule update --init --recursive
+
+# install packages
+echo "Installing Node modules"
+yarn
+echo "Node Modules Installed"
+
+echo "Installing Fastlane"
+gem install bundler
+cd apps/mobile && bundle install && cd ../..
+echo "Fastlane setup done"
+
+# echo "Installing Pods"
+# npm run pod
+# echo "Pod Install is done"
