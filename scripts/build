@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+echo "Update the Application Version"
+npm run bump-patch
+echo "Version Updated"
+
+# make gradlew executable
+chmod +x apps/mobile/android/gradlew
+
+# create android release
+npm run release
+
+echo "checking for release artifacts"
+ls apps/mobile/android/app/build/outputs/apk/release
+echo "build successful"
