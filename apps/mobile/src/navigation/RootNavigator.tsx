@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import {useTheme} from 'react-native-paper';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigatorScreenParams} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native';
+import {View} from 'react-native';
 
 import IntroductionScreen from '../screens/intro/Introduction';
 
@@ -74,9 +74,9 @@ export const RootNavigator = () => {
 	}, []);
 
 	return (
-		<SafeAreaView style={{flex: 1, backgroundColor: colors.surface}}>
+		<View style={{flex: 1, backgroundColor: colors.surface}}>
 			<NotificationDialog />
 			<AppStack />
-		</SafeAreaView>
+		</View>
 	);
 };
